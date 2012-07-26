@@ -30,13 +30,14 @@ class productbasic extends CI_Controller {
 			$this->data ['productId'] = $productId;
 			$this->common->setCurrentProduct ( $productId ); 
 		}
+		$currentProduct = $this->common->getCurrentProduct();
 		$this->common->loadHeader ();
 		$toTime = date ( 'Y-m-d', time () );
 		$yestodayTime = date ( "Y-m-d", strtotime ( "-1 day" ) );
 		$this->data['today1']  = $this->productanalyze->getTodayInfo($productId,$toTime);
 		$this->data['yestoday'] = $this->productanalyze->getTodayInfo($productId,$yestodayTime);
 		$this->data['overall'] = $this->productanalyze->getOverallInfo($productId);
-		$this->data['pagenum']=count($this->newusermodel->getexportdetaildatas($currentProduct)) ;
+ 		$this->data['pagenum']=count($this->newusermodel->getexportdetaildatas($currentProduct)) ;
 		$this->load->view ( 'product/productview', $this->data );
 	}
 	                           
