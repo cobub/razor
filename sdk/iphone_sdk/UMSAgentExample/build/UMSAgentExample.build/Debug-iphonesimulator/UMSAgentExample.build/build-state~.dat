@@ -1,0 +1,245 @@
+TUMSAgentExample
+v5
+r1
+cCheck dependencies
+cProcessInfoPlistFile /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/Info.plist UMSAgentExample/UMSAgentExample-Info.plist
+cProcessPCH /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/UMSAgentExample-Prefix-eedgiwdvwhtyoifazuzilvwehykf/UMSAgentExample-Prefix.pch.pth UMSAgentExample/UMSAgentExample-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/main.o /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/AppDelegate.o /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/ViewController.o /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/ViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cLd /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/UMSAgentExample normal i386
+cGenerateDSYMFile /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app.dSYM /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/UMSAgentExample
+cCompileXIB /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/en.lproj/ViewController.xib
+cCopyStringsFile /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/en.lproj/InfoPlist.strings UMSAgentExample/en.lproj/InfoPlist.strings
+cTouch /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk
+c000000004F453DF80000000000000110
+t1329937912
+s272
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c000000004F5ADE090000000000244490
+t1331355145
+s2376848
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c000000004F5ADE0A0000000000353830
+t1331355146
+s3487792
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c000000004F5ADE100000000000905E40
+t1331355152
+s9461312
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/AppDelegate.m
+c000000004F67D4F30000000000000952
+t1332204787
+s2386
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/UMSAgentExample-Prefix.pch
+c000000004F67D4F3000000000000014D
+t1332204787
+s333
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/ViewController.m
+c000000004F67D4F3000000000000028F
+t1332204787
+s655
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/en.lproj/InfoPlist.strings
+c000000004F67D4F3000000000000002D
+t1332204787
+s45
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/en.lproj/ViewController.xib
+c000000004F67D4F3000000000000146B
+t1332204787
+s5227
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/main.m
+c000000004F67D4F30000000000000156
+t1332204787
+s342
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/ums/libUMSAgent.a
+c000000004F67D545000000000004D730
+t1332204869
+s317232
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app
+t2
+s0
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app.dSYM
+t2
+s0
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/Info.plist
+t2
+s0
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/PkgInfo
+t2
+s0
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/UMSAgentExample
+t2
+s0
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/en.lproj/InfoPlist.strings
+t2
+s0
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/en.lproj/ViewController.nib
+t2
+s0
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/AppDelegate.o
+t2
+s0
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/UMSAgentExample.LinkFileList
+c000000004F67D5810000000000000218
+t1332204929
+s536
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/ViewController.o
+t2
+s0
+
+N/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/main.o
+t2
+s0
+
+N/var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/UMSAgentExample-Prefix-eedgiwdvwhtyoifazuzilvwehykf/UMSAgentExample-Prefix.pch.pth
+t2
+s0
+
+NUMSAgentExample/UMSAgentExample-Info.plist
+c000000004F67D4F30000000000000493
+t1332204787
+s1171
+
+CBuild AST from /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/AppDelegate.m
+r0
+
+CBuild AST from /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/ViewController.m
+r0
+
+CBuild AST from /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/main.m
+r0
+
+CCheck dependencies
+r0
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies0f6481010d18b541^e76f8a010d18b541^---0#1#0#--18"Check dependencies36"0C68C6CB-7A8D-4FB4-81D7-F109A06048DD-
+
+CCompileC build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/AppDelegate.o /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s353897729.877924
+e353897729.940287
+r1
+xCompileC
+xbuild/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/AppDelegate.o
+x/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/AppDelegate.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection111"Compile /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/AppDelegate.ma110e1010d18b541^63b6f0010d18b541^---0#0#0#-19%DVTDocumentLocation2@119"file://localhost/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/AppDelegate.m0000000000000000^3914"CompileC build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/AppDelegate.o UMSAgentExample/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-generated-files.hmap -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-own-target-headers.hmap -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-all-target-headers.hmap -iquote /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-project-headers.hmap -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/include -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/DerivedSources/i386 -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/DerivedSources -F/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator -include /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/UMSAgentExample-Prefix-eedgiwdvwhtyoifazuzilvwehykf/UMSAgentExample-Prefix.pch -MMD -MT dependencies -MF /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/AppDelegate.d --serialize-diagnostics /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/AppDelegate.dia -c /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/AppDelegate.m -o /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/AppDelegate.o36"FE52989E-E43B-4F86-AE18-9D075D4DB931-
+
+CCompileC build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/ViewController.o /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/ViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s353897729.878044
+e353897729.934549
+r1
+xCompileC
+xbuild/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/ViewController.o
+x/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/ViewController.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection114"Compile /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/ViewController.mfa2ae1010d18b541^ff3eef010d18b541^---0#0#0#-19%DVTDocumentLocation2@122"file://localhost/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/ViewController.m0000000000000000^3932"CompileC build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/ViewController.o UMSAgentExample/ViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-generated-files.hmap -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-own-target-headers.hmap -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-all-target-headers.hmap -iquote /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-project-headers.hmap -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/include -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/DerivedSources/i386 -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/DerivedSources -F/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator -include /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/UMSAgentExample-Prefix-eedgiwdvwhtyoifazuzilvwehykf/UMSAgentExample-Prefix.pch -MMD -MT dependencies -MF /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/ViewController.d --serialize-diagnostics /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/ViewController.dia -c /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/ViewController.m -o /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/ViewController.o36"2F02B5A8-CBE6-4171-BADC-E2B94D359815-
+
+CCompileC build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/main.o /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s353897729.877886
+e353897729.906029
+r1
+xCompileC
+xbuild/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/main.o
+x/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/main.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection104"Compile /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/main.mae0de1010d18b541^52f1e7010d18b541^---0#0#0#-19%DVTDocumentLocation2@112"file://localhost/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/main.m0000000000000000^3872"CompileC build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/main.o UMSAgentExample/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-generated-files.hmap -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-own-target-headers.hmap -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-all-target-headers.hmap -iquote /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-project-headers.hmap -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/include -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/DerivedSources/i386 -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/DerivedSources -F/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator -include /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/UMSAgentExample-Prefix-eedgiwdvwhtyoifazuzilvwehykf/UMSAgentExample-Prefix.pch -MMD -MT dependencies -MF /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/main.d --serialize-diagnostics /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/main.dia -c /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/main.m -o /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/main.o36"71639F3F-A784-414E-AE31-132AF6F565E7-
+
+CCompileXIB /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/en.lproj/ViewController.xib
+s353897730.026210
+e353897730.768688
+r1
+xCompileXIB
+x/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/en.lproj/ViewController.xib
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection127"Compiling /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/en.lproj/ViewController.xib07d106020d18b541^acc8c4020d18b541^---0#0#0#-19%DVTDocumentLocation2@133"file://localhost/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/en.lproj/ViewController.xib0000000000000000^998"CompileXIB UMSAgentExample/en.lproj/ViewController.xib    cd /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 5.1    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/en.lproj/ViewController.nib /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/en.lproj/ViewController.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk36"A01CE148-2157-455A-8CAF-044BA2BF90FB-
+
+CCopyStringsFile /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/en.lproj/InfoPlist.strings UMSAgentExample/en.lproj/InfoPlist.strings
+s353897730.026214
+e353897730.029468
+r1
+xCopyStringsFile
+x/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/en.lproj/InfoPlist.strings
+xUMSAgentExample/en.lproj/InfoPlist.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Copy UMSAgentExample/en.lproj/InfoPlist.strings08cd06020d18b541^ce8b07020d18b541^---0#0#0#-19%DVTDocumentLocation2@132"file://localhost/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/en.lproj/InfoPlist.strings0000000000000000^677"CopyStringsFile build/Debug-iphonesimulator/UMSAgentExample.app/en.lproj/InfoPlist.strings UMSAgentExample/en.lproj/InfoPlist.strings    cd /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/en.lproj -- UMSAgentExample/en.lproj/InfoPlist.strings36"09802796-3CFA-43B6-A550-DDF7E51CFFB3-
+
+CGenerateDSYMFile /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app.dSYM /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/UMSAgentExample
+s353897730.000742
+e353897730.017186
+r1
+xGenerateDSYMFile
+x/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app.dSYM
+x/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/UMSAgentExample
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection137"Generating /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app.dSYMfd4d00020d18b541^3c6604020d18b541^---0#0#0#-19%DVTDocumentLocation2@142"file://localhost/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app.dSYM000000000080d041^787"GenerateDSYMFile build/Debug-iphonesimulator/UMSAgentExample.app.dSYM build/Debug-iphonesimulator/UMSAgentExample.app/UMSAgentExample    cd /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/dsymutil /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/UMSAgentExample -o /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app.dSYM36"5E65B9E4-EF31-45FC-BC0D-154480331955-
+
+CLd /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/UMSAgentExample normal i386
+s353897729.947457
+e353897729.994088
+r1
+xLd
+x/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/UMSAgentExample
+xnormal
+xi386
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection142"Link /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/UMSAgentExample0da5f2010d18b541^747efe010d18b541^---0#0#0#--1499"Ld build/Debug-iphonesimulator/UMSAgentExample.app/UMSAgentExample normal i386    cd /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -L/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator -L/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/ums -F/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator -filelist /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/Objects-normal/i386/UMSAgentExample.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -Xlinker -no_implicit_dylibs -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -framework UIKit -framework Foundation -framework CoreGraphics -lUMSAgent -o /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/UMSAgentExample36"B76FAC56-7C7A-4B82-8B56-AE787AEA2CD1-
+
+CProcessInfoPlistFile /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/Info.plist UMSAgentExample/UMSAgentExample-Info.plist
+s353897729.545595
+e353897729.549008
+r1
+xProcessInfoPlistFile
+x/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/Info.plist
+xUMSAgentExample/UMSAgentExample-Info.plist
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection50"Process UMSAgentExample/UMSAgentExample-Info.plist41bb8b010d18b541^fc8f8c010d18b541^---0#0#0#-19%DVTDocumentLocation2@132"file://localhost/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/UMSAgentExample-Info.plist0000000000000000^811"ProcessInfoPlistFile build/Debug-iphonesimulator/UMSAgentExample.app/Info.plist UMSAgentExample/UMSAgentExample-Info.plist    cd /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility UMSAgentExample/UMSAgentExample-Info.plist -genpkginfo /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app/Info.plist36"1E853BA8-D6E5-472D-9999-892BC7A39260-
+
+CProcessPCH /Users/wb/Library/Developer/Xcode/DerivedData/UMSAgentExample-ckbcutcdopfcnvecicmxeihwicaw/Index/PrecompiledHeaders/UMSAgentExample-Prefix-enmmhvesjhdmxmbhjanbnngwflya_ast/UMSAgentExample-Prefix.pch.pth UMSAgentExample/UMSAgentExample-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
+r0
+
+CProcessPCH /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/UMSAgentExample-Prefix-eedgiwdvwhtyoifazuzilvwehykf/UMSAgentExample-Prefix.pch.pth UMSAgentExample/UMSAgentExample-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s353897729.558102
+e353897729.860734
+r1
+xProcessPCH
+x/var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/UMSAgentExample-Prefix-eedgiwdvwhtyoifazuzilvwehykf/UMSAgentExample-Prefix.pch.pth
+xUMSAgentExample/UMSAgentExample-Prefix.pch
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection53"Precompile UMSAgentExample/UMSAgentExample-Prefix.pch94fa8e010d18b541^b761dc010d18b541^---0#0#0#-19%DVTDocumentLocation2@132"file://localhost/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/UMSAgentExample-Prefix.pch0000000000000000^3825"ProcessPCH /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/UMSAgentExample-Prefix-eedgiwdvwhtyoifazuzilvwehykf/UMSAgentExample-Prefix.pch.pth UMSAgentExample/UMSAgentExample-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch i386 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-generated-files.hmap -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-own-target-headers.hmap -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-all-target-headers.hmap -iquote /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/UMSAgentExample-project-headers.hmap -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/include -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/DerivedSources/i386 -I/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/UMSAgentExample.build/Debug-iphonesimulator/UMSAgentExample.build/DerivedSources -F/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator --serialize-diagnostics /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/UMSAgentExample-Prefix-eedgiwdvwhtyoifazuzilvwehykf/UMSAgentExample-Prefix.pch.dia -c /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/UMSAgentExample/UMSAgentExample-Prefix.pch -o /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/UMSAgentExample-Prefix-eedgiwdvwhtyoifazuzilvwehykf/UMSAgentExample-Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/UMSAgentExample-Prefix-eedgiwdvwhtyoifazuzilvwehykf/UMSAgentExample-Prefix.pch.d36"D43FD8D2-9E6F-4CA5-9F1C-3D10F3A20F9D-
+
+CTouch /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app
+s353897730.776890
+e353897730.782551
+r1
+xTouch
+x/Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection127"Touch /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.appfdf5c6020d18b541^eb55c8020d18b541^---0#0#0#--474"Touch build/Debug-iphonesimulator/UMSAgentExample.app    cd /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Volumes/GUOWEI/Projects/ums/ums/Trunk/05_Code/iphone_sdk/UMSAgentExample/build/Debug-iphonesimulator/UMSAgentExample.app36"B6B36983-8A0E-45B9-92BA-94CC3AE7D1D8-
+

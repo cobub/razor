@@ -1,0 +1,243 @@
+@charset "utf-8";
+/* CSS Document */
+li,dl,dd,span{margin:0px;padding:0px;border:none;vertical-align:top}
+ul,dl,ol{list-style-type:none;}
+.clear{
+	clear:both; height:0px; line-height:0px; font-size:0px;
+}
+
+div{
+	outline: none;
+}
+
+
+a:link,a:visited{
+	color:#77BACE;text-decoration:none;
+}
+a:hover,a:active{
+	color:#28A7E1; text-decoration:none;
+}
+a,a:active {
+	outline: none;star:expression_r(this.onFocus=this.blur());
+}
+.relative{
+	position:relative; left:0; top:0; z-index:2;
+}
+.l{
+	float:left;
+	margin-top:5px;
+}
+.r{
+	float:right;
+	padding-right:6px;
+}
+
+
+#dropdown_productTxt,#dropdown_productList{
+	float:left; margin:8px;
+}
+.dropselect{
+	background:url(../images/input_list_right.gif) no-repeat right top;left:0; top:0; z-index:99;
+}
+.bottunDiv .dropselect{
+	background:url(../images/page_input_list_right.png) no-repeat right top; 
+}
+
+.bottunDiv .over,.bottunDiv .current{
+	background:url(../images/input_list_right2.png) no-repeat right top;
+}
+.bottunDiv div.over h4,.bottunDiv div.current h4{
+	background:url(../images/bottun_left_hover.png) no-repeat;height:24px; line-height:24px;  color:#fff
+}
+
+.bottunDiv .selectIcon font.selectb{
+	background:url(../images/page_input_list_bottom.gif) no-repeat left 0px; height:10px; margin-top:2px;
+}
+.bottunDiv .selectIcon font.selectt{
+	background:url(../images/page_input_list_top.gif) no-repeat left 5px; height:10px; padding-top:2px;
+}
+
+.bottunDiv .over .selectIcon font.selectb,.bottunDiv .current .selectIcon font.selectb{
+	background:url(../images/input_list_bottom.gif) no-repeat left 0px
+}
+.bottunDiv .over .selectIcon font.selectt,.bottunDiv .current .selectIcon font.selectt{
+	background:url(../images/input_list_top.gif) no-repeat left 5px
+}
+
+
+.bottunDiv2 .dropselect,.bottunDiv2 .over,.bottunDiv2 .current{
+	 background:url(../images/selectlist_right.png) no-repeat right top;
+}
+
+
+.bottunDiv2 .dropselect h4{
+	height:36px; line-height:36px;  padding:0 10px;color:#000b17;background:url(../images/selectlist_left2.png) no-repeat; margin-right:27px
+}
+.bottunDiv2 .dropselect .selectIcon{
+	width:27px
+}
+.bottunDiv2 .dropselect .selectIcon font.selectb{
+	background:url(../images/tableb.png) no-repeat center center; height:31px; width:27px;
+}
+
+
+
+
+.dynamic .margins{
+	margin:8px;
+}
+.dropselect h4{
+	height:28px; line-height:28px;line-height:29px \9; overflow:hidden; background:url(../images/input_list_left.gif) no-repeat left top; padding-left:10px; margin-right:20px;color:#ccc; cursor:text; _float:left
+}
+
+.bottunDiv .dropselect h4{
+	height:24px; line-height:24px; background:url(../images/page_input_list_left.png) no-repeat; color:#2e323b
+}
+
+.dropselect h4 b{
+	display:block; float:left
+}
+.selectIcon{
+	 position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 15px;
+	z-index:999;
+}
+.selectIcon font{
+	cursor:pointer; display:block; width:15px; height:12px;
+}
+.selectIcon font.selectb{
+	background:url(../images/toptitle_input_list_bottom.gif) no-repeat left 1px; margin-top:2px;
+}
+.selectIcon font.selectt{
+	background:url(../images/toptitle_input_list_top.gif) no-repeat left 7px; padding-top:2px;
+}
+.selectlble{
+	margin-top:10px; line-height:21px; color:#2E323B
+}
+
+
+
+
+
+
+.bottunDiv{
+	margin:0 15px; height:32px;	color:#2e323b; 
+}
+.ipcright_top{
+	line-height:32px;
+}
+.bottunDiv li{
+	 float:left
+}
+
+a.bottun,a:visited.bottun{
+	display:block;text-decoration:none; height:24px; line-height:24px; background:url(../images/bottun_center.gif) no-repeat left top; padding:0 15px; margin-top:8px; color:#2e323b; float:left
+}
+
+
+a.bottun2,a.bottun4,a:visited.bottun2,a:visited.bottun4{
+	 display:block;text-decoration:none; height:24px; line-height:24px; background:url(../images/bottun_right.png) no-repeat right top;padding-right:15px; margin-top:8px; color:#2e323b; float:left;
+}
+
+a.bottun4,a:visited.bottun4{
+	margin:4px 5px 0 5px; padding-right:10px;
+}
+
+a.bottun4 font{
+	display:block; height:24px;background:url(../images/bottun_left.png) no-repeat left top; padding-left:10px; font-size:12px; float:left；
+}
+
+
+
+
+
+
+
+#fkicon{
+	position:absolute; right:0px; cursor:pointer; z-index:999997
+}
+.xy{
+	display:none;
+	background: none repeat scroll 0 0 #333333;
+    height: 100%;
+    left: 0;	
+	opacity: 0.5;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 999998;
+	filter:alpha(opacity=50);
+}
+.xytxt{
+	padding:0 10px; background:#f3f4f9;  padding:20px; border:3px  solid #cecfd9; position:absolute;-webkit-border-radius:5px;border-radius:5px; z-index: 999999; top:0; left:50%; font-weight:bold; line-height:21px;color:#333;display:none
+}
+
+.xytxt img,dt,dd{ position:relative;}
+
+.xytitle{
+	height:30px; border-bottom:1px solid #cdced9;
+}
+.xytxt strong{
+	margin-right:5px;
+}
+.xytitle h1{
+	font-size:14px; float:left; font-weight:bold; color:#494c53
+}
+.xytitle a,.xytitle a:visited{
+	float:right; color:#28A7E1
+}
+
+.xytext{
+	 padding:10px
+}
+.xytext ul#list li{
+			height:24px; margin:5px; text-align:right; font-weight:normal; color:#494951;
+		}
+.xytext ul#list li input{
+			height:21px; width:186px; background:#fff; border:1px solid #c6c8d0;
+		}
+.xytext ul#joinboxTable li{
+			height:24px; margin:5px;font-weight:normal; color:#494951;
+		}
+.xytext ul#joinboxTable li input{
+			margin-right:5px; cursor:pointer
+		}
+
+
+
+.server333{
+	position:absolute; right:5px; top:35px;background:url(../images/server_bg_bl.gif) no-repeat left bottom; display:none;opacity: 0.95;filter:alpha(opacity=95);
+}
+.ser_title{
+	height:38px; background:url(../images/server_bg_tr.gif) no-repeat right top; width:100%; color:#000;
+}
+.ser_title a{
+	margin:15px 15px 0 0;
+}
+.ser_title b{
+	display:block; height:28px;background:url(../images/server_bg_tl.gif) no-repeat left 6px; padding-left:10px; padding-top:10px;font-size:12px;
+}
+.ser_txt{
+	background:url(../images/server_bg_tr.gif) no-repeat right bottom ;width:100%; padding:0 0 5px 0; margin:0px; 
+}
+.ser_txt dl{
+	background:#B0B0B0; padding:0 10px;
+}
+.ser_txt a,.ser_txt a:visited{
+	color:#28A7E1;
+}
+.ser_txt dt,.ser_txt dd{
+	padding:5px; line-height:24px; color:#000;
+}
+.ser_txt dd{
+	background:#757778;color:#fff;
+}
+.ser_txt dt font,.ser_txt dd font{
+	margin-right:30px; display:block; float:left; 
+}
+.ser_txt dt small,.ser_txt dd small{
+	font-size:12px; display:block; float:left; 
+}
+

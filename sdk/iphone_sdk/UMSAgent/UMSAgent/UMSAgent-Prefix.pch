@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'UMSAgent' target in the 'UMSAgent' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

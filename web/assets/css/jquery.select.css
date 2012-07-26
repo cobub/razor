@@ -1,0 +1,385 @@
+/*-------------------------------
+*	Default dropdown styles
+--------------------------------*/
+
+.tzSelect{
+	
+	/* This is the container of the new select element */
+	
+	height:34px;
+	display:inline-block;
+	min-width:206px;
+	position:relative;
+	margin:5px 0;
+	
+	/* Preloading the background image for the dropdown */
+	background:url("../images/dropdown_slice.png") no-repeat -99999px;
+}
+
+.tzSelect .selectBox{
+	position:absolute;
+	height: 25px;
+	width:176px;
+	font:14px;
+	text-align:left;
+	padding:6px 20px 0 10px;
+	color:#00557b;
+	font-weight: bold;
+	background:url('../images/dropdown_select.png');
+	background-repeat: no-repeat;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+
+}
+
+.tzSelect .selectBox:hover,
+.tzSelect .selectBox.expanded{
+	
+	color:#505050;
+	cursor:pointer;
+}
+
+.tzSelect .dropDown{
+	position:absolute;
+	top:30px;
+	left:0;
+	width:204px;
+	border:1px solid #ccc;
+	list-style:none;
+	z-index:1000;
+	background-color: #FFF;
+}
+
+.tzSelect .dropDown.f {
+	overflow-y:auto;
+	height:380px;
+}
+
+.tzSelect li{
+	background-color:#fff;
+	cursor:pointer;
+	padding:6px;
+	text-align:left;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+
+.tzSelect li:hover{
+	background-color:#6f6f6f;
+	color:white;
+}
+
+
+/*-----------------------------------------------------
+*	Additional styles for the apple product dropdown
+------------------------------------------------------*/
+
+
+.tzSelect .hasDetails{
+	border-width:0 1px 1px;
+}
+
+.tzSelect .hasDetails li{
+	height:85px;
+	position:relative;
+	padding:0;
+	text-align:left;
+	
+	/* Again, using CSS3 multiple backgrounds with a fallback */
+	
+	background:url('../images/dropdown_slice.png') repeat-x #222;
+	background-image:url('../images/dropdown_slice.png'),url('../images/dropdown_slice.png'),url('../images/dropdown_slice.png');
+	background-position: 50% -171px, 0 -85px, 0 0;
+	background-repeat: no-repeat, no-repeat, repeat-x;
+}
+
+.tzSelect .hasDetails li:hover{
+	background-position: 50% -256px, 0 -85px, 0 0;
+}
+
+.tzSelect .hasDetails li span{
+	left:88px;
+	position:absolute;
+	top:27px;
+}
+
+.tzSelect .hasDetails li i{
+	color:#999999;
+	display:block;
+	font-size:12px;
+}
+
+.tzSelect .hasDetails li img{
+	left:9px;
+	position:absolute;
+	top:13px;
+}
+
+
+.select_option, .search_input,.new_input{
+    background:white;
+    height:21px;
+    width:170px;
+    border:1px solid #d1daef;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    -o-border-radius:2px;
+    border-radius:2px;
+    cursor:pointer;
+    line-height:21px;
+    color:#949494;
+    position:relative;
+    z-index:999;
+    margin:-2px 10px 0 0;
+    font-size:12px;
+	padding-top:3px;
+}
+.select_option{
+}
+
+.fr {
+	float:right;
+}
+
+ .select_option, .search_input,.new_input{
+    background:white;
+    height:21px;
+    width:170px;
+    border:1px solid #d1daef;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    -o-border-radius:2px;
+    border-radius:2px;
+    cursor:pointer;
+    text-indent:1em;
+    line-height:21px;
+    color:#949494;
+    position:relative;
+    z-index:999;
+    margin:-2px 10px 0 0;
+    font-size:12px;
+}
+.select_option{
+    line-height:100%;
+}
+.new_input{
+    z-index:1;
+    cursor:auto;
+}
+.disabled_input{
+    background:none;
+    border:none;
+    box-shadow:none;
+}
+ .compared_date_select{
+    width:23px;
+    height:23px;
+    /*cursor:pointer;*/
+    position:relative;    
+}
+ .compared_date_select .btn{
+    width: 23px;
+    height: 23px;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    background: url("../images/select_btn.png") repeat-x 1px -256px;
+}
+ .selected_value{
+    display:inline-block;
+    width:130px;
+    text-indent:0;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    height:100%;
+    line-height:21px;
+}
+.funnel_time_area .selected_value{
+    font-size:10px;
+    -webkit-text-size-ajust:none;
+}
+ .search_input{
+    text-indent:0;
+    margin:5px 20px 0 0;
+}
+ .select_option .select_arrow, .search_input .search_arrow{
+    height:24px;
+    width:22px;
+    margin-right: -4px;
+    margin-top: -2px;
+    background:url("../images/select_arrow.png") no-repeat;
+}
+ .search_input .search_arrow{
+    background-position:0 -150px;
+}
+ .search_input .search_value{
+    width: 135px;
+    text-indent: 0;
+    padding-left: 5px;
+}
+/* .select_option .select_arrow:hover{
+    background-position:0 -60px;
+}*/
+ .select_option .select_list_body, .compared_date_select .select_list_body{
+    position:absolute;
+    background:white;
+    border:1px solid #d2d2d2;
+    width:170px;
+    left:-1px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    max-height:400px;
+   
+}
+
+ .compared_date_select .select_list_body{
+    width:150px;
+    left:-130px;
+    top:25px;
+    line-height:30px;
+    border-bottom:1px solid #d2d2d2;
+    
+}
+ .compared_date_select .select_list_body input{
+    vertical-align:baseline;
+}
+ .compared_date_select .select_list_body .line{
+    height:100%;
+    margin:10px;
+    height:1px;
+    background:#D6D6D6;
+    box-shadow:0 1px 1px white;
+    position: relative;
+}
+ .compared_date_select .select_list_body .line div{
+    padding: 0 10px;
+    color: #4F73B1;
+    position: absolute;
+    top: -6px;
+    left: 30px;
+    background: white;
+    line-height: 100%;
+}
+ .select_option .select_list_body li{
+    line-height:30px;
+    border-bottom:1px solid #d2d2d2; 
+    box-shadow: 0 1px 0 white;
+    padding-left:10px;
+    text-align: left;
+   
+}
+
+.select_option .select_list_body ul{
+    margin: 0;
+    padding: 0;
+    list-style: none
+}
+.select_option .select_list_body li:last-child{
+    border-bottom:none;
+    box-shadow:none;
+}
+.select_short .select_list_body li,.select_mini .select_list_body li{
+    padding:0;
+}
+.select_short.select_short_special .select_list_body li{
+    padding-left:10px;
+}
+.select_retention_rate{
+    z-index:996!important;
+}
+ .select_option .select_list_body li a{
+    color:#949494;
+    text-decoration: none;
+    display:block;
+    width:100%;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+ .select_option .select_list_body li.current{
+    background:url("../images/select_btn.png") no-repeat 0 -84px;
+}
+.select_option .select_list_body li.hasChild{
+    background:url("../images/select_btn.png") no-repeat 0 -493px;
+}
+.select_option .select_list_body li.hasChild.child_open{
+    background-position:0 -519px;
+}
+ .select_option .select_list_body li:hover{
+    background:#6f6f6f;
+} 
+/*.select_option .select_list_body li>ul li:hover{
+    background:#F0F0F0;
+}*/
+ .select_option .select_list_body li:hover a{
+    color:white;
+}
+.select_option .select_list_body li.date_picker_box:hover{
+    background: white;
+}
+.select_option .select_list_body li.hasChild:hover{
+    background:url("../images/select_btn.png") no-repeat 0 -493px;
+}
+.select_option .select_list_body li.hasChild.child_open:hover{
+    background:url("../images/select_btn.png") no-repeat 0 -519px;
+}
+
+.select_option .select_list_body li.date_picker_box:hover a,.select_option .select_list_body li.hasChild:hover a{
+    color:#949494;
+}
+.select_option .select_list_body li.hasChild li:hover a{
+    color:white;
+}
+.select_short, .select_short .select_list_body{
+    width:120px;
+}
+.short_list_body .select_list_body{
+    max-height:200px;
+}
+.select_mini,.select_mini .select_list_body{
+    width:100px;
+}
+ .select_short .selected_value{
+    width:80px;
+}
+.select_mini .selected_value{
+    width:60px;
+}
+.selbox {
+    float: left;
+    text-indent: 0;
+    color:#505050;
+}
+.selbox input{
+    color:#505050;
+}
+
+.selbox span {
+    margin: 0 4px
+}
+.datainp,.data {
+   
+    box-shadow: 0 0 10px #EEEEEE inset;
+    font-size: 12px;
+    height: 20px;
+    padding: 0;
+    text-align: center;
+    width: 124px;
+
+}
+.date {
+    border:1px solid #BFC4D1;
+    font-size:12px;
+    padding:0px;
+    height:23px;
+    line-height:23px;
+    text-align:center;
+    width:80px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    background:url(../images/select_btn.png) repeat-x 0 -117px;
+}
