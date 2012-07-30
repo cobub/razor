@@ -31,7 +31,6 @@ typedef enum {
 
 +(void)checkUpdate;
 +(void)setDelegate:(id<UMSAgentDelegate>)dele reportPolicy:(ReportPolicy)policy;
-+(void)postClientData;
 +(void)postEvent:(NSString *)event_id;
 +(void)postEvent:(NSString *)event_id label:(NSString *)label;
 +(void)postEvent:(NSString *)event_id acc:(NSInteger)acc;
