@@ -654,7 +654,7 @@ d.datevalue<=today and f.date_sk = d.date_sk
 group by f.product_sk on duplicate key update 
 allsessions =values(allsessions);
 
-insert into umsinstall_fact_basic_all(product_sk,date_sk,usingtime)
+insert into umsinstall_sum_basic_all(product_sk,date_sk,usingtime)
 select f.product_sk,f.date_sk,sum(duration) from umsinstall_fact_usinglog_daily f, umsinstall_dim_date d where f.date_sk = d.date_sk and d.datevalue = today group by f.product_sk,f.date_sk on duplicate key update usingtime=values(usingtime);
 set e = now();
 insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
