@@ -1088,7 +1088,7 @@ class CI_Form_validation {
 	// --------------------------------------------------------------------
     
 	
-
+	
 	/**
 	 * Validate url Address
 	 *
@@ -1100,24 +1100,18 @@ class CI_Form_validation {
 	{
 //		return (!preg_match("/^http:\/\/[A-Za-z0-9]+\.|/[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"])*$/", $str))? FALSE : TRUE;
 		return $this->isURL($str);
-
-	
-	
-
-}
+    }
 
 // Checks if string is a URL
 // @param string $url
 // @return bool
-function isURL($url = NULL) {
-        if($url==NULL) return false;
-       $regex = "/\b(?:http:\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i";
-        if(preg_match($regex, $url)==true) return true;
-        else return false;
-}
-		
-
-
+      function isURL($url = NULL)
+       {
+         if($url==NULL) return false;
+         $regex = "/\b(?:http:\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i";
+         if(preg_match($regex, $url)==true) return true;
+         else return false;
+      }
 	// --------------------------------------------------------------------
 	/**
 	 * Alpha

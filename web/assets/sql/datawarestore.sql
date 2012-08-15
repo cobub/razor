@@ -1,8 +1,6 @@
 SET NAMES 'utf8';
-DELIMITER $$
---
--- 存储过程
---
+--$$
+
 CREATE  PROCEDURE `rundim`()
     NO SQL
 begin
@@ -261,8 +259,7 @@ set e = now();
 insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
     values('rundim','umsinstall_dim_event',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 end;
-$$
-
+--$$
 CREATE PROCEDURE `runfact`(IN `starttime` DATETIME, IN `endtime` DATETIME)
     NO SQL
 begin
@@ -447,8 +444,7 @@ insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration)
 
 set s = now();
 end;
-$$
-
+--$$
 CREATE  PROCEDURE `runmonthly`(IN `begindate` DATE, IN `enddate` DATE)
     NO SQL
 begin
@@ -569,8 +565,7 @@ insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration)
     values('runmonthly','umsinstall_fact_reserveusers_monthly',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
 end;
-$$
-
+--$$
 CREATE PROCEDURE `runsum`(IN `today` DATE)
     NO SQL
 begin
@@ -601,7 +596,7 @@ insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration)
 set s = now();
 -- update segment_sk column
 
-update umsinstall_fact_usinglog_daily f,dim_segment_usinglog s,dim_date d
+update umsinstall_fact_usinglog_daily f,umsinstall_dim_segment_usinglog s,umsinstall_dim_date d
 set    f.segment_sk = s.segment_sk
 where  f.duration >= s.startvalue
        and f.duration < s.endvalue
@@ -761,8 +756,7 @@ insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration)
 
 set s = now();
 end;
-$$
-
+--$$
 CREATE PROCEDURE `runweekly`(IN `begindate` DATE, IN `enddate` DATE)
     NO SQL
 begin
@@ -881,4 +875,4 @@ insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration)
 
 
 end;
-$$
+

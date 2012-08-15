@@ -34,9 +34,7 @@
 		$(this).addClass("active"); //Add "active" class to selected tab
 		$(".tab_content").hide(); //Hide all tab content
 
-		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab 
-
-+ content
+		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab+ content
 		$(activeTab).fadeIn(); //Fade in the active ID content
 		return false;
 	});
@@ -89,7 +87,7 @@
 				<div class="clear"></div>	
 		<div  style="height:150px;"></div>			
 		<footer>
-		<div id="installbutton" style="display:none;position:absolute;right:60px;top:536px">
+		<div id="installbutton" style="display:none;position:absolute;right:60px;top:532px">
 		<a href="<?php echo $newurl; ?>/index.php?/main/systemcheck"><input type="submit" value="<?php echo lang('installview_installstep') ;?>"></a>
 		</div>
 		</footer>

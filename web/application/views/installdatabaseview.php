@@ -34,9 +34,7 @@
 		$(this).addClass("active"); //Add "active" class to selected tab
 		$(".tab_content").hide(); //Hide all tab content
 
-		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab 
-
-+ content
+		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
 		$(activeTab).fadeIn(); //Fade in the active ID content
 		return false;
 	});
@@ -116,7 +114,7 @@
 			<div class="clear"></div>	
 		<div  style="height:740px;"></div>
 		<footer>
-		<div style="position:absolute;top:1148px;right:60px;">
+		<div style="position:absolute;top:1144px;right:60px;">
 		<input type="submit" value="<?php echo lang('installview_nextstep') ;?>" align="right">
 		 </form>
 		</div>

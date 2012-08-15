@@ -34,9 +34,7 @@
 		$(this).addClass("active"); //Add "active" class to selected tab
 		$(".tab_content").hide(); //Hide all tab content
 
-		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab 
-
-+ content
+		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
 		$(activeTab).fadeIn(); //Fade in the active ID content
 		return false;
 	});
@@ -147,7 +145,7 @@
 			<div class="clear"></div>	
 		<div  style="height:466px;"></div>
 		<footer>
-		<div style="position:absolute;top:874px;right:60px;">		
+		<div style="position:absolute;top:870px;right:60px;">		
 		<a href='<?php if($phpversion=="true"&&$mysqli=="true"&&$writetrue=="true") {echo $newurl.'/index.php?/main/databaseinfo';}
 		else{  echo $newurl.'/index.php?/main/systemcheck';  } ?>'>
 		<input type="submit" value="<?php echo lang('installview_nextstep') ;?>"></a>

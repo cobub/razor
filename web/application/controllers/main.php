@@ -185,7 +185,7 @@ class main extends CI_Controller {
 						
 					  if($language=="chinese")
 						{
-						   $ret= $this->createdatabasesql($servname,$dbuser,$dbpwd,$sqlname,'assets/sql/databaseinfo.sql',null,$tablehead);				          
+						  $ret= $this->createdatabasesql($servname,$dbuser,$dbpwd,$sqlname,'assets/sql/databaseinfo.sql',null,$tablehead);				          
 						}
 						else 
 						{
@@ -229,7 +229,7 @@ class main extends CI_Controller {
 					if($language=="chinese")
 						{
 						   $rel=$this->createdatabasesql($depotservname,$depotdbuser,$depotdbpwd,$depotsqlname,'assets/sql/dataware.sql',null,$depottablehead);
-					       $this->createproducre($servname,$dbuser,$dbpwd,$depotsqlname,'assets/sql/datawarestore.sql','updatedatawarestore',$sqlname,null,$tablehead);    
+					      $this->createproducre($servname,$dbuser,$dbpwd,$depotsqlname,'assets/sql/datawarestore.sql','updatedatawarestore',$sqlname,null,$tablehead);    
 						}
 						else 
 						{
@@ -445,20 +445,13 @@ class main extends CI_Controller {
 		   fclose($lasthandle); 	
 		   $lastdatadeal=fopen('assets/storedprocedure/'.$storename.'.sql',"w"); //写入方式打开新路径 
 		   fwrite($lastdatadeal,$lastsqlStr);
-		   fclose($lastdatadeal);	
-
-		   
-//         //$query=fopen('assets/sql/updatestore.sql',"rb"); 
-//		  $conn = mysql_connect($servname,$dbuser,$dbpwd);       
-//          mysql_select_db($sqlname); 
-//         //$content = file_get_contents('assets/sql/updatestore.sql');
-//         // echo $content;
-//        
-//          $file="D:\php\Appserv\www\initServ\assets\sql\updatestore.sql";
-//          mysql_query("source '".$file."';");      
-//          mysql_close($conn);  
-//        //fclose($query);	   
-       
+		   fclose($lastdatadeal);
+		   $filepath="assets/storedprocedure/".$storename.".sql";	
+		  
+		   $handle = fopen($filepath,'rb');
+		   $sqlStr = fread($handle,filesize($filepath));		
+		   $segment = explode("--$$",trim($sqlStr));		     
+         $this->runsqlfile($servname,$dbuser,$dbpwd,$sqlname, $segment,$prefix);	
         return true;
     }
     //run sql file
@@ -467,9 +460,9 @@ class main extends CI_Controller {
         $conn = mysql_connect($servname,$dbuser,$dbpwd);       
         mysql_select_db($sqlname);                 
         foreach($sqlArray as $sql)
-        {	
-          mysql_query($sql);         
-        }            
+        {
+          mysql_query($sql);
+        }                    
         mysql_close($conn);             
         
     } 

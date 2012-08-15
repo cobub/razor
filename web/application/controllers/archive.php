@@ -46,8 +46,8 @@ class Archive extends CI_Controller
 
 		//run sum
 		$logdate = date('Y-m-d H:i:s',time());
-  		log_message("error","ETL rumsum at $logdate and rundate = $date");
-  		$dwdb->query("call rumsum($date)");
+  		log_message("error","ETL runsum at $logdate and rundate = $date");
+  		$dwdb->query("call runsum($date)");
 	}
 	
 	/*
@@ -105,7 +105,7 @@ class Archive extends CI_Controller
 			$date = date('Y-m-d',strtotime("-$i day"));
 // 			echo $date."<br>";
 			log_message("error","ETL runArchiveLater run sunm at $date");
-  			$dwdb->query("call rumsum($date)");
+  			$dwdb->query("call runsum($date)");
 		}
 	}
 }
