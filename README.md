@@ -1,7 +1,7 @@
 Cobub Razor
 =============
 
-Cobub Razor: Mobile Application Analytics System
+Cobub Razor: Mobile App Analytics
 
 Cobub Razor is a powerful, open source mobile client data collected and analytics system. It enables you to monitor the statics of your mobile Apps through providing you with detailed, multi-dimensions reports on your mobile application users.  At this moment, it supports iOS and Android OS.
 
