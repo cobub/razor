@@ -42,12 +42,12 @@ class Archive extends CI_Controller
 		//run fact
 		$logdate = date('Y-m-d H:i:s',time());
 		log_message("error","ETL runfact at $logdate and fromTime= $fromTime toTime= $toTime");
-  		$dwdb->query("call runfact($fromTime,$toTime)");
+  		$dwdb->query("call runfact('$fromTime','$toTime')");
 
 		//run sum
 		$logdate = date('Y-m-d H:i:s',time());
   		log_message("error","ETL runsum at $logdate and rundate = $date");
-  		$dwdb->query("call runsum($date)");
+  		$dwdb->query("call runsum('$date')");
 	}
 	
 	/*
@@ -70,7 +70,7 @@ class Archive extends CI_Controller
 // 		echo $lastSunday. " " . $lastSataday;
 		$logdate = date('Y-m-d H:i:s',time());
 		log_message("error","ETL runweekly at $logdate and fromDate = $lastSunday and toDate = $lastSataday");
- 		$dwdb->query("call runweekly($lastSunday,$lastSataday)");
+ 		$dwdb->query("call runweekly('$lastSunday','$lastSataday')");
 	}
 	
 	/*
@@ -84,7 +84,7 @@ class Archive extends CI_Controller
 		$lastMonthEndDate = date("Y-m-t", strtotime("-1 month") ) ;
 		$logdate = date('Y-m-d H:i:s',time());
 		log_message("error","ETL runmonthly at $logdate and fromTime = $lastMonthStartDate and toTime = $lastMonthEndDate");
- 	 	$dwdb->query("call runmonthly($lastMonthStartDate,$lastMonthEndDate)");
+ 	 	$dwdb->query("call runmonthly('$lastMonthStartDate','$lastMonthEndDate')");
 	}
 	
 	/*
@@ -105,7 +105,7 @@ class Archive extends CI_Controller
 			$date = date('Y-m-d',strtotime("-$i day"));
 // 			echo $date."<br>";
 			log_message("error","ETL runArchiveLater run sunm at $date");
-  			$dwdb->query("call runsum($date)");
+  			$dwdb->query("call runsum('$date')");
 		}
 	}
 }
