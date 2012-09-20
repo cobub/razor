@@ -1,7 +1,7 @@
 Cobub Razor
 =============
-
-Cobub Razor: Mobile App Analytics
+![Cobub Razor](http://dev.cobub.com/wp-content/uploads/2012/07/cobub-logo1.png)
+Cobub Razor: Open Source Mobile Analytics
 
 Cobub Razor is a powerful, open source mobile client data collected and analytics system. It enables you to monitor the statics of your mobile Apps through providing you with detailed, multi-dimensions reports on your mobile application users.  At this moment, it supports iOS and Android OS.
 
@@ -39,6 +39,15 @@ Cobub Razor Issues
 -------
 
 Any problems, requests, please submit issues to https://github.com/cobub/razor/issues
+
+
+License
+-------
+The Cobub Razor software is released under the licenses from the Free Software Foundation.
+We are using different license for different components in the package of Cobub Razor software:
+
+ *  For the web side of Cobub Razor (include the reporting part and data interface), the license of [GPL v3](http://www.gnu.org/licenses/gpl-3.0.txt) is applied.
+ *  For the SDK/client side of Cobub Razor (include the version of iOS, Android and other versions), the license of [LGPL v3](http://www.gnu.org/licenses/lgpl-3.0.txt) is applied.
 
 
 
