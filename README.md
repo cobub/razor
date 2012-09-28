@@ -39,6 +39,12 @@ Cobub Razor Issues
 
 Any problems, requests, please submit issues to https://github.com/cobub/razor/issues
 
+Mailing Lists
+-------
+
+Subscribe:  cobubrazor-subscribe@yahoogroups.com
+Post Message:  cobubrazor@yahoogroups.com
+
 
 License
 -------
