@@ -1,0 +1,708 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3609A604151818F500BEDA05 /* NSObject+SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A5EB151818F500BEDA05 /* NSObject+SBJson.h */; };
+		3609A605151818F500BEDA05 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5EC151818F500BEDA05 /* NSObject+SBJson.m */; };
+		3609A606151818F500BEDA05 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5EC151818F500BEDA05 /* NSObject+SBJson.m */; };
+		3609A607151818F500BEDA05 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A5ED151818F500BEDA05 /* SBJson.h */; };
+		3609A608151818F500BEDA05 /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A5EE151818F500BEDA05 /* SBJsonParser.h */; };
+		3609A609151818F500BEDA05 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5EF151818F500BEDA05 /* SBJsonParser.m */; };
+		3609A60A151818F500BEDA05 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5EF151818F500BEDA05 /* SBJsonParser.m */; };
+		3609A60B151818F500BEDA05 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A5F0151818F500BEDA05 /* SBJsonStreamParser.h */; };
+		3609A60C151818F500BEDA05 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5F1151818F500BEDA05 /* SBJsonStreamParser.m */; };
+		3609A60D151818F500BEDA05 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5F1151818F500BEDA05 /* SBJsonStreamParser.m */; };
+		3609A60E151818F500BEDA05 /* SBJsonStreamParserAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A5F2151818F500BEDA05 /* SBJsonStreamParserAccumulator.h */; };
+		3609A60F151818F500BEDA05 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5F3151818F500BEDA05 /* SBJsonStreamParserAccumulator.m */; };
+		3609A610151818F500BEDA05 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5F3151818F500BEDA05 /* SBJsonStreamParserAccumulator.m */; };
+		3609A611151818F500BEDA05 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A5F4151818F500BEDA05 /* SBJsonStreamParserAdapter.h */; };
+		3609A612151818F500BEDA05 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5F5151818F500BEDA05 /* SBJsonStreamParserAdapter.m */; };
+		3609A613151818F500BEDA05 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5F5151818F500BEDA05 /* SBJsonStreamParserAdapter.m */; };
+		3609A614151818F500BEDA05 /* SBJsonStreamParserState.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A5F6151818F500BEDA05 /* SBJsonStreamParserState.h */; };
+		3609A615151818F500BEDA05 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5F7151818F500BEDA05 /* SBJsonStreamParserState.m */; };
+		3609A616151818F500BEDA05 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5F7151818F500BEDA05 /* SBJsonStreamParserState.m */; };
+		3609A617151818F500BEDA05 /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A5F8151818F500BEDA05 /* SBJsonStreamWriter.h */; };
+		3609A618151818F500BEDA05 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5F9151818F500BEDA05 /* SBJsonStreamWriter.m */; };
+		3609A619151818F500BEDA05 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5F9151818F500BEDA05 /* SBJsonStreamWriter.m */; };
+		3609A61A151818F500BEDA05 /* SBJsonStreamWriterAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A5FA151818F500BEDA05 /* SBJsonStreamWriterAccumulator.h */; };
+		3609A61B151818F500BEDA05 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5FB151818F500BEDA05 /* SBJsonStreamWriterAccumulator.m */; };
+		3609A61C151818F500BEDA05 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5FB151818F500BEDA05 /* SBJsonStreamWriterAccumulator.m */; };
+		3609A61D151818F500BEDA05 /* SBJsonStreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A5FC151818F500BEDA05 /* SBJsonStreamWriterState.h */; };
+		3609A61E151818F500BEDA05 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5FD151818F500BEDA05 /* SBJsonStreamWriterState.m */; };
+		3609A61F151818F500BEDA05 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5FD151818F500BEDA05 /* SBJsonStreamWriterState.m */; };
+		3609A620151818F500BEDA05 /* SBJsonTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A5FE151818F500BEDA05 /* SBJsonTokeniser.h */; };
+		3609A621151818F500BEDA05 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5FF151818F500BEDA05 /* SBJsonTokeniser.m */; };
+		3609A622151818F500BEDA05 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5FF151818F500BEDA05 /* SBJsonTokeniser.m */; };
+		3609A623151818F500BEDA05 /* SBJsonUTF8Stream.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A600151818F500BEDA05 /* SBJsonUTF8Stream.h */; };
+		3609A624151818F500BEDA05 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A601151818F500BEDA05 /* SBJsonUTF8Stream.m */; };
+		3609A625151818F500BEDA05 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A601151818F500BEDA05 /* SBJsonUTF8Stream.m */; };
+		3609A626151818F500BEDA05 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3609A602151818F500BEDA05 /* SBJsonWriter.h */; };
+		3609A627151818F500BEDA05 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A603151818F500BEDA05 /* SBJsonWriter.m */; };
+		3609A628151818F500BEDA05 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A603151818F500BEDA05 /* SBJsonWriter.m */; };
+		362FE8A1152D7BB50036B178 /* ActivityLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 362FE89F152D7BB50036B178 /* ActivityLog.h */; };
+		362FE8A2152D7BB50036B178 /* ActivityLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 362FE8A0152D7BB50036B178 /* ActivityLog.m */; };
+		3630005C15131A1600E84C2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3630005B15131A1600E84C2D /* Foundation.framework */; };
+		3630006215131A1600E84C2D /* UMSAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3630006115131A1600E84C2D /* UMSAgent.m */; };
+		3630006A15131A1600E84C2D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3630006915131A1600E84C2D /* SenTestingKit.framework */; };
+		3630006D15131A1600E84C2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3630005B15131A1600E84C2D /* Foundation.framework */; };
+		3630007015131A1600E84C2D /* libUMSAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3630005815131A1600E84C2D /* libUMSAgent.a */; };
+		3630007615131A1600E84C2D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3630007415131A1600E84C2D /* InfoPlist.strings */; };
+		3630007915131A1600E84C2D /* UMSAgentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3630007815131A1600E84C2D /* UMSAgentTests.m */; };
+		36B6B3A11563AA1E00AEB577 /* ErrorLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 36B6B39F1563AA1E00AEB577 /* ErrorLog.h */; };
+		36B6B3A21563AA1E00AEB577 /* ErrorLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B6B3A01563AA1E00AEB577 /* ErrorLog.m */; };
+		36B8E535151C4F8A004C3C1F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B8E534151C4F8A004C3C1F /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		36C95BB91522E74100725BBA /* UMSAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 3630006015131A1600E84C2D /* UMSAgent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		36FA717C1526D9D90049AF2C /* OpenUDID.h in Headers */ = {isa = PBXBuildFile; fileRef = 36FA717A1526D9D90049AF2C /* OpenUDID.h */; };
+		36FA717D1526D9D90049AF2C /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 36FA717B1526D9D90049AF2C /* OpenUDID.m */; };
+		8447F4C015186D3300D14FD9 /* CheckUpdateReturn.h in Headers */ = {isa = PBXBuildFile; fileRef = 8447F4BE15186D3300D14FD9 /* CheckUpdateReturn.h */; };
+		8447F4C115186D3300D14FD9 /* CheckUpdateReturn.m in Sources */ = {isa = PBXBuildFile; fileRef = 8447F4BF15186D3300D14FD9 /* CheckUpdateReturn.m */; };
+		8447F4C615186F4000D14FD9 /* CheckUpdateDao.h in Headers */ = {isa = PBXBuildFile; fileRef = 8447F4C415186F4000D14FD9 /* CheckUpdateDao.h */; };
+		8447F4C715186F4000D14FD9 /* CheckUpdateDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 8447F4C515186F4000D14FD9 /* CheckUpdateDao.m */; };
+		8447F4CA15187D8300D14FD9 /* Global.h in Headers */ = {isa = PBXBuildFile; fileRef = 8447F4C815187D8300D14FD9 /* Global.h */; };
+		8447F4CB15187D8300D14FD9 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = 8447F4C915187D8300D14FD9 /* Global.m */; };
+		8447F4CD1518835E00D14FD9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8447F4CC1518835E00D14FD9 /* UIKit.framework */; };
+		8447F4CE1518860B00D14FD9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8447F4CC1518835E00D14FD9 /* UIKit.framework */; };
+		8447F4D1151887D100D14FD9 /* Deviceinfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8447F4CF151887D100D14FD9 /* Deviceinfo.h */; };
+		8447F4D2151887D100D14FD9 /* Deviceinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8447F4D0151887D100D14FD9 /* Deviceinfo.m */; };
+		8447F4D515188ACF00D14FD9 /* PostClientDataDao.h in Headers */ = {isa = PBXBuildFile; fileRef = 8447F4D315188ACF00D14FD9 /* PostClientDataDao.h */; };
+		8447F4D615188ACF00D14FD9 /* PostClientDataDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 8447F4D415188ACF00D14FD9 /* PostClientDataDao.m */; };
+		847BB17B15172E2C00933648 /* network.h in Headers */ = {isa = PBXBuildFile; fileRef = 847BB17915172E2C00933648 /* network.h */; };
+		847BB17C15172E2C00933648 /* network.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BB17A15172E2C00933648 /* network.m */; };
+		84B7611A151C01A600A7ECF8 /* GetOnlineConfigDao.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B76118151C01A600A7ECF8 /* GetOnlineConfigDao.h */; };
+		84B7611B151C01A600A7ECF8 /* GetOnlineConfigDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B76119151C01A600A7ECF8 /* GetOnlineConfigDao.m */; };
+		84B7611F151C02C000A7ECF8 /* ConfigPreference.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B7611D151C02C000A7ECF8 /* ConfigPreference.h */; };
+		84B76120151C02C000A7ECF8 /* ConfigPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7611E151C02C000A7ECF8 /* ConfigPreference.m */; };
+		84B7E4EB1519940D00B9D0BC /* postEventDao.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B7E4E91519940D00B9D0BC /* postEventDao.h */; };
+		84B7E4EC1519940D00B9D0BC /* postEventDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7E4EA1519940D00B9D0BC /* postEventDao.m */; };
+		84B7E4F01519989F00B9D0BC /* Event.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B7E4EE1519989F00B9D0BC /* Event.h */; };
+		84B7E4F11519989F00B9D0BC /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7E4EF1519989F00B9D0BC /* Event.m */; };
+		84C33FC71517684E008B0EC0 /* CommonReturn.h in Headers */ = {isa = PBXBuildFile; fileRef = 84C33FC51517684E008B0EC0 /* CommonReturn.h */; };
+		84C33FC81517684E008B0EC0 /* CommonReturn.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C33FC61517684E008B0EC0 /* CommonReturn.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		847BFEB415207DC900CB8F7D /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+			);
+		};
+/* End PBXBuildRule section */
+
+/* Begin PBXContainerItemProxy section */
+		3630006E15131A1600E84C2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3630004F15131A1600E84C2D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3630005715131A1600E84C2D;
+			remoteInfo = UMSAgent;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3609A5EB151818F500BEDA05 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
+		3609A5EC151818F500BEDA05 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
+		3609A5ED151818F500BEDA05 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
+		3609A5EE151818F500BEDA05 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		3609A5EF151818F500BEDA05 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		3609A5F0151818F500BEDA05 /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParser.h; sourceTree = "<group>"; };
+		3609A5F1151818F500BEDA05 /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParser.m; sourceTree = "<group>"; };
+		3609A5F2151818F500BEDA05 /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAccumulator.h; sourceTree = "<group>"; };
+		3609A5F3151818F500BEDA05 /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAccumulator.m; sourceTree = "<group>"; };
+		3609A5F4151818F500BEDA05 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		3609A5F5151818F500BEDA05 /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		3609A5F6151818F500BEDA05 /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserState.h; sourceTree = "<group>"; };
+		3609A5F7151818F500BEDA05 /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		3609A5F8151818F500BEDA05 /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		3609A5F9151818F500BEDA05 /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
+		3609A5FA151818F500BEDA05 /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterAccumulator.h; sourceTree = "<group>"; };
+		3609A5FB151818F500BEDA05 /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterAccumulator.m; sourceTree = "<group>"; };
+		3609A5FC151818F500BEDA05 /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterState.h; sourceTree = "<group>"; };
+		3609A5FD151818F500BEDA05 /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
+		3609A5FE151818F500BEDA05 /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonTokeniser.h; sourceTree = "<group>"; };
+		3609A5FF151818F500BEDA05 /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonTokeniser.m; sourceTree = "<group>"; };
+		3609A600151818F500BEDA05 /* SBJsonUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonUTF8Stream.h; sourceTree = "<group>"; };
+		3609A601151818F500BEDA05 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
+		3609A602151818F500BEDA05 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		3609A603151818F500BEDA05 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		362FE89F152D7BB50036B178 /* ActivityLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityLog.h; sourceTree = "<group>"; };
+		362FE8A0152D7BB50036B178 /* ActivityLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityLog.m; sourceTree = "<group>"; };
+		3630005815131A1600E84C2D /* libUMSAgent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUMSAgent.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3630005B15131A1600E84C2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3630005F15131A1600E84C2D /* UMSAgent-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UMSAgent-Prefix.pch"; sourceTree = "<group>"; };
+		3630006015131A1600E84C2D /* UMSAgent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSAgent.h; sourceTree = "<group>"; };
+		3630006115131A1600E84C2D /* UMSAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSAgent.m; sourceTree = "<group>"; };
+		3630006815131A1600E84C2D /* UMSAgentTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UMSAgentTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3630006915131A1600E84C2D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		3630007315131A1600E84C2D /* UMSAgentTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UMSAgentTests-Info.plist"; sourceTree = "<group>"; };
+		3630007515131A1600E84C2D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3630007715131A1600E84C2D /* UMSAgentTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSAgentTests.h; sourceTree = "<group>"; };
+		3630007815131A1600E84C2D /* UMSAgentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSAgentTests.m; sourceTree = "<group>"; };
+		36B6B39F1563AA1E00AEB577 /* ErrorLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorLog.h; sourceTree = "<group>"; };
+		36B6B3A01563AA1E00AEB577 /* ErrorLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorLog.m; sourceTree = "<group>"; };
+		36B8E534151C4F8A004C3C1F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		36FA717A1526D9D90049AF2C /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
+		36FA717B1526D9D90049AF2C /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
+		8447F4BE15186D3300D14FD9 /* CheckUpdateReturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckUpdateReturn.h; sourceTree = "<group>"; };
+		8447F4BF15186D3300D14FD9 /* CheckUpdateReturn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckUpdateReturn.m; sourceTree = "<group>"; };
+		8447F4C415186F4000D14FD9 /* CheckUpdateDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckUpdateDao.h; sourceTree = "<group>"; };
+		8447F4C515186F4000D14FD9 /* CheckUpdateDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckUpdateDao.m; sourceTree = "<group>"; };
+		8447F4C815187D8300D14FD9 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
+		8447F4C915187D8300D14FD9 /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
+		8447F4CC1518835E00D14FD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		8447F4CF151887D100D14FD9 /* Deviceinfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deviceinfo.h; sourceTree = "<group>"; };
+		8447F4D0151887D100D14FD9 /* Deviceinfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deviceinfo.m; sourceTree = "<group>"; };
+		8447F4D315188ACF00D14FD9 /* PostClientDataDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostClientDataDao.h; sourceTree = "<group>"; };
+		8447F4D415188ACF00D14FD9 /* PostClientDataDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostClientDataDao.m; sourceTree = "<group>"; };
+		847BB17915172E2C00933648 /* network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = network.h; sourceTree = "<group>"; };
+		847BB17A15172E2C00933648 /* network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = network.m; sourceTree = "<group>"; };
+		84AD285B15189E4B00FBDD46 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		84AD28A91518AABA00FBDD46 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		84B76118151C01A600A7ECF8 /* GetOnlineConfigDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetOnlineConfigDao.h; sourceTree = "<group>"; };
+		84B76119151C01A600A7ECF8 /* GetOnlineConfigDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetOnlineConfigDao.m; sourceTree = "<group>"; };
+		84B7611D151C02C000A7ECF8 /* ConfigPreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigPreference.h; sourceTree = "<group>"; };
+		84B7611E151C02C000A7ECF8 /* ConfigPreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigPreference.m; sourceTree = "<group>"; };
+		84B7E4E91519940D00B9D0BC /* postEventDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postEventDao.h; sourceTree = "<group>"; };
+		84B7E4EA1519940D00B9D0BC /* postEventDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = postEventDao.m; sourceTree = "<group>"; };
+		84B7E4EE1519989F00B9D0BC /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		84B7E4EF1519989F00B9D0BC /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		84C33FC51517684E008B0EC0 /* CommonReturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonReturn.h; sourceTree = "<group>"; };
+		84C33FC61517684E008B0EC0 /* CommonReturn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonReturn.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3630005515131A1600E84C2D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36B8E535151C4F8A004C3C1F /* CoreTelephony.framework in Frameworks */,
+				8447F4CD1518835E00D14FD9 /* UIKit.framework in Frameworks */,
+				3630005C15131A1600E84C2D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3630006415131A1600E84C2D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8447F4CE1518860B00D14FD9 /* UIKit.framework in Frameworks */,
+				3630006A15131A1600E84C2D /* SenTestingKit.framework in Frameworks */,
+				3630006D15131A1600E84C2D /* Foundation.framework in Frameworks */,
+				3630007015131A1600E84C2D /* libUMSAgent.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3609A5EA151818F500BEDA05 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				3609A5EB151818F500BEDA05 /* NSObject+SBJson.h */,
+				3609A5EC151818F500BEDA05 /* NSObject+SBJson.m */,
+				3609A5ED151818F500BEDA05 /* SBJson.h */,
+				3609A5EE151818F500BEDA05 /* SBJsonParser.h */,
+				3609A5EF151818F500BEDA05 /* SBJsonParser.m */,
+				3609A5F0151818F500BEDA05 /* SBJsonStreamParser.h */,
+				3609A5F1151818F500BEDA05 /* SBJsonStreamParser.m */,
+				3609A5F2151818F500BEDA05 /* SBJsonStreamParserAccumulator.h */,
+				3609A5F3151818F500BEDA05 /* SBJsonStreamParserAccumulator.m */,
+				3609A5F4151818F500BEDA05 /* SBJsonStreamParserAdapter.h */,
+				3609A5F5151818F500BEDA05 /* SBJsonStreamParserAdapter.m */,
+				3609A5F6151818F500BEDA05 /* SBJsonStreamParserState.h */,
+				3609A5F7151818F500BEDA05 /* SBJsonStreamParserState.m */,
+				3609A5F8151818F500BEDA05 /* SBJsonStreamWriter.h */,
+				3609A5F9151818F500BEDA05 /* SBJsonStreamWriter.m */,
+				3609A5FA151818F500BEDA05 /* SBJsonStreamWriterAccumulator.h */,
+				3609A5FB151818F500BEDA05 /* SBJsonStreamWriterAccumulator.m */,
+				3609A5FC151818F500BEDA05 /* SBJsonStreamWriterState.h */,
+				3609A5FD151818F500BEDA05 /* SBJsonStreamWriterState.m */,
+				3609A5FE151818F500BEDA05 /* SBJsonTokeniser.h */,
+				3609A5FF151818F500BEDA05 /* SBJsonTokeniser.m */,
+				3609A600151818F500BEDA05 /* SBJsonUTF8Stream.h */,
+				3609A601151818F500BEDA05 /* SBJsonUTF8Stream.m */,
+				3609A602151818F500BEDA05 /* SBJsonWriter.h */,
+				3609A603151818F500BEDA05 /* SBJsonWriter.m */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
+		3630004D15131A1600E84C2D = {
+			isa = PBXGroup;
+			children = (
+				8447F4C315186F0A00D14FD9 /* UMSDao */,
+				3609A5EA151818F500BEDA05 /* json */,
+				847BB17415172A8700933648 /* Common */,
+				847BB173151729F400933648 /* Object */,
+				3630005D15131A1600E84C2D /* UMSAgent */,
+				3630007115131A1600E84C2D /* UMSAgentTests */,
+				3630005A15131A1600E84C2D /* Frameworks */,
+				3630005915131A1600E84C2D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3630005915131A1600E84C2D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3630005815131A1600E84C2D /* libUMSAgent.a */,
+				3630006815131A1600E84C2D /* UMSAgentTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3630005A15131A1600E84C2D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				36B8E534151C4F8A004C3C1F /* CoreTelephony.framework */,
+				84AD28A91518AABA00FBDD46 /* CoreGraphics.framework */,
+				84AD285B15189E4B00FBDD46 /* SystemConfiguration.framework */,
+				8447F4CC1518835E00D14FD9 /* UIKit.framework */,
+				3630005B15131A1600E84C2D /* Foundation.framework */,
+				3630006915131A1600E84C2D /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3630005D15131A1600E84C2D /* UMSAgent */ = {
+			isa = PBXGroup;
+			children = (
+				3630006015131A1600E84C2D /* UMSAgent.h */,
+				3630006115131A1600E84C2D /* UMSAgent.m */,
+				3630005E15131A1600E84C2D /* Supporting Files */,
+			);
+			path = UMSAgent;
+			sourceTree = "<group>";
+		};
+		3630005E15131A1600E84C2D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3630005F15131A1600E84C2D /* UMSAgent-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3630007115131A1600E84C2D /* UMSAgentTests */ = {
+			isa = PBXGroup;
+			children = (
+				3630007715131A1600E84C2D /* UMSAgentTests.h */,
+				3630007815131A1600E84C2D /* UMSAgentTests.m */,
+				3630007215131A1600E84C2D /* Supporting Files */,
+			);
+			path = UMSAgentTests;
+			sourceTree = "<group>";
+		};
+		3630007215131A1600E84C2D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3630007315131A1600E84C2D /* UMSAgentTests-Info.plist */,
+				3630007415131A1600E84C2D /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8447F4C315186F0A00D14FD9 /* UMSDao */ = {
+			isa = PBXGroup;
+			children = (
+				8447F4C415186F4000D14FD9 /* CheckUpdateDao.h */,
+				8447F4C515186F4000D14FD9 /* CheckUpdateDao.m */,
+				8447F4D315188ACF00D14FD9 /* PostClientDataDao.h */,
+				8447F4D415188ACF00D14FD9 /* PostClientDataDao.m */,
+				84B7E4E91519940D00B9D0BC /* postEventDao.h */,
+				84B7E4EA1519940D00B9D0BC /* postEventDao.m */,
+				84B76118151C01A600A7ECF8 /* GetOnlineConfigDao.h */,
+				84B76119151C01A600A7ECF8 /* GetOnlineConfigDao.m */,
+			);
+			name = UMSDao;
+			sourceTree = "<group>";
+		};
+		847BB173151729F400933648 /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				84C33FC51517684E008B0EC0 /* CommonReturn.h */,
+				84C33FC61517684E008B0EC0 /* CommonReturn.m */,
+				8447F4BE15186D3300D14FD9 /* CheckUpdateReturn.h */,
+				8447F4BF15186D3300D14FD9 /* CheckUpdateReturn.m */,
+				8447F4CF151887D100D14FD9 /* Deviceinfo.h */,
+				8447F4D0151887D100D14FD9 /* Deviceinfo.m */,
+				84B7E4EE1519989F00B9D0BC /* Event.h */,
+				84B7E4EF1519989F00B9D0BC /* Event.m */,
+				84B7611D151C02C000A7ECF8 /* ConfigPreference.h */,
+				84B7611E151C02C000A7ECF8 /* ConfigPreference.m */,
+				362FE89F152D7BB50036B178 /* ActivityLog.h */,
+				362FE8A0152D7BB50036B178 /* ActivityLog.m */,
+				36B6B39F1563AA1E00AEB577 /* ErrorLog.h */,
+				36B6B3A01563AA1E00AEB577 /* ErrorLog.m */,
+			);
+			name = Object;
+			sourceTree = "<group>";
+		};
+		847BB17415172A8700933648 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				36FA717A1526D9D90049AF2C /* OpenUDID.h */,
+				36FA717B1526D9D90049AF2C /* OpenUDID.m */,
+				847BB17915172E2C00933648 /* network.h */,
+				847BB17A15172E2C00933648 /* network.m */,
+				8447F4C815187D8300D14FD9 /* Global.h */,
+				8447F4C915187D8300D14FD9 /* Global.m */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		3630005615131A1600E84C2D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				847BB17B15172E2C00933648 /* network.h in Headers */,
+				84C33FC71517684E008B0EC0 /* CommonReturn.h in Headers */,
+				3609A604151818F500BEDA05 /* NSObject+SBJson.h in Headers */,
+				3609A607151818F500BEDA05 /* SBJson.h in Headers */,
+				3609A608151818F500BEDA05 /* SBJsonParser.h in Headers */,
+				3609A60B151818F500BEDA05 /* SBJsonStreamParser.h in Headers */,
+				3609A60E151818F500BEDA05 /* SBJsonStreamParserAccumulator.h in Headers */,
+				3609A611151818F500BEDA05 /* SBJsonStreamParserAdapter.h in Headers */,
+				3609A614151818F500BEDA05 /* SBJsonStreamParserState.h in Headers */,
+				3609A617151818F500BEDA05 /* SBJsonStreamWriter.h in Headers */,
+				3609A61A151818F500BEDA05 /* SBJsonStreamWriterAccumulator.h in Headers */,
+				3609A61D151818F500BEDA05 /* SBJsonStreamWriterState.h in Headers */,
+				3609A620151818F500BEDA05 /* SBJsonTokeniser.h in Headers */,
+				3609A623151818F500BEDA05 /* SBJsonUTF8Stream.h in Headers */,
+				3609A626151818F500BEDA05 /* SBJsonWriter.h in Headers */,
+				8447F4C015186D3300D14FD9 /* CheckUpdateReturn.h in Headers */,
+				8447F4C615186F4000D14FD9 /* CheckUpdateDao.h in Headers */,
+				8447F4CA15187D8300D14FD9 /* Global.h in Headers */,
+				8447F4D1151887D100D14FD9 /* Deviceinfo.h in Headers */,
+				8447F4D515188ACF00D14FD9 /* PostClientDataDao.h in Headers */,
+				84B7E4EB1519940D00B9D0BC /* postEventDao.h in Headers */,
+				84B7E4F01519989F00B9D0BC /* Event.h in Headers */,
+				84B7611A151C01A600A7ECF8 /* GetOnlineConfigDao.h in Headers */,
+				84B7611F151C02C000A7ECF8 /* ConfigPreference.h in Headers */,
+				36C95BB91522E74100725BBA /* UMSAgent.h in Headers */,
+				36FA717C1526D9D90049AF2C /* OpenUDID.h in Headers */,
+				362FE8A1152D7BB50036B178 /* ActivityLog.h in Headers */,
+				36B6B3A11563AA1E00AEB577 /* ErrorLog.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		3630005715131A1600E84C2D /* UMSAgent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3630007C15131A1600E84C2D /* Build configuration list for PBXNativeTarget "UMSAgent" */;
+			buildPhases = (
+				3630005415131A1600E84C2D /* Sources */,
+				3630005515131A1600E84C2D /* Frameworks */,
+				3630005615131A1600E84C2D /* Headers */,
+			);
+			buildRules = (
+				847BFEB415207DC900CB8F7D /* PBXBuildRule */,
+			);
+			dependencies = (
+			);
+			name = UMSAgent;
+			productName = UMSAgent;
+			productReference = 3630005815131A1600E84C2D /* libUMSAgent.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		3630006715131A1600E84C2D /* UMSAgentTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3630007F15131A1600E84C2D /* Build configuration list for PBXNativeTarget "UMSAgentTests" */;
+			buildPhases = (
+				3630006315131A1600E84C2D /* Sources */,
+				3630006415131A1600E84C2D /* Frameworks */,
+				3630006515131A1600E84C2D /* Resources */,
+				3630006615131A1600E84C2D /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3630006F15131A1600E84C2D /* PBXTargetDependency */,
+			);
+			name = UMSAgentTests;
+			productName = UMSAgentTests;
+			productReference = 3630006815131A1600E84C2D /* UMSAgentTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3630004F15131A1600E84C2D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 3630005215131A1600E84C2D /* Build configuration list for PBXProject "UMSAgent" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3630004D15131A1600E84C2D;
+			productRefGroup = 3630005915131A1600E84C2D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3630005715131A1600E84C2D /* UMSAgent */,
+				3630006715131A1600E84C2D /* UMSAgentTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3630006515131A1600E84C2D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3630007615131A1600E84C2D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3630006615131A1600E84C2D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3630005415131A1600E84C2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3630006215131A1600E84C2D /* UMSAgent.m in Sources */,
+				847BB17C15172E2C00933648 /* network.m in Sources */,
+				84C33FC81517684E008B0EC0 /* CommonReturn.m in Sources */,
+				3609A605151818F500BEDA05 /* NSObject+SBJson.m in Sources */,
+				3609A609151818F500BEDA05 /* SBJsonParser.m in Sources */,
+				3609A60C151818F500BEDA05 /* SBJsonStreamParser.m in Sources */,
+				3609A60F151818F500BEDA05 /* SBJsonStreamParserAccumulator.m in Sources */,
+				3609A612151818F500BEDA05 /* SBJsonStreamParserAdapter.m in Sources */,
+				3609A615151818F500BEDA05 /* SBJsonStreamParserState.m in Sources */,
+				3609A618151818F500BEDA05 /* SBJsonStreamWriter.m in Sources */,
+				3609A61B151818F500BEDA05 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				3609A61E151818F500BEDA05 /* SBJsonStreamWriterState.m in Sources */,
+				3609A621151818F500BEDA05 /* SBJsonTokeniser.m in Sources */,
+				3609A624151818F500BEDA05 /* SBJsonUTF8Stream.m in Sources */,
+				3609A627151818F500BEDA05 /* SBJsonWriter.m in Sources */,
+				8447F4C115186D3300D14FD9 /* CheckUpdateReturn.m in Sources */,
+				8447F4C715186F4000D14FD9 /* CheckUpdateDao.m in Sources */,
+				8447F4CB15187D8300D14FD9 /* Global.m in Sources */,
+				8447F4D2151887D100D14FD9 /* Deviceinfo.m in Sources */,
+				8447F4D615188ACF00D14FD9 /* PostClientDataDao.m in Sources */,
+				84B7E4EC1519940D00B9D0BC /* postEventDao.m in Sources */,
+				84B7E4F11519989F00B9D0BC /* Event.m in Sources */,
+				84B7611B151C01A600A7ECF8 /* GetOnlineConfigDao.m in Sources */,
+				84B76120151C02C000A7ECF8 /* ConfigPreference.m in Sources */,
+				36FA717D1526D9D90049AF2C /* OpenUDID.m in Sources */,
+				362FE8A2152D7BB50036B178 /* ActivityLog.m in Sources */,
+				36B6B3A21563AA1E00AEB577 /* ErrorLog.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3630006315131A1600E84C2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3630007915131A1600E84C2D /* UMSAgentTests.m in Sources */,
+				3609A606151818F500BEDA05 /* NSObject+SBJson.m in Sources */,
+				3609A60A151818F500BEDA05 /* SBJsonParser.m in Sources */,
+				3609A60D151818F500BEDA05 /* SBJsonStreamParser.m in Sources */,
+				3609A610151818F500BEDA05 /* SBJsonStreamParserAccumulator.m in Sources */,
+				3609A613151818F500BEDA05 /* SBJsonStreamParserAdapter.m in Sources */,
+				3609A616151818F500BEDA05 /* SBJsonStreamParserState.m in Sources */,
+				3609A619151818F500BEDA05 /* SBJsonStreamWriter.m in Sources */,
+				3609A61C151818F500BEDA05 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				3609A61F151818F500BEDA05 /* SBJsonStreamWriterState.m in Sources */,
+				3609A622151818F500BEDA05 /* SBJsonTokeniser.m in Sources */,
+				3609A625151818F500BEDA05 /* SBJsonUTF8Stream.m in Sources */,
+				3609A628151818F500BEDA05 /* SBJsonWriter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3630006F15131A1600E84C2D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3630005715131A1600E84C2D /* UMSAgent */;
+			targetProxy = 3630006E15131A1600E84C2D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3630007415131A1600E84C2D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3630007515131A1600E84C2D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3630007A15131A1600E84C2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7,
+					armv6,
+				);
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		3630007B15131A1600E84C2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7,
+					armv6,
+				);
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3630007D15131A1600E84C2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DSTROOT = /tmp/UMSAgent.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UMSAgent/UMSAgent-Prefix.pch";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		3630007E15131A1600E84C2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DSTROOT = /tmp/UMSAgent.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UMSAgent/UMSAgent-Prefix.pch";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		3630008015131A1600E84C2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UMSAgent/UMSAgent-Prefix.pch";
+				INFOPLIST_FILE = "UMSAgentTests/UMSAgentTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		3630008115131A1600E84C2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UMSAgent/UMSAgent-Prefix.pch";
+				INFOPLIST_FILE = "UMSAgentTests/UMSAgentTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3630005215131A1600E84C2D /* Build configuration list for PBXProject "UMSAgent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3630007A15131A1600E84C2D /* Debug */,
+				3630007B15131A1600E84C2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3630007C15131A1600E84C2D /* Build configuration list for PBXNativeTarget "UMSAgent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3630007D15131A1600E84C2D /* Debug */,
+				3630007E15131A1600E84C2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3630007F15131A1600E84C2D /* Build configuration list for PBXNativeTarget "UMSAgentTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3630008015131A1600E84C2D /* Debug */,
+				3630008115131A1600E84C2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3630004F15131A1600E84C2D /* Project object */;
+}
