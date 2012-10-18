@@ -2,9 +2,9 @@ Cobub Razor - Open Source Mobile Analytics
 =============
 [![Cobub Razor](http://dev.cobub.com/wp-content/uploads/2012/07/cobub-logo1.png)](http://dev.cobub.com)
 
-Cobub Razor is a powerful, open source mobile client data collected and analytics system. It enables you to monitor the statics of your mobile Apps through providing you with detailed, multi-dimensions reports on your mobile application users.  At this moment, it supports iOS and Android OS.
+Cobub Razor is a powerful, open source mobile analytics system. It enables user to monitor the statistics of their mobile Apps and app users' behaviors through providing detailed, multi-dimensions reports on mobile application users.  At this moment, it supports iOS, Android and Windows Phone OS platform.
 
-Cobub Razor has two components. Web Cobub Razor is a PHP/MySQL system that you download and install on your Web Server. Another component is Cobub Razor SDK (iOS/Android supported), which is embedded in your mobile application during the development phase.
+Cobub Razor has two components. Web Cobub Razor is a PHP/MySQL system that you download and install on your Web Server. Another component is Cobub Razor SDK (iOS/Android/WinPhone supported), which is embedded in your mobile application during the development phase.
 
 Cobub Razor is a tool that enables Apps developers and enterprises which have Apps. It can monitor users' behaviors, users' device features, users' clicks, custom event, Apps errors, auto update of Apps and so on. Cobub Razor also helps on notify the users to upgrade version, compare different Apps and compare different distribution channels.
 
