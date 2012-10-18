@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_cell_towers` (
   `signalstrength` varchar(50) NOT NULL,
   `timingadvance` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_channel` (
   `platform` int(10) NOT NULL,
   `active` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`channel_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_channel_product` (
   `product_id` int(11) NOT NULL DEFAULT '0',
   `channel_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`cp_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 --
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_ci_sessions` (
   `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
   `user_data` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`session_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_clientdata` (
   `isjailbroken` int(10) NOT NULL DEFAULT '0',
   `insertdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_eventdata` (
   `version` varchar(50) NOT NULL,
   `insertdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_login_attempts` (
   `login` varchar(50) COLLATE utf8_bin NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8  AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -239,7 +239,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_mccmnc` (
   `value` varchar(50) NOT NULL,
   `name` varchar(100) NOT NULL,
   UNIQUE KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -250,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_mccmnc` (
 CREATE TABLE IF NOT EXISTS `umsinstall_networktype` (
   `id` int(8) NOT NULL,
   `type` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -262,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_platform` (
   `id` int(50) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -282,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_product` (
   `category` int(50) NOT NULL DEFAULT '1',
   `active` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -298,7 +298,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_productfiles` (
   `type` varchar(50) NOT NULL,
   `updatedate` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_product_category` (
   `parentid` int(11) NOT NULL DEFAULT '0',
   `active` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -330,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_product_version` (
   `description` varchar(5000) NOT NULL,
   `active` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -343,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_user2role` (
   `userid` int(11) NOT NULL,
   `roleid` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -368,7 +368,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_users` (
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -383,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_user_autologin` (
   `last_ip` varchar(40) COLLATE utf8_bin NOT NULL,
   `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`key_id`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
 
@@ -402,7 +402,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_user_permissions` (
   `publish` tinyint(1) DEFAULT '0',
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 --
@@ -421,7 +421,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_user_profiles` (
   `MSN` varchar(30) COLLATE utf8_bin DEFAULT NULL,
   `Gtalk` varchar(30) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -435,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_user_resources` (
   `description` varchar(255) DEFAULT NULL,
   `parentId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -449,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_user_roles` (
   `description` varchar(255) DEFAULT NULL,
   `parentId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -464,14 +464,48 @@ CREATE TABLE IF NOT EXISTS `umsinstall_wifi_towers` (
   `signal_strength` varchar(50) NOT NULL,
   `age` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `razor_target`
+--
+
+CREATE TABLE IF NOT EXISTS `umsinstall_target` (
+  `tid` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `productid` int(11) NOT NULL,
+  `targetname` varchar(128) NOT NULL,
+  `targettype` int(11) NOT NULL,
+  `targetstatusc` int(11) NOT NULL,
+  `createdate` datetime NOT NULL,
+  PRIMARY KEY (`tid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `razor_targetevent`
+--
+
+CREATE TABLE IF NOT EXISTS `umsinstall_targetevent` (
+  `teid` int(11) NOT NULL AUTO_INCREMENT,
+  `targetid` int(11) NOT NULL,
+  `eventid` int(11) NOT NULL,
+  `eventalias` varchar(128) NOT NULL,
+  `sequence` int(11) NOT NULL,
+  PRIMARY KEY (`teid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 INSERT INTO `umsinstall_channel` (`channel_id`, `channel_name`, `create_date`, `user_id`, `type`, `platform`, `active`) VALUES
 (1, "安卓市场", "2011-11-22 13:54:39", 1, "system", 1, 1),
 (2, "机锋市场", "2011-11-22 13:54:47", 1, "system", 1, 1),
 (3, "安智市场", "2011-11-22 13:54:57", 1, "system", 1, 1),
 (4, "XDA市场", "2011-11-22 13:55:03", 1, "system", 1, 1),
-(5, "AppStore", "2011-12-03 13:49:25", 1, "system", 2, 1);
+(5, "AppStore", "2011-12-03 13:49:25", 1, "system", 2, 1),
+(6, "Windows Phone Store", "2011-12-03 13:49:25", 1, "system", 3, 1);
 -- --------------------------------------------------------
 
 
@@ -529,7 +563,8 @@ INSERT INTO `umsinstall_networktype` (`id`, `type`) VALUES
 
 INSERT INTO `umsinstall_platform` (`id`, `name`) VALUES
 (1, "Android"),
-(2, "Iphone");
+(2, "iOS"),
+(3, "Windows Phone");
 
 -- --------------------------------------------------------
 
@@ -584,34 +619,33 @@ INSERT INTO `umsinstall_user_permissions` (`id`, `role`, `resource`, `read`, `wr
 
 INSERT INTO `umsinstall_user_resources` (`id`, `name`, `description`, `parentId`) VALUES
 (1, "test", "Acl Test Controller", NULL),
-(2, "User", "系统管理", NULL),
-(3, "Product", "应用", NULL),
-(4, "Welcom", "欢迎使用", NULL),
-(5, "productbasic", "应用基本统计", NULL),
+(2, "User", "用户管理", NULL),
+(3, "Product", "我的应用", NULL),
+(4, "errorlogondevice", "错误设备统计", NULL),
+(5, "productbasic", "基本统计", NULL),
 (6, "Auth", "用户", NULL),
 (7, "Autoupdate", "自动更新", NULL),
 (8, "Channel", "渠道", NULL),
 (9, "Device", "设备", NULL),
 (10, "Event", "事件管理", NULL),
 (11, "Onlineconfig", "发送策略", NULL),
-(12, "Operator", "运营商统计", NULL),
-(13, "Os", "系统统计", NULL),
+(12, "Operator", "运营商", NULL),
+(13, "Os", "操作系统统计", NULL),
 (14, "Profile", "个人资料", NULL),
 (15, "Resolution", "分辨率统计", NULL),
 (16, "Usefrequency", "使用频率统计", NULL),
 (17, "Usetime", "使用时长统计", NULL),
 (18, "errorlog", "错误日志", NULL),
-(19, "Eventlist", "事件列表", NULL),
+(19, "Eventlist", "事件", NULL),
 (20, "market", "渠道统计", NULL),
 (21, "region", "地域统计", NULL),
-(22, "userbasic", "用户基本统计", NULL),
+(22, "errorlogonos", "错误操作系统统计", NULL),
 (23, "version", "版本统计", NULL),
-(24, "test", "this is for test this is for test", NULL),
-(25, "Guide", "开发者指南", NULL),
-(26, "Userremain", "用户留存", NULL),
-(27, "Pagevisit", "页面访问分析", NULL),
-(28, "Network", "联网方式统计", NULL);
-
+(24, "console", "应用", NULL),
+(25, "Userremain", "用户留存", NULL),
+(26, "Pagevisit", "页面访问统计", NULL),
+(27, "Network", "联网方式统计", NULL),
+(28, "funnels", "漏斗模型", NULL);
 -- --------------------------------------------------------
 
 INSERT INTO `umsinstall_user_roles` (`id`, `name`, `description`, `parentId`) VALUES

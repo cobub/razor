@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_activity` (
   `product_id` int(11) NOT NULL,
   PRIMARY KEY (`activity_sk`),
   KEY `activity_name` (`activity_name`(255),`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -33,7 +33,41 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_date` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
+--
+-- 表的结构 `sum_accesslevel`
+--
 
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_accesslevel` (
+  `pid` int(11) NOT NULL AUTO_INCREMENT,
+  `date_sk` int(11) NOT NULL,
+  `product_sk` int(11) NOT NULL,
+  `fromid` int(11) NOT NULL,
+  `toid` int(11) NOT NULL,
+  `level` int(11) NOT NULL,
+  `count` int(11) NOT NULL,
+  PRIMARY KEY (`pid`),
+  UNIQUE KEY `date_sk` (`date_sk`,`product_sk`,`fromid`,`toid`,`level`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sum_accesspath`
+--
+
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_accesspath` (
+  `pid` int(11) NOT NULL AUTO_INCREMENT,
+  `date_sk` int(11) NOT NULL,
+  `product_sk` int(11) NOT NULL,
+  `fromid` int(11) NOT NULL,
+  `toid` int(11) NOT NULL,
+  `jump` int(11) NOT NULL,
+  `count` int(11) NOT NULL,
+  PRIMARY KEY (`pid`),
+  UNIQUE KEY `date_sk` (`date_sk`,`product_sk`,`fromid`,`toid`,`jump`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
 --
 -- 表的结构 `dim_devicebrand`
 --
@@ -106,6 +140,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_devicesupplier` (
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_errortitle` (
   `title_sk` int(11) NOT NULL AUTO_INCREMENT,
   `title_name` varchar(512) NOT NULL,
+  `isfix` int(11) NOT NULL,
   PRIMARY KEY (`title_sk`),
   KEY `title_name` (`title_name`(255))
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -162,22 +197,21 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_network` (
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_product` (
   `product_sk` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) DEFAULT NULL,
+  `product_id` int(11) NOT NULL,
   `product_name` varchar(256) NOT NULL,
   `product_type` varchar(128) NOT NULL,
   `product_active` tinyint(4) NOT NULL,
-  `channel_id` int(11) DEFAULT NULL,
+  `channel_id` int(11) NOT NULL,
   `channel_name` varchar(256) NOT NULL,
   `channel_active` tinyint(4) NOT NULL,
-  `product_key` varchar(256) DEFAULT NULL,
-  `version_id` int(11) NOT NULL,
+  `product_key` varchar(256) DEFAULT NULL, 
   `version_name` varchar(64) NOT NULL,
   `version_active` tinyint(4) NOT NULL,
   `userid` int(11) NOT NULL,
   `platform` varchar(128) NOT NULL,
   PRIMARY KEY (`product_sk`),
-  UNIQUE KEY `product_id` (`product_id`,`channel_id`,`version_id`,`userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `product_id` (`product_id`,`channel_id`,`version_name`,`userid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -307,6 +341,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_reserveusers_monthly` (
   `startdate_sk` int(11) NOT NULL,
   `enddate_sk` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
+  `version_name` varchar(128) NOT NULL,
   `usercount` int(11) NOT NULL,
   `month1` int(11) NOT NULL,
   `month2` int(11) NOT NULL,
@@ -317,20 +352,20 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_reserveusers_monthly` (
   `month7` int(11) NOT NULL,
   `month8` int(11) NOT NULL,
   PRIMARY KEY (`rid`),
-  UNIQUE KEY `startdate_sk` (`startdate_sk`,`enddate_sk`,`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `startdate_sk` (`startdate_sk`,`enddate_sk`,`product_id`,`version_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
 -- 表的结构 `fact_reserveusers_weekly`
 --
-
 CREATE TABLE IF NOT EXISTS `umsinstall_fact_reserveusers_weekly` (
   `rid` int(11) NOT NULL AUTO_INCREMENT,
   `startdate_sk` int(11) NOT NULL,
   `enddate_sk` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
+  `version_name` varchar(128) NOT NULL,
   `usercount` int(11) NOT NULL,
   `week1` int(11) NOT NULL,
   `week2` int(11) NOT NULL,
@@ -341,9 +376,8 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_reserveusers_weekly` (
   `week7` int(11) NOT NULL,
   `week8` int(11) NOT NULL,
   PRIMARY KEY (`rid`),
-  UNIQUE KEY `startdate_sk` (`startdate_sk`,`enddate_sk`,`product_id`),
-  UNIQUE KEY `startdate_sk_2` (`startdate_sk`,`enddate_sk`,`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+  UNIQUE KEY `startdate_sk` (`startdate_sk`,`enddate_sk`,`product_id`,`version_name`) 
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
 
@@ -391,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_usinglog_daily` (
 CREATE TABLE IF NOT EXISTS `umsinstall_hour24` (
   `hour` tinyint(11) NOT NULL,
   PRIMARY KEY (`hour`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -407,7 +441,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_log` (
   `affected_rows` int(11) NOT NULL,
   `duration` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -464,7 +498,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_usinglog_activity` (
   `exitcount` int(11) NOT NULL,
   PRIMARY KEY (`usingid`),
   UNIQUE KEY `date_sk` (`date_sk`,`product_sk`,`activity_sk`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -4515,7 +4549,7 @@ INSERT INTO `umsinstall_dim_segment_launch` (`segment_sk`, `segment_name`, `star
 --
 INSERT INTO `umsinstall_dim_segment_usinglog` (`segment_sk`, `segment_name`, `startvalue`, `endvalue`, `effective_date`, `expiry_date`) VALUES
 (1, '0-3秒', 0, 3000, '0000-00-00', '9999-12-31'),
-(2, '4-10秒', 3000, 10000, '0000-00-00', '9999-12-31'),
+(2, '3-10秒', 3000, 10000, '0000-00-00', '9999-12-31'),
 (3, '10-30秒', 10000, 30000, '0000-00-00', '9999-12-31'),
 (4, '30-60秒', 30000, 60000, '0000-00-00', '9999-12-31'),
 (5, '1-3分钟', 60000, 180000, '0000-00-00', '9999-12-31'),
