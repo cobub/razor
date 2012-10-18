@@ -1,28 +1,23 @@
 <section id="main" class="column">
 		
-		<h4 class="alert_info" id="msg"><?php echo  lang('resourceeditedit_alertinfo')?></h4> 
+		<h4 class="alert_info" id="msg" style="display:none;"></h4> 
 		<article class="module width_full">
-		<header><h3 class="tabs_involved"><?php echo  lang('resourceeditedit_headertilte')?></h3>
+		<header><h3 class="tabs_involved"><?php echo  lang('v_user_appM_modifyResource')?></h3>
 		
 		</header>
 
 		<div class="tab_container">
 			
-		  	
-			
-			
-				
-			
 				<div class="module_content">
 						<fieldset>
-							<label><?php echo  lang('resourceeditedit_namelabe')?></label>
+							<label><?php echo  lang('v_user_resm_resourceN')?></label>
 							<input type="text" id='resource' value='<?php if(isset($resourceinfo)) echo $resourceinfo->name?>'>
 						</fieldset>
 						<fieldset>
-							<label><?php echo  lang('resourceeditedit_descriplal')?></label>
+							<label><?php echo  lang('v_user_resm_resourceD')?></label>
 							<input type="text" id='description'  value='<?php if(isset($resourceinfo)) echo  $resourceinfo->description?>'>
 						</fieldset>
-						<input type="button" value="<?php echo  lang('resourceeditedit_addbtn')?>" class="alt_btn" onClick='modifyResource(<?php if(isset($resourceinfo))  echo $resourceinfo->id?>)'>
+						<input type="button" value="<?php echo  lang('g_update')?>" class="alt_btn" onClick='modifyResource(<?php if(isset($resourceinfo))  echo $resourceinfo->id?>)'>
 				</div>
 			
 				
@@ -46,17 +41,28 @@
 	<script type="text/javascript">
 
 function modifyResource(id) {	
-	resource = document.getElementById('resource').value;
-	description = document.getElementById('description').value;
+	resource = trim(document.getElementById('resource').value);
+	description =trim(document.getElementById('description').value);
 	if(resource=='')
 	{
-		document.getElementById('msg').innerHTML = '<?php echo  lang('resourceeditedit_jsnamemsg')?>';
+		document.getElementById('msg').innerHTML = '<font color=red><?php echo  lang('v_user_resm_enterResource')?></font>';
+		document.getElementById('msg').style.display="block";
+		
 		return;
 
 	}
+	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+	for (var i = 0; i < resource.length; i++) {
+		if(pattern.test(resource.substr(i, 1))){
+			document.getElementById('msg').innerHTML = '<font color=red><?php echo lang('v_user_resm_errorInput')?></font>';
+			document.getElementById('msg').style.display="block";
+			return;
+			}
+	}
 	if(description=='')
 	{
-		document.getElementById('msg').innerHTML = '<?php echo  lang('resourceeditedit_jsdescrpmsg')?>';
+		document.getElementById('msg').innerHTML = '<font color=red><?php echo  lang('v_user_resm_addResourceD')?></font>';
+		document.getElementById('msg').style.display="block";
 		return;
 
 	}
@@ -72,18 +78,27 @@ function modifyResource(id) {
 					url : "<?php echo base_url()?>/index.php/user/modifyresource",
 					data : data,
 					success : function(msg) {
-						document.getElementById('msg').innerHTML = "<?php echo  lang('esourceeditedit_jquerysmsg')?>";						 
+						if(!msg){
+							document.getElementById('msg').innerHTML = "<font color=red><?php echo  lang('v_user_resm_existResources')?></font>";
+							document.getElementById('msg').style.display="block";
+						}else{
+						document.getElementById('msg').innerHTML = "<?php echo  lang('v_user_resm_modifyResourceS')?>";	
+						document.getElementById('msg').style.display="block";}				 
 					},
 					error : function(XmlHttpRequest, textStatus, errorThrown) {
-						alert("<?php echo  lang('resourceeditedit_jqueryerromsg')?>");
+						alert("<?php echo  lang('t_error')?>");
 					},
 					beforeSend : function() {
-						document.getElementById('msg').innerHTML = '<?php echo  lang('resourceeditedit_jquerywaitmsg')?>';
+						document.getElementById('msg').innerHTML = '<?php echo  lang('v_user_resm_waitMofify')?>';
+						document.getElementById('msg').style.display="block";
 
 					},
 					complete : function() {
 					}
 				});
 }
+function trim(str){
+    return  (str.replace(/(^\s*)|(\s*$)/g,''));
+ }
 </script>
 	

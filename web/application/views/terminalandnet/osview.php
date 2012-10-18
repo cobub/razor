@@ -1,174 +1,185 @@
-<?php 
-if (!isset($from))
-{
-    $to = date('Y-m-d',time());
-    $from = date('Y-m-d',strtotime("-7 day"));
-}
-?>
-<script type="text/javascript">
-var time=<?php echo isset($timetype)?'"'.$timetype.'"':'"'."7day".'"'?>;
-var fromTime=<?php echo isset($from)?'"'.$from.'"':'""'?>;
-var toTime=<?php echo isset($to)?'"'.$to.'"':'""'?>;
-</script>
+<section id="main" class="column"  style="height:1100px">
+	<article class="module width_full">
+		<header>
+			<h3 class="tabs_involved"><?php echo  lang('v_rpt_os_top10')?></h3>
+			<ul class="tabs2">
+				<li><a ct="activeuser"
+					href="javascript:changeReportType('activeuser')"><?php echo  lang('t_activeUsers')?></a></li>
+				<li><a ct="newuser" href="javascript:changeReportType('newuser')"><?php echo  lang('t_newUsers')?></a></li>
+			</ul>
+		</header>
+		<div id="container" class="module_content" style="height: 400px"></div>
+	</article>
 
-<section id="main" class="column">
-<h4 class="alert_success" id='msg'><?php echo  lang('osview_alertinfo')?>
-<div class="submit_link" style="margin-top:-8px">
-<select onchange=selectChange(this.value)
-	id='select'>
-	<option value='7day'><?php echo  lang('allview_lastweek')?></option>
-	<option value='1month'><?php echo  lang('allview_lastmonth')?></option>
-	<option value='3month'><?php echo  lang('allview_last3month')?></option>
-	<option value='all'><?php echo  lang('allview_alltime')?></option>
-	<option value='any'><?php echo  lang('allview_anytime')?></option>
-</select>
-<div id='selectTime'><input type="text" id="dpFrom"> 
-    <input type="text"	id="dpTo"> 
-	<input type="submit" id='btn' value="<?php echo  lang('allview_timebtn')?>" class="alt_btn"	onclick="onBtn()">
-</div>
-</div>
-</h4>
-
-
-<article class="module width_full">
-<header>
-<h3 class="tabs_involved"><?php echo  lang('osview_headertilte')?></h3>
-<ul class="tabs2">
-   	<!--  	<li><a href="#tab1"><?php echo  lang('osview_activeuser')?></a></li> 
-    		<li><a href="#tab2"><?php echo  lang('osview_newuser')?></a></li> -->
-    		<li><a ct="activeuser" href="javascript:changefirstchartName('activeuser')"><?php echo  lang('osview_activeuser')?></a></li>
-			<li><a ct="newuser" href="javascript:changefirstchartName('newuser')"><?php echo  lang('osview_newuser')?></a></li>	
-</ul>
-
-</header>
-
-<div id="tab1" class="tab_content">
-<table class="tablesorter" cellspacing="0">
-	<thead>             
-		<tr>
-			<th><?php echo  lang('osview_versionthead')?></th>
-			<th><?php echo  lang('osview_percentthead')?></th>
-			<th></th>
-			
-		</tr>
-	</thead>
-	<tbody   id="contentss">
-	    <?php if(isset($activeuser)){
-	        foreach ($activeuser->result() as $row)
-	        {
-	    ?>
-		<tr>			
-			<td><?php echo $row->deviceos_name?></td>			
-			<td><div style="background-color: <?php echo BLOCK_COLOR?>; height: <?php echo BLOCK_HEIGHT?>; width: <?php echo BLOCK_MAX_LENGTH*$row->percentage?>px;"></div></td>
-		    <td><?php echo 100*$row->percentage."%"?></td>			
-		</tr> 
-		<?php 
-	        }}?>
-	</tbody>
-</table>
-</div>
-
-<!--  <div id="tab2" class="tab_content">
-<table class="tablesorter" cellspacing="0">
-	<thead>
-		<tr>
-			<th><?php echo  lang('osview_tabthversion')?></th>
-			<th><?php echo  lang('osview_tabthpercent')?></th>
-			<th></th>
-			
-		</tr>
-	</thead>
-	<tbody>
-		<?php 
-	        if(isset($newuser)){
-	        	foreach ($newuser->result() as $row)
-	        {
-	    ?>
-		<tr>			
-			<td><?php echo $row->deviceos_name?></td>			
-			<td><div style="background-color: <?php echo BLOCK_COLOR?>; height: <?php echo BLOCK_HEIGHT?>; width: <?php echo BLOCK_MAX_LENGTH*$row->percentage?>px;"></div></td>
-		    <td><?php echo 100*$row->percentage."%"?></td>			
-		</tr>
-		<?php 
-	        }}?>
-	</tbody>
-</table>
-</div>-->
-
-
-</article>
-
-<article class="module width_full">
-<header>
-<h3 class="tabs_involved"><?php echo  lang('osview_detailos')?>  </h3>
-<!--<div class="submit_link"><a href="<?php echo site_url()?>/report/os/export/<?php echo $from.'/'.$to?>">-->
-<!--<img  src="<?php echo base_url(); ?>assets/images/export.png"/></a></div>-->
-<span class="relative r">                	
-   <a href="<?php echo site_url()?>/report/os/export/<?php echo $from.'/'.$to?>" class="bottun4 hover" ><font><?php echo  lang('osview_exportbtn')?></font></a>
-</span>	
-</header>
-
-
-<table class="tablesorter" cellspacing="0">
-	<thead>
-		<tr>
-			<th><?php echo  lang('osview_detailosvers')?></th>
-			<th><?php echo  lang('osview_detailpercent')?></th>
-		</tr>
-	</thead>
-	<tbody id="totalOsconten">
-		<?php 
-		if(isset($operator)){
-	        foreach ($operator->result() as $row)
-	        {
-	    ?>
-		<tr>			
-			<td><?php echo $row->deviceos_name?></td>			
-		    <td><?php echo round(100*$row->percentage,2)."%"?></td>			
-		</tr>
-		<?php 
-	        }}?>
-	</tbody>
-</table>
-<footer>
-<div id="pagination"  class="submit_link"></div>
-</footer>
-</article>
+	<article class="module width_full">
+		<header>
+			<h3 class="tabs_involved"><?php echo  lang('v_rpt_os_details')?>  </h3>
+			<span class="relative r"> <a
+				href="<?php echo site_url()?>/report/os/export"
+				class="bottun4 hover"><font><?php echo  lang('g_exportToCSV')?></font></a>
+			</span>
+		</header>
+		<table class="tablesorter" cellspacing="0">
+			<thead>
+				<tr>
+					<th><?php echo  lang('v_rpt_os_version')?></th>
+					<th><?php echo  lang('g_percent')?></th>
+				</tr>
+			</thead>
+			<tbody id="detailInfo">
+				<div id='out'>
+		    			<?php
+									$num = count ( $details->result () );
+									$array = $details->result ();
+									if (count ( $array ) < PAGE_NUMS) {
+										$nums = count ( $array );
+									} else {
+										$nums = PAGE_NUMS;
+									}
+									?>
+		    	</div>
+			</tbody>
+		</table>
+		<footer>
+			<div id="pagination" class="submit_link"></div>
+		</footer>
+	</article>
 </section>
-<!--<script type="text/javascript" src="http://www.tenddata.com/js/index.js"></script>-->
-<!--	<link rel="stylesheet" href="http://www.tenddata.com/css/css.css" type="text/css" media="all" />-->
 
 <script type="text/javascript">
-var charname='activeuser';
-var TotalOSdata='';
-var alldata;
-var isfirst='false';
-//这里必须最先加载
-    document.getElementById('select').value= time;
-    if(time=='any')
-    {
-    	document.getElementById('dpFrom').value = fromTime;
-    	document.getElementById('dpTo').value = toTime;
+var chart;
+var options;
+var newUserData = [];
+var activeUserData = [];
+var reportTitle = '<?php echo $reportTitle['activeUserReport'] ?>';
 
-    }
-</script>
-<script type="text/javascript">
-dispalyOrHideTimeSelect();
-$(function() {
-	$("#dpFrom" ).datepicker();
+$(document).ready(function() {
+	options = {
+	        chart: {
+	            renderTo: 'container'
+		 	        },
+	        title: {
+	            text: '   '
+	        },
+	        subtitle: {
+	            text: '   '
+	        },
+	        tooltip: {
+	        	formatter: function () {  
+                    return '<b>' + this.point.name + '</b>: ' + Highcharts.numberFormat(this.percentage, 1) + ' %';  
+                } 
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: 0,
+                y: 40,
+                floating: false,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF'
+            },
+            
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage,1) +' %';
+                        }
+                    },
+            showInLegend: true
+                }
+            },
+	        series: [{	            
+	          	type:'pie'
+	        }]
+	    };
+    
+	var osDataURL  = "<?php echo site_url();?>/report/os/getOsData";
+	renderCharts(osDataURL);
+	initPagination();
+	pageselectCallback(0,null);
 });
-$( "#dpFrom" ).datepicker({ dateFormat: "yy-mm-dd" });
-$(function() {
-	$( "#dpTo" ).datepicker();
-});
-$( "#dpTo" ).datepicker({ dateFormat: "yy-mm-dd" });
-//When page loads...
+
+function renderCharts(myurl)
+{	
+	 var chart_canvas = $('#container');
+	 var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
+		    
+	    chart_canvas.block({
+	        message: loading_img,
+	        css:{
+	            width:'32px',
+	            border:'none',
+	            background: 'none'
+	        },
+	        overlayCSS:{
+	            backgroundColor: '#FFF',
+	            opacity: 0.8
+	        },
+	        baseZ:997
+	    });
+	   
+	    jQuery.getJSON(myurl, null, function(data) {  
+
+		var obj = data.activeUserData;
+		for(i=0;i<obj.length;i++)
+		{
+			var pieObj = {};
+			pieObj.name = obj[i].deviceos_name;
+			pieObj.sliced = false;
+			pieObj.y = obj[i].percentage;
+			pieObj.selected = false;
+			activeUserData.push(pieObj);
+		}
+
+		var objNewUserData = data.newUserData;
+		for(i=0;i<objNewUserData.length;i++)
+		{
+			var pieObj = {};
+			pieObj.name = objNewUserData[i].deviceos_name;
+			pieObj.sliced = false;
+			pieObj.y = objNewUserData[i].percentage;
+			pieObj.selected = false;
+			newUserData.push(pieObj);
+		}
+		
+		options.series[0].data = activeUserData;
+		options.title.text = reportTitle;
+		options.subtitle.text = '<?php echo $reportTitle['timePhase'];?>';
+		chart = new Highcharts.Chart(options);
+		
+		chart_canvas.unblock();
+		});  
+}
+
+
+function changeReportType(reportType)
+{
+	if(reportType == "activeuser")
+	{
+		options.series[0].data = activeUserData;
+		options.title.text = '<?php echo $reportTitle['activeUserReport'] ?>';
+		chart = new Highcharts.Chart(options);
+	}
+
+	if(reportType == "newuser")
+	{
+		options.series[0].data = newUserData;
+		options.title.text = '<?php echo $reportTitle['newUserReport'] ?>';
+		chart = new Highcharts.Chart(options);
+	}
+}
+
 $(".tab_content").hide(); //Hide all content
-$("ul.tabs2 li:first").addClass("active").show(); //Activate first tab
-$("ul.tabs3 li:first").addClass("active").show(); //Activate first tab
+$("ul.tabs2 li:first").addClass("active").show(); 
 $(".tab_content:first").show(); //Show first tab content
 
-//On Click Event
 $("ul.tabs2 li").click(function() {
 	$("ul.tabs2 li").removeClass("active"); //Remove any "active" class
 	$(this).addClass("active"); //Add "active" class to selected tab
@@ -176,175 +187,44 @@ $("ul.tabs2 li").click(function() {
 	$(activeTab).fadeIn(); //Fade in the active ID content
 	return true;
 });
-$("ul.tabs3 li").click(function() {
-	$("ul.tabs3 li").removeClass("active"); //Remove any "active" class
-	$(this).addClass("active"); //Add "active" class to selected tab
-	var activeTab = $(this).find("a").attr("id"); //Find the href attribute value to identify the active tab + content
-	$(activeTab).fadeIn(); //Fade in the active ID content
-	return true;
-});
-function changefirstchartName(changename)
-{	
-	charname = changename;
-	curPaView(alldata);
-//	getdata();
-//	alert(changename);
-	//var data = chardata;
-//	var newUsers = [];
-	//var obj = data.content[changename];
-//    for(var i=0;i<obj.length;i++)
-  //  {
-	//	    newUsers.push(parseInt(obj[i].startusers,10));
-    //}
-    
-       
-	//getfirstchartdata(); 
-}
-function onBtn()
-{  
-	time='any';
-	fromTime = document.getElementById('dpFrom').value;
-	toTime = document.getElementById('dpTo').value;
-	getdata();
-}
-function dispalyOrHideTimeSelect()
-{
-	 var value = document.getElementById('select').value;
-	 if(value=='any')
-	 {
-		 document.getElementById('selectTime').style.display="inline";
-	 }
-	 else
-	 {			 
-		 document.getElementById('selectTime').style.display="none";
-	 } 
+
+var detailObj = eval(<?php echo "'".json_encode($details->result())."'"?>);
+
+function pageselectCallback(page_index, jq){
+	page_index = arguments[0] ? arguments[0] : "0";
+	jq = arguments[1] ? arguments[1] : "0";   
+	var index = page_index*<?php echo PAGE_NUMS?>;
+	var pagenum = <?php echo PAGE_NUMS?>;	
+	var msg = "";
+	
+	for(i=0;i<pagenum && (index+i)<detailObj.length ;i++)
+	{ 
+		msg = msg+"<tr><td>";
+		msg = msg + detailObj[i+index].deviceos_name;
+		msg = msg + "</td><td>";
+		msg = msg + (detailObj[i+index].percentage*100).toFixed(1)+"%";
+		msg = msg + "</td></tr>";
+	}
+	
+   document.getElementById('detailInfo').innerHTML = msg;				
+   return false;
 }
 
-function selectChange(value)
-{
-    if(value=='any')
-    {
-        time='any';
-    }	
-    else
-    {
-        time=value;
-        getdata();
-    }
-    dispalyOrHideTimeSelect();           
-}
-
-function pageselect(page_index, jq){
-    var page_num=(page_index+1)*10;
-    if((TotalOSdata.length-page_num)<0){
-        page_num=page_index*10+TotalOSdata.length-page_index*10;
-    }
-    var htmlText='';
-	for(var i=page_index*10;i<page_num;i++){
-		var eachOSdataItem = TotalOSdata[i];
-		htmlText = htmlText+"<tr>";
-		htmlText = htmlText+"<td>"+eachOSdataItem.deviceos_name+"</td>";
-		htmlText = htmlText+"<td>"+(eachOSdataItem.percentage*100).toFixed(2)+"%</td>";
-		htmlText = htmlText+"</tr>";
-    }
-	document.getElementById("totalOsconten").innerHTML=htmlText;
-}
-
-function initPagination(count) {
-    var num_entries = count/<?php echo PAGE_NUMS;?>;
+/** 
+ * Callback function for the AJAX content loader.
+ */
+function initPagination() {
+   var num_entries = <?php if(isset($num)) echo $num; ?>/<?php echo PAGE_NUMS;?>;
     // Create pagination element
     $("#pagination").pagination(num_entries, {
         num_edge_entries: 2,
-        prev_text: '<?php echo lang('allview_jsbeforepage') ?>',       //上一页按钮里text 
-        next_text: '<?php echo lang('allview_jsnextpage') ?>',       //下一页按钮里text            
-        num_display_entries: 8,
-        callback: pageselect,
+        prev_text: '<?php echo  lang('g_previousPage')?>',
+        next_text: '<?php echo  lang('g_nextPage')?>',           
+        num_display_entries: 4,
+        callback: pageselectCallback,
         items_per_page:1
     });
  }
-$(document).ready(function(){ 
-	//document.getElementById("");  
-	isfirst='true';
-	getdata(); 
-});   
-
-function getdata()
-{
-	// 显示 加载图标
-	var chart_canvas = $("#tab1");
-    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
-
-    chart_canvas.block({
-        message: loading_img
-        ,
-        css:{
-            width:'32px',
-            border:'none',
-            background: 'none'
-        },
-        overlayCSS:{
-            backgroundColor: '#FFF',
-            opacity: 0.8
-        },
-        baseZ:997
-    });
-    var myurl="";
-    if(time=='any')
-    	myurl = "<?php echo site_url().'/report/os/getOsData/'?>"+time+"/"+isfirst+"/"+fromTime+"/"+toTime;
-	else
-		myurl = "<?php echo site_url().'/report/os/getOsData/'?>"+time+"/"+isfirst;
-	//if(time=='any')
-	//    window.location = "<?php echo site_url().'/report/os/getOsData/'?>"+time+"/"+fromTime+"/"+toTime;
-	//else
-	//	window.location = "<?php echo site_url().'/report/os/getOsData/'?>"+time;
-	jQuery.ajax({
-		type : "post",
-		url : myurl,
-		success : function(msg) {
-		//	alert(msg);
-			isfirst='false';    
-			// alert(eval( "(" + msg + ")" ));
-			 curPaView(eval( "("+msg+ ")" ));
-			 
-			                 
-		},
-		error : function(XmlHttpRequest, textStatus, errorThrown) {
-			
-		},
-		beforeSend : function() {
-			
-		},
-		complete : function() {
-			chart_canvas.unblock();
-		},
-		
-	});
-}
-//解析json数据                       
-function curPaView(data){
-    alldata=data;
-	if(charname=="activeuser"){
-		var obj=data.datas;
-	}
-	if(charname=="newuser"){
-		var obj=data.datan;
-	}
-	if(TotalOSdata==''){
-		TotalOSdata=data.totaldata;
-		if(TotalOSdata==null)
-			TotalOSdata="";
-		initPagination(TotalOSdata.length);
-		pageselect(0, 0);
-	}
-	var str='';
-    for(var i=0;i<obj.length;i++)
-    {
-        str=str+"<tr><td>"+obj[i].deviceos_name+"</td><td><div style='background-color: rgb(116, 119, 213); height: 15px; width:"+ <?php  echo BLOCK_MAX_LENGTH; ?> * obj[i].percentage +"px;'></div>"
-        +"</td><td>"+Math.floor(10000*obj[i].percentage)/100+"%</td></tr>";
-    }
-    document.getElementById('contentss').innerHTML=str;
-}
-	
 </script>
- 
+
 

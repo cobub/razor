@@ -1,19 +1,19 @@
-<?php echo lang('allview_alertinfo') ?> <?php echo $site_name; ?>,
+<?php echo lang('l_welcome') ?> <?php echo $site_name; ?>,
 
-<?php echo lang('allview_thanksinfo') ?><?php echo $site_name; ?><?php echo lang('welcometxt_contentfinsh') ?>
+<?php echo lang('e_thankRegistration') ?><?php echo $site_name; ?><?php echo lang('e_clickLink') ?>
 
 <?php echo site_url('/auth/login/'); ?>
 
 <?php if (strlen($username) > 0) { ?>
 
-<?php echo lang('allview_contentusername') ?><?php echo $username; ?>
+<?php echo lang('e_yourUsername') ?><?php echo $username; ?>
 <?php } ?>
 
-<?php echo lang('allview_contentemail') ?> <?php echo $email; ?>
+<?php echo lang('e_yourEmail') ?> <?php echo $email; ?>
 
 <?php /* Your password: <?php echo $password; ?>
 
 */ ?>
 
-<?php echo lang('allview_contenttrue') ?>
-<?php echo $site_name; ?>&nbsp&nbsp<?php echo lang('allview_contentteam') ?>
+<?php echo lang('e_yourSincerely') ?>
+<?php echo $site_name; ?>&nbsp&nbsp<?php echo lang('e_managementTeam') ?>
