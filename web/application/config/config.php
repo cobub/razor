@@ -8,13 +8,13 @@
 | URL to your CodeIgniter root. Typically this will be your base URL,
 | WITH a trailing slash:
 |
-|	http://example.com/
+|	http://localhost/cobub
 |
 | If this is not set then CodeIgniter will guess the protocol, domain and
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://example.com/';
+$config['base_url']	= 'http://localhost/cobub';
 
 /*
 |--------------------------------------------------------------------------
@@ -69,8 +69,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'chinese';
-//$config['language']	= 'english';
+  $config['language']	= 'zh_CN';
 /*
 |--------------------------------------------------------------------------
 | Default Character Set
@@ -329,7 +328,7 @@ $config['compress_output'] = FALSE;
 |
 */
 $config['time_reference'] = 'local';
-
+$config['timezones'] = 'UP8';
 
 /*
 |--------------------------------------------------------------------------
@@ -360,3 +359,26 @@ $config['proxy_ips'] = '';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
+/*
+ |--------------------------------------------------------------------------
+| Redis Settings
+|--------------------------------------------------------------------------
+|
+| If you want to use Redis to improve the performance. Config redis to 1
+|	0 = Disable Redis
+|	1 = Enable Redis
+|
+*/
+$config['redis'] = 0;
+
+/*
+ |--------------------------------------------------------------------------
+| Redis Processing intervals
+|--------------------------------------------------------------------------
+|
+| System will pop data from redis queue and insert to database according to interval
+| Interval unit : Seconds
+|
+*/
+
+$config['redis_interval'] = 10;

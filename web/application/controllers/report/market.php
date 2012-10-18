@@ -13,54 +13,21 @@ class market extends CI_Controller{
 		$this->load->model('product/productmodel','product');
 		$this->load->model('product/newusermodel','newusermodel');
 		$this->common->requireLogin();
+		$this->common->requireProduct();
 		
 	}
 	
-	function viewMarket($market='default',$timePhase='7day',$type='new',$start ='',$end='')
+	function viewMarket()
 	{
-		$toTime = date ( 'Y-m-d', time () );
-		$fromTime = date ( 'Y-m-d', strtotime ( "-7 day" ) );
-	    if ($timePhase == "7day") {
-			
-			$fromTime = date ( 'Y-m-d', strtotime ( "-7 day" ) );
-			$data ['timetype'] = '7day';
-		}
 		
-		if ($timePhase == "1month") {
-			
-			$fromTime = date ( "Y-m-d", strtotime ( "-30 day" ) );
-			$data ['timetype'] = '1month';
-		}
-		
-		if ($timePhase == "3month") {
-			$fromTime = date ( "Y-m-d", strtotime ( "-90 day" ) );
-			$data ['timetype'] = '3month';
-		}
-		if ($timePhase == "all") {
-			
-			$fromTime = 'all';
-			$data ['timetype'] = 'all';
-		}
-		
-		if ($timePhase == 'any') {
-			
-			$fromTime = $start;
-			$toTime = $end;
-			$data ['timetype'] = 'any';
-			
-		}
-		
-		$this->load->helper('open-flash-chart');
 		$product = $this->common->getCurrentProduct();
 		$productId = $product->id;
-		$data['productId'] = $productId;
-		
+		$data['productId'] = $productId;		
 		$today = date ( 'Y-m-d', time () );
 		$yestodayTime = date ( "Y-m-d", strtotime ( "-1 day" ) );
-		$seven_day = date ( "Y-m-d", strtotime ( "-7 day" ) );
+		$seven_day = date ( "Y-m-d", strtotime ( "-6 day" ) );
 		$thirty_day = date ( "Y-m-d", strtotime ( "-30 day" ) );
-
-		
+				
 		$sevendayactive=$this->product->getActiveUsersNum($seven_day,$today,$productId);
 		$data['sevendayactive']=$sevendayactive;
 		$thirty_day_active=$this->product->getActiveUsersNum($thirty_day,$today,$productId);
@@ -71,36 +38,52 @@ class market extends CI_Controller{
 	    $data['count'] = $todayData->num_rows();
 		$data ['todayData'] = $todayData;
 		$data['yestodayData']=$yestodayData;
-		$this->common->loadHeader();
-		$this->load->view('product/productmarket',$data);
+		$this->common->loadHeaderWithDateControl ();
+		
+		$fromTime = $this->common->getFromTime ();
+		$toTime = $this->common->getToTime ();		
+		$data['reportTitle'] = array(
+				'timePase' => getTimePhaseStr($fromTime, $toTime),
+				'newUser'=>  getReportTitle(lang("v_rpt_mk_newUserStatistics")." ".null , $fromTime, $toTime),
+				'activeUser'=> getReportTitle(lang("v_rpt_mk_activeuserS")." ".null , $fromTime, $toTime),
+				'Session'=> getReportTitle(lang("v_rpt_mk_sessionS")." ". null, $fromTime, $toTime),
+				'avgUsageDuration'=>  getReportTitle(lang("t_averageUsageDuration")." ".null , $fromTime, $toTime),
+				'activeWeekly'=> getReportTitle(lang("t_activeRateW")." ".null , $fromTime, $toTime),
+				'activeMonthly'=> getReportTitle(lang("t_activeRateM")." ". null, $fromTime, $toTime)
+		);
+		$this->load->view('overview/productmarket',$data);
 		
 	}
 	
-	function getMarketData($market,$time,$type='new',$start='',$end='')
+	function getMarketData($type='')
 	{
-		
-		
 		$product = $this->common->getCurrentProduct();
 		$productId = $product->id;
+		$fromTime = $this->common->getFromTime ();
+		$toTime = $this->common->getToTime ();
 		$markets = $this->product->getProductChanelById($productId);
 		$ret = array();
 		if($markets!=null && $markets->num_rows()>0)
 		{
 			foreach ($markets->result() as $row)
 			{
-				if($type=="weekactive"||$type=="monthactive"){
-					$data = $this->	product->getActiveNumber($row->channel_id,$start,$end,$time,$type);
-				}else{
-					$data = $this->product->getAllMarketData($row->channel_id,$start,$end,$time);
-					
+				if($type=="monthrate"||$type=="weekrate")
+				{
+					$data = $this->	product->getActiveNumber($row->channel_id,$fromTime,$toTime,$type);
+				}
+				else
+				{					
+					$data = $this->product->getAllMarketData($row->channel_id,$fromTime,$toTime);
 				}
 			}
-		}else{
-			$data="";
 		}
-		
+		else
+		{
+			$data="";
+		}		
 		$result = json_encode($data);
 		echo  $result;
+		
 	}
 	
 	

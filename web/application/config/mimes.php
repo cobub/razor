@@ -98,7 +98,9 @@ $mimes = array(	'hqx'	=>	'application/mac-binhex40',
 				'word'	=>	array('application/msword', 'application/octet-stream'),
 				'xl'	=>	'application/excel',
 				'eml'	=>	'message/rfc822',
-				'json' => array('application/json', 'text/json')
+		        'pptx'	=>	array('application/vnd.openxmlformats-officedocument.presentationml.presentation'),
+				'json' => array('application/json', 'text/json'),
+		         'apk' => array('application/vnd.android.package-archive', 'application/octet-stream')
 			);
 
 

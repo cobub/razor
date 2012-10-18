@@ -11,6 +11,7 @@ class version extends CI_Controller{
 		$this->load->library('form_validation');
 		$this->load->Model('common');
 		$this->common->requireLogin();
+		$this->common->requireProduct();
 		$this->load->model('product/productmodel','product');
 		$this->load->model('product/versionmodel','versionmodel');	  
 		
@@ -18,28 +19,36 @@ class version extends CI_Controller{
 	
 	function index()
 	{		
-		$this->common->loadHeader();
+		$this->common->loadHeaderWithDateControl ();
 		$product = $this->common->getCurrentProduct();
-     	$productId = $product->id;
-		$data['productId'] = $productId;
+     	$productId = $product->id;		
 		$date = date('Y-m-d',strtotime("-1 day"));
 		$ret = $this->versionmodel->getBasicVersionInfo($productId,$date);
-		$this->data['versionList'] = $ret;
-		$this->load->view('report/versioncontrast',$this->data);
+		$this->data['versionList'] = $ret;		
+		$fromTime = $this->common->getFromTime ();
+		$toTime = $this->common->getToTime ();		
+		$this->data['reportTitle'] = array(
+				'timePase' => getTimePhaseStr($fromTime, $toTime),
+				'activeUser'=>lang("v_rpt_ve_trendActiveUsers"),
+				'newUser'=>lang("v_rpt_ve_trendsAnalytics")			
+		);
+		$this->load->view('overview/versioncontrast',$this->data);
 	}
  	
-	//获取版本数据
-	function getVersionData($type = 'new', $timePhase, $start = '', $end = '') {
+	//get version data info 
+	function getVersionData() {
 		$product = $this->common->getCurrentProduct ();
 		$productId = $product->id;
-		$retdata = $this->versionmodel->getVersionData ( $timePhase, $start, $end, $productId );
+		$fromTime = $this->common->getFromTime ();
+		$toTime = $this->common->getToTime ();		
+		$retdata = $this->versionmodel->getVersionData($fromTime, $toTime, $productId );
 		echo json_encode($retdata);
 	}
 	
 	function getVersionContrast($from1, $to1, $from2, $to2) {
 		$currentProduct = $this->common->getCurrentProduct ();
 		$productId = $currentProduct->id;
-		//获取总数
+		//get sum num
 		$total1 = $this->versionmodel->getNewAndActiveAllCount ( $productId, $from1, $to1 );
 		$total2 = $this->versionmodel->getNewAndActiveAllCount ( $productId, $from2, $to2 );
 		$query1 = $this->versionmodel->getVersionContrast ( $productId, $from1, $to1 );
@@ -47,16 +56,18 @@ class version extends CI_Controller{
 		$result1 = array ();
 		$result2 = array ();
 		$sum1 = $total1[0]['newusers'];
+		$sum12 = $total1[0]['startusers'];
 		$sum2 = $total2[0]['startusers'];
+		$sum21 = $total2[0]['newusers'];
 		foreach ($query1->result_array() as $row)
 		{
 		    $row['newuserpercent']=percent($row['newusers'],$sum1);
-		    $row['startuserpercent']=percent($row['startusers'],$sum2);
+		    $row['startuserpercent']=percent($row['startusers'],$sum12);
 			array_push($result1,$row);
 		}
 		foreach ($query2->result_array() as $row)
 		{
-			$row['newuserpercent']=percent($row['newusers'],$sum1);
+			$row['newuserpercent']=percent($row['newusers'],$sum21);
 		    $row['startuserpercent']=percent($row['startusers'],$sum2);
 			array_push($result2,$row);
 		}		

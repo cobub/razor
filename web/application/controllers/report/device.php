@@ -1,7 +1,21 @@
 <?php
+
+/**
+ * Cobub Razor
+ *
+ * An open source analytics for mobile applications
+ *
+ * @package		Cobub Razor
+ * @author		WBTECH Dev Team
+ * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
+ * @license		http://www.cobub.com/products/cobub-razor/license
+ * @link		http://www.cobub.com/products/cobub-razor/
+ * @since		Version 1.0
+ * @filesource  device.php
+ */
+
 class Device extends CI_Controller {
 	private $data = array ();
-	
 	function __construct() {
 		parent::__construct ();
 		$this->load->Model ( 'common' );
@@ -10,118 +24,109 @@ class Device extends CI_Controller {
 		$this->load->model ( 'product/productmodel', 'product' );
 		$this->load->model ( 'product/newusermodel', 'newusermodel' );
 		$this->common->requireLogin ();
-		
+		$this->common->requireProduct();
 	}
 	
 	function index() {
-		$this->common->loadHeader ();
-		$productId = $this->common->getCurrentProduct ()->id;
-		$toTime = date ( 'Y-m-d', time () );
-		$fromTime = date ( 'Y-m-d', strtotime ( "-7 day" ) );
-		$this->data ['activeuser'] = $this->device->getActiveUsersPercentByDevice ( $fromTime, $toTime, $productId );
-		$this->data ['newuser'] = $this->device->getNewUserPercentByDevice ( $fromTime, $toTime, $productId );
-		$this->data ['operator'] = $this->device->getDeviceTypeDetail($productId);
-		$this->data ['timetype'] = '7day';
-		//$this->data ['num'] = $this->device->getTotalUsersnum ( $fromTime, $toTime, $productId );
-		$this->data ['from'] = $fromTime;
-		$this->data ['to'] = $toTime;
+		$this->common->loadHeaderWithDateControl ();
+		$productId = $this->common->getCurrentProduct ();
+		$productId=$productId->id;
+		$fromTime = $this->common->getFromTime ();
+		$toTime = $this->common->getToTime ();
+		$this->data ['deviceDetails'] = $this->device->getDeviceTypeDetail ($productId,$fromTime,$toTime);
+		$this->data['reportTitle'] = array(
+			'activeUserReport'=> getReportTitle(lang("t_activeUsers")." ".lang("v_rpt_de_top10") , $fromTime, $toTime),
+			'newUserReport'=>  getReportTitle(lang("t_newUsers")." ".lang("v_rpt_de_top10") , $fromTime, $toTime),
+		    'timePhase'=>getTimePhaseStr($fromTime, $toTime)
+				);
 		$this->load->view ( 'terminalandnet/deviceview', $this->data );
 	}
 	
-	function getDeviceData($timePhase, $start = '', $end = '') {
-		$this->common->loadHeader ();
+	/*
+	 * Get Device Data by time phase
+	 */
+	function getDeviceReportData($timePhase = "all") {
 		$productId = $this->common->getCurrentProduct ()->id;
+		$fromTime = $this->common->getFromTime ();
+		$toTime = $this->common->getToTime ();
 		
-		$toTime = date ( 'Y-m-d', time () );
-		$fromTime = date ( 'Y-m-d', strtotime ( "-7 day" ) );
+		$activeUserData = $this->device->getActiveUsersPercentByDevice ( $fromTime, $toTime, $productId );
+		$newUserData = $this->device->getNewUserPercentByDevice ( $fromTime, $toTime, $productId );
 		
-		if ($timePhase == "7day") {
-			
-			$fromTime = date ( 'Y-m-d', strtotime ( "-7 day" ) );
-			$this->data ['timetype'] = '7day';
-		
+		$activeUserDataArray = array ();
+		$totalPercent = 0;
+		foreach ( $activeUserData->result () as $row ) {
+			if (count ( $activeUserData ) > 10) {
+				break;
+			}
+			$activeUserDataObj = array ();
+			$activeUserDataObj ["devicebrand_name"] = $row->devicebrand_name;
+			$percent = round ( $row->percentage * 100, 1 );
+			$totalPercent += $percent;
+			$activeUserDataObj ["percentage"] = $percent;
+			array_push ( $activeUserDataArray, $activeUserDataObj );
 		}
 		
-		if ($timePhase == "1month") {
-			
-			$fromTime = date ( "Y-m-d", strtotime ( "-30 day" ) );
-			$this->data ['timetype'] = '1month';
-		
+		if ($totalPercent < 100.0) {
+			$remainPercent = round ( 100 - $totalPercent, 2 );
+			$activeUserDataObj ["devicebrand_name"] = lang('g_others');
+			$activeUserDataObj ["percentage"] = $remainPercent;
+			array_push ( $activeUserDataArray, $activeUserDataObj );
 		}
 		
-		if ($timePhase == "3month") {
-			$fromTime = date ( "Y-m-d", strtotime ( "-90 day" ) );
-			$this->data ['timetype'] = '3month';
-		
-		}
-		if ($timePhase == "all") {
-			
-			$fromTime = 'all';
-			$this->data ['timetype'] = 'all';
-		
-		}
-		
-		if ($timePhase == 'any') {
-			
-			$fromTime = $start;
-			$toTime = $end;
-			$this->data ['timetype'] = 'any';
-		
+		$newUserDataArray = array ();
+		$totalPercent = 0;
+		foreach ( $newUserData->result () as $row ) {
+			if (count ( $newUserDataArray ) > 10) {
+				break;
+			}
+			$newDataObj = array ();
+			$newDataObj ["devicebrand_name"] = $row->devicebrand_name;
+			$percent = round ( $row->percentage * 100, 1 );
+			$totalPercent += $percent;
+			$newDataObj ["percentage"] = $percent;
+			array_push ( $newUserDataArray, $newDataObj );
 		}
 		
-		$this->data ['from'] = $fromTime;
-		$this->data ['to'] = $toTime;
-		$this->data ['activeuser'] = $this->device->getActiveUsersPercentByDevice ( $fromTime, $toTime, $productId );
-		$this->data ['newuser'] = $this->device->getNewUserPercentByDevice ( $fromTime, $toTime, $productId );
-		$this->data ['operator'] = $this->device->getDeviceTypeDetail (  $productId );
-		//$this->data ['num'] = $this->device->getTotalUsersnum ( $fromTime, $toTime, $productId );		
-		$this->load->view ( 'terminalandnet/deviceview', $this->data );
-	
+		if ($totalPercent < 100.0) {
+			$remainPercent = round ( 100 - $totalPercent, 2 );
+			$newDataObj ["devicebrand_name"] = lang('g_others');
+			$newDataObj ["percentage"] = $remainPercent;
+			array_push ( $newUserDataArray, $newDataObj );
+		}
+		
+		$ret ["activeUserData"] = $activeUserDataArray;
+		$ret ["newUserData"] = $newUserDataArray;
+		
+		echo json_encode ( $ret );
 	}
 	
-	function export($from, $to) {
-		$productId = $this->common->getCurrentProduct ()->id;
+	/*
+	 * Export data to CSV by time phase
+	 */
+	function export() {
+		$productId = $this->common->getCurrentProduct ();
+		$productId=$productId->id;
 		$productName = $this->common->getCurrentProduct ()->name;
-		$data = $this->device->getDeviceTypeDetail (  $productId );
+		$fromTime = $this->common->getFromTime ();
+		$toTime = $this->common->getToTime ();
+		
+		$data = $this->device->getDeviceTypeDetail ( $productId, $fromTime, $toTime );
 		
 		$this->load->library ( 'export' );
 		$export = new Export ();
-		//设定文件名
-		$export->setFileName ( $productName . '_' . $from . '_' . $to . '.csv' );
-		//输出列名第一种方法
+		// set file name
+		$titlename=getExportReportTitle($productName, lang("v_rpt_de_details"),$fromTime, $toTime);
+		$title=iconv("UTF-8", "GBK", $titlename);
+		$export->setFileName ($title);		
 		$fields = array ();
 		foreach ( $data->list_fields () as $field ) {
 			array_push ( $fields, $field );
-		}		
+		}
 		$export->setTitle ( $fields );
-       //输出列名第二种方法
-//        $excel_title = array (iconv("UTF-8", "GBK", "设备型号"),iconv("UTF-8", "GBK", "总数"),iconv("UTF-8", "GBK", "用户比例") );
-//			$export->setTitle ($excel_title );
-		//输出内容
 		foreach ( $data->result () as $row )
 			$export->addRow ( $row );
 		$export->export ();
 		die ();
 	}
-	//设置分页
-//	function devicepage( $pagenum) {
-//		$percent = 100;
-//		$currentProduct = $this->common->getCurrentProduct ();
-//		$productid = $currentProduct->id;
-//		$pagenum = $pagenum * PAGE_NUMS;
-//		//$devicepage = $this->device->getDeviceTypeDetail($productid, $pagenum, PAGE_NUMS );
-//		$htmlText = "";
-//		$array = $this->data['operator']->result();
-//	    for ( $i=$pagenum;$i<$pagenum+PAGE_NUMS && $i<count($array);$i++) {
-//		        $row = $array[$i];
-//				$htmlText = $htmlText . "<tr>";
-//				$htmlText = $htmlText . "<td>" . $row ['devicebrand_name'] . "</td>";
-//				$htmlText = $htmlText . "<td>" . $percent * $row ['percentage'] . "%</td>";
-//				$htmlText = $htmlText . "</tr>";
-//			}
-//		
-//			echo $htmlText;
-//		}
-	
-
 }

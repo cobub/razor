@@ -19,6 +19,7 @@ class Archive extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->helper('date');
 	}
 	
 	/*
@@ -26,27 +27,29 @@ class Archive extends CI_Controller
 	 */
 	function archiveHourly()
 	{
-		$today = date('Y-m-d',time());
-		$fromTime = date('Y-m-d H:00:00',strtotime("-1 hour"));
-		$toTime = date('Y-m-d H:59:59',strtotime("-1 hour"));
+		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+		$timezonestime = date ( 'Y-m-d H:i:m', $timezonestimestamp );
+		
+		$fromTime = date('Y-m-d H:00:00',strtotime("-1 hour", strtotime($timezonestime)));
+		$toTime = date('Y-m-d H:59:59',strtotime("-1 hour", strtotime($timezonestime)));
 // 		echo $fromTime;
-		$date = date('Y-m-d',strtotime("-1 hour"));
+		$date = date('Y-m-d',strtotime("-1 hour", strtotime($timezonestime)));
 		$dwdb = $this->load->database('dw',TRUE);
 		
 		//do etl to dimention table
-		$logdate = date('Y-m-d H:i:s',time());
-		log_message("error","ETL RunDim at ".$logdate);
-		echo $logdate;
+		$logdate = date('Y-m-d H:i:s',$timezonestimestamp);
+		log_message("debug","ETL RunDim at ".$logdate);
+//		echo $logdate;
   		$dwdb->query("call rundim()");
 		
 		//run fact
-		$logdate = date('Y-m-d H:i:s',time());
-		log_message("error","ETL runfact at $logdate and fromTime= $fromTime toTime= $toTime");
+		$logdate = date('Y-m-d H:i:s',$timezonestimestamp);
+		log_message("debug","ETL runfact at $logdate and fromTime= $fromTime toTime= $toTime");
   		$dwdb->query("call runfact('$fromTime','$toTime')");
 
 		//run sum
-		$logdate = date('Y-m-d H:i:s',time());
-  		log_message("error","ETL runsum at $logdate and rundate = $date");
+		$logdate = date('Y-m-d H:i:s',$timezonestimestamp);
+  		log_message("debug","ETL runsum at $logdate and rundate = $date");
   		$dwdb->query("call runsum('$date')");
 	}
 	
@@ -58,18 +61,21 @@ class Archive extends CI_Controller
 	function archiveWeekly()
 	{
 		$dwdb = $this->load->database('dw',TRUE);
-		
+		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+		$timezonestime = date ( 'Y-m-d H:i:m', $timezonestimestamp );
+
 		$d = new DateTime();
+		$d->setTimestamp($timezonestimestamp);
 		$weekday = $d->format('w');
-		$diff = ($weekday == 0 ?7 : $weekday); // Monday=0, Sunday=6
+		$diff = ($weekday == 0 ?7 : $weekday+7); // Sunday=0, Sataday=6
 		$d->modify("-$diff day");
 		$lastSunday = $d->format('Y-m-d');
 		$d->modify('+6 day');
 		$lastSataday = $d->format('Y-m-d');
 
 // 		echo $lastSunday. " " . $lastSataday;
-		$logdate = date('Y-m-d H:i:s',time());
-		log_message("error","ETL runweekly at $logdate and fromDate = $lastSunday and toDate = $lastSataday");
+		$logdate = date('Y-m-d H:i:s',$timezonestimestamp);
+		log_message("debug","ETL runweekly at $logdate and fromDate = $lastSunday and toDate = $lastSataday");
  		$dwdb->query("call runweekly('$lastSunday','$lastSataday')");
 	}
 	
@@ -80,10 +86,14 @@ class Archive extends CI_Controller
 	{
 		$dwdb = $this->load->database('dw',TRUE);
 		
-		$lastMonthStartDate = date("Y-m-1", strtotime("-1 month") ) ;
-		$lastMonthEndDate = date("Y-m-t", strtotime("-1 month") ) ;
-		$logdate = date('Y-m-d H:i:s',time());
-		log_message("error","ETL runmonthly at $logdate and fromTime = $lastMonthStartDate and toTime = $lastMonthEndDate");
+		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+		$timezonestime = date ( 'Y-m-d', $timezonestimestamp );
+		
+		$lastMonthStartDate = date("Y-m-1", strtotime("-1 month", strtotime($timezonestime))) ;
+		$lastMonthEndDate = date("Y-m-t", strtotime("-1 month", strtotime($timezonestime))) ;
+//		echo $lastMonthStartDate. " " .$lastMonthEndDate; 
+		$logdate = date('Y-m-d H:i:s',$timezonestimestamp);
+		log_message("debug","ETL runmonthly at $logdate and fromTime = $lastMonthStartDate and toTime = $lastMonthEndDate");
  	 	$dwdb->query("call runmonthly('$lastMonthStartDate','$lastMonthEndDate')");
 	}
 	
@@ -92,20 +102,37 @@ class Archive extends CI_Controller
 	 */
 	function archiveLaterData()
 	{
-		$today = date('Y-m-d',time());
-		$fromTime = date('Y-m-d',strtotime("-7 day"));
-		$toTime = date('Y-m-d',strtotime("-1 day"));
+		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+		$timezonestime = date ( 'Y-m-d H:i:m', $timezonestimestamp );
+		$fromTime = date('Y-m-d',strtotime("-7 day", strtotime($timezonestime)));
+		$toTime = date('Y-m-d',strtotime("-1 day", strtotime($timezonestime)));
 // 		echo $fromTime.' '.$toTime;
 		//run sum
 		$dwdb = $this->load->database('dw',TRUE);
-		$logdate = date('Y-m-d H:i:s',time());
-		log_message("error","ETL runArchiveLater at $logdate and fromDate = $fromTime and toDate = $toTime");
+		$logdate = date('Y-m-d H:i:s',$timezonestimestamp);
+		log_message("debug","ETL runArchiveLater at $logdate and fromDate = $fromTime and toDate = $toTime");
 		for($i=1;$i<8;$i++)
 		{
-			$date = date('Y-m-d',strtotime("-$i day"));
-// 			echo $date."<br>";
-			log_message("error","ETL runArchiveLater run sunm at $date");
+			$date = date('Y-m-d',strtotime("-$i day", strtotime($timezonestime)));
+//			echo $date."<br>";
+			log_message("debug","ETL runArchiveLater run sunm at $date");
   			$dwdb->query("call runsum('$date')");
 		}
 	}
+	
+	/*
+	 * Schedule daily task for using log page views, yestoday
+	*/
+	function archiveUsingLog()
+	{
+		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+		$timezonestime = date ( 'Y-m-d H:i:m', $timezonestimestamp );
+		$date = date('Y-m-d',strtotime("-1 day", strtotime($timezonestime)));
+		//run archiveUsinglog
+		$dwdb = $this->load->database('dw',TRUE);
+		$logdate = date('Y-m-d H:i:s',$timezonestimestamp);
+		log_message("debug","ETL archiveUsingLog at $logdate and date = $date");
+		$dwdb->query("call rundaily('$date')");
+	}
+	
 }

@@ -1,4 +1,19 @@
 <?php
+
+/**
+ * Cobub Razor
+ *
+ * An open source analytics for mobile applications
+ *
+ * @package		Cobub Razor
+ * @author		WBTECH Dev Team
+ * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
+ * @license		http://www.cobub.com/products/cobub-razor/license
+ * @link		http://www.cobub.com/products/cobub-razor/
+ * @since		Version 1.0
+ * @filesource
+ */
+
 class Userremain extends CI_Controller {
 	
 	private $data = array ();
@@ -9,71 +24,36 @@ class Userremain extends CI_Controller {
 		$this->load->Model ( 'common' );
 		$this->load->model ( 'product/userremainmodel', 'userremain' );
 		$this->common->requireLogin ();
+		$this->common->requireProduct();
 		$this->load->library ( 'export' );
+		$this->load->model('event/userevent','userevent');
 	
 	}
 	
 	function index() {
-		$this->common->loadHeader();
-		$productId = $this->common->getCurrentProduct ()->id;
-		$to = date ( 'Y-m-d', time () );
-		$from = date ( 'Y-m-d', strtotime ( "-30 day" ) );
-		$timePhase = '1month';
-		$data['userremain'] = $this->userremain->getUserRemainCountByWeek($timePhase,$productId,$from,$to);
-		$data['userremain_m'] = $this->userremain->getUserRemainCountByMonth($timePhase,$productId,$from,$to);
-		$data['userremain_json'] = json_encode($data['userremain_m']->result());
-		$this->load->view('user/userremainview',$data);
+		$this->common->loadHeaderWithDateControl ();
+		$productId = $this->common->getCurrentProduct ();
+		$productId=$productId->id;
+		$procuctversion=$this->userevent->getProductVersions($productId);		
+		if ($procuctversion != null && $procuctversion->num_rows > 0)
+		{
+			$this->data['productversion']=$procuctversion;
+		}
+		$this->load->view('usage/userremainview',$this->data);	
 	}
 	
-	function getData($timePhase,$type,$m_from='',$m_to='') 
+	function getUserRemainweekMonthData($version="all")
 	{
-		
-	    $toTime = date ( 'Y-m-d', time () );
-		$fromTime = date ( 'Y-m-d', strtotime ( "-7 day" ) );
-	    if ($timePhase == "7day") {
-			
-			$fromTime = date ( 'Y-m-d', strtotime ( "-7 day" ) );
-			$data ['timetype'] = '7day';
-		}
-		
-		if ($timePhase == "1month") {
-			
-			$fromTime = date ( "Y-m-d", strtotime ( "-30 day" ) );
-			$data ['timetype'] = '1month';
-		}
-		
-		if ($timePhase == "3month") {
-			$fromTime = date ( "Y-m-d", strtotime ( "-90 day" ) );
-			$data ['timetype'] = '3month';
-		}
-		if ($timePhase == "all") {			
-			$fromTime = 'all';
-			$data ['timetype'] = 'all';
-		}
-		
-		if ($timePhase == 'any') {			
-			$fromTime = $m_from;
-			$toTime = $m_to;
-			$data ['timetype'] = 'any';
-		}
-		
-	//	$this->common->loadHeader();
-		$productId = $this->common->getCurrentProduct ()->id;
-		$resultArray = array(); 
-		if($type=='month'){
-			
-			$resultArray['datas'] = $this->userremain->getUserRemainCountByMonthJSON($timePhase,$productId,$fromTime,$toTime);
-			
-		}else{
-			$resultArray['datas'] = $this->userremain->getUserRemainCountByWeekJSON($timePhase,$productId,$fromTime,$toTime);
-			
-		}
-		$resultArray['type']=$type;
-	//	$resultArray['userremain_json'] = json_encode($data['userremain_m']->result());
-		//$this->load->view('user/userremainview',$data);
-		
-		$result= json_encode($resultArray);
-		//print_r($result);	
-		echo $result;
+		    $data=array();
+		    $productId = $this->common->getCurrentProduct ();	
+			$productId=$productId->id;
+			$from = $this->common->getFromTime ();
+			$to = $this->common->getToTime();
+			$procuctversion=$this->userevent->getProductVersions($productId);			
+			$userremain_w= $this->userremain->getUserRemainCountByWeek($version,$productId,$from,$to);
+			$userremain_m= $this->userremain->getUserRemainCountByMonth($version,$productId,$from,$to);			
+			$data['userremainweek'] = $userremain_w->result();
+			$data['userremainmonth'] = $userremain_m->result();
+			echo json_encode ($data);
 	}
 }
