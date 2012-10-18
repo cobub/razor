@@ -16,22 +16,23 @@ tee.sequence = (select max(sequence) from ' . $this->db->dbprefix ( 'targetevent
 e.product_sk = p.product_sk and p.product_id = ?  and 
 e.date_sk = d.date_sk and d.datevalue between \'' . $fromdate . '\' and \'' . $todate . '\' 
 group by e.event_sk';
-		
+				
 		$data ['targetdata'] = $this->db->query ( $sql_1, array (
 				$userid,
 				$productid 
 		) )->result_array ();
 		$data ['eventdata'] = $dwdb->query ( $sql_2, array (
-				$userid 
+				$productid 
 		) )->result_array ();
+		
 		return $data;
 	}
 	function addConversionrate($userid, $productid, $targetname, $data = array()) {
-		$r = $this->db->query ( 'select * from razor_target where targetname=\'' . $targetname . '\' and userid=? and productid=?', array (
+		$r = $this->db->query ( 'select * from ' . $this->db->dbprefix ( 'target' ) . ' where targetname=\'' . $targetname . '\' and userid=? and productid=?', array (
 				$userid,
 				$productid 
 		) );
-		$r1 = $this->db->query ( 'select * from razor_target where userid=? and productid=?', array (
+		$r1 = $this->db->query ( 'select * from ' . $this->db->dbprefix ( 'target' ) . ' where userid=? and productid=?', array (
 				$userid,
 				$productid 
 		) );
@@ -68,7 +69,7 @@ group by e.event_sk';
 		return $this->db->affected_rows ();
 	}
 	function delteFunnelEvent($targetid, $eventid) {
-		$sql = 'DELETE FROM razor_targetevent WHERE targetid=? AND eventid=?';
+		$sql = 'DELETE FROM ' . $this->db->dbprefix ( 'targetevent' ) . ' WHERE targetid=? AND eventid=?';
 		$this->db->query ( $sql, array (
 				$targetid,
 				$eventid 
@@ -117,8 +118,8 @@ group by e.event_sk';
 	}
 	function getFunnelByTargetid($targetid) {
 		$sql = 'select t.tid,t.userid,t.targetname,e.eventalias,e.sequence,e.eventid,d.event_name from ' . $this->db->dbprefix ( 'target' ) . ' t
-left JOIN ' . $this->db->dbprefix ( 'targetevent' ) . ' e on t.tid=e.targetid
- inner join razor_event_defination d on e.eventid=d.event_id where t.tid=' . $targetid;
+left JOIN ' . $this->db->dbprefix ( 'targetevent' ) . '  e on t.tid=e.targetid
+ inner join ' . $this->db->dbprefix ( 'event_defination' ) . ' d on e.eventid=d.event_id where t.tid=' . $targetid;
 		$result = $this->db->query ( $sql );
 		return $result;
 	}
@@ -144,9 +145,9 @@ left JOIN ' . $this->db->dbprefix ( 'targetevent' ) . ' e on t.tid=e.targetid
 	function  getAllUserTarget($userid,$productid)
 	{
 		$sql = "select t.targetname,te.eventalias a1,te.eventid sid
-from razor.razor_target t, razor.razor_targetevent te
+from  " . $this->db->dbprefix ( 'target' ) ."  t, " . $this->db->dbprefix ( 'targetevent' ) ." te
 where t.userid = $userid and t.productid = $productid and t.tid = te.targetid
-and te.sequence = (select max(sequence) from razor.razor_targetevent where targetid = t.tid) ;";
+and te.sequence = (select max(sequence) from " . $this->db->dbprefix ( 'targetevent' ) . " where targetid = t.tid) ;";
 		//echo $sql;
 		$query = $this->db->query ( $sql );
 		return $query;
@@ -157,8 +158,8 @@ and te.sequence = (select max(sequence) from razor.razor_targetevent where targe
 	function getTargetEventNumPerDay($productid,$from,$to)
 	{
 	    $dwdb = $this->load->database ( 'dw', TRUE );
-		$sql = "select t.event_id, date(d.datevalue) d, ifnull(s.num,0) num from (select date_sk, datevalue from razor_dim_date where datevalue between '$from' and '$to') d cross join razor_dim_event t 
-left join (select event_sk, date_sk, count(*) num from razor_fact_event f, razor_dim_product p   where f.product_sk = p.product_sk and p.product_id = $productid group by event_sk,date_sk) s on d.date_sk = s.date_sk and t.event_sk = s.event_sk;";
+		$sql = "select t.event_id, date(d.datevalue) d, ifnull(s.num,0) num from (select date_sk, datevalue from " . $this->db->dbprefix ( 'dim_date' ) . " where datevalue between '$from' and '$to') d cross join " . $this->db->dbprefix ( 'dim_event' ) . " t 
+left join (select event_sk, date_sk, count(*) num from " . $this->db->dbprefix ( 'fact_event' ) . " f, ". $this->db->dbprefix ( 'dim_product' ) . " p   where f.product_sk = p.product_sk and p.product_id = $productid group by event_sk,date_sk) s on d.date_sk = s.date_sk and t.event_sk = s.event_sk;";
 		//echo $sql;
 		$query = $dwdb->query ( $sql );
 		return $query;

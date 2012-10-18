@@ -19,17 +19,24 @@ class Funnels extends CI_Controller {
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();
 		$product_id = $this->common->getCurrentProduct ()->id;
-		$data ['data'] = $this->conversion->getConversionListByProductIdAndUserId ( $product_id, $user_id, $fromTime, $toTime );
+		$data = $this->conversion->getConversionListByProductIdAndUserId ( $product_id, $user_id, $fromTime, $toTime );
 		$result = array ();
-		$targetdata = $data ['data'] ['targetdata'];
-		$eventdata = $data ['data'] ['eventdata'];
+		$targetdata = $data['targetdata'];
+		$eventdata = $data['eventdata'];
 		for($i = 0; $i < count ( $targetdata ); $i ++) {
 			$target = $targetdata [$i];
 			$result ['tid'] [$i] = $target ['tid'];
 			$result ['targetname'] [$i] = $target ['targetname'];
 			$result ['event1'] [$i] = $target ['a1'];
 			$result ['event2'] [$i] = $target ['a2'];
+			if(empty($eventdata))
+			{
+				$result ['event1_c'] [$i] = 0;
+				$result ['event2_c'] [$i] = 0;
+				
+			}
 			for($j = 0; $j < count ( $eventdata ); $j ++) {
+				
 				$event = $eventdata [$j];
 				if ($target ['sid'] == $event ['event_id']) {
 					$result ['event1_c'] [$i] = $event ['num'];
@@ -40,6 +47,7 @@ class Funnels extends CI_Controller {
 			}
 		}
 		$data ['result'] = $result;
+	
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();
 		$data['reportTitle'] = array(
