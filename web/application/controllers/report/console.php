@@ -96,7 +96,7 @@ class Console extends CI_Controller {
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();
 		
-		$fromTime = $this->product->getUserStartDate ( $userId, $fromTime );
+		//$fromTime = $this->product->getUserStartDate ( $userId, $fromTime );
 		$query = $this->newusermodel->getAlldataofVisittrends ( $fromTime, $toTime, $userId );
 		$ret ["content"] = $query;
 		$ret ["timeTick"] = $this->common->getTimeTick ( $toTime - $fromTime );

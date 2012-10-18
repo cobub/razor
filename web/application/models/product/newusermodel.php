@@ -237,7 +237,7 @@ class newusermodel extends CI_Model{
 		
 		$currentProduct = $this->common->getCurrentProduct();
 		$productId= $currentProduct->id;
-		$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 		
 		$dwdb = $this->load->database('dw',TRUE);
 		$sql = "select d.datevalue,ifnull(sum(sessions),0) sessions,ifnull(sum(startusers),0) startusers,
@@ -257,7 +257,7 @@ class newusermodel extends CI_Model{
 	
 		$currentProduct = $this->common->getCurrentProduct();
 		$productId= $currentProduct->id;
-		$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 	
 		$dwdb = $this->load->database('dw',TRUE);
 		$sql = "select d.datevalue,ifnull(sum(sessions),0) sessions,ifnull(sum(startusers),0) startusers,

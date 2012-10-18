@@ -63,7 +63,7 @@ class ProductModel extends CI_Model
 		$ret=array();
 	    $currentProduct = $this->common->getCurrentProduct();		
 		$productId = $currentProduct->id;
-		$fromTime = $this->getReportStartDate($currentProduct,$fromTime);
+		//$fromTime = $this->getReportStartDate($currentProduct,$fromTime);
 		$dwdb = $this->load->database ( 'dw', TRUE );			
 		$channelname= $this->getMarketNameById($channel_id);
 		$sql = "select d.datevalue,	p.channel_id,p.channel_name,ifnull(sum(startusers),0) startusers,ifnull(sum(newusers),0) newusers,
@@ -109,7 +109,7 @@ class ProductModel extends CI_Model
 		$ret=array();
 		$currentProduct = $this->common->getCurrentProduct();
 		$productId = $currentProduct->id;
-		$fromTime = $this->getReportStartDate($currentProduct,$fromTime);			
+		//$fromTime = $this->getReportStartDate($currentProduct,$fromTime);			
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$channelname= $this->getMarketNameById($channel_id);			
 		if($type=="weekrate")

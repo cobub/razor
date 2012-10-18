@@ -158,8 +158,8 @@ and te.sequence = (select max(sequence) from " . $this->db->dbprefix ( 'targetev
 	function getTargetEventNumPerDay($productid,$from,$to)
 	{
 	    $dwdb = $this->load->database ( 'dw', TRUE );
-		$sql = "select t.event_id, date(d.datevalue) d, ifnull(s.num,0) num from (select date_sk, datevalue from " . $this->db->dbprefix ( 'dim_date' ) . " where datevalue between '$from' and '$to') d cross join " . $this->db->dbprefix ( 'dim_event' ) . " t 
-left join (select event_sk, date_sk, count(*) num from " . $this->db->dbprefix ( 'fact_event' ) . " f, ". $this->db->dbprefix ( 'dim_product' ) . " p   where f.product_sk = p.product_sk and p.product_id = $productid group by event_sk,date_sk) s on d.date_sk = s.date_sk and t.event_sk = s.event_sk;";
+		$sql = "select t.event_id, date(d.datevalue) d, ifnull(s.num,0) num from (select date_sk, datevalue from " . $dwdb->dbprefix ( 'dim_date' ) . " where datevalue between '$from' and '$to') d cross join " . $dwdb->dbprefix ( 'dim_event' ) . " t 
+left join (select event_sk, date_sk, count(*) num from " . $dwdb->dbprefix ( 'fact_event' ) . " f, ". $dwdb->dbprefix ( 'dim_product' ) . " p   where f.product_sk = p.product_sk and p.product_id = $productid group by event_sk,date_sk) s on d.date_sk = s.date_sk and t.event_sk = s.event_sk;";
 		//echo $sql;
 		$query = $dwdb->query ( $sql );
 		return $query;

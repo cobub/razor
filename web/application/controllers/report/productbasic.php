@@ -85,7 +85,7 @@ class productbasic extends CI_Controller {
 		$currentProduct = $this->common->getCurrentProduct();	
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();		
-		$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);   
+		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);   
 		$query = $this->newusermodel->getallUserData($fromTime,$toTime);
 		$ret["content"] = $query->result_array();
 		$ret["timeTick"] = $this->common->getTimeTick($toTime - $fromTime );

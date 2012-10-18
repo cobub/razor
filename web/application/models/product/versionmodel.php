@@ -87,7 +87,7 @@ sum(sessions) sessions,
 		$ret=array();
 		$currentProduct = $this->common->getCurrentProduct();
 		$productId = $currentProduct->id;
-		$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select d.datevalue,p.version_name,ifnull(sum(startusers),0) startusers,
        ifnull(sum(newusers),0) newusers	from  
