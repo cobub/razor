@@ -7,25 +7,29 @@ $login = array(
 	'size'	=> 30,
 );
 if ($this->config->item('use_username', 'tank_auth')) {
-	$login_label = lang('forgetpwd_loginlabel');
+	$login_label = lang('l_fp_enterEmail');
 } else {
-	$login_label =lang('forgetpwd_loginlabel');
+	$login_label =lang('l_fp_enterEmail');
 }
 ?>
 <?php echo form_open($this->uri->uri_string()); ?>
-<section id="main" class="column">
-		<h4 class="alert_info"><?php echo lang('forgetpwd_inforemiind') ?></h4>
+<section id="main_full" class="column">
+	
 <article class="module width_full">
-<header><h3><?php echo lang('forgetpwd_resetpwdlabel') ?></h3></header>
+<header><h3><?php echo lang('l_fp_forgetPassword') ?></h3></header>
 	<div class="module_content">
-<table>
+<table class="tablesorter" cellspacing="0">
+	<tr><td colspan="3"><?php echo lang('l_fp_details') ?></td></tr>
 	<tr>
 		<td><?php echo form_label($login_label, $login['id']); ?></td>
 		<td><?php echo form_input($login); ?></td>
 		<td style="color: red;"><?php echo form_error($login['name']); ?><?php echo isset($errors[$login['name']])?$errors[$login['name']]:''; ?></td>
 	</tr>
+	<tr><td><?php echo form_submit('reset',lang('l_fp_send')); ?></td><td> </td><td></td></tr>
 </table>
-<?php echo form_submit('reset',lang('forgetpwd_resetpwdbtn')); ?>
+
+<br/>
+<p align="center"><b><?php echo lang('f_copyright') ;?></b></p>
 </div>
 </article>
 </section>

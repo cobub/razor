@@ -1,19 +1,17 @@
 <section id="main" class="column">
-		
-		<h4 class="alert_info" id="msg"><?php echo lang('updateipolist_alertinfo') ?></h4>
-		<!-- 自定义渠道 --> 
+		<!-- Custom Channels--> 
 		<article class="module width_full">
-		<header><h3 class="tabs_involved"><?php echo lang('updateipolist_headertitle') ?></h3>		
+		<header><h3 class="tabs_involved"><?php echo lang('v_man_au_info_autoUpdate') ?></h3>		
 		</header>
 		<div class="tab_container">
 			<div id="tab1" class="tab_content">
 			<table class="tablesorter" cellspacing="0"> 
 			<thead>	
 				<tr> 				   		 
-    				<th><?php echo lang('updateipolist_channelname') ?></th> 
-    				<th><?php echo lang('updateipolist_latesttime') ?></th> 
-    				<th><?php echo lang('updateipolist_versionid') ?></th>
-    				<th><?php echo lang('updateipolist_action') ?></th>    				   				
+    				<th><?php echo lang('v_rpt_mk_channelName') ?></th> 
+    				<th><?php echo lang('v_man_au_latestUpdateTime') ?></th> 
+    				<th><?php echo lang('v_man_au_version') ?></th>
+    				<th><?php echo lang('g_actions') ?></th>    				   				
 				</tr> 
 			</thead> 		
 			<tbody> 
@@ -27,7 +25,7 @@
     				<td><?php echo substr($rel['date'], 0, 10)?></td> 
     				<td><?php echo $rel['version'] ;?></td>
     				<td>
-    				<a href="<?php echo site_url(); ?>/autoupdate/updatenewinfo/<?php echo $rel['channel_id']; ?>/<?php echo $rel['cp_id'];?>"><?php echo lang('updateipolist_tbodyupdatebtn') ?></a>
+    				<a href="<?php echo site_url(); ?>/manage/autoupdate/updatenewinfo/<?php echo $rel['channel_id']; ?>/<?php echo $rel['cp_id'];?>"><?php echo lang('g_update') ?></a>
                    </td>  				 				 
 				</tr> 
 			<?php } endif;?>			

@@ -1,16 +1,16 @@
-<?php echo lang('allview_contentdear') ?><?php if (strlen($username) > 0) { ?> <?php echo $username; ?><?php } ?><?php echo lang('allview_contenthello') ?>
+<?php echo lang('e_dear') ?><?php if (strlen($username) > 0) { ?> <?php echo $username; ?><?php } ?><?php echo lang('e_hello') ?>
 
-<?php echo lang('resetpwdtxt_changedinfo') ?>
+<?php echo lang('e_preserveP') ?>
 <?php if (strlen($username) > 0) { ?>
 
-<?php echo lang('allview_contentusername') ?><?php echo $username; ?>
+<?php echo lang('e_yourUsername') ?><?php echo $username; ?>
 <?php } ?>
 
-<?php echo lang('allview_contentemail') ?> <?php echo $email; ?>
+<?php echo lang('e_yourEmail') ?> <?php echo $email; ?>
 
 <?php /* Your new password: <?php echo $new_password; ?>
 
 */ ?>
 
-<?php echo lang('allview_contentthanks') ?>
-<?php echo $site_name; ?>&nbsp&nbsp<?php echo lang('allview_contentteam') ?>
+<?php echo lang('e_thankYou') ?>
+<?php echo $site_name; ?>&nbsp&nbsp<?php echo lang('e_managementTeam') ?>

@@ -1,4 +1,4 @@
-<?php echo lang('allview_contentdear') ?><?php if (strlen($username) > 0) { ?> <?php echo $username; ?><?php } ?><?php echo lang('allview_contenthello') ?>
+<?php echo lang('e_dear') ?><?php if (strlen($username) > 0) { ?> <?php echo $username; ?><?php } ?><?php echo lang('e_hello') ?>
 
 <!--You have changed your email address for <?php echo $site_name; ?>.
 Follow this link to confirm your new email address:
@@ -14,17 +14,17 @@ You received this email, because it was requested by a <?php echo $site_name; ?>
 
 Thank you,
 The <?php echo $site_name; ?> Team-->
-<?php echo lang('chanemailtxt_contentchange') ?><?php echo $site_name; ?><?php echo lang('chanemailtxt_contentregister') ?>
-<?php echo lang('chanemailtxt_contentpleaseclick') ?>
+<?php echo lang('e_changeEmail') ?><?php echo $site_name; ?><?php echo lang('chanemailtxt_contentregister') ?>
+<?php echo lang('e_confirmNewA') ?>
 
 <?php echo site_url('/auth/reset_email/'.$user_id.'/'.$new_email_key); ?>
 
 
-<?php echo lang('chanemailtxt_contentnewemail') ?> <?php echo $new_email; ?>
+<?php echo lang('e_newEamilA') ?> <?php echo $new_email; ?>
 
 
 
-<?php echo lang('chanemailtxt_contentnotguest') ?><?php echo $site_name; ?><?php echo lang('chanemailtxt_contentwarninfo') ?>
+<?php echo lang('e_notClick') ?><?php echo $site_name; ?><?php echo lang('e_deleteEmail') ?>
 
-<?php echo lang('allview_contentthanks') ?>
-<?php echo $site_name; ?> &nbsp&nbsp<?php echo lang('allview_contentteam') ?>
+<?php echo lang('e_thankYou') ?>
+<?php echo $site_name; ?> &nbsp&nbsp<?php echo lang('e_managementTeam') ?>
