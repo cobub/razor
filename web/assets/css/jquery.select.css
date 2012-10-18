@@ -121,7 +121,7 @@
 .select_option, .search_input,.new_input{
     background:white;
     height:21px;
-    width:170px;
+    width:200px;
     border:1px solid #d1daef;
     -moz-border-radius:2px;
     -webkit-border-radius:2px;
@@ -146,7 +146,7 @@
  .select_option, .search_input,.new_input{
     background:white;
     height:21px;
-    width:170px;
+    width:200px;
     border:1px solid #d1daef;
     -moz-border-radius:2px;
     -webkit-border-radius:2px;
@@ -189,7 +189,7 @@
 }
  .selected_value{
     display:inline-block;
-    width:130px;
+    width:152px;
     text-indent:0;
     overflow:hidden;
     white-space:nowrap;
@@ -208,8 +208,8 @@
  .select_option .select_arrow, .search_input .search_arrow{
     height:24px;
     width:22px;
-    margin-right: -4px;
-    margin-top: -2px;
+    margin-right: 0px;
+    margin-top: -2.5px;
     background:url("../images/select_arrow.png") no-repeat;
 }
  .search_input .search_arrow{
@@ -227,7 +227,7 @@
     position:absolute;
     background:white;
     border:1px solid #d2d2d2;
-    width:170px;
+    width:200px;
     left:-1px;
     overflow-y:auto;
     overflow-x:hidden;
@@ -298,6 +298,7 @@
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
+	margin-left:30px;
 }
  .select_option .select_list_body li.current{
     background:url("../images/select_btn.png") no-repeat 0 -84px;
@@ -355,6 +356,7 @@
 }
 .selbox input{
     color:#505050;
+	width:120px;
 }
 
 .selbox span {

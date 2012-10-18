@@ -1,11 +1,11 @@
 <section id="main" class="column">
 		
-<h4 class="alert_info" id='msg'><?php echo  lang('user_alertinfo')?></h4>
+<h4 class="alert_info" id='msg' style="display: none;"></h4>
 		
 	
 		
 		<article class="module width_full">
-		<header><h3 class="tabs_involved"><?php echo  lang('user_headertilte')?></h3>
+		<header><h3 class="tabs_involved"><?php echo  lang('v_user_userList')?></h3>
 		
 		</header>
 
@@ -14,10 +14,10 @@
 			<table class="tablesorter" cellspacing="0"> 
 			<thead> 
 				<tr> 
-    				<th><?php echo  lang('user_namethead')?></th> 
-    				<th><?php echo  lang('user_emailthead')?></th> 
-    				<th><?php echo  lang('user_rolethead')?></th>    				
-    				<th><?php echo  lang('user_changerolethead')?></th>
+    				<th><?php echo  lang('l_username')?></th> 
+    				<th><?php echo  lang('l_re_email')?></th> 
+    				<th><?php echo  lang('v_user_userRole')?></th>    				
+    				<th><?php echo  lang('v_user_modifyUserRole')?></th>
 				</tr> 
 			</thead> 
 			<tbody> 
@@ -31,7 +31,8 @@
     				<td><label id='label_<?php echo $row->id?>'><?php echo $row->name?></label></td> 
     				<td>
 							
-							<select style="width:92%;" onchange="changeForm(this.value,<?php echo $row->id?>)" id='select_'<?php echo $row->id?> >
+							<select style="width:92%;" <?php if(isset($currentuserid)&&($currentuserid==$row->id)){ echo "disabled=true";} ?> 
+							onchange="changeForm(this.value,<?php echo $row->id?>)" id='select_'<?php echo $row->id?> >
 							<?php foreach ($roleslist->result() as $row2)
 							{
 								?>
@@ -78,15 +79,16 @@
 						url : "<?php echo site_url()?>/user/modifyUserRole",
 						data : data,
 						success : function(msg) {
-							document.getElementById('msg').innerHTML = "<?php echo  lang('user_jquerysmsg')?>";	
+							document.getElementById('msg').innerHTML = "<?php echo  lang('v_user_rolem_modifyRoleS')?>";	
+							document.getElementById('msg').style.display="block";
 							document.getElementById('label_'+id).innerHTML = rolename;					 
 						},
 						error : function(XmlHttpRequest, textStatus, errorThrown) {
-							alert("<?php echo  lang('user_jqueryerromsg')?>");
+							alert("<?php echo  lang('t_error')?>");
 						},
 						beforeSend : function() {
-							document.getElementById('msg').innerHTML = '<?php echo  lang('user_jquerywaitmsg')?>';
-
+							document.getElementById('msg').innerHTML = '<?php echo  lang('v_user_rolem_waitModifyR')?>';
+							document.getElementById('msg').style.display="block";
 						},
 						complete : function() {
 						}

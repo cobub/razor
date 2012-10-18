@@ -415,8 +415,23 @@ background: url(../images/img/icn_equipment.png) no-repeat center left;
 #sidebar li.icn_error_analys a {
 background: url(../images/img/icn_error_analysis.png) no-repeat center left;
 }
+#sidebar li.icn_error_onos a {
+background: url(../images/img/icn_error_onos.png) no-repeat center left;
+}
+#sidebar li.icn_developerguider a {
+background: url(../images/img/developer_guider.png) no-repeat center left;
+}
+#sidebar li.icn_term_define a {
+background: url(../images/img/term_define.png) no-repeat center left;
+}
+#sidebar li.icn_error_ondevice a {
+background: url(../images/img/icn_error_ondevice.png) no-repeat center left;
+}
 #sidebar li.icn_event_list a {
 background: url(../images/img/icn_event_list.png) no-repeat center left;
+}
+#sidebar li.icn_funnel_list a {
+background: url(../images/img/icn_funnel.png) no-repeat center left;
 }
 #sidebar li.icn_use_frequency a {
 background: url(../images/img/icn_frequency_use.png) no-repeat center left;
@@ -486,7 +501,7 @@ text-decoration: underline;
 }
 
 #sidebar footer {
-	margin-top:20%;	
+	margin-top:5%;	
 }
 
 
@@ -500,6 +515,7 @@ background: url(../images/sidebar_shadow.png) repeat-y left top;
 float: left;
 margin-top: -2px;
 }
+
 .STYLE1 {font-family: "Droid Sans";font-size:4px;}
 .STYLE5 {
 	font-size: 16px;
@@ -518,6 +534,55 @@ font-size: 13px;
 margin: 8px 20px;
 }
 
+section#main_full {
+width: 100%;
+min-height: 650px;
+background: url(../images/sidebar_shadow.png) repeat-y left top;
+float: left;
+margin-top: -2px;
+}
+#main_full h3 {
+color: #1F1F20;
+text-transform: capitalize;
+text-shadow: 0 1px 0 #fff;
+font-size: 13px;
+margin: 8px 20px;
+}
+
+
+#main_full h4.alert_info {
+/*display: block;
+width: 95%;
+margin: 20px 3% 0 3%;
+margin-top: 20px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+background: #B5E5EF url(../images/icn_alert_info.png) no-repeat;
+background-position: 10px 10px;
+border: 1px solid #77BACE;
+color: #082B33;
+padding: 10px 0;
+text-indent: 40px;
+font-size: 14px;
+*/
+display: block;
+width: 95%;
+
+margin: 20px 3% 0 3%;
+margin-top: 20px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+
+background: url("../images/secondary_bar.png") norepeat  scroll 0 0 #F1F1F4;
+background-position: 10px 10px;
+border: 1px solid #9BA0AF;
+color: #404040; 
+padding: 10px 0;
+text-indent: 10px;
+font-size: 15px;
+}
 /* Modules */
 
 .module {
@@ -532,6 +597,12 @@ background: #ffffff;
 }
 
 #main .module header h3 {
+display: block;
+
+float: left;
+}
+
+#main .module header h4 {
 display: block;
 width: 30%;
 float: left;
@@ -694,8 +765,7 @@ ul.tabs {
 	border-radius: 5px;
 	-webkit-box-shadow: 0 1px 0 #fff;
 	-moz-box-shadow: 0 1px 0 #fff;
-	box-shadow: 0 1px 0 #fff;
-	border: 1px solid #ccc;
+	border: 0px solid #ccc;
 	font-weight: bold;
 	text-shadow: 0 1px 0 #fff;
 }
@@ -878,7 +948,6 @@ background: #D0D1D4 url(../images/btn_submit.png) repeat-x;
 border: 1px solid #A8A9A8;
 -webkit-box-shadow: 0 1px 0 #fff;
 -moz-box-shadow: 0 1px 0 #fff;
-box-shadow: 0 1px 0 #fff;
 font-weight: bold;
 height: 22px;
 -webkit-border-radius: 5px;
@@ -1062,6 +1131,7 @@ margin-right: 3%;
 padding: 5px 0;
 
 }
+
 
 .submit_link select {
 	background:white;

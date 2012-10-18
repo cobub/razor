@@ -1,8 +1,8 @@
 <section id="main" class="column">
 		
-		<h4 class="alert_info" id="msg"><?php echo  lang('userroleedit_alertinfo')?></h4> 
+		<h4 class="alert_info" id="msg"><?php echo  lang('v_user_rolem_editRole')?></h4> 
 		<article class="module width_full">
-		<header><h3 class="tabs_involved"><?php echo  lang('userroleedit_headerinfo')?></h3>
+		<header><h3 class="tabs_involved"><?php echo  lang('v_user_rolem_changeRole')?></h3>
 		
 		</header>
 
@@ -10,10 +10,10 @@
 				<table class="tablesorter" cellspacing="0"> 
 			<thead> 
 				<tr> 
-    				<th><?php echo  lang('userroleedit_nameth')?></th> 
-    				<th><?php echo  lang('userroleedit_emailth')?></th> 
-    				<th><?php echo  lang('userroleedit_roleth')?></th>     				
-    				<th><?php echo  lang('userroleedit_changeroleth')?></th>
+    				<th><?php echo  lang('l_username')?></th> 
+    				<th><?php echo  lang('l_re_email')?></th> 
+    				<th><?php echo  lang('v_user_userRole')?></th>     				
+    				<th><?php echo  lang('v_user_rolem_changeRole')?></th>
 				</tr> 
 			</thead> 
 			<tbody> 
@@ -46,13 +46,13 @@ function modifyResource(id) {
 	description = document.getElementById('description').value;
 	if(resource=='')
 	{
-		document.getElementById('msg').innerHTML = '<?php echo  lang('userroleedit_jsnamemsg')?>';
+		document.getElementById('msg').innerHTML = '<?php echo  lang('v_user_resm_enterResource')?>';
 		return;
 
 	}
 	if(description=='')
 	{
-		document.getElementById('msg').innerHTML = '<?php echo  lang('userroleedit_jsdescrpmsg')?>';
+		document.getElementById('msg').innerHTML = '<?php echo  lang('v_user_resm_addResourceD')?>';
 		return;
 
 	}
@@ -68,13 +68,13 @@ function modifyResource(id) {
 					url : "<?php echo base_url()?>/index.php/user/modifyresource",
 					data : data,
 					success : function(msg) {
-						document.getElementById('msg').innerHTML = "<?php echo  lang('userroleedit_jquerysmsg')?>";						 
+						document.getElementById('msg').innerHTML = "<?php echo  lang('v_user_resm_modifyResourceS')?>";						 
 					},
 					error : function(XmlHttpRequest, textStatus, errorThrown) {
-						alert("<?php echo  lang('userroleedit_jqueryerromsg')?>");
+						alert("<?php echo  lang('t_error')?>");
 					},
 					beforeSend : function() {
-						document.getElementById('msg').innerHTML = '<?php echo  lang('userroleedit_jquerywaitmsg')?>';
+						document.getElementById('msg').innerHTML = '<?php echo  lang('v_user_resm_waitMofify')?>';
 
 					},
 					complete : function() {

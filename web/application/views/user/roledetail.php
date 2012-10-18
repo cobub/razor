@@ -6,11 +6,11 @@
 
 <section id="main" class="column">
 
-<h4 class="alert_info" id='msg'><?php echo  lang('roledetail_alertinfo')?></h4> 
+<h4 class="alert_info" id='msg' style="display: none;"></h4> 
 
 <article class="module width_full">
 <header>
-<h3 class="tabs_involved"><?php echo  lang('roledetail_headertilte')?><?php echo $rolename?></h3>
+<h3 class="tabs_involved"><?php echo  lang('v_user_rolem_role')?><?php echo $rolename?></h3>
 
 </header>
 
@@ -19,9 +19,9 @@
 <table class="tablesorter" cellspacing="0">
 	<thead>
 		<tr>
-			<th><?php echo  lang('roledetail_namethead')?></th>
-			<th><?php echo  lang('roledetail_descriptionthead')?></th>
-			<th><?php echo  lang('roledetail_righthead')?></th>
+			<th><?php echo  lang('v_user_resm_resourceN')?></th>
+			<th><?php echo  lang('v_user_resm_resourceD')?></th>
+			<th><?php echo  lang('v_user_rolem_accessP')?></th>
 		</tr>
 	</thead>
 	<tbody> 
@@ -100,14 +100,15 @@ function check(role, resource) {
 					url : "<?php echo site_url()?>/user/modifyRoleCapability",
 					data : data,
 					success : function(msg) {
-						document.getElementById('msg').innerHTML = "<?php echo  lang('roledetail_jquerysmsg')?>";						 
+						document.getElementById('msg').innerHTML = "<?php echo  lang('v_user_rolem_mofifyS')?>";	
+						document.getElementById('msg').style.display="block";					 
 					},
 					error : function(XmlHttpRequest, textStatus, errorThrown) {
-						alert("<?php echo  lang('roledetail_jqueryerromsg')?>");
+						alert("<?php echo  lang('t_error')?>");
 					},
 					beforeSend : function() {
-						document.getElementById('msg').innerHTML = '<?php echo  lang('roledetail_jquerywaitmsg')?>';
-
+						document.getElementById('msg').innerHTML = '<?php echo  lang('v_user_rolem_waitmodify')?>';
+						document.getElementById('msg').style.display="block";
 					},
 					complete : function() {
 					}

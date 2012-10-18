@@ -73,9 +73,8 @@ if(isset($profile))
 ?>
 <?php echo form_open(site_url().'/profile/saveprofile/'); ?>
 <section id="main" class="column">
-<h4 class="alert_info" id="msg"><?php echo  lang('userprofile_alertinfo')?></h4> 
 <article class="module width_full">
-<header><h3><?php echo  lang('userprofile_headertilte')?></h3></header>
+<header><h3><?php echo  lang('m_pr_modifyProfile')?></h3></header>
 	<div class="module_content">
 		<table class="tablesorter" cellspacing="0">
 		
@@ -83,7 +82,7 @@ if(isset($profile))
 				<tr> 
    					<td></td> 
    					<td></td>
-    				<td><?php echo form_label(lang('userprofile_emaillabe'), $email['id']); ?></td> 
+    				<td><?php echo form_label(lang('l_re_email'), $email['id']); ?></td> 
 					<td><?php echo form_input($email);?> 
     				</td> 
     				<td></td>
@@ -92,7 +91,7 @@ if(isset($profile))
 				<tr> 
    					<td></td> 
    					<td></td>
-    				<td><?php echo form_label(lang('userprofile_usernamelal'), $username['id']); ?></td> 
+    				<td><?php echo form_label(lang('l_username'), $username['id']); ?></td> 
 					<td><?php echo form_input($username	)?></td> 
                     <td></td>
     				</td> 
@@ -101,7 +100,7 @@ if(isset($profile))
 					<tr> 
    					<td></td> 
    					<td></td>
-    				<td><?php echo form_label(lang('userprofile_companylb'), $companyname['id']); ?></td>   				    
+    				<td><?php echo form_label(lang('m_pr_companyName'), $companyname['id']); ?></td>   				    
     				<td><?php echo form_input($companyname); ?></td> 
     				<td></td>
 				</tr>
@@ -109,7 +108,7 @@ if(isset($profile))
 				<tr> 
    					<td></td> 
    					<td></td>
-    				<td><?php echo form_label(lang('userprofile_contractlabe'), $contact['id']); ?></td>  
+    				<td><?php echo form_label(lang('m_pr_contact'), $contact['id']); ?></td>  
     				<td><?php echo form_input($contact); ?></td> 
     				<td></td>
 				</tr> 
@@ -117,7 +116,7 @@ if(isset($profile))
 				<tr> 
    					<td></td> 
    					<td></td>
-    				<td><?php echo form_label(lang('userprofile_telephonelal'), $telephone['id']); ?></td>
+    				<td><?php echo form_label(lang('m_pr_phoneNumber'), $telephone['id']); ?></td>
     				<td><?php echo form_input($telephone); ?></td> 
     				<td><?php echo form_error($telephone['name']); ?>
     				<?php echo isset($errors[$telephone['name']])?$errors[$telephone['name']]:''; ?></td> 
@@ -128,7 +127,8 @@ if(isset($profile))
    					<td></td>
     				<td><?php echo form_label('QQ', $QQ['id']); ?></td>
     				<td><?php echo form_input($QQ); ?></td>	
-    				<td></td>			 
+    				<td><?php echo form_error($QQ['name']); ?>
+    				<?php echo isset($errors[$QQ['name']])?$errors[$QQ['name']]:''; ?></td>		 
 				</tr> 
 				
 				<tr> 
@@ -153,7 +153,7 @@ if(isset($profile))
 	</div>
 	<footer>
 		<div class="submit_link">
-		<td><?php echo form_submit('submit', lang('userprofile_savebtn')); ?></td> 
+		<td><?php echo form_submit('submit', lang('g_save')); ?></td> 
 		</div>
 	</footer>
 </article>

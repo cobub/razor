@@ -1,11 +1,11 @@
 <section id="main" class="column">
 		
-		<h4 class="alert_info" id="msg"><?php echo  lang('allview_managerole')?></h4> 
+		<h4 class="alert_info" id="msg" style="display:none;"></h4> 
 		<article class="module width_full">
-		<header><h3 class="tabs_involved"><?php echo  lang('allview_managerole')?></h3>
+		<header><h3 class="tabs_involved"><?php echo  lang('m_roleManagement')?></h3>
 		<ul class="tabs">
-   			<li><a href="#tab1"><?php echo  lang('roles_list')?></a></li>
-    		  <li><a href="#tab2"><?php echo  lang('roles_addrole')?></a></li>
+   			<li><a href="#tab1"><?php echo  lang('v_user_rolem_roleList')?></a></li>
+    		  <li><a href="#tab2"><?php echo  lang('v_user_rolem_addRole')?></a></li>
 		</ul>
 		</header>
 
@@ -14,10 +14,10 @@
 			<table class="tablesorter" cellspacing="0"> 
 			<thead> 
 				<tr> 
-				    <th><?php echo  lang('roles_id')?></th> 
-    				<th><?php echo  lang('roles_name')?></th> 
-    				<th><?php echo  lang('roles_description')?></th>     				
-    				<th><?php echo  lang('roles_right')?></th>
+				    <th><?php echo  lang('v_user_rolem_roleId')?></th> 
+    				<th><?php echo  lang('v_user_rolem_roleName')?></th> 
+    				<th><?php echo  lang('v_user_rolem_roleDescription')?></th>     				
+    				<th><?php echo  lang('v_user_rolem_permissionM')?></th>
     				
 				</tr> 
 			</thead> 
@@ -30,7 +30,7 @@
 				    <td><?php echo $row->id;?></td> 
     				<td><?php echo $row->name;?></td> 
     				<td><?php echo $row->description;?></td> 
-    				<td><?php echo anchor('/user/roleManageDetail/'.$row->id.'/'.$row->name, lang('roles_tbodyright'));?>
+    				<td><?php echo anchor('/user/roleManageDetail/'.$row->id.'/'.$row->name, lang('v_user_rolem_mPermission'));?>
     				
     				</td>
     				
@@ -48,14 +48,14 @@
 			
 				<div class="module_content">
 						<fieldset>
-							<label><?php echo  lang('roles_namelabe')?></label>
+							<label><?php echo  lang('v_user_rolem_roleName')?></label>
 							<input type="text" id='role'>
 						</fieldset>
 						<fieldset>
-							<label><?php echo  lang('roles_descriplal')?></label>
+							<label><?php echo  lang('v_user_rolem_roleDescription')?></label>
 							<input type="text" id='description'>
 						</fieldset>
-						<input type="button" value="<?php echo  lang('roles_addbtn')?>" class="alt_btn" onClick='addRole()'>
+						<input id="addRoleBtn" type="button" value="<?php echo  lang('v_user_rolem_addRole')?>" class="alt_btn" onClick='addRole()'>
 				</div>
 			
 				
@@ -79,20 +79,31 @@
 	<script type="text/javascript">
 
 function addRole() {	
-	role = document.getElementById('role').value;
-	description = document.getElementById('description').value;
+	role = trim(document.getElementById('role').value);
+	description = trim(document.getElementById('description').value);
+	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
 	if(role=='')
 	{
-		document.getElementById('msg').innerHTML = '<?php echo  lang('roles_jsnamemsg')?>';
+		document.getElementById('msg').innerHTML = '<font color=red><?php echo  lang('v_user_rolem_enterRoleN')?></font>';
+		document.getElementById('msg').style.display="block";
 		return;
 
+	}
+	for (var i = 0; i < role.length; i++) {
+		if(pattern.test(role.substr(i, 1))){
+			document.getElementById('msg').innerHTML = '<font color=red><?php echo lang('v_user_rolem_errorInput') ?></font>';
+			document.getElementById('msg').style.display="block";
+			return;
+		}
 	}
 	if(description=='')
 	{
-		document.getElementById('msg').innerHTML = '<?php echo  lang('roles_jsdescrpmsg')?>';
+		document.getElementById('msg').innerHTML = '<font color=red><?php echo  lang('v_user_rolem_enterRoleD')?></font>';
+		document.getElementById('msg').style.display="block";
 		return;
 
 	}
+	document.getElementById('addRoleBtn').disabled=true;
 	var data = {
 			role : role,
 			description : description
@@ -104,18 +115,30 @@ function addRole() {
 					url : "<?php echo base_url()?>/index.php/user/addRole",
 					data : data,
 					success : function(msg) {
-						document.getElementById('msg').innerHTML = "<?php echo  lang('roles_jquerysmsg')?>";						 
+						if(!msg){
+							document.getElementById('msg').innerHTML = "<font color=red><?php echo  lang('v_user_rolem_duplicateRole')?></font>";
+							document.getElementById('msg').style.display="block";	
+							document.getElementById('addRoleBtn').disabled=false;
+						}else{
+						document.getElementById('msg').innerHTML = "<?php echo  lang('v_user_rolem_addRoleS')?>";
+						document.getElementById('msg').style.display="block";
+						window.location="<?php echo site_url()?>/user/rolemanage";}					 
 					},
 					error : function(XmlHttpRequest, textStatus, errorThrown) {
-						alert("<?php echo  lang('roles_jqueryerromsg')?>");
+						alert("<?php echo  lang('t_error')?>");
+						document.getElementById('addRoleBtn').disabled=false;
 					},
 					beforeSend : function() {
-						document.getElementById('msg').innerHTML = '<?php echo  lang('roles_jquerywaitmsg')?>';
+						document.getElementById('msg').innerHTML = '<?php echo  lang('v_user_rolem_waitAdd')?>';
+						document.getElementById('msg').style.display="block";
 
 					},
 					complete : function() {
 					}
 				});
 }
+function trim(str){
+    return  (str.replace(/(^\s*)|(\s*$)/g,''));
+ }
 </script>
 	
