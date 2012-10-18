@@ -14,23 +14,19 @@
  */
 class Common extends CI_Model {
 	function __construct() {
-		parent::__construct ();				
+		parent::__construct ();
 		$this->load->library ( 'session' );
 		$this->load->helper ( 'url' );
 		$this->load->library ( 'tank_auth' );
 		$this->load->library ( 'ums_acl' );
 		$this->load->model ( 'product/productmodel', 'product' );
-		$this->load->library ( 'export' );		
+		$this->load->library ( 'export' );
 		$this->load->database ();
-
 	}
-	
-	function getdbprefixtable($name)
-	{
-	   $tablename=$this->db->dbprefix($name);	  
-	   return $tablename;
+	function getdbprefixtable($name) {
+		$tablename = $this->db->dbprefix ( $name );
+		return $tablename;
 	}
-	
 	function getMaxY($count) {
 		if ($count <= 5) {
 			return 5;
@@ -38,37 +34,28 @@ class Common extends CI_Model {
 			return $count + $count / 10;
 		}
 	}
-	
-	
-	function getTimeTick($days)
-	{
-		if($days<=7)
-		{
+	function getTimeTick($days) {
+		if ($days <= 7) {
 			return 1;
 		}
 		
-		if($days >7 && $days<=30)
-		{
+		if ($days > 7 && $days <= 30) {
 			return 2;
 		}
 		
-		if($days >30 && $days<=90)
-		{
+		if ($days > 30 && $days <= 90) {
 			return 10;
 		}
 		
-		if($days >90 && $days<= 270)
-		{
+		if ($days > 90 && $days <= 270) {
 			return 30;
 		}
 		
-		if($days>270 && $days<=720)
-		{
+		if ($days > 270 && $days <= 720) {
 			return 70;
 		}
 		return 1;
 	}
-	
 	function getStepY($count) {
 		if ($count <= 5) {
 			return 1;
@@ -76,15 +63,18 @@ class Common extends CI_Model {
 			return round ( $count / 5, 0 );
 		}
 	}
-	
-	function loadHeader() {
+	function loadHeaderWithDateControl($viewname = "") {
+		$this->loadHeader ( $viewname, TRUE );
+	}
+	function loadHeader($viewname = "", $showDate = FALSE) {
+		$this->load->helper ( 'cookie' );
 		if (! $this->common->isUserLogin ()) {
 			$dataheader ['login'] = false;
 			$this->load->view ( 'layout/header', $dataheader );
-			//$this->load->view ( 'chinanetdemo', $dataheader );
+			// $this->load->view ( 'chinanetdemo', $dataheader );
 		} else {
 			$dataheader ['user_id'] = $this->getUserId ();
-			$dataheader ['pageTitle'] = $this->getPageTitle ( $this->router->fetch_class () );
+			$dataheader ['pageTitle'] = lang("c_".$this->router->fetch_class ());
 			if ($this->isAdmin ()) {
 				$dataheader ['admin'] = true;
 			}
@@ -101,20 +91,32 @@ class Common extends CI_Model {
 				$dataheader ["productList"] = $productList;
 			}
 			log_message ( "error", "Load Header 123" );
-		$this->load->view ( 'layout/header', $dataheader );
-		//$this->load->view ( 'chinanetdemo', $dataheader );
+			$dataheader ['language'] = $this->config->item ( 'language' );
+			$dataheader ['viewname'] = $viewname;
+			if ($showDate) {
+				$dataheader ["showDate"] = true;
+			}
+			$this->load->view ( 'layout/header', $dataheader );
+			// $this->load->view ( 'chinanetdemo', $dataheader );
 		}
 	}
-	
 	function show_message($message) {
 		$this->session->set_userdata ( 'message', $message );
 		redirect ( '/auth/' );
 	}
-	
 	function requireLogin() {
 		if (! $this->tank_auth->is_logged_in ()) {
 			redirect ( '/auth/login/' );
 		}
+	}
+	
+	function requireProduct()
+	{
+		$product = $this->getCurrentProduct();
+		if(empty($product))
+		{
+			redirect(site_url());
+		}	
 	}
 	
 	function isAdmin() {
@@ -125,19 +127,15 @@ class Common extends CI_Model {
 		}
 		return false;
 	}
-	
 	function getUserId() {
 		return $this->tank_auth->get_user_id ();
 	}
-	
 	function getUserName() {
 		return $this->tank_auth->get_username ();
 	}
-	
 	function isUserLogin() {
 		return $this->tank_auth->is_logged_in ();
 	}
-	
 	function canRead($controllerName) {
 		$id = $this->getResourceIdByControllerName ( $controllerName );
 		if ($id) {
@@ -154,7 +152,6 @@ class Common extends CI_Model {
 			return false;
 		}
 	}
-	
 	function getPageTitle($controllerName) {
 		$this->db->where ( 'name', $controllerName );
 		$query = $this->db->get ( 'user_resources' );
@@ -164,7 +161,7 @@ class Common extends CI_Model {
 		return "";
 	}
 	
-	//private functiosn
+	// private functiosn
 	function getResourceIdByControllerName($controllerName) {
 		$this->db->where ( 'name', $controllerName );
 		$query = $this->db->get ( 'user_resources' );
@@ -173,7 +170,6 @@ class Common extends CI_Model {
 		}
 		return null;
 	}
-	
 	function getUserRoleById($id) {
 		if ($id == '')
 			return '2';
@@ -186,43 +182,104 @@ class Common extends CI_Model {
 		} else
 			return '2';
 	}
-	
 	function getCurrentProduct() {
+		$currentProduct = $this->session->userdata ( "currentProduct" );
+		return $currentProduct;
+	}
+	function getCurrentProductIfExist() {
 		$currentProduct = $this->session->userdata ( "currentProduct" );
 		if (isset ( $currentProduct )) {
 			return $currentProduct;
 		} else {
-			redirect ( '/auth/login/' );
+			return false;
 		}
 	}
-	
 	function cleanCurrentProduct() {
 		$this->session->unset_userdata ( "currentProduct" );
 	}
-	
 	function setCurrentProduct($productId) {
 		$currentProduct = $this->product->getProductById ( $productId );
 		$this->session->set_userdata ( "currentProduct", $currentProduct );
 	}
-	
-	function export($from, $to,$data) {
+	function changeTimeSegment($pase, $from, $to) {
+		$toTime = date ( 'Y-m-d', time () );
+		switch ($pase) {
+			case "7day" :
+				{
+					$fromTime = date ( "Y-m-d", strtotime ( "-6 day" ) );
+				}
+				break;
+			case "1month" :
+				{
+					$fromTime = date ( "Y-m-d", strtotime ( "-31 day" ) );
+				}
+				break;
+			case "3month" :
+				{
+					$fromTime = date ( "Y-m-d", strtotime ( "-92 day" ) );
+				}
+				break;
+			case "all" :
+				{
+					$currentProduct = $this->getCurrentProductIfExist ();
+					if ($currentProduct) {
+						$fromTime = $this->product->getReportStartDate ( $currentProduct, '1970-02-01' );
+						$fromTime = date ( "Y-m-d", strtotime ( $fromTime ) );
+					} else {
+						$fromTime = $this->product->getUserStartDate ( $this->getUserId (), '1970-01-01' );
+						$fromTime = date ( "Y-m-d", strtotime ( $fromTime ) );
+					}
+				}
+				break;
+			case "any" :
+				{
+					$fromTime = $from;
+					$toTime = $to;
+				}
+				break;
+			default :
+				{
+					$fromTime = date ( "Y-m-d", strtotime ( "-6 day" ) );
+				}
+				break;
+		}
+		
+		$this->session->set_userdata ( 'fromTime', $fromTime );
+		$this->session->set_userdata ( 'toTime', $toTime );
+	}
+	function getFromTime() {
+		$fromTime = $this->session->userdata ( "fromTime" );
+		if (isset ( $fromTime ) && $fromTime != null && $fromTime != "") {
+			return $fromTime;
+		}
+		$fromTime = date ( "Y-m-d", strtotime ( "-6 day" ) );
+		return $fromTime;
+	}
+	function getToTime() {
+		$toTime = $this->session->userdata ( "toTime" );
+		if (isset ( $toTime ) && $toTime != null && $toTime != "") {
+			return $toTime;
+		}
+		$toTime = date ( 'Y-m-d', time () );
+		return $toTime;
+	}
+	function export($from, $to, $data) {
 		$productId = $this->getCurrentProduct ()->id;
 		$productName = $this->getCurrentProduct ()->name;
 		
 		$export = new Export ();
-		//设定文件名
+		// 设定文件名
 		$export->setFileName ( $productName . '_' . $from . '_' . $to . '.xls' );
-		//输出列名
+		// 输出列名
 		$fields = array ();
 		foreach ( $data->list_fields () as $field ) {
 			array_push ( $fields, $field );
 		}
 		$export->setTitle ( $fields );
-		//输出内容
+		// 输出内容
 		foreach ( $data->result () as $row )
 			$export->addRow ( $row );
 		$export->export ();
 		die ();
 	}
-
 }

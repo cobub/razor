@@ -13,301 +13,500 @@
  * @filesource
  */
 class errormodel extends CI_Model {
-	function __construct() {
+	function __construct() {                          
 		parent::__construct ();
 		$this->load->database ();
 		$this->load->Model ( 'common' );
 	}
-	
-	//获得错误信息的版本
-	function geterrorinfoversion() {
-		$currentProduct = $this->common->getCurrentProduct ();
-		$productid = $currentProduct->id;
+
+	//get error count and count/sessions data by version
+	function geterroralldata($productId,$fromTime,$toTime) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql = "select distinct  product_version as version from ".$dwdb->dbprefix('dim_product')."  where product_id=$productid";
-		
-		$query = $dwdb->query ( $sql );
-		if ($query != null && $query->num_rows () > 0) {
-			
-			return $query;
-		}
-	}
-	
-	//获得错误趋势的信息
-	function geterrorinfodata($productId,$fromTime,$toTime) {
-		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql = "select date(d.datevalue) datevalue,
-	p.version_name,
-       ifnull(count(f.id),0) count,
-      ifnull(count(f.id)/(select sum(sessions) from  ".$dwdb->dbprefix('sum_basic_all')."   s where s.date_sk = d.date_sk and s.product_sk = p.product_sk),0) percentage
-from   (select datevalue,date_sk
-        from   ".$dwdb->dbprefix('dim_date')."
-        where  datevalue between '$fromTime' and '$toTime') d
-cross join (select product_sk,version_name from ".$dwdb->dbprefix('dim_product')." where product_active=1 and channel_active=1 and version_active=1 and product_id=$productId) p
-       left join ".$dwdb->dbprefix('fact_errorlog')." f on
-f.date_sk = d.date_sk and f.product_sk = p.product_sk and 
-d.datevalue between '$fromTime' and '$toTime' 
-group by d.datevalue,p.version_name
-order by datevalue, p.version_name desc;";
-		$query= $dwdb->query ($sql);	
+		$sql="Select
+              p.version_name,
+              ifnull(count(f.id),0) errorcount,
+              ifnull(count(f.id)/(select sum(sessions) from ".$dwdb->dbprefix('sum_basic_all')." s,".$dwdb->dbprefix('dim_date')." sd, ".$dwdb->dbprefix('dim_product')." sp where s.date_sk =sd.date_sk and sd.datevalue between '$fromTime' and '$toTime' and s.product_sk = sp.product_sk and sp.product_id=1 and sp.version_name=p.version_name),0) percentage
+              from ".$dwdb->dbprefix('fact_errorlog')." f, ".$dwdb->dbprefix('dim_date')." d, ".$dwdb->dbprefix('dim_product')." p where f.date_sk = d.date_sk and d.datevalue between '$fromTime' and '$toTime' and f.product_sk = p.product_sk and p.product_id = $productId and p.product_active=1 and p.channel_active=1 and p.version_active=1  group by p.version_name order by version_name";
+
+		$query= $dwdb->query ($sql);
 		$ret=array();
-		if ($query != null && $query->num_rows > 0) {
-		
+		if ($query != null && $query->num_rows() > 0) {
+
 			$array = $query->result_array ();
-				
+
 			$content_arr = array ();
 			for($i = 0; $i < count ($array); $i ++) {
-				$row = $array [$i];
-				$versionname = $row ['version_name'];
-				$allkey = array_keys ( $content_arr );
-				if (! in_array ( $versionname, $allkey )){
-					$content_arr [$versionname] = array ();
-				}
-				$tmp = array ();
-				$tmp ['datevalue'] = $row ['datevalue'];
-				$tmp ['count'] = $row ['count'];
-				$tmp ['percentage'] = round($row ['percentage'],2)."%";
+				$tmp = array();
+				$row = $array[$i];
+				$tmp ['count'] = $row ['errorcount'];
+				$tmp ['percentage'] = round($row ['percentage'],2);
 				$tmp ['version_name'] = $row ['version_name'];
-				array_push ( $content_arr [$versionname], $tmp );
-					
+				array_push ( $content_arr, $tmp );
 			}
 			$ret['content'] = $content_arr;
 		}
-		
+		else 
+		    $ret['content'] = "";
 		return $ret;
-	}                                
-	
-	//通过时间与版本 获得错误信息的个数
-	function geterrornumbyvertime($fromTime, $toTime, $productid, $version) {
+	}
+
+	//get error count and count/sessions data by os
+	function getErrorAllDataOnOs($productId,$fromTime,$toTime) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql = "select dd.datevalue, ifnull(ff.count,0) count 
-		  from   (select datevalue from   ".$dwdb->dbprefix('dim_date_day')."   
-         where  datevalue between '$fromTime' and '$toTime') dd
-         left join (select   d.datevalue,count(f.deviceidentifier) count
-                  from  ".$dwdb->dbprefix('fact_errorlog')."       f,  ".$dwdb->dbprefix('dim_date_day')."    d, ".$dwdb->dbprefix('dim_product')."    p
-                  where    f.date_sk = d.date_sk and d.datevalue between '$fromTime' and '$toTime'
-                           and f.product_sk = p.product_sk and p.product_id = $productid and p.product_version='$version'
-                  group by d.datevalue) ff on dd.datevalue = ff.datevalue";
-		
-		$query = $dwdb->query ( $sql );
-		return $query;
-	}	
-	//通过时间与版本 获得 错误/启动 信息的个数
-	function geterrorstartbyversion($fromTime, $toTime, $productid, $version) {
-		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql="select dd.datevalue,ifnull(ff.count,0) count from   (select datevalue
-        from   ".$dwdb->dbprefix('dim_date_day')."     where  datevalue between '$fromTime' and '$toTime') dd
-       left join (select   d.datevalue,count(f.deviceidentifier)/(select count(ft.deviceidentifier)
-        from   ".$dwdb->dbprefix('fact_activeusers_clientdata')."    ft,  ".$dwdb->dbprefix('dim_product')."   pt,  ".$dwdb->dbprefix('dim_date')."   dt
-        where  ft.product_sk = pt.product_sk and pt.product_id =$productid and pt.product_version='$version'
-        and ft.date_sk = dt.date_sk and dt.startdate = d.datevalue) count
-                  from   ".$dwdb->dbprefix('fact_errorlog')."      f, ".$dwdb->dbprefix('dim_date_day')."   d, ".$dwdb->dbprefix('dim_product')."   p
-                  where    f.date_sk = d.date_sk and d.datevalue between '$fromTime' and '$toTime'
-                           and f.product_sk = p.product_sk and p.product_id =$productid and p.product_version='$version'
-                  group by d.datevalue) ff on dd.datevalue = ff.datevalue";
-		
-		$query = $dwdb->query ( $sql );
-		return $query;
-	}	
-	
-	//获得错误信息列表  *****************
-	function geterrorlist($productid, $isfix = 0,$devicebrandname="") {
-		$dwdb = $this->load->database ( 'dw', TRUE );
-	   if($devicebrandname=="")
-		{$sql = "select  f.title,f.title_sk,p.product_sk,count(f.stacktrace) errorcount,
-         p.version_name,f.time 
-         from  ".$dwdb->dbprefix('fact_errorlog')." f,".$dwdb->dbprefix('dim_product')." p ,".$dwdb->dbprefix('dim_devicebrand')."  o
-         where    f.product_sk = p.product_sk and f.deviceidentifier = o.devicebrand_sk 
-         and p.product_id = $productid and f.isfix=$isfix and p.product_active=1 and p.channel_active=1 and p.version_active=1
-		 group by f.title,p.version_name, p.product_sk,f.title_sk;";
+		$sql="Select
+o.deviceos_name,
+ifnull(count(f.id),0) errorcount,      
+ifnull(count(f.id)/(select count(*) from  ".$dwdb->dbprefix('fact_clientdata')."  s,".$dwdb->dbprefix('dim_date')." sd, ".$dwdb->dbprefix('dim_product')." sp  where s.date_sk =sd.date_sk and sd.datevalue between '$fromTime' and '$toTime' and s.product_sk = sp.product_sk and sp.product_id=1 and s.deviceos_sk=o.deviceos_sk),0) percentage
+from ".$dwdb->dbprefix('fact_errorlog')."  f, ".$dwdb->dbprefix('dim_date')." d, ".$dwdb->dbprefix('dim_product')." p, ".$dwdb->dbprefix('dim_deviceos')." o where f.date_sk = d.date_sk and d.datevalue between '$fromTime' and '$toTime' and f.product_sk = p.product_sk and p.product_id = $productId and p.product_active=1 and p.channel_active=1 and p.version_active=1 and f.osversion_sk = o.deviceos_sk group by o.deviceos_name order by o.deviceos_name
+		";
+
+		$query= $dwdb->query ($sql);
+		$ret=array();
+		if ($query != null && $query->num_rows() > 0) {
+
+			$array = $query->result_array ();
+
+			$content_arr = array ();
+			for($i = 0; $i < count ($array); $i ++) {
+				$tmp = array();
+				$row = $array[$i];
+				$tmp ['count'] = $row ['errorcount'];
+				$tmp ['percentage'] = round($row ['percentage'],2);
+				$tmp ['deviceos_name'] = $row ['deviceos_name'];
+				array_push ( $content_arr, $tmp );
+			}
+			$ret['content'] = $content_arr;
 		}
 		else 
-		{
-			$sql = "select  f.title,f.title_sk,p.product_sk,count(f.stacktrace) errorcount,
-         p.version_name,f.time 
-         from  ".$dwdb->dbprefix('fact_errorlog')." f,".$dwdb->dbprefix('dim_product')." p ,".$dwdb->dbprefix('dim_devicebrand')."  o
-         where    f.product_sk = p.product_sk and f.deviceidentifier = o.devicebrand_sk 
-         and p.product_id = $productid and f.isfix=$isfix and p.product_active=1 and p.channel_active=1 and p.version_active=1 and o.devicebrand_name= '$devicebrandname'
-		group by f.title,p.version_name, p.product_sk,f.title_sk ;";
-		}
-		$query = $dwdb->query ( $sql );
-		return $query;
+		    $ret['content'] = "";
+		return $ret;
 	}
-	//获得错误信息分页信息
-	function getpageerrorlist ($productid,$isfix=0,$pagenum=0,$devicebrandname="", $count = REPORT_TOP_TEN)
-	{
+
+	//get error count and count/sessions data by device
+	function getErrorAllDataOnDevice($productId,$fromTime,$toTime) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
-		if($devicebrandname=="")
-		{$sql = "select  f.title,f.title_sk,p.product_sk,count(f.stacktrace) errorcount,
-         p.version_name,f.time 
-         from  ".$dwdb->dbprefix('fact_errorlog')." f,".$dwdb->dbprefix('dim_product')." p ,".$dwdb->dbprefix('dim_devicebrand')."  o
-         where    f.product_sk = p.product_sk and f.deviceidentifier = o.devicebrand_sk 
-         and p.product_id = $productid and f.isfix=$isfix and p.product_active=1 and p.channel_active=1 and p.version_active=1
-		 group by f.title,p.version_name, p.product_sk,f.title_sk limit $pagenum,$count;";
+		$sql="Select
+o.devicebrand_name,
+ifnull(count(f.id),0) errorcount,
+ifnull(count(f.id)/(select count(*) from ".$dwdb->dbprefix('fact_clientdata')."  s,".$dwdb->dbprefix('dim_date')." sd, ".$dwdb->dbprefix('dim_product')." sp  where s.date_sk =sd.date_sk and sd.datevalue between '$fromTime' and '$toTime' and s.product_sk = sp.product_sk and sp.product_id=$productId and s.devicebrand_sk=o.devicebrand_sk),0) percentage
+from ".$dwdb->dbprefix('fact_errorlog')." f, ".$dwdb->dbprefix('dim_date')." d, ".$dwdb->dbprefix('dim_product')." p, ".$dwdb->dbprefix('dim_devicebrand')." o where f.date_sk = d.date_sk and d.datevalue between '$fromTime' and '$toTime' and f.product_sk = p.product_sk and p.product_id = $productId and p.product_active=1 and p.channel_active=1 and p.version_active=1 and f.deviceidentifier = o.devicebrand_sk group by o.devicebrand_name order by errorcount desc
+		limit 0,".REPORT_TOP_TEN;
+
+		$query= $dwdb->query ($sql);
+		$ret=array();
+		if ($query != null && $query->num_rows() > 0) {
+
+			$array = $query->result_array ();
+
+			$content_arr = array ();
+			for($i = 0; $i < count ($array); $i ++) {
+				$tmp = array();
+				$row = $array[$i];
+				$tmp ['count'] = $row ['errorcount'];
+				$tmp ['percentage'] = round($row ['percentage'],2);
+				$tmp ['devicebrand_name'] = $row ['devicebrand_name'];
+				array_push ( $content_arr, $tmp );
+			}
+			$ret['content'] = $content_arr;
 		}
 		else 
-		{
-			$sql = "select  f.title,f.title_sk,p.product_sk,count(f.stacktrace) errorcount,
-         p.version_name,f.time 
-         from  ".$dwdb->dbprefix('fact_errorlog')." f,".$dwdb->dbprefix('dim_product')." p ,".$dwdb->dbprefix('dim_devicebrand')."  o
-         where    f.product_sk = p.product_sk and f.deviceidentifier = o.devicebrand_sk 
-         and p.product_id = $productid and f.isfix=$isfix and p.product_active=1 and p.channel_active=1 and p.version_active=1 and o.devicebrand_name= '$devicebrandname'
-		group by f.title,p.version_name, p.product_sk,f.title_sk limit $pagenum,$count;";
-		}
-		$query = $dwdb->query ( $sql );
-		return $query;
+		    $ret['content'] = "";
+		return $ret;
 	}
-	//根据页数获得错误的详细信息
-	function geterrorlistbypagenum($productid, $isfix = 0,$pageIndex=0,$pageNums=RECORD_NUM)
-	{
-		$from = ($pageIndex*$pageNums);
+
+	//Error message list  of version*****************
+	function geterrorlist($productid,$from,$to) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql = "select  f.title,f.title_sk,p.product_sk,count(f.stacktrace) errorcount,
-         p.version_name,f.time 
-         from  ".$dwdb->dbprefix('fact_errorlog')." f,".$dwdb->dbprefix('dim_product')." p 
-         where    f.product_sk = p.product_sk 
-         and p.product_id = $productid and f.isfix=$isfix and p.product_active=1 and p.channel_active=1 and p.version_active=1 
-		group by f.title,p.version_name, p.product_sk,f.title_sk limit $from,$pageNums;";
-		$query = $dwdb->query ( $sql );
-		return $query;
-	}
-	//获取错误的详细描述信息
-	function getdetailstacktrace($productsk,$titlesk,$isfix)
-		{   
-		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql="select f.stacktrace from  ".$dwdb->dbprefix('fact_errorlog')."   f
-          where   f.title_sk =$titlesk
-         and product_sk = $productsk and f.isfix = $isfix order by f.time desc";
-		
-	
-		$query = $dwdb->query ( $sql );
-		$rel=$query->first_row();
-		return $rel;
-	}
-	
-	
-	//根据版本号,appkey标记错误信息
-	function markfixerrorinfo($productid, $product_version,$titlesk,$titles,$product_sk, $fix){
-		$sql = "update  ".$this->db->dbprefix('errorlog')."   set isfix=$fix where appkey in 
-		(select distinct   productkey from  ".$this->db->dbprefix('channel_product')."  where product_id=$productid) and title='$titles' and version='$product_version' ";
-		$this->db->query ( $sql );
-		
-		$dwdb = $this->load->database ( 'dw', TRUE );		
-	//	$dsql="update fact_errorlog set isfix = $fix where product_sk =$product_sk and title_sk=$titlesk and title='$titles' ";
-		$dsql="update ".$dwdb->dbprefix('fact_errorlog')." 
-set    isfix = $fix
-where  title_sk = $titlesk
-       and product_sk = $productid and isfix = 0;
+
+		$sql = "select   f.title,
+         f.title_sk,et.isfix,
+         count(f.stacktrace) errorcount,
+         p.version_name,
+         max(f.time) time
+from    ".$dwdb->dbprefix('fact_errorlog')." f,".$dwdb->dbprefix('dim_errortitle')." et,
+         ".$dwdb->dbprefix('dim_product')." p,".$dwdb->dbprefix('dim_date')." d
+where    f.product_sk = p.product_sk and f.title_sk = et.title_sk 
+         and p.product_id = $productid  and p.product_active=1 and p.channel_active=1 and p.version_active=1 and f.date_sk = d.date_sk and d.datevalue between '$from' and '$to'
+group by p.version_name,f.title_sk order by version_name desc, f.time desc;
 		";
-		$dwdb->query ( $dsql );
-	
-	}
-	//根据appkey标记所有错误信息
-	function markfixallversion($productid,$fix) {
-		$sql = "update  ".$this->db->dbprefix('errorlog')."   set isfix=$fix where appkey in 
-		(select distinct productkey from  ".$dwdb->dbprefix('channel_product')."   where product_id=$productid)";
-		$this->db->query ( $sql );
-		
-		$dwdb = $this->load->database ( 'dw', TRUE );
-		$dsql="update  ".$dwdb->dbprefix('fact_errorlog')."   set isfix=$fix where product_sk in 
-		(select distinct product_sk from  ".$dwdb->dbprefix('dim_product')."   where product_id=$productid)";
-		 $dwdb->query ( $dsql );
-	}
-	//根据获得设备类型
-	function geterrordevicename($device) {
-		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql = "select distinct devicebrand_name from  ".$dwdb->dbprefix('dim_devicebrand')."   where devicebrand_name like '%$device%'";
-		
+		//echo $sql;
 		$query = $dwdb->query ( $sql );
 		return $query;
 	}
-	//获得错误的明细
-	function geterrordetail($titlesk,$productsk,$isfix)
-	{
-// 		$sql="select   f.time,o.deviceos_name,b.devicebrand_name,f.stacktrace from fact_errorlog f,
-//          dim_deviceos o,dim_devicebrand b where  f.osversion_sk = o.deviceos_sk and f.deviceidentifier = b.devicebrand_sk
-//          and f.title_sk = $titlesk and product_sk =$productsk and f.isfix =$isfix order by f.time desc";
-		
-//		$sql = " select   f.time, o.deviceos_name,f.deviceidentifier, f.stacktrace
-//             from  fact_errorlog f, dim_deviceos o where f.osversion_sk = o.deviceos_sk
-//         and f.title_sk =$titlesk and product_sk = $productsk and f.isfix =$isfix order by f.time desc";		
+
+	//Error message list  on os*****************
+	function getErrorlistOnOs($productid,$from,$to) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql="select   f.time,
-		o.deviceos_name,
-		b.devicebrand_name,
-		f.stacktrace
-		from   ".$dwdb->dbprefix('fact_errorlog')."      f,
-		".$dwdb->dbprefix('dim_deviceos')."      o,
-		".$dwdb->dbprefix('dim_devicebrand')."      b
-		where    f.osversion_sk = o.deviceos_sk
-		and f.deviceidentifier = b.devicebrand_sk
-		and f.title_sk = $titlesk
-		and product_sk = $productsk
-		and f.isfix = $isfix
-		order by f.time desc;
+
+		$sql = "select   f.title,
+         f.title_sk,et.isfix,
+         count(f.stacktrace) errorcount,
+         o.deviceos_sk,
+         o.deviceos_name,
+         max(f.time) time
+from     ".$dwdb->dbprefix('fact_errorlog')." f,".$dwdb->dbprefix('dim_errortitle')." et,
+         ".$dwdb->dbprefix('dim_product')." p,".$dwdb->dbprefix('dim_date')." d,".$dwdb->dbprefix('dim_deviceos')." o
+where    f.product_sk = p.product_sk and f.title_sk = et.title_sk
+         and p.product_id = $productid  and p.product_active=1 and p.channel_active=1 and p.version_active=1 and f.date_sk = d.date_sk and d.datevalue between '$from' and '$to' and f.osversion_sk=o.deviceos_sk 
+group by o.deviceos_sk,f.title_sk order by o.deviceos_name desc,f.time desc;
 		";
+		//echo $sql;
 		$query = $dwdb->query ( $sql );
 		return $query;
-		
 	}
-	//设备分布情况
-	function deviceinfo($titlesk,$productsk,$isfix)
+
+
+	//Error message list  on device*****************
+	function getErrorlistOnDevice($productid,$from,$to) {
+		$dwdb = $this->load->database ( 'dw', TRUE );
+
+		$sql = "select   f.title,
+         f.title_sk, et.isfix,
+         count(f.stacktrace) errorcount,
+         o.devicebrand_sk,
+         o.devicebrand_name,
+         max(f.time) time
+from  ".$dwdb->dbprefix('fact_errorlog')." f,".$dwdb->dbprefix('dim_errortitle')." et,
+         ".$dwdb->dbprefix('dim_product')." p,".$dwdb->dbprefix('dim_date')." d,".$dwdb->dbprefix('dim_devicebrand')." o
+where    f.product_sk = p.product_sk and f.title_sk = et.title_sk
+         and p.product_id = $productid  and p.product_active=1 and p.channel_active=1 and p.version_active=1 and f.date_sk = d.date_sk and d.datevalue between '$from' and '$to' and f.deviceidentifier=o.devicebrand_sk 
+group by o.devicebrand_sk,f.title_sk order by count(f.stacktrace) desc,f.time desc;
+		";
+		//echo $sql;
+		$query = $dwdb->query ( $sql );
+		return $query;
+	}
+
+	
+
+	//error Detail of version
+	function geterrordetail($title_sk,$version_name,$product_id,$from,$to)
+	{
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$sql="select   f.time, et.isfix,
+         o.deviceos_name,
+         b.devicebrand_name,
+         f.stacktrace
+         from     
+         ".$dwdb->dbprefix('dim_errortitle')." et,
+        ".$dwdb->dbprefix('fact_errorlog')." f,
+         ".$dwdb->dbprefix('dim_deviceos')." o,
+         ".$dwdb->dbprefix('dim_devicebrand')." b,
+         ".$dwdb->dbprefix('dim_product')." p,
+         ".$dwdb->dbprefix('dim_date')." d
+         where    
+         f.title_sk = et.title_sk
+         and f.osversion_sk = o.deviceos_sk
+         and f.deviceidentifier = b.devicebrand_sk
+         and f.product_sk = p.product_sk
+         and f.title_sk = '$title_sk'
+         and p.version_name='$version_name' and p.product_id = '$product_id'
+         and f.date_sk = d.date_sk and d.datevalue between '$from' and '$to'
+         ORDER BY f.time desc;
+		";
+		
+		$query = $dwdb->query ( $sql );
+		return $query;
+
+	}
+
+	//error Detail on os
+	function getErrorDetailOnOs($title_sk,$deviceos_sk,$product_id,$from,$to)
+	{
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$sql="select  f.time,et.isfix,
+         b.devicebrand_name,
+         p.version_name,
+         f.stacktrace
+from     ".$dwdb->dbprefix('dim_errortitle')." et,
+         ".$dwdb->dbprefix('fact_errorlog')." f,
+         ".$dwdb->dbprefix('dim_deviceos')." o,
+         ".$dwdb->dbprefix('dim_devicebrand')." b,
+         ".$dwdb->dbprefix('dim_product')." p,
+         ".$dwdb->dbprefix('dim_date')." d
+where    f.osversion_sk = o.deviceos_sk
+         and f.title_sk = et.title_sk
+         and f.deviceidentifier = b.devicebrand_sk
+         and f.product_sk = p.product_sk
+         and f.title_sk = '$title_sk'
+         and o.deviceos_sk = '$deviceos_sk' and p.product_id = '$product_id'
+         and f.date_sk = d.date_sk and d.datevalue between '$from' and '$to'
+ORDER BY f.time desc;
+		";
+		//echo $sql;
+		$query = $dwdb->query ( $sql );
+		return $query;
+
+	}
+
+	//error Detail on device
+	function getErrorDetailOnDevice($title_sk,$devicebrand_sk,$product_id,$from,$to)
+	{
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$sql="select   f.time,et.isfix,
+         o.deviceos_name,
+         p.version_name,
+         f.stacktrace
+from     
+         ".$dwdb->dbprefix('dim_errortitle')." et,
+         ".$dwdb->dbprefix('fact_errorlog')." f,
+         ".$dwdb->dbprefix('dim_deviceos')." o,
+         ".$dwdb->dbprefix('dim_product')." p,
+         ".$dwdb->dbprefix('dim_date')." d
+where    f.osversion_sk = o.deviceos_sk
+         and f.title_sk = et.title_sk
+         and f.product_sk = p.product_sk
+         and f.title_sk = $title_sk
+         and f.deviceidentifier = $devicebrand_sk
+          and p.product_id = $product_id
+          and f.date_sk = d.date_sk and d.datevalue between '$from' and '$to'
+ORDER BY f.time desc
+		;
+		";
+		//echo $sql;
+		$query = $dwdb->query ( $sql );
+		return $query;
+
+	}
+
+
+
+
+	//device distribution of version
+	function getDeviceInfoOfVersion($titlesk,$productid,$version_name,$from,$to)
 	{
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql="select   o.devicebrand_name,
          count(* ) count,
-         count(f.osversion_sk)
-           / (select count(osversion_sk)
-              from  ".$dwdb->dbprefix('fact_errorlog')."  ff, 
-                   ".$dwdb->dbprefix('dim_devicebrand')."    oo
-              where  title_sk = $titlesk
+         count(f.deviceidentifier)
+           / (select count(deviceidentifier)
+              from   ".$dwdb->dbprefix('fact_errorlog')." ff,
+                     ".$dwdb->dbprefix('dim_devicebrand')." oo,
+                     ".$dwdb->dbprefix('dim_product')." pp,
+                     ".$dwdb->dbprefix('dim_date')." dd
+              where  ff.product_sk = pp.product_sk
+                     and title_sk = $titlesk
                      and ff.deviceidentifier = oo.devicebrand_sk
-                     and product_sk = $productsk
-                     and isfix = $isfix) percentage
-from  ".$dwdb->dbprefix('fact_errorlog')."     f,
-      ".$dwdb->dbprefix('dim_devicebrand')."     o
-where    f.title_sk = $titlesk
-         and f.deviceidentifier = o.devicebrand_sk
-         and product_sk = $productsk
-         and f.isfix = $isfix
-group by o.devicebrand_name
-order by count desc limit 0,15;
+                     and pp.product_id = $productid
+                     and pp.version_name = $version_name
+                     and ff.date_sk = dd.date_sk 
+                     and dd.datevalue between '$from' and '$to' ) percentage
+              from   ".$dwdb->dbprefix('fact_errorlog')." f,
+                     ".$dwdb->dbprefix('dim_devicebrand')." o,
+                     ".$dwdb->dbprefix('dim_product')." p,
+                     ".$dwdb->dbprefix('dim_date')." d
+              where  f.product_sk = p.product_sk 
+                     and f.title_sk = $titlesk
+                     and f.deviceidentifier = o.devicebrand_sk
+                     and p.product_id = $productid
+                     and p.version_name= $version_name
+                     and f.date_sk = d.date_sk
+                     and d.datevalue between '$from' and '$to'
+                     group by o.devicebrand_sk
+                     order by count desc;";
 
-		";
-		$query = $dwdb->query ( $sql );		
+		$query = $dwdb->query ( $sql );
 		$ret  = $query->result_array();
-		return $ret;	
-		
+		return $ret;
 	}
-	 
-	//操作系统分布情况
-	function operationinfo($titlesk,$productsk,$isfix)
+
+	//device distribution on os
+	function getDeviceInfoOnOs($titlesk,$productid,$deviceos_sk,$from,$to)
+	{
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$sql="select   o.devicebrand_name,
+         count(* ) count,
+         count(f.deviceidentifier)
+           / (select count(deviceidentifier)
+              from   ".$dwdb->dbprefix('fact_errorlog')." ff,
+                     ".$dwdb->dbprefix('dim_devicebrand')." oo,
+                     ".$dwdb->dbprefix('dim_product')." pp,
+                     ".$dwdb->dbprefix('dim_date')." dd
+              where  ff.product_sk = pp.product_sk
+                     and title_sk = $titlesk
+                     and ff.deviceidentifier = oo.devicebrand_sk
+                     and pp.product_id = $productid
+                     and ff.osversion_sk = $deviceos_sk
+                     
+                     and ff.date_sk = dd.date_sk 
+                     and dd.datevalue between '$from' and '$to' ) percentage
+from     ".$dwdb->dbprefix('fact_errorlog')." f,
+         ".$dwdb->dbprefix('dim_devicebrand')." o,
+         ".$dwdb->dbprefix('dim_product')." p,
+         ".$dwdb->dbprefix('dim_date')." d
+where    f.product_sk = p.product_sk 
+         and f.title_sk = $titlesk
+         and f.deviceidentifier = o.devicebrand_sk
+         and p.product_id = $productid
+         and f.osversion_sk = $deviceos_sk
+         and f.date_sk = d.date_sk
+         and d.datevalue between '$from' and '$to'
+group by o.devicebrand_sk
+order by count desc;
+		";
+
+		$query = $dwdb->query ( $sql );
+		$ret  = $query->result_array();
+		return $ret;
+	}
+
+
+	//app version distribution on device
+	function getVersionInfoOnDevice($titlesk,$productid,$devicebrand_sk,$from,$to)
+	{
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$sql="select   p.version_name,
+         count(* ) count,
+         count(*)
+           / (select count(deviceidentifier)
+              from   ".$dwdb->dbprefix('fact_errorlog')." ff,
+                     ".$dwdb->dbprefix('dim_product')." pp,
+                     ".$dwdb->dbprefix('dim_date')." dd
+              where  ff.product_sk = pp.product_sk
+                     and title_sk = $titlesk
+                     and pp.product_id = $productid
+                     and ff.deviceidentifier = $devicebrand_sk
+                     and ff.date_sk = dd.date_sk 
+                     and dd.datevalue between '$from' and '$to' ) percentage
+from     ".$dwdb->dbprefix('fact_errorlog')." f,
+          ".$dwdb->dbprefix('dim_product')." p,
+          ".$dwdb->dbprefix('dim_date')." d
+where    f.product_sk = p.product_sk 
+         and f.title_sk = $titlesk
+         and p.product_id = $productid
+         and f.deviceidentifier = $devicebrand_sk
+         and f.date_sk = d.date_sk
+         and d.datevalue between '$from' and '$to'
+group by p.version_name
+order by count desc;";
+
+		$query = $dwdb->query ( $sql );
+		$ret  = $query->result_array();
+		return $ret;
+	}
+
+	//Os distribution of version
+	function getOsOfVersion($titlesk,$productid,$version_name,$from,$to)
 	{
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql="select   o.deviceos_name,
          count(* ) count,
          count(f.osversion_sk)
            / (select count(osversion_sk)
-              from ".$dwdb->dbprefix('fact_errorlog')."   ff,
-                   ".$dwdb->dbprefix('dim_deviceos')."      oo
-              where  title_sk = $titlesk
+              from   ".$dwdb->dbprefix('fact_errorlog')." ff,
+                     ".$dwdb->dbprefix('dim_deviceos')." oo,
+                     ".$dwdb->dbprefix('dim_product')." pp,
+                     ".$dwdb->dbprefix('dim_date')." dd
+              where  ff.product_sk = pp.product_sk
+                     and title_sk = $titlesk
                      and ff.osversion_sk = oo.deviceos_sk
-                     and product_sk = $productsk
-                     and isfix = $isfix) percentage
-from  ".$dwdb->dbprefix('fact_errorlog')."       f,
-       ".$dwdb->dbprefix('dim_deviceos')."      o
-where    f.title_sk = $titlesk
+                     and pp.product_id = $productid
+                     and pp.version_name = $version_name
+                     and ff.date_sk = dd.date_sk
+                     and dd.datevalue between '$from' and '$to') percentage
+from     ".$dwdb->dbprefix('fact_errorlog')." f,
+         ".$dwdb->dbprefix('dim_deviceos')." o,
+         ".$dwdb->dbprefix('dim_product')." p,
+         ".$dwdb->dbprefix('dim_date')." d
+where    f.product_sk = p.product_sk 
+         and f.title_sk = $titlesk
          and f.osversion_sk = o.deviceos_sk
-         and product_sk = $productsk
-         and f.isfix = $isfix
-group by o.deviceos_name
+         and p.product_id = $productid
+         and p.version_name=$version_name
+         and f.date_sk = d.date_sk
+         and d.datevalue between '$from' and '$to'
+group by o.deviceos_sk
 order by count desc;
 		";
-		$query = $dwdb->query ( $sql );		
+		$query = $dwdb->query ( $sql );
 		$ret = $query->result_array();
 		return $ret;
-		
+
+	}
+
+	//Operating system distribution on Os
+	function getAppVersionOnOs($titlesk,$productid,$deviceos_sk,$from,$to)
+	{
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$sql="select   p.version_name,
+         count(* ) count,
+         count(f.deviceidentifier)
+           / (select count(deviceidentifier)
+              from  ".$dwdb->dbprefix('fact_errorlog')." ff,
+                     ".$dwdb->dbprefix('dim_product')." pp,
+                     ".$dwdb->dbprefix('dim_date')." dd
+              where  ff.product_sk = pp.product_sk
+                     and title_sk = $titlesk
+                     and pp.product_id = $productid 
+                     and ff.osversion_sk = $deviceos_sk
+                     and ff.date_sk = dd.date_sk 
+                     and dd.datevalue between '$from' and '$to' ) percentage
+from     ".$dwdb->dbprefix('fact_errorlog')." f,
+         ".$dwdb->dbprefix('dim_product')." p,
+         ".$dwdb->dbprefix('dim_date')." d
+where    f.product_sk = p.product_sk 
+         and f.title_sk = $titlesk
+         and p.product_id = $productid
+         and f.osversion_sk = $deviceos_sk
+         and f.date_sk = d.date_sk
+         and d.datevalue between '$from' and '$to'
+group by p.version_name
+order by count desc;
+		";
+		$query = $dwdb->query ( $sql );
+		$ret = $query->result_array();
+		return $ret;
+
+	}
+
+	//Operating system distribution on Device
+	function getOsInfoOnDevice($titlesk,$productid,$devicebrand_sk,$from,$to)
+	{
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$sql="select   o.deviceos_name,
+         count(* ) count,
+         count(f.osversion_sk)
+           / (select count(deviceidentifier)
+              from   ".$dwdb->dbprefix('fact_errorlog')." ff,
+                     ".$dwdb->dbprefix('dim_deviceos')." oo,
+                     ".$dwdb->dbprefix('dim_product')." pp,
+                     ".$dwdb->dbprefix('dim_date')." dd
+              where  ff.product_sk = pp.product_sk
+                     and title_sk = $titlesk
+                     and ff.osversion_sk = oo.deviceos_sk
+                     and pp.product_id = $productid 
+                     and ff.deviceidentifier = $devicebrand_sk
+                     and ff.date_sk = dd.date_sk 
+                     and dd.datevalue between '$from' and '$to' ) percentage
+from     ".$dwdb->dbprefix('fact_errorlog')." f,
+         ".$dwdb->dbprefix('dim_deviceos')." o,
+         ".$dwdb->dbprefix('dim_product')." p,
+         ".$dwdb->dbprefix('dim_date')." d
+where    f.product_sk = p.product_sk 
+         and f.title_sk = $titlesk
+         and f.osversion_sk = o.deviceos_sk
+         and p.product_id = $productid
+         and f.deviceidentifier = $devicebrand_sk
+         and f.date_sk = d.date_sk
+         and d.datevalue between '$from' and '$to'
+group by o.deviceos_sk
+order by count desc;
+		";
+		$query = $dwdb->query ( $sql );
+		$ret = $query->result_array();
+		return $ret;
+
 	}
 	
+
+	//Mark all error messages according appkey
+	function changeErrorStatus($title_sk, $fix) {
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$sql = "update ".$dwdb->dbprefix('dim_errortitle')."
+                set isfix = $fix
+                where title_sk = $title_sk;
+		";
+		$dwdb->query ( $sql );
+	}
 
 }

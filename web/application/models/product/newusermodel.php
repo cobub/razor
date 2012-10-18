@@ -15,25 +15,28 @@
 class newusermodel extends CI_Model{
 	function __construct()
 	{
+		$this->load->model("common");
 		$this->load->model('product/productmodel','product');
 		$this->load->model('product/usinganalyzemodel','usinganalyzemodel');
 	}
 	
-	//根据时间段，应用ID获取用户总数
+	//According to the time period, the application ID to get the total number of users
 	function getSumUsersByDay($fromTime,$toTime,$productId)
 	{
 			
 	}
-	//获取访问趋势里的所有数据
+	//Get all data access trend
 	function getAlldataofVisittrends($fromtime,$totime,$userId){
 		$dwdb = $this->load->database('dw',TRUE);
 		$sql = "select date(d.datevalue) date,
 					ifnull(sum(newusers),0) newusers,
 					ifnull(sum(startusers),0) startusers,
 					ifnull(sum(sessions),0) sessions
-				from  (select date_sk,datevalue from  ".$dwdb->dbprefix('dim_date')."   where datevalue between '$fromtime' and '$totime') d left join ".$dwdb->dbprefix('dim_product')." p on p.userid=$userId and p.product_active=1 and p.channel_active=1 and p.version_active=1 left join  ".$dwdb->dbprefix('sum_basic_all')." s on p.product_sk = s.product_sk and d.date_sk = s.date_sk
-						group by d.datevalue
-						order by d.datevalue;";
+				from  (select date_sk,datevalue from  ".$dwdb->dbprefix('dim_date')."   
+				where datevalue between '$fromtime' and '$totime') d left join ".$dwdb->dbprefix('dim_product')." p 
+				on p.userid=$userId and p.product_active=1 and p.channel_active=1 and p.version_active=1
+				 left join  ".$dwdb->dbprefix('sum_basic_all')." s on p.product_sk = s.product_sk and d.date_sk = s.date_sk
+						group by d.datevalue order by d.datevalue;";
 		$query = $dwdb->query($sql);
 		$ret = array();
 		if($query!=null&& $query->num_rows()>0){
@@ -45,8 +48,6 @@ class newusermodel extends CI_Model{
 				$record["newusers"] = $row->newusers;
 				$record["startusers"] = $row->startusers;
 				$record["sessions"] = $row->sessions;
-				
-			
 				array_push($ret, $record);
 			}
 		}
@@ -55,7 +56,7 @@ class newusermodel extends CI_Model{
 	}
 	
 	
-	//根据时间段，应用ID获取活跃用户总数
+	//According to the time period, the application ID to get the total number of active users
 	function getActiveUsersByDay($fromTime,$toTime,$productId,$pageIndex=0,$pageNums=RECORD_NUM,$order="ASC")
 	{
 		$from = ($pageIndex*$pageNums);
@@ -68,7 +69,7 @@ class newusermodel extends CI_Model{
 		return $query;
 	}
 	
-	//根据时间段，应用ID获取累计用户总数
+	//According to the time period, the application ID to obtain the cumulative total number of users
 	function getTotalUsersByDay($fromTime,$toTime,$productId,$pageIndex=0,$pageNums=RECORD_NUM,$order="ASC")
 	{
 		$from = ($pageIndex*$pageNums);
@@ -103,7 +104,7 @@ class newusermodel extends CI_Model{
 	}
 	
 	
-	//根据时间段，用户ID获取活跃用户数
+	//According to the time period, the user ID for the number of active users
 	function getActiveUsersByUserID($fromTime,$toTime,$userId)
 	{
 		$dwdb = $this->load->database('dw',TRUE);
@@ -117,7 +118,7 @@ class newusermodel extends CI_Model{
 	}
 	
 	
-	//根据时间段，应用ID,渠道ID获取活跃用户总数
+	//According to the time period, the application ID, channel ID to get the total number of active users
 	function getActiveUsersByDayAndChinnel($fromTime,$toTime,$productId,$channelId)
 	{
 		$dwdb = $this->load->database('dw',TRUE);
@@ -130,7 +131,7 @@ class newusermodel extends CI_Model{
 		return $query;
 	}
 	
-	//根据时间段，产品ID获取时间段内新用户启动次数，精确到每天
+	//According to the time period, the product ID for a period of time new users start times accurate to daily
 	function getTotalStartUserByDay($fromTime,$toTime,$productId,$pageIndex=0,$pageNums=RECORD_NUM,$order='ASC')
 	{
 		$from = $pageIndex*$pageNums;
@@ -144,7 +145,7 @@ class newusermodel extends CI_Model{
 	}
 	
 	
-	//根据时间段，用户ID获取时间段内用户启动次数，精确到每天
+	//According to the time period, the user ID to obtain the number of the period of time the user starts accurate to daily
 	function getTotalStartUserByUserId($fromTime,$toTime,$userId)
 	{
 		$dwdb = $this->load->database('dw',TRUE);
@@ -157,7 +158,7 @@ class newusermodel extends CI_Model{
 		return $query;
 	}
 	
-	//根据时间段，产品ID,渠道ID获取时间段内用户启动次数，精确到每天
+	//According to the time period, the product ID, channel ID to obtain the number of the period of time the user starts and accurate to the daily
 	function getTotalStartUserByDayAndChannel($fromTime,$toTime,$productId,$channelId)
 	{
 		$dwdb = $this->load->database('dw',TRUE);
@@ -170,7 +171,7 @@ class newusermodel extends CI_Model{
 		return $query;
 	}
 	
-	//根据时间段，产品ID获取时间段内新用户数量，精确到每天
+	//Get time period the number of new users according to the time period, the product ID, accurate to daily
 	function getNewUserByDay($fromTime,$toTime,$productId,$pageIndex=0,$pageNums=RECORD_NUM,$order='ASC')
 	{
 		$from = $pageIndex*$pageNums;
@@ -184,7 +185,7 @@ class newusermodel extends CI_Model{
 		return $query;
 	}
 	
-	//根据时间段，用户ID获取该用户时间段内新用户数量，精确到每天
+	//Get period the number of new users in the user according to the time period, the user ID, accurate to daily
 	function getNewUsersByUserId($fromTime,$toTime,$userId)
 	{	
 		$dwdb = $this->load->database('dw',TRUE);
@@ -198,7 +199,7 @@ class newusermodel extends CI_Model{
 		return $query; 
 	}
 	
-	//根据时间段，产品ID，渠道ID获取时间段内新用户数量，精确到每天
+	//According to the time period, the product ID, channel ID to obtain a period of time the number of new users, accurate to daily
 	function getNewUserByDayAndChannelId($fromTime,$toTime,$productId,$chinnelId)
 	{
 		$dwdb = $this->load->database('dw',TRUE);
@@ -209,7 +210,7 @@ class newusermodel extends CI_Model{
 	}
 	
 	
-	//根据时间段和产品ID获取24小时分段新用户统计数据
+	//Get 24-hour segments new user statistics based on the time period and the product ID
 	function getNewUserHistoryBy24Hour($fromTime,$toTime,$productId)
 	{
 		$dwdb = $this->load->database('dw',TRUE);   
@@ -220,7 +221,7 @@ class newusermodel extends CI_Model{
 		return $query;
 	}
 	
-	//根据时间段，产品ID，渠道ID获取24小时分段用户统计数据
+	//For 24 hours according to the time period, the product ID, channel ID segmented user statistics
 	function getNewUserHistoryBy24HourAndChannel($fromTime,$toTime,$productId,$channelId)
 	{
 		$dwdb = $this->load->database('dw',TRUE);
@@ -231,38 +232,59 @@ class newusermodel extends CI_Model{
 		return $query;
 	}
 	
-	//获得明细数据
-	function getallUserData($fromTime,$toTime,$productId,$pageIndex=0,$pageNums=RECORD_NUM){
-		$from = $pageIndex*$pageNums;
+	//get report Detail data
+	function getallUserData($fromTime,$toTime){
+		
+		$currentProduct = $this->common->getCurrentProduct();
+		$productId= $currentProduct->id;
+		$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+		
 		$dwdb = $this->load->database('dw',TRUE);
 		$sql = "select d.datevalue,ifnull(sum(sessions),0) sessions,ifnull(sum(startusers),0) startusers,
 		ifnull(sum(newusers),0) newusers,ifnull(sum(usingtime),0) usingtime,ifnull(sum(allusers),0) allusers
 		from   ".$dwdb->dbprefix('sum_basic_all')."  s inner join  ".$dwdb->dbprefix('dim_product')."   p on  p.product_id = $productId
 		and p.product_sk = s.product_sk and p.product_active=1 and p.channel_active=1 and p.version_active=1 right join (
-		select date_sk, datevalue from   ".$dwdb->dbprefix('dim_date')."  where datevalue between '$fromTime' and '$toTime' order by date_sk) d on s.date_sk = d.date_sk group by d.datevalue limit $from,$pageNums ;";
+		select date_sk, datevalue from   ".$dwdb->dbprefix('dim_date')."  where datevalue between '$fromTime' and '$toTime' 
+		) d on s.date_sk = d.date_sk group by d.datevalue order by d.datevalue ASC;";	
+			
 		$query = $dwdb->query($sql);
 		return $query;
 		
 	}
 	
+	// get detailed data
+	function getDetailUserData($fromTime,$toTime){
 	
-	//根据页数 获得详细数据
-	function getDetailUserDataByDay($currentProduct,$pageIndex)
-	{
-		$list = array();
-		$fromTime = $currentProduct->date;		
-		$productId=$currentProduct->id;
-		//$fromTime = date("Y-m-d",strtotime("-90 day"));
-		$toTime = date("Y-m-d",strtotime("-1 day"));
-		$query = $this->getallUserData($fromTime, $toTime, $productId, $pageIndex,PAGE_NUMS);
+		$currentProduct = $this->common->getCurrentProduct();
+		$productId= $currentProduct->id;
+		$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+	
+		$dwdb = $this->load->database('dw',TRUE);
+		$sql = "select d.datevalue,ifnull(sum(sessions),0) sessions,ifnull(sum(startusers),0) startusers,
+		ifnull(sum(newusers),0) newusers,ifnull(sum(usingtime),0) usingtime,ifnull(sum(allusers),0) allusers
+		from   ".$dwdb->dbprefix('sum_basic_all')."  s inner join  ".$dwdb->dbprefix('dim_product')."   p on  p.product_id = $productId
+		and p.product_sk = s.product_sk and p.product_active=1 and p.channel_active=1 and p.version_active=1 right join (
+		select date_sk, datevalue from   ".$dwdb->dbprefix('dim_date')."  where datevalue between '$fromTime' and '$toTime'
+		) d on s.date_sk = d.date_sk group by d.datevalue order by d.datevalue 	DESC;";
+					
+		$query = $dwdb->query($sql);
+		return $query;
+	
+	}
+	
+	//Pages get detailed data
+	function getDetailUserDataByDay($fromTime,$toTime)
+	{			
+		$list = array();	
+		$query = $this->getDetailUserData($fromTime, $toTime);
 		$activeUserRow = $query->first_row();		 
 		for($i=0;$i<$query->num_rows();$i++)
-		{		   
+		{			   
 		 	$fRow = array();
 		 	$fRow["date"] = substr($activeUserRow->datevalue,0,10);
 		 	$fRow['active'] = $activeUserRow->startusers;
 		 	$fRow['start'] = $activeUserRow->sessions;
-		 	$fRow['new'] = $activeUserRow->newusers;
+		 	$fRow['newuser'] = $activeUserRow->newusers;
 		 	$fRow['total'] = $activeUserRow->allusers;
 		 	$fRow['aver'] = $activeUserRow->usingtime; 
 		 	$activeUserRow = $query->next_row();
@@ -270,61 +292,5 @@ class newusermodel extends CI_Model{
 		}
 		return $list;
 	}
-	//导出报表中的详细数据(新)
-	function getexportdetaildatas($currentProduct){
-		$pageIndex=0;
-		$list = array();
-		$fromTime = $currentProduct->date;
-		$productId=$currentProduct->id;
-		//$fromTime = date("Y-m-d",strtotime("-90 day"));
-		$toTime = date("Y-m-d",strtotime("-1 day"));
-		$query = $this->getallUserData($fromTime, $toTime, $productId, $pageIndex,RECORD_NUM);
-		$activeUserRow = $query->first_row();
-		for($i=0;$i<$query->num_rows();$i++)
-		{
-		 	$fRow = array();
-		 	$fRow["date"] = substr($activeUserRow->datevalue,0,10);
-		 	$fRow['new'] = $activeUserRow->newusers;
-		 	$fRow['total'] = $activeUserRow->allusers;
-		 	$fRow['active'] = $activeUserRow->startusers;
-		 	$fRow['start'] = $activeUserRow->sessions;
-		 	$fRow['aver'] = $activeUserRow->usingtime; 
-		 	$activeUserRow = $query->next_row();
-		 	array_push($list,$fRow);
-		}
-		return $list;
-	}
-    //导出报表中的详细数据
-    function getexportdetaildata($productId)
-    { 
-    	$pageIndex=0;
-    	$list = array();
-		$fromTime = $this->product->getReportStartDateByProjectId($productId);
-		$fromTime = date("Y-m-d",strtotime("-90 day"));
-		$toTime = date("Y-m-d",strtotime("-1 day"));		
-        $queryActiveUser = $this->getActiveUsersByDay($fromTime, $toTime, $productId,$pageIndex,RECORD_NUM,'DESC');
-		$queryTotalStart = $this->getTotalStartUserByDay($fromTime, $toTime, $productId,$pageIndex,RECORD_NUM,'DESC');
-		$queryTotalUsers = $this->getTotalUsersByDay($fromTime, $toTime, $productId,$pageIndex,RECORD_NUM,'DESC');
-		$queryNewUser = $this->getNewUserByDay($fromTime, $toTime, $productId,$pageIndex,RECORD_NUM,'DESC');
-		$queryAverUsingTime = $this->usinganalyzemodel->getUsingTimeByDay($fromTime, $toTime, $productId,$pageIndex,RECORD_NUM,'DESC');
-		for($i=0;$i<$queryActiveUser->num_rows();$i++)
-		{
-		 	$fRow = array();
-		 	$activeUserRow = $queryActiveUser->next_row();
-		 	$totalStartRow = $queryTotalStart->next_row();
-		 	$newUserRow = $queryNewUser->next_row();
-		 	$averTimeRow = $queryAverUsingTime->next_row();
-		 	$totalUserRow = $queryTotalUsers[$i];
-		 	
-		 	$fRow["date"] = $activeUserRow->startdate;
-		 	$fRow['new'] = $newUserRow->totalaccess;
-		 	$fRow['total'] = $totalUserRow['totalaccess'];
-		 	$fRow['active'] = $activeUserRow->totalaccess;
-		 	$fRow['start'] = $totalStartRow->totalaccess;		 	
-		 	$fRow['aver'] = round($averTimeRow->totalaccess,2);
-		 	array_push($list,$fRow);
-		}    	
-		return $list;
-    } 
 }
 ?>

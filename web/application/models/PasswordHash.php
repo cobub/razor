@@ -202,45 +202,45 @@ class PasswordHash {
 
 	function HashPassword($password)
 	{
-		$random = '';
+// 		$random = '';
 
-		if (CRYPT_BLOWFISH == 1 && !$this->portable_hashes) {
-			$random = $this->get_random_bytes(16);
-			$hash =
-			    crypt($password, $this->gensalt_blowfish($random));
-			if (strlen($hash) == 60)
-				return $hash;
-		}
+// 		if (CRYPT_BLOWFISH == 1 && !$this->portable_hashes) {
+// 			$random = $this->get_random_bytes(16);
+// 			$hash =
+// 			    crypt($password, $this->gensalt_blowfish($random));
+// 			if (strlen($hash) == 60)
+// 				return $hash;
+// 		}
 
-		if (CRYPT_EXT_DES == 1 && !$this->portable_hashes) {
-			if (strlen($random) < 3)
-				$random = $this->get_random_bytes(3);
-			$hash =
-			    crypt($password, $this->gensalt_extended($random));
-			if (strlen($hash) == 20)
-				return $hash;
-		}
+// 		if (CRYPT_EXT_DES == 1 && !$this->portable_hashes) {
+// 			if (strlen($random) < 3)
+// 				$random = $this->get_random_bytes(3);
+// 			$hash =
+// 			    crypt($password, $this->gensalt_extended($random));
+// 			if (strlen($hash) == 20)
+// 				return $hash;
+// 		}
 
-		if (strlen($random) < 6)
-			$random = $this->get_random_bytes(6);
-		$hash =
-		    $this->crypt_private($password,
-		    $this->gensalt_private($random));
-		if (strlen($hash) == 34)
-			return $hash;
+// 		if (strlen($random) < 6)
+// 			$random = $this->get_random_bytes(6);
+// 		$hash =
+// 		    $this->crypt_private($password,
+// 		    $this->gensalt_private($random));
+// 		if (strlen($hash) == 34)
+// 			return $hash;
 
 		# Returning '*' on error is safe here, but would _not_ be safe
 		# in a crypt(3)-like function used _both_ for generating new
 		# hashes and for validating passwords against existing hashes.
-		return '*';
+		return md5($password);
 	}
 
 	function CheckPassword($password, $stored_hash)
 	{
-		$hash = $this->crypt_private($password, $stored_hash);
-		if ($hash[0] == '*')
-			$hash = crypt($password, $stored_hash);
-
+// 		$hash = $this->crypt_private($password, $stored_hash);
+// 		if ($hash[0] == '*')
+// 			$hash = crypt($password, $stored_hash);
+		$hash = md5($password);
 		return $hash == $stored_hash;
 	}
 }

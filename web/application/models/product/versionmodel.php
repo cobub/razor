@@ -17,6 +17,7 @@ class versionmodel extends CI_Model {
 	function __construct() {
 		parent::__construct ();
 		$this->load->model("common");
+		$this->load->model('product/productmodel','product');
 		 
 	}
     //get basic info
@@ -80,64 +81,26 @@ sum(sessions) sessions,
 		}
 		return $ret;
 	}
-	//获取报表数据
-	function getVersionData($timePhase,$start,$end,$productid)
-	{
-	    $toTime = date('Y-m-d',time());
-		$fromTime = date('Y-m-d',strtotime("-7 day"));
-		
-		if($timePhase == "7day")
-		{
-		//	$title = lang('versiontitle_actweek');
-			$fromTime = date('Y-m-d',strtotime("-7 day"));
-		}
-		
-		if($timePhase == "1month")
-		{
-		//	$title = lang('versiontitle_actmonth');
-			$fromTime = date("Y-m-d",strtotime("-30 day"));
-		}
-		
-		if($timePhase == "3month")
-		{
-			$fromTime = date("Y-m-d",strtotime("-90 day"));
-		//	$title = lang('versiontitle_act3month');
-				
-		}
-		if($timePhase == "all")
-		{
-		//	$title = lang('versiontitle_actall');
-			$fromTime = 'all';
-		}
-		
-		if($timePhase == 'any')
-		{
-		//	$title = lang('versiontitle_actanytime');
-			$fromTime = $start;
-			$toTime = $end;
-		}
+	//Get the report data
+	function getVersionData($fromTime,$toTime,$productid)
+	{  
+		$ret=array();
+		$currentProduct = $this->common->getCurrentProduct();
+		$productId = $currentProduct->id;
+		$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql = "select 
-d.datevalue,
-p.version_name,
-       ifnull(sum(startusers),0) startusers,
-       ifnull(sum(newusers),0) newusers
-	from  (select date_sk,datevalue from ".$dwdb->dbprefix('dim_date')." where datevalue between '$fromTime' and '$toTime') d cross join (
-			select distinct
-                pp.version_id,
-                pp.version_name,
-                pp.product_sk
-           	from
-				".$dwdb->dbprefix('dim_product')." pp
-            where pp.product_id = $productid and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) p
-left join ".$dwdb->dbprefix('sum_basic_all')." s  on d.date_sk = s.date_sk 
-        and s.product_sk = p.product_sk
-group by d.datevalue, p.version_name
-		order by d.datevalue asc,p.version_name desc
-		";
-		
+		$sql = "select d.datevalue,p.version_name,ifnull(sum(startusers),0) startusers,
+       ifnull(sum(newusers),0) newusers	from  
+       (select date_sk,datevalue from ".$dwdb->dbprefix('dim_date')." where datevalue
+        between '$fromTime' and '$toTime') d cross join (
+			select distinct pp.version_name, pp.product_sk
+           	from ".$dwdb->dbprefix('dim_product')." pp where pp.product_id = $productid and
+           	 pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) p
+         left join ".$dwdb->dbprefix('sum_basic_all')." s  on d.date_sk = s.date_sk 
+        and s.product_sk = p.product_sk group by d.datevalue, p.version_name
+		order by d.datevalue asc,p.version_name desc";		
 		$query = $dwdb->query ( $sql );
-	if ($query != null && $query->num_rows > 0) {
+	 if ($query != null && $query->num_rows > 0) {
 			
 			$arr = $query->result_array ();
 			

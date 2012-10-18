@@ -58,7 +58,7 @@ p.channel_name,
 	
 	
 	
-	// 获得今日的数据
+	// Today's data
 	function getTodayInfo($productId, $date) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select ifnull(sum(sessions),0) sessions,ifnull(sum(startusers),0) startusers,
@@ -105,20 +105,20 @@ p.channel_name,
 		return $query->first_row ()->usercount;
 	}
 	
-	// 获得总体概况
+	// General overview
 	function getOverallInfo($productId) {
 		$data = array ();
 		$toTime = date ( 'Y-m-d', time () );
-		$day7 = date ( "Y-m-d", strtotime ( "-7 day" ) );
-		$day30 = date ( "Y-m-d", strtotime ( "-30 day" ) );
+		$day7 = date ( "Y-m-d", strtotime ( "-6 day" ) );
+		$day30 = date ( "Y-m-d", strtotime ( "-31 day" ) );
 		
 		$data ['7dayactive'] = $this->getActiveUserByPeriod ( $day7, $toTime, $productId );
 		$data ['1month'] = $this->getActiveUserByPeriod ( $day30, $toTime, $productId );
-		
+		$data ['alltime'] = $this->getActiveUserTillToday ( $toTime, $productId );
 		return $data;
 	}
 	
-	// 根据时间获取累计启动次数
+	// Time to obtain the cumulative number of starts
 	function getTotalStartCount($productId) {
 		$sql = "select count(*) count from   ".$this->db->dbprefix('clientdata')."  where productkey
 		in (select productkey from   ". $this->db->dbprefix('channel_product')."  where product_id = $productId);";
@@ -126,7 +126,7 @@ p.channel_name,
 		return $query->first_row ()->count;
 	}
 	
-	// 根据时间获取累计用户
+	// Time to obtain the cumulative user
 	function getTotalUsers($productId) {
 		$sql = "select count(distinct deviceid) count from   ". $this->db->dbprefix('clientdata')."  where productkey
 		in (select productkey from  ". $this->db->dbprefix('channel_product')." where product_id = $productId);";
@@ -134,7 +134,7 @@ p.channel_name,
 		return $query->first_row ()->count;
 	}
 	
-	// 查看该用户的所有产品新用户数
+	// View all products of this user new users
 	function getTotalNewUsersCountByUserId($userId, $dateTime) {
 		$sql = "select count(distinct deviceid) count from  ". $this->db->dbprefix('clientdata')." where
 		  date(date) = '$dateTime' and productkey 
@@ -145,7 +145,7 @@ p.channel_name,
 		return $query->first_row ()->count;
 	}
 	
-	// 查看该用户所有产品的启动用户数
+	// View the number of users of the start of the user
 	function getStartUserCountByUserId($userId, $dateTime) {
 		$sql = "select count(distinct deviceid) count from  ". $this->db->dbprefix('clientdata')." where productkey in
 		 (select productkey from  ". $this->db->dbprefix('channel_product')." where user_id = $userId) and date(date) = '$dateTime' ";
@@ -153,8 +153,8 @@ p.channel_name,
 		return $query->first_row ()->count;
 	}
 	
-	// 实时数据
-	// 根据时间获取今日启动次数
+	// Real-time data
+	// Get today's number of starts according to the time
 	function getUserStartCount($productId, $dataTime) {
 		$sql = "select count(*) count from  ". $this->db->dbprefix('clientdata')." where  date(date) = '$dataTime' and productkey 
 		 in (select productkey from  ". $this->db->dbprefix('channel_product')." where product_id = $productId);";
@@ -162,7 +162,7 @@ p.channel_name,
 		return $query->first_row ()->count;
 	}
 	
-	// 获取今日起动用户，即活跃用户
+	//Get today starts the user, or active users
 	function getUserStartUsersCount($productId, $dataTime) {
 		$sql = "select count(distinct deviceid) count from  ". $this->db->dbprefix('clientdata')." where  date(date) = '$dataTime' and productkey
 		in (select productkey from  ". $this->db->dbprefix('channel_product')." where product_id = $productId);";
@@ -170,7 +170,7 @@ p.channel_name,
 		return $query->first_row ()->count;
 	}
 	
-	// 获取今日起动用户，即活跃用户(根据渠道)
+	// Get today start users, active users (according to channels)
 	function getUserStartUsersCountByChannel($productId, $chanelId, $dataTime) {
 		$sql = "select count(distinct deviceid) count from  ". $this->db->dbprefix('clientdata')." where  date(date) = '$dataTime' and productkey
 		in (select productkey from  ". $this->db->dbprefix('channel_product')." where product_id = $productId and channel_id = $chanelId);";
@@ -179,7 +179,7 @@ p.channel_name,
 	
 	}
 	
-	// 获取今日新用户
+	// Get today new user 
 	function getNewUsersCount($productId, $dataTime) {
 		$sql = "select count(distinct deviceid) count from  ". $this->db->dbprefix('clientdata')." where
 		  date(date) = '$dataTime' and productkey 
@@ -190,7 +190,7 @@ p.channel_name,
 		return $query->first_row ()->count;
 	}
 	
-	// 获取今日新用户(根据渠道)
+	// According to the channels to obtain new user
 	function getNewUsersCountByChannel($productId, $chanelId, $dataTime) {
 		$sql = "select count(distinct deviceid) count from  ". $this->db->dbprefix('clientdata')." where
 		  date(date) = '$dataTime' and productkey 
@@ -202,7 +202,7 @@ p.channel_name,
 		return $query->first_row ()->count;
 	}
 	
-	// 根据时间，产品ID获取昨日新用户数(根据渠道)
+	// According to the time, the product ID for yesterday, the number of new users (according to channels)
 	function getYestodayNewUserCountByChannel($dateTime, $productId, $chanelId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select count(distinct f.deviceidentifier) usercount from  ". $dwdb->dbprefix('fact_clientdata')."
@@ -213,7 +213,7 @@ p.channel_name,
 		return $query->first_row ()->usercount;
 	}
 	
-	// 获取升级用户数量
+	// Get upgrade the number of users
 	function getUpdateUsersCount($productId, $dataTime) {
 		return 0;
 		// $sql = "select count(*) from clientdata c,product_version pv on
@@ -238,7 +238,7 @@ p.channel_name,
 	// return $query->first_row()->usercount;
 	// }
 	
-	// 根据时间，产品ID获取昨日新用户数
+	// Get the number of new users yesterday according to time, product ID
 	function getYestodayNewUserCount($dateTime, $productId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select count(distinct f.deviceidentifier) usercount from  ". $dwdb->dbprefix('fact_clientdata')."
@@ -249,7 +249,7 @@ p.channel_name,
 		return $query->first_row ()->usercount;
 	}
 	
-	// 根据时间，产品ID，渠道ID获取昨日启动次数
+	// According to the time, the product ID, channel ID to get the number of starts yesterday
 	function getYestodayStartCountByChannelId($dateTime, $productId, $channelId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select count(*) starttimes from  ". $dwdb->dbprefix('fact_clientdata')." f,  ". $dwdb->dbprefix('dim_date')." d,  ". $dwdb->dbprefix('dim_product')."
@@ -260,7 +260,7 @@ p.channel_name,
 		return $query->first_row ()->starttimes;
 	}
 	
-	// 根据时间，产品ID获取昨日启动次数
+	// According to the time, the product ID to get the number of starts yesterday
 	function getYestodayStartCount($dateTime, $productId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select count(*) starttimes from  ". $dwdb->dbprefix('fact_clientdata')." f, ". $dwdb->dbprefix('dim_date')."  d,  ". $dwdb->dbprefix('dim_product')."
@@ -271,7 +271,7 @@ p.channel_name,
 		return $query->first_row ()->starttimes;
 	}
 	
-	// 根据时间，产品ID，渠道ID获取昨日活跃用户数
+	// Get yesterday the number of active users based on time, product ID, channel ID
 	function getActiveUserCountByChannelId($dateTime, $productId, $channelId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select count(distinct f.deviceidentifier) usercount from  ". $dwdb->dbprefix('fact_clientdata')."
@@ -283,7 +283,7 @@ p.channel_name,
 		return $query->first_row ()->usercount;
 	}
 	
-	// 根据时间，产品ID 获取昨日活跃用户数
+	// Get yesterday the number of active users based on time, product ID
 	function getActiveUserCount($dateTime, $productId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select count(distinct f.deviceidentifier) usercount from  ". $dwdb->dbprefix('fact_clientdata')." 
@@ -295,7 +295,7 @@ p.channel_name,
 		return $query->first_row ()->usercount;
 	}
 	
-	// 根据产品，渠道ID获取总用户数
+	// Depending on the product, channel ID to obtain the total number of users
 	function getTotalUserByChannel($productId, $channelId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select count(distinct f.deviceidentifier) usercount from 
@@ -305,7 +305,7 @@ p.channel_name,
 		return $query->first_row ()->usercount;
 	}
 	
-	// 根据产品获取总用户数
+	// According to the product to obtain the total number of users
 	function getTotalUserByProductId($productId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select count(distinct f.deviceidentifier) usercount from
@@ -315,7 +315,7 @@ p.channel_name,
 		return $query->first_row ()->usercount;
 	}
 	
-	// 根据产品，渠道ID获取累计启动次数
+	// Depending on the product, channel ID to obtain the cumulative number of starts
 	function getTotalStartUserCountByChannel($productId, $channelId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select count(1) usercount from   ". $dwdb->dbprefix('fact_activeusers_clientdata')."  f,   ". $dwdb->dbprefix('dim_product')."  p where f.product_sk=p.product_sk and p.product_id=$productId and p.channel_id=$channelId;";
@@ -324,7 +324,7 @@ p.channel_name,
 		return $query->first_row ()->usercount;
 	}
 	
-	// 根据产品，渠道ID获取累计启动次数
+	// Depending on the product, channel ID to obtain the cumulative number of starts
 	function getTotalStartUserCountByProductId($productId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select count(1) usercount from   ". $dwdb->dbprefix('fact_activeusers_clientdata')."  f,  ". $dwdb->dbprefix('dim_product')."   p where f.product_sk=p.product_sk and p.product_id=$productId;";
@@ -333,7 +333,7 @@ p.channel_name,
 		return $query->first_row ()->usercount;
 	}
 	
-	// 根据时间段,产品ID，渠道ID获取活跃用户数，可传入7天，14天获取7天，14天的活跃用户数
+	// According to the time period, the product ID, channel ID to obtain the number of active users, can be passed in seven days, 14 days for 7 days, 14 days, the number of active users
 	function getActiveUserByPeriodAndChannel($fromTime, $toTime, $productID, $channelId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select count(distinct f.deviceidentifier) usercount from   ". $dwdb->dbprefix('fact_clientdata')."  f, 
@@ -344,22 +344,27 @@ p.channel_name,
 		return $query->first_row ()->usercount;
 	}
 	
-	// 根据时间段,产品ID获取活跃用户数，可传入7天，30天获取7天，30天的活跃用户数
+	// According to the time period, the product ID to obtain the number of active users, can be passed in seven days, 30 days for 7 days, 30 days, the number of active users
 	function getActiveUserByPeriod($fromTime, $toTime, $productID) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql = "select ifnull(sum(newusers),0) newusers from    ". $dwdb->dbprefix('sum_basic_all')."  s,
-      ". $dwdb->dbprefix('dim_date')."     d,
-      ". $dwdb->dbprefix('dim_product')."     p 
-       where  d.datevalue between '$fromTime' and '$toTime'
-       and d.date_sk = s.date_sk
-       and p.product_id = $productID
-       and p.product_sk = s.product_sk and p.product_active=1 and p.channel_active=1 and p.version_active=1;";
-		
+		$sql = "select count(distinct f.deviceidentifier) startusers from   ". $dwdb->dbprefix('fact_clientdata')."  f, 
+	  ". $dwdb->dbprefix('dim_date')." 	 d,   ". $dwdb->dbprefix('dim_product')."  p where p.product_active=1 and f.product_sk=p.product_sk and f.date_sk=d.date_sk and d.datevalue
+		 between '$fromTime' and '$toTime' and p.product_id = $productID;";	
 		$query = $dwdb->query ( $sql );
-		return $query->first_row ()->newusers;
+		return $query->first_row ()->startusers;
 	}
 	
-	// 返回指定日期内产品，渠道平均使用时常
+	// According to the time period, the product ID to obtain the number of active users, can be passed in seven days, 30 days for 7 days, 30 days, the number of active users
+	function getActiveUserTillToday ( $toTime, $productID ) {
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$sql = "select count(distinct f.deviceidentifier) allusers 
+				from   ". $dwdb->dbprefix('fact_clientdata')."  f,  ". $dwdb->dbprefix('dim_date')." 	 d,   ". $dwdb->dbprefix('dim_product')."  p 
+				where p.product_active=1 and f.product_sk=p.product_sk and f.date_sk=d.date_sk and d.datevalue <= '$toTime' and p.product_id = $productID;";	
+		$query = $dwdb->query ( $sql );
+		return $query->first_row ()->allusers;
+	}
+	
+	// Return the product within the specified date, channel average use often
 	function getAverageUsingTimeByChannel($dateTime, $productId, $channelId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "Select sum(u.duration)/count(distinct session_id) from   ". $dwdb->dbprefix('fact_usinglog')." 
@@ -370,7 +375,7 @@ p.channel_name,
 		return $query;
 	}
 	
-	// 返回指定日期内产品平均使用时常
+	// Return the product within the specified date average often
 	function getAverageUsingTimeByProduct($dateTime, $productId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "Select sum(f.duration)/count(f.session_id) as avertime from  ". $dwdb->dbprefix('fact_usinglog_daily')."   f,   ". $dwdb->dbprefix('dim_product')."  p,   ". $dwdb->dbprefix('dim_date')."  d 
@@ -381,7 +386,7 @@ p.channel_name,
 		return $query->first_row ()->avertime;
 	}
 	
-	// 获取实时数据平均使用时常(今日）
+	// Get real-time data on average use from time to time (today)
 	function getAverageUsingTimeByProductAtRealTime($dateTime, $productId) {
 		$sql = "Select sum(u.duration)/count(distinct session_id) avertime from   ". $this->db->dbprefix('clientusinglog')."  u
   join   ". $this->db->dbprefix('channel_product')."   cp on u.appkey = cp.productkey
@@ -390,7 +395,7 @@ p.channel_name,
 		return $query->first_row ()->avertime;
 	}
 	
-	// 获取实时数据平均使用时常(今日）
+	// Get real-time data on average use from time to time (today)
 	function getAverageUsingTimeByProductAndChannelAtRealTime($dateTime, $channelId) {
 		$sql = "Select sum(u.duration)/count(distinct session_id) avertime from   ". $this->db->dbprefix('clientusinglog')."  u
 		join    ". $this->db->dbprefix('channel_product')."  cp on u.appkey = cp.productkey
@@ -399,7 +404,7 @@ p.channel_name,
 		return $query->first_row ()->avertime;
 	}
 	
-	// 获取指定时间段内产品平均使用时长
+	// Get the average usage of a specified time period long
 	function getAverageUsingTimeByPeriod($fromTime, $toTime, $productId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "Select d.datevalue,sum(u.duration)/count(distinct session_id) avertime

@@ -21,7 +21,7 @@ class ChannelModel extends CI_Model
 			
 		}
 		
-		//通过用户名获得自建渠道
+		//through username get self-built channels 
 		function getdechannel($userid)
 		{
 			$sql = "select c.*,p.name from ".$this->db->dbprefix('channel')."  c inner join  ".$this->db->dbprefix('platform')."   p on c.platform = p.id where c.user_id = $userid and c.type='user' and c.active=1 ";
@@ -32,7 +32,7 @@ class ChannelModel extends CI_Model
 			      }
 			   return null; 
 		}
-		//获得系统渠道
+		//get System channels
        function getsychannel($user_id,$product_id,$platform)
 		{
 			$sql = "select channel_name,channel_id from  ".$this->db->dbprefix('channel')."   where channel_id not in (select channel_id from  ".$this->db->dbprefix('channel_product')."  where product_id=$product_id and user_id=$user_id )and type='system' and platform=$platform and active=1 ";
@@ -43,7 +43,7 @@ class ChannelModel extends CI_Model
 			      }
 			   return null; 
 		}
-		//获得系统渠道(全部)
+		//get all System channels
 		function getallsychannel()
 		{
 			$sql = "select c.*,p.name from  ".$this->db->dbprefix('channel')."  c inner join  ".$this->db->dbprefix('platform')."  p on c.platform = p.id where c.type='system' and c.active=1 ";
@@ -54,7 +54,32 @@ class ChannelModel extends CI_Model
 			}
 			return null;
 		}
-		//获系统渠道的appkey
+		function getChannelType($channel_id){
+			$sql = 'select type from '.$this->db->dbprefix('channel').'
+			where channel_id="'.$channel_id.'"' ;
+			$query = $this->db->query($sql);
+			if($query->num_rows() > 0){
+				return $query->row()->type;
+			}
+			return null;
+		}
+		function isUniqueChannel($userid,$channelname,$platform)
+		{
+			$sql = 'select * from '.$this->db->dbprefix('channel').' 
+			where (user_id = "'.$userid.'" or type="system") and active=1 
+			and channel_name="'.$channelname.'" and platform="'.$platform.'"' ;
+			$query = $this->db->query($sql);
+			return $query->result();
+	
+		}
+		function isUniqueSystemchannel($channelname,$platform){
+			$sql = 'select * from  '.$this->db->dbprefix('channel').' 
+			where active=1 and channel_name="'.$channelname.'" and 
+			platform="'.$platform.'"';
+			$query = $this->db->query($sql);
+			return $query->result();
+		}
+		//get the appkey of system channels
 		function getproductkey($user_id,$product_id,$platform)
 		{
 			$sql="select cp.cp_id, c.channel_name ,cp.productkey,c.channel_id from  ".$this->db->dbprefix('channel')."   c  inner join  ".$this->db->dbprefix('channel_product')."  cp  on c.channel_id = cp.channel_id where c.type='system' and c.active=1 and cp.product_id=$product_id and cp.user_id=$user_id and c.platform=$platform";			
@@ -66,7 +91,7 @@ class ChannelModel extends CI_Model
 			   return null; 
 		}
 		
-      //获得自定义渠道
+      //get self-built channels
        function getdefinechannel($user_id,$product_id,$platform)
 		{
 			$sql = "select channel_name,channel_id from  ".$this->db->dbprefix('channel')."   where channel_id not in (select channel_id from  ".$this->db->dbprefix('channel_product')."  where product_id=$product_id and user_id=$user_id )and type='user' and active=1 and user_id=$user_id and platform=$platform";
@@ -77,7 +102,7 @@ class ChannelModel extends CI_Model
 			      }
 			   return null; 
 		}
-		//获得自定义渠道appkey
+		//get the appkey of self-built channels
 		function getdefineproductkey($user_id,$product_id,$platform)
 		{
 			$sql="select cp.cp_id, c.channel_name ,cp.productkey,c.channel_id from   ".$this->db->dbprefix('channel')."  c  inner join ".$this->db->dbprefix('channel_product')."   cp  on c.channel_id = cp.channel_id and c.user_id=cp.user_id where c.type='user' and c.active=1  and cp.product_id=$product_id and cp.user_id=$user_id and c.platform=$platform";			
@@ -88,14 +113,14 @@ class ChannelModel extends CI_Model
 			      }
 			   return null; 
 		}
-		//获得自定义渠道的个数
+		//get the num of self-built channels
 		function getdechannelnum($userid)
 		{
 			$sql = "select * from  ".$this->db->dbprefix('channel')."  where user_id = $userid and type='user' and active=1 ";
 			$query = $this->db->query($sql);
 			return $query->num_rows(); 
 		}
-		//获取平台
+		//get platform
 		function getplatform()
 		{
 			$sql = "select * from  ".$this->db->dbprefix('platform')."  ";
@@ -106,7 +131,7 @@ class ChannelModel extends CI_Model
 			      }
 			   return null; 
 		}	
-       //添加自定义渠道
+       //add self-built channel
 		function addchannel($channel_name, $platform,$userid)
 		{
 			$create_date=date('Y-m-d H:i:s');			
@@ -118,7 +143,7 @@ class ChannelModel extends CI_Model
 			);		
 		     $this->db->insert ( 'channel', $data );
 		}
-		//添加自定义 系统渠道
+		//add self-built system channel
 		function addsychannel($channel_name, $platform,$userid)
 		{
 			$create_date=date('Y-m-d H:i:s');
@@ -131,7 +156,7 @@ class ChannelModel extends CI_Model
 			);
 			$this->db->insert ( 'channel', $data );
 		}
-		//获得自定义渠道信息
+		//get self-built channel information  
 		function getdechaninfo($userid,$channel_id)
 		{
 			$sql = "select c.*,p.name from  ".$this->db->dbprefix('channel')."  c inner join  ".$this->db->dbprefix('platform')."  p on c.platform = p.id
@@ -143,7 +168,7 @@ class ChannelModel extends CI_Model
 			      }
 			   return null; 
 		}
-		//更新渠道信息
+		//the information of updating channel  
 		function updatechannel($channel_name, $platform,$channel_id)
 		{			
 			$data = array(
@@ -155,7 +180,7 @@ class ChannelModel extends CI_Model
 			$this->db->where('active', 1);
 			$this->db->update('channel', $data); 
 		}
-	   //删除渠道
+	   //delete channel
 		function deletechannel($channel_id)
 		{
 			$data=array(
@@ -165,7 +190,7 @@ class ChannelModel extends CI_Model
 			$this->db->update('channel', $data);
 		}
 		
-		//获取渠道通过平台
+		//through platform get channel
 		function getchanbyplat($platform)
 		{
 			$userid=$this->common->getUserId();	
@@ -178,7 +203,7 @@ class ChannelModel extends CI_Model
 			      }
 			   return null; 
 		}
-		//插入 android apk url
+		//insert android apk url
 		function updateapk($userid,$cp_id,$description,$updateurl,$versionid,$upinfo)
 		{  $date=date('Y-m-d H:i:s');	 
 			 if($upinfo==0)
@@ -186,11 +211,26 @@ class ChannelModel extends CI_Model
 		     	$query = $this->db->query("select date from  ".$this->db->dbprefix('channel_product')."  where cp_id=$cp_id");
                 $row = $query->row();
                 $time= $row->date;
+               
                 $queryid = $this->db->query("select id from  ".$this->db->dbprefix('product_version')."  where product_channel_id=$cp_id and updatetime='$time'");
                 $rel = $queryid->row();
                 $id= $rel->id;
-                $sql = "update ".$this->db->dbprefix('product_version')." set updateurl ='$updateurl' , description='$description' ,version='$versionid',updatetime='$date' 
-			   where id = $id ";              			
+                
+                $queryactive = $this->db->query("select active from  ".$this->db->dbprefix('product_version')." where id=$id");
+                $acrel = $queryactive->row();
+                $active= $acrel->active;
+                if($active==1)
+                {
+                	$sql = "update ".$this->db->dbprefix('product_version')." set updateurl ='$updateurl' , description='$description' ,version='$versionid',updatetime='$date'
+                	where id = $id ";
+                }
+                else
+                {
+                	$sql = "update ".$this->db->dbprefix('product_version')." set updateurl ='$updateurl' , description='$description' ,version='$versionid',updatetime='$date', active=1
+                	where id = $id ";
+                }
+                
+                           			
 			   $this->db->query($sql);
 		     }
 			else 
@@ -216,8 +256,8 @@ class ChannelModel extends CI_Model
 			return false;
 			
 		}
-		////插入iphone apk url
-		//$upinfo 标记是否为更新还是升级      0为更新 1为升级
+		////insert iphone apk url
+		//$upinfo Tag is updated or upgrade(0:update,1:upgrade)
 		function updateapp($userid,$cp_id,$description,$updateurl,$versionid,$upinfo)
 		{
 			$date=date('Y-m-d H:i:s');	
@@ -229,8 +269,20 @@ class ChannelModel extends CI_Model
                 $queryid = $this->db->query("select id from  ".$this->db->dbprefix('product_version')."  where product_channel_id=$cp_id and updatetime='$time'");
                 $rel = $queryid->row();
                 $id= $rel->id;
-                $sql = "update ".$this->db->dbprefix('product_version')." set updateurl ='$updateurl' , description='$description' ,version='$versionid',updatetime='$date' 
-			   where id = $id ";               					
+                $queryactive = $this->db->query("select active from  ".$this->db->dbprefix('product_version')." where id=$id");
+                $acrel = $queryactive->row();
+                $active= $acrel->active;
+                
+                if($active==1)
+                {
+                	$sql = "update ".$this->db->dbprefix('product_version')." set updateurl ='$updateurl' , description='$description' ,version='$versionid',updatetime='$date'
+                	where id = $id ";
+                }
+                else
+                {
+                	$sql = "update ".$this->db->dbprefix('product_version')." set updateurl ='$updateurl' , description='$description' ,version='$versionid',updatetime='$date', active=1
+                	where id = $id ";
+                }                           					
 			   $this->db->query($sql);
 		     }
 			else 
@@ -255,7 +307,7 @@ class ChannelModel extends CI_Model
 			}
 			return false;
 		}
-		//判断是否已进行自动更新
+		//To determine whether the automatic updates
 		function judgeupdate($cp_id)
 		{
 			$sql="select updateurl from ".$this->db->dbprefix('channel_product')."   where cp_id=$cp_id";
@@ -272,7 +324,7 @@ class ChannelModel extends CI_Model
 				}
 				   return false; 			
 		}
-		//获取自动更新历史信息
+		//Get automatically update history information
 		function getupdatehistory($cp_id)
 		{
 			$sql="select pv.id,pv.product_channel_id,cp.channel_id,pv.version,pv.updateurl,pv.updatetime,c.channel_name from
@@ -287,7 +339,7 @@ class ChannelModel extends CI_Model
 			
 		}	
 		
-		//获取平台信息
+		//Get platform information
 		function getuapkplatform($channel_id)
 		{
 			$sql="select platform from   ".$this->db->dbprefix('channel')."  where channel_id =$channel_id";							
@@ -299,7 +351,7 @@ class ChannelModel extends CI_Model
 			   return null; 
 		}
 		
-		//获取更新的apk与app信息
+		//Get updated apk with the app information
 		function getakpinfo($userid,$cp_id)
 		{				
 		    $sql="select cp.*,c.channel_name from  ".$this->db->dbprefix('channel_product')."  cp  inner join  ".$this->db->dbprefix('channel')."  c on 
@@ -311,50 +363,90 @@ class ChannelModel extends CI_Model
 			      }
 			   return null; 
 		}
-		//获取自动更新版本号信息
+		//Get automatically update the version number information
 		function getversionid($cp_id,$versionid,$upinfo)
 		{
 			$query = $this->db->query("select date from  ".$this->db->dbprefix('channel_product')."   where cp_id=$cp_id");
             $row = $query->row();
             $time= $row->date;
-            if($upinfo==0)			
-            {
-            	$sql="select  distinct version from ".$this->db->dbprefix('product_version')."   where product_channel_id=$cp_id and updatetime <'$time'  and active=1";            	
-            }
-            else 
-            {
-            	$sql="select  distinct version from  ".$this->db->dbprefix('product_version')."   where product_channel_id=$cp_id and updatetime <='$time'  and active=1";
-            }                      		
+            $channelcount = $this->getchannelversioncount($cp_id);            
+              if($upinfo==0)
+            	{
+            		if($channelcount==1)
+            		{
+            			$sql="select  distinct version from ".$this->db->dbprefix('product_version')."   where product_channel_id=$cp_id and active=1";
+            		}
+            		else
+            		{
+            			$sql="select  distinct version from ".$this->db->dbprefix('product_version')."   where product_channel_id=$cp_id and updatetime <'$time'  and active=1";
+            		}
+            		
+            	}
+            	else
+            	{
+            	  $sql="select  distinct version from  ".$this->db->dbprefix('product_version')."   where product_channel_id=$cp_id and updatetime <='$time'  and active=1";
+            	}            	             		
 			$query = $this->db->query($sql);
 			if($query!=null&&$query->num_rows()>0)
 			{
 				  $dataversion= $query->result_array();
 			      foreach($dataversion as $data)
 			   { 				
-				 $result=strcmp($data['version'],$versionid);				 
-				 if($result>=0)
-				{				
-					$comversion=false;												
-					break;
-				}
-				else
-				{
-					$comversion=true;	 								
-				}
-				
+				 $result=strcmp($data['version'],$versionid);	
+				 if( $channelcount==1 && $upinfo==0)
+				 {
+				 	$comversion=true;
+				 }			 
+				 else
+				 {
+				 	if ($result>=0)
+				 	{
+				 		$comversion=false;
+				 		break;
+				 	}
+				 	else
+				 	{
+				 		$comversion=true;
+				 	}
+				 }							
 			}
 			return $comversion;		
 		   }
 		 else
 		 {
-		 	if($sql!=""&&$upinfo==1)
+		 	if($sql!=""&& $upinfo==1)
 		 	{
 		 	  return true;	
-		 	}
+		 	}		 	
+		 }
+		 if($sql!="" && $upinfo==0 && $channelcount==1)
+		 {
+		 	return true;
 		 } 
 		  return false; 
 		}
-		//获取自动更新历史列表中更新的信息
+		//get channel version count from product_version
+		function getchannelversioncount($cp_id)
+		{
+			$sql="select count(*) channelcount  from ".$this->db->dbprefix('product_version')."   where product_channel_id=$cp_id and active=1";
+			$query = $this->db->query($sql);
+			if($query!=null&&$query->num_rows()>0)
+			{				
+				$row = $query->row();
+				$count=  $row->channelcount;
+				if($count==1||$count==0)
+				{
+					return 1;
+				}
+				else 
+				{
+					return $count;
+				}
+			}
+			return 1;
+			
+		}
+		//Get updated automatically update the list of history
 		function getupdatelistinfo($vp_id)
 		{
 		  $sql="select * from   ".$this->db->dbprefix('product_version')."   where id=$vp_id";
@@ -365,7 +457,7 @@ class ChannelModel extends CI_Model
 			      }
 			   return null; 
 		}
-		//获取自动更新新列表中的信息
+		//Get automatic updates of the information in the new list
 		function getnewlistinfo($cp_id)
 		{
 			$sql="select * from  ".$this->db->dbprefix('channel_product')."    where cp_id=$cp_id";
@@ -376,7 +468,7 @@ class ChannelModel extends CI_Model
 			      }
 			   return null; 
 		}
-		//删除历史列表中的自动更新
+		//Delete automatically update in the history list
 		function deleteupdate($vp_id)
 		{
 			$data=array(

@@ -19,22 +19,29 @@ class usinganalyzemodel extends CI_Model
 		parent::__construct();
 	}
 	
-	function getUsingTimeByProduct($productId)
+	/*
+	 * Get Using Time By Product
+	 */
+	function getUsingTimeByProduct($productId,$fromTime,$toTime)
 	{
-	$dwdb = $this->load->database('dw',TRUE);
+		$dwdb = $this->load->database('dw',TRUE);
 		$sql = "select   s.segment_sk,
            s.segment_name,
            count(fs.segment_sk) numbers,
          count(fs.segment_sk) / (select count(* )
-              from   ".$dwdb->dbprefix('fact_usinglog_daily')."    ff,
+              from   ".$dwdb->dbprefix('fact_usinglog_daily')." ff,
+              		".$dwdb->dbprefix('dim_date') ." dd , 
                     ".$dwdb->dbprefix('dim_product')."     pp
-              where  pp.product_id = $productId
+              where  
+              		 dd.date_sk = ff.date_sk and dd.datevalue between '$fromTime' and '$toTime' and
+              		 pp.product_id = $productId
                      and pp.product_sk = ff.product_sk and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) percentage
-from    ".$dwdb->dbprefix('dim_segment_usinglog')."     s
+from    ".$dwdb->dbprefix('dim_segment_usinglog')." s
          left join (select f.segment_sk
                     from  ".$dwdb->dbprefix('fact_usinglog_daily')."     f,
-                          ".$dwdb->dbprefix('dim_product')."     p
-                    where  p.product_id = $productId
+                          ".$dwdb->dbprefix('dim_product')."     p,
+                          ".$dwdb->dbprefix('dim_date')." d 
+                    where  d.date_sk = f.date_sk and d.datevalue between '$fromTime' and '$toTime' and p.product_id = $productId
                            and p.product_sk = f.product_sk) fs
            on fs.segment_sk = s.segment_sk
 group by s.segment_sk,s.segment_name
@@ -46,22 +53,40 @@ order by s.segment_sk;
 		return $query;
 	}
 	
-	function getUsingFrequenceByProduct($productId)
+	/*
+	 * Get using frequence 
+	 */
+	function getUsingFrequenceByProduct($productId,$fromTime,$toTime)
 	{
 		$dwdb = $this->load->database('dw',TRUE);
 		
-		$sql="select s.segment_sk,
-       s.segment_name,
-       ifnull(sum(f.accesscount),0) access,
-       ifnull(sum(f.accesscount),0)
-         / (select sum(ifnull(ff.accesscount,0)) 
-         from   ".$dwdb->dbprefix('fact_launch_daily')." ff,".$dwdb->dbprefix('dim_product')." pp  where ff.product_sk = pp.product_sk and pp.product_id = $productId and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) percentage 
-         from   ".$dwdb->dbprefix('fact_launch_daily')." f
-       inner join ".$dwdb->dbprefix('dim_product')." p
-         on f.product_sk = p.product_sk
-            and p.product_id = $productId and p.product_active=1 and p.channel_active=1 and p.version_active=1 right join ".$dwdb->dbprefix('dim_segment_launch')." s
-         on f.segment_sk = s.segment_sk 
-         group by s.segment_sk 
+		$sql = "select s.segment_sk,s.segment_name,
+       				   ifnull(sum(f.accesscount),0) access,
+       				   ifnull(sum(f.accesscount),0)
+         				/ (select sum(ifnull(ff.accesscount,0)) 
+         from   " . $dwdb->dbprefix ( 'fact_launch_daily' ) . " ff,"
+         		.$dwdb->dbprefix('dim_date'). " dd,  " 
+         		. $dwdb->dbprefix ( 'dim_product' ) . " pp  
+         		where 
+         		ff.date_sk = dd.date_sk and dd.datevalue between '$fromTime' and '$toTime' and 
+         		ff.product_sk = pp.product_sk 
+         		and pp.product_id = $productId 
+         		and pp.product_active=1
+         		 and pp.channel_active=1 
+         		 and pp.version_active=1) percentage 
+         from   " . $dwdb->dbprefix ( 'fact_launch_daily' ) . " f
+       				inner join " . $dwdb->dbprefix ( 'dim_product' ) . " p
+         			on f.product_sk = p.product_sk 
+         			inner join ". $dwdb->dbprefix('dim_date') . " d 
+         			on f.date_sk = d.date_sk 
+         			and d.datevalue between '$fromTime' and '$toTime' 
+            		and p.product_id = $productId 
+            		and p.product_active=1 
+            		and p.channel_active=1 
+            		and p.version_active=1 
+            		right join " . $dwdb->dbprefix ( 'dim_segment_launch' ) . " s
+         			on f.segment_sk = s.segment_sk 
+         			group by s.segment_sk 
 		order by s.segment_sk;";
 		
 		$query = $dwdb->query($sql);

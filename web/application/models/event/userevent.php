@@ -23,13 +23,13 @@ class UserEvent extends CI_Model {
 	   if ($version=='unknown')
 		  $version='';
 	   if ($version=='all')
-           $sql = "select p.version_name,
+           $sql = "select 
 e.event_sk,
 e.eventidentifier,
 e.eventname,
 count(f.eventid) count
 from ".$dwdb->dbprefix('dim_product')."   p,  ".$dwdb->dbprefix('fact_event')."  f,  ".$dwdb->dbprefix('dim_event')."  e  where  p.product_id=$productId and p.product_active=1 and p.channel_active=1 and p.version_active=1 and f.product_sk = p.product_sk and f.event_sk = e.event_sk 
-group by p.version_name, e.event_sk,e.eventidentifier,e.eventname
+group by  e.event_sk,e.eventidentifier,e.eventname
 
            
            ";
@@ -56,9 +56,8 @@ group by p.version_name, e.event_sk,e.eventidentifier,e.eventname
 	function getProductVersions($productid)
 	{
 		$dwdb = $this->load->database ( 'dw', TRUE );
-	   $sql = "select distinct version_name from  ".$dwdb->dbprefix('dim_product')."  where product_active=1 and channel_active=1 and version_active=1 and product_id=$productid order by version_name desc";
-//       echo $sql;
-	  
+	   $sql = "select distinct version_name from  ".$dwdb->dbprefix('dim_product')."  where 
+	   product_active=1 and channel_active=1 and version_active=1 and product_id=$productid order by version_name desc";     
 	   $query = $dwdb->query ( $sql );
 	   return $query;
 	}
@@ -69,15 +68,14 @@ group by p.version_name, e.event_sk,e.eventidentifier,e.eventname
 		 $dwdb = $this->load->database ( 'dw', TRUE );
 		if ($version=='all')
 		{
-			 $sql = "select   dd.datevalue,
-         ifnull(ff.count,0) count,
-         ifnull(ff.count/(select sum(startusers) from  ".$dwdb->dbprefix('sum_basic_all')."   s, ".$dwdb->dbprefix('dim_product')."   p where s.date_sk = ff.date_sk and s.product_sk = p.product_sk and p.product_id=$productid ),0) userper,
-ifnull(ff.count/(select sum(sessions) from  ".$dwdb->dbprefix('sum_basic_all')."   s, ".$dwdb->dbprefix('dim_product')."   p where s.date_sk = ff.date_sk and s.product_sk = p.product_sk and p.product_id=$productid),0) sessionper
-from     (select date_sk,datevalue
-          from  ".$dwdb->dbprefix('dim_date')."   
-          where  datevalue between '$from' and '$to') dd
-         left join (select   d.date_sk,d.datevalue,
-                             count(* ) count
+			 $sql = "select   dd.datevalue, ifnull(ff.count,0) count, ifnull(ff.count/(select sum(startusers) from 
+			  ".$dwdb->dbprefix('sum_basic_all')."   s, ".$dwdb->dbprefix('dim_product')."   p where s.date_sk = ff.date_sk 
+			  and s.product_sk = p.product_sk and p.product_id=$productid ),0) userper,
+              ifnull(ff.count/(select sum(sessions) from  ".$dwdb->dbprefix('sum_basic_all')."   s,
+               ".$dwdb->dbprefix('dim_product')."   p where s.date_sk = ff.date_sk and s.product_sk = p.product_sk 
+               and p.product_id=$productid),0) sessionper from     (select date_sk,datevalue
+          from  ".$dwdb->dbprefix('dim_date')."  where  datevalue between '$from' and '$to') dd
+         left join (select   d.date_sk,d.datevalue,                            count(* ) count
                     from   ".$dwdb->dbprefix('fact_event')."     f,
                            ".$dwdb->dbprefix('dim_product')."     p,
                            ".$dwdb->dbprefix('dim_event')."     e,
@@ -89,22 +87,19 @@ from     (select date_sk,datevalue
                              and f.event_sk = e.event_sk
                              and f.date_sk = d.date_sk
                              and d.datevalue between '$from' and '$to'
-                    group by d.datevalue) ff
-           on dd.date_sk = ff.date_sk
-order by dd.date_sk;
-	    ";
+                    group by d.datevalue) ff   on dd.date_sk = ff.date_sk order by dd.date_sk;";
 		}
 		else 
 		{
-	    $sql = "select   dd.datevalue,
-         ifnull(ff.count,0) count,
-         ifnull(ff.count/(select sum(startusers) from  ".$dwdb->dbprefix('sum_basic_all')."  s, ".$dwdb->dbprefix('dim_product')." p where s.date_sk = ff.date_sk and s.product_sk = p.product_sk and p.product_id=$productid and p.version_name='$version'),0) userper,
-ifnull(ff.count/(select sum(sessions) from   ".$dwdb->dbprefix('sum_basic_all')."  s, ".$dwdb->dbprefix('dim_product')."   p where s.date_sk = ff.date_sk and s.product_sk = p.product_sk and p.product_id=$productid and p.version_name='$version'),0) sessionper
-from     (select date_sk,datevalue
-          from   ".$dwdb->dbprefix('dim_date')."  
-          where  datevalue between '$from' and '$to') dd
-         left join (select   d.date_sk,d.datevalue,
-                             count(* ) count
+	    $sql = "select   dd.datevalue, ifnull(ff.count,0) count,ifnull(ff.count/(select sum(startusers) from  
+	    ".$dwdb->dbprefix('sum_basic_all')."  s, ".$dwdb->dbprefix('dim_product')." p 
+	    where s.date_sk = ff.date_sk and s.product_sk = p.product_sk and p.product_id=$productid 
+	    and p.version_name='$version'),0) userper,ifnull(ff.count/(select sum(sessions) from   
+	    ".$dwdb->dbprefix('sum_basic_all')."  s, ".$dwdb->dbprefix('dim_product')."   p where s.date_sk = ff.date_sk 
+	    and s.product_sk = p.product_sk and p.product_id=$productid and p.version_name='$version'),0) sessionper
+        from     (select date_sk,datevalue from   ".$dwdb->dbprefix('dim_date')."  
+          where  datevalue between '$from' and '$to') dd  left join (select   d.date_sk,d.datevalue,
+                count(* ) count
                     from   ".$dwdb->dbprefix('fact_event')."     f,
                            ".$dwdb->dbprefix('dim_product')."     p,
                             ".$dwdb->dbprefix('dim_event')."    e,
@@ -117,11 +112,8 @@ from     (select date_sk,datevalue
                              and f.date_sk = d.date_sk
                              and d.datevalue between '$from' and '$to'
                     group by d.datevalue) ff
-           on dd.date_sk = ff.date_sk
-order by dd.date_sk;
-	    ";
-		}
-	    
+           on dd.date_sk = ff.date_sk order by dd.date_sk; ";
+		}    
 	  
 	   $query = $dwdb->query ( $sql );
 	  return $query;
@@ -135,6 +127,17 @@ order by dd.date_sk;
 		$result = $this->db->query($sql);
 	   return $result;
 	}
+	
+	function isUnique($productId,$event_id){
+		$this->db->from('event_defination');
+		$this->db->where('product_id',$productId);
+		$this->db->where('event_identifier',$event_id);
+		$this->db->where('active','1');
+		$r = $this->db->get();
+		return $r->result();
+		
+	}
+	
 	function addEvent($event_id,$event_name)
 	{
 	   $userId = $this->common->getUserId();
@@ -142,7 +145,7 @@ order by dd.date_sk;
 	   $data = array('event_identifier' => $event_id,'productkey' => $product->product_key,'event_name'=>$event_name,'channel_id'=>1,'product_id'=>$product->id,'user_id'=>$userId);
 	   $this->db->insert('event_defination',$data);
 	}
-	//根据eventid 获得事件信息
+	//Through eventid get event information
 	function geteventbyid($eventid)
 	{
 		$sql = "select event_id ,event_identifier,event_name from  ".$this->db->dbprefix('event_defination')."   where event_id =$eventid and active=1";

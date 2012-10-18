@@ -19,7 +19,7 @@ class pagemodel extends CI_Model{
 	  $this->load->model ( 'common' );
 	}
 	
-	//获得所有版本的基本数据
+	//All versions of basic data
 	function getallVersionBasicData($fromDate='',$toDate='',$productId){
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql="select 'all' version_name,sum(accesscount) accesscount, (select sum(total) from (select ss.product_sk,sum(totaltime)/sum(accesscount) total 
@@ -37,7 +37,7 @@ class pagemodel extends CI_Model{
 		return $query;
 	}
 	
-	//获取各个版本的基本数据
+	//For the various versions of the basic data
 	function getVersionBasicData($fromTime,$toTime,$productId){
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql="select 'all' version_name,a.activity_name,sum(accesscount) accesscount,
@@ -57,10 +57,13 @@ class pagemodel extends CI_Model{
 			
 			$content_arr = array ();
 			$flag='';
-			$accesscount=1;
-			$avertime=1;
-			$exitcount=1;
+		
+			
+			
 			for($i = 0; $i < count ( $arra ); $i ++) {
+				$accesscount=0;
+				$avertime=0;
+				$exitcount=0;
 				$row = $arra [$i];
 				$versionname = $row ['version_name'];
 				$allkey = array_keys ( $content_arr );
@@ -72,11 +75,15 @@ class pagemodel extends CI_Model{
 				if($flag==''){
 					for($j=0;$j<count($alldata);$j ++){
 						$all = $alldata [$j];
-						if($all['version_name']==$versionname){
+						if($all['version_name']!="all"&&$all['version_name']==$versionname){
 							$accesscount = $all['accesscount'];
 							$avertime = $all['avertime'];
 							$exitcount = $all['exitcount'];
 							break;
+						}else{
+							$accesscount = $accesscount+$all['accesscount']/2;
+							$avertime =$avertime+ $all['avertime']/2;
+							$exitcount =$exitcount+ $all['exitcount']/2;
 						}
 					}
 				}
@@ -102,9 +109,41 @@ class pagemodel extends CI_Model{
 			}
 			$ret['content'] = $content_arr;
 		}
-		
 		return $ret;
 	
+	}
+	
+	function getTopLevelData($fromTime,$toTime,$productId)
+	{
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$sql = "select 'Entry', e0.activity_name,sum(al0.count) as count,sum(al0.count)/(select sum(sa0.count) as count
+				from razor_sum_accesslevel sa0, razor_dim_date sd0,
+				 razor_dim_product sp0 where sa0.date_sk = sd0.date_sk and sd0.datevalue 
+				between '$fromTime' and '$toTime' and sa0.product_sk = sp0.product_sk and
+				 sp0.product_id = $productId and sa0.level = 1 ) percentage from 
+				razor_sum_accesslevel al0,razor_dim_date d0, razor_dim_product p0, 
+				razor_dim_activity e0 where al0.date_sk = d0.date_sk and d0.datevalue
+			    between '$fromTime' and '$toTime' and al0.product_sk = p0.product_sk 
+				and p0.product_id = $productId and al0.fromid = e0.activity_sk and al0.level = 1 group by e0.activity_name ORDER BY SUM( al0.count ) DESC LIMIT 0 , 5";
+		return $dwdb->query($sql);
+	}
+	
+	function getFlowData($fromTime,$toTime,$productId)
+	{
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$sql = "Select e1.activity_name as activity_from ,ifnull(e2.activity_name,'Exit') as activity_to,level, 
+				sum(al.count) as count , sum(al.count)/(select sum(count) from razor_sum_accesslevel sa,
+				 razor_dim_date sd, razor_dim_product sp where sa.date_sk = 
+				sd.date_sk and sd.datevalue between '$fromTime' and '$toTime' and sa.product_sk = sp.product_sk and
+				 sp.product_id = $productId and sa.fromid = al.fromid and sa.level = al.level) percentage 
+				from razor_sum_accesslevel al inner join razor_dim_date d on al.date_sk = d.date_sk
+				 and d.datevalue between '$fromTime' and '$toTime'  
+				inner join razor_dim_product p on al.product_sk = p.product_sk and p.product_id = $productId
+				left join razor_dim_activity e1 on al.fromid = e1.activity_sk
+				left join razor_dim_activity e2 on al.toid = e2.activity_sk
+				group by e1.activity_sk,e2.activity_sk,level
+				order by e1.activity_name,level asc, count desc";
+		return $dwdb->query($sql);
 	}
 	
 }

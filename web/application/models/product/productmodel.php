@@ -16,15 +16,15 @@ class ProductModel extends CI_Model
 {
 	function __construct()
 	{
-		$this->load->database();
+		$this->load->database();		
 		$this->load->model("product/productanalyzemodel",'productanalyzemodel');
 	}
 
-	//	统计今日和昨日的各渠道 的newusers(新用户), startusers（启动用户）, allusers（总用户）
+	//Statistics today and yesterday channels newusers (new users) startusers (start-User) allusers (total users)
 	function getAnalyzeDataByDateAndProductID($date,$product_id){
 		return $this->productanalyzemodel->getAllAnalyzeData($date,$product_id);
 	}
-	//统计活跃数
+	//The number of statistical active
 	function  getActiveUsersNum($startDate,$endDate,$product_id){
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select tt.channel_id,
@@ -58,73 +58,24 @@ class ProductModel extends CI_Model
 		return $query;
 			
 	}
-	//	分时统计日期段内的各渠道 的newusers(新用户), startusers（启动用户）, allusers（总用户）,usingtime(使用时长)
-	function  getAllMarketData($channel_id,$start,$end,$timePhase){
-	$currentProduct = $this->common->getCurrentProduct();
-		$toTime = date('Y-m-d',time());
-		$fromTime = date('Y-m-d',strtotime("-7 day"));
-					
-		if($timePhase == "7day")
-		{
-		$title = lang('producttitleinfo_act7days');
-		$fromTime = date('Y-m-d',strtotime("-7 day"));
-		}
-					
-		if($timePhase == "1month")
-		{
-		$title = lang('producttitleinfo_actmonth');
-		$fromTime = date("Y-m-d",strtotime("-30 day"));
-		}
-			
-		if($timePhase == "3month")
-		{
-		$fromTime = date("Y-m-d",strtotime("-90 day"));
-		$title = lang('producttitleinfo_act3month');
-			
-		}
-		if($timePhase == "all")
-		{
-		$title = lang('producttitleinfo_actall');
-		$fromTime = 'all';
-		}
-			
-		if($timePhase == 'any')
-		{
-				$title = lang('producttitleinfo_actanytime');
-		$fromTime = $start;
-		$toTime = $end;
-		}
-			
+	//channels within the timephase Statistics Data    newusers/startusers/allusers/usingtime
+	function  getAllMarketData($channel_id,$fromTime,$toTime){
+		$ret=array();
+	    $currentProduct = $this->common->getCurrentProduct();		
 		$productId = $currentProduct->id;
 		$fromTime = $this->getReportStartDate($currentProduct,$fromTime);
-
-		$dwdb = $this->load->database ( 'dw', TRUE );
-			
-			
+		$dwdb = $this->load->database ( 'dw', TRUE );			
 		$channelname= $this->getMarketNameById($channel_id);
-		$sql = "select
-		d.datevalue,
-		p.channel_id,
-		p.channel_name,
-		ifnull(sum(startusers),0) startusers,
-		ifnull(sum(newusers),0) newusers,
-		ifnull(sum(allusers),0) allusers,
-		ifnull(sum(usingtime),0) usingtime
-		from  (select date_sk,datevalue from ".$dwdb->dbprefix('dim_date')."  where datevalue between '$fromTime' and '$toTime') d cross join (
-		select distinct
-		pp.channel_id,
-		pp.channel_name,
-		pp.product_sk
-		from ".$dwdb->dbprefix('dim_product')."
-		pp
+		$sql = "select d.datevalue,	p.channel_id,p.channel_name,ifnull(sum(startusers),0) startusers,ifnull(sum(newusers),0) newusers,
+		ifnull(sum(allusers),0) allusers,ifnull(sum(sessions),0) sessions,ifnull(sum(usingtime),0) usingtime
+		from  (select date_sk,datevalue from ".$dwdb->dbprefix('dim_date')."  where datevalue between '$fromTime' and '$toTime')  d 
+		cross join (select distinct	pp.channel_id,pp.channel_name,pp.product_sk	from ".$dwdb->dbprefix('dim_product')." pp
 		where pp.product_id = $productId and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) p
-		left join ".$dwdb->dbprefix('sum_basic_all')." s  on d.date_sk = s.date_sk
-					
-				and s.product_sk = p.product_sk
-				group by d.datevalue,p.channel_id,p.channel_name
-				order by d.datevalue,p.channel_id;";
+		left join ".$dwdb->dbprefix('sum_basic_all')." s  on d.date_sk = s.date_sk and s.product_sk = p.product_sk
+		group by d.datevalue,p.channel_id,p.channel_name order by d.datevalue,p.channel_id;";		
 				$query = $dwdb->query ( $sql );
-				if ($query != null && $query->num_rows > 0) {
+				if ($query != null && $query->num_rows > 0)
+				{
 					
 				$arr = $query->result_array ();
 					
@@ -136,10 +87,11 @@ class ProductModel extends CI_Model
 					if (! in_array ( $channel_name, $allkey ))
 					$content_arr [$channel_name] = array ();
 					$tmp = array ();
-					$tmp ['startusers'] = $row ['startusers'];
+					$tmp ['activeusers'] = $row ['startusers'];
 					$tmp ['allusers'] = $row ['allusers'];
 					$tmp ['newusers'] = $row ['newusers'];
 					$tmp['datevalue'] = $row['datevalue'];
+					$tmp['sessions'] = $row['sessions'];
 					$tmp['usingtime'] = $row['usingtime'];
 						
 					array_push ( $content_arr [$channel_name], $tmp );
@@ -149,110 +101,66 @@ class ProductModel extends CI_Model
 				$ret['content'] = $content_arr;
 					
 				}
-				$ret ['title'] = $title;
-
 				return $ret;
 					
 				}
-				//	分时统计日期段内的各渠道 的周/月活跃数
-				function getActiveNumber($channel_id,$start,$end,$timePhase,$type){
-				$currentProduct = $this->common->getCurrentProduct();
-				$toTime = date('Y-m-d',time());
-				$fromTime = date('Y-m-d',strtotime("-7 day"));
-
-				if($timePhase == "7day")
-				{
-					$title = lang('producttitleinfo_act7days');
-					$fromTime = date('Y-m-d',strtotime("-7 day"));
-				}
-
-					if($timePhase == "1month")
-					{
-					$title = lang('producttitleinfo_actmonth');
-					$fromTime = date("Y-m-d",strtotime("-30 day"));
-					}
-
-					if($timePhase == "3month")
-					{
-						$fromTime = date("Y-m-d",strtotime("-90 day"));
-						$title = lang('producttitleinfo_act3month');
-								
-						}
-						if($timePhase == "all")
-						{
-						$title = lang('producttitleinfo_actall');
-						$fromTime = 'all';
-					}
-
-					if($timePhase == 'any')
-					{
-							$title = lang('producttitleinfo_actanytime');
-							$fromTime = $start;
-								$toTime = $end;
-							}
-
-							$productId = $currentProduct->id;
-							$fromTime = $this->getReportStartDate($currentProduct,$fromTime);
-								
-							$dwdb = $this->load->database ( 'dw', TRUE );
-
-
-							$channelname= $this->getMarketNameById($channel_id);
-								
-							if($type=="weekactive"){
-							$day=-6;
-}
-if($type=="monthactive"){
-$day=-30;
-}
-$sql = "select
-d.datevalue,
-p.channel_id,
-p.channel_name,
-(select ifnull(sum(startusers),0) from ".$dwdb->dbprefix('sum_basic_all')."  ss,".$dwdb->dbprefix('dim_date')."  dd where ss.date_sk = dd.date_sk and dd.datevalue between date_add(d.datevalue,interval $day day) and d.datevalue and ss.product_sk= p.product_sk) startusers
-from  (select date_sk,datevalue from ".$dwdb->dbprefix('dim_date')."  where datevalue between '$fromTime' and '$toTime') d cross join (
-		select distinct
-		pp.channel_id,
-		pp.channel_name,
-		pp.product_sk
-		from	".$dwdb->dbprefix('dim_product')."
-		pp
-		where pp.product_id = $productId and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1 ) p
-		group by d.datevalue,p.channel_id,p.channel_name
-		order by d.datevalue,p.channel_id;
-		";
-			
-		$query = $dwdb->query ( $sql );
-		if ($query != null && $query->num_rows > 0) {
-			
-		$arr = $query->result_array ();
-	
-$content_arr = array ();
-for($i = 0; $i < count ( $arr ); $i ++) {
-$row = $arr [$i];
-	$channel_name = $row ['channel_name'];
-	$allkey = array_keys ( $content_arr );
-	if (! in_array ( $channel_name, $allkey ))
-		$content_arr [$channel_name] = array ();
-		$tmp = array ();
-		$tmp ['startusers'] = $row ['startusers'];
-		$tmp['datevalue'] = $row['datevalue'];
-		array_push ( $content_arr [$channel_name], $tmp );
-
-	}
-	$all_version_name = array_keys($content_arr);
-	$ret['content'] = $content_arr;
+	//channels within the timephase Statistics Data    activeWeekly / activeMonthly				
+	function getActiveNumber($channel_id,$fromTime,$toTime,$type){
+		$ret=array();
+		$currentProduct = $this->common->getCurrentProduct();
+		$productId = $currentProduct->id;
+		$fromTime = $this->getReportStartDate($currentProduct,$fromTime);			
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$channelname= $this->getMarketNameById($channel_id);			
+		if($type=="weekrate")
+		{
+		  $day=-6;
+        }
+		if($type=="monthrate")
+		{
+		  $day=-30;
+		}
+		$sql = "select t.datevalue,t.channel_id,t.channel_name,ifnull(sum(startusers),0) startusers,ifnull(sum(allusers),0) allusers
+		from (select d.datevalue,p.channel_id,p.channel_name,(select ifnull(sum(allusers),0) 
+		from  ".$dwdb->dbprefix('sum_basic_all')." ss,".$dwdb->dbprefix('dim_date')." dd where ss.date_sk = dd.date_sk and
+		 dd.datevalue = d.datevalue and ss.product_sk= p.product_sk) allusers,
+		(select ifnull(sum(startusers),0) from ".$dwdb->dbprefix('sum_basic_all')." ss,".$dwdb->dbprefix('dim_date')." dd 
+		where ss.date_sk = dd.date_sk and dd.datevalue between date_add(d.datevalue,interval $day day) 
+		and d.datevalue and ss.product_sk= p.product_sk) startusers
+		from  (select date_sk,datevalue from ".$dwdb->dbprefix('dim_date')." where datevalue between '$fromTime' and '$toTime') d 
+		cross join (select distinct	pp.channel_id,pp.channel_name,pp.product_sk	from ".$dwdb->dbprefix('dim_product')." pp
+		where pp.product_id = $productId and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1 ) p ) t
+		group by t.datevalue,t.channel_id,t.channel_name order by t.datevalue,t.channel_id;";
 		
-	}
-	$ret ['title'] = $title;
-
+		$query = $dwdb->query ( $sql );
+		if ($query != null && $query->num_rows > 0) 
+		{			
+		$arr = $query->result_array ();	
+		$content_arr = array ();
+		for($i = 0; $i < count ( $arr ); $i ++)
+		 {
+		    $row = $arr [$i];
+			$channel_name = $row ['channel_name'];
+			$allkey = array_keys ( $content_arr );
+			if (!in_array ( $channel_name, $allkey ))
+				$content_arr [$channel_name] = array ();
+				$tmp = array ();
+				$tmp ['startusers'] = $row ['startusers'];
+				$tmp ['allusersacc'] = $row ['allusers'];
+				$tmp['datevalue'] = $row['datevalue'];
+				array_push ( $content_arr [$channel_name], $tmp );
+		
+		}
+		$all_version_name = array_keys($content_arr);
+		$ret['content'] = $content_arr;		
+	  }
 	return $ret;
 	}
 
 
 
 
-	//根据产品id，产品渠道,和时间  获取今日新增用户
+	//According to the product id product channels, and time to acquire new subscribers today
 	function getNewUser($productId, $markets,$dataTime) {
 
 
@@ -268,7 +176,7 @@ $row = $arr [$i];
 return $newUserArray;
 }
 
-//根据产品id，产品渠道,和时间  获取昨日新增用户
+//According to the product id, product channels, and time to acquire new subscribers yesterday
 function getNewUserYestoday($productId, $markets,$dataTime) {
 
 
@@ -285,7 +193,7 @@ return $newUserArray;
 }
 
 
-//根据产品id，产品渠道,和时间  获取活跃用户
+//According to the product id and product channels, and time for active users
 function getActiveUser($productId, $markets,$dataTime) {
 
 
@@ -300,7 +208,7 @@ array_push($activeUserArray,$count);
 return $activeUserArray;
 }
 
-//根据产品id，产品渠道  获取所有用户
+//Get all the user according to id, product channels
 function getUserCountByChannel($productId, $markets)
 {
 $userCountArray = array();
@@ -317,7 +225,7 @@ return $userCountArray;
 
 
 
-//根据产品id，产品渠道,和时间  获取活跃用户率
+//Get active users rate and time according to the product id and product channels,
 function getActiveUserPercent($productId, $markets, $from, $to) {
 
 $dwdb = $this->load->database ( 'dw', TRUE );
@@ -360,7 +268,7 @@ from   ".$dwdb->dbprefix('fact_activeusers_clientdata')."   f,
 		return $activeUserArray;
 }
 
-		//时段内新增
+		//Period new
 		function getNewUserByTimePhase($productId, $markets, $from, $to)
 		{
 		$dwdb = $this->load->database ( 'dw', TRUE );
@@ -421,17 +329,20 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 		$getIDsql="select p.id,p.name,f.name platform from ".$this->db->dbprefix('product')."  p,  ".$this->db->dbprefix('platform')."  f where p.product_platform = f.id and p.user_id=$userId and p.active = 1 order by p.id desc;";
 			
 		$dwdb = $this->load->database ( 'dw', TRUE );
-		$getProductInfosqltoday = "select p.product_id,p.product_name,
-		ifnull(sum(allusers),0) allusers,
-				ifnull(sum(newusers),0) newusers,
+		$getProductInfosqltoday = " select t.product_id, t.product_name, t.newusers, t.startusers, t.sessions, t.platform, tt.allusers from (
+						select p.product_id,p.product_name,
+           				ifnull(sum(newusers),0) newusers,
 						ifnull(sum(startusers),0) startusers,
 						ifnull(sum(sessions),0) sessions,
 						p.platform
 						from  ".$dwdb->dbprefix('dim_product')."     p inner join  ".$dwdb->dbprefix('dim_date')."   d on p.userid=$userId and p.product_active=1 and p.channel_active=1 and p.version_active=1 and d.datevalue='$today' left join ".$dwdb->dbprefix('sum_basic_all')."   s on
 						p.product_sk = s.product_sk and d.date_sk = s.date_sk
-						group by p.product_name,p.platform order by p.product_id desc;
-						";
-						$getProductInfosqlyeatoday = "select p.product_id,p.product_name,
+						group by p.product_name,p.platform  ) t
+						inner join (select p.product_id, count(distinct f.deviceidentifier) allusers from  ".$dwdb->dbprefix('fact_clientdata')."    f,  ".$dwdb->dbprefix('dim_date')."  d, ".$dwdb->dbprefix('dim_product')."  p
+		 				 where  f.product_sk = p.product_sk and p.product_active=1 and f.date_sk = d.date_sk and d.datevalue <='$today' and p.userid=$userId  group by p.product_name,p.platform) tt
+		 				 on t.product_id = tt.product_id 
+		 				 order by t.product_id desc ";
+			$getProductInfosqlyeatoday = "select p.product_id,p.product_name,
 						ifnull(sum(allusers),0) allusers,
 						ifnull(sum(newusers),0) newusers,
 						ifnull(sum(startusers),0) startusers,
@@ -505,7 +416,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 												
 											return $appList;
 											}
-
+											
 											function getAllProducts($userId)
 											{
 										$sql="select p.id,p.name,f.name platform from ".$this->db->dbprefix('product')."  p,  ".$this->db->dbprefix('platform')."  f where p.product_platform = f.id and p.user_id=$userId and p.active = 1 order by p.id desc;";
@@ -515,8 +426,8 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 											return $query;
 											}
 
-											//根据应用和开始时间判断报表起始时间点，如果起始时间小于产品起始时间，则返回应用的起始时间
-											//否则返回传入的起始时间
+											//If the start time is less than the product of the starting time, then return to the starting time of the application according to the start time point of the application and start time determination statements
+											//Otherwise, returns the passed start time
 											function getReportStartDate($product,$fromTime)
 											{
 											if(date('Y-m-d',strtotime($product->date)) > date('Y-m-d',strtotime($fromTime)) )
@@ -541,7 +452,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 											return $toTime;
 											}
 
-											//获取用户项目初始时间的最小值
+											//Get the minimum value of the initial time of the user project
 											function getUserStartDate($userId,$fromTime)
 											{
 											$sql = "select min(date) as date from ".$this->db->dbprefix('product')."  where user_id = $userId";
@@ -559,10 +470,10 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 											}
 											return $fromTime;
 											}
-											//增加产品
+											//Increase product
 											function addProduct($userId,$appname,$channel,$platform,$category,$description)
 											{
-											//插入product表
+											//insert table product
 											$appKey = md5($appname.$platform.$category.time());
 												$data = array(
 												'name'=>$appname,
@@ -576,7 +487,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 												);
 												$this->db->insert('product',$data);
 													
-												//插入channel_product表
+												//insert table channel_product
 												$product_id=$this->db->insert_id();
 												$chanprod = array(
 												'product_id'=>$product_id,
@@ -594,23 +505,28 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 												return $appKey;
 												}
 
-												//插入产品渠道
+												//Insert the product channels
 												function addproductchannel($user_id,$product_id,$channel_id)
 												{
-													$data = array(
-															'product_id'=>$product_id,
-													'date'=>date('Y-m-d H:i:s'),
-													'user_id' => $user_id,
-													'productkey'=>md5($product_id.$channel_id.$user_id.time()),
-													'channel_id'=>$channel_id
-													);
-													$this->db->insert('channel_product',$data);
-													//更新产品表的渠道数
-													$sql = "update ".$this->db->dbprefix('product')."  set channel_count = channel_count+1 where id = $product_id and user_id = $user_id";
-													$this->db->query($sql);
+													$isChannelExitSQL = "select * from ".$this->db->dbprefix('channel_product')." where channel_id=$channel_id and user_id=$user_id and  product_id=$product_id";
+													$result = $this->db->query($isChannelExitSQL);
+													if($result==null||$result->num_rows()==0){
+														$data = array(
+																'product_id'=>$product_id,
+																'date'=>date('Y-m-d H:i:s'),
+																'user_id' => $user_id,
+																'productkey'=>md5($product_id.$channel_id.$user_id.time()),
+																'channel_id'=>$channel_id
+														);
+														$this->db->insert('channel_product',$data);
+														//The number of channels to update product table
+														$sql = "update ".$this->db->dbprefix('product')."  set channel_count = channel_count+1 where id = $product_id and user_id = $user_id";
+														$this->db->query($sql);
+													}
+													
 												}
 
-												//获得产品信息
+												//For product information
 												function getproductinfo($product_id)
 												{
 												$sql = "select pro.* ,p.name as platname from ".$this->db->dbprefix('product')." pro inner join ".$this->db->dbprefix('platform')."  p on  pro.product_platform=p.id where pro.id=$product_id ";
@@ -621,7 +537,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 												}
 												return null;
 												}
-												//更新产品信息
+												//Updated product information
 												function updateproduct($appname,$category,$description,$product_id,$productkey)
 												{
 
@@ -633,10 +549,12 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 
 												$this->db->where('id', $product_id);
 												$this->db->update('product', $data);
-														
-														
-													$sql = "update ".$this->db->dbprefix('channel_product')."  set description ='$description' where product_id = $product_id and productkey = '$productkey'";
-													$this->db->query($sql);
+												
+												$data2 = array('description'=>$description);
+												
+												$this->db->where('product_id', $product_id);
+												$this->db->where('productkey', $productkey);
+												$this->db->update('channel_product', $data2);
 														
 													}
 													function getProductCategory()
@@ -704,7 +622,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 
 																	function getMarketData($market,$timePhase,$type,$start,$end)
 																		{
-
+                                                                              $ret=array();
 																		if ($type == 'new')
 																		return $this->getNewUserByProductAndChannelAndTime ( $market, $timePhase, $start, $end );
 																		if ($type == 'active')
@@ -781,6 +699,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 
 																										function getMarketNameById($makertId)
 																											{
+																											
 																											$sql = "select channel_name from  ".$this->db->dbprefix('channel')." where channel_id = $makertId";
 																											$query = $this->db->query($sql);
 																											if($query!=null && $query->num_rows()>0)
@@ -792,6 +711,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 
 																											function getActiveUserByProductAndChannelAndTime($market,$timePhase,$start,$end)
 																											{
+																												$ret=array();
 																											$currentProduct = $this->common->getCurrentProduct();
 																											$toTime = date('Y-m-d',time());
 																											$fromTime = date('Y-m-d',strtotime("-7 day"));
@@ -851,6 +771,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 
 																										function getStartCountByProductAndChannelAndTime($market,$timePhase,$start,$end)
 																										{
+																											$ret=array();
 																										$currentProduct = $this->common->getCurrentProduct();
 																										$toTime = date('Y-m-d',time());
 																										$fromTime = date('Y-m-d',strtotime("-7 day"));
@@ -908,6 +829,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 
 																										function getAverageTime($market,$timePhase,$start,$end)
 																										{
+																											$ret=array();
 																												$currentProduct = $this->common->getCurrentProduct();
 
 																												$toTime = date('Y-m-d',time());
@@ -968,6 +890,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 
 																												function getWeeklyActivePercent($market,$timePhase,$start,$end)
 																												{
+																													$ret=array();
 																												$currentProduct = $this->common->getCurrentProduct();
 
 																												$toTime = date('Y-m-d',time());
@@ -1079,7 +1002,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 		return $ret;
 	}
 
-	//获取指定时间段内产品平均使用时长
+	//Get the average usage of a specified time period long
 	function getAverageUsingTimeByChannelAndTime($fromTime,$toTime,$productId,$channelId)
      {
      	$dwdb = $this->load->database('dw',TRUE);
