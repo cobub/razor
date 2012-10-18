@@ -49,6 +49,48 @@ function isPraramerValue($content,$array)
 			);	
      return $ret;	
 }
+function Post2($serverURL) {
+	$url = parse_url ( $serverURL);
+	if (! $url)
+		return "couldn’t parse url";
+	if (! isset ( $url ['port'] )) {
+		$url ['port'] = "";
+	}
+	if (! isset ( $url ['query'] )) {
+		$url ['query'] = "";
+	}
+	
+	$errorno = "";
+	$errorstr = "";
+	$fp = fsockopen ( $url ['host'], $url ['port'] ? $url ['port'] : 80,$errorno,$errorstr,5);
+	if (! $fp)
+		return "Failed to open socket to $url[host]";
+
+	fputs ( $fp, sprintf ( "POST %s%s%s HTTP/1.0\n", $url ['path'], $url ['query'] ? "?" : "", $url ['query'] ) );
+	fputs ( $fp, "Host: $url[host]\n" );
+	fputs ( $fp, "Content-type: application/x-www-form-urlencoded\n" );
+	fputs ( $fp, "Accept-Language:zh-cn\n" );
+	fputs ( $fp, "Content-length: " . 0 . "\n" );
+	fputs ( $fp, "Connection: close\n\n" );
+
+	$line = fgets ( $fp, 1024 );
+	
+	if (! preg_match ( "/^HTTP\/1\\.. 200/", $line )){
+		return;
+	}
+	
+	$results = "";
+	$inheader = 1;
+	while ( ! feof ( $fp ) ) {
+		$line = fgets ( $fp, 1024 );
+		if ($inheader && ($line == "\n" || $line == "\r\n")) {
+			$inheader = 0;
+		} elseif (! $inheader) {
+			$results .= $line;}
+	}
+	fclose ( $fp );
+	return urldecode($results);
+}
 function Post($serverURL, $data) {
 			//$serverURL =  "http://dev.myllec.cn/jsonservice/index.php/".$url;
 		//$serverURL =  "http://127.0.0.1/jsonservice/index.php/".$url;
@@ -150,6 +192,7 @@ function Post($serverURL, $data) {
 				$this->clientdata->addRegion($arr,$id);
 			}
   	}
+  	
     function haveregioninfobyip($ip,$id)
   	{		
   			$apkey="0097da75bc8864672f8dedca5c5c590bdb0d2653";

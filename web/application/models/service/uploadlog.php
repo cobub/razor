@@ -57,25 +57,7 @@ class Uploadlog extends CI_Model
 			{
 				foreach($clientData as $clientdataInfo)
 				{
-					$id=$this->clientdata->addClientdata($clientdataInfo);
-					$ip=$this->utility->getOnlineIP();
-					$this->clientdata->addCell_towers($clientdataInfo,$id);
-					$this->clientdata->addWifi_towers($clientdataInfo,$id);
-                    $latitude =isset($clientdataInfo ->latitude)?$clientdataInfo ->latitude:'';
-                    if ($latitude!='')
-					{
-						$latitude=$clientdataInfo->latitude;
-						$longitude=$clientdataInfo->longitude;
-						$this->utility->getregioninfo(
-						    $latitude,
-							$longitude,
-							$id
-							);
-					}
-					else 
-					{
-						$this->utility->haveregioninfobyip($ip,$id);
-					}	
+					$this->clientdata->addClientdata($clientdataInfo);
 				}
 			}
 		}

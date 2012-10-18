@@ -36,14 +36,14 @@ class Ums_user extends CI_Model {
 	    $result = $this->db->get('user_roles');
 	    return $result;
 	}
-	//或获得的应用类型信息
+	//get app type
 	function getproductCategories()
 	{
 		$sql = "select id,name from ".$this->db->dbprefix('product_category')."  where active=1";
 		$query = $this->db->query($sql);
 		return $query;
 	}
-	//根据categoryid 获得categoryinfo
+	// get categoryinfo by categoryid
 	function getcategoryname($id)
 	{
 		$sql = "select id,name from ".$this->db->dbprefix('product_category')."  where active=1 and id=$id";	  
@@ -54,18 +54,19 @@ class Ums_user extends CI_Model {
 		}		
 		return null;
 	}
-	// 添加应用类型
+	// add app type
 	function addtypeOfapplication($type_applicationName) {
 	
 		$data = array ('name' => $type_applicationName);
 		$this->db->insert ('product_category', $data );
 	}
-	//根据id更新应用类型名称
+	//update app type by id
 	function updatetypeOfapplica($id,$name){
-		$sql = "update ".$this->db->dbprefix('product_category')." set name='$name' where id=$id";
-		$query = $this->db->query($sql);
+		$data = array ('name' => $name);
+		$this->db->where ( 'id', $id );
+		$this->db->update ( 'product_category', $data );
 	}
-	//删除应用类型
+	//delete app type
 	function deletetypeOfapplica($id){
 		$data=array(
 				'active'=>0
@@ -73,13 +74,13 @@ class Ums_user extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->update('product_category', $data);
 	}
-	//或获得的资源信息
+	//get resources info
 	function getResources()
 	{
 	    $result = $this->db->get('user_resources');
 	    return $result;
 	}
-	//根据resourceid获取编辑信息
+	//get resources info by resourceid
 	function geteditresources($id)
 	{
 		$this->db->from ( 'user_resources' );
@@ -143,6 +144,23 @@ class Ums_user extends CI_Model {
 	    $this->db->where('name',$name);
 	    $r = $this->db->get();
 	    return $r->first_row()->id;
+	}
+	
+	function isUnique($tablename,$name){
+		$this->db->from($tablename);
+		$this->db->where('name',$name);
+		$r = $this->db->get();
+		return $r->result();
+		
+	}
+	
+	function isUniqueApp($tablename,$name){
+		$this->db->from($tablename);
+		$this->db->where('name',$name);
+		$this->db->where('active','1');
+		$r = $this->db->get();
+		return $r->result();
+	
 	}
 
 	function addRole($role,$description) {

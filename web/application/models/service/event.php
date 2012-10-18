@@ -42,13 +42,26 @@ class Event extends CI_Model
 		return null;
 	}
 }
+	function getActivebyEventid($getEventid,$product_id)
+	{
+		$query = $this->db->query("select active from ".$this->db->dbprefix('event_defination')." where event_id = '$getEventid' and product_id = '$product_id'");
+	 	if($query!=null&& $query->num_rows()>0)
+		{
+			return $query->first_row()->active;			
+		}
+		else 
+		{
+			return 0;
+		}
+	}
 	function addEvent($event)
 	{
 		$key=$event->appkey;
 		$product_id=$this->getProductid($key);
 		$event_identifier=$event->event_identifier;
 		$getEventid=$this->isEventidAvailale($product_id,$event_identifier);
-		if ($getEventid==null)
+		$active = $this->getActivebyEventid($getEventid,$product_id);
+		if ($active== 0 ||$getEventid==null)
 		{
 			return NULL;
 		}

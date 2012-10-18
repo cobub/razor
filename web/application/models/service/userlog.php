@@ -24,7 +24,15 @@ class Userlog extends CI_Model
 	{
 		
 		$strArr=explode("\n",$userlog->stacktrace);
-		$title= $strArr[0];				  
+		if(count($strArr) >= 3)
+		{
+			$title= $strArr[0]."\n".$strArr[1]."\n".$strArr[2];		  
+		}
+		else
+		{
+			$title= $strArr[0];
+		}
+		
 		$data = array(
 			'appkey' => $userlog->appkey,
 		    'title' => $title,
