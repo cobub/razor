@@ -16,8 +16,8 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    REALTIME = 0,       //实时发送
-    BATCH = 1,          //启动发送
+    REALTIME = 0,       //RealTime Send Policy
+    BATCH = 1,          //Send Data When Start
 } ReportPolicy;
 
 @interface UMSAgent : NSObject<UIAlertViewDelegate>
@@ -27,10 +27,10 @@ typedef enum {
 
 +(void)checkUpdate;
 
-+(void)startWithAppKey:(NSString*)appKey;
++(void)startWithAppKey:(NSString*)appKey serverURL:(NSString *)serverURL;
 
-+(void)startWithAppKey:(NSString*)appKey ReportPolicy:(ReportPolicy)policy;
-
++(void)startWithAppKey:(NSString*)appKey ReportPolicy:(ReportPolicy)policy ServerURL:(NSString*)serverURL
+;
 +(void)postEvent:(NSString *)event_id;
 
 +(void)postEvent:(NSString *)event_id label:(NSString *)label;
@@ -43,7 +43,7 @@ typedef enum {
 
 +(void)endTracPage:(NSString*)page_name;
 
-// 类方法，判断当前设备是否已经越狱
+// Check if the device jail broken
 + (BOOL)isJailbroken;
 + (void)setOnLineConfig:(BOOL)isOnlineConfig;
 + (void)setIsLogEnabled:(BOOL)isLogEnabled;

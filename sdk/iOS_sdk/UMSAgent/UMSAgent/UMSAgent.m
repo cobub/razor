@@ -16,7 +16,6 @@
 #import "CheckUpdateReturn.h"
 #import "CheckUpdateDao.h"
 #import "PostClientDataDao.h"
-#import "Deviceinfo.h"
 #import "postEventDao.h"
 #import "Event.h"
 #import "Global.h"
@@ -34,7 +33,9 @@
 #import <CommonCrypto/CommonDigest.h> // Need to import for CC_MD5 access
 #import "ActivityLog.h"
 #import "ErrorLog.h"
+#import "OpenUDID.h"
 #import <sys/utsname.h>
+#import "ClientData.h"
 
 @interface UMSAgent ()
 {
@@ -50,6 +51,7 @@
     CheckUpdateReturn *updateRet;
     NSMutableArray *eventArrary;
     NSString *sessionId;
+    NSString *pageName;
 }
 
 @property (nonatomic) ReportPolicy policy;
@@ -62,7 +64,7 @@
 @property (nonatomic) CheckUpdateReturn *updateRet;
 @property (nonatomic,strong) NSDate *startDate;
 @property (nonatomic,strong) NSString *sessionId;
-
+@property (nonatomic,strong) NSString *pageName;
 
 @end
 
@@ -75,6 +77,7 @@
 @synthesize appKey;
 @synthesize startDate;
 @synthesize sessionId;
+@synthesize pageName;
 
 +(UMSAgent*)getInstance
 {
@@ -91,14 +94,15 @@
     return instance;
 }
 
-+(void)startWithAppKey:(NSString*)appKey
++(void)startWithAppKey:(NSString*)appKey ServerURL:(NSString *)serverURL
 {
-    [[UMSAgent getInstance] initWithAppKey:appKey reportPolicy:BATCH];
+    [[UMSAgent getInstance] initWithAppKey:appKey reportPolicy:BATCH serverURL:serverURL];
+    
 }
 
-+(void)startWithAppKey:(NSString*)appKey ReportPolicy:(ReportPolicy)policy
++(void)startWithAppKey:(NSString*)appKey ReportPolicy:(ReportPolicy)policy ServerURL:(NSString*)serverURL
 {
-    [[UMSAgent getInstance] initWithAppKey:appKey reportPolicy:policy];
+    [[UMSAgent getInstance] initWithAppKey:appKey reportPolicy:policy serverURL:serverURL];
 }
 
 + (void)setIsLogEnabled:(BOOL)isLogEnabled
@@ -107,10 +111,11 @@
 }
 
 
--(void)initWithAppKey:(NSString*)applicationKey reportPolicy:(ReportPolicy)m_policy
+-(void)initWithAppKey:(NSString*)applicationKey reportPolicy:(ReportPolicy)m_policy serverURL:(NSString*)m_serverURL
 {    
     self.appKey = applicationKey;
     self.policy = m_policy;
+    [Global setBaseURL:m_serverURL];
     NSNotificationCenter *notifCenter = [NSNotificationCenter defaultCenter];
     [notifCenter addObserver:self
                     selector:@selector(resignActive:)
@@ -127,15 +132,15 @@
     
     self.startDate = [[NSDate date] copy];
     NSString *currentTime = [[NSString alloc] initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
-    self.sessionId = [self md5:currentTime];
+    NSString *sessionIdentifier = [[NSString alloc] initWithFormat:@"%@%@", currentTime, [OpenUDID value]
+                                   ];
+    self.sessionId = [self md5:sessionIdentifier];
     if(isLogEnabled)
     {
         NSLog(@"Get Session ID = %@",sessionId);
     }
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-    [self performSelectorInBackground:@selector(postClientDataInBackground) withObject:nil];
-    //Process archived logs
-    [self performSelectorInBackground:@selector(processArchivedLogs) withObject:nil];
+    [self performSelectorInBackground:@selector(archiveClientData) withObject:nil];
 }
 
 
@@ -148,6 +153,7 @@
 -(void)recordStartTime:(NSString*) page_name
 {
     @autoreleasepool {
+        self.pageName = [[NSString alloc] initWithString:page_name];
         NSDate *pageStartDate = [[NSDate date] copy];
         [[NSUserDefaults standardUserDefaults] setObject:pageStartDate forKey:page_name];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -177,23 +183,25 @@
 
 - (void)resignActive:(NSNotification *)notification 
 {
-    NSString *page_name = [[NSBundle mainBundle] bundleIdentifier];
-    if(policy == REALTIME)
-    {
-        if(isLogEnabled)
-        {
-            NSLog(@"Commit using Time");
-        }
-        [self performSelectorInBackground:@selector(commitUsingTime:) withObject:page_name];
-    }
-    else
-    {
-        if(isLogEnabled)
-        {
-            NSLog(@"Save Activity using time to cache");
-        }
-        [self performSelectorInBackground:@selector(saveActivityUsingTime:) withObject:page_name];
-    }
+      [UMSAgent endTracPage:self.pageName];
+      //Since We use viewWillAppear and viewWillDisappear to record, So just remove from here
+//    NSString *page_name = [[NSBundle mainBundle] bundleIdentifier];
+//    if(policy == REALTIME)
+//    {
+//        if(isLogEnabled)
+//        {
+//            NSLog(@"Commit using Time");
+//        }
+//        [self performSelectorInBackground:@selector(commitUsingTime:) withObject:page_name];
+//    }
+//    else
+//    {
+//        if(isLogEnabled)
+//        {
+//            NSLog(@"Save Activity using time to cache");
+//        }
+//        [self performSelectorInBackground:@selector(saveActivityUsingTime:) withObject:page_name];
+//    }
 }
 
 - (void)becomeActive:(NSNotification *)notification 
@@ -202,6 +210,7 @@
     {
         NSLog(@"Application become active");
     }
+    [UMSAgent startTracPage:self.pageName];
     NSString *page_name = [[NSBundle mainBundle] bundleIdentifier];
     NSDate *pageStartDate = [[NSDate date] copy];
     [[NSUserDefaults standardUserDefaults] setObject:pageStartDate forKey:page_name];
@@ -213,9 +222,7 @@
         NSLog(@"Current session ID = %@",sessionId);
     }
     
-    [self performSelectorInBackground:@selector(postClientDataInBackground) withObject:nil];
-    //Process archived logs
-    [self performSelectorInBackground:@selector(processArchivedLogs) withObject:nil];
+    [self performSelectorInBackground:@selector(archiveClientData) withObject:nil];
     
     if(isLogEnabled)
     {
@@ -372,12 +379,12 @@
     if (retWrapper.flag>0)
     {
         updateRet = retWrapper;
-        NSString *version = [[NSString alloc] initWithFormat:@"版本更新%@",retWrapper.version];
+        NSString *version = [[NSString alloc] initWithFormat:@"New Update %@",retWrapper.version];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: version
                                                         message: retWrapper.description
                                                        delegate: self
-                                              cancelButtonTitle:@"取消"
-                                              otherButtonTitles:@"确定", nil];
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"Confirm", nil];
         [alert show];
     }
     else 
@@ -464,7 +471,8 @@
         NSMutableArray *eventArray = [self getArchiveEvent];
         NSMutableArray *activityLogArray = [self getArchiveActivityLog];
         NSMutableArray *errorLogArray = [self getArchiveErrorLog];
-        if([eventArray count]>0 || [activityLogArray count]>0 || [errorLogArray count]>0)
+        NSMutableArray *clientDataArray = [self getArchiveClientData];
+        if([eventArray count]>0 || [activityLogArray count]>0 || [errorLogArray count]>0 || [clientDataArray count]>0)
         {
             NSMutableDictionary *requestDic = [[NSMutableDictionary alloc] init];
             [requestDic setObject:appKey forKey:@"appkey"];
@@ -483,6 +491,11 @@
                 [requestDic setObject:errorLogArray forKey:@"errorInfo"];
             }
             
+            if([clientDataArray count]>0)
+            {
+                [requestDic setObject:clientDataArray forKey:@"clientData"];
+            }
+            
             if(isLogEnabled)
             {
                 NSLog(@"Post Archive Logs");
@@ -497,10 +510,10 @@
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"eventArray"];
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"activityLog"];
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"errorLog"];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"clientDataArray"];
             }
         }
     }
-    
 }
 
 -(NSMutableArray *)getArchiveEvent
@@ -644,6 +657,95 @@
     }
 }
 
+-(void)archiveClientData
+{
+    ClientData *clientData = [self getDeviceInfo];
+    NSMutableArray *mClientDataArray;
+    if (self.policy == BATCH) {
+        NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"clientDataArray"] ;
+        if (oldData!=nil)
+        {
+            mClientDataArray = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+        }
+        else
+        {
+            mClientDataArray = [[NSMutableArray alloc] init];
+        }
+        if(isLogEnabled)
+        {
+            NSLog(@"archive client data because of BATCH mode");
+        }
+        [mClientDataArray addObject:clientData];
+        if(isLogEnabled)
+        {
+            NSLog(@"Archived client data = %d",[mClientDataArray count]);
+        }
+        NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mClientDataArray];
+        [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"clientDataArray"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    else
+    {
+        
+        [self processClientData:clientData];
+    }
+    
+    //Process archived logs after post ClientData
+    [self performSelector:@selector(processArchivedLogs)];
+
+}
+
+-(void)processClientData:(ClientData *)clientData
+{
+    [self performSelector:@selector(postClientDataInBackground:) withObject:clientData];
+}
+
+-(NSMutableArray *)getArchiveClientData
+{
+    NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"clientDataArray"] ;
+    NSMutableArray * array = nil;
+    if (oldData!=nil)
+    {
+        array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+        if(isLogEnabled)
+        {
+            NSLog(@"Have error data num = %d",[array count]);
+        }
+    }
+    NSMutableArray *clientDataArray = [[NSMutableArray alloc] init];
+    if ([array count]>0)
+    {
+        for(ClientData *clientData in array)
+        {
+            NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
+            [requestDictionary setObject:clientData.platform forKey:@"platform"];
+            [requestDictionary setObject:clientData.os_version forKey:@"os_version"];
+            [requestDictionary setObject:clientData.language forKey:@"language"];
+            [requestDictionary setObject:clientData.resolution forKey:@"resolution"];
+            [requestDictionary setObject:clientData.deviceid forKey:@"deviceid"];
+            if(clientData.mccmnc!=nil)
+            {
+                [requestDictionary setObject:clientData.mccmnc forKey:@"mccmnc"];
+            }
+            else
+            {
+                [requestDictionary setObject:@"" forKey:@"mccmnc"];
+
+            }
+            [requestDictionary setObject:clientData.version forKey:@"version"];
+            [requestDictionary setObject:clientData.network forKey:@"network"];
+            [requestDictionary setObject:clientData.devicename forKey:@"devicename"];
+            [requestDictionary setObject:clientData.modulename forKey:@"modulename"];
+            [requestDictionary setObject:clientData.time forKey:@"time"];
+            [requestDictionary setObject:appKey forKey:@"appkey"];
+            [requestDictionary setObject:clientData.isjailbroken forKey:@"isjailbroken"];
+            [clientDataArray addObject:requestDictionary];
+        }
+    }
+    return clientDataArray;
+}
+
+
 
 -(void)archiveEvent:(Event *)event
 {
@@ -683,9 +785,9 @@
     return appVersion;
 }
 
--(Deviceinfo *)getDeviceInfo
+-(ClientData *)getDeviceInfo
 {
-    Deviceinfo  *info = [[Deviceinfo alloc] init];
+    ClientData  *info = [[ClientData alloc] init];
     info.platform = [[UIDevice currentDevice] systemName];
     info.devicename = [self machineName];
     info.modulename = [[UIDevice currentDevice] model];
@@ -693,17 +795,17 @@
     info.time = [self getCurrentTime];
     if([UMSAgent isJailbroken])
     {
-        info.isJailbroken = @"1";
+        info.isjailbroken = @"1";
     }
     else {
-        info.isJailbroken = @"0";
+        info.isjailbroken = @"0";
     }
     
     CGRect rect = [[UIScreen mainScreen] bounds];
     CGFloat scale = [[UIScreen mainScreen] scale];
     info.resolution = [[NSString alloc] initWithFormat:@"%.fx%.f",rect.size.width*scale,rect.size.height*scale];
     //Using open UDID 
-    info.deviceID = [OpenUDID value];
+    info.deviceid = [OpenUDID value];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
     NSArray *languages = [defaults objectForKey:@"AppleLanguages"]; 
     info.language = [languages objectAtIndex:0];
@@ -713,7 +815,7 @@
     CTCarrier*carrier =[netInfo subscriberCellularProvider];
     NSString*mcc =[carrier mobileCountryCode];
     NSString*mnc =[carrier mobileNetworkCode];
-    info.MCCMNC = [mcc stringByAppendingString:mnc];
+    info.mccmnc = [mcc stringByAppendingString:mnc];
     
     info.version = [self getVersion];
     BOOL isWifi = [self isWiFiAvailable];
@@ -751,25 +853,47 @@
     
 }
 
--(void)postClientDataInBackground
+-(void)postClientDataInBackground:(ClientData *)clientData
 {
     @autoreleasepool {
-    [self isWiFiAvailable];
+    //[self isWiFiAvailable];
     CommonReturn *ret ;
-    ret = [PostClientDataDao postClient:self.appKey deviceInfo:[self getDeviceInfo]];
-    if(ret.flag <0)
+    ret = [PostClientDataDao postClient:self.appKey deviceInfo:clientData];
+    if(ret.flag >0)
     {
         if(isLogEnabled)
         {
-            NSLog(@"Post Client Data Error: Flag = %d, Msg = %@",ret.flag,ret.msg);
+            NSLog(@"Post Client Data OK: Flag = %d, Msg = %@",ret.flag,ret.msg);
         }
     }
     else 
     {
         if(isLogEnabled)
         {
-            NSLog(@"Post Client Data OK: Flag = %d, Msg = %@",ret.flag,ret.msg);
+            NSLog(@"Post Client Data Error: So save to archive. Flag = %d, Msg = %@",ret.flag,ret.msg);
         }
+        NSMutableArray *mClientDataArray;
+        NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"clientDataArray"] ;
+        if (oldData!=nil)
+        {
+            mClientDataArray = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+        }
+        else
+        {
+            mClientDataArray = [[NSMutableArray alloc] init];
+        }
+        if(isLogEnabled)
+        {
+            NSLog(@"archive client data because of BATCH mode");
+        }
+        [mClientDataArray addObject:clientData];
+        if(isLogEnabled)
+        {
+            NSLog(@"Archived client data = %d",[mClientDataArray count]);
+        }
+        NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mClientDataArray];
+        [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"clientDataArray"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     }
 }
@@ -815,7 +939,11 @@ uncaughtExceptionHandler(NSException *exception) {
             errorLog.activity = [[NSBundle mainBundle] bundleIdentifier];
             errorLog.osVersion = [[UIDevice currentDevice] systemVersion];
             errorLog.deviceID = [self machineName];
-            [PostClientDataDao postErrorLog:self.appKey errorLog:errorLog];
+            CommonReturn *ret = [PostClientDataDao postErrorLog:self.appKey errorLog:errorLog];
+            if(ret.flag<0)
+            {
+                [self saveErrorLog:stackTrace];
+            }
     }
 }
 

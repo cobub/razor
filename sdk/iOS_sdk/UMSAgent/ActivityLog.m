@@ -1,10 +1,16 @@
-//
-//  ActivityLog.m
-//  UMSAgent
-//
-//  Created by  on 12-4-5.
-//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
-//
+/**
+ * Cobub Razor
+ *
+ * An open source analytics iphone sdk for mobile applications
+ *
+ * @package		Cobub Razor
+ * @author		WBTECH Dev Team
+ * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
+ * @license		http://www.cobub.com/products/cobub-razor/license
+ * @link		http://www.cobub.com/products/cobub-razor/
+ * @since		Version 0.1
+ * @filesource
+ */
 
 #import "ActivityLog.h"
 

@@ -15,7 +15,7 @@
 #import <UIKit/UIKit.h>
 @implementation Global
 
-NSString * const BASEURL=@"http://www.cobub.com/ums/service/index.php?";
+static NSString *BASEURL;
 
 +(void)ShowAlertView:(NSString*)title message:(NSString*)message delegate:(id)delegate buttonTitle:(NSString*)buttonTitle cancelButtonTitle:(NSString*)cancelTitle
 {
@@ -29,6 +29,16 @@ NSString * const BASEURL=@"http://www.cobub.com/ums/service/index.php?";
    
 }
 
++(void)setBaseURL:(NSString *)baseURL
+{
+    BASEURL = [[NSString alloc] initWithString:baseURL];
+    NSLog(baseURL);
+}
 
++(NSString *)getBaseURL
+{
+    NSLog(BASEURL);
+    return BASEURL;
+}
 
 @end

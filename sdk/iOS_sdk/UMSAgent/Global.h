@@ -16,7 +16,9 @@
 
 @interface Global : NSObject
 {
+    
 }
-extern NSString * const BASEURL;
 +(void)ShowAlertView:(NSString*)title message:(NSString*)message delegate:(id)delegate buttonTitle:(NSString*)buttonTitle cancelButtonTitle:(NSString*)title;
++(void)setBaseURL:(NSString *)baseURL;
++(NSString*)getBaseURL;
 @end

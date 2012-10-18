@@ -21,7 +21,7 @@
 
 +(CommonReturn *)postEvent:(NSString *)appkey event:(Event *)mEvent
 {
-    NSString* url = [NSString stringWithFormat:@"%@%@",BASEURL,@"/ums/postEvent"];
+    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postEvent"];
     
     CommonReturn *ret = [[CommonReturn alloc] init];
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];

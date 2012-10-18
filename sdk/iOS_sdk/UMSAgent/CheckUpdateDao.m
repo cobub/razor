@@ -16,12 +16,13 @@
 #import "network.h"
 #import "SBJson.h"
 #import "Global.h"
+#import "UMSAgent.h"
 
 @implementation CheckUpdateDao
 
 +(CheckUpdateReturn *)checkUpdate:(NSString *)appkey version:(NSString *)version_code
 {
-    NSString* url = [NSString stringWithFormat:@"%@%@",BASEURL,@"/ums/getApplicationUpdate"];
+    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/getApplicationUpdate"];
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
     [requestDictionary setObject:@"1.0" forKey:@"version_code"];
     [requestDictionary setObject:appkey forKey:@"appkey"];
@@ -30,7 +31,7 @@
 
     if (ret==nil) {
         result.flag = -4;
-        result.msg = [[NSString alloc] initWithFormat:@"%@","error"];
+        result.msg = [[NSString alloc] initWithFormat:@"%@",@"error"];
         return result;
     }
     NSDictionary *retDictionary = [ret JSONValue];

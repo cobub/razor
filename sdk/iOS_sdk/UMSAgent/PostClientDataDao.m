@@ -16,30 +16,38 @@
 #include "Global.h"
 #include "network.h"
 #include "SBJson.h"
+#import "ClientData.h"
 
 @implementation PostClientDataDao
 
-+(CommonReturn *) postClient:(NSString *) appkey deviceInfo:(Deviceinfo *) deviceInfo
++(CommonReturn *) postClient:(NSString *) appkey deviceInfo:(ClientData *) deviceInfo
 {
     @autoreleasepool {
-    NSString* url = [NSString stringWithFormat:@"%@%@",BASEURL,@"?c=ums&m=postClientData"];
+    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postClientData"];
     CommonReturn *ret = [[CommonReturn alloc] init];
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
     [requestDictionary setObject:deviceInfo.platform forKey:@"platform"];
     [requestDictionary setObject:deviceInfo.os_version forKey:@"os_version"];
     [requestDictionary setObject:deviceInfo.language forKey:@"language"];
     [requestDictionary setObject:deviceInfo.resolution forKey:@"resolution"];
-    [requestDictionary setObject:deviceInfo.deviceID forKey:@"deviceid"];
+    [requestDictionary setObject:deviceInfo.deviceid forKey:@"deviceid"];
     [requestDictionary setObject:appkey forKey:@"appkey"];
-    [requestDictionary setObject:deviceInfo.MCCMNC forKey:@"mccmnc"];
+    if(deviceInfo.mccmnc!=nil)
+    {
+        [requestDictionary setObject:deviceInfo.mccmnc forKey:@"mccmnc"];
+    }
+    else
+    {
+        [requestDictionary setObject:@"" forKey:@"mccmnc"];
+            
+    }
     [requestDictionary setObject:deviceInfo.version forKey:@"version"];
     [requestDictionary setObject:deviceInfo.network forKey:@"network"];
     [requestDictionary setObject:deviceInfo.devicename forKey:@"devicename"];
     [requestDictionary setObject:deviceInfo.modulename forKey:@"modulename"];
     [requestDictionary setObject:deviceInfo.time forKey:@"time"];
-    [requestDictionary setObject:deviceInfo.isJailbroken forKey:@"isjailbroken"];
+    [requestDictionary setObject:deviceInfo.isjailbroken forKey:@"isjailbroken"];
     NSString *retString = [network SendData:url data:requestDictionary];
-   
     NSDictionary * retDictionary = [retString JSONValue];
     ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
     ret.msg = [retDictionary objectForKey:@"msg"];
@@ -51,7 +59,7 @@
 {
     NSLog(@"version %@",version);
     @autoreleasepool {
-        NSString* url = [NSString stringWithFormat:@"%@%@",BASEURL,@"?/ums/postActivityLog"];
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postActivityLog"];
         CommonReturn *ret = [[CommonReturn alloc] init];
         NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
         [requestDictionary setObject:sessionMills forKey:@"session_id"];
@@ -72,7 +80,7 @@
 +(CommonReturn *) postArchiveLogs:(NSMutableDictionary *) archiveLogs
 {
     @autoreleasepool {
-        NSString* url = [NSString stringWithFormat:@"%@%@",BASEURL,@"/ums/uploadLog"];
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/uploadLog"];
         CommonReturn *ret = [[CommonReturn alloc] init];
         NSString *retString = [network SendData:url data:archiveLogs];        
         NSDictionary * retDictionary = [retString JSONValue];
@@ -85,7 +93,7 @@
 +(CommonReturn *) postErrorLog:(NSString *) appkey errorLog:(ErrorLog *) errorLog
 {
     @autoreleasepool {
-        NSString* url = [NSString stringWithFormat:@"%@%@",BASEURL,@"/ums/postErrorLog"];
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postErrorLog"];
         CommonReturn *ret = [[CommonReturn alloc] init];
         NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
         [requestDictionary setObject:errorLog.time forKey:@"time"];

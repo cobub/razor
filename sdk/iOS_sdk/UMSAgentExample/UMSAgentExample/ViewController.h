@@ -22,6 +22,5 @@
 
 -(IBAction) login;
 -(IBAction) register;
--(IBAction) startPage;
--(IBAction) endPage;
+-(IBAction) goToSecondView;
 @end

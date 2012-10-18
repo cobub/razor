@@ -13,6 +13,7 @@
  */
 
 #import "ViewController.h"
+#import "SecondViewController.h"
 @interface ViewController ()
 
 @end
@@ -42,14 +43,21 @@
     [UMSAgent postEvent:@"register" label:@"Login" acc:888];
 }
 
--(IBAction) startPage
+
+-(IBAction) goToSecondView
 {
-    [UMSAgent startTracPage:@"GWTEST"];
+    SecondViewController *secondViewController = [[SecondViewController alloc] init];
+    [self presentModalViewController:secondViewController animated:YES];
 }
 
--(IBAction) endPage
+-(void)viewWillAppear:(BOOL)animated
 {
-    [UMSAgent endTracPage:@"GWTEST"];
+    [UMSAgent startTracPage:@"LoginActivity"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [UMSAgent endTracPage:@"LoginActivity"];
 }
 
 - (void)viewDidUnload	

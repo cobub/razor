@@ -23,9 +23,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [UMSAgent startWithAppKey:@"123456acdriwey39nd" ReportPolicy:BATCH];
+    [UMSAgent startWithAppKey:@"14aaa92e098df46cb53ed5196e0c331c" ReportPolicy:REALTIME ServerURL:@"http://demo.cobub.com/razor/index.php?"];
     
     [UMSAgent setIsLogEnabled:YES];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];

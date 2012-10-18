@@ -14,12 +14,13 @@
 
 #import <Foundation/Foundation.h>
 #import "CommonReturn.h"
-#import "Deviceinfo.h"
 #import "ErrorLog.h"
+#import "ClientData.h"
+
 @interface PostClientDataDao : NSObject
 {}
 
-+(CommonReturn *) postClient:(NSString *) appkey deviceInfo:(Deviceinfo *) deviceInfo;
++(CommonReturn *) postClient:(NSString *) appkey deviceInfo:(ClientData *) deviceInfo;
 
 +(CommonReturn *) postUsingTime:(NSString *) appkey sessionMills:(NSString *)sessionMills startMils:(NSString*)startMils endMils:(NSString*)endMils duration:(NSString*)duration activity:(NSString *) activity version:(NSString *) version;
 

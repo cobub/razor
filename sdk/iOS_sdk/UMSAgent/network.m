@@ -41,13 +41,14 @@
     NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: &response error: &error ];    
 	if (response == nil) {
 		if (error != nil) {
-			NSLog(@"Connection failed! Error - %@ %@ - [%@]",
-				  [error localizedDescription],
-				  [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey],
-                  @"error");
+            NSLog(@"Connection to server failed.");
+			//NSLog(@"Connection failed! Error - %@ %@ - [%@]",
+			//	  [error localizedDescription],
+			//	  [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey],
+            //      @"error");
 		}
 
-		return nil;
+		return @"{\"flag\":-9,\"msg\":\"network connection error\"}";
 	}
 	else {
 
