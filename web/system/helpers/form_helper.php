@@ -543,7 +543,7 @@ if(!function_exists('percent'))
 		{
 			return '0%';
 		}
-		return sprintf('%.2f%%',$p/$t*100);
+		return sprintf('%.1f%%',$p/$t*100);
 	}
 }
 

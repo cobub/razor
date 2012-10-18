@@ -53,6 +53,21 @@ if ( ! function_exists('lang'))
 	}
 }
 
+function getReportTitle($title,$fromTime='',$toTime='')
+{
+	return $title;
+}
+
+function getTimePhaseStr($fromTime,$toTime)
+{
+	return "(".$fromTime."~".$toTime.")";
+}
+
+
+function getExportReportTitle($product,$title,$fromTime,$toTime)
+{
+	return $product."_".str_replace(" ", "_", $title)."_".$fromTime."_".$toTime.".csv";
+}
 // ------------------------------------------------------------------------
 /* End of file language_helper.php */
 /* Location: ./system/helpers/language_helper.php */

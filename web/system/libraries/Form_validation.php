@@ -949,9 +949,9 @@ class CI_Form_validation {
 	 * @return	bool
 	 */
 	public function is_unique($str, $field)
-	{		
+	{			
 		list($table, $field)=explode('.', $field);		
-		$query = $this->CI->db->limit(1)->get_where($table, array($field => $str));		
+		$query = $this->CI->db->limit(1)->get_where($table, array($field => $str, 'active' => 1));			
 		return $query->num_rows() === 0;
     }
 

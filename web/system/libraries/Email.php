@@ -366,7 +366,8 @@ class CI_Email {
 	 */
 	public function subject($subject)
 	{
-		$subject = $this->_prep_q_encoding($subject);
+		//$subject = $this->_prep_q_encoding($subject);
+		$subject = '=?'. $this->charset .'?B?'. base64_encode($subject) .'?=';
 		$this->_set_header('Subject', $subject);
 		return $this;
 	}
