@@ -203,13 +203,13 @@ class install extends CI_Controller {
 		$this->form_validation->set_rules ( 'dbname', lang('installview_verficationdbname'), 'trim|required|xss_clean' );
 		$this->form_validation->set_rules ( 'username', lang('installview_verficationusername'), 'trim|required|xss_clean' );
 		$this->form_validation->set_rules ( 'password', lang('installview_verficationpassword'), 'trim|required|xss_clean' );
-		$this->form_validation->set_rules ( 'tablehead', lang('installview_verficationtablehead'), 'trim|required|xss_clean' );
+		$this->form_validation->set_rules ( 'tablehead', lang('installview_verficationtablehead'), 'trim|required|xss_clean|alpha_dash' );
 		//dataware data set rule
 		$this->form_validation->set_rules ( 'depotip', lang('installview_verficationdepotip'), 'trim|required|xss_clean' );
 		$this->form_validation->set_rules ( 'depotdbname', lang('installview_verficationdepotdbname'), 'trim|required|xss_clean' );
 		$this->form_validation->set_rules ( 'depotusername', lang('installview_verficationdepotusername'), 'trim|required|xss_clean' );
 		$this->form_validation->set_rules ( 'depotpassword', lang('installview_verficationdepotpassword'), 'trim|required|xss_clean' );
-		$this->form_validation->set_rules ( 'depottablehead', lang('installview_verficationdepottablehead'), 'trim|required|xss_clean' );
+		$this->form_validation->set_rules ( 'depottablehead', lang('installview_verficationdepottablehead'), 'trim|required|xss_clean|alpha_dash' );
 		if ($this->form_validation->run () == FALSE){
 
 			$this->data['ip']=$ip;

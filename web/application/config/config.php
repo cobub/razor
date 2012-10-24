@@ -8,13 +8,13 @@
 | URL to your CodeIgniter root. Typically this will be your base URL,
 | WITH a trailing slash:
 |
-|	http://localhost/cobub
+|	http://localhost:8088/ums
 |
 | If this is not set then CodeIgniter will guess the protocol, domain and
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/cobub';
+$config['base_url']	= 'http://localhost:80/web';
 
 /*
 |--------------------------------------------------------------------------
@@ -69,7 +69,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-  $config['language']	= 'zh_CN';
+  $config['language']	= 'en_US';
 /*
 |--------------------------------------------------------------------------
 | Default Character Set
@@ -328,7 +328,7 @@ $config['compress_output'] = FALSE;
 |
 */
 $config['time_reference'] = 'local';
-$config['timezones'] = 'UP8';
+$config['timezones'] = 'UTC';
 
 /*
 |--------------------------------------------------------------------------

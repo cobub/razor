@@ -62,7 +62,7 @@ class Eventlist extends CI_Controller {
 		$productId = $currentProduct->id;		
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();
-		$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 		$ret = array();
 	    $data = $this->event->getAllEventChartData($productId,$event_sk,$version,$fromTime,$toTime);
 	    $result = json_encode($data->result());

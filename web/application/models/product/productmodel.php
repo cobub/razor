@@ -686,7 +686,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 																										$market = 0;
 
 																										}
-																										$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+																										//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 																										$query = $this->newusermodel->getNewUserByDayAndChannelId($fromTime,$toTime,$currentProduct->id,$market);
 																										$ret['market'] = $this->getMarketNameById($market);
 																										$ret["title"] = $title;
@@ -760,7 +760,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 																												$market = 0;
 
 																										}
-																										$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+																										//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 																										$query = $this->newusermodel->getActiveUsersByDayAndChinnel($fromTime,$toTime,$currentProduct->id,$market);
 																										$ret['market'] = $this->getMarketNameById($market);
 																												$ret["title"] = $title;
@@ -819,7 +819,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 																										$market = 0;
 
 																										}
-																										$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+																										//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 																											$query = $this->newusermodel->getTotalStartUserByDayAndChannel($fromTime,$toTime,$currentProduct->id,$market);
 																											$ret['market'] = $this->getMarketNameById($market);
 																											$ret["title"] = $title;
@@ -879,7 +879,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 																														$market = 0;
 
 																												}
-																												$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+																												//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 																														$query = $this->getAverageUsingTimeByChannelAndTime($fromTime, $toTime, $productId, $market);
 																														$ret['market'] = $this->getMarketNameById($market);
 																														$ret["title"] = $title;
@@ -940,7 +940,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 				$market = 0;
 
 		}
-		$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 		$query = $this->getWeekActiveUserPercent($fromTime, $toTime, $productId, $market);
 		$ret['market'] = $this->getMarketNameById($market);
 		$ret["title"] = $title;
@@ -994,7 +994,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 				$market = 0;
 
 		}
-		$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 		$query = $this->getMonthActiveUserPercent($fromTime, $toTime, $productId, $market);
 		$ret['market'] = $this->getMarketNameById($market);
 		$ret["title"] = $title;

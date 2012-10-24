@@ -9,7 +9,7 @@
 <div class="module_content">
 <fieldset>
 	<label><?php echo lang('v_man_au_channelName') ?></label>
-	<input type="text" id='channel_name' value=<?php if(isset($edit)) echo $edit['channel_name'] ;?>>
+	<input type="text" id='channel_name' value="<?php if(isset($edit)) echo $edit['channel_name'] ;?>">
 </fieldset>
 <fieldset>
 	<label><?php echo lang('v_platform') ?></label>
@@ -51,21 +51,21 @@ function editchannel(channel_id)
 	var platform = trim(document.getElementById('platform').value);
 	if(channel_name=='')
 	{
-		document.getElementById('msg').innerHTML = '<?php echo lang('v_man_pr_enterChannelN') ?>';
+		document.getElementById('msg').innerHTML = '<font color=red><?php echo lang('v_man_pr_enterChannelN') ?></font>';
 		document.getElementById('msg').style.display="block";
 		return;
 	}
 	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
 	for (var i = 0; i < channel_name.length; i++) {
 		if(pattern.test(channel_name.substr(i, 1))){
-			document.getElementById('msg').innerHTML = '<?php echo lang('t_error') ?>';
+			document.getElementById('msg').innerHTML = '<font color=red><?php echo lang('t_error') ?></font>';
 			document.getElementById('msg').style.display="block";
 			return;
 			}
 	}
 	if(platform=='')
 	{
-		document.getElementById('msg').innerHTML = '<?php echo lang('v_man_pr_selectPlatform') ?>';
+		document.getElementById('msg').innerHTML = '<font color=red><?php echo lang('v_man_pr_selectPlatform') ?></font>';
 		document.getElementById('msg').style.display="block";
 		return;
 
@@ -83,7 +83,7 @@ function editchannel(channel_id)
 					data : data,
 					success : function(msg) {
 						if(!msg){
-							document.getElementById('msg').innerHTML = "<?php echo lang('v_man_pr_existChannelS') ?>";	
+							document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_man_pr_existChannelS') ?></font>";	
 							document.getElementById('msg').style.display="block";
 						}else{
 						document.getElementById('msg').innerHTML = "<?php echo lang('v_man_pr_modifyChannelS') ?>";	

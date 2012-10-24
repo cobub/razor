@@ -710,3 +710,6 @@ $lang['c_guide']='Developer Guide';
 $lang['c_userremain']='User Retention';
 $lang['c_pagevisit']='Page Visit';
 $lang['c_network']='Network Statistics';
+$lang['c_funnels']='Funnels';
+$lang['c_erroronos']='Error On OS';
+$lang['c_errorondevice']='Error On Device';

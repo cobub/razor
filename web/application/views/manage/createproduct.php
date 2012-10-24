@@ -82,13 +82,13 @@ function clearSel(selectname){
 	  }
 }    
 	function changeplatform(platform)
-	{
+	{		
 		if(platform=="")
 		{			
 			var chann=document.getElementById("channel").value;		
 			var selectTag = document.getElementById("channel"); 
 			var colls = selectTag.options;						
-			if((chann!="") && (colls.length>1))
+			if((chann!="") || (colls.length>0))
 			{ 
 				clearSel(document.getElementById("channel")); 
 				 var value = "";								   							  　
@@ -115,10 +115,11 @@ function clearSel(selectname){
 							document.getElementById('msg').style.display="block";
 							jsonData=eval("("+msg+")");
 							var selectTag = document.getElementById("channel"); 
-							var colls = selectTag.options;								
-							if((document.getElementById("channel").value!="") && (colls.length>1))							
+							var colls = selectTag.options;															
+							if((colls.length>0) || (document.getElementById("channel").value!=""))							
 							{								
 								clearSel(document.getElementById("channel")); 
+								
 							}							
 							 for(i = 0;i<jsonData.length;i++)
 						     {	 
@@ -160,7 +161,7 @@ if(platformvalue!="")
 							jsonData=eval("("+msg+")");
 							var selectTag = document.getElementById("channel"); 
 							var colls = selectTag.options;	
-							if((document.getElementById("channel").value!="") && (colls.length>1))							
+							if((document.getElementById("channel").value!="") || (colls.length>0))							
 							{
 								clearSel(document.getElementById("channel")); 
 							}							
