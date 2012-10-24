@@ -18,7 +18,7 @@
 						  <span style='color:#545454'><p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp<?php echo lang('v_man_au_info_versionNote') ?></p></span>	 
 						</fieldset>				
 						<fieldset><label><?php echo lang('v_man_au_info_updateLog') ?></label><?php echo form_error('description'); ?>	
-							<textarea name="description" rows="12" id="description" placeholder="<?php echo set_value('description',isset($updateinfo)? $updateinfo['description']:'') ; ?>"></textarea>
+							<textarea name="description" rows="12" id="description" ><?php echo set_value('description',isset($updateinfo)? $updateinfo['description']:'') ; ?></textarea>
 							
 						</fieldset>							
 						<p align="center"> <input type="submit" value="<?php echo lang('g_update') ?>" class="alt_btn" >

@@ -107,7 +107,7 @@ class Autoupdate extends CI_Controller {
 		$this->upload->initialize ( $config );
 		$this->load->library ( 'upload', $config );
 		
-		$this->form_validation->set_rules ( 'description', lang ( 'v_man_au_updateLog' ), 'trim|required|xss_clean|callback_description_check' );
+		$this->form_validation->set_rules ( 'description', lang ( 'v_man_au_updateLog' ), 'trim|required|xss_clean' );
 		$this->form_validation->set_rules ( 'versionid', lang ( 'v_man_au_versionID' ), 'trim|required|xss_clean|callback_versionid_check' );
 		$this->data ['upinfo'] = $upinfo;
 		
