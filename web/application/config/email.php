@@ -8,8 +8,8 @@
 | These details are used in emails sent by authentication library.
 |--------------------------------------------------------------------------
 */
-$config['website_name'] = 'Cobub Razor';  //your web site name
-$config['webmaster_email'] = 'ums@wbkit.com'; //your web email address
+$config['website_name'] = '';  //your web site name
+$config['webmaster_email'] = ''; //your web email address
 /* 
 /*
 | -------------------------------------------------------------------------
@@ -21,12 +21,12 @@ $config['webmaster_email'] = 'ums@wbkit.com'; //your web email address
 |	http://codeigniter.com/user_guide/libraries/email.html
 |
 */
-$config['protocol'] = 'smtp';   // mail/sendmail/smtp  Example:smtp
-$config['smtp_host'] = 'smtp.exmail.sina.com'; // SMTP Server.  Example: smtp.exmail.sina.com
-$config['smtp_user'] = 'ums@wbkit.com'; // SMTP Username  Example: yourname@sina.com
-$config['smtp_pass'] = '12!@qwQW';  // SMTP Password  your email address
-$config['smtp_port'] = '25';   // SMTP Port		
-$config['smtp_timeout'] = '5';  // SMTP Timeout in seconds
+$config['protocol'] = '';   // mail/sendmail/smtp  Example:smtp
+$config['smtp_host'] = ''; // SMTP Server.  Example: smtp.exmail.sina.com
+$config['smtp_user'] = ''; // SMTP Username  Example: yourname@sina.com
+$config['smtp_pass'] = '';  // SMTP Password  your email address
+$config['smtp_port'] = '';   // SMTP Port		
+$config['smtp_timeout'] = '';  // SMTP Timeout in seconds
 $config['mailtype'] = 'html';   // text/html  Defines email formatting
 $config['charset'] = 'utf-8';     // Default char set: iso-8859-1 or us-ascii
 $config['newline'] = "\r\n";      // Default newline. "\r\n" or "\n" (Use "\r\n" to comply with RFC 822)
