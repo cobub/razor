@@ -22,7 +22,9 @@ class productbasic extends CI_Controller {
 		$currentProduct = $this->common->getCurrentProduct();
 		if($currentProduct!=null)
 		{
-			$productId = $currentProduct->id;
+			$this->common->cleanCurrentProduct();
+// 			$productId = $currentProduct->id;
+			$this->common->setCurrentProduct ( $productId );
 			$this->data ['productId'] = $currentProduct->id;
 		}
 		else

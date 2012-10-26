@@ -136,7 +136,8 @@ var chart_canvas;
 		msg = msg + "</td></tr>";
    	}
    	
-      document.getElementById('eventlistpageinfo').innerHTML = msg;				
+      //document.getElementById('eventlistpageinfo').innerHTML = msg;
+    $('#eventlistpageinfo').html(msg);				
       return false;
    }
     

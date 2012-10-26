@@ -378,8 +378,9 @@
 	{   	    
 		blockUI();
 		var url = "<?php echo site_url()?>/manage/product/changeProduct/"+pid;
-		jQuery.getJSON(url, null, function(data) {  	
-			window.location.reload();
+		jQuery.getJSON(url, null, function(data) {
+			window.location.href="<?php echo site_url()?>/report/productbasic/view/"+pid;  	
+			//window.location.reload();
 	    });  
 	}
 

@@ -202,7 +202,8 @@ function pageselectCallback(page_index, jq){
 		msg = msg + "</td></tr>";
 	}
 	
-   document.getElementById('devicepageinfo').innerHTML = msg;				
+   //document.getElementById('devicepageinfo').innerHTML = msg;
+	   $('#devicepageinfo').html(msg);				
    return false;
 }
 

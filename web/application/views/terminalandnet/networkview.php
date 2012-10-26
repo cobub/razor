@@ -208,7 +208,8 @@ function pageselectCallback(page_index, jq){
 		msg = msg + "</td></tr>";
 	}
 	
-   document.getElementById('detailInfo').innerHTML = msg;				
+   //document.getElementById('detailInfo').innerHTML = msg;
+	   $('#detailInfo').html(msg);				
    return false;
 }
 

@@ -191,7 +191,7 @@ $(".tab_content:first").show(); //Show first tab content
 $(document).ready(function() {
 	getfirstchartdata();
 	//load Overview of User Behavior report
-	var myurl="<?php echo site_url()?>/report/productbasic/getUsersDataByTime";
+	var myurl="<?php echo site_url()?>/report/productbasic/getUsersDataByTime?date="+new Date().getTime();
     renderuserCharts(myurl);
     initPagination();
 	pageselectCallback(0,null);	
@@ -394,7 +394,7 @@ function getfirstchartdata()
 	}
 	else
 	{
-		myurl = "<?php echo site_url()?>/report/productbasic/getTypeAnalyzeData/"+timephase;
+		myurl = "<?php echo site_url()?>/report/productbasic/getTypeAnalyzeData/"+timephase+"?date="+new Date().getTime();
 	}
 	renderCharts(myurl);	
 }
@@ -616,8 +616,8 @@ function pageselectCallback(page_index, jq){
 		msg = msg+ (avgusagetime).toFixed(2)+"<?php echo lang('g_s') ?></td>";
 		msg = msg+"</tr>";
 	}
-	
-   document.getElementById('content').innerHTML = msg;				
+	$('#content').html(msg);
+   //document.getElementById('content').innerHTML = msg;				
    return false;
  }
            
