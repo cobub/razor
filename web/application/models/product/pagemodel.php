@@ -117,12 +117,12 @@ class pagemodel extends CI_Model{
 	{
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "select 'Entry', e0.activity_name,sum(al0.count) as count,sum(al0.count)/(select sum(sa0.count) as count
-				from razor_sum_accesslevel sa0, razor_dim_date sd0,
-				 razor_dim_product sp0 where sa0.date_sk = sd0.date_sk and sd0.datevalue 
+				from ".$dwdb->dbprefix('sum_accesslevel')." sa0, ".$dwdb->dbprefix('dim_date')." sd0,
+				 ".$dwdb->dbprefix('dim_product')." sp0 where sa0.date_sk = sd0.date_sk and sd0.datevalue 
 				between '$fromTime' and '$toTime' and sa0.product_sk = sp0.product_sk and
 				 sp0.product_id = $productId and sa0.level = 1 ) percentage from 
-				razor_sum_accesslevel al0,razor_dim_date d0, razor_dim_product p0, 
-				razor_dim_activity e0 where al0.date_sk = d0.date_sk and d0.datevalue
+				".$dwdb->dbprefix('sum_accesslevel')." al0,".$dwdb->dbprefix('dim_date')." d0, ".$dwdb->dbprefix('dim_product')." p0, 
+				".$dwdb->dbprefix('dim_activity')." e0 where al0.date_sk = d0.date_sk and d0.datevalue
 			    between '$fromTime' and '$toTime' and al0.product_sk = p0.product_sk 
 				and p0.product_id = $productId and al0.fromid = e0.activity_sk and al0.level = 1 group by e0.activity_name ORDER BY SUM( al0.count ) DESC LIMIT 0 , 5";
 		return $dwdb->query($sql);
@@ -132,15 +132,15 @@ class pagemodel extends CI_Model{
 	{
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql = "Select e1.activity_name as activity_from ,ifnull(e2.activity_name,'Exit') as activity_to,level, 
-				sum(al.count) as count , sum(al.count)/(select sum(count) from razor_sum_accesslevel sa,
-				 razor_dim_date sd, razor_dim_product sp where sa.date_sk = 
+				sum(al.count) as count , sum(al.count)/(select sum(count) from ".$dwdb->dbprefix('sum_accesslevel')." sa,
+				 ".$dwdb->dbprefix('dim_date')." sd, ".$dwdb->dbprefix('dim_product')." sp where sa.date_sk = 
 				sd.date_sk and sd.datevalue between '$fromTime' and '$toTime' and sa.product_sk = sp.product_sk and
 				 sp.product_id = $productId and sa.fromid = al.fromid and sa.level = al.level) percentage 
-				from razor_sum_accesslevel al inner join razor_dim_date d on al.date_sk = d.date_sk
+				from ".$dwdb->dbprefix('sum_accesslevel')." al inner join ".$dwdb->dbprefix('dim_date')." d on al.date_sk = d.date_sk
 				 and d.datevalue between '$fromTime' and '$toTime'  
-				inner join razor_dim_product p on al.product_sk = p.product_sk and p.product_id = $productId
-				left join razor_dim_activity e1 on al.fromid = e1.activity_sk
-				left join razor_dim_activity e2 on al.toid = e2.activity_sk
+				inner join ".$dwdb->dbprefix('dim_product')." p on al.product_sk = p.product_sk and p.product_id = $productId
+				left join ".$dwdb->dbprefix('dim_activity')." e1 on al.fromid = e1.activity_sk
+				left join ".$dwdb->dbprefix('dim_activity')." e2 on al.toid = e2.activity_sk
 				group by e1.activity_sk,e2.activity_sk,level
 				order by e1.activity_name,level asc, count desc";
 		return $dwdb->query($sql);
