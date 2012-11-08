@@ -370,15 +370,15 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 								foreach ($yestadayquery->result() as $yestodaydata){
 										if($row->name==$todaydata->product_name && $todaydata->product_name==$yestodaydata->product_name){
 										$app['newuser'] = $todaydata->newusers.'/'.$yestodaydata->newusers;
-										$app['startcount'] = $todaydata->startusers.'/'.$yestodaydata->startusers;
-										$app['startuser'] = $todaydata->sessions.'/'.$yestodaydata->sessions;
+										$app['startcount'] = $todaydata->sessions.'/'.$yestodaydata->sessions;
+										$app['startuser'] = $todaydata->startusers.'/'.$yestodaydata->startusers;
 										$app['newUserYestoday'] = $yestodaydata->newusers;
-											$app['startCountYestoday'] = $yestodaydata->startusers;
-											$app['startUserYestoday'] = $yestodaydata->sessions;
+											$app['startCountYestoday'] = $yestodaydata->sessions;
+											$app['startUserYestoday'] = $yestodaydata->startusers;
 												
 											$app['newUserToday'] = $todaydata->newusers;
-											$app['startCountToday'] = $todaydata->startusers;
-											$app['startUserToday'] = $todaydata->sessions;
+											$app['startCountToday'] = $todaydata->sessions;
+											$app['startUserToday'] = $todaydata->startusers;
 											$app['platform']= $todaydata->platform;
 											$app['totaluser']=$todaydata->allusers;
 											array_push($appList, $app);
@@ -420,6 +420,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 											function getAllProducts($userId)
 											{
 										$sql="select p.id,p.name,f.name platform from ".$this->db->dbprefix('product')."  p,  ".$this->db->dbprefix('platform')."  f where p.product_platform = f.id and p.user_id=$userId and p.active = 1 order by p.id desc;";
+
 												
 										//	$sql = "select * from ".$this->db->dbprefix('product')."  where user_id = $userId and active = 1";
 											$query = $this->db->query($sql);
@@ -512,15 +513,25 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 													$result = $this->db->query($isChannelExitSQL);
 													if($result==null||$result->num_rows()==0){
 														$data = array(
+
 																'product_id'=>$product_id,
+
 																'date'=>date('Y-m-d H:i:s'),
+
 																'user_id' => $user_id,
+
 																'productkey'=>md5($product_id.$channel_id.$user_id.time()),
+
 																'channel_id'=>$channel_id
+
 														);
+
 														$this->db->insert('channel_product',$data);
+
 														//The number of channels to update product table
+
 														$sql = "update ".$this->db->dbprefix('product')."  set channel_count = channel_count+1 where id = $product_id and user_id = $user_id";
+
 														$this->db->query($sql);
 													}
 													
@@ -554,6 +565,7 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 												
 												$this->db->where('product_id', $product_id);
 												$this->db->where('productkey', $productkey);
+
 												$this->db->update('channel_product', $data2);
 														
 													}
