@@ -529,7 +529,22 @@ INSERT INTO `umsinstall_mccmnc` (`id`, `value`, `name`) VALUES
 (16, "23415", "Vodafone"),
 (17, "46689", "KGT"),
 (9, "45419", "Sunday3G"),
-(10, "45412", "PEOPLES");
+(10, "45412", "PEOPLES"),
+(18, "20801", "Orange"),
+(19, "20802", "Orange"),
+(20, "20810", "SFR"),
+(21, "20811", "SFR"),
+(22, "20813", "SFR"),
+(23, "20815", "Free Mobile"),
+(24, "20816", "Free Mobile"),
+(25, "20820", "Bouygues Telecom"),
+(26, "20821", "Bouygues Telecom"),
+(27, "20823", "Virgin Mobile"),
+(28, "20825", "Lycamobile"),
+(29, "20826", "NRJ Mobile"),
+(30, "20827", "Afone Mobile"),
+(31, "20830", "Symacom"),
+(32, "20888", "Bouygues Telecom");
 
 -- --------------------------------------------------------
 
