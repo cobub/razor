@@ -59,12 +59,11 @@ namespace UMSAgent.CallBcak
 
         public static void call_back_process_clientdata(string msg, object obj)
         {
-            //DebugTool.Log("call back of client data------" + msg);
+            DebugTool.Log("call back of client data------" + msg);
             CommonRet o = getJsonObj(msg);
             if (o == null||!o.flag.Equals("1"))
             {
                 FileSave.saveFile((int)UMSAgent.UMSApi.DataType.CLIENTDATA, obj);
-               
             }
         
         }
@@ -95,9 +94,9 @@ namespace UMSAgent.CallBcak
         }
         public static void call_back_process_alldata(string msg, object obj)
         {
-            //DebugTool.Log("call back of all data------" + msg);
+            DebugTool.Log("call back of all data------" + msg);
             CommonRet o = (CommonRet)getJsonObj(msg);
-            if (o == null)
+            if (o == null||o.flag==null)
                 return;
             if (o.flag.Equals("1"))
             {
@@ -178,7 +177,7 @@ namespace UMSAgent.CallBcak
                
             }
 
-           // DebugTool.Log("call back of onlineconfig data------" + msg);
+            DebugTool.Log("call back of onlineconfig data------" + msg);
         }
         public static void call_back_process_updatedata(string msg, object obj)
         {
@@ -201,7 +200,7 @@ namespace UMSAgent.CallBcak
                
             }
 
-           // DebugTool.Log("call back of check version------" + msg);
+            DebugTool.Log("call back of check version------" + msg);
 
         }
 

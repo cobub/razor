@@ -68,13 +68,16 @@ namespace UMSAgent.Common
         {
 
             HttpWebRequest request = (HttpWebRequest)asynchronousResult.AsyncState;
+           
 
             System.IO.Stream postStream = request.EndGetRequestStream(asynchronousResult);
 
             string parametersString = "content="+this.message;
+            
            // DebugTool.Log("post data:" + message);
             byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(parametersString);
-
+            
+        
             // Write to the request stream.
 
             postStream.Write(byteArray, 0, parametersString.Length);

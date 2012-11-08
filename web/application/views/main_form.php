@@ -116,8 +116,15 @@ var chart;
 var options;
 var chartName="<?php echo  lang('t_newUsers')?>";
 var newUserData = [];
+var newUserData1 = [];
+var newUserData2 = [];
 var activeUserData = [];
+var activeUserData1 = [];
+var activeUserData2 = [];
 var sessionData = [];
+var sessionData1 = [];
+var sessionData2 = [];
+
 $(document).ready(function() {
 	options = {
 	        chart: {
@@ -171,7 +178,7 @@ $(document).ready(function() {
 	renderCharts(myurl);		
 });
 function renderCharts(myurl)
-{	
+{
 	 var chart_canvas = $('#container');
 	    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
 		    
@@ -190,7 +197,7 @@ function renderCharts(myurl)
 	    });	
 	jQuery.getJSON(myurl, null, function(data) {	 
 		var categories = [];		
-		var obj = data.content;		
+		var obj = data.content;	
 	    for(var i=0;i<obj.length;i++)
 	    {		   
 	    	newUserData.push(parseInt(obj[i].newusers,10));
@@ -198,11 +205,25 @@ function renderCharts(myurl)
 	    	sessionData.push(parseInt(obj[i].sessions,10));		  
 	    	categories.push(obj[i].datevalue);
 	    }
+	    newUserData1 = onceavg(newUserData); 
+	    newUserData2 = secondavg(newUserData,newUserData1);
+	    activeUserData1 = onceavg(activeUserData); 
+	    activeUserData2 = secondavg(activeUserData,activeUserData1);
+	    sessionData1 = onceavg(sessionData); 
+	    sessionData2 = secondavg(sessionData,sessionData1);
+	    
+	    options.series[0]={};
 		options.series[0].data = newUserData;
+		options.series[1]={};
+		options.series[1].data = newUserData1;
+		options.series[2]={};
+		options.series[2].data = newUserData2;
 		options.xAxis.labels.step = parseInt(categories.length/10);
 		options.xAxis.categories = categories;  
 		options.title.text = "<?php echo $reportTitle['newUser'] ?>";
 		options.series[0].name = chartName;
+		options.series[1].name = "once avg";
+		options.series[2].name = "second avg";
 		chart = new Highcharts.Chart(options);
 		chart_canvas.unblock();
 		});  
@@ -213,23 +234,35 @@ function changeChartName(name)
 	if(chartName=='<?php echo  lang('t_newUsers')?>')
 	{
 		options.series[0].data = newUserData;
+		options.series[1].data = newUserData1;
+		options.series[2].data = newUserData2;
 		options.title.text = "<?php echo $reportTitle['newUser'] ?>";
 		options.series[0].name = chartName;
+		options.series[1].name = 'once avg';
+		options.series[2].name = 'second avg';
 		chart = new Highcharts.Chart(options);
 	}
 
 	if(chartName=='<?php echo  lang('t_activeUsers')?>')
 	{
 		options.series[0].data = activeUserData;
+		options.series[1].data = activeUserData1;
+		options.series[2].data = activeUserData2;
 		options.title.text = "<?php echo $reportTitle['activeUser'] ?>";
 		options.series[0].name = chartName;
+		options.series[1].name = 'once avg';
+		options.series[2].name = 'second avg';
 		chart = new Highcharts.Chart(options);
 	}
 	if(chartName=='<?php echo  lang('t_sessions')?>')
 	{
 		options.series[0].data = sessionData;
+		options.series[1].data = sessionData1;
+		options.series[2].data = sessionData2;
 		options.title.text = "<?php echo $reportTitle['session'] ?>";
 		options.series[0].name = chartName;
+		options.series[1].name = 'once avg';
+		options.series[2].name = 'second avg';
 		chart = new Highcharts.Chart(options);
 	}
 	

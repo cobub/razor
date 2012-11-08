@@ -54,6 +54,7 @@ namespace UMSAgent.Common
         public void clientDataProceed()
         {
             ClientData obj =  model.getClientData();
+        
             if (Utility.isNetWorkConnected())
             {
                 Post post = new Post((int)UMSAgent.UMSApi.DataType.CLIENTDATA, obj);
@@ -126,6 +127,27 @@ namespace UMSAgent.Common
                 post.sendData(model.getUrl((int)UMSAgent.UMSApi.DataType.AllDATA));
             }
         
+        }
+        //save crash info when app crash
+        public void crashDataProceed(ApplicationUnhandledExceptionEventArgs ex,string flag="ums crash")
+        {
+            Exception e = ex.ExceptionObject;
+            string err_title = e.Message == null ? "" : e.Message;
+            string err_stack_trace = e.StackTrace == null ? "" : e.StackTrace;
+            string error_title_statcktrace = err_title + "\r\n" + err_stack_trace;
+
+            ErrorInfo error = new ErrorInfo();
+
+            error.appkey = appkey;
+            //error.stacktrace = ex.Message+"\r\n"+ex.StackTrace;
+            error.stacktrace = error_title_statcktrace;
+            error.time = Utility.getTime();
+            error.version = Utility.getApplicationVersion() == null ? "" : Utility.getApplicationVersion();
+            error.activity = Utility.getCurrentPageName();
+            error.deviceid = Utility.getDeviceName();
+            error.os_version = Utility.getOsVersion();
+            string error_info = UmsJson.Serialize(error);
+            CrashListener.ReportException(error_info, flag);
         }
         //page visit data proceed
         public void pageInfoDataProceed(PageInfo obj)

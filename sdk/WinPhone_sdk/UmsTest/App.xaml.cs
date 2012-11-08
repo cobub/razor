@@ -127,8 +127,6 @@ namespace UmsTest
             }
 
         }
-        
-        
         #region Phone application initialization
 
         // Avoid double-initialization

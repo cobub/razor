@@ -173,7 +173,7 @@ namespace UMSAgent
         //on crash
         private static void onCrash(object obj,ApplicationUnhandledExceptionEventArgs e)
         {
-            CrashListener.ReportException(e.ExceptionObject as Exception, "");
+            manager.crashDataProceed(e);
         }
         // page visit when open current page 
         public static void onPageBegin(string name)

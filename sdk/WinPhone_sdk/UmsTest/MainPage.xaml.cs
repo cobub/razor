@@ -38,7 +38,7 @@ namespace UmsTest
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            UMSAgent.UMSApi.onEvent("mycontact","MainPage");
+            UMSAgent.UMSApi.onEvent("mycontact", "中文测试");
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)

@@ -19,14 +19,16 @@
 			<h3><?php echo  lang('v_rpt_re_customEventF')?></h3>
 			<div class="submit_link">
 				<select onchange=selectChange(this.value) id='select'>
-				<?php if (isset ( $versions )) {
+				<?php	
+				if (isset ( $versions )) {
 					foreach ( $versions->result () as $row ) {
 						$r_version = $row->version_name;
 						$r_version_value = $row->version_name;
 						if ($r_version_value == "") {
 							$r_version = lang ( 't_unknow' );
 							$r_version_value = "unknown";
-						}?>
+						}
+						?>
 						<option value=<?php  echo $r_version_value?>><?php echo $r_version?></option>
 						<?php }}?>
 						<option value='all' selected><?php echo  lang('v_rpt_el_allVersion')?></option>
@@ -50,25 +52,29 @@
 					<th><?php echo lang('v_rpt_re_conversionRate') ?></th>
 				</tr>
 			</thead>
-			<tbody id="eventlistrateinfo"> 
+			<tbody id="eventlistrateinfo">
 			</tbody>
 		</table>
 	</article>
+</section>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 var version='all';
 var title='';
 var options;
 var basicdata;
+var lastdata=0;
+var averageData=0;
 var completionCountData = [];
 var myurl = "<?php echo site_url()?>/conversionrate/funnels/getViewDetail/<?php echo $targetid ?>";
 </script>
-	<!-- report -->
-	<script type="text/javascript">
+<!-- report -->
+<script type="text/javascript">
 $(document).ready(function() {
 	options = {
             chart: {
-                renderTo: 'container'
+                renderTo: 'container',
+                inverted: true
             },
             title: {
                 text: '   '
@@ -81,52 +87,82 @@ $(document).ready(function() {
             	//,title:{text:"version"}
             },
             yAxis: {
-                title: { text:''},
+                title:{text:''},
+                allowDecimals:false,
                 min:0
             },
             plotOptions: {
-                column: {
-                    pointPadding: 0.3,
-                    borderWidth: 1,
-                    borderColor: 'white',
-                    stacking: 'normal',
+                columnrange: {
                     dataLabels: {
-                        enabled: true,
-                        color:'white'
-                    }
+                        enabled: false
+                        }
                 },
                 series: {
-                	showInLegend: false
-                	},
-                area: {
+                    showInLegend: false
+                },
+                scatter: {
+                    marker: {radius:0},
                     dataLabels: {
-                       enabled: true,
-                       formatter: function() {
-                           if(basicdata==0){
-                               return "--";
-                           }else{
-                               return  Highcharts.numberFormat((this.y/basicdata)*100,1) + "%";
-                           }
-                       }
+                        enabled: true,
+                        color:'white',
+                        align:'right',
+                        y:10,
+                        formatter: function() {
+                            if((this.y-averageData)>0){
+                                return (this.y-averageData)*2;
+                                }
+                        }
                     }
-                }
+                },
+                arearange: {
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function() {
+                            if((this.y-averageData)>0){
+                                if(basicdata>0){
+                                    return Highcharts.numberFormat((this.y-averageData)*200/basicdata,1)+"%";
+                                }else{
+                                    return "--";
+                                }
+                            }
+                        }
+                   }
+               }
             },
             tooltip: {
-                formatter: function() {
-                    return ''+this.x +': '+ this.y;
-                }
+        	   formatter: function() {
+            	var unit = {
+                    'arearange': false,
+                    'scatter': false,
+                    'columnrange': true
+                 }[this.series.type];
+                 if(!unit){
+                     this.tooltip.enabled=false;
+                     return ;
+                 }   
+               	 datavalue=(this.y-averageData)*2;
+           		 if(datavalue<0){
+                     datavalue=0-datavalue;}
+                 return this.x+":"+datavalue;
+             }
             },
-            credits: {
+           credits: {
                 enabled: false
             },
-            colors: ['#CCCCCC', '#4682B4'] ,
+            colors: ['#CCCCCC','#D1D1D1','#4572A7'] ,
             series: [
             {
-              type:'area',
-              data:''
+              type:'arearange',
+              data:'',
+              dashStyle: 'longdash'
             },
             {
-               type:'column',
+                type:'scatter',
+                data:'',
+                dashStyle: 'longdash'
+            },
+            {
+               type:'columnrange',
                data: ''
             }
             ]
@@ -156,8 +192,9 @@ $(document).ready(function() {
     	    });
 
     		jQuery.getJSON(myurl, null, function(data) { 
-        		
-    			var eventCountData = [];
+    			var rangeOfData=[];
+    			var maxData=[];
+    			var maxY=0;
             	if(data==null)
             	{	
             		chart_canvas.unblock();
@@ -171,7 +208,7 @@ $(document).ready(function() {
             		options.title.text = "";
            		    chart = new Highcharts.Chart(options);
         			var msg='';
-            		document.getElementById('eventlistrateinfo').innerHTML = msg;	
+            		$('#eventlistrateinfo').html(msg);	
             		chart_canvas.unblock();
             		return;
                 }
@@ -192,12 +229,26 @@ $(document).ready(function() {
                 	    msg=msg+"--";
             	    }
             	    msg = msg + "</td><tr>";
-        	    	eventCountData.push(parseInt(detaildata[j].num));
+            	    var nowY=parseInt(detaildata[j].num);
+            	    if(maxY<nowY){
+                	    maxY=nowY;
+            	    }
     		    	categories.push(detaildata[j].eventalias);
         	    }
-        	    document.getElementById('eventlistrateinfo').innerHTML = msg;	
-       		    options.series[0].data = eventCountData;
-          		options.series[1].data = eventCountData;
+        	    for(var j=0;j<detaildata.length;j++)
+        	    {
+        	    	var eventCountData = [];
+        	    	var nowY=parseInt(detaildata[j].num);
+        	    	var currentMin=(maxY-nowY)/2;
+        	    	maxData.push(currentMin+nowY);
+        	    	eventCountData.push(currentMin,currentMin+nowY);
+        	        rangeOfData.push(eventCountData);
+        	    }
+        	    averageData=maxY/2;
+        	    $('#eventlistrateinfo').html(msg);
+          		options.series[0].data = rangeOfData;
+          		options.series[1].data =  maxData;
+          		options.series[2].data =  rangeOfData;
     			options.xAxis.categories = categories; 
     			options.title.text = '<?php echo $reportTitle['eventCount'] ?>';
     			options.subtitle.text = '<?php echo $reportTitle['timePhase'];?>';
@@ -208,7 +259,7 @@ $(document).ready(function() {
     		
     } 
 </script>
-	<script type="text/javascript">
+<script type="text/javascript">
 
 function selectChange(value)
 {

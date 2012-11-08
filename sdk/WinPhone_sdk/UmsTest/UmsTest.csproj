@@ -105,7 +105,7 @@
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\wp7_sdk\UMSAgent\UMSAgent.csproj">
+    <ProjectReference Include="..\UMSAgent\UMSAgent.csproj">
       <Project>{D1818A6D-3B04-4CD0-B013-E1D46AB778EF}</Project>
       <Name>UMSAgent</Name>
     </ProjectReference>

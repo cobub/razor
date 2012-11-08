@@ -50,10 +50,10 @@ namespace UMSAgent.Model
         {
             Event e = new Event();
             e.event_identifier = eventid;
-            e.activity = pagename;
+            e.activity =HttpUtility.UrlEncode( pagename);
             e.time = Utility.getTime();
             e.appkey = key;
-            e.label = label;
+            e.label = HttpUtility.UrlEncode(label);
             e.version = Utility.getApplicationVersion();
             e.acc = acc;
             return e;
@@ -84,7 +84,7 @@ namespace UMSAgent.Model
             ClientData clientdata = new ClientData();
             clientdata.platform = "windows phone";
             clientdata.os_version = Utility.getOsVersion();
-            clientdata.language = CultureInfo.CurrentCulture.DisplayName;
+            clientdata.language =HttpUtility.UrlEncode( CultureInfo.CurrentCulture.DisplayName);
             clientdata.resolution = UMSApi.device_resolution;
             clientdata.deviceid = Utility.getDeviceId();
             clientdata.devicename = DeviceExtendedProperties.GetValue("DeviceName").ToString();
@@ -95,10 +95,21 @@ namespace UMSAgent.Model
             if (settings["autolocation"].ToString().Equals("1"))
             {
                 double[] location = Utility.GetLocationProperty();
-                clientdata.latitude = location[0].ToString();
-                clientdata.longitude = location[1].ToString();
-            
+                if (location.Length == 2)
+                    clientdata.latitude = location[0].ToString() == null ? "" : location[0].ToString();
+                else
+                    clientdata.latitude = "";
+                if (location.Length == 2)
+                    clientdata.longitude = location[1].ToString() == null ? "" : location[1].ToString();
+                else
+                    clientdata.longitude = "";
             }
+            else
+            {
+                clientdata.latitude = "";
+                clientdata.longitude = "";
+            }
+            clientdata.isMobileDevice = true;
 
             clientdata.network = Utility.GetNetStates();
             clientdata.defaultbrowser = "";
