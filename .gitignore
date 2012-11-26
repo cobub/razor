@@ -48,7 +48,6 @@ local.properties
 *_p.c
 *.ilk
 *.meta
-*.pch
 *.pdb
 *.pgc
 *.pgd
