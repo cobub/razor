@@ -51,9 +51,9 @@ $lang['l_oldPassword']='Old password';
 
 
 //*************************************FOOTER*************************************
-$lang['f_version']='Verion:0.2 DEV.COBUB.COM ';
+$lang['f_version']='Verion:0.3 DEV.COBUB.COM ';
 $lang['f_detail']= "* The Cobub Razor package contains HighCharts products. The HighCharts products are not open source products,<br>but under certain conditions are free to use, please look into <a href='http://shop.highsoft.com/highcharts.html' target='_blank'>http://shop.highsoft.com/highcharts.html</a>.";
-$lang['f_copyright'] = '&copy Copyright 2012, Version:0.2 <a href="http://dev.cobub.com">COBUB SOLUTION</a>';
+$lang['f_copyright'] = '&copy Copyright 2012, Version:0.3 <a href="http://dev.cobub.com">COBUB SOLUTION</a>';
 
 //**************************************Email***************************************
 $lang['e_clickLink'] = '.Please click on the link below to activate your account:';
@@ -138,6 +138,7 @@ $lang['m_rpt_versions']='Versions';
 $lang['m_rpt_users']='Users';
 $lang['m_rpt_frequencyOfUse']='Frequency of Use';
 $lang['m_rpt_usageDuration']='Usage Duration';
+$lang['m_rpt_timeTrendOfUsers']='Time-phased Users';
 $lang['m_rpt_pageviews']='Page View & Path';
 $lang['m_rpt_geography']='Geography';
 $lang['m_rpt_userRetention']='User Retention';
@@ -155,7 +156,8 @@ $lang['m_rpt_errorsOnOS']='Errors on OS';
 $lang['m_rpt_errorsOnDevice']='Errors on Device';
 $lang['m_rpt_editApp']='Edit App';
 $lang['m_rpt_sendPolicy']='Send Policy';
-$lang['m_rpt_customEvent']='Custom Event';
+$lang['m_rpt_customEvent']='Custom Event'; 
+$lang['m_rpt_exception']='Smart Notification';
 $lang['m_rpt_appChannel']='App Channel';
 $lang['m_rpt_editFunnel']='Conversion Groups';
 
@@ -175,6 +177,8 @@ $lang['v_deleteAppPrompt']='Deleting App will make your data report unusable, Ar
 $lang['v_newUserTrend'] = 'New Users Trend';
 $lang['v_activeUserTrend'] = 'Active Users Trend';
 $lang['v_sessoinsTrend'] = 'Sessions Trend';
+$lang['V_Trendvalue']='Trend value';
+$lang['v_deletreport'] = 'Are you sure to delete?';
 // view----user
 
 $lang['v_user_userList']='User List';
@@ -249,7 +253,8 @@ $lang['v_user_appM_duplicateApp'] = "Type name already exists!";
 //view---report----dashboard/productbasic
 $lang['v_rpt_pb_overviewRecently']='Overview Recently';
 $lang['v_rpt_pb_generalSituation']='General Situation';
-$lang['v_rpt_pb_timeTrendOfUsers']='Time-phased Trends of Users';
+$lang['v_rpt_pb_timeTrendOfUsers']='Time-Phased Users';
+$lang['v_rpt_pb_timeTrendOfUsers_detail']='Time-Phased Users detail';
 $lang['v_rpt_pb_overviewOfUserBehavior']='Overview of User Behavior';
 $lang['v_rpt_pb_userDataDetail'] = "Detail Data of Users"; 
 //view---report----channels/market
@@ -259,7 +264,7 @@ $lang['v_rpt_mk_newToday']='New Today';
 $lang['v_rpt_mk_newYesterday']='New Yesterday';
 $lang['v_rpt_mk_activeToday']='Active Today';
 $lang['v_rpt_mk_activeYesterday']='Active Yesterday';
-$lang['v_rpt_mk_timeSegmentAnalysis']='Time Segment Analysis';
+$lang['v_rpt_mk_timeSegmentAnalysis']='User of channels';
 $lang['v_rpt_mk_newUserStatistics']='New users statistics';
 $lang['v_rpt_mk_activeuserS'] = 'Active users statistics';
 $lang['v_rpt_mk_sessionS'] = 'Sessions statistics';
@@ -479,6 +484,56 @@ $lang['v_man_ev_addEvent']='Add Event';
 $lang['v_man_ev_errorInputEI']='The input value of event id is illegal!';
 $lang['v_man_ev_errorInputEN']='The input value of event name is illegal!';
 
+//view---manage---exception
+$lang['v_man_ev_productalter']='Custom exception tag';
+$lang['v_man_ev_productAlertList']='Exception label list';
+$lang['v_man_ev_addAlertlab']='Add exception tag';
+$lang['v_rpt_el_alertlab']='Exception tag';
+$lang['v_man_ev_modifyAlertlab']='Modify exception tag';
+$lang['v_rpt_el_condition']='Range';
+$lang['v_man_ev_editalertlab']='Abnormal label editor';
+$lang['v_rpt_el_add']='add';
+$lang['v_rpt_el_set']='set';
+$lang['v_rpt_el_email']='Receiving e-mail address';
+$lang['v_rpt_el_note']='More than one email address please separate by ;';
+$lang['v_rpt_el_noteofemail']='Please enter at least one e-mail address';
+$lang['v_rpt_el_noteofcondition']='Please enter reminded range';
+
+
+
+$lang['emailtext']="尊敬的Cobub Razor用户:<br><br>
+
+您的移动应用%s于%s统计数据有波动，超出预期：<br>
+数据类型：%s<br>
+预测值：%s<br>
+实际值：%s<br>
+浮动范围：  %s%%<br><br>
+详情请点击:%s<br><br>
+
+您收到该邮件，是因为Cobub Razor的管理员将您加入到了智能提醒的邮件列表里，如想取消，请联系Cobub Razor的管理员。<br>
+<br>
+Cobub Razor系统
+";
+$lang['emailtext']="Dear Cobub Razor User,<br><br>
+ 
+The mobile app %sXXXX ‘s data volatility exceed the expectation on %s:<br>
+Data Type: %s<br>
+Predicted Value: %s<br>
+Actual Value:%s<br>
+Volatility Range:  %s%%<br><br>
+Url:%s<br><br>
+The reason you receive this email is the Cobub Razor administrator add your email to Smart Notification email list. If you want to unsubscribe this email, please contact Cobub Razor administrator.
+ <br>
+Cobub Razor System
+
+";
+
+$lang['t_newUserException']='New User Data Exception';
+$lang['t_activeUserException']='Active User Data Exception';
+$lang['t_sessionsException']='The Starting Times Data Exception';
+$lang['t_accumulatedUsersException']='Accumulated User Data Exception';
+$lang['t_averageUsageDurationException']='Average Duration Data Exception';
+
 //view---manage---channel
 $lang['v_man_ch_appChannel']='App Channel';
 $lang['v_man_ch_sysChannel']='System Channels';
@@ -537,6 +592,8 @@ $lang ['v_rpt_re_funnelAdd'] = "Add";
 $lang ['v_rpt_re_funnelStepadd'] = "Add Step";
 $lang ['v_rpt_re_funnelTarget'] = "Target";
 $lang ['v_rpt_re_funnelName'] = "Target Name";
+$lang['v_rpt_re_unitprice']='Money';
+$lang['v_rpt_re_unitprice_alt']='Please input the Current Money';
 $lang ['v_rpt_re_funnelStartevent'] = "Start Event";
 $lang ['v_rpt_re_funnelTargetevent'] = "Target Event";
 $lang ['v_rpt_re_funnelTargettrend'] = "Targets Trend";
@@ -603,6 +660,7 @@ $lang['t_newUserY'] = 'New Users Yestoday';
 $lang['t_newUserW'] = 'New Users in the last 7 days';
 $lang['t_newUserM'] = 'New Users in the last 30 days';
 $lang['t_newUsersA'] = 'New Users in any time';
+$lang['t_date_part']='Date Part';
 $lang['t_details'] = "Details";
 $lang['t_newUserPer']='Percentage of New Users';
 $lang['t_accumulatedSessions']='Accumulated Sessions';
@@ -713,3 +771,66 @@ $lang['c_network']='Network Statistics';
 $lang['c_funnels']='Funnels';
 $lang['c_erroronos']='Error On OS';
 $lang['c_errorondevice']='Error On Device';
+
+/***************************************widget report name**********************************************/
+$lang['w_savereport']="Report the location to save successfully";
+$lang['w_addreport']='Add Reports';
+$lang['w_isaddreport']='Pin to Dashboard?';
+$lang['w_addreportsuccess']='The report successfully added';
+$lang['w_addreportrepeat']='Please do not repeat add the report';
+$lang['w_addfullreport']='Add widgets';
+$lang['w_addhalfreport']='Add half widgets';
+$lang['w_savereportlocation']='Save widgets location';
+$lang['w_errorlog']='Errors of Version';
+$lang['w_errorlogondevice']='Errors on Device';
+$lang['w_errorlogonos']='Errors on OS';
+$lang['w_conversions']='Conversions';
+$lang['w_resolutioninfo']='TOP 10 Resolution';
+$lang['w_osversion']='TOP 10 OS Version';
+$lang['w_carrier']='TOP 10 Carrier';
+$lang['w_network']='TOP 10 Networking';
+$lang['w_devicetype']='TOP 10 Devices';
+$lang['w_visitpath']='Visit Path';
+$lang['w_regioncountry']='Top 10 Nations';
+$lang['w_regionprovince']='Top 10 Provinces';
+$lang['w_sessiondistribution']='Sessions Distribution';
+$lang['w_userremain']='Retention';
+$lang['w_usadgeduration']='Usage Duration';
+$lang['w_phaseusetime']='Time-phased Users';
+$lang['w_userbehavorview']='Overview of User Behavior';
+$lang['w_channelmarket']='Time Segment Analysis';
+$lang['w_versionview']='Version Changing Trends';
+$lang['w_overmaxnum']='Excessive number of report you addition';
+/***************************************markevent**********************************************/
+$lang['m_title']='Title';
+$lang['m_description']='Description';
+$lang['m_marktime']='Mark Time';
+$lang['m_rights']='Rights';
+$lang['m_submit']='Submit';
+$lang['m_public']='Public';
+$lang['m_private']='Private';
+$lang['m_operate']='Operate';
+$lang['m_newsreport']='News Report';
+$lang['m_modify']='Modify Info';
+$lang['m_delete']='Delete';
+$lang['m_isdel']='is Delete?';
+$lang['m_waittingdel']='Waitting ……';
+$lang['m_delsuccess']='Delete success';
+$lang['m_errordeltryagain']='Error delete,Please try again a later';
+$lang['m_faildeloninfo']='Failed delete,News Does Not Exists';
+$lang['m_tiptitle']='Please Enter The Title';
+$lang['m_tipdesc']='Please Enter The Description';
+$lang['m_subsuccess']='Submit Success';
+$lang['m_modifysuccess']='Modify Success';
+$lang['m_changesubtomodify']='News Already exists ,Modify？';
+$lang['m_markeventlist']='Mark events List';
+$lang['m_user']='Mark User';
+$lang['m_eventsDetail']='Event Detail';
+$lang['m_dateevents']='Date Annotation';
+$lang['m_viewmark_Detail']='View Detail';
+/*****************************Compare Product*****************************************/
+$lang['c_compare_product']='Compare Product';
+$lang['c_compare2two4']='The selected Num between 2-4';
+/*********************************Suspended box*************************************/
+$lang['s_suspend_title']='Pin to dashboard';
+$lang['s_suspend_deltitle']='Delete to dashboard';

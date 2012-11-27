@@ -1,8 +1,7 @@
 <section id="main" class="column" style="height:1000px;">
-		<h4 class="alert_success" id='msg' style="display:none;"></h4>		
-    
-    <article class="module width_full">
-			<header><h3 class="tabs_involved"><div id="day"><?php echo  lang('v_rpt_ve_tillYesterday')?></div></h3>				
+	<h4 class="alert_success" id='msg' style="display:none;"></h4>
+   <article class="module width_full">
+			<header><h3 class="tabs_involved"><?php echo  lang('v_rpt_ve_tillYesterday')?></h3>				
 			</header>
 			<table class="tablesorter" cellspacing="0">
 			<thead> 
@@ -42,23 +41,9 @@
 			</tbody> 			
 			</table>
 	</article>
-		
-								
-	<article class="module width_full">
-	  <header><h3 class="tabs_involved"><?php echo  lang('v_rpt_ve_changingTrends')?></h3>	  
-		<ul class="tabs2">
-				<li><a  href="javascript:changeChartType('<?php echo  lang('t_newUsers')?>')"><?php echo  lang('t_newUsers')?></a></li>
-				<li><a  href="javascript:changeChartType('<?php echo  lang('t_activeUsers')?>')"><?php echo  lang('t_activeUsers')?></a></li>
-		</ul>	
-	  </header>
-
-	<article class="width_full">
-	     <div id="container"  class="module_content" style="height:300px">
+	<div style="height:400px;">
+		<iframe src="<?php echo site_url() ?>/report/version/addversionviewreport"  frameborder="0" scrolling="no"style="width:100%;height:100%;"></iframe>		
 		</div>
-		</article>
-		<div class="clear"></div>	
-	</article>		
-
 <article class="module width_full">
 			<header><h3 class="tabs_involved"><?php echo  lang('v_rpt_ve_comparison')?></h3>
    			<div class="submit_link" >
@@ -145,18 +130,15 @@ var version='5'
 
 <script type="text/javascript">
 var chartversion = 'default';
-var chartName = '<?php echo  lang('t_newUsers')?>';
 var time = '7day';
 var fromTime='';
 var toTime='';
 var jsondata;
-var chart;
 var contrast_data;
 var titlename='';
 
 //When page loads...
 $(".tab_content").hide(); //Hide all content
-$("ul.tabs2 li:first").addClass("active").show(); //Activate first tab
 $("ul.tabs3 li:first").addClass("active").show(); //Activate first tab
 $(".tab_content:first").show(); //Show first tab content
 function changeStyleName(name)
@@ -184,13 +166,6 @@ function selectStyletop(value)
      }          
 }
 //On Click Event
-$("ul.tabs2 li").click(function() {
-	$("ul.tabs2 li").removeClass("active"); //Remove any "active" class
-	$(this).addClass("active"); //Add "active" class to selected tab
-	var activeTab = $(this).find("a").attr("ct"); //Find the href attribute value to identify the active tab + content
-	$('#'+activeTab).fadeIn(); //Fade in the active ID content
-	return true;
-});
 $("ul.tabs3 li").click(function() {
 	$("ul.tabs3 li").removeClass("active"); //Remove any "active" class
 	$(this).addClass("active"); //Add "active" class to selected tab
@@ -238,146 +213,17 @@ function styleTimeButtonClicked()
 }
 
 </script>
-  
-<script type="text/javascript">
-var options;
-$(document).ready(function() {
-	options = {
-            chart: {
-                renderTo: 'container',
-                type: 'spline'
-            },
-            title: {
-                text: '   '
-            },
-            subtitle: {
-                text: '<?php echo $reportTitle['timePase']; ?>'
-            },
-            xAxis: {
-                labels:{rotation:300,y:40,x:0}
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                min:0,
-                labels: {
-                    formatter: function() {
-                        return Highcharts.numberFormat(this.value, 0);
-                    }
-                }
-            },
-            tooltip: {
-                crosshairs: true,
-                shared: true
-            },
-            plotOptions: {
-                spline: {
-                    marker: {
-                        radius: 1,
-                        lineColor: '#666666',
-                        lineWidth: 1
-                    }
-                }
-            },
-            legend:{
-                labelFormatter: function() {
-                	return this.name
-                }
-             },
-            series: [
-        
-            ]
-        };   
-	var myurl="<?php echo site_url()?>/report/version/getVersionData";
-	renderCharts(myurl);
-});
-
-    function renderCharts(myurl)
-    {	
-   	 var chart_canvas = $('#container');
-	 var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
-		    
-	    chart_canvas.block({
-	        message: loading_img,
-	        css:{
-	            width:'32px',
-	            border:'none',
-	            background: 'none'
-	        },
-	        overlayCSS:{
-	            backgroundColor: '#FFF',
-	            opacity: 0.8
-	        },
-	        baseZ:997
-	    });    	
-	jQuery.getJSON(myurl, null, function(data) {     	
-    	var version_array = [];
-    	for(var key in data.content)
-    	{
-        	version_array.push(key);
-        }
-		for(var j=0;j<version_array.length;j++)
-		{
-    		version = version_array[j];
-    		var eachVersionData = data.content[version];
-    		var categories = [];
-			var newUsers = [];
-			var reportTitle;
-    		for(var i=0;i<eachVersionData.length;i++)
-    		{
-        		var eachVersionDataItem = eachVersionData[i];           		
-        		if(chartName=="<?php echo  lang('t_newUsers')?>")
-        		{
-       			 newUsers.push(parseInt(eachVersionDataItem.newusers,10));
-      		     reportTitle="<?php echo $reportTitle['newUser'] ?>";
-            	}            		   
-        		if(chartName=="<?php echo  lang('t_activeUsers')?>")
-        		{
-        			newUsers.push(parseInt(eachVersionDataItem.startusers,10));
-            		reportTitle="<?php echo $reportTitle['activeUser'] ?>";
-            	}            		
-	    		categories.push(eachVersionDataItem.datevalue.substr(0,10));
-        	}
-    		options.series[j] = {};
-    		if(version == "")
-		    {
-		    	options.series[j].name = "<?php echo  lang('t_unknow')?>";
-		    }
-		    else
-		    {
-    		    options.series[j].name = version;
-		    }
-		    options.series[j].data = newUsers;
-			options.xAxis.labels.step = parseInt(categories.length/10);
-			options.xAxis.categories = categories; 
-			options.title.text = reportTitle;
-    	}    	    
-	    chart = new Highcharts.Chart(options);
-		chart_canvas.unblock();
-		});  
-    }
-  	    
-</script>
-<script type="text/javascript">
-function changeChartType(type)
-{	
-	chartName = type;
-	var myurl="<?php echo site_url()?>/report/version/getVersionData";
-	renderCharts(myurl);
-}
-</script>
 <script type="text/javascript">
 function getdata()
 {
 	var myurl = "";
 	if(styleName == 'NewUser')
 	{	
-		myurl="<?php echo site_url()?>/report/version/getVersionContrast/"+fromTime1+"/"+toTime1+"/"+fromTime2+"/"+toTime2;
+		myurl="<?php echo site_url()?>/report/version/getVersionContrast/"+fromTime1+"/"+toTime1+"/"+fromTime2+"/"+toTime2+"/"+version;
 	}
 	else
 	{		
-	   myurl="<?php echo site_url()?>/report/version/getVersionContrast/"+fromTime1+"/"+toTime1+"/"+fromTime2+"/"+toTime2;
+	   myurl="<?php echo site_url()?>/report/version/getVersionContrast/"+fromTime1+"/"+toTime1+"/"+fromTime2+"/"+toTime2+"/"+version;
 	}
 	
 	jQuery.ajax({
@@ -397,10 +243,13 @@ function getdata()
 			for(j = 0;j<jsonData[1].length;j++)
 		    {
 			    if(styleName == "NewUser")	 
-			     document.getElementById('versinlist').innerHTML+='<tr><td>'+jsonData[0][j]['version_name']+'</td><td>'+jsonData[0][j]['newuserpercent']+'</td><td>'+jsonData[1][j]['newuserpercent']+'</td></tr>';
+			    { 
+				    document.getElementById('versinlist').innerHTML+='<tr><td>'+jsonData[0][j]['version_name']+'</td><td>'+jsonData[0][j]['newuserpercent']+'</td><td>'+jsonData[1][j]['newuserpercent']+'</td></tr>';
+			    }
 			    if(styleName == "ActiveUser")
+			    {  
 				     document.getElementById('versinlist').innerHTML+='<tr><td>'+jsonData[0][j]['version_name']+'</td><td>'+jsonData[0][j]['startuserpercent']+'</td><td>'+jsonData[1][j]['startuserpercent']+'</td></tr>';
-			    
+			    }
 		    } 
 									
 		},

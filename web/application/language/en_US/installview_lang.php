@@ -35,7 +35,7 @@ $lang["installview_installselectlanguage"] = "Enter the installation";
 $lang["installview_installstep"] = "Install";
 $lang["installview_acceptcontent"] = "I accept the license attached to Cobub Razor";
 $lang["installview_versionerror"] = "Your PHP version is too low, please upgrade your version of PHP";
-$lang["installview_mysqlierror"] = "Your MySQL version is too low, please upgrade your version of MySQL";
+$lang["installview_mysqlierror"] = "Your mysqli no open";
 $lang["installview_writeerror"]="Your file does not have write permissions, please add the file permissions";
 $lang["installview_companyname"] = "DEV.COBUB.COM";
 //welcome info 

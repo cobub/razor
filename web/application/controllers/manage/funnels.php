@@ -8,36 +8,52 @@ class funnels extends CI_Controller {
 		$this->common->requireLogin ();
 	}
 	function index() {
-		$this->common->loadHeader ();
+		$this->common->loadHeaderWithDateControl ();
+		$this->common->requireProduct();
 		$user_id = $this->common->getUserId ();
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();
 		$product_id = $this->common->getCurrentProduct ()->id;
-		$data ['eventlist'] = $this->event->getEventListByProductIdAndProductVersion ( $product_id, 'all' );
-		$data ['data'] = $this->conversion->getConversionListByProductIdAndUserId ( $product_id, $user_id, $fromTime, $toTime );
-		// $this->load->view ( 'conversionrate/funnelsview', $data );eventdata
-		// argetname,startevent,endevent,c1,c2,conversionrate
-		$result = array ();
-		$targetdata = $data ['data'] ['targetdata'];
-		$eventdata = $data ['data'] ['eventdata'];
+		$data = $this->conversion->getConversionListByProductIdAndUserId ( $product_id, $user_id, $fromTime, $toTime );
+		$targetdata = $data['targetdata'];
+		$eventdata = $data['eventdata'];
+		$data['eventlist']=$this->event->getProductEventByProuctId($product_id);
+		$data ['result']=$this->prepareConversionData($targetdata,$eventdata);
+		$this->load->view ( 'manage/funnel', $data );
+	}
+	//prepare conversion data
+	function prepareConversionData($targetdata=array(),$eventdata=array()){
+		$result=array();
 		for($i = 0; $i < count ( $targetdata ); $i ++) {
 			$target = $targetdata [$i];
 			$result ['tid'] [$i] = $target ['tid'];
 			$result ['targetname'] [$i] = $target ['targetname'];
+			$result ['unitprice'] [$i] = $target ['unitprice'];
 			$result ['event1'] [$i] = $target ['a1'];
 			$result ['event2'] [$i] = $target ['a2'];
+			if(empty($eventdata))
+			{
+				$result ['event1_c'] [$i] = 0;
+				$result ['event2_c'] [$i] = 0;
+			}
+			$e1_c=0;
+			$e2_c=0;
 			for($j = 0; $j < count ( $eventdata ); $j ++) {
 				$event = $eventdata [$j];
 				if ($target ['sid'] == $event ['event_id']) {
+					$e1_c++;
 					$result ['event1_c'] [$i] = $event ['num'];
 				}
 				if ($target ['eid'] == $event ['event_id']) {
+					$e2_c++;
 					$result ['event2_c'] [$i] = $event ['num'];
 				}
 			}
+			if($e1_c==0){$result['event1_c'][$i]=0;}
+			if($e2_c==0){$result['event2_c'][$i]=0;}
 		}
-		$data ['result'] = $result;
-		$this->load->view ( 'manage/funnel', $data );
+		return $result;
+	
 	}
 	function deleteFunnel($targetid) {
 		$userid = $this->common->getUserId ();

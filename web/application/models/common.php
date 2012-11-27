@@ -63,6 +63,51 @@ class Common extends CI_Model {
 			return round ( $count / 5, 0 );
 		}
 	}
+	function loadCompareHeader($viewname = "", $showDate = TRUE){
+		$this->load->helper ( 'cookie' );
+		if (! $this->common->isUserLogin ()) {
+			$dataheader ['login'] = false;
+			$this->load->view ( 'layout/compareHeader', $dataheader );
+			// $this->load->view ( 'chinanetdemo', $dataheader );
+		} else {
+			$dataheader ['user_id'] = $this->getUserId ();
+			$dataheader ['pageTitle'] = lang("c_".$this->router->fetch_class ());
+			if ($this->isAdmin ()) {
+				$dataheader ['admin'] = true;
+			}
+			$dataheader ['login'] = true;
+			$dataheader ['username'] = $this->getUserName ();
+			$product = $this->getCurrentProduct ();
+			if (isset ( $product ) && $product != null) {
+				$dataheader ['product'] = $product;
+				log_message ( "error", "HAS Product" );
+			}
+				
+			$productList = $this->product->getAllProducts ( $dataheader ['user_id'] );
+			if ($productList != null && $productList->num_rows () > 0) {
+				$dataheader ["productList"] = $productList;
+			}
+			$products=$this->getCompareProducts();
+			$dataheader['products']=$products;
+			log_message ( "error", "Load Header 123" );
+			$dataheader ['language'] = $this->config->item ( 'language' );
+			$dataheader ['viewname'] = $viewname;
+			if ($showDate) {
+				$dataheader ["showDate"] = true;
+			}
+			$this->load->view ( 'layout/compareHeader', $dataheader );
+			// $this->load->view ( 'chinanetdemo', $dataheader );
+		}
+	}
+	
+	function checkCompareProduct(){
+		$products=$this->common->getCompareProducts();
+		if(isset($_GET['type'])&&'compare'==$_GET['type']){
+			if(empty($products)||count($products)<2||count($products)>4){
+				redirect(base_url());
+			}
+		}
+	}
 	function loadHeaderWithDateControl($viewname = "") {
 		$this->loadHeader ( $viewname, TRUE );
 	}
@@ -201,6 +246,20 @@ class Common extends CI_Model {
 		$currentProduct = $this->product->getProductById ( $productId );
 		$this->session->set_userdata ( "currentProduct", $currentProduct );
 	}
+	
+	function setCompareProducts($productIds=array()){
+		$this->session->set_userdata('compareProducts',$productIds);
+	}
+	
+	function getCompareProducts(){
+		$pids=  $this->session->userdata ( "compareProducts" );
+		$products=array();
+		for($i=0;$i<count($pids);$i++){
+			$product=$this->product->getProductById ( $pids[$i] );
+			$products[$i]=$product;
+		}
+		return $products;
+	}
 	function changeTimeSegment($pase, $from, $to) {
 		$toTime = date ( 'Y-m-d', time () );
 		switch ($pase) {
@@ -243,7 +302,11 @@ class Common extends CI_Model {
 				}
 				break;
 		}
-		
+		if($fromTime>$toTime){
+			$tmp=$toTime;
+			$toTime=$fromTime;
+			$fromTime=$tmp;	
+		}
 		$this->session->set_userdata ( 'fromTime', $fromTime );
 		$this->session->set_userdata ( 'toTime', $toTime );
 	}
@@ -255,6 +318,13 @@ class Common extends CI_Model {
 		$fromTime = date ( "Y-m-d", strtotime ( "-6 day" ) );
 		return $fromTime;
 	}
+	
+	function getPredictiveValurFromTime(){
+		$time = $this->getFromTime();
+		$fromTime = date ( "Y-m-d", strtotime ( "$time -5 day" ) );
+		return $fromTime;
+	}
+	
 	function getToTime() {
 		$toTime = $this->session->userdata ( "toTime" );
 		if (isset ( $toTime ) && $toTime != null && $toTime != "") {
@@ -262,6 +332,14 @@ class Common extends CI_Model {
 		}
 		$toTime = date ( 'Y-m-d', time () );
 		return $toTime;
+	}
+	function getDateList($from,$to){
+		$defdate=array();
+		for ($i=strtotime($from);$i<=strtotime($to);$i+=86400){
+			if(!in_array(date('Y-m-d',$i), $defdate))
+				array_push($defdate, date('Y-m-d',$i));
+		}
+		return $defdate;
 	}
 	function export($from, $to, $data) {
 		$productId = $this->getCurrentProduct ()->id;

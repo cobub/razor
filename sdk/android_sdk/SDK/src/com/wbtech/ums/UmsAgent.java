@@ -15,8 +15,6 @@ package com.wbtech.ums;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.text.ParseException;
 import java.util.Iterator;
 import java.util.Locale;
@@ -48,8 +46,8 @@ import com.wbtech.ums.common.NetworkUitlity;
 import com.wbtech.ums.common.UmsConstants;
 import com.wbtech.ums.dao.GetInfoFromFile;
 import com.wbtech.ums.dao.SaveInfo;
-import com.wbtech.ums.obj.MyMessage;
-import com.wbtech.ums.obj.SCell;
+import com.wbtech.ums.objects.MyMessage;
+import com.wbtech.ums.objects.SCell;
 
 public class UmsAgent {
 	private static boolean mUseLocationService = true;
@@ -76,6 +74,14 @@ public class UmsAgent {
 	private static  Handler handler;
 	private static boolean isPostFile=true;
 	private static boolean isFirst=true;
+	
+	private static long tcp_sndofbegin=0;
+	private static long tcp_rcvofbegin=0;
+	private static long tcp_snd=0;
+	private static long tcp_rcv=0;
+	
+	
+	
 	/**
 	 * set base URL like http://81.30.76.26/pluggy/ums/index.php?
 	 * @param url

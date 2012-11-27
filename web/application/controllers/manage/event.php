@@ -24,7 +24,6 @@ class Event extends CI_Controller {
 		$this->load->Model ( 'common' );
 		$this->common->requireLogin ();
 		$this->common->requireProduct();
-
 	}
 	
 	function index()
@@ -91,6 +90,5 @@ class Event extends CI_Controller {
 	    $this->event->resetEvent($id);
 	    $this->index();
 	}
-	
 
 }

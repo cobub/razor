@@ -1,3 +1,13 @@
+<link rel="stylesheet" href="<?php echo base_url();?>assets/css/easydialog.css" type="text/css" media="screen"/>
+<script
+	src="<?php echo base_url();?>assets/js/easydialog/easydialog.min.js"
+	type="text/javascript"></script>
+<script src="<?php echo base_url();?>assets/js/highslide-full.min.js" type="text/javascript">
+</script>
+<script src="<?php echo base_url();?>assets/js/highslide.config.js" type="text/javascript">
+</script>
+<link href="<?php echo base_url();?>assets/css/highslide.css" type="text/css" rel="stylesheet"/>
+
 <script type="text/javascript">
 var event_sk = "<?php echo $event_sk?>";
 var version = "<?php echo $event_version?>";
@@ -23,8 +33,6 @@ var event_name = "<?php echo $event_name?>";
 
 </div>
 </article>
-
-
 </section>
 <script type="text/javascript">
 //When page loads...
@@ -49,6 +57,13 @@ var reportType;
 var eventMsgNum=[];
 var eventMsgNumActive=[];
 var eventMsgNumSession=[];
+
+var trendeventMsgNum=[];
+var trendeventMsgNumActive=[];
+var trendeventMsgNumSession=[];
+
+var markEventIndex=[];
+var threndIndex=-1;
 $(document).ready(function() {
 	options = {
             chart: {
@@ -76,17 +91,56 @@ $(document).ready(function() {
                 }
             },
             tooltip: {
-                crosshairs: true,
-                shared: true
-            },
+	            crosshairs: true,
+	            shared: true
+	            /* formatter:function(){
+	                if(!markEventIndex.content(this.series.index)){
+						return this.series.name+":"+this.y;
+	                    }
+	                	return this.point.title;
+	                }*/
+	        },
             plotOptions: {
+                column:{
+					showInLegend:false
+                  },
                 spline: {
+                    cursor:'pointer',
                     marker: {
                         radius: 1,
                         lineColor: '#666666',
                         lineWidth: 1
+                    },events:{
+						click:function(e){
+							sendBack(e);
+							}
+                        }
+                },series:{
+                	cursor:'pointer',
+                	events:{
+        				click:function(e){
+        					if(!markEventIndex.content(e.point.series.index)){
+        						sendBack(e);
+        						return;
+        						}
+    						var rights=e.point.rights==1?'<?php echo lang('m_public')?>':'<?php echo lang('m_private')?>';
+        					var content='<div><?php echo lang('m_marktime')?>:'+e.point.date+'</div>';
+        					content+='<div><?php echo lang('m_user')?>:'+e.point.username+'</div>';
+        					content+='<div><?php echo lang('m_title')?>:'+e.point.title+'</div>';
+        					content+='<div><?php echo lang('m_description')?>:'+e.point.description+'</div>';
+        					content+='<div><?php echo lang('m_rights')?>:'+rights+'</div>';
+        					 hs.htmlExpand(null, {
+                                 pageOrigin: {
+                                     x: e.pageX,
+                                     y: e.pageY
+                                 },
+                                 headingText: '<?php echo lang('m_eventsDetail')?>',
+                                 maincontentText:content,
+                                 width: 200
+                             });	
+        					}
+                        }
                     }
-                }
             },
             legend:{
                 labelFormatter: function() {
@@ -103,6 +157,8 @@ $(document).ready(function() {
 
 </script>
 <script type="text/javascript">
+var trenddata;
+var optionsLength=0;
     function renderCharts(myurl)
     {
     	 var chart_canvas = $('#container');
@@ -121,27 +177,73 @@ $(document).ready(function() {
     	        },
     	        baseZ:997
     	    });
-    	    
-    	jQuery.getJSON(myurl, null, function(data) {  
-        	chartData = data;
+    	jQuery.getJSON(myurl, null, function(data) { 
+        	chartData = data.dataList;
+        	trenddata = data.trend;
     		var newUsers = [];
     		var categories = [];
-    	    for(var i=0;i<data.length;i++)
+    	    for(var i=0;i<chartData.length;i++)
     	    {
-    		    var marketData = data[i];    		
+    		    var marketData = chartData[i];    		
     		    eventMsgNum.push(parseFloat(marketData.count));
     		    eventMsgNumActive.push(parseFloat(parseFloat(marketData.userper).toFixed(2)));    	    			
-    		    eventMsgNumSession.push(parseFloat(parseFloat(marketData.sessionper).toFixed(2)));    		  
+    		    eventMsgNumSession.push(parseFloat(parseFloat(marketData.sessionper).toFixed(2))); 
+
+    		    trendeventMsgNum.push(parseFloat(trenddata[i].count));
+    		    trendeventMsgNumActive.push(parseFloat(parseFloat(trenddata[i].userper).toFixed(2)));    	    			
+    		    trendeventMsgNumSession.push(parseFloat(parseFloat(trenddata[i].sessionper).toFixed(2)));
+    		       		  
     		    categories.push(marketData.datevalue.substr(0,10));
     		}
 			
-    		    options.series[0] = {
-                    name:event_name
-                };
+                options.series[0]={};
     		    options.series[0].data = eventMsgNum;
+    		    options.series[0].name=event_name;
     		    options.xAxis.labels.step = parseInt(categories.length/10);
     		    options.xAxis.categories = categories; 
     		    options.title.text = "<?php echo  $reportTitle['eventMsgNum'] ; ?>";
+    		    optionsLength=1;
+    		    //content markevent
+			    var marklist=data.marklist;
+			    var defdate=data.defdate;
+			    var markevents=data.markevents;
+			    if(marklist.length>=1){
+			    	$.each(marklist,function(index,item){
+			    		markEventIndex[index]=options.series.length;
+			    		seriesIndex=markEventIndex[index];
+				    	options.series[seriesIndex]={};
+				    	options.series[seriesIndex].type='column';
+				    	options.series[seriesIndex].name="<?php echo lang('m_dateevents');?>";
+				    	options.colors=[];
+				    	options.colors[seriesIndex]="#DB9D00";
+				    	var contentdata=[];
+				    	for(var j=0;j<defdate.length;j++){
+							var markevent=null;
+				    		$.each(markevents,function(i,o){
+				    			if(item.userid==o.userid){
+									if(defdate[j]==o.marktime){
+										markevent=o;
+									}	
+								}
+					    	});
+							if(markevent!=null){
+								contentdata.push(markevent);
+							}else{
+								contentdata.push(null);
+								}	
+						}
+				    	options.series[seriesIndex].data=prepare(contentdata,options,index);
+					    });
+				    }
+			//end content
+				threndIndex=options.series.length;
+			    options.series[threndIndex]={};
+    		    options.series[threndIndex].data = trendeventMsgNum;
+    		    options.series[threndIndex].name="<?php echo lang('V_Trendvalue')?>";
+    		    options.series[threndIndex].dashStyle= 'shortdot';
+    		    options.xAxis.labels.step = parseInt(categories.length/10);
+    		    options.xAxis.categories = categories; 
+				
     	        chart = new Highcharts.Chart(options);
     		    chart_canvas.unblock();
     		});  
@@ -157,6 +259,7 @@ function changeChartData(type)
     {
 		 options.series[0].data = eventMsgNum;
 		 options.title.text = "<?php echo  $reportTitle['eventMsgNum'] ; ?>";
+		 options.series[threndIndex].data = trendeventMsgNum;
 	     chart = new Highcharts.Chart(options);	
     }
 
@@ -164,6 +267,7 @@ function changeChartData(type)
     {
     	options.series[0].data = eventMsgNumActive;
 		 options.title.text = "<?php echo  $reportTitle['eventMsgNumActive'] ; ?>";
+		 options.series[threndIndex].data = trendeventMsgNumActive;
 	     chart = new Highcharts.Chart(options);	
 			
     }
@@ -171,11 +275,9 @@ function changeChartData(type)
     {
     	 options.series[0].data = eventMsgNumSession;
 		 options.title.text = "<?php echo  $reportTitle['eventMsgNumSession'] ; ?>";
+		 options.series[threndIndex].data = trendeventMsgNumSession;
 	     chart = new Highcharts.Chart(options);	
-			
     }
 }
 </script>
-
-
-
+<?php include 'application/views/manage/pointmark_base.php';?>

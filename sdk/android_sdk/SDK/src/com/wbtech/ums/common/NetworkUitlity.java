@@ -27,7 +27,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.wbtech.ums.obj.MyMessage;
+import com.wbtech.ums.objects.MyMessage;
 public class NetworkUitlity {
 	public static long paramleng = 256L;
 	public static String DEFAULT_CHARSET=" HTTP.UTF_8";

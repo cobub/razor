@@ -7,14 +7,13 @@ class market extends CI_Controller{
 	{
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
-		$this->load->library('form_validation');
+		$this->load	->library('form_validation');
 		$this->load->Model('common');
 		$this->load->model('channelmodel','channel');
 		$this->load->model('product/productmodel','product');
 		$this->load->model('product/newusermodel','newusermodel');
 		$this->common->requireLogin();
 		$this->common->requireProduct();
-		
 	}
 	
 	function viewMarket()
@@ -34,14 +33,18 @@ class market extends CI_Controller{
 		$data['thirty_day_active']=$thirty_day_active;
 		$todayData = $this->product->getAnalyzeDataByDateAndProductID($today,$productId);
 	    $yestodayData = $this->product->getAnalyzeDataByDateAndProductID($yestodayTime,$productId);
-
 	    $data['count'] = $todayData->num_rows();
 		$data ['todayData'] = $todayData;
 		$data['yestodayData']=$yestodayData;
 		$this->common->loadHeaderWithDateControl ();
+		$this->load->view('overview/productmarket',$data);
 		
+	}
+	//load channel market report
+	function addchannelmarketreport($delete=null,$type=null)
+	{
 		$fromTime = $this->common->getFromTime ();
-		$toTime = $this->common->getToTime ();		
+		$toTime = $this->common->getToTime ();
 		$data['reportTitle'] = array(
 				'timePase' => getTimePhaseStr($fromTime, $toTime),
 				'newUser'=>  getReportTitle(lang("v_rpt_mk_newUserStatistics")." ".null , $fromTime, $toTime),
@@ -51,8 +54,20 @@ class market extends CI_Controller{
 				'activeWeekly'=> getReportTitle(lang("t_activeRateW")." ".null , $fromTime, $toTime),
 				'activeMonthly'=> getReportTitle(lang("t_activeRateM")." ". null, $fromTime, $toTime)
 		);
-		$this->load->view('overview/productmarket',$data);
-		
+		if($delete==null)
+		{
+			$data['add']="add";
+		}
+		if($delete=="del")
+		{
+			$data['delete']="delete";
+		}
+		if($type!=null)
+		{
+			$data['type']=$type;
+		}
+		$this->load->view ( 'layout/reportheader');
+		$this->load->view('widgets/channelmarket',$data);
 	}
 	
 	function getMarketData($type='')
@@ -81,8 +96,19 @@ class market extends CI_Controller{
 		{
 			$data="";
 		}		
-		$result = json_encode($data);
-		echo  $result;
+		$result = array();
+		$result['dataList']=$data;
+		//load markevents
+		$mark=array();
+		$currentProduct = $this->common->getCurrentProduct();
+		$this->load->model('point_mark','pointmark');
+		$markevnets=$this->pointmark->listPointviewtochart($this->common->getUserId(),$productId,$fromTime,$toTime)->result_array();
+		$marklist=$this->pointmark->listPointviewtochart($this->common->getUserId(),$productId,$fromTime,$toTime,'listcount');
+		$result['marklist']=$marklist;
+		$result['markevents']=$markevnets;
+		$result['defdate']=$this->common->getDateList($fromTime,$toTime);
+		//end load markevents
+		echo  json_encode($result);
 		
 	}
 	

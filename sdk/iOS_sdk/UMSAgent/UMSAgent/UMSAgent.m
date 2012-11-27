@@ -183,8 +183,11 @@
 
 - (void)resignActive:(NSNotification *)notification 
 {
-      [UMSAgent endTracPage:self.pageName];
-      //Since We use viewWillAppear and viewWillDisappear to record, So just remove from here
+       if(self.pageName!=nil)
+       {
+           [UMSAgent endTracPage:self.pageName];
+       }
+    //Since We use viewWillAppear and viewWillDisappear to record, So just remove from here
 //    NSString *page_name = [[NSBundle mainBundle] bundleIdentifier];
 //    if(policy == REALTIME)
 //    {
@@ -210,11 +213,14 @@
     {
         NSLog(@"Application become active");
     }
-    [UMSAgent startTracPage:self.pageName];
-    NSString *page_name = [[NSBundle mainBundle] bundleIdentifier];
-    NSDate *pageStartDate = [[NSDate date] copy];
-    [[NSUserDefaults standardUserDefaults] setObject:pageStartDate forKey:page_name];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    if(self.pageName!=nil)
+    {
+        [UMSAgent startTracPage:self.pageName];
+        NSString *page_name = [[NSBundle mainBundle] bundleIdentifier];
+        NSDate *pageStartDate = [[NSDate date] copy];
+        [[NSUserDefaults standardUserDefaults] setObject:pageStartDate forKey:page_name];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     NSString *currentTime = [[NSString alloc] initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
     self.sessionId = [self md5:currentTime];
     if(isLogEnabled)
@@ -231,29 +237,29 @@
     
 }
 
--(void)commitUsingTime:(NSString*)pageName
+-(void)commitUsingTime:(NSString*)currentPageName
 {
     @autoreleasepool 
     {
         NSString *session_mills = self.sessionId;
         NSString *end_mils = [self getCurrentTime];
-        NSDate *pageStartDate = [[NSUserDefaults standardUserDefaults] objectForKey:pageName];
+        NSDate *pageStartDate = [[NSUserDefaults standardUserDefaults] objectForKey:currentPageName];
         if(pageStartDate!=nil)
         {
             NSString *start_mils = [self getDateStr:pageStartDate];
             NSTimeInterval duration = (-[startDate timeIntervalSinceNow])*1000;
             NSString *durationStr = [[NSString alloc] initWithFormat:@"%f",duration];
-            NSString *activities = pageName;
+            NSString *activities = currentPageName;
             NSString *appVersion = [self getVersion];
             [PostClientDataDao postUsingTime:appKey sessionMills:session_mills startMils:start_mils endMils:end_mils duration:durationStr activity:activities version:appVersion];
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:pageName];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:currentPageName];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
         else
         {
            if(isLogEnabled)
            {
-                NSLog(@"Page Start time not found. in commitUsingTime pagename = %@",pageName);
+                NSLog(@"Page Start time not found. in commitUsingTime pagename = %@",currentPageName);
            }
         }
     }
@@ -296,32 +302,32 @@
     }
 }
 
-- (void)saveActivityUsingTime:(NSString*)pageName
+- (void)saveActivityUsingTime:(NSString*)currentPageName
 {
     @autoreleasepool 
     {
         ActivityLog *acLog = [[ActivityLog alloc] init];
         acLog.sessionMils = self.sessionId;
-        NSDate *pageStartDate = [[NSUserDefaults standardUserDefaults] objectForKey:pageName];
+        NSDate *pageStartDate = [[NSUserDefaults standardUserDefaults] objectForKey:currentPageName];
         if(pageStartDate!=nil)
         {
             NSString *start_mils = [self getDateStr:pageStartDate];
             acLog.startMils = start_mils;
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:pageName];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:currentPageName];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
         else
         {
             if(isLogEnabled)
             {
-                 NSLog(@"Page Start time not found. in saveActivityUsingTime pagename = %@",pageName);
+                 NSLog(@"Page Start time not found. in saveActivityUsingTime pagename = %@",currentPageName);
             }   
             return;
         }
         acLog.endMils = [self getCurrentTime];
         NSTimeInterval duration = (-[startDate timeIntervalSinceNow])*1000;
         acLog.duration = [[NSString alloc] initWithFormat:@"%f",duration];
-        acLog.activity = pageName;
+        acLog.activity = currentPageName;
         acLog.version = [self getVersion];
         if(acLog)
         {

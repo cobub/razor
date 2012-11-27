@@ -23,10 +23,9 @@ class errormodel extends CI_Model {
 	function geterroralldata($productId,$fromTime,$toTime) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql="Select
-              p.version_name,
               ifnull(count(f.id),0) errorcount,
-              ifnull(count(f.id)/(select sum(sessions) from ".$dwdb->dbprefix('sum_basic_all')." s,".$dwdb->dbprefix('dim_date')." sd, ".$dwdb->dbprefix('dim_product')." sp where s.date_sk =sd.date_sk and sd.datevalue between '$fromTime' and '$toTime' and s.product_sk = sp.product_sk and sp.product_id=1 and sp.version_name=p.version_name),0) percentage
-              from ".$dwdb->dbprefix('fact_errorlog')." f, ".$dwdb->dbprefix('dim_date')." d, ".$dwdb->dbprefix('dim_product')." p where f.date_sk = d.date_sk and d.datevalue between '$fromTime' and '$toTime' and f.product_sk = p.product_sk and p.product_id = $productId and p.product_active=1 and p.channel_active=1 and p.version_active=1  group by p.version_name order by version_name";
+              ifnull(count(f.id)/(select sum(sessions) from ".$dwdb->dbprefix('sum_basic_all')." s,".$dwdb->dbprefix('dim_date')." sd, ".$dwdb->dbprefix('dim_product')." sp where s.date_sk =sd.date_sk and sd.datevalue between '$fromTime' and '$toTime' and s.product_sk = sp.product_sk and sp.product_id='$productId'),0) percentage
+              from ".$dwdb->dbprefix('fact_errorlog')." f, ".$dwdb->dbprefix('dim_date')." d, ".$dwdb->dbprefix('dim_product')." p where f.date_sk = d.date_sk and d.datevalue between '$fromTime' and '$toTime' and f.product_sk = p.product_sk and p.product_id = $productId and p.product_active=1 and p.channel_active=1 and p.version_active=1";
 
 		$query= $dwdb->query ($sql);
 		$ret=array();
@@ -40,7 +39,6 @@ class errormodel extends CI_Model {
 				$row = $array[$i];
 				$tmp ['count'] = $row ['errorcount'];
 				$tmp ['percentage'] = round($row ['percentage'],2);
-				$tmp ['version_name'] = $row ['version_name'];
 				array_push ( $content_arr, $tmp );
 			}
 			$ret['content'] = $content_arr;
@@ -48,6 +46,40 @@ class errormodel extends CI_Model {
 		else 
 		    $ret['content'] = "";
 		return $ret;
+	}
+	
+	function getCompareErrorData($productId,$fromTime,$toTime){
+		$dwdb = $this->load->database ( 'dw', TRUE );
+		$sql="SELECT c.datevalue, ifnull( s.errorcount, 0 ) errorcounts , ifnull( s.percentage, 0 ) percent
+		from(select d.datevalue,ifnull(count(f.id),0) errorcount,
+		ifnull(count(f.id)/(select sum(sessions)
+		from ".$dwdb->dbprefix('sum_basic_all')." s,".$dwdb->dbprefix('dim_date')." sd, ".$dwdb->dbprefix('dim_product')." sp 
+		where s.date_sk =sd.date_sk and sd.datevalue=d.datevalue and s.product_sk = sp.product_sk and sp.product_id='$productId'),0) percentage,d.datevalue date
+		from ".$dwdb->dbprefix('fact_errorlog')." f, ".$dwdb->dbprefix('dim_date')." d, ".$dwdb->dbprefix('dim_product')." p 
+		where f.date_sk = d.date_sk and d.datevalue between '$fromTime' and '$toTime' and f.product_sk = p.product_sk and p.product_id = $productId and p.product_active=1 and p.channel_active=1 and p.version_active=1
+		group by d.datevalue) s right join (select datevalue from ".$dwdb->dbprefix('dim_date')."  
+		where datevalue between '$fromTime' and '$toTime') c on s.datevalue = c.datevalue";
+		$query= $dwdb->query ($sql);
+		$ret=array();
+		if ($query != null && $query->num_rows() > 0) {
+		
+			$array = $query->result_array ();
+		
+			$content_arr = array ();
+			for($i = 0; $i < count ($array); $i ++) {
+				$tmp = array();
+				$row = $array[$i];
+				$tmp ['count'] = $row ['errorcounts'];
+				$tmp ['percentage'] = round($row ['percent'],2);
+				$tmp ['date'] = substr($row ['datevalue'],0,10);
+				array_push ( $content_arr, $tmp );
+			}
+			$ret['content'] = $content_arr;
+		}
+		else
+			$ret['content'] = "";
+		return $ret;
+		
 	}
 
 	//get error count and count/sessions data by os

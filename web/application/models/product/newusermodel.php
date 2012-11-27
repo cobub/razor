@@ -252,6 +252,39 @@ class newusermodel extends CI_Model{
 		
 	}
 	
+	function getallUserDataBy($fromTime,$toTime,$productid){
+	
+		$productId= $productid;
+		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+	
+		$dwdb = $this->load->database('dw',TRUE);
+		$sql = "select d.datevalue,ifnull(sum(sessions),0) sessions,ifnull(sum(startusers),0) startusers,
+		ifnull(sum(newusers),0) newusers,ifnull(sum(usingtime),0) usingtime,ifnull(sum(allusers),0) allusers
+		from   ".$dwdb->dbprefix('sum_basic_all')."  s inner join  ".$dwdb->dbprefix('dim_product')."   p on  p.product_id = $productId
+		and p.product_sk = s.product_sk and p.product_active=1 and p.channel_active=1 and p.version_active=1 right join (
+		select date_sk, datevalue from   ".$dwdb->dbprefix('dim_date')."  where datevalue between '$fromTime' and '$toTime'
+		) d on s.date_sk = d.date_sk group by d.datevalue order by d.datevalue ASC;";
+					
+		$query = $dwdb->query($sql);
+		return $query;
+	
+	}
+	
+	function getallUserDataByPid($fromTime,$toTime,$productId){
+		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
+		$dwdb = $this->load->database('dw',TRUE);
+		$sql = "select d.datevalue,ifnull(sum(sessions),0) sessions,ifnull(sum(startusers),0) startusers,
+		ifnull(sum(newusers),0) newusers,ifnull(sum(usingtime),0) usingtime,ifnull(sum(allusers),0) allusers
+		from   ".$dwdb->dbprefix('sum_basic_all')."  s inner join  ".$dwdb->dbprefix('dim_product')."   p on  p.product_id = $productId
+			and p.product_sk = s.product_sk and p.product_active=1 and p.channel_active=1 and p.version_active=1 right join (
+			select date_sk, datevalue from   ".$dwdb->dbprefix('dim_date')."  where datevalue between '$fromTime' and '$toTime'
+			) d on s.date_sk = d.date_sk group by d.datevalue order by d.datevalue ASC;";
+				
+			$query = $dwdb->query($sql);
+			return $query;
+	
+	}
+	
 	// get detailed data
 	function getDetailUserData($fromTime,$toTime){
 	

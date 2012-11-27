@@ -208,8 +208,8 @@ insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration)
 -- errirtitle ----
 set s = now();
 insert into umsinstall_dim_errortitle
-           (title_name)
-select distinct f.title
+           (title_name,isfix)
+select distinct f.title,0
 from   databaseprefix.umsdatainstall_errorlog f
 where  not exists (select *
                    from   umsinstall_dim_errortitle ee
@@ -855,25 +855,29 @@ insert into umsinstall_fact_launch_daily
            (product_sk,
             date_sk,
             segment_sk,
-            accesscount)
-select  fff.product_sk,
+            accesscount) 
+select rightf.product_sk,
+       rightf.date_sk,
+       rightf.segment_sk,
+       ifnull(ffff.num,0)
+from (select  fff.product_sk,
          fff.date_sk,
          fff.segment_sk,
-         count(fff.segment_sk)
-from     (select fs.datevalue,
+         count(fff.segment_sk) num
+         from (select fs.datevalue,
                  dd.date_sk,
                  fs.product_sk,
                  fs.deviceidentifier,
                  fs.times,
                  ss.segment_sk
-          from   (select   d.datevalue,
+                 from (select   d.datevalue,
                            p.product_sk,
                            deviceidentifier,
                            count(* ) times
-                  from     umsinstall_fact_clientdata f,
+                           from  umsinstall_fact_clientdata f,
                            umsinstall_dim_date d,
                            umsinstall_dim_product p
-                  where    d.datevalue = today
+                           where d.datevalue = today
                            and f.date_sk = d.date_sk
                            and p.product_sk = f.product_sk
                   group by d.datevalue,p.product_sk,deviceidentifier) fs,
@@ -884,7 +888,13 @@ from     (select fs.datevalue,
 group by fff.date_sk,fff.segment_sk,fff.product_sk
 order by fff.date_sk,
          fff.segment_sk,
-         fff.product_sk on duplicate key update accesscount = values(accesscount);
+         fff.product_sk) ffff right join (select fff.date_sk,fff.product_sk,sss.segment_sk
+         from (select distinct d.date_sk,p.product_sk 
+         from umsinstall_fact_clientdata f,umsinstall_dim_date d,umsinstall_dim_product p 
+         where d.datevalue=today and f.date_sk=d.date_sk and p.product_sk = f.product_sk) fff cross join
+         umsinstall_dim_segment_launch sss) rightf on ffff.date_sk=rightf.date_sk and
+         ffff.product_sk=rightf.product_sk and ffff.segment_sk=rightf.segment_sk
+          on duplicate key update accesscount = values(accesscount);
 set e = now();
 insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
     values('runsum','umsinstall_fact_launch_daily',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));

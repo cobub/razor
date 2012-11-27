@@ -41,7 +41,7 @@ namespace UMSAgent.Common
         //public event DM_UpdateEventhandler DM_UpdateEvent;
         public  string appkey;
         AllModel model ;
-        public static IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+        private  IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
        
         public DataManager( string key)
         {

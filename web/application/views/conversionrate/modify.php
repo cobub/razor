@@ -21,6 +21,8 @@ fieldset input[type="text"] {
 							<label><?php echo lang('v_rpt_re_funnelModifyfunnel');?></label> <input type="text" id="funnel_name"
 								name="funnel_name"
 								value="<?php if(isset($steplist)){echo $steplist->first_row()->targetname;}?>" />
+							<label><?php echo lang('v_rpt_re_unitprice');?></label> <input
+								type="text" id="unitprice" name="unitprice" value="<?php if(isset($steplist)){if(empty($steplist->first_row()->unitprice)){echo 0;}else{echo $steplist->first_row()->unitprice;}}?>">
 						</fieldset>
 						<?php if(isset($steplist)){foreach ($steplist->result() as $step){?>
 						<fieldset param="<?php echo $step->sequence?>" var="setp"
@@ -51,7 +53,7 @@ fieldset input[type="text"] {
 		if(!confirm('<?php echo lang('v_rpt_re_funnelmsgIsdelete') ?>')){return;}
 		$.ajax({
 			type:'post',
-			url:'<?php echo site_url()?>/conversionrate/funnels/delteFunnelEvent',
+			url:'<?php echo site_url()?>/report/funnels/delteFunnelEvent',
 			dataType:'json',
 			data:{'event_id':eventid,'target_id':targetid},
 			success:function(data,status){
@@ -77,7 +79,7 @@ fieldset input[type="text"] {
 		$('input[name=event_ids]').val(event_ids);
 		$('input[name=step_names]').val(step_names);
 		//loadAjax();
-		$.post('<?php echo site_url()?>/conversionrate/funnels/modifyFunnel',$('#form_funnel').serialize(),function(data,status){
+		$.post('<?php echo site_url()?>/report/funnels/modifyFunnel',$('#form_funnel').serialize(),function(data,status){
 			$('#msg').html('<?php echo lang('v_rpt_re_funnelmsgModifysuccess')?>').show();
 			setTimeout(function(){location.reload();},500);
 			},'json');
@@ -90,6 +92,8 @@ fieldset input[type="text"] {
 			alert('<?php echo lang('v_rpt_re_funnelmsgInputfunnelname');?>');return false;}
 		if($('input[name=\'stepname\']').length<2){
 			alert('<?php echo lang('v_rpt_re_funnelmsgAtleasttwostep');?>');return false;}
+		var validateMoney=/^\d{0,10}(\.)?\d{0,3}$/;
+		if(!validateMoney.test($('input[name=\'unitprice\']').val())){alert('<?php echo lang('v_rpt_re_unitprice_alt');?>');return false;}
 		con=true;
 		$.each($('input[name=\'stepname\']'),function(index,item){
 			if(item.value==''){

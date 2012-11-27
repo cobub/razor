@@ -30,7 +30,7 @@ class Product extends CI_Controller
 		
 	}
 	function changeProduct($productId)
-	{
+	{		
 		$this->common->cleanCurrentProduct();
 		$this->common->setCurrentProduct ( $productId );
 		$ret = array();

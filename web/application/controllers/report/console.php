@@ -26,6 +26,7 @@ class Console extends CI_Controller {
 		$this->load->model ( 'product/productmodel', 'product' );
 		$this->load->model ( 'product/productanalyzemodel' );
 		$this->load->model ( 'product/newusermodel', 'newusermodel' );
+		$this->load->model ('analysis/trendandforecastmodel','trendmodel');
 		$this->common->requireLogin ();
 	}
 	function index() {
@@ -98,7 +99,14 @@ class Console extends CI_Controller {
 		
 		//$fromTime = $this->product->getUserStartDate ( $userId, $fromTime );
 		$query = $this->newusermodel->getAlldataofVisittrends ( $fromTime, $toTime, $userId );
+// 		print_r($query);
+		
+		$result = $this->newusermodel->getAlldataofVisittrends($this->common->getPredictiveValurFromTime(),$toTime,$userId);
+		$res =$this->trendmodel->getPredictiveValur($result);
+// 		print_r($res);
+		
 		$ret ["content"] = $query;
+		$ret["contentofTrend"]=$res;
 		$ret ["timeTick"] = $this->common->getTimeTick ( $toTime - $fromTime );
 		echo json_encode ( $ret );
 	}

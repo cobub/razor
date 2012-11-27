@@ -1,5 +1,38 @@
 SET NAMES 'utf8';
 --
+-- 表的结构 `alert`
+--
+
+CREATE TABLE IF NOT EXISTS `umsinstall_alert` (
+  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `userid` int(50) NOT NULL,
+  `productid` int(50) NOT NULL,
+  `condition` float NOT NULL,
+  `label` varchar(50) NOT NULL,
+  `active` int(10) NOT NULL DEFAULT '1',
+  `emails` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `alertdetail`
+--
+
+CREATE TABLE IF NOT EXISTS `umsinstall_alertdetail` (
+  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `alertlabel` int(50) NOT NULL,
+  `factdata` int(50) NOT NULL,
+  `forecastdata` int(50) NOT NULL,
+  `time` datetime NOT NULL,
+  `states` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `cell_towers`
 --
 
@@ -230,6 +263,23 @@ CREATE TABLE IF NOT EXISTS `umsinstall_login_attempts` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `markevent`
+--
+
+CREATE TABLE IF NOT EXISTS `umsinstall_markevent` (
+  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `userid` int(50) NOT NULL,
+  `productid` int(50) NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `description` varchar(128) NOT NULL,
+  `private` tinyint(1) NOT NULL DEFAULT '0',
+  `marktime` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8  AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `mccmnc`
 --
 
@@ -328,6 +378,27 @@ CREATE TABLE IF NOT EXISTS `umsinstall_product_version` (
   `updatetime` datetime NOT NULL,
   `description` varchar(5000) NOT NULL,
   `active` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `reportlayout`
+--
+
+CREATE TABLE IF NOT EXISTS `umsinstall_reportlayout` (
+  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `userid` int(50) NOT NULL,
+  `productid` int(50) NOT NULL,
+  `reportname` varchar(128) NOT NULL,
+  `controller` varchar(128) NOT NULL,
+  `method` varchar(45) NOT NULL,
+  `height` int(50) NOT NULL,
+  `src` varchar(512) NOT NULL,
+  `location` int(50) NOT NULL,
+  `type` int(10) NOT NULL,
+  `createtime` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -477,6 +548,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_target` (
   `productid` int(11) NOT NULL,
   `targetname` varchar(128) NOT NULL,
   `targettype` int(11) NOT NULL,
+  `unitprice` decimal(12,2) NOT NULL,
   `targetstatusc` int(11) NOT NULL,
   `createdate` datetime NOT NULL,
   PRIMARY KEY (`tid`)

@@ -32,13 +32,8 @@ class errorondevice extends CI_Controller {
 		$this->common->loadHeaderWithDateControl ();
 		//add chart
 		$fromTime = $this->common->getFromTime ();
-		$toTime = $this->common->getToTime ();
-		$this->data['reportTitle'] = array(
-			'errorCount'=> getReportTitle(lang("v_rpt_err_errorNums") , $fromTime, $toTime),
-			'errorCountPerSession'=>  getReportTitle(lang("v_rpt_err_errorNumsInSessions") , $fromTime, $toTime),
-		    'timePhase'=>getTimePhaseStr($fromTime, $toTime)
-		);
-		$this->load->view ( 'errors/errorlogondeviceview', $this->data );
+		$toTime = $this->common->getToTime ();		
+		$this->load->view ( 'errors/errorlogondeviceview');
 		//add error list
 		$product = $this->common->getCurrentProduct ();
 		$productid = $product->id;
@@ -72,7 +67,31 @@ class errorondevice extends CI_Controller {
 		$this->load->view ( 'errors/errorondevicelistview', $this->data );
 	}
 
-
+	/*load errorlogonos report*/
+	function adderrordevicereport($delete=null,$type=null)
+	{
+		$fromTime = $this->common->getFromTime ();
+		$toTime = $this->common->getToTime ();
+		$this->data['reportTitle'] = array(
+			'errorCount'=> getReportTitle(lang("v_rpt_err_errorNums") , $fromTime, $toTime),
+			'errorCountPerSession'=>  getReportTitle(lang("v_rpt_err_errorNumsInSessions") , $fromTime, $toTime),
+		    'timePhase'=>getTimePhaseStr($fromTime, $toTime)
+		);
+		if($delete==null)
+		{
+			$this->data['add']="add";
+		}
+		if($delete=="del")
+		{
+			$this->data['delete']="delete";
+		}
+		if($type!=null)
+		{
+			$this->data['type']=$type;
+		}
+		$this->load->view ( 'layout/reportheader');
+		$this->load->view('widgets/errorlogondevice',$this->data);
+	}
 	//error all  data report
 	function geterroralldata() {
 		$product = $this->common->getCurrentProduct ();

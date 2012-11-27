@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <title><?php echo lang('l_cobubRazor') ?></title>
+<style>
+* { margin:0;padding:0; }
+</style>
 <link rel="icon" href="<?php echo base_url()?>favicon.ico" type="image/x-icon"/>
 <link rel="shortcut icon" href="<?php echo base_url()?>favicon.ico" type="image/x-icon"/>
 <link rel="Bookmark" href="<?php echo base_url()?>favicon.ico"/>
@@ -35,6 +38,8 @@
 	type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/js/jquery-ui-1.8.min.js"
 	type="text/javascript"></script>
+	<script src="<?php echo base_url();?>assets/js/jquery-ui-1.8.16.custom.min.js"
+	type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/js/hideshow.js"
 	type="text/javascript"></script>
 <script
@@ -56,7 +61,15 @@
 <script
 	src="<?php echo base_url();?>assets/js/charts/modules/exporting.js"
 	type="text/javascript"></script>	
-
+<!-- easydialog -->
+<link rel="stylesheet"
+	href="<?php echo base_url();?>assets/css/easydialog.css" type="text/css"
+	media="screen" />
+<script	src="<?php echo base_url();?>assets/js/easydialog/easydialog.js"
+	type="text/javascript"></script>
+<script	src="<?php echo base_url();?>assets/js/easydialog/easydialog.min.js"
+type="text/javascript"></script>
+<!-- easydialog -->
 	<script type="text/javascript">
 	$(document).ready(function() 
     	{ 
@@ -203,7 +216,7 @@
 	<?php endif;?>
 	</section>
 	<!-- end of secondary bar -->
-	<aside id="sidebar" class="column">
+	<aside id="sidebar" class="column" >
 		<?php if(!isset($product)):?>
 		<h3><?php echo lang('m_manage') ?></h3>
 		<ul class="toggle">
@@ -236,6 +249,7 @@
 		<ul class="toggle">
 			<li class="icn_use_frequency"><?php echo anchor('/report/usefrequency', lang('m_rpt_frequencyOfUse') );?></li>
 			<li class="icn_use_time"><?php echo anchor('/report/usetime',  lang('m_rpt_usageDuration'));?></li>
+			<li class="icn_phaseusetime"><?php echo anchor('/report/productbasic/phaseusetime', lang('m_rpt_timeTrendOfUsers') );?></li>
 			<li class="icn_pagevisit"><?php echo anchor('/report/pagevisit', lang('m_rpt_pageviews'));?></li>
 			<li class="icn_analy_region"><?php echo anchor('/report/region/',  lang('m_rpt_geography'));?></li>
 			<li class="icn_remainuser"><?php echo anchor('/report/userremain/',  lang('m_rpt_userRetention'));?></li>
@@ -253,7 +267,7 @@
 		<h3><?php echo lang('m_rpt_events') ?></h3>
 		<ul class="toggle">
 			<li class="icn_event_list"><?php echo anchor('/report/eventlist/', lang('m_rpt_eventlist'));?></li>
-			<li class="icn_funnel_list"><?php echo anchor('/conversionrate/funnels/', lang('v_rpt_re_funnelModel'));?></li>
+			<li class="icn_funnel_list"><?php echo anchor('/report/funnels/', lang('v_rpt_re_funnelModel'));?></li>
 		</ul>
 
 		<h3><?php echo lang('m_rpt_errors') ?></h3>
@@ -261,6 +275,7 @@
 			<li class="icn_error_analys"><?php echo anchor('/report/errorlog/', lang('m_rpt_errorsOfVersion') );?></li>
 			<li class="icn_error_onos"><?php echo anchor('/report/erroronos/', lang('m_rpt_errorsOnOS') );?></li>
 			<li class="icn_error_ondevice"><?php echo anchor('/report/errorondevice/', lang('m_rpt_errorsOnDevice') );?></li>
+		    <br/>
 		    <hr/>
 		</ul>
 		
@@ -269,9 +284,11 @@
 			<li class="icn_edit_application"><?php echo anchor('/manage/product/editproduct/', lang('m_rpt_editApp'));?></li>
 			<li class="icn_sendpolicy"><?php echo anchor('/manage/onlineconfig/', lang('m_rpt_sendPolicy'));?></li>
 			<li class="icn_custom_event"><?php echo anchor('/manage/event/', lang('m_rpt_customEvent'));?></li>
+			<li class="icn_custom_exception"><?php echo anchor('/manage/alert/', lang('m_rpt_exception'));?></li>
 			<li class="icn_app_channel"><?php echo anchor('/manage/channel/appchannel/', lang('m_rpt_appChannel'));?></li>
 			<li class="icn_funnel_list"><?php echo anchor('/manage/funnels', lang('m_rpt_editFunnel')); ?></li>
-		
+			<li class="icn_mark_event"><?php echo anchor('/manage/pointmark/listmarkeventspage', lang('m_dateevents')); ?></li>
+		<br/>
 		</ul>
 		<?php endif;?>
 		
@@ -286,10 +303,9 @@
 		
 		</ul>
 		
-		<?php endif;?>
-		
-	    
+		<?php endif;?>	   
 		<ul><hr/>
+		 <br/>
 			<li class="icn_term_define"><a href="<?php echo site_url() ;?>/help" target="_blank">
 			<?php echo lang('m_termsAndD');?></a></li>
 			<li class="icn_developerguider"><a href="<?php if(isset($language)): if($language=="zh_CN")
@@ -315,7 +331,7 @@
 				<strong>&copy; Copyright 2012 Cobub Solution </strong>
 			</p>
 			<p>
-				Verion:0.2 <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('g_devCobubC');?></a>
+				Verion:0.3 <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('g_devCobubC');?></a>
 			</p>
 		</footer>
 
@@ -400,6 +416,5 @@
 	  var exp  = new Date();    //new Date("December 31, 9998");
 	  exp.setTime(exp.getTime() + Days*24*60*60*1000);
 	  document.cookie = name + "="+ escape(value) +";expires="+ exp.toGMTString();
-	}
-			
+	}		
 	</script>

@@ -24,7 +24,13 @@ class version extends CI_Controller{
      	$productId = $product->id;		
 		$date = date('Y-m-d',strtotime("-1 day"));
 		$ret = $this->versionmodel->getBasicVersionInfo($productId,$date);
-		$this->data['versionList'] = $ret;		
+		$this->data['versionList'] = $ret;			
+		$this->load->view('overview/versioncontrast',$this->data);
+	}
+	
+	//load channl market report
+	function addversionviewreport($delete=null,$type=null)
+	{
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();		
 		$this->data['reportTitle'] = array(
@@ -32,7 +38,34 @@ class version extends CI_Controller{
 				'activeUser'=>lang("v_rpt_ve_trendActiveUsers"),
 				'newUser'=>lang("v_rpt_ve_trendsAnalytics")			
 		);
-		$this->load->view('overview/versioncontrast',$this->data);
+		//load markevent
+		$currentProduct = $this->common->getCurrentProduct();
+		$this->load->model('point_mark','pointmark');
+		$markevnets=$this->pointmark->listPointviewtochart($this->common->getUserId(),$currentProduct->id,$fromTime,$toTime)->result_array();
+		$marklist=$this->pointmark->listPointviewtochart($this->common->getUserId(),$currentProduct->id,$fromTime,$toTime,'listcount');
+		$this->data['marklist']=$marklist;
+		$this->data['markevents']=$markevnets;
+		$this->data['defdate']=array();
+		$j=0;
+		for ($i=strtotime($fromTime);$i<=strtotime($toTime);$i+=86400){
+			$this->data['defdate'][$j]=date('Y-m-d',$i);
+			$j++;
+		}
+		//end load markevent
+		if($delete==null)
+		{
+			$this->data['add']="add";
+		}
+		if($delete=="del")
+		{
+			$this->data['delete']="delete";
+		}
+		if($type!=null)
+		{
+			$this->data['type']=$type;
+		}
+		$this->load->view ( 'layout/reportheader');
+		$this->load->view('widgets/versionview',$this->data);
 	}
  	
 	//get version data info 
@@ -42,17 +75,25 @@ class version extends CI_Controller{
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();		
 		$retdata = $this->versionmodel->getVersionData($fromTime, $toTime, $productId );
+		//load markevent
+		$this->load->model('point_mark','pointmark');
+		$markevnets=$this->pointmark->listPointviewtochart($this->common->getUserId(),$productId,$fromTime,$toTime)->result_array();
+		$marklist=$this->pointmark->listPointviewtochart($this->common->getUserId(),$productId,$fromTime,$toTime,'listcount');
+		$retdata['marklist']=$marklist;
+		$retdata['markevents']=$markevnets;
+		$retdata['defdate']=$this->common->getDateList($fromTime,$toTime);
+		//end load markevent
 		echo json_encode($retdata);
 	}
 	
-	function getVersionContrast($from1, $to1, $from2, $to2) {
+	function getVersionContrast($from1, $to1, $from2, $to2,$version) {
 		$currentProduct = $this->common->getCurrentProduct ();
 		$productId = $currentProduct->id;
 		//get sum num
 		$total1 = $this->versionmodel->getNewAndActiveAllCount ( $productId, $from1, $to1 );
 		$total2 = $this->versionmodel->getNewAndActiveAllCount ( $productId, $from2, $to2 );
-		$query1 = $this->versionmodel->getVersionContrast ( $productId, $from1, $to1 );
-		$query2 = $this->versionmodel->getVersionContrast ( $productId, $from2, $to2 );
+		$query1 = $this->versionmodel->getVersionContrast ( $productId, $from1, $to1 ,$version);
+		$query2 = $this->versionmodel->getVersionContrast ( $productId, $from2, $to2,$version );
 		$result1 = array ();
 		$result2 = array ();
 		$sum1 = $total1[0]['newusers'];

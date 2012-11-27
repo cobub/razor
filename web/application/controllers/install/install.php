@@ -25,25 +25,100 @@ class install extends CI_Controller {
 		$this->load->config('tank_auth', TRUE);
 		$this->load->helper('file');	
 	}
+	//Check the directory read and write permissions
+	function file_mode_info($file_path)
+	{
+		/* judgment if a file exists. */
+		if (!file_exists($file_path))
+		{
+			return false;
+		}
+		$mark = 0;
+		if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN')
+		{
+			/* test file  */
+			$test_file = $file_path . '/cf_test.txt';
+			/* directory */
+			if (is_dir($file_path))
+			{
+				/* check readable */
+				$dir = @opendir($file_path);
+				if ($dir === false)
+				{
+					return $mark; //If unreadable returns can not be modified directly, unreadable unwritable
+				}
+				if (@readdir($dir) !== false)
+				{
+					$mark ^= 1; //readable 001,unreadable 000
+				}
+				@closedir($dir);
+				/* check writable */
+				$fp = @fopen($test_file, 'wb');
+				if ($fp === false)
+				{
+					return $mark; //If the file is created in the directory fails, the return is not writable.
+				}
+				if (@fwrite($fp, 'directory access testing.') !== false)
+				{
+					$mark ^= 2; //The directories can write readable 011,the directories can write unreadable 010
+				}
+				@fclose($fp);
+				@unlink($test_file);
+				/* Check whether the directory can be modified */
+				$fp = @fopen($test_file, 'ab+');
+				if ($fp === false)
+				{
+					return $mark;
+				}
+				if (@fwrite($fp, "modify test.\r\n") !== false)
+				{
+					$mark ^= 4;
+				}
+				@fclose($fp);
+				/* Check whether the directory a rename () function permissions */
+				if (@rename($test_file, $test_file) !== false)
+				{
+					$mark ^= 8;
+				}
+				@unlink($test_file);
+			}
+			
+		}
+		else
+		{
+			if (@is_readable($file_path))
+			{
+				$mark ^= 1;
+			}
+			if (@is_writable($file_path))
+			{
+				$mark ^= 14;
+			}
+		}
+		return $mark;
+	}
+	
+	
 	//load select language view
 	function index()
-	{
+	{			
 		$languanginfo = array();		
-		$filepath   =   dir( "./application/language");		
-		$directory=$filepath-> read();   //if do not read current directory(just like.)，read one time
-		$directory=$filepath-> read();   //if do not read parent directory(just like..)，read two times
-		while($directory=$filepath->read())   {
-			if($directory!='.svn')
-			{
+		$filepath   =   dir( "./application/language");	
+			
+		//$directory=$filepath->read();   //if do not read current directory(just like.)，read one time		
+		//$directory=$filepath-> read();   //if do not read parent directory(just like..)，read two times
+		
+		while($directory=$filepath->read())   {				
+			if($directory!=".." && $directory!=".svn" && $directory!="." )
+			{ 				
 				array_push($languanginfo, $directory);
 			}			
 		 }
+		 //print_r($languanginfo);
 		$filepath-> close();
 		$this->data['languageinfo']	=$languanginfo;
 		$this->data['newurl']=$this->datamanage->createurl();
 		$this->load->view('install/installselectlanguage',$this->data);
-		
-
 	}
 	//deal with  select language
 	function selectlanguage()
@@ -96,7 +171,7 @@ class install extends CI_Controller {
 		$this->data['phpversion']=$phpversion;
 		$this->data['mysqli']=$mysqli;
 		
-		$configfile = get_dir_file_info($configpath);
+		$configfile = get_dir_file_info($configpath);		
 		$configwrite=$this->iscanwrite($configfile);
 		$this->data['configwrite']=$configwrite;
 		$this->data['configpath']=$configpath;
@@ -104,10 +179,9 @@ class install extends CI_Controller {
 		$captchfile = get_dir_file_info($captchapath);
 		$captchwrite=$this->iscanwrite($captchfile);
 		$this->data['captchwrite']= $captchwrite;
-		$this->data['captchapath']=$captchapath;		
-		
-		$assetsfile = get_dir_file_info($assetspath);
-		$assetswrite=$this->iscanwrite($assetsfile);
+		$this->data['captchapath']=$captchapath;
+				
+		$assetswrite=$this->file_mode_info($assetspath);				
 		$this->data['assetswrite']=$assetswrite;
 		$this->data['assetspath'] = $assetspath;
 		
@@ -116,7 +190,7 @@ class install extends CI_Controller {
 		$this->data['sqlwrite']=$sqlwrite;
 		$this->data['sqlpath'] = $sqlpath;
 		
-		if($configwrite=="true"&&$captchwrite=="true"&&$assetswrite=="true"&&$sqlwrite=="true")
+		if($configwrite=="true"&&$captchwrite=="true"&&$assetswrite!=0&&$sqlwrite=="true")
 		{
 			$writetrue=true;
 			$this->data['writetrue']=$writetrue;
@@ -127,42 +201,12 @@ class install extends CI_Controller {
 			$writetrue=false;
 			$this->data['writetrue']=$writetrue;
 			$this->data['writeerror']=lang('installview_writeerror');
-		}
-		
-		if($phpversion=="true"&&$mysqli=="true"&&$writetrue=="true")
-		{
-			
-			$configlanguage=$this->config->item('language');
-			//modify config file---config file;
-			$dir =	"./application/config/config.php";
-			$fh = fopen($dir,'r+');
-			$data=fread($fh,filesize($dir));
-			$data=str_replace($configlanguage, $language, $data);
-			fclose($fh);
-			$handle=fopen($dir,"w");
-			fwrite($handle,$data);
-			fclose($handle);
-			
-			//modify config file---autoload file;
-			$dir =	"./application/config/autoload.php";
-			$fh = fopen($dir,'r+');
-			$data=fread($fh,filesize($dir));
-			$beforestring="$";
-			$afterstring="autoload['language'] = array()";
-			$autoloadlanguage=$beforestring.$afterstring;			
-			$afternewstring="autoload['language'] = array('installview')";
-			$autoloadnewlanguage=$beforestring.$afternewstring;
-			$data=str_replace($autoloadlanguage, $autoloadnewlanguage, $data);
-			fclose($fh);
-			$handle=fopen($dir,"w");
-			fwrite($handle,$data);
-			fclose($handle);
-
-			
-		}		
+		}	
+				
 		$this->data['newurl']=$this->datamanage->createurl();
 		$this->load->view('install/installcheckview',$this->data);
 	}
+	
 	//check iscanwerte
 	function iscanwrite($fileinfo)
 	{		
@@ -181,11 +225,39 @@ class install extends CI_Controller {
 		}
 	}
 	//load creata database view
-	function databaseinfo()
-	{		
+	function databaseinfo($language)
+	{	
+		$configlanguage=$this->config->item('language');
+		//modify config file---config file;
+		$dir =	"./application/config/config.php";
+		$fh = fopen($dir,'r+');
+		$data=fread($fh,filesize($dir));
+		$data=str_replace($configlanguage, $language, $data);
+		fclose($fh);
+		$handle=fopen($dir,"w");
+		fwrite($handle,$data);
+		fclose($handle);
+			
+		//modify config file---autoload file;
+		$dir =	"./application/config/autoload.php";
+		$fh = fopen($dir,'r+');
+		$data=fread($fh,filesize($dir));
+		$beforestring="$";
+		$afterstring="autoload['language'] = array()";
+		$autoloadlanguage=$beforestring.$afterstring;
+		$afternewstring="autoload['language'] = array('installview')";
+		$autoloadnewlanguage=$beforestring.$afternewstring;
+		$data=str_replace($autoloadlanguage, $autoloadnewlanguage, $data);
+		fclose($fh);
+		$handle=fopen($dir,"w");
+		fwrite($handle,$data);
+		fclose($handle);
+		
 		$ip="localhost";
 		$this->data['ip']=$ip;
-		$this->data['language']=$this->config->item('language');
+		$this->load->helper('language');
+		$this->lang->load('installview', $language);
+		$this->data['language']=$language;
 		$this->data['newurl']=$this->datamanage->createurl();
 		$this->load->view('install/installdatabaseview',$this->data);
 	}

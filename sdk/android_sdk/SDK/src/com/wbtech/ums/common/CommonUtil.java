@@ -26,8 +26,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.wbtech.ums.obj.SCell;
-import com.wbtech.ums.obj.LatitudeAndLongitude;
+import com.wbtech.ums.objects.LatitudeAndLongitude;
+import com.wbtech.ums.objects.SCell;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -169,7 +169,7 @@ public class CommonUtil {
 			}
 		} catch (Exception localException) {
 			if (UmsConstants.DebugMode) {
-				Log.e("UmsAgent","Could not read UMENG_APPKEY meta-data from AndroidManifest.xml.");
+				Log.e("UmsAgent","Could not read UMS_APPKEY meta-data from AndroidManifest.xml.");
 				localException.printStackTrace();
 			}
 		}

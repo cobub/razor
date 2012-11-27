@@ -11,7 +11,7 @@
  * @since		Version 0.1
  * @filesource
  */
-package com.wbtech.ums.obj;
+package com.wbtech.ums.objects;
 
 public class MyMessage {
 	public  boolean flag;

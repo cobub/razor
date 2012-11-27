@@ -77,7 +77,7 @@ namespace UMSAgent.CallBcak
                 FileSave.saveFile((int)UMSAgent.UMSApi.DataType.EVENTDATA, obj);
                 
             }
-           // DebugTool.Log("call back of event data------" + o.msg);
+            DebugTool.Log("call back of event data------" + o.msg);
         }
        
         //callback of page visit
@@ -125,7 +125,7 @@ namespace UMSAgent.CallBcak
                     settings.Remove("hasDateToSend");
                 }
                 settings.Save();
-               // DebugTool.Log("delete file success!");
+                DebugTool.Log("delete file success!");
             }
         }
         public static void call_back_process_configdata(string msg, object obj)

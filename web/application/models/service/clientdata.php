@@ -67,11 +67,11 @@ class Clientdata extends CI_Model
 		    'service_supplier'=>$service_supplier,
 		    'clientip'=>$ip
 		);
-		$latitude = isset ( $content->latitude ) ? $content->latitude : '';
+		$latitude = isset ( $clientdata->latitude ) ? $clientdata->latitude : '';
 		if ($latitude != '')
 		{
-			$latitude =  $content->latitude;
-			$longitude = $content->longitude;
+			$latitude =  $clientdata->latitude;
+			$longitude = $clientdata->longitude;
 			$regionInfo = $this->google->getregioninfo ($latitude, $longitude);
 		}
 		else

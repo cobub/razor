@@ -1,4 +1,4 @@
-<section id="main" class="column" style="height:1800px;">
+<section id="main" class="column" style="height:5300px;overflow-x:hidden;">
 		<?php if(isset($message)):?>
 		<h4 class="alert_success"><?php echo $message;?></h4>		
 		<?php endif;?>
@@ -74,64 +74,10 @@
 			<?php endif;?>
 			</tbody>			
 			</table>
-		</article>
-		
-		<article class="module width_full">
-			<header><h3 class="tabs_involved"><?php echo lang('v_rpt_pb_timeTrendOfUsers') ?></h3>                                                                                                                                      
-			<div class="submit_link">
-			<select onchange="switchTimePhase(this.options[this.selectedIndex].value)" id='startselect'>
-				<option value=today selected ><?php echo  lang('g_today')?></option>
-				<option value=yestoday><?php echo  lang('g_yesterday')?></option>
-				<option value=last7days><?php echo  lang('g_last7days')?></option>
-				<option value=last30days><?php echo  lang('g_last30days')?></option>
-				<option value=any><?php echo  lang('g_anytime')?></option>			
-			</select>
-			<div id='selectcurTime'><input type="text"
-				id="dpTimeFrom"> <input type="text" id="dpTimeTo"> <input type="submit"
-				id='timebtn' value="<?php echo  lang('g_search')?>" class="alt_btn" onclick="onAnyTimeClicked()"></div>
-			</div>				
-			</div>   			
-			</header>
-			<div class="tab_container">
-				<div id="tab1" class="tab_content">
-					<div class="module_content">
-						<article>
-						<div id="container"  class="module_content" style="height:300px">
-		
+		</article>		 
+		<div style="height:330px;">
+		<iframe src="<?php echo site_url() ?>/report/productbasic/adduserbehavorviewreport"  frameborder="0" scrolling="no"style="width:100%;height:100%;"></iframe>		
 		</div>
-						</article>
-						</div>
-						<div class="clear"></div>
-					</div>
-				</div>
-					<footer>
-			<ul class="tabs2">
-				<li><a ct="newUser" href="javascript:changefirstchartName('startuser')"><?php echo  lang('t_activeUsers')?></a></li>
-				<li><a ct="totalUser" href="javascript:changefirstchartName('newuser')"><?php echo  lang('t_newUsers')?></a></li>				
-			</ul>
-		</footer>
-		</article>
-	
-	   <article class="module width_full">     
-		<header>
-			<h3><?php echo  lang('v_rpt_pb_overviewOfUserBehavior')?></h3>
-			<ul class="tabs3">
-				<li><a ct="newUser" href="javascript:changeChartName('<?php echo  lang('t_newUsers')?>')"><?php echo  lang('t_newUsers')?></a></li>
-				<li><a ct="totalUser" href="javascript:changeChartName('<?php echo  lang('t_accumulatedUsers')?>')"><?php echo  lang('t_accumulatedUsers')?></a></li>
-				<li><a ct="activeUser" href="javascript:changeChartName('<?php echo  lang('t_activeUsers')?>')"><?php echo  lang('t_activeUsers')?></a></li>
-				<li><a ct="startUser" href="javascript:changeChartName('<?php echo  lang('t_sessions')?>')"><?php echo  lang('t_sessions')?></a></li>
-				<li><a ct="averageUsingTime" href="javascript:changeChartName('<?php echo  lang('t_averageUsageDuration')?>')"><?php echo  lang('t_averageUsageDuration')?></a></li>
-			</ul>
-		</header>
-		<article>
-		<div id="usercontainer"  class="module_content" style="height:300px">
-		</div>
-		</article>
-		<div class="clear"></div>		
-	</article>
-	<div class="clear"></div>
-	<div class="spacer"></div>
-
 	<article class="module width_full">
 		<header>
 			<h3 class="tabs_involved"><?php echo  lang('v_rpt_pb_userDataDetail')?></h3>
@@ -162,425 +108,65 @@
 		</div>
 		</footer>
 	</article>	
-		<div class="clear"></div>
-		<div class="spacer"></div>
+	<div id="addreportregion" style="width:100%">
+	</div>	
+	<div class="clear"></div>
+	<div class="spacer"></div>	
+	<div id="btn" style="margin: 10px 3% 0 3%;">
+	<table>
+	<tr>
+	<td width="30%"><a href="javascript:void(0)" class="run" onclick="addwidgetsreport()" id="fullBtn"><?php echo lang('w_addfullreport') ?></a></td>
+	
+	</tr>
+	</table>
+	</div>
 	
 		
 </section>
 	
 <script>
-var chartDetailName = '<?php echo  lang('t_newUsers')?>';
-var fromCurTime;
-var toCurTime;
-var chartname = 'startuser';
-var timephase = 'today';
-var name;
-var newUser=[];
-var totalUser=[];
-var activeUser=[];
-var sessionNum=[];
-var avgUsage=[];
 //When page loads...
-dispalyOrHideCurTimeSelect();
-$(".tab_content").hide(); //Hide all content
-$("ul.tabs2 li:first").addClass("active").show(); //Activate first tab
-$(".tab_content:first").show(); //Show first tab content
-
-$("ul.tabs3 li:first").addClass("active").show(); //Activate first tab
-$(".tab_content:first").show(); //Show first tab content
-$(document).ready(function() {
-	getfirstchartdata();
-	//load Overview of User Behavior report
-	var myurl="<?php echo site_url()?>/report/productbasic/getUsersDataByTime?date="+new Date().getTime();
-    renderuserCharts(myurl);
+$(document).ready(function() {	
     initPagination();
 	pageselectCallback(0,null);	
-});
-function dispalyOrHideCurTimeSelect()
-{
-	 var value = document.getElementById('startselect').value;
-	 if(value=='any')
-	 {
-		 document.getElementById('selectcurTime').style.display="inline";
-	 }
-	 else
-	 { 
-		 document.getElementById('selectcurTime').style.display="none";
-	 }
-} 
-//On Click Event
-$("ul.tabs2 li").click(function() {
-	$("ul.tabs2 li").removeClass("active"); //Remove any "active" class
-	$(this).addClass("active"); //Add "active" class to selected tab
-	var activeTab = $(this).find("a").attr("id"); //Find the href attribute value to identify the active tab + content
-	$(activeTab).fadeIn(); //Fade in the active ID content
-	return true;
+	addreportwidgets();
 });
 
-//On Click Event
-$("ul.tabs3 li").click(function() {
-	$("ul.tabs3 li").removeClass("active"); //Remove any "active" class
-	$(this).addClass("active"); //Add "active" class to selected tab
-	var activeTab = $(this).find("a").attr("id"); //Find the href attribute value to identify the active tab + content
-	$(activeTab).fadeIn(); //Fade in the active ID content
-	return true;
-});
-</script>
-<script type="text/javascript">
-function onAnyTimeClicked(){
-	fromCurTime = document.getElementById('dpTimeFrom').value;
-	toCurTime = document.getElementById('dpTimeTo').value;
-	getfirstchartdata();
-}                         
-</script>
-
-<script type="text/javascript">
-$(function() {
-	$( "#dpTimeFrom" ).datepicker();
-});
-$( "#dpTimeFrom" ).datepicker({ dateFormat: "yy-mm-dd" });
-$(function() {
-	$( "#dpTimeTo" ).datepicker();
-});
-$( "#dpTimeTo" ).datepicker({ dateFormat: "yy-mm-dd" });
-</script>
-<!-- Overview of User Behavior report -->
-<script type="text/javascript">
-var chart_detailcanvas;
-var optiondetail;
-var chartdetail;
-function renderuserCharts(myurl)
-{
-	optiondetail = {
-        chart: {
-            renderTo: 'usercontainer',
-            type: 'spline'
-        },
-        title: {
-            text: '   '
-        },
-        subtitle: {
-            text: '<?php echo $reportTitle['timePase']; ?>'
-        },
-        xAxis: {
-            labels:{rotation:300,y:40,x:0}
-        },
-        yAxis: {
-            min:0,
-            title: {
-                text: ''
-            },
-            labels: {
-                formatter: function() {
-                    return Highcharts.numberFormat(this.value, 0);
-                }
-            }
-        },
-        tooltip: {
-            crosshairs: true,
-            shared: true
-        },
-        plotOptions: {
-            spline: {
-                marker: {
-                    radius: 1,
-                    lineColor: '#666666',
-                    lineWidth: 1
-                }
-            }
-        },
-        legend:{
-            enabled:false
-         },
-        series: [{
-            
-            marker: {
-                symbol: 'circle'
-            }
-           
-
-        }]
-    };
-
-	  chart_detailcanvas = $('#usercontainer');
-	    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
-	    chart_detailcanvas.block({
-	        message: loading_img,
-	        css:{
-	            width:'32px',
-	            border:'none',
-	            background: 'none'
-	        },
-	        overlayCSS:{
-	            backgroundColor: '#FFF',
-	            opacity: 0.8
-	        },
-	        baseZ:997
-	    });
-	    jQuery.getJSON(myurl, null, function(data) {  	
-		  	var categories = [];		
-			var obj = data.content;
-		    for(var i=0;i<obj.length;i++)
-		    {			  
-			   newUser.push(parseInt(obj[i].newusers,10));				    
-			   totalUser.push(parseInt(obj[i].allusers,10));
-			   activeUser.push(parseInt(obj[i].startusers,10));			  
-			   sessionNum.push(parseInt(obj[i].sessions,10));	
-			   var usagetime ;
-	       		if(obj[i].sessions==0)
-	           	{
-	       			usagetime = 0;
-	       		}
-	       		else
-	           	{
-	       			usagetime = (obj[i].usingtime/obj[i].sessions)/1000;
-	           	}
-	       		avgUsage.push(parseFloat(parseFloat(usagetime,10).toFixed(2)));			  
-			    categories.push(obj[i].datevalue.substr(0,10));
-		    }		   
-			 optiondetail.series[0].data = newUser;				
-			 optiondetail.xAxis.labels.step = parseInt(categories.length/10);
-			 optiondetail.xAxis.categories = categories;  
-			 optiondetail.title.text = "<?php echo $reportTitle['newUser'] ?>";
-			 optiondetail.series[0].name = chartDetailName;
-			 chartdetail = new Highcharts.Chart(optiondetail);
-			 chart_detailcanvas.unblock();
+function deletereport(deletename)
+{	
+ $('#'+deletename).remove();
+  var data={ 
+	       reportname:deletename,
+	       type:1
+	     };
+   jQuery.ajax({
+				type :  "post",
+				url  :  "<?php echo site_url()?>/report/dashboard/deleteshowreport",	
+				data :  data,			
+				success : function(msg) {	    					
+				},
+				error : function(XmlHttpRequest, textStatus, errorThrown) {
+					alert("<?php echo lang('t_error') ?>");
+				}
 			});
 }
 </script>
 <script type="text/javascript">
-function changefirstchartName(changename)
-{	
-	changeChartTitleName(timephase,changename);
-	chartname = changename;
-	var data = chartdata;
-	var categories = [];
-	var newUsers = [];
-	var obj = data.content;
-    for(var i=0;i<obj.length;i++)
-    {
-	    if(chartname=="startuser")
-		    newUsers.push(parseInt(obj[i].startusers,10));
-	    if(chartname=="newuser")
-	    	newUsers.push(parseInt(obj[i].newusers,10));
-    	categories.push(obj[i].hour);
-    }
-    
-	options.series[0].data = newUsers;
-	options.xAxis.labels.step = parseInt(categories.length/10);
-	options.xAxis.categories = categories;  
-	options.title.text = titlename;
-	                                         
-	chart = new Highcharts.Chart(options);          
-	//getfirstchartdata(); 
-}
-function switchTimePhase(time)
+function addreportwidgets()
 {
-	dispalyOrHideCurTimeSelect();
-	timephase=time;
-	if(time!="any")
-	{
-		getfirstchartdata();
-	}
-	
-}
-function getfirstchartdata()
-{
-	changeChartTitleName(timephase,chartname);
-	var myurl="";
-	if(timephase=='any')
-	{		
-		myurl="<?php echo site_url()?>/report/productbasic/getTypeAnalyzeData/"+timephase+"/"+fromCurTime+"/"+toCurTime;
-	}
-	else
-	{
-		myurl = "<?php echo site_url()?>/report/productbasic/getTypeAnalyzeData/"+timephase+"?date="+new Date().getTime();
-	}
-	renderCharts(myurl);	
-}
-
-function changeChartTitleName(timephase,chartname){
-	if (timephase == "today") {
-		if(chartname=="startuser"){
-			titlename = "<?php echo lang('t_activeUsersT') ?>";
+	var reportinfo=eval(<?php if(isset($addreport)){$report=$addreport->result();echo "'".json_encode($report)."'";}?>);
+	if(reportinfo!=eval())
+	{	
+		var realtype;
+		var reporthtml="";
+		var divclass;
+		for(i=0;i<reportinfo.length;i++)
+		{			
+			reporthtml = reporthtml+ "<iframe id='"+reportinfo[i].reportname+"' src='"+reportinfo[i].src+"/del/'   frameborder='0' scrolling='no'style='width:100%;height:"+reportinfo[i].height+"px;margin: 10px 3% 0 0.3%;'>";
+			reporthtml = reporthtml+"</iframe>";		
 		}
-		if(chartname=="newuser"){
-			titlename ="<?php echo lang('t_newUserT')?>" ;
-			
-		}
-	}
-	if (timephase == "yestoday") {
-		if(chartname=="startuser"){
-			titlename ="<?php echo lang('t_activeUsersY') ?>";
-		}
-		else
-			titlename ="<?php echo lang('t_newUserY') ?>";
-	}	
-	if (timephase == "last7days") {
-		if(chartname=="startuser"){
-			titlename ="<?php echo lang('t_activeUsersW')?>";
-		}
-		else
-			titlename ="<?php echo lang('t_newUserW') ?>";
-	}
-	if (timephase == "last30days") {
-		if(chartname=="startuser"){
-			titlename ="<?php echo  lang('t_activeUsersM') ?>";
-		}
-		else
-			titlename ="<?php echo lang('t_newUserM') ?>";
-	}  
-	if (timephase == "any") {
-		if(chartname=="startuser"){
-			titlename ="<?php echo  lang('t_activeUsersA') ?>";
-		}
-		else
-			titlename ="<?php echo lang('t_newUsersA') ?>";
-	}  
-}
-
-
-
-function changeChartName(name)
-{	
-	chartDetailName = name;	
-	if(chartDetailName=="<?php echo  lang('t_newUsers')?>")
-	{
-		 optiondetail.series[0].data = newUser;			 
-		 optiondetail.title.text = "<?php echo $reportTitle['newUser'] ?>";	
-		 optiondetail.series[0].name = chartDetailName;	
-		 chartdetail = new Highcharts.Chart(optiondetail);
-		
-	}	
-	if(chartDetailName=="<?php echo  lang('t_accumulatedUsers')?>")
-	{
-		optiondetail.series[0].data = totalUser;			 
-		optiondetail.title.text = "<?php echo $reportTitle['totalUser'] ?>";
-		 optiondetail.series[0].name = chartDetailName;			
-		chartdetail = new Highcharts.Chart(optiondetail);
-		
-	}
-	if(chartDetailName=="<?php echo  lang('t_activeUsers')?>")
-	{
-		optiondetail.series[0].data =activeUser ;
-		optiondetail.title.text = "<?php echo $reportTitle['activeUser'] ?>";
-		 optiondetail.series[0].name = chartDetailName;		
-		chartdetail = new Highcharts.Chart(optiondetail);
-	}
-	if(chartDetailName=="<?php echo  lang('t_sessions')?>")
-	{
-		optiondetail.series[0].data =sessionNum ;
-		optiondetail.title.text = "<?php echo $reportTitle['sessionNum'] ?>";
-		 optiondetail.series[0].name = chartDetailName;		
-		chartdetail = new Highcharts.Chart(optiondetail);
-	}
-	if(chartDetailName=="<?php echo  lang('t_averageUsageDuration')?>")
-	{
-		optiondetail.series[0].data =avgUsage ;		
-		optiondetail.title.text = "<?php echo $reportTitle['avgUsage'] ?>";	
-		 optiondetail.series[0].name = chartDetailName;
-		chartdetail = new Highcharts.Chart(optiondetail);
-	}
-	 
-	
-}
-</script>
-<script type="text/javascript">
-var chart;
-var options;
-var chartdata;    
-var titlename="<?php echo lang('t_activeUsersT') ?>" ;
-
-$(document).ready(function() {
-	options = {
-	        chart: {
-	            renderTo: 'container',
-	            type: 'spline'
-	        },
-	        title: {
-	            text: '   '
-	        },
-	        subtitle: {
-	            text: ' '
-	        },
-	        xAxis: {
-	            labels:{rotation:0,y:10,x:0}
-	        },
-	        yAxis: {
-	            title: {
-	                text: ''
-	            },
-	            labels: {
-	                formatter: function() {
-	                    return Highcharts.numberFormat(this.value, 0);
-	                }
-	            },min:0
-	        },
-	        tooltip: {
-	            crosshairs: true,
-	            shared: true
-	        },
-	        plotOptions: {
-	            spline: {
-	                marker: {
-	                    radius: 1,
-	                    lineColor: '#666666',
-	                    lineWidth: 1
-	                }
-	            }
-	        },
-	        legend:{
-	            enabled:false
-	         },
-	        series: [{	            
-	            marker: {
-	                symbol: 'circle'
-	            }
-	        }]
-	    };
-});
-
-function renderCharts(myurl)
-{	
-	 var chart_canvas = $('#container');
-	 var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
-		    
-	    chart_canvas.block({
-	        message: loading_img,
-	        css:{
-	            width:'32px',
-	            border:'none',
-	            background: 'none'
-	        },
-	        overlayCSS:{
-	            backgroundColor: '#FFF',
-	            opacity: 0.8
-	        },
-	        baseZ:997
-	    });
-	   
-	    jQuery.getJSON(myurl, null, function(data) {  
-		chartdata=data;             
-		var categories = [];
-		var newUsers = [];
-		var obj = data.content;
-	    for(var i=0;i<obj.length;i++)
-	    {
-		    if(chartname=="startuser")
-			    newUsers.push(parseInt(obj[i].startusers,10));
-		    if(chartname=="newuser")
-		    	newUsers.push(parseInt(obj[i].newusers,10));
-	    	categories.push(obj[i].hour);
-	    }
-	    
-		options.series[0].data = newUsers;
-		options.xAxis.labels.step = parseInt(categories.length/10);
-		options.xAxis.categories = categories;  
-		options.title.text = titlename;
-		options.series[0].name = "<?php echo lang('t_activeUsers') ?>";
-		chart = new Highcharts.Chart(options);		
-		chart_canvas.unblock();
-		});  
+		$('#addreportregion').html(reporthtml);
+    }	
 }
 </script>
 <script type="text/javascript">
@@ -621,20 +207,121 @@ function pageselectCallback(page_index, jq){
    return false;
  }
            
-            /** 
-             * Callback function for the AJAX content loader.
-             */
-            function initPagination() {
-            	var num_entries = <?php if(isset($num)) echo $num; ?>/<?php echo PAGE_NUMS;?>;
-                // Create pagination element
-                $("#pagination").pagination(num_entries, {
-                    num_edge_entries: 2,
-                    prev_text: '<?php echo  lang('g_previousPage')?>',
-                    next_text: '<?php echo  lang('g_nextPage')?>',           
-                    num_display_entries: 4,
-                    callback: pageselectCallback,
-                    items_per_page:1               
-                });
+/** 
+* Callback function for the AJAX content loader.
+ */
+function initPagination() {
+  var num_entries = <?php if(isset($num)) echo $num; ?>/<?php echo PAGE_NUMS;?>;
+  // Create pagination element
+  $("#pagination").pagination(num_entries, {
+     num_edge_entries: 2,
+     prev_text: '<?php echo  lang('g_previousPage')?>',
+     next_text: '<?php echo  lang('g_nextPage')?>',           
+     num_display_entries: 4,
+     callback: pageselectCallback,
+     items_per_page:1               
+           });
              }
       
 </script>
+<!-- easydialog -->
+<script type="text/javascript">
+
+//add  widgets
+ function addwidgetsreport()
+  {	
+	easyDialog.open({
+		container : {
+			header : '<?php echo  lang('w_addreport'); ?>',
+			content :'<iframe id="widgetslist"  src="<?php echo site_url(); ?>/report/dashboard/loadwidgetslist" frameborder="0" scrolling="no" style="height:400px;"></iframe>',
+			yesFn :addreportwidget ,
+			noFn : true
+		}, 
+		fixed : false
+	});
+}
+
+ var addreportwidget = function(){	
+		var obj ;
+		var reportvalue;
+		 if (document.all)
+		 {    //IE
+			 obj = document.frames["widgetslist"].document;
+	     }
+		 else
+		 {
+			 //Firefox    
+			 obj = document.getElementById("widgetslist").contentDocument;
+	     }	  
+		var item = obj.getElementsByName("reportname"); 
+		var canadd=obj.getElementById("overnum").innerHTML; 
+		if(canadd=="")
+		{
+			var reportgroup = new Array();  
+		    for (var i = 0; i < item.length; i++)  
+		    {
+		    	var str = item[i].value;  
+		    	var report=str.split("/");
+		        var reportcontroller=report[0];
+		        var reportname=report[1];			  	    
+		        var height= report[2];		          	        
+		        if(item[i].checked==true && document.getElementById(reportname)==null)				    		    	  
+		    	{            	 
+			    	var data={
+				  		  	     reportname:reportname,
+				  		  	     controller:reportcontroller,
+					  		  	 height    :height,
+					  		  	 type      :1
+					  		  	 
+				  		  	    }; 	  
+						jQuery.ajax({
+										type :  "post",
+										url  :  "<?php echo site_url()?>/report/dashboard/addshowreport",	
+										data :  data,			
+										success : function(msg) {
+										if(msg)
+										{											
+											document.getElementById("addreportregion").innerHTML+=msg;																								
+										}		 
+										},
+										error : function(XmlHttpRequest, textStatus, errorThrown) {
+											alert("<?php echo lang('t_error') ?>");
+										}
+									});					   		   
+				 }	
+		    	
+		    	if(document.getElementById(reportname)!=null&&item[i].checked==false)
+				 {    
+							var div = document.getElementById(reportname);
+						    var parent = div.parentElement;
+						    parent.removeChild(div);    		    	
+						    	  var data={
+						  		  	     reportname:reportname,
+						  		  	     type:1
+						  		  	    };
+								jQuery.ajax({
+												type :  "post",
+												url  :  "<?php echo site_url()?>/report/dashboard/deleteshowreport",	
+												data :  data,			
+												success : function(msg) {						       						        		
+												},
+												error : function(XmlHttpRequest, textStatus, errorThrown) {
+													alert("<?php echo lang('t_error') ?>");
+												}
+											}); 
+				}			    
+						
+			   	   	     
+		    }	     
+		 
+		}
+		else
+		{
+			return false;
+		}
+ };	    
+
+
+</script>
+<!-- easydialog --> 
+

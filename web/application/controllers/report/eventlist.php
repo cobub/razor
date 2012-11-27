@@ -7,6 +7,7 @@ class Eventlist extends CI_Controller {
 		$this->load->Model ( 'common' );
 		$this->load->model ( 'event/userEvent', 'event' );
 		$this->load->model ( 'product/versionmodel', 'versionmodel' );
+		$this->load->model ( 'analysis/trendandforecastmodel','trend');
 		$this->common->requireLogin ();
 		$this->common->requireProduct();
 		$this->load->model('product/productmodel','product');
@@ -63,11 +64,26 @@ class Eventlist extends CI_Controller {
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();
 		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
-		$ret = array();
+		$result = array();
 	    $data = $this->event->getAllEventChartData($productId,$event_sk,$version,$fromTime,$toTime);
-	    $result = json_encode($data->result());
-	    echo $result;
-	
+	    $trendFromtime = $this->common->getPredictiveValurFromTime();
+	    $dataoftrend = $this->event->getAllEventChartData($productId,$event_sk,$version,$trendFromtime,$toTime);
+	    $da = $dataoftrend;
+	    $trendresult = $this->trend->geteventtrenddata($da->result_array());
+// 	    print_r($trendresult);
+	    //load markevents
+	    $mark=array();
+	    $currentProduct = $this->common->getCurrentProduct();
+	    $this->load->model('point_mark','pointmark');
+	    $markevnets=$this->pointmark->listPointviewtochart($this->common->getUserId(),$productId,$fromTime,$toTime)->result_array();
+	    $marklist=$this->pointmark->listPointviewtochart($this->common->getUserId(),$productId,$fromTime,$toTime,'listcount');
+	    $result['marklist']=$marklist;
+	    $result['markevents']=$markevnets;
+	    $result['defdate']=$this->common->getDateList($fromTime,$toTime);
+	    //end load markevents
+	    $result['dataList'] = $data->result();
+	    $result['trend']=$trendresult;
+	    echo json_encode($result);
 	}
     
 

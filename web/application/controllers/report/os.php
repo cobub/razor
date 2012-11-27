@@ -23,81 +23,185 @@ class Os extends CI_Controller {
 		$this->load->model ( 'product/productmodel', 'product' );
 		$this->load->model ( 'product/newusermodel', 'newusermodel' );
 		$this->common->requireLogin ();
-		$this->common->requireProduct();
+		$this->common->checkCompareProduct();
 	}
 	function index() {
-		$this->common->loadHeaderWithDateControl ();
-		$productId = $this->common->getCurrentProduct ();
-			$productId=$productId->id;
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();
+		if(isset($_GET['type'])&&$_GET['type']=='compare'){
+			$this->common->loadCompareHeader ();
+			$this->data['reportTitle'] = array(
+					'activeUserReport'=> getReportTitle(lang("t_activeUsers")." ".lang("v_rpt_os_top10") , $fromTime, $toTime),
+					'newUserReport'=>  getReportTitle(lang("t_newUsers")." ".lang("v_rpt_os_top10") , $fromTime, $toTime),
+					'timePhase'=>getTimePhaseStr($fromTime, $toTime)
+			);
+			$this->load->view ( 'compare/osview', $this->data );
+		}else{
+		$this->common->loadHeaderWithDateControl ();
+		$productId = $this->common->getCurrentProduct ();
+		$this->common->requireProduct();
+			$productId=$productId->id;
 		// init detailed data
 		$this->data ['details'] = $this->os->getTotalUserPercentByOS ( $productId, $fromTime, $toTime );
+		
+		$this->load->view ( 'terminalandnet/osview', $this->data );
+		}
+	}
+	/*load os report*/
+	function addosversionreport($delete=null,$type=null)
+	{
+		$fromTime = $this->common->getFromTime ();
+		$toTime = $this->common->getToTime ();
 		$this->data['reportTitle'] = array(
 				'activeUserReport'=> getReportTitle(lang("t_activeUsers")." ".lang("v_rpt_os_top10") , $fromTime, $toTime),
 				'newUserReport'=>  getReportTitle(lang("t_newUsers")." ".lang("v_rpt_os_top10") , $fromTime, $toTime),
 				'timePhase'=>getTimePhaseStr($fromTime, $toTime)
 				);
-		$this->load->view ( 'terminalandnet/osview', $this->data );
+		if($delete==null)
+		{
+			$this->data['add']="add";
+		}
+		if($delete=="del")
+		{
+			$this->data['delete']="delete";
+		}
+		if($type!=null)
+		{
+			$this->data['type']=$type;
+		}
+		$this->load->view ( 'layout/reportheader');
+		$this->load->view('widgets/osversion',$this->data);
 	}
 	
 	/*
 	 * Get os data by time phase, called by ajax
 	 */
 	function getOsData($timePhase) {
-		$productId = $this->common->getCurrentProduct ()->id;
+		$productId = $this->common->getCurrentProduct ();
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();
 		
-		$activeUserData = $this->os->getActiUsersPercentByOS ( $fromTime, $toTime, $productId );
-		$newUserData = $this->os->getNewUserPercentByOS ( $fromTime, $toTime, $productId );
-		
-		$activeUserDataArray = array ();
-		$totalPercent = 0;
-		foreach ( $activeUserData->result () as $row ) {
-			if (count ( $activeUserData ) > 10) {
-				break;
+		if(empty($productId)){
+			$products = $this->common->getCompareProducts();
+			if(empty($products)){
+				$this->common->requireProduct();
+				return;
 			}
-			$activeUserDataObj = array ();
-			$activeUserDataObj ["deviceos_name"] = $row->deviceos_name;
-			$percent = round ( $row->percentage * 100, 1 );
-			$totalPercent += $percent;
-			$activeUserDataObj ["percentage"] = $percent;
-			array_push ( $activeUserDataArray, $activeUserDataObj );
-		}
-		
-		if ($totalPercent < 100.0) {
-			$remainPercent = round ( 100 - $totalPercent, 2 );
-			$activeUserDataObj ["deviceos_name"] = lang('g_others');
-			$activeUserDataObj ["percentage"] = $remainPercent;
-			array_push ( $activeUserDataArray, $activeUserDataObj );
-		}
-		
-		$newUserDataArray = array ();
-		$totalPercent = 0;
-		foreach ( $newUserData->result () as $row ) {
-			if (count ( $newUserDataArray ) > 10) {
-				break;
+			for($i=0;$i<count($products);$i++){
+				$activedata=$this->os->getActiUsersPercentByOS ( $fromTime, $toTime, $products[$i]->id );
+				$newdata=$this->os->getNewUserPercentByOS ( $fromTime, $toTime, $products[$i]->id );
+				$ret["activeUserData".$products[$i]->name] = $this->change2StandardPrecent($activedata);
+				$ret["newUserData".$products[$i]->name] = $this->change2StandardPrecent($newdata);
 			}
-			$newDataObj = array ();
-			$newDataObj ["deviceos_name"] = $row->deviceos_name;
-			$percent = round ( $row->percentage * 100, 1 );
-			$totalPercent += $percent;
-			$newDataObj ["percentage"] = $percent;
-			array_push ( $newUserDataArray, $newDataObj );
+		}else{
+		$this->common->requireProduct();
+		$activeUserData = $this->os->getActiUsersPercentByOS ( $fromTime, $toTime, $productId->id );
+		$newUserData = $this->os->getNewUserPercentByOS ( $fromTime, $toTime, $productId->id );
+		$ret ["activeUserData"] = $this->change2StandardPrecent($activeUserData);
+		$ret ["newUserData"] = $this->change2StandardPrecent($newUserData);
 		}
-		
-		if ($totalPercent < 100.0) {
-			$remainPercent = round ( 100 - $totalPercent, 2 );
-			$newDataObj ["deviceos_name"] = lang('g_others');
-			$newDataObj ["percentage"] = $remainPercent;
-			array_push ( $newUserDataArray, $newDataObj );
-		}
-		
-		$ret ["activeUserData"] = $activeUserDataArray;
-		$ret ["newUserData"] = $newUserDataArray;
 		
 		echo json_encode ( $ret );
+	}
+	
+	function change2StandardPrecent($userData){
+		$userDataArray = array ();
+		$totalPercent = 0;
+		foreach ( $userData->result () as $row ) {
+			if (count ( $userData ) > 10) {
+				break;
+			}
+			$userDataObj = array ();
+			$userDataObj ["deviceos_name"] = $row->deviceos_name;
+			$percent = round ( $row->percentage * 100, 1 );
+			$totalPercent += $percent;
+			$userDataObj ["percentage"] = $percent;
+			array_push ( $userDataArray, $userDataObj );
+		}
+	
+		if ($totalPercent < 100.0) {
+			$remainPercent = round ( 100 - $totalPercent, 2 );
+			$userDataObj ["deviceos_name"] = lang('g_others');
+			$userDataObj ["percentage"] = $remainPercent;
+			array_push ( $userDataArray, $userDataObj );
+		}
+		return $userDataArray;
+		//	print_r($userDataArray);
+	}
+	
+	function exportCSV(){
+		$fromTime = $this->common->getFromTime ();
+		$toTime = $this->common->getToTime ();
+		$products = $this->common->getCompareProducts();
+		if(empty($products)){
+			$this->common->requireProduct();
+			return;
+		}
+		$this->load->library ( 'export' );
+		$export = new Export ();
+		$titlename=getExportReportTitle("Compare",lang("v_rpt_os_top10"),$fromTime, $toTime);
+		$titlename=iconv("UTF-8", "GBK", $titlename);
+		$export->setFileName ($titlename);
+		$j=0;
+		$mk=0;
+		$title[$j++]=iconv("UTF-8", "GBK", lang('t_activeUsers'));
+		$space[$mk++]=' ';
+		for($i=0;$i<count($products);$i++){
+			$title[$j++]=iconv("UTF-8", "GBK",$products[$i]->name);
+			$title[$j++]='';
+			$space[$mk++]=' ';
+			$space[$mk++]=' ';
+		}
+		$export->setTitle ($title);
+		$k=0;
+		$maxlength=0;
+		$maxlength2=0;
+		$j=0;
+		$nextlabel[$j++]=lang('t_newUsers');
+		for($m=0;$m<count($products);$m++){
+			$activedata=$this->os->getActiUsersPercentByOS ( $fromTime, $toTime, $products[$m]->id );
+			$newdata=$this->os->getNewUserPercentByOS ( $fromTime, $toTime, $products[$m]->id );
+			$detailData[$m] = $this->change2StandardPrecent($activedata);
+			$detailNewData[$m] = $this->change2StandardPrecent($newdata);
+			if(count($detailData[$m])>$maxlength){
+				$maxlength=count($detailData[$m]);
+			}
+			if(count($detailNewData[$m])>$maxlength2){
+				$maxlength2=count($detailNewData[$m]);
+			}
+			$nextlabel[$j++]=$products[$m]->name;
+			$nextlabel[$j++]='';
+		}
+		
+		$this->getExportRowData($export,$maxlength,$detailData,$products);
+		$export->addRow ( $space );
+		$export->addRow ( $nextlabel );
+		$this->getExportRowData($export,$maxlength2,$detailNewData,$products);
+		$export->export ();
+		die ();
+	}
+	
+	function getExportRowData($export,$length,$userData,$products){
+		$k=0;
+		for($i=0;$i<$length;$i++){
+			$result[$k++]=$i+1;
+			for($j=0;$j<count($products);$j++){
+				$obj=$userData[$j];
+				if($i>=count($obj)){
+					$result[$k++]='';
+					$result[$k++]='';
+				}else{
+					if($obj[$i]['deviceos_name']==''){
+						$result[$k++]='unknow';
+					}else{
+						$result[$k++]=$obj[$i]['deviceos_name'];
+					}
+					$result[$k++]=$obj[$i]['percentage']."%";
+				}
+			}
+			$export->addRow ( $result );
+			$k=0;
+		}
 	}
 	
 	/*
@@ -106,6 +210,7 @@ class Os extends CI_Controller {
 	function export() {
 		$this->load->library ( 'export' );
 		$productId = $this->common->getCurrentProduct ();
+		$this->common->requireProduct();
 			$productId=$productId->id;
 		$productName = $this->common->getCurrentProduct ()->name;
 		$fromTime = $this->common->getFromTime ();

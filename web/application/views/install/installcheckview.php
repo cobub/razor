@@ -157,7 +157,7 @@
 		<footer>
 		<ul  class="tabs">
 		<div>		
-		<a href='<?php if($phpversion=="true"&&$mysqli=="true"&&$writetrue=="true") {echo $newurl.'/index.php?/install/install/databaseinfo';}
+		<a href='<?php if($phpversion=="true"&&$mysqli=="true"&&$writetrue=="true") {echo $newurl.'/index.php?/install/install/databaseinfo/'.$language;}
 		else{  echo $newurl.'/index.php?/install/install/systemcheck';  } ?>'>
 		<input type="submit" value="<?php echo lang('installview_nextstep') ;?>"></a>
 		</div>
@@ -169,7 +169,7 @@
 	</section>
 
 <div style="position:absolute;top:920px; left:500px">
-<p align="center"> &copy; Copyright 2012 Cobub Razor Solution Verion:0.2 <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('installview_companyname') ;?></a></p></div>
+<p align="center"> &copy; Copyright 2012 Cobub Razor Solution Verion:0.3 <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('installview_companyname') ;?></a></p></div>
 
 </body>
 

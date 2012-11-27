@@ -597,23 +597,23 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 																	return false;
 													}
 
-																	function getStarterUserCountByTime($from,$to,$projectid)
-																	{
-																	$dwdb = $this->load->database ( 'dw', TRUE );
-																	$sql="select h.hour,ifnull(sum(startusers),0) startusers,ifnull(sum(newusers),0) newusers
-																	from ".$dwdb->dbprefix('dim_date')."  d inner join ".$dwdb->dbprefix('sum_basic_byhour')."
-																	s on d.datevalue between '$from' and '$to' and d.date_sk = s.date_sk inner join ".$dwdb->dbprefix('dim_product')." p on p.product_id = $projectid and p.product_sk = s.product_sk and p.product_active=1 and p.channel_active=1 and p.version_active=1 right join ".$dwdb->dbprefix('hour24')." h on h.hour=s.hour_sk group by h.hour order by h.hour";
+													function getStarterUserCountByTime($from,$to,$projectid)
+													  {
+														    $dwdb = $this->load->database ( 'dw', TRUE );
+															$sql="select h.hour,ifnull(sum(startusers),0) startusers,ifnull(sum(newusers),0) newusers
+															from ".$dwdb->dbprefix('dim_date')."  d inner join ".$dwdb->dbprefix('sum_basic_byhour')."
+															s on d.datevalue between '$from' and '$to' and d.date_sk = s.date_sk inner join ".$dwdb->dbprefix('dim_product')." p on p.product_id = $projectid and p.product_sk = s.product_sk and p.product_active=1 and p.channel_active=1 and p.version_active=1 right join ".$dwdb->dbprefix('hour24')." h on h.hour=s.hour_sk group by h.hour order by h.hour";
 																		
-																	$query = $dwdb->query($sql);
-																	if($query!=null && $query->num_rows()>0)
-																	{
-																		return $query;
-																	}
-																	else
-																	{
-																	return null;
-																	}
-																	}
+															$query = $dwdb->query($sql);
+														 if($query!=null && $query->num_rows()>0)
+															{
+															  return $query;
+															}
+														  else
+														    {
+															  return null;
+															}
+														}
 
 																	function getBasicInfoByDate($productId,$date)
 																	{
@@ -1075,5 +1075,9 @@ function getProductListByPlatform($platformId,$userId,$today,$yestoday)
 		$query = $dwdb->query($sql);
 		return $query;
 	}
-
+	function getProductName($id){
+		$sql = "select * from ".$this->db->dbprefix('product')." where id =$id";
+	$result=	$this->db->query($sql);
+	return $result;
+	}
 }

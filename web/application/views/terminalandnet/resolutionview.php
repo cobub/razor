@@ -1,16 +1,7 @@
 <section id="main" class="column" style="height: 1100px">
-	<article class="module width_full">
-		<header>
-			<h3 class="tabs_involved"><?php echo  lang('v_rpt_re_top10')?></h3>
-			<ul class="tabs2">
-				<li><a ct="activeuser"
-					href="javascript:changeReportType('activeuser')"><?php echo  lang('t_activeUsers')?></a></li>
-				<li><a ct="newuser" href="javascript:changeReportType('newuser')"><?php echo  lang('t_newUsers')?></a></li>
-			</ul>
-		</header>
-		<div id="container" class="module_content" style="height: 400px"></div>
-	</article>
-
+<div style="height:480px;">
+  <iframe src="<?php echo site_url() ?>/report/resolution/addresolutioninforeport"  frameborder="0" scrolling="no"style="width:100%;height:100%;"></iframe>		
+</div>
 	<article class="module width_full">
 		<header>
 			<h3 class="tabs_involved"><?php echo  lang('v_rpt_re_details')?>  </h3>
@@ -49,148 +40,10 @@
 
 
 <script type="text/javascript">
-var chart;
-var options;
-var newUserData = [];
-var activeUserData = [];
-var reportTitle = '<?php echo $reportTitle['activeUserReport'] ?>';
-
-$(document).ready(function() {
-	options = {
-	        chart: {
-	            renderTo: 'container'
-		 	        },
-	        title: {
-	            text: '   '
-	        },
-	        subtitle:{text:''},
-	        tooltip: {
-	        	formatter: function () {  
-                    return '<b>' + this.point.name + '</b>: ' + Highcharts.numberFormat(this.percentage, 1) + ' %';  
-                } 
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: 0,
-                y: 40,
-                floating: false,
-                borderWidth: 1,
-                backgroundColor: '#FFFFFF'
-            },
-            
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
-                        formatter: function() {
-                            return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage,1) +' %';
-                        }
-                    },
-            showInLegend: true
-                }
-            },
-	        series: [{	            
-	          	type:'pie'
-	        }]
-	    };
-    
-	var osDataURL  = "<?php echo site_url();?>/report/resolution/getResolutionData";
-	renderCharts(osDataURL);
+$(document).ready(function() {	
 	initPagination();
 	pageselectCallback(0,null);
 });
-
-function renderCharts(myurl)
-{	
-	 var chart_canvas = $('#container');
-	 var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
-		    
-	    chart_canvas.block({
-	        message: loading_img,
-	        css:{
-	            width:'32px',
-	            border:'none',
-	            background: 'none'
-	        },
-	        overlayCSS:{
-	            backgroundColor: '#FFF',
-	            opacity: 0.8
-	        },
-	        baseZ:997
-	    });
-	   
-	    jQuery.getJSON(myurl, null, function(data) {  
-
-		var obj = data.activeUserData;
-		for(i=0;i<obj.length;i++)
-		{
-			var pieObj = {};
-			pieObj.name = obj[i].deviceresolution_name;
-			pieObj.sliced = false;
-			pieObj.y = obj[i].percentage;
-			pieObj.selected = false;
-			activeUserData.push(pieObj);
-		}
-
-		var objNewUserData = data.newUserData;
-		for(i=0;i<objNewUserData.length;i++)
-		{
-			var pieObj = {};
-			pieObj.name = objNewUserData[i].deviceresolution_name;
-			pieObj.sliced = false;
-			pieObj.y = objNewUserData[i].percentage;
-			pieObj.selected = false;
-			newUserData.push(pieObj);
-		}
-		
-		options.series[0].data = activeUserData;
-		options.title.text = reportTitle;
-		options.subtitle.text = '<?php echo $reportTitle['timePhase'];?>';
-		chart = new Highcharts.Chart(options);
-		
-		chart_canvas.unblock();
-		});  
-}
-
-
-
-function changeReportType(reportType)
-{
-	if(reportType == "activeuser")
-	{
-		options.series[0].data = activeUserData;
-		options.title.text = '<?php echo $reportTitle['activeUserReport'] ?>';
-		chart = new Highcharts.Chart(options);
-	}
-
-	if(reportType == "newuser")
-	{
-		options.series[0].data = newUserData;
-		options.title.text = '<?php echo $reportTitle['newUserReport'] ?>';
-		options.subtitle.text = '<?php echo $reportTitle['timePhase'];?>';
-		chart = new Highcharts.Chart(options);
-	}
-}
-
-
-$(".tab_content").hide(); //Hide all content
-$("ul.tabs2 li:first").addClass("active").show(); 
-$(".tab_content:first").show(); //Show first tab content
-
-$("ul.tabs2 li").click(function() {
-	$("ul.tabs2 li").removeClass("active"); //Remove any "active" class
-	$(this).addClass("active"); //Add "active" class to selected tab
-	var activeTab = $(this).find("a").attr("id"); //Find the href attribute value to identify the active tab + content
-	$(activeTab).fadeIn(); //Fade in the active ID content
-	return true;
-});
-
 var detailObj = eval(<?php echo "'".json_encode($details->result())."'"?>);
 
 function pageselectCallback(page_index, jq){

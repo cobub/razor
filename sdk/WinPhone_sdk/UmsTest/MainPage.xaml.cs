@@ -75,5 +75,21 @@ namespace UmsTest
             UMSAgent.UMSApi.onEvent("mycontact", "MainPage", "acc label", 10);
         }
 
+        private void button6_Click(object sender, RoutedEventArgs e)
+        {
+            CrashObj obj = null;
+            this.button6.Content = obj.name;
+        }
+        public class CrashObj
+        {
+            public string name;
+            public string Name
+            {
+                get { return name; }
+                set { this.name = value; }
+            }
+        
+        }
+
     }
 }

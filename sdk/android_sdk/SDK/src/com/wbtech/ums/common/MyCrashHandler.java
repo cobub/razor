@@ -17,21 +17,15 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.wbtech.ums.UmsAgent;
-import com.wbtech.ums.obj.MyMessage;
+import com.wbtech.ums.objects.MyMessage;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
-import android.util.Log;
 
 public class MyCrashHandler implements UncaughtExceptionHandler {
  private static MyCrashHandler myCrashHandler ;

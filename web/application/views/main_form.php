@@ -62,6 +62,7 @@
 			<table class="tablesorter" cellspacing="0"> 
 			<thead> 
 				<tr> 
+					<th></th>
     				<th><?php echo  lang('v_app')?></th> 
     				<th><?php echo  lang('v_platform')?></th>
     				<th><?php echo  lang('v_totalUsers')?></th> 
@@ -78,7 +79,8 @@
 			 {
 			 	$row = $androidList[$i];
 			 ?>
-				<tr> 
+				<tr>
+					<td><input type="checkbox" name="pid" value="<?php echo $row['id'];?>"/></td> 
     				<td><?php echo $row['name'];?></td> 
     				<td><?php echo $row['platform']?></td>
     				<td><?php echo $row['totaluser'];?></td> 
@@ -91,9 +93,12 @@
     				<a href="javascript:if(confirm('<?php echo  lang('v_deleteAppPrompt')?>'))location='<?php echo site_url();?>/manage/product/delete/<?php echo $row['id'] ;?>'"><?php echo  lang('g_delete')?></a>
 				</tr> 
 			<?php } endif;?>
-			
 			</tbody> 
 			</table>
+			<div style="margin:5px">
+				<input type="submit" value="<?php echo lang('c_compare_product')?>" name="compareButton" class="alt_btn" id="submit" onclick="compareProduct();"/>
+				<span style="padding:10px;vertical-align: middle;"><?php echo lang('c_compare2two4')?></span>
+			</div>
 			</div><!-- end of #tab1 -->
 			
 			
@@ -105,7 +110,7 @@
 		<article class="module module width_full">
 		<header><h3><?php echo lang('v_CR_news'); ?></h3></header>
 		<iframe src="http://news.cobub.com/index.php?/news/getnews"  width="100%" 
-		height="250px" frameborder="0" scrolling="no" ></iframe>		
+		height="270px" frameborder="0" scrolling="no" ></iframe>		
 		</article>
 		<div class="clear"></div>
 		<div class="spacer"></div>
@@ -151,6 +156,9 @@ $(document).ready(function() {
 	            },
 	            min:0
 	        },
+	        credits:{
+				enabled:false
+		        },
 	        tooltip: {
 	            crosshairs: true,
 	            shared: true
@@ -198,32 +206,31 @@ function renderCharts(myurl)
 	jQuery.getJSON(myurl, null, function(data) {	 
 		var categories = [];		
 		var obj = data.content;	
+		var objoftrend = data.contentofTrend;
 	    for(var i=0;i<obj.length;i++)
 	    {		   
 	    	newUserData.push(parseInt(obj[i].newusers,10));
-	    	activeUserData.push(parseInt(obj[i].startusers,10));		   
+	    	newUserData1.push(parseInt(objoftrend[i].newusers,0));
+	    	
+	    	activeUserData.push(parseInt(obj[i].startusers,10));	
+	    	activeUserData1.push(parseInt(objoftrend[i].startusers,0));
+	    		   
 	    	sessionData.push(parseInt(obj[i].sessions,10));		  
+	    	sessionData1.push(parseInt(objoftrend[i].sessions,0));
+	    	
 	    	categories.push(obj[i].datevalue);
 	    }
-	    newUserData1 = onceavg(newUserData); 
-	    newUserData2 = secondavg(newUserData,newUserData1);
-	    activeUserData1 = onceavg(activeUserData); 
-	    activeUserData2 = secondavg(activeUserData,activeUserData1);
-	    sessionData1 = onceavg(sessionData); 
-	    sessionData2 = secondavg(sessionData,sessionData1);
-	    
+	   
 	    options.series[0]={};
 		options.series[0].data = newUserData;
 		options.series[1]={};
 		options.series[1].data = newUserData1;
-		options.series[2]={};
-		options.series[2].data = newUserData2;
+		options.series[1].dashStyle='shortdot';
 		options.xAxis.labels.step = parseInt(categories.length/10);
 		options.xAxis.categories = categories;  
 		options.title.text = "<?php echo $reportTitle['newUser'] ?>";
 		options.series[0].name = chartName;
-		options.series[1].name = "once avg";
-		options.series[2].name = "second avg";
+		options.series[1].name = "<?php echo lang('V_Trendvalue')?>";
 		chart = new Highcharts.Chart(options);
 		chart_canvas.unblock();
 		});  
@@ -235,11 +242,9 @@ function changeChartName(name)
 	{
 		options.series[0].data = newUserData;
 		options.series[1].data = newUserData1;
-		options.series[2].data = newUserData2;
 		options.title.text = "<?php echo $reportTitle['newUser'] ?>";
 		options.series[0].name = chartName;
-		options.series[1].name = 'once avg';
-		options.series[2].name = 'second avg';
+		options.series[1].name = '<?php echo lang('V_Trendvalue')?>';
 		chart = new Highcharts.Chart(options);
 	}
 
@@ -247,22 +252,18 @@ function changeChartName(name)
 	{
 		options.series[0].data = activeUserData;
 		options.series[1].data = activeUserData1;
-		options.series[2].data = activeUserData2;
 		options.title.text = "<?php echo $reportTitle['activeUser'] ?>";
 		options.series[0].name = chartName;
-		options.series[1].name = 'once avg';
-		options.series[2].name = 'second avg';
+		options.series[1].name = '<?php echo lang('V_Trendvalue')?>';
 		chart = new Highcharts.Chart(options);
 	}
 	if(chartName=='<?php echo  lang('t_sessions')?>')
 	{
 		options.series[0].data = sessionData;
 		options.series[1].data = sessionData1;
-		options.series[2].data = sessionData2;
 		options.title.text = "<?php echo $reportTitle['session'] ?>";
 		options.series[0].name = chartName;
-		options.series[1].name = 'once avg';
-		options.series[2].name = 'second avg';
+		options.series[1].name = '<?php echo lang('V_Trendvalue')?>';
 		chart = new Highcharts.Chart(options);
 	}
 	
@@ -286,7 +287,38 @@ $("ul.tabs2 li").click(function() {
 	return true;
 });
 </script>
-
+<script type="text/javascript">
+	//compare product
+$(function(){
+	if($('input[name=pid]').length<1){
+		$("input[name=compareButton]").attr({disabled:"disabled"});
+	}
+});
+function compareProduct(){
+	var pids=new Array();
+	$('input[name=pid]').each(function(index,item){
+		if($(this).attr('checked')=='checked'){
+			pids.push($(this).val());
+			}
+		});
+	
+	if(pids.length>4||pids.length<=1){alert('<?php echo lang('c_compare2two4')?>');return;}
+	$('input[name=compareButton]').ajaxStart(function(){$(this).attr({disabled:'disabled'});});
+	$.ajax({
+		type:'post',
+		url:'<?php echo site_url()?>/compare/compareProduct',
+		data:{'pids':pids},
+		dataType:'json',
+		success:function(data,status){
+			if('ok'==data){
+				location.href='<?php echo site_url()?>/compare/compareProduct/compareConsole';
+				return;
+				}
+			$('input[name=compareButton]').removeAttr('disabled');
+			}
+		});
+}
+</script>
 
 
 	

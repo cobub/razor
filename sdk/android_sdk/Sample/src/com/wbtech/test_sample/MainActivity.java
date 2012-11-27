@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
 		 * we set that the function of auto prompting is started only under Wi-Fi 
 		 * 
 		 * */
+		UmsAgent.setBaseURL("http://192.168.1.1/razor/index.php?");
 		UmsAgent.update(this);
 		
 		
@@ -98,7 +99,7 @@ public class MainActivity extends Activity {
 		 *   If the App starts without network, then the messages will be stored in local position
 		 *   and App will try to send next time.
 		 * 
-ÔÅ¨	     * Real-time Sending :
+ÔÅ?     * Real-time Sending :
          *  Once App produces a message, sending it to server immediately. 
 		 *
 		 * Call UmsAgent.setDefaultReportPolicy(Context,int) to select mode of sending data

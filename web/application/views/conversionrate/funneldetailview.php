@@ -66,7 +66,7 @@ var basicdata;
 var lastdata=0;
 var averageData=0;
 var completionCountData = [];
-var myurl = "<?php echo site_url()?>/conversionrate/funnels/getViewDetail/<?php echo $targetid ?>";
+var myurl = "<?php echo site_url()?>/report/funnels/getViewDetail/<?php echo $targetid ?>";
 </script>
 <!-- report -->
 <script type="text/javascript">

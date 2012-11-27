@@ -32,13 +32,8 @@ class erroronos extends CI_Controller {
 		$this->common->loadHeaderWithDateControl ();
 		//add chart
 		$fromTime = $this->common->getFromTime ();
-		$toTime = $this->common->getToTime ();
-		$this->data['reportTitle'] = array(
-			'errorCount'=> getReportTitle(lang("v_rpt_err_errorNums") , $fromTime, $toTime),
-			'errorCountPerSession'=>  getReportTitle(lang("v_rpt_err_errorNumsInSessions") , $fromTime, $toTime),
-		    'timePhase'=>getTimePhaseStr($fromTime, $toTime)
-		);
-		$this->load->view ( 'errors/errorlogonosview', $this->data );
+		$toTime = $this->common->getToTime ();		
+		$this->load->view ( 'errors/errorlogonosview');
 		//add error list
 		$product = $this->common->getCurrentProduct ();
 			$productid = $product->id;
@@ -71,7 +66,31 @@ class erroronos extends CI_Controller {
 		$this->data['unfixed_error'] = $unfixed_error;
 		$this->load->view ( 'errors/erroronoslistview', $this->data );
 	}
-
+	/*load errorlogonos report*/
+    function adderrorosreport($delete=null,$type=null)
+    {
+    	$fromTime = $this->common->getFromTime ();
+    	$toTime = $this->common->getToTime ();
+    	$this->data['reportTitle'] = array(
+    			'errorCount'=> getReportTitle(lang("v_rpt_err_errorNums") , $fromTime, $toTime),
+    			'errorCountPerSession'=>  getReportTitle(lang("v_rpt_err_errorNumsInSessions") , $fromTime, $toTime),
+    			'timePhase'=>getTimePhaseStr($fromTime, $toTime)
+    	);
+    	if($delete==null)
+    	{
+    		$this->data['add']="add";
+    	}
+    	if($delete=="del")
+    	{
+    		$this->data['delete']="delete";
+    	}
+    	if($type!=null)
+    	{
+    		$this->data['type']=$type;
+    	}
+    	$this->load->view ( 'layout/reportheader');
+    	$this->load->view('widgets/errorlogonos',$this->data);
+    }
 
 	//error all  data report
 	function geterroralldata() {

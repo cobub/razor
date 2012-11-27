@@ -21,7 +21,7 @@ import android.os.Environment;
 
 import com.wbtech.ums.common.NetworkUitlity;
 import com.wbtech.ums.common.UmsConstants;
-import com.wbtech.ums.obj.MyMessage;
+import com.wbtech.ums.objects.MyMessage;
 
 public class GetInfoFromFile extends Thread{
 	public static Context context;

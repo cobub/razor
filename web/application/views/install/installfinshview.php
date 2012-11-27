@@ -95,8 +95,7 @@
 		<div class="spacer"></div>
 	</section>
 <div style="position:absolute;top:580px; left:400px">
-<iframe id="requestfoot"  name="requestfoot"  width="500" height="330" frameborder="0" scrolling="no" src="http://news.cobub.com/index.php?/news/read" >
-</iframe >
+<p align="center"> &copy; Copyright 2012 Cobub Razor Solution Verion:0.3 <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('installview_companyname') ;?></a></p>
 </div>
 </body>
 

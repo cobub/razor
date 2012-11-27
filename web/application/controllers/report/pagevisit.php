@@ -37,10 +37,29 @@ class Pagevisit extends CI_Controller {
 		$this->data['version']=$this->page->getallVersionBasicData($fromTime,$toTime,$currentProduct->id);
 		$this->load->view('usage/pageview',$this->data);
 	}
+	/*load page visit report*/
+	function addvisitpathreport($delete=null,$type=null)
+	{	
+		if($delete==null)
+		{
+			$this->data['add']="add";
+		}
+		if($delete=="del")
+		{
+			$this->data['delete']="delete";
+		}	
+		if($type!=null)
+		{
+			$this->data['type']=$type;
+		}
+		$this->load->view ( 'layout/reportheader');
+		$this->load->view('widgets/visitpath',$this->data);
+	}
+	
 	
 	function getWeelChart()
 	{
-		$this->load->view("usage/flowchartview");
+		$this->load->view("widgets/flowchartview");
 	}
 	
 	function getFlowChart()

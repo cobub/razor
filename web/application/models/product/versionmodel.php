@@ -129,27 +129,43 @@ sum(sessions) sessions,
 	
 	}
 	
-	function getVersionContrast($productId,$from,$to)
+	function getVersionContrast($productId,$from,$to,$version)
 	{
 		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql = "select 
-p.version_name,
-       ifnull(sum(startusers),0) startusers,
-       ifnull(sum(newusers),0) newusers
-	from ".$dwdb->dbprefix('dim_date')."   d inner join ".$dwdb->dbprefix('sum_basic_all')."  s on d.date_sk = s.date_sk and d.datevalue between '$from' and '$to'  right join (
+		if($version!=100)
+		{
+			$sql = "select
+			p.version_name,
+			ifnull(sum(startusers),0) startusers,
+			ifnull(sum(newusers),0) newusers
+			from ".$dwdb->dbprefix('dim_date')."   d inner join ".$dwdb->dbprefix('sum_basic_all')."  s on d.date_sk = s.date_sk and d.datevalue between '$from' and '$to'  right join (
 			select distinct
-                pp.version_name,
-                pp.product_sk
-           	from ".$dwdb->dbprefix('dim_product')." 
-				 pp
-            where pp.product_id = $productId and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) p on 
-s.product_sk = p.product_sk
-group by p.version_name
-		order by p.version_name desc limit 5
-		
-		";
-		
-		
+			pp.version_name,
+			pp.product_sk
+			from ".$dwdb->dbprefix('dim_product')."
+			pp
+			where pp.product_id = $productId and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) p on
+			s.product_sk = p.product_sk
+			group by p.version_name
+			order by p.version_name desc limit $version ";			
+		}
+		else
+		{
+			$sql = "select
+			p.version_name,
+			ifnull(sum(startusers),0) startusers,
+			ifnull(sum(newusers),0) newusers
+			from ".$dwdb->dbprefix('dim_date')."   d inner join ".$dwdb->dbprefix('sum_basic_all')."  s on d.date_sk = s.date_sk and d.datevalue between '$from' and '$to'  right join (
+			select distinct
+			pp.version_name,
+			pp.product_sk
+			from ".$dwdb->dbprefix('dim_product')."
+					pp
+					where pp.product_id = $productId and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) p on
+					s.product_sk = p.product_sk
+					group by p.version_name
+					order by p.version_name desc";
+		}		
 		$query = $dwdb->query ( $sql );
 		return $query;
 		

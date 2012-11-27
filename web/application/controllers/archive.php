@@ -20,6 +20,8 @@ class Archive extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->helper('date');
+		$this->load->model('comparevalue/compare','compare');
+		$this->load->model('alert/sendEmail','sendEmail');
 	}
 	
 	/*
@@ -62,17 +64,10 @@ class Archive extends CI_Controller
 	{
 		$dwdb = $this->load->database('dw',TRUE);
 		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
-		$timezonestime = date ( 'Y-m-d H:i:m', $timezonestimestamp );
+		$timezonestime = date ( 'Y-m-d', $timezonestimestamp );
 
-		$d = new DateTime();
-		$d->setTimestamp($timezonestimestamp);
-		$weekday = $d->format('w');
-		$diff = ($weekday == 0 ?7 : $weekday+7); // Sunday=0, Sataday=6
-		$d->modify("-$diff day");
-		$lastSunday = $d->format('Y-m-d');
-		$d->modify('+6 day');
-		$lastSataday = $d->format('Y-m-d');
-
+		$lastSataday = date("Y-m-d", strtotime("-1 day", strtotime($timezonestime))) ;
+		$lastSunday =  date("Y-m-d", strtotime("-7 day", strtotime($timezonestime))) ;
 // 		echo $lastSunday. " " . $lastSataday;
 		$logdate = date('Y-m-d H:i:s',$timezonestimestamp);
 		log_message("debug","ETL runweekly at $logdate and fromDate = $lastSunday and toDate = $lastSataday");
@@ -118,6 +113,8 @@ class Archive extends CI_Controller
 			log_message("debug","ETL runArchiveLater run sunm at $date");
   			$dwdb->query("call runsum('$date')");
 		}
+		
+		
 	}
 	
 	/*
@@ -133,6 +130,15 @@ class Archive extends CI_Controller
 		$logdate = date('Y-m-d H:i:s',$timezonestimestamp);
 		log_message("debug","ETL archiveUsingLog at $logdate and date = $date");
 		$dwdb->query("call rundaily('$date')");
+		$this->archiveCompareValue($date);
 	}
+	
+	function archiveCompareValue($date){
+// 		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+// 		$timezonestime = date ( 'Y-m-d H:i:m', $timezonestimestamp );
+// 		$date = date('Y-m-d',strtotime("-1 day", strtotime($timezonestime)));
+		$this->sendEmail->comparevalue($date);
+	}
+	
 	
 }

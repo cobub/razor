@@ -51,9 +51,9 @@ $lang['l_oldPassword']='原密码';
 
 
 //*************************************FOOTER*************************************
-$lang['f_version']='Verion:0.2 DEV.COBUB.COM ';
+$lang['f_version']='Verion:0.3 DEV.COBUB.COM ';
 $lang['f_detail']= "*Cobub Razor软件包中包含HighCharts产品，HighCharts产品并非开源产品，<br/>但是您在一定条件下可以免费使用，具体请参见<a href='http://shop.highsoft.com/highcharts.html' target='_blank'>http://shop.highsoft.com/highcharts.html</a>。";
-$lang['f_copyright'] = '&copy Copyright 2012，版本：0.2 <a href="http://dev.cobub.com">COBUB SOLUTION</a>';
+$lang['f_copyright'] = '&copy Copyright 2012，版本：0.3 <a href="http://dev.cobub.com">COBUB SOLUTION</a>';
 
 //**************************************Email***************************************
 $lang['e_clickLink'] = '。请点击下面的链接激活账号：';
@@ -138,6 +138,7 @@ $lang['m_rpt_versions']='版本分布';
 $lang['m_rpt_users']='用户';
 $lang['m_rpt_frequencyOfUse']='使用频率';
 $lang['m_rpt_usageDuration']='使用时长';
+$lang['m_rpt_timeTrendOfUsers']='分时段趋势';
 $lang['m_rpt_pageviews']='页面访问与路径';
 $lang['m_rpt_geography']='地域分析';
 $lang['m_rpt_userRetention']='用户留存';
@@ -156,6 +157,7 @@ $lang['m_rpt_errorsOnDevice']='错误分析（设备）';
 $lang['m_rpt_editApp']='编辑应用';
 $lang['m_rpt_sendPolicy']='发送策略';
 $lang['m_rpt_customEvent']='自定义事件';
+$lang['m_rpt_exception']='智能提醒';
 $lang['m_rpt_appChannel']='应用渠道';
 $lang['m_rpt_editFunnel']='转化率组';
 
@@ -175,6 +177,8 @@ $lang['v_deleteAppPrompt']='删除应用将导致您的数据报告无法使用�
 $lang['v_newUserTrend'] = '新增用户趋势';
 $lang['v_activeUserTrend'] = '活跃用户趋势';
 $lang['v_sessoinsTrend'] = '启动次数趋势';
+$lang['V_Trendvalue']='趋势值';
+$lang['v_deletreport'] = '确定要删除吗？';
 // view----user
 
 $lang['v_user_userList']='用户列表';
@@ -250,6 +254,7 @@ $lang['v_user_appM_duplicateApp'] = "类型名称已存在！";
 $lang['v_rpt_pb_overviewRecently']='近日概况';
 $lang['v_rpt_pb_generalSituation']='总体概况';
 $lang['v_rpt_pb_timeTrendOfUsers']='用户分时段趋势';
+$lang['v_rpt_pb_timeTrendOfUsers_detail']='用户分时段趋势明细';
 $lang['v_rpt_pb_overviewOfUserBehavior']='用户行为基本概况';
 $lang['v_rpt_pb_userDataDetail'] = "用户数据明细"; 
 //view---report----channels/market
@@ -479,6 +484,44 @@ $lang['v_man_ev_addEvent']='添加事件';
 $lang['v_man_ev_errorInputEI']='输入的事件ID不合法！';
 $lang['v_man_ev_errorInputEN']='输入的事件名称不合法！';
 
+//view---manage---exception
+$lang['v_man_ev_productalter']='自定义异常标签';
+$lang['v_man_ev_productAlertList']='异常标签列表';
+$lang['v_man_ev_addAlertlab']='添加异常标签';
+$lang['v_rpt_el_alertlab']='异常标签';
+$lang['v_man_ev_modifyAlertlab']='修改异常提示';
+$lang['v_rpt_el_condition']='范围';
+$lang['v_man_ev_editalertlab']='编辑异常标签';
+$lang['v_rpt_el_add']='添加';
+$lang['v_rpt_el_set']='修改';
+$lang['v_rpt_el_email']='接收邮箱';
+$lang['v_rpt_el_note']='多个邮箱请用;分开';
+$lang['v_rpt_el_noteofemail']='请至少输入一个邮箱地址';
+$lang['v_rpt_el_noteofcondition']='请输入提醒范围';
+
+
+$lang['emailtext']="尊敬的Cobub Razor用户:<br>
+ 
+	您的移动应用%s于%s统计数据有波动，超出预期：<br>
+	数据类型：%s<br>
+	预测值：%s<br>
+	实际值：%s<br>
+	浮动范围：  %s%%<br>
+详情请点击:http://%s<br>
+ 
+您收到该邮件，是因为Cobub Razor的管理员将您加入到了智能提醒的邮件列表里，如想取消，请联系Cobub Razor的管理员。<br>
+ 
+Cobub Razor系统
+";
+
+
+
+$lang['t_newUserException']='新增用户数据异常';
+$lang['t_activeUserException']='活跃用户数据异常';
+$lang['t_sessionsException']='启动次数数据异常';
+$lang['t_accumulatedUsersException']='累计用户数据异常';
+$lang['t_averageUsageDurationException']='平均使用时长数据异常';
+
 //view---manage---channel
 $lang['v_man_ch_appChannel']='应用渠道';
 $lang['v_man_ch_sysChannel']='系统渠道';
@@ -537,6 +580,8 @@ $lang ['v_rpt_re_funnelAdd'] = "添加";
 $lang ['v_rpt_re_funnelStepadd'] = "添加步骤";
 $lang ['v_rpt_re_funnelTarget'] = "目标";
 $lang ['v_rpt_re_funnelName'] = "目标名称";
+$lang['v_rpt_re_unitprice']='价值';
+$lang['v_rpt_re_unitprice_alt']='请输入正确的价值';
 $lang ['v_rpt_re_funnelStartevent'] = "起始事件";
 $lang ['v_rpt_re_funnelTargetevent'] = "目标事件";
 $lang ['v_rpt_re_funnelTargettrend'] = "目标趋势";
@@ -603,6 +648,7 @@ $lang['t_newUserY'] = '昨日新增用户';
 $lang['t_newUserW'] = '最近7天新增用户';
 $lang['t_newUserM'] = '最近30天新增用户';
 $lang['t_newUsersA'] = '任意时间段新增用户';
+$lang['t_date_part'] = '时间段';
 $lang['t_details'] = "明细";
 $lang['t_newUserPer']='新增用户比例';
 $lang['t_accumulatedSessions']='累计启动';
@@ -693,7 +739,7 @@ $lang['c_autoupdate']='自动更新';
 $lang['c_channel']='渠道';
 $lang['c_device']='设备';
 $lang['c_event']='事件管理';
-$lang['c_Oonlineconfig']='发送策略';
+$lang['c_onlineconfig']='发送策略';
 $lang['c_operator']='运营商统计';
 $lang['c_os']='系统统计';
 $lang['c_profile']='个人资料';
@@ -713,3 +759,66 @@ $lang['c_network']='联网方式统计';
 $lang['c_funnels']='漏斗模型';
 $lang['c_erroronos']='错误分析(操作系统)';
 $lang['c_errorondevice']='错误分析(设备)';
+
+/***************************************widget report name**********************************************/
+$lang['w_savereport']="报表位置保存成功";
+$lang['w_addreport']='添加报表';
+$lang['w_isaddreport']='你确定添加报表？';
+$lang['w_addreportsuccess']='报表添加成功';
+$lang['w_addfullreport']='添加报表';
+$lang['w_addhalfreport']='添加半框报表';
+$lang['w_savereportlocation']='保存报表位置';
+$lang['w_addreportrepeat']='请不要重复添加报表';
+$lang['w_errorlog']='错误分析(版本)';
+$lang['w_errorlogondevice']='错误分析(设备)';
+$lang['w_errorlogonos']='错误分析(OS)';
+$lang['w_conversions']='转化率';
+$lang['w_resolutioninfo']='TOP10 分辨率';
+$lang['w_osversion']='TOP10 操作系统版本';
+$lang['w_carrier']='TOP10 运营商';
+$lang['w_network']='TOP10 联网方式';
+$lang['w_devicetype']='TOP10 设备型号';
+$lang['w_visitpath']='访问路径';
+$lang['w_regioncountry']='Top10 国家';
+$lang['w_regionprovince']='Top10 省市';
+$lang['w_sessiondistribution']='启动次数分布';
+$lang['w_userremain']='留存';
+$lang['w_usadgeduration']='使用时长';
+$lang['w_phaseusetime']='用户分时段趋势';
+$lang['w_userbehavorview']='用户行为基本概况';
+$lang['w_channelmarket']='时段分析';
+$lang['w_versionview']='版本变化趋势';
+$lang['w_overmaxnum']='您添加的报表数到达最大数';
+/***************************************markevent**********************************************/
+$lang['m_title']='标题';
+$lang['m_description']='描述';
+$lang['m_marktime']='标记时间';
+$lang['m_rights']='权限';
+$lang['m_submit']='提交信息';
+$lang['m_public']='公共';
+$lang['m_private']='私有';
+$lang['m_operate']='操作';
+$lang['m_newsreport']='信息反馈';
+$lang['m_modify']='修改信息';
+$lang['m_delete']='删除';
+$lang['m_isdel']='确定删除?';
+$lang['m_waittingdel']='正在删除……';
+$lang['m_delsuccess']='删除成功';
+$lang['m_errordeltryagain']='删除错误！稍后再试';
+$lang['m_faildeloninfo']='删除失败！信息不存在';
+$lang['m_tiptitle']='请输入标题';
+$lang['m_tipdesc']='请输入描述';
+$lang['m_subsuccess']='添加成功';
+$lang['m_modifysuccess']='修改成功';
+$lang['m_changesubtomodify']='信息已經存在！你確定要修改嗎？';
+$lang['m_markeventlist']='标记事件列表';
+$lang['m_user']='标记用户';
+$lang['m_eventsDetail']='事件详细';
+$lang['m_dateevents']='日期标注';
+$lang['m_viewmark_Detail']='点击查看详细';
+/*****************************产品比较*****************************************/
+$lang['c_compare_product']='产品比较';
+$lang['c_compare2two4']='请选择2-4个产品进行比较';
+/*********************************Suspended box*************************************/
+$lang['s_suspend_title']='添加到控制面板';
+$lang['s_suspend_deltitle']='从控制面板中删除';

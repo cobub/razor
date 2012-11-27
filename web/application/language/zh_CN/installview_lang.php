@@ -35,7 +35,7 @@ $lang["installview_nextstep"] = "下一步";
 $lang["installview_installstep"] = "安装";
 $lang["installview_acceptcontent"] = "我接受Cobub Razor所附带的软件许可证协议";
 $lang["installview_versionerror"] = "您的PHP版本太低，请先升级您的PHP版本";
-$lang["installview_mysqlierror"] = "您的MySQL版本太低，请先升级您的MySQL版本";
+$lang["installview_mysqlierror"] = "您的mysqli没有打开";
 $lang["installview_writeerror"]="您的文件没有写入权限，请先添加文件的权限";
 $lang["installview_companyname"] = "DEV.COBUB.COM";
 

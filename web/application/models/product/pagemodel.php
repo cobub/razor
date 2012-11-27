@@ -90,17 +90,17 @@ class pagemodel extends CI_Model{
 				if($row ['accesscount']==null){
 					$tmp ['accesscount']=0;
 				}else{
-					$tmp ['accesscount'] = $row ['accesscount']."(".round($row ['accesscount']/$accesscount*100,2)."%)";
+					$tmp ['accesscount'] = $row ['accesscount']."(".round($row ['accesscount']/$accesscount*100,1)."%)";
 				}
 			    if($row ['avertime']==null){
 					$tmp ['avertime']=0;
 				}else{
-					$tmp ['avertime'] = round($row ['avertime'],2)."(".round($row ['avertime']/$avertime*100,2)."%)";
+					$tmp ['avertime'] = round($row ['avertime'],2)."(".round($row ['avertime']/$avertime*100,1)."%)";
 				}
 				if($row ['exitcount']==null){
 					$tmp ['exitcount']=0;
 				}else{
-					$tmp ['exitcount'] = $row ['exitcount']."(".round($row ['exitcount']/$exitcount*100,2)."%)";
+					$tmp ['exitcount'] = $row ['exitcount']."(".round($row ['exitcount']/$exitcount*100,1)."%)";
 				}
 				$tmp ['activity_name'] = $row ['activity_name'];	
 				//$tmp ['version_name'] = $row ['version_name'];

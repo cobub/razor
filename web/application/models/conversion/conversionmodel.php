@@ -7,16 +7,15 @@ class Conversionmodel extends CI_Model {
 	}
 	function getConversionListByProductIdAndUserId($productid, $userid, $fromdate, $todate, $version) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql_1 = 'select t.tid,t.targetname,te.eventalias a1,tee.eventalias a2,te.eventid sid,tee.eventid eid
+		$sql_1 = 'select t.tid,t.unitprice,t.targetname,te.eventalias a1,tee.eventalias a2,te.eventid sid,tee.eventid eid
 from ' . $this->db->dbprefix ( 'target' ) . ' t, ' . $this->db->dbprefix ( 'targetevent' ) . ' te,' . $this->db->dbprefix ( 'targetevent' ) . ' tee
 where t.userid = ? and t.productid = ? and t.tid = te.targetid and t.tid = tee.targetid 
 and te.sequence = 1 and 
 tee.sequence = (select max(sequence) from ' . $this->db->dbprefix ( 'targetevent' ) . '  where targetid = t.tid)  GROUP BY t.tid';
-		$sql_2 = 'select t.event_id,count(*) num from ' . $dwdb->dbprefix ( 'fact_event' ) . ' e, ' . $dwdb->dbprefix ( 'dim_date' ) . ' d, ' . $dwdb->dbprefix ( 'dim_product' ) . ' p,' . $dwdb->dbprefix ( 'dim_event' ) . ' t where e.event_sk = t.event_sk and 
+		$sql_2 = 'select t.event_id,count(*) num,d.datevalue from ' . $dwdb->dbprefix ( 'fact_event' ) . ' e, ' . $dwdb->dbprefix ( 'dim_date' ) . ' d, ' . $dwdb->dbprefix ( 'dim_product' ) . ' p,' . $dwdb->dbprefix ( 'dim_event' ) . ' t where e.event_sk = t.event_sk and 
 e.product_sk = p.product_sk and p.product_id = ?  and 
 e.date_sk = d.date_sk and d.datevalue between \'' . $fromdate . '\' and \'' . $todate . '\' 
-group by e.event_sk';
-				
+group by e.event_sk,d.datevalue';
 		$data ['targetdata'] = $this->db->query ( $sql_1, array (
 				$userid,
 				$productid 
@@ -24,10 +23,9 @@ group by e.event_sk';
 		$data ['eventdata'] = $dwdb->query ( $sql_2, array (
 				$productid 
 		) )->result_array ();
-		
 		return $data;
 	}
-	function addConversionrate($userid, $productid, $targetname, $data = array()) {
+	function addConversionrate($userid, $productid, $targetname,$unitprie, $data = array()) {
 		$r = $this->db->query ( 'select * from ' . $this->db->dbprefix ( 'target' ) . ' where targetname=\'' . $targetname . '\' and userid=? and productid=?', array (
 				$userid,
 				$productid 
@@ -45,7 +43,7 @@ group by e.event_sk';
 			return 'max';
 		} else {
 			$this->db->trans_start ();
-			$this->db->query ( 'insert into ' . $this->db->dbprefix ( 'target' ) . '(userid,productid,targetname,createdate)values(' . $userid . ',' . $productid . ',\'' . $targetname . '\',sysdate())' );
+			$this->db->query ( 'insert into ' . $this->db->dbprefix ( 'target' ) . '(userid,productid,targetname,unitprice,createdate)values(' . $userid . ',' . $productid . ',\'' . $targetname . '\','.$unitprie.',sysdate())' );
 			$targetid = $this->db->insert_id ();
 			if ($data) {
 				for($i = 0; $i < count ( $data ['events'] ) - 1; $i ++) {
@@ -117,17 +115,18 @@ group by e.event_sk';
 		return $queryresult;
 	}
 	function getFunnelByTargetid($targetid) {
-		$sql = 'select t.tid,t.userid,t.targetname,e.eventalias,e.sequence,e.eventid,d.event_name from ' . $this->db->dbprefix ( 'target' ) . ' t
+		$sql = 'select t.tid,t.unitprice,t.userid,t.targetname,e.eventalias,e.sequence,e.eventid,d.event_name from ' . $this->db->dbprefix ( 'target' ) . ' t
 left JOIN ' . $this->db->dbprefix ( 'targetevent' ) . '  e on t.tid=e.targetid
  inner join ' . $this->db->dbprefix ( 'event_defination' ) . ' d on e.eventid=d.event_id where t.tid=' . $targetid;
 		$result = $this->db->query ( $sql );
 		return $result;
 	}
-	function modifyFunnel($targetid, $target_name, $data = array()) {
+	function modifyFunnel($targetid, $target_name, $unitprice,$data = array()) {
 		$this->db->trans_start ();
-		$this->db->query ( 'UPDATE ' . $this->db->dbprefix ( 'target' ) . ' SET targetname=? WHERE tid=?', array (
+		$this->db->query ( 'UPDATE ' . $this->db->dbprefix ( 'target' ) . ' SET targetname=?,unitprice=? WHERE tid=?', array (
 				$target_name,
-				$targetid 
+				$unitprice, 
+				$targetid
 		) );
 		for($i = 0; $i <= count ( $data ['event_ids'] ) - 1; $i ++) {
 			$this->db->query ( 'update ' . $this->db->dbprefix ( 'targetevent' ) . ' set eventalias=?,sequence=? where targetid=? and eventid=?', array (
@@ -144,7 +143,7 @@ left JOIN ' . $this->db->dbprefix ( 'targetevent' ) . '  e on t.tid=e.targetid
     //get target count
 	function  getAllUserTarget($userid,$productid)
 	{
-		$sql = "select t.targetname,te.eventalias a1,te.eventid sid
+		$sql = "select t.targetname,t.unitprice,te.eventalias a1,te.eventid sid
 from  " . $this->db->dbprefix ( 'target' ) ."  t, " . $this->db->dbprefix ( 'targetevent' ) ." te
 where t.userid = $userid and t.productid = $productid and t.tid = te.targetid
 and te.sequence = (select max(sequence) from " . $this->db->dbprefix ( 'targetevent' ) . " where targetid = t.tid) ;";
@@ -181,8 +180,8 @@ left join (select event_sk, date_sk, count(*) num from " . $dwdb->dbprefix ( 'fa
 		    {
 		    	//array_push($target_array, $row['targetname']);
 		    	$target_Item["targetname"] = $row["targetname"];
+		    	$target_Item['unitprice']=$row["unitprice"];
 		    	$target_Item["eventname"] = $row["a1"];
-		    	
 		    	$time_array = array();
 		    	$num_array = array();
 		    	$event_id = $row["sid"];
@@ -195,10 +194,8 @@ left join (select event_sk, date_sk, count(*) num from " . $dwdb->dbprefix ( 'fa
 		    			array_push($num_array, $row2["num"]);
 		    		}
 		    	}
-		    	
 		    	$target_Item['eventtime'] = $time_array;
 		    	$target_Item['eventnum'] = $num_array;
-		    	
 		    	array_push($result, $target_Item);
 		    
 		    }
