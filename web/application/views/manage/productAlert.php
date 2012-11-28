@@ -70,7 +70,7 @@
 						<fieldset>
 							<label style="width: 10%; "><?php echo lang('v_rpt_el_email') ?></label>
 							<input style="width: 35%; margin-left: 5 px" type="text" id='emailstr'  value='<?php  if(isset($alertlist)) echo $alertlist['emails']?>'>
-							<label><?php echo lang('v_rpt_el_note')?></label>
+							<label style="width: 35%; margin-left: 5 px"><?php echo lang('v_rpt_el_note')?></label>
 						</fieldset>
 						
 						<input id="addButton" type="button" value="<?php echo lang('v_rpt_el_add') ?>" class="alt_btn" onClick='addEvent()'>
@@ -157,7 +157,7 @@ var data = {
 						document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('t_error') ?></font>";
 						document.getElementById('msg').style.display="block";
 					}else{
-					document.getElementById('msg').innerHTML = "<?php echo lang('v_rpt_el_modifyEventS') ?>";	
+					document.getElementById('msg').innerHTML = "<?php echo lang('v_rpt_addok') ?>";	
 					document.getElementById('msg').style.display="block";
 					window.location.href="<?php echo site_url()?>/manage/alert/";
 					}			 
@@ -166,7 +166,7 @@ var data = {
 					alert("<?php echo lang('t_error') ?>");
 				},
 				beforeSend : function() {
-					document.getElementById('msg').innerHTML = "<?php echo lang('v_rpt_el_waitModifyE') ?>";
+					document.getElementById('msg').innerHTML = "<?php echo lang('v_rpt_addlab') ?>";
 					document.getElementById('msg').style.display="block";
 
 				},

@@ -1,4 +1,4 @@
-<section id="main" class="column" style="height:1500px">
+<section id="main" class="column" style="height:1600px">
 	<article class="module width_full">
 		<header>
 			<h3 class="h3_fontstyle"><?php echo  lang('v_rpt_de_top10')?></h3>
@@ -8,7 +8,7 @@
 			</ul>
 
 		</header>
-		<div id="devicetype" style="height:450px">
+		<div id="devicetype" style="height:500px">
 		</div>
 	</article>
 	<article class="module width_full">
@@ -173,7 +173,7 @@ function renderCharts(myurl)
 				}
 			}
 			if((j/2)>2){
-				 document.getElementById("devicetype").style.height='800px';
+				 document.getElementById("devicetype").style.height='850px';
 			}
 			changeDetailType("activeuser");
 			changeReportType(reportType);
@@ -235,8 +235,8 @@ function changeReportType(type)
 	reportType=type;
 	var m=0;
 	var chartwidth=parseInt($("#devicetype").css("width"))/4;
-	var chartcenter=[[chartwidth,345/2],[chartwidth*3,345/2],[chartwidth,345*1.5],[chartwidth*3,345*1.5]];
-    var charttitlecontent=[{left:chartwidth-40,top:'15px'},{left:chartwidth*3-40,top:'15px'},{left:chartwidth-40,top:'365'},{left:chartwidth*3-40,top:'365'}];
+	var chartcenter=[[chartwidth,365/2],[chartwidth*3,365/2],[chartwidth,365*1.5],[chartwidth*3,365*1.5]];
+    var charttitlecontent=[{left:chartwidth-40,top:'15px'},{left:chartwidth*3-40,top:'15px'},{left:chartwidth-40,top:'370'},{left:chartwidth*3-40,top:'370'}];
 	if(reportType == "newuser"){
 		userData=newUserData;
 		options.title.text = '<?php echo $reportTitle['newUserReport'] ?>';

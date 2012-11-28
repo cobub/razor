@@ -49,6 +49,13 @@ var ismarktochart=false;
 var markEventIndex=[];//array of datemark index
 var dateMark=[];// array of datemarke data
 var thrend=0;	//thrend index
+var category=[];
+var tooltipmarkevent=[];
+var tooltipdata=new Array(new Array(),new Array());
+var tooltipname=new Array(new Array(),new Array());
+var colors=['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', 
+             '#A47D7C', '#B5CA92','#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', 
+             '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
 $(document).ready(function() {
 	options = {
             chart: {
@@ -77,13 +84,24 @@ $(document).ready(function() {
             },
             tooltip: {
 	            crosshairs: true,
-	            shared: true
-	            /* formatter:function(){
-	                if(!markEventIndex.content(this.series.index)){
-						return this.series.name+":"+this.y;
-	                    }
-	                	return this.point.title;
-	                }*/
+	            formatter: function() {
+			        var content=this.x+'<br>';
+			        var m=0;
+			        for(var i=0;i<category.length;i++){
+				        if(category[i]==this.x){
+					        m=i;
+					        break;
+				        }
+				    }
+			        if(this.series.name=='<?php echo lang('m_dateevents');?>'){
+                           content=tooltipmarkevent[m];
+                    }else{
+	                    for(var j=0;j<tooltipname.length;j++){
+		                    content=content+'<span style="color:'+colors[j]+'">'+tooltipname[j]+'</span>:'+tooltipdata[j][m]+'<br>';
+		                }
+                    }
+			        return content;
+		        }
 	        },
 	        credits:{
 				enabled:false
@@ -193,6 +211,9 @@ $(document).ready(function() {
 		    {
     		    options.series[j].name =version;
 		    }
+		    category=categories;
+		    tooltipdata[j]= newUsers;	 
+		    tooltipname[j]= options.series[j].name;
 		    options.series[j].data = newUsers;
 			options.xAxis.labels.step = parseInt(categories.length/10);
 			options.xAxis.categories = categories; 
@@ -224,6 +245,7 @@ $(document).ready(function() {
 							}
 				    	});
 						if(markevent!=null){
+							tooltipmarkevent[j]=markevent.title;
 							contentdata.push(markevent);
 						}else{
 							contentdata.push(null);

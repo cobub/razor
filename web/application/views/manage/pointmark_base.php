@@ -37,7 +37,7 @@ function prepare(dataArray,optiondetail,i){
 			y=200;
 			}
 		y=y/20*(i+5);//#DB9D00,#F2AE00
-		return {color:"#DB9D00",y:y,time:item.marktime,title:item.title,description:item.description,date:item.marktime,username:item.username,rights:item.private};
+		return {color:"#DB9D00",y:Math.round(y* 1000)/1000,time:item.marktime,title:item.title,description:item.description,date:item.marktime,username:item.username,rights:item.private};
 	});
 }
 Array.prototype.max=function(){return Math.max.apply({},this);}

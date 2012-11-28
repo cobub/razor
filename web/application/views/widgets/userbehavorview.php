@@ -37,6 +37,10 @@ var show_markevent='<?php if(isset($common)){echo $common['show_markevent'];}els
 var productNames=[];
 var thrend=0;
 var dateMark=[];
+var category=[];
+var tooltipdata=[];
+var tooltiptrenddata=[];
+var tooltipmarkevent=[];
 //When page loads...
 $(".tab_content").hide(); //Hide all content
 $("ul.tabs3 li:first").addClass("active").show(); //Activate first tab
@@ -94,9 +98,21 @@ function renderuserCharts(myurl)
 			enabled:false
 	        },
         tooltip: {
-           crosshairs: true,
-            shared: true
-         
+       	 crosshairs: true,
+         formatter: function() {
+             var content=this.x+'<br>';
+             for(var i=0;i<category.length;i++){
+                 if(category[i]==this.x){
+              	   if(this.series.name=='<?php echo lang('m_dateevents');?>'){
+                         content=tooltipmarkevent[i];
+                     }else{
+                         content=content+'<span style="color:#4572A7">'+chartDetailName+'</span>:'+tooltipdata[i]+'<br>';
+                         content=content+'<span style="color:#89A54E"><?php echo lang('V_Trendvalue')?></span>'+':'+tooltiptrenddata[i];
+                     }                 
+                 }
+             }
+             return content;
+          } 
         },
         plotOptions: {
             spline: {
@@ -193,6 +209,7 @@ function renderuserCharts(myurl)
 								}
 					    	});
 							if(markevent!=null){
+								tooltipmarkevent[j]=markevent.title;
 								contentdata.push(markevent);
 							}else{
 								contentdata.push(null);
@@ -255,9 +272,12 @@ function contentCharts(data){
 				optiondetail.xAxis.categories = categories;  
 				optiondetail.title.text = "<?php echo $reportTitle['newUser'] ?>";
 	    }		   
+	    category=categories;
 	     optiondetail.series[0]={};
 		 optiondetail.series[0].data = newUser;	
 		 optiondetail.series[0].name = chartDetailName;
+		 tooltipdata=newUser;
+		 tooltiptrenddata=newUsertrend;
 }
 
 //compare product
@@ -299,6 +319,8 @@ function compareCharts(data){
 	     optiondetail.series[index]={};
 		 optiondetail.series[index].data = newUser[index];	
 		 optiondetail.series[index].name = item.name;//+':'+chartDetailName;
+		 optiondetail.tooltip.formatter=null;
+		 optiondetail.tooltip.shared=true;
 		});//end each
 }
 
@@ -319,6 +341,8 @@ function changeChartName(name)
 			 optiondetail.series[thrend].dashStyle='shortdot';
 			 optiondetail.series[thrend].data = newUsertrend;	
 			 optiondetail.series[thrend].name =  "<?php echo lang('V_Trendvalue')?>";
+			 tooltipdata=newUser;
+			 tooltiptrenddata=newUsertrend;
 			 for(var j=0;j<markEventIndex.length;j++){
 					if(thrend!=markEventIndex){
 						optiondetail.series[markEventIndex[j]].data=prepare(dateMark[markEventIndex[j]],optiondetail,j);
@@ -345,6 +369,8 @@ function changeChartName(name)
 			 optiondetail.series[thrend].dashStyle='shortdot';
 			 optiondetail.series[thrend].data = totalUsertrend;	
 			 optiondetail.series[thrend].name =  "<?php echo lang('V_Trendvalue')?>";
+			 tooltipdata=totalUser;
+			 tooltiptrenddata=totalUsertrend;
 			 for(var j=0;j<markEventIndex.length;j++){
 					if(thrend!=markEventIndex){
 						optiondetail.series[markEventIndex[j]].data=prepare(dateMark[markEventIndex[j]],optiondetail,j);
@@ -370,6 +396,8 @@ function changeChartName(name)
 			 optiondetail.series[thrend].dashStyle='shortdot';
 			 optiondetail.series[thrend].data = activeUsertrend;	
 			 optiondetail.series[thrend].name =  "<?php echo lang('V_Trendvalue')?>";
+			 tooltipdata=activeUser;
+			 tooltiptrenddata=activeUsertrend;
 			 for(var j=0;j<markEventIndex.length;j++){
 					if(thrend!=markEventIndex){
 						optiondetail.series[markEventIndex[j]].data=prepare(dateMark[markEventIndex[j]],optiondetail,j);
@@ -394,6 +422,8 @@ function changeChartName(name)
 			 optiondetail.series[thrend].dashStyle='shortdot';
 			 optiondetail.series[thrend].data = sessionNumtrend;	
 			 optiondetail.series[thrend].name =  "<?php echo lang('V_Trendvalue')?>";
+			 tooltipdata=sessionNum;
+			 tooltiptrenddata=sessionNumtrend;
 			 for(var j=0;j<markEventIndex.length;j++){
 					if(thrend!=markEventIndex){
 						optiondetail.series[markEventIndex[j]].data=prepare(dateMark[markEventIndex[j]],optiondetail,j);
@@ -419,6 +449,8 @@ function changeChartName(name)
 		 optiondetail.series[thrend].dashStyle='shortdot';
 		 optiondetail.series[thrend].data = avgUsagettrend;	
 		 optiondetail.series[thrend].name =  "<?php echo lang('V_Trendvalue')?>";
+		 tooltipdata=avgUsage;
+		 tooltiptrenddata=avgUsagettrend;
 			for(var j=0;j<markEventIndex.length;j++){
 				if(thrend!=markEventIndex){
 					optiondetail.series[markEventIndex[j]].data=prepare(dateMark[markEventIndex[j]],optiondetail,j);

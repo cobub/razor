@@ -485,45 +485,35 @@ $lang['v_man_ev_errorInputEI']='The input value of event id is illegal!';
 $lang['v_man_ev_errorInputEN']='The input value of event name is illegal!';
 
 //view---manage---exception
-$lang['v_man_ev_productalter']='Custom exception tag';
-$lang['v_man_ev_productAlertList']='Exception label list';
-$lang['v_man_ev_addAlertlab']='Add exception tag';
-$lang['v_rpt_el_alertlab']='Exception tag';
-$lang['v_man_ev_modifyAlertlab']='Modify exception tag';
+$lang['v_man_ev_productalter']='Custom Smart Notification tag';
+$lang['v_man_ev_productAlertList']='Smart Notification label list';
+$lang['v_man_ev_addAlertlab']='Add Smart Notification tag';
+$lang['v_rpt_el_alertlab']='Smart Notification tag';
+$lang['v_man_ev_modifyAlertlab']='Modify Smart Notification tag';
 $lang['v_rpt_el_condition']='Range';
 $lang['v_man_ev_editalertlab']='Abnormal label editor';
 $lang['v_rpt_el_add']='add';
 $lang['v_rpt_el_set']='set';
-$lang['v_rpt_el_email']='Receiving e-mail address';
+$lang['v_rpt_el_email']='E-mail';
 $lang['v_rpt_el_note']='More than one email address please separate by ;';
 $lang['v_rpt_el_noteofemail']='Please enter at least one e-mail address';
 $lang['v_rpt_el_noteofcondition']='Please enter reminded range';
+$lang['v_rpt_addlab']='Add Smart Notification...';
+$lang['v_rpt_addok']='Add completed';
 
 
-
-$lang['emailtext']="尊敬的Cobub Razor用户:<br><br>
-
-您的移动应用%s于%s统计数据有波动，超出预期：<br>
-数据类型：%s<br>
-预测值：%s<br>
-实际值：%s<br>
-浮动范围：  %s%%<br><br>
-详情请点击:%s<br><br>
-
-您收到该邮件，是因为Cobub Razor的管理员将您加入到了智能提醒的邮件列表里，如想取消，请联系Cobub Razor的管理员。<br>
-<br>
-Cobub Razor系统
-";
 $lang['emailtext']="Dear Cobub Razor User,<br><br>
  
-The mobile app %sXXXX ‘s data volatility exceed the expectation on %s:<br>
+The mobile app %s‘s data volatility exceed the expectation on %s:<br>
 Data Type: %s<br>
 Predicted Value: %s<br>
 Actual Value:%s<br>
-Volatility Range:  %s%%<br><br>
+Volatility Range:  %s%%<br>
+Actual float value: %s%%<br><br>
 Url:%s<br><br>
 The reason you receive this email is the Cobub Razor administrator add your email to Smart Notification email list. If you want to unsubscribe this email, please contact Cobub Razor administrator.
- <br>
+ <br><br>
+ <hr>
 Cobub Razor System
 
 ";
@@ -596,7 +586,7 @@ $lang['v_rpt_re_unitprice']='Money';
 $lang['v_rpt_re_unitprice_alt']='Please input the Current Money';
 $lang ['v_rpt_re_funnelStartevent'] = "Start Event";
 $lang ['v_rpt_re_funnelTargetevent'] = "Target Event";
-$lang ['v_rpt_re_funnelTargettrend'] = "Targets Trend";
+$lang ['v_rpt_re_funnelTargettrend'] = "Conversions Trend";
 $lang ['v_rpt_re_funnelConversionrate'] = "Conversion";
 $lang ['v_rpt_re_funnelStep'] = "Step";
 $lang ['v_rpt_re_funnelStepname'] = "Step Name";
@@ -804,13 +794,13 @@ $lang['w_overmaxnum']='Excessive number of report you addition';
 /***************************************markevent**********************************************/
 $lang['m_title']='Title';
 $lang['m_description']='Description';
-$lang['m_marktime']='Mark Time';
+$lang['m_marktime']='Annotation Date';
 $lang['m_rights']='Rights';
 $lang['m_submit']='Submit';
 $lang['m_public']='Public';
 $lang['m_private']='Private';
 $lang['m_operate']='Operate';
-$lang['m_newsreport']='News Report';
+$lang['m_newsreport']='Annotation Edit';
 $lang['m_modify']='Modify Info';
 $lang['m_delete']='Delete';
 $lang['m_isdel']='is Delete?';
@@ -826,7 +816,7 @@ $lang['m_changesubtomodify']='News Already exists ,Modify？';
 $lang['m_markeventlist']='Mark events List';
 $lang['m_user']='Mark User';
 $lang['m_eventsDetail']='Event Detail';
-$lang['m_dateevents']='Date Annotation';
+$lang['m_dateevents']='Annotation Event';
 $lang['m_viewmark_Detail']='View Detail';
 /*****************************Compare Product*****************************************/
 $lang['c_compare_product']='Compare Product';

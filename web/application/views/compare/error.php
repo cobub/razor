@@ -72,7 +72,7 @@ $(document).ready(function() {
 	options = {
             chart: {
                 renderTo: 'container',
-                type:'column'
+                type:'line'
             },
             title: {
                 text: '   '
@@ -92,13 +92,12 @@ $(document).ready(function() {
                 }
             },
             yAxis:{
-				title:' '
+				title:' ',
+				min:0
                 },
             tooltip: {
-                formatter: function() {
-                    return ''+this.series.name+"<br>"+
-                        this.x +': '+ this.y;
-                }
+            	crosshairs: true,
+                shared: true
             },
             legend: {
                 enabled:true

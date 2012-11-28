@@ -1,4 +1,4 @@
-<section id="main" class="column" style="height:2600px">
+<section id="main" class="column" style="height:2700px">
 	<!-- Country -->
 	<article class="module width_full">
 		<header>
@@ -8,7 +8,7 @@
 				<li><a href="javascript:changeCountryReportType('newuser')"><?php echo lang('t_newUsers') ?></a></li>
 			</ul>
 		</header>
-		<div id="country" style="height:400px">
+		<div id="country" style="height:450px">
 		</div>
 	</article>
 	<!--Region -->
@@ -20,7 +20,7 @@
 				<li><a href="javascript:changeRegionReportType('regionnewuser')"><?php echo lang('t_newUsers') ?></a></li>
 			</ul>
 		</header>
-		<div id="region" style="height:400px">
+		<div id="region" style="height:450px">
 		</div>
 	</article>
 	<!-- Country -->
@@ -218,7 +218,7 @@ $(document).ready(function() {
 				}
 			}
 			if((j/2)>2){
-				 document.getElementById("country").style.height='730px';
+				 document.getElementById("country").style.height='780px';
 			}
 			changeDetailCountryType("activeuser");
 			changeCountryReportType(reportcountryType);
@@ -277,7 +277,7 @@ $(document).ready(function() {
 				 }
 			}
 			if((j/2)>2){
-				document.getElementById("region").style.height='730px';
+				document.getElementById("region").style.height='780px';
 			}
 			changeDetailRegionType("regionactiveuser");
 			changeRegionReportType(reportregionType);
@@ -360,8 +360,8 @@ $(document).ready(function() {
 		var reportType=type;
 		var m=0;
 		var chartwidth=parseInt($("#country").css("width"))/4;
-		var chartcenter=[[chartwidth,290/2],[chartwidth*3,290/2],[chartwidth,290*1.6],[chartwidth*3,290*1.6]];
-	    var charttitlecontent=[{left:chartwidth-40,top:'1px'},{left:chartwidth*3-40,top:'1px'},{left:chartwidth-40,top:'320'},{left:chartwidth*3-40,top:'320'}];
+		var chartcenter=[[chartwidth,310/2],[chartwidth*3,310/2],[chartwidth,310*1.6],[chartwidth*3,310*1.6]];
+	    var charttitlecontent=[{left:chartwidth-40,top:'1px'},{left:chartwidth*3-40,top:'1px'},{left:chartwidth-40,top:'325'},{left:chartwidth*3-40,top:'325'}];
 		if(reportType == "newuser"){
 			userData=newUserData;
 			options.title.text = '<?php echo $reportTitle['newUserReport'] ?>';

@@ -43,6 +43,9 @@ width:400px;height:200px;border:1px solid #cccccc;}
  .mainlist td{
 	/*border:1px solid #cccccc;padding-left:5px;*/
  }
+.title{width:180px;border:1px solid #cccccc;height:24px;line-height:24px;vertical-align:middle;}
+ .des{width:180px;border:1px solid #cccccc;}
+ .mktime{width:180px;border:1px solid #cccccc;height:24px;line-height:24px;vertical-align:middle;}
 </style>
 		<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 		<div id="box" style="display:none;">
@@ -50,15 +53,15 @@ width:400px;height:200px;border:1px solid #cccccc;}
 		<table class="tbcontent">
 			<tr>
 				<td><?php echo lang('m_title')?>:</td>
-				<td><input type="text" name="title" value=""/></td>
+				<td><input type="text" name="title" value="" class="title"/></td>
 			</tr>
 			<tr>
 				<td><?php echo lang('m_description')?>:</td>
-				<td><textarea name="description"></textarea></td>
+				<td><textarea name="description" class="des"></textarea></td>
 			</tr>
 			<tr>
 				<td><?php echo lang('m_marktime')?>:</td>
-				<td><input type="text" name="markdate" value="" readonly="readonly"/></td>
+				<td><input type="text" name="markdate" value="" readonly="readonly" class="mktime"/></td>
 			</tr>
 			<tr>
 				<td><?php echo lang('m_rights')?>:</td>

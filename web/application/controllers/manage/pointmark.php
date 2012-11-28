@@ -36,6 +36,7 @@ class Pointmark extends CI_Controller {
 				$affectRow = $this->pointmark->modifyPointmark ( $data,$userid,$productid,$markdate );
 				if($affectRow>0){
 					echo json_encode('mdok');
+					return;
 				}
 				echo json_encode('nochange');
 				return;

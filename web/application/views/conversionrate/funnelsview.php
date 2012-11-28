@@ -71,7 +71,7 @@
 									if($key==$k){
 										?>
 										<td><?php echo $date[$key]?></td>
-										<td><?php if(!isset($r['unitprice'])){echo 0;}else{echo $r['unitprice'][0][$key];}?></td>
+										<td style="padding-left: 2%"><?php if(!isset($r['unitprice'])){echo 0;}else{echo number_format($r['unitprice'][0][$key],2);}?></td>
 										<?php
 									}
 								}

@@ -485,32 +485,35 @@ $lang['v_man_ev_errorInputEI']='输入的事件ID不合法！';
 $lang['v_man_ev_errorInputEN']='输入的事件名称不合法！';
 
 //view---manage---exception
-$lang['v_man_ev_productalter']='自定义异常标签';
-$lang['v_man_ev_productAlertList']='异常标签列表';
-$lang['v_man_ev_addAlertlab']='添加异常标签';
-$lang['v_rpt_el_alertlab']='异常标签';
-$lang['v_man_ev_modifyAlertlab']='修改异常提示';
+$lang['v_man_ev_productalter']='自定义智能提醒标签';
+$lang['v_man_ev_productAlertList']='智能提醒标签列表';
+$lang['v_man_ev_addAlertlab']='添加智能提醒标签';
+$lang['v_rpt_el_alertlab']='智能提醒标签';
+$lang['v_man_ev_modifyAlertlab']='修改智能提醒提示';
 $lang['v_rpt_el_condition']='范围';
-$lang['v_man_ev_editalertlab']='编辑异常标签';
+$lang['v_man_ev_editalertlab']='编辑智能提醒标签';
 $lang['v_rpt_el_add']='添加';
 $lang['v_rpt_el_set']='修改';
 $lang['v_rpt_el_email']='接收邮箱';
 $lang['v_rpt_el_note']='多个邮箱请用;分开';
 $lang['v_rpt_el_noteofemail']='请至少输入一个邮箱地址';
 $lang['v_rpt_el_noteofcondition']='请输入提醒范围';
+$lang['v_rpt_addlab']='添加智能提醒中';
+$lang['v_rpt_addok']='添加完成';
 
+$lang['emailtext']="尊敬的Cobub Razor用户:<br><br>
 
-$lang['emailtext']="尊敬的Cobub Razor用户:<br>
- 
-	您的移动应用%s于%s统计数据有波动，超出预期：<br>
-	数据类型：%s<br>
-	预测值：%s<br>
-	实际值：%s<br>
-	浮动范围：  %s%%<br>
-详情请点击:http://%s<br>
- 
+您的移动应用%s于%s统计数据有异常波动，超出预期：<br>
+数据类型：%s<br>
+预测值：%s<br>
+实际值：%s<br>
+浮动范围：  %s%%<br>
+实际浮动值：%s%%<br><br>
+详情请点击:%s<br><br>
+
 您收到该邮件，是因为Cobub Razor的管理员将您加入到了智能提醒的邮件列表里，如想取消，请联系Cobub Razor的管理员。<br>
- 
+<br>
+<hr>
 Cobub Razor系统
 ";
 
@@ -584,7 +587,7 @@ $lang['v_rpt_re_unitprice']='价值';
 $lang['v_rpt_re_unitprice_alt']='请输入正确的价值';
 $lang ['v_rpt_re_funnelStartevent'] = "起始事件";
 $lang ['v_rpt_re_funnelTargetevent'] = "目标事件";
-$lang ['v_rpt_re_funnelTargettrend'] = "目标趋势";
+$lang ['v_rpt_re_funnelTargettrend'] = "转换率趋势";
 $lang ['v_rpt_re_funnelConversionrate'] = "转化率";
 $lang ['v_rpt_re_funnelStep'] = "步骤";
 $lang ['v_rpt_re_funnelStepname'] = "步骤名称";
@@ -763,7 +766,7 @@ $lang['c_errorondevice']='错误分析(设备)';
 /***************************************widget report name**********************************************/
 $lang['w_savereport']="报表位置保存成功";
 $lang['w_addreport']='添加报表';
-$lang['w_isaddreport']='你确定添加报表？';
+$lang['w_isaddreport']='确定添加报表到控制面版吗？';
 $lang['w_addreportsuccess']='报表添加成功';
 $lang['w_addfullreport']='添加报表';
 $lang['w_addhalfreport']='添加半框报表';
@@ -792,13 +795,13 @@ $lang['w_overmaxnum']='您添加的报表数到达最大数';
 /***************************************markevent**********************************************/
 $lang['m_title']='标题';
 $lang['m_description']='描述';
-$lang['m_marktime']='标记时间';
+$lang['m_marktime']='标记日期';
 $lang['m_rights']='权限';
 $lang['m_submit']='提交信息';
 $lang['m_public']='公共';
 $lang['m_private']='私有';
 $lang['m_operate']='操作';
-$lang['m_newsreport']='信息反馈';
+$lang['m_newsreport']='编辑标注';
 $lang['m_modify']='修改信息';
 $lang['m_delete']='删除';
 $lang['m_isdel']='确定删除?';
@@ -814,7 +817,7 @@ $lang['m_changesubtomodify']='信息已經存在！你確定要修改嗎？';
 $lang['m_markeventlist']='标记事件列表';
 $lang['m_user']='标记用户';
 $lang['m_eventsDetail']='事件详细';
-$lang['m_dateevents']='日期标注';
+$lang['m_dateevents']='标注事件';
 $lang['m_viewmark_Detail']='点击查看详细';
 /*****************************产品比较*****************************************/
 $lang['c_compare_product']='产品比较';

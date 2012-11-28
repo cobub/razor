@@ -63,7 +63,14 @@ var trendeventMsgNumActive=[];
 var trendeventMsgNumSession=[];
 
 var markEventIndex=[];
+var dateMark=[];
 var threndIndex=-1;
+var thrend=0;
+var category=[];
+var tooltipdata=[];
+var tooltiptrenddata=[];
+var tooltipname='';
+var tooltipmarkevent=[];
 $(document).ready(function() {
 	options = {
             chart: {
@@ -91,14 +98,21 @@ $(document).ready(function() {
                 }
             },
             tooltip: {
-	            crosshairs: true,
-	            shared: true
-	            /* formatter:function(){
-	                if(!markEventIndex.content(this.series.index)){
-						return this.series.name+":"+this.y;
-	                    }
-	                	return this.point.title;
-	                }*/
+            	crosshairs: true,
+                formatter: function() {
+                    var content=this.x+'<br>';
+                    for(var i=0;i<category.length;i++){
+                        if(category[i]==this.x){
+                     	   if(this.series.name=='<?php echo lang('m_dateevents');?>'){
+                                content=tooltipmarkevent[i];
+                            }else{
+                                content=content+'<span style="color:#4572A7">'+tooltipname+'</span>:'+tooltipdata[i]+'<br>';
+                                content=content+'<span style="color:#89A54E"><?php echo lang('V_Trendvalue')?></span>'+':'+tooltiptrenddata[i];
+                            }                 
+                        }
+                    }
+                    return content;
+                 }
 	        },
             plotOptions: {
                 column:{
@@ -195,7 +209,9 @@ var optionsLength=0;
     		       		  
     		    categories.push(marketData.datevalue.substr(0,10));
     		}
-			
+    	    category=categories;
+    	    tooltipname=event_name;
+    	    tooltipdata=eventMsgNum;
                 options.series[0]={};
     		    options.series[0].data = eventMsgNum;
     		    options.series[0].name=event_name;
@@ -227,16 +243,20 @@ var optionsLength=0;
 								}
 					    	});
 							if(markevent!=null){
+								tooltipmarkevent[j]=markevent.title;
 								contentdata.push(markevent);
 							}else{
 								contentdata.push(null);
 								}	
 						}
+						dateMark[seriesIndex]=contentdata;
 				    	options.series[seriesIndex].data=prepare(contentdata,options,index);
 					    });
 				    }
 			//end content
 				threndIndex=options.series.length;
+				thrend=threndIndex;
+				tooltiptrenddata=trendeventMsgNum;
 			    options.series[threndIndex]={};
     		    options.series[threndIndex].data = trendeventMsgNum;
     		    options.series[threndIndex].name="<?php echo lang('V_Trendvalue')?>";
@@ -260,6 +280,13 @@ function changeChartData(type)
 		 options.series[0].data = eventMsgNum;
 		 options.title.text = "<?php echo  $reportTitle['eventMsgNum'] ; ?>";
 		 options.series[threndIndex].data = trendeventMsgNum;
+		 tooltipdata=eventMsgNum;
+		 tooltiptrenddata=trendeventMsgNum;
+		 for(var j=0;j<markEventIndex.length;j++){
+				if(thrend!=markEventIndex){
+					options.series[markEventIndex[j]].data=prepare(dateMark[markEventIndex[j]],options,j);
+					}
+			}
 	     chart = new Highcharts.Chart(options);	
     }
 
@@ -268,6 +295,13 @@ function changeChartData(type)
     	options.series[0].data = eventMsgNumActive;
 		 options.title.text = "<?php echo  $reportTitle['eventMsgNumActive'] ; ?>";
 		 options.series[threndIndex].data = trendeventMsgNumActive;
+		 tooltipdata=eventMsgNumActive;
+		 tooltiptrenddata=trendeventMsgNumActive;
+		 for(var j=0;j<markEventIndex.length;j++){
+				if(thrend!=markEventIndex){
+					options.series[markEventIndex[j]].data=prepare(dateMark[markEventIndex[j]],options,j);
+					}
+			}
 	     chart = new Highcharts.Chart(options);	
 			
     }
@@ -276,6 +310,13 @@ function changeChartData(type)
     	 options.series[0].data = eventMsgNumSession;
 		 options.title.text = "<?php echo  $reportTitle['eventMsgNumSession'] ; ?>";
 		 options.series[threndIndex].data = trendeventMsgNumSession;
+		 tooltipdata=eventMsgNumSession;
+		 tooltiptrenddata=trendeventMsgNumSession;
+		 for(var j=0;j<markEventIndex.length;j++){
+				if(thrend!=markEventIndex){
+					options.series[markEventIndex[j]].data=prepare(dateMark[markEventIndex[j]],options,j);
+					}
+			}
 	     chart = new Highcharts.Chart(options);	
     }
 }

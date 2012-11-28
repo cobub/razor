@@ -91,6 +91,8 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
 		<div class="spacer"></div>
 </section>
 <script type="text/javascript">
+var color=["","#CCCCFF","#CCCCCC","#999999"];			
+			
 //When page loads...
 $(".tab_content").hide(); //Hide all content
 $("ul.tabs2 li:first").addClass("active").show(); //Activate first tab 
@@ -263,31 +265,31 @@ function renderUserData(myurl)
 			var sameCount=0;
 			if(index>=weekStart&&index<weekStart+pagesize){
 				weektr+='<tr><td rowspan='+(productNames.length)+'>'+(item.startdate+'~'+item.enddate)+'</td>';
-				$.each(weekobj,function(i,o){
-					weektr+='<td>'+o.name+'</td>';
+				$.each(weekobj,function(i,o){										
+					weektr+='<td style="background:'+color[i]+'">'+o.name+'</td>';
 					if(o.data.length==0){
 						weektr+="<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>";
 					}else{
 					$.each(o.data,function(idx,week){
 						if(item.startdate==week.startdate&&item.enddate==week.enddate){
 							sameCount++;
-							weektr = weektr + "<td>";
+							weektr = weektr + "<td style='background:"+color[i]+"'>";
 							weektr = weektr + week.usercount;			
-							weektr = weektr + "</td><td>";
+							weektr = weektr + "</td><td style='background:"+color[i]+"'>";
 							weektr = weektr + week.week1;
-							weektr = weektr + "</td><td>";
+							weektr = weektr + "</td><td style='background:"+color[i]+"'>";
 							weektr = weektr + week.week2;
-							weektr = weektr + "</td><td>";
+							weektr = weektr + "</td><td style='background:"+color[i]+"'>";
 							weektr = weektr + week.week3;
-							weektr = weektr + "</td><td>";
+							weektr = weektr + "</td><td style='background:"+color[i]+"'>";
 							weektr = weektr + week.week4;
-							weektr = weektr + "</td><td>";
+							weektr = weektr + "</td><td style='background:"+color[i]+"'>";
 							weektr = weektr + week.week5;
-							weektr = weektr + "</td><td>";
+							weektr = weektr + "</td><td style='background:"+color[i]+"'>";
 							weektr = weektr + week.week6;
-							weektr = weektr + "</td><td>";
+							weektr = weektr + "</td><td style='background:"+color[i]+"'>";
 							weektr = weektr + week.week7;
-							weektr = weektr + "</td><td>";
+							weektr = weektr + "</td><td style='background:"+color[i]+"'>";
 							weektr = weektr + week.week8;					
 							weektr = weektr + "</td>";
 							}
@@ -317,30 +319,31 @@ function renderUserData(myurl)
 			if(index>=monthStart&&index<monthStart+pagesize){
 			monthtr+='<tr><td rowspan='+(productNames.length)+'>'+(item.startdate+'~'+item.enddate)+'</td>';
 			$.each(monthobj,function(i,o){
-				monthtr+='<td>'+o.name+'</td>';
+				
+				monthtr+='<td style="background:'+color[i]+'">'+o.name+'</td>';
 				if(o.data.length==0){
 					monthtr+="<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>";
 				}else{
 				$.each(o.data,function(idx,month){
 					if(item.startdate==month.startdate&&item.enddate==month.enddate){
 						sameCount++;
-						monthtr+="<td>";
+						monthtr+="<td style='background:"+color[i]+"'>";
 						monthtr = monthtr + month.usercount;			
-						monthtr = monthtr + "</td><td>";
+						monthtr = monthtr + "</td><td style='background:"+color[i]+"'>";
 						monthtr = monthtr + month.month1;
-						monthtr = monthtr + "</td><td>";
+						monthtr = monthtr + "</td><td style='background:"+color[i]+"'>";
 						monthtr = monthtr + month.month2;
-						monthtr = monthtr + "</td><td>";
+						monthtr = monthtr + "</td><td style='background:"+color[i]+"'>";
 						monthtr = monthtr + month.month3;
-						monthtr = monthtr + "</td><td>";
+						monthtr = monthtr + "</td><td style='background:"+color[i]+"'>";
 						monthtr = monthtr + month.month4;
-						monthtr = monthtr + "</td><td>";
+						monthtr = monthtr + "</td><td style='background:"+color[i]+"'>";
 						monthtr = monthtr + month.month5;
-						monthtr = monthtr + "</td><td>";
+						monthtr = monthtr + "</td><td style='background:"+color[i]+"'>";
 						monthtr = monthtr + month.month6;
-						monthtr = monthtr + "</td><td>";
+						monthtr = monthtr + "</td><td style='background:"+color[i]+"'>";
 						monthtr = monthtr + month.month7;
-						monthtr = monthtr + "</td><td>";
+						monthtr = monthtr + "</td><td style='background:"+color[i]+"'>";
 						monthtr = monthtr + month.month8;					
 						monthtr = monthtr + "</td></tr>";
 						}

@@ -57,6 +57,13 @@ var type="newuser";
 var optionsLength=0;
 var markEventIndex=[];//save all markevent series index
 var  allusers= new Array();
+var category=[];
+var tooltipmarkevent=[];
+var tooltipdata=new Array(new Array(),new Array());
+var tooltipname=new Array(new Array(),new Array());
+var colors=['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', 
+             '#A47D7C', '#B5CA92','#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', 
+             '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
 $(document).ready(function() {	
 	options = {
 		            chart: {
@@ -86,16 +93,28 @@ $(document).ready(function() {
 			        credits:{
 						enabled:false
 				        },
-				        tooltip: {
-				            crosshairs: true,
-				            shared: true
-				            /* formatter:function(){
-				                if(!markEventIndex.content(this.series.index)){
-									return this.series.name+":"+this.y;
-				                    }
-				                	return this.point.title;
-				                }*/
-				        },
+				    tooltip: {
+				        crosshairs: true,
+				        shared:false,
+				        formatter: function() {
+					        var content=this.x+'<br>';
+					        var m=0;
+					        for(var i=0;i<category.length;i++){
+						        if(category[i]==this.x){
+							        m=i;
+							        break;
+						        }
+						    }
+					        if(this.series.name=='<?php echo lang('m_dateevents');?>'){
+		                           content=tooltipmarkevent[m];
+		                    }else{
+			                    for(var j=0;j<tooltipname.length;j++){
+				                    content=content+'<span style="color:'+colors[j]+'">'+tooltipname[j]+'</span>:'+tooltipdata[j][m]+'<br>';
+				                }
+		                    }
+					        return content;
+				        }
+				    },
 		            plotOptions: {
 			            column: {
 	                    showInLegend:false
@@ -247,7 +266,8 @@ $(document).ready(function() {
                    			
                    		    categories.push(eachdata.datevalue.substr(0,10));  
           		    }
-            		 options.series[j]={};
+            		category=categories;
+            		options.series[j]={};
            			if(marketData=="")
            				{
            				options.series[j].name="<?php echo lang('t_unknow');?>";
@@ -256,7 +276,8 @@ $(document).ready(function() {
            				{
            				  options.series[j].name=marketData;
            				}     
-       				 	    			  
+       				 	 tooltipdata[j]= reportData;	 
+       				 	 tooltipname[j]= options.series[j].name;
            				 options.series[j].data = reportData;
            				 options.title.text = reportTitle;
             			 options.xAxis.labels.step = parseInt(categories.length/10);
@@ -286,6 +307,7 @@ $(document).ready(function() {
 								}
 					    	});
 							if(markevent!=null){
+								tooltipmarkevent[j]=markevent.title;
 								contentdata.push(markevent);
 							}else{
 								contentdata.push(null);
