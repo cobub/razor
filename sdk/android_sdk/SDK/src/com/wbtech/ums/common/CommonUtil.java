@@ -463,7 +463,7 @@ public class CommonUtil {
   public static String getNetworkType(Context context){
       TelephonyManager manager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
     int type=  manager.getNetworkType();
-    String typeString="UNKOWN";
+    String typeString="UNKNOWN";
     if(type==TelephonyManager.NETWORK_TYPE_CDMA){
     	typeString ="CDMA";
     }
@@ -492,7 +492,7 @@ public class CommonUtil {
     	typeString ="UMTS";
     }
     if(type==TelephonyManager.NETWORK_TYPE_UNKNOWN){
-    	typeString ="UNKOWN";
+    	typeString ="UNKNOWN";
     }
    
 	return typeString;
