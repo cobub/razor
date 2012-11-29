@@ -402,46 +402,45 @@ public class CommonUtil {
     public static LatitudeAndLongitude getLatitudeAndLongitude(SCell cell, boolean mUseLocationService, Context context) {
 
         LatitudeAndLongitude coordinates = new LatitudeAndLongitude();
+        coordinates.latitude = "";
+        coordinates.longitude = "";
 
         if(cell==null){
 
             if(UmsConstants.DebugMode){
-                Log.e("LatitudeAndLongitude Error", "cell is null");
-    	    }
-    	
-            coordinates.latitude = "";
-            coordinates.longitude = "";
+                Log.e("UmsAgent", "cell is null");
+            }
 
-            return coordinates;
-        }
+        } else if(mUseLocationService) {
 
-        if(mUseLocationService){
+            try {
+                int minDistance = 5000; // 5 kilometres
+                int minTime = 300000; // 5 minutes
 
-            int minDistance = 5000; // 5 kilometres
-            int minTime = 300000; // 5 minutes
+                LegacyLastLocationFinder finder = new LegacyLastLocationFinder(context);
+                Location location = finder.getLastBestLocation(minTime, minDistance);
 
-            LegacyLastLocationFinder finder = new LegacyLastLocationFinder(context);
-            Location location = finder.getLastBestLocation(minTime, minDistance);
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
 
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
+                coordinates.latitude = Double.toString(latitude);
+                coordinates.longitude = Double.toString(longitude);
 
-            coordinates.latitude = Double.toString(latitude);
-            coordinates.longitude = Double.toString(longitude);
+            } catch(Exception e) {
 
-            return coordinates;
+                if(UmsConstants.DebugMode){
+                    Log.e("UmsAgent", "Exception: " + e.getMessage());
+                }
+            }
 
         } else {
 
-            coordinates.latitude = "";
-            coordinates.longitude = "";
-
             if(UmsConstants.DebugMode){
-                printLog("LatitudeAndLongitude", "not able to find LatitudeAndLongitude, value is \"\"");
+                Log.w("UmsAgent", "not able to find LatitudeAndLongitude, value is \"\"");
             }
-             
-            return coordinates;
         }
+
+        return coordinates;
     }
     
     /**

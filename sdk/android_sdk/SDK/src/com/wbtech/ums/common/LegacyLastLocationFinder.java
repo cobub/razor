@@ -65,7 +65,6 @@ public class LegacyLastLocationFinder {
      * Returns the most accurate and timely previously detected location.
      * Where the last result is beyond the specified maximum distance or
      * latency a one-off location update is returned via the {@link LocationListener}
-     * specified in {@link setChangedLocationListener}.
      * @param minDistance Minimum distance before we require a location update.
      * @param minTime Minimum time required between location updates.
      * @return The most accurate and / or timely previously detected location.
@@ -116,7 +115,6 @@ public class LegacyLastLocationFinder {
      * This one-off {@link LocationListener} simply listens for a single location
      * update before unregistering itself.
      * The one-off location update is returned via the {@link LocationListener}
-     * specified in {@link setChangedLocationListener}.
      */
     protected LocationListener singeUpdateListener = new LocationListener() {
         public void onLocationChanged(Location location) {
