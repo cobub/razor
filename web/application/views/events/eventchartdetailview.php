@@ -107,7 +107,7 @@ $(document).ready(function() {
                                 content=tooltipmarkevent[i];
                             }else{
                                 content=content+'<span style="color:#4572A7">'+tooltipname+'</span>:'+tooltipdata[i]+'<br>';
-                                content=content+'<span style="color:#89A54E"><?php echo lang('V_Trendvalue')?></span>'+':'+tooltiptrenddata[i];
+                                content=content+'<span style="color:#AA4643"><?php echo lang('V_Trendvalue')?></span>'+':'+tooltiptrenddata[i];
                             }                 
                         }
                     }

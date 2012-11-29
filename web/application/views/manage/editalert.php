@@ -54,10 +54,10 @@
 						    <fieldset>
 							<label style="width: 10%; "><?php echo lang('v_rpt_el_email') ?></label>
 							<input style="width: 35%; margin-left: 5 px" type="text" id='emailstr'  value='<?php  if(isset($alertlist)) echo $alertlist['emails']?>'>
-							<label><?php echo lang('v_rpt_el_note')?></label>
+							<label style="width: 35%; margin-left: 5 px"><?php echo lang('v_rpt_el_note')?></label>
 						</fieldset>
 						    
-						<input style="width: 10%; " type="button" value="<?php echo lang('v_rpt_el_set'); ?>" class="alt_btn" onClick='resetExceptionlab(<?php  if(isset($alertlist)) echo $alertlist['productid']?>,<?php if(isset($alertlist)) echo $alertlist['condition']?>)'>
+						<input style="width: 10%; " type="button" value="<?php echo lang('v_rpt_el_set'); ?>" class="alt_btn" onClick='resetExceptionlab(<?php  if(isset($alertlist)) echo $alertlist['id']?>,<?php if(isset($alertlist)) echo $alertlist['condition']?>)'>
 				</div>
 			
 				
@@ -74,11 +74,12 @@
 	</section>
 	
 	<script type="text/javascript">
-function resetExceptionlab() {
+function resetExceptionlab(id) {
 	var select = document.getElementById("myselect");
 	var index = select.selectedIndex;
 	exceptionlab = select.options[index].value;
 	condition = trim(document.getElementById('condition').value);
+	emailstr = trim(document.getElementById('emailstr').value);
 	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
 	if(exceptionlab=='')
 	{
@@ -87,25 +88,48 @@ function resetExceptionlab() {
 		return;
 
 	}
-	for (var i = 0; i < exceptionlab.length; i++) {
-		if(pattern.test(exceptionlab.substr(i, 1))){
-			document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_man_ev_errorInputEI') ?></font>";
-			document.getElementById('msg').style.display="block";
-			return;
-			}
-	}
-	if(condition=='')
+	
+	if(condition==''||isNaN(condition))
 	{
-		document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_rpt_el_enterEventD') ?></font>";
+		document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_rpt_el_noteofcondition') ?></font>";
 		document.getElementById('msg').style.display="block";
 		return;
 
 	}
+
+	if(emailstr=='')
+	{
+		document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_rpt_el_noteofemail') ?></font>";
+		document.getElementById('msg').style.display="block";
+		return;
+
+	}else{
+		if(emailstr.indexOf(';')>=0){
+			var emails = new Array();
+			emails = emailstr.split(';');
+			for(var i=0; i<emails.length;i++){
+				if(!isEmail(emails[i])){
+					document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('e_confirmNewE') ?></font>";
+					document.getElementById('msg').style.display="block";
+					return;
+					}
+				}
+			}else{
+				if(!isEmail(emailstr)){
+					document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('e_confirmNewE') ?></font>";
+					document.getElementById('msg').style.display="block";
+					return;
+					}
+				}
+	}
+	
 	
 	var data = {
 			
 			exceptionlab : exceptionlab,
-			condition : condition
+			condition : condition,
+			emailstr : emailstr,
+			id : id
 			
 		};
 		jQuery.ajax({
@@ -128,6 +152,17 @@ function resetExceptionlab() {
 					}
 				});
 }
+
+function isEmail(email) {      
+	
+    if (email.search(/^([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+\.(?:com|cn)$/) != -1)
+	      {   
+	        return true;   
+	       }  
+     else{       
+         
+         return false;   }  }  
+
 function trim(str){
     return  (str.replace(/(^\s*)|(\s*$)/g,''));
  }

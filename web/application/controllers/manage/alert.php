@@ -36,10 +36,10 @@ class Alert extends CI_Controller {
         $this->load->view ( 'manage/productAlert',$data);
 	}
 	
-	function editAlert($lab,$condition)
+	function editAlert($id,$condition)
 	{
 		$this->common->loadHeader();
-	    $data['alertlist'] = $this->alert->getalertbyid($lab,$condition);
+	    $data['alertlist'] = $this->alert->getalertbyid($id,$condition);
 	    $this->load->view('manage/editalert',$data);
 	}
 	
@@ -48,11 +48,11 @@ class Alert extends CI_Controller {
 	    
 	    $product = $this->common->getCurrentProduct();
 	    $productId = $product->id;
-	    echo $productId;
+// 	    echo $productId;
 	    $exceptionlab  = $_POST['exceptionlab'];
 	    $condition = $_POST['condition'];
 	    $emalstr = $_POST['emailstr'];
-	    $isUnique=$this->alert->isUnique($exceptionlab,$condition);
+	    $isUnique=$this->alert->isUnique($exceptionlab,$condition,$emalstr);
 	    if(count($isUnique->result_array())>=1){
 	    	echo false;
 	    }else{
@@ -61,9 +61,9 @@ class Alert extends CI_Controller {
 	}
 	}
 	
-	function delAlert($label)
+	function delAlert($id,$condition)
 	{
-	    $this->alert->delalert($label);
+	    $this->alert->delalert($id,$condition);
 	    $this->index();
 	}
 	
@@ -73,11 +73,14 @@ class Alert extends CI_Controller {
 	    $this->index();
 	}
 	
-	function resetalertlab($id)
+	function resetalertlab()
 	{   
+// 		$product = $this->common->getCurrentProduct();
+		$Id = $_POST['id'];
 		$exceptionlab  = $_POST['exceptionlab'];
 		$condition = $_POST['condition'];
-	    $this->alert->resetalert($exceptionlab,$condition);
+		$emails = $_POST['emailstr'];
+	    $this->alert->resetalert($Id,$exceptionlab,$condition,$emails);
 // 	    $this->index();
 	}
 	

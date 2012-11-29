@@ -26,10 +26,10 @@ class Alertmodel extends CI_Model {
 	   return $result;
 	}
 	
-	function isUnique($exceptionlab,$condition){
+	function isUnique($exceptionlab,$condition,$emails){
 		$product = $this->common->getCurrentProduct();
 		$id = $product->id;
-		$sql ="select * from ".$this->db->dbprefix('alert')."  a where a.productid=$id  and a.label='".$exceptionlab."' and a.condition='".$condition."';  ";
+		$sql ="select * from ".$this->db->dbprefix('alert')."  a where a.productid=$id and a.emails='".$emails."'  and a.label='".$exceptionlab."' and a.condition='".$condition."' ;  ";
 		$result = $this->db->query($sql);
 		return $result;
 		
@@ -40,13 +40,13 @@ class Alertmodel extends CI_Model {
 	   $userId = $this->common->getUserId();
 	   $product = $this->common->getCurrentProduct();	 
 	   $data = array('label' => $exceptionlab,'condition'=>$condition,'productid'=>$product->id,'userid'=>$userId,'emails'=>$emailstr);
-	echo    $this->db->insert('alert',$data);
+	    $this->db->insert('alert',$data);
 	}
-	function getalertbyid($lab,$condition)
+	function getalertbyid($id,$condition)
 	{
 		$sql ="SELECT * 
 FROM ".$this->db->dbprefix('alert')."    
-WHERE label =  '".$lab."'
+WHERE id =  '".$id."'
 AND active =1
 AND  abs(`condition` -".$condition.")<0.001";
 // 		$sql = "select *  from ".$this->db->dbprefix('alert')."   where label ='".$lab."' and active=1 and condition =".$condition.";";
@@ -58,19 +58,20 @@ AND  abs(`condition` -".$condition.")<0.001";
 		  return null;   
 	}
 	
-	function delalert($label)
+	function delalert($id,$condition)
 	{
 		
-	    $sql = "delete from  ".$this->db->dbprefix('alert')." where label='".$label."'";
+	    $sql = "delete from  ".$this->db->dbprefix('alert')." where id='".$id."' and `condition`=$condition ";
 	    $this->db->query($sql);
 	    
 	}
 	
 	
-	function resetalert($label,$condition)
+	function resetalert($Id,$label,$condition,$emails)
 	{
-	$sql="	update ".$this->db->dbprefix('alert')." set `condition`=$condition where `label`='".$label."'";
-	echo $sql;  
+		$sql ="UPDATE ".$this->db->dbprefix('alert')." SET `condition`=$condition,`label`='$label',`emails`='$emails' WHERE `id`=$Id";
+// 	$sql="	update ".$this->db->dbprefix('alert')." set `condition`=$condition,`label`=$label,`emails`=$emails where `id`=".$productId."";
+// 	echo $sql;  
 	$this->db->query($sql);
 	}
 }

@@ -39,7 +39,7 @@ function modifyevent(id) {
 	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
 	if(eventId=='')
 	{
-		document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_rpt_el_enterEventN') ?></font>";
+		document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_rpt_el_entryEventID') ?></font>";
 		document.getElementById('msg').style.display="block";
 		return;
 
@@ -53,7 +53,7 @@ function modifyevent(id) {
 	}
 	if(eventName=='')
 	{
-		document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_rpt_el_enterEventD') ?></font>";
+		document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_rpt_el_entryEventName') ?></font>";
 		document.getElementById('msg').style.display="block";
 		return;
 

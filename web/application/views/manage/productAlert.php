@@ -32,10 +32,10 @@
     				<td>+/-<?php echo $row->condition;?>%</td> 
     								    					
     					<td>
-    					<?php echo anchor('/manage/alert/editAlert/'.$row->label.'/'.$row->condition, lang('g_edit'));?>
+    					<?php echo anchor('/manage/alert/editAlert/'.$row->id.'/'.$row->condition, lang('g_edit'));?>
     					<?php if ($row->active==1) 
     					{ 
-    						echo anchor('/manage/alert/delAlert/'.$row->label.'/'.$row->condition,lang('m_delete'));
+    						echo anchor('/manage/alert/delAlert/'.$row->id.'/'.$row->condition,lang('m_delete'));
     					}
     					?>
     				</td> 
@@ -49,7 +49,7 @@
 			<div id="tab2" class="tab_content">								
 				<div class="module_content">
 						<fieldset>
-							<label><?php echo lang('v_rpt_el_alertlab') ?></label>
+							
 							<select id="myselect" >
 								<option value="t_newUser"><?php echo lang('t_newUser') ?></option>
 								<option value="t_activeUser"><?php echo lang('t_activeUser') ?></option>
@@ -70,7 +70,7 @@
 						<fieldset>
 							<label style="width: 10%; "><?php echo lang('v_rpt_el_email') ?></label>
 							<input style="width: 35%; margin-left: 5 px" type="text" id='emailstr'  value='<?php  if(isset($alertlist)) echo $alertlist['emails']?>'>
-							<label style="width: 35%; margin-left: 5 px"><?php echo lang('v_rpt_el_note')?></label>
+							<label style="width: 35%; margin-left: 5 px" ><?php echo    ucfirst( lang('v_rpt_el_note'));?></label>
 						</fieldset>
 						
 						<input id="addButton" type="button" value="<?php echo lang('v_rpt_el_add') ?>" class="alt_btn" onClick='addEvent()'>
@@ -106,6 +106,8 @@ exceptionlab = select.options[index].value;
 condition = trim(document.getElementById('condition').value);
 emailstr = trim(document.getElementById('emailstr').value);
 var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+var reg = new RegExp("[0-9]*");
+
 if(exceptionlab=='')
 {
 	document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_rpt_el_enterEventN') ?></font>";
@@ -113,6 +115,9 @@ if(exceptionlab=='')
 	return;
 
 }
+
+
+
 for (var i = 0; i < exceptionlab.length; i++) {
 	if(pattern.test(exceptionlab.substr(i, 1))){
 		document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_man_ev_errorInputEI') ?></font>";
@@ -120,26 +125,38 @@ for (var i = 0; i < exceptionlab.length; i++) {
 		return;
 		}
 }
-if(condition=='')
+if(condition==''||isNaN(condition))
 {
 	document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_rpt_el_noteofcondition') ?></font>";
 	document.getElementById('msg').style.display="block";
 	return;
 
 }
+
 if(emailstr=='')
 {
 	document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_rpt_el_noteofemail') ?></font>";
 	document.getElementById('msg').style.display="block";
 	return;
 
-}
-for (var i = 0; i < condition.length; i++) {
-	if(pattern.test(condition.substr(i, 1))){
-		document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_man_ev_errorInputEN') ?></font>";
-		document.getElementById('msg').style.display="block";
-		return;
-		}
+}else{
+	if(emailstr.indexOf(';')>=0){
+		var emails = new Array();
+		emails = emailstr.split(';');
+		for(var i=0; i<emails.length;i++){
+			if(!isEmail(emails[i])){
+				document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('e_confirmNewE') ?></font>";
+				document.getElementById('msg').style.display="block";
+				return;
+				}
+			}
+		}else{
+			if(!isEmail(emailstr)){
+				document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('e_confirmNewE') ?></font>";
+				document.getElementById('msg').style.display="block";
+				return;
+				}
+			}
 }
 var data = {
 		
@@ -174,6 +191,19 @@ var data = {
 				}
 			});
 }
+
+function isEmail(email) {      
+	
+	      if (email.search(/^([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+\.(?:com|cn)$/) != -1)
+		      {   
+		        return true;   
+		       }  
+           else{       
+               
+               return false;   }  }  
+	
+
+
 function trim(str){
     return  (str.replace(/(^\s*)|(\s*$)/g,''));
  }

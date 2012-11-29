@@ -149,7 +149,7 @@ $lang['m_rpt_resolution']='Resolution';
 $lang['m_rpt_carriers']='Carriers';
 $lang['m_rpt_networking']='Networking';
 $lang['m_rpt_events']='Events & Conversion';
-$lang['m_rpt_eventlist']='Event List';
+$lang['m_rpt_eventlist']='Annotations List';
 $lang['m_rpt_errors']='Errors';
 $lang['m_rpt_errorsOfVersion']='Errors of Version';
 $lang['m_rpt_errorsOnOS']='Errors on OS';
@@ -485,24 +485,24 @@ $lang['v_man_ev_errorInputEI']='The input value of event id is illegal!';
 $lang['v_man_ev_errorInputEN']='The input value of event name is illegal!';
 
 //view---manage---exception
-$lang['v_man_ev_productalter']='Custom Smart Notification tag';
-$lang['v_man_ev_productAlertList']='Smart Notification label list';
-$lang['v_man_ev_addAlertlab']='Add Smart Notification tag';
-$lang['v_rpt_el_alertlab']='Smart Notification tag';
-$lang['v_man_ev_modifyAlertlab']='Modify Smart Notification tag';
-$lang['v_rpt_el_condition']='Range';
-$lang['v_man_ev_editalertlab']='Abnormal label editor';
-$lang['v_rpt_el_add']='add';
+$lang['v_man_ev_productalter']='Smart Notification';
+$lang['v_man_ev_productAlertList']='Smart Notification list';
+$lang['v_man_ev_addAlertlab']='Add Smart Notification';
+$lang['v_rpt_el_alertlab']='Smart Notification';
+$lang['v_man_ev_modifyAlertlab']='Modify Smart Notification';
+$lang['v_rpt_el_condition']='Deviation';
+$lang['v_man_ev_editalertlab']='Action';
+$lang['v_rpt_el_add']='Add';
 $lang['v_rpt_el_set']='set';
 $lang['v_rpt_el_email']='E-mail';
-$lang['v_rpt_el_note']='More than one email address please separate by ;';
+$lang['v_rpt_el_note']='please input your email, multiple emails seperated by \' ; \'';
 $lang['v_rpt_el_noteofemail']='Please enter at least one e-mail address';
 $lang['v_rpt_el_noteofcondition']='Please enter reminded range';
 $lang['v_rpt_addlab']='Add Smart Notification...';
 $lang['v_rpt_addok']='Add completed';
 
 
-$lang['emailtext']="Dear Cobub Razor User,<br><br>
+$lang['emailtext']="Dear Cobub Razor User:<br><br>
  
 The mobile app %s‘s data volatility exceed the expectation on %s:<br>
 Data Type: %s<br>
@@ -582,7 +582,7 @@ $lang ['v_rpt_re_funnelAdd'] = "Add";
 $lang ['v_rpt_re_funnelStepadd'] = "Add Step";
 $lang ['v_rpt_re_funnelTarget'] = "Target";
 $lang ['v_rpt_re_funnelName'] = "Target Name";
-$lang['v_rpt_re_unitprice']='Money';
+$lang['v_rpt_re_unitprice']='Value';
 $lang['v_rpt_re_unitprice_alt']='Please input the Current Money';
 $lang ['v_rpt_re_funnelStartevent'] = "Start Event";
 $lang ['v_rpt_re_funnelTargetevent'] = "Target Event";
@@ -794,16 +794,16 @@ $lang['w_overmaxnum']='Excessive number of report you addition';
 /***************************************markevent**********************************************/
 $lang['m_title']='Title';
 $lang['m_description']='Description';
-$lang['m_marktime']='Annotation Date';
+$lang['m_marktime']='Date';
 $lang['m_rights']='Rights';
 $lang['m_submit']='Submit';
 $lang['m_public']='Public';
 $lang['m_private']='Private';
-$lang['m_operate']='Operate';
+$lang['m_operate']='Action';
 $lang['m_newsreport']='Annotation Edit';
 $lang['m_modify']='Modify Info';
 $lang['m_delete']='Delete';
-$lang['m_isdel']='is Delete?';
+$lang['m_isdel']='Are you sure to delete?';
 $lang['m_waittingdel']='Waitting ……';
 $lang['m_delsuccess']='Delete success';
 $lang['m_errordeltryagain']='Error delete,Please try again a later';
@@ -816,11 +816,11 @@ $lang['m_changesubtomodify']='News Already exists ,Modify？';
 $lang['m_markeventlist']='Mark events List';
 $lang['m_user']='Mark User';
 $lang['m_eventsDetail']='Event Detail';
-$lang['m_dateevents']='Annotation Event';
+$lang['m_dateevents']='Annotations';
 $lang['m_viewmark_Detail']='View Detail';
 /*****************************Compare Product*****************************************/
 $lang['c_compare_product']='Compare Product';
-$lang['c_compare2two4']='The selected Num between 2-4';
+$lang['c_compare2two4']='Please select 2-4 products';
 /*********************************Suspended box*************************************/
 $lang['s_suspend_title']='Pin to dashboard';
 $lang['s_suspend_deltitle']='Delete to dashboard';

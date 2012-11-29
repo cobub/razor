@@ -113,13 +113,18 @@ class productbasic extends CI_Controller {
 	function addphaseusetimereport($delete=null,$type=null)
 	{
 		$productId = $this->common->getCurrentProduct();
-		if($delete==null)
-		{
-			$this->data['add']="add";
-		}
-		if($delete=="del")
-		{
-			$this->data['delete']="delete";
+		if(!empty($productId)){
+			if($delete==null){
+				$this->data['add']="add";
+			}
+			if($delete=="del"){
+				$this->data['delete']="delete";
+			}
+		}else{
+			$products=$this->common->getCompareProducts();
+			if(empty($products)){
+				$this->common->requireProduct();
+			}
 		}
 		if($type!=null)
 		{

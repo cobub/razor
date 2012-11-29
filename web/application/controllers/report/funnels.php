@@ -81,6 +81,7 @@ class Funnels extends CI_Controller {
 	function prepareUnitAndeventCount($targetdata=array(),$eventdata=array()){
 		$result=array();
 		$date=array();
+		$sc_arr=array();
 		$unitprices=array();
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();
@@ -88,6 +89,7 @@ class Funnels extends CI_Controller {
 		//all event count
 		for($d=0;$d<count($datelist);$d++){
 			$count=0;
+			$scount=0;
 			$unitprice=0;
 			for($i = 0; $i < count ( $targetdata ); $i ++) {
 				$target = $targetdata [$i];
@@ -96,7 +98,6 @@ class Funnels extends CI_Controller {
 					if ($target ['eid'] == $event ['event_id']) {
 						$date_array=explode(" ", $event['datevalue']);
 						$k='';
-						$bool=false;
 						if($datelist[$d]==$date_array[0]){
 							$count+=$event ['num'];
 							$unitprice+=$event ['num']*($target['unitprice']);
@@ -104,13 +105,24 @@ class Funnels extends CI_Controller {
 							$count+=0;
 						}
 					}
+					if ($target ['sid'] == $event ['event_id']) {
+						$date_array=explode(" ", $event['datevalue']);
+						$k='';
+						if($datelist[$d]==$date_array[0]){
+							$scount+=$event ['num'];
+						}else{
+							$scount+=0;
+						}
+					}
 				}
 			}
+ 			$sc_arr[$datelist[$d]]=$scount;
 			$date[$datelist[$d]]=$count;
 			$unitprices[0][$datelist[$d]]=$unitprice;
 		}
 		$result['unitprice']=$unitprices;
 		$result['date']=$date;
+		$result['scount']=$sc_arr;
 		return $result;
 	}
 	/*load funnel report*/

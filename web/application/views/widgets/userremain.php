@@ -91,7 +91,7 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
 		<div class="spacer"></div>
 </section>
 <script type="text/javascript">
-var color=["","#CCCCFF","#CCCCCC","#999999"];			
+var color=["","#EDFFFF","#FFFEED","#EDEDED"];			
 			
 //When page loads...
 $(".tab_content").hide(); //Hide all content

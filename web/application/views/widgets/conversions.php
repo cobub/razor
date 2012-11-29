@@ -30,6 +30,11 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
 	</div>
 	<h3 class="h3_fontstyle">
 	<?php echo lang('v_rpt_re_funnelModel');?></h3>
+	<ul class="tabs3" id="tabs3">
+				<li class="active"><a href="javascript:change('count',0);"><?php echo lang('v_rpt_re_funneleventC');?></a></li>
+				<li><a href="javascript:change('value',1);"><?php echo lang('v_rpt_re_unitprice');?></a></li>
+				<li><a href="javascript:change('conversion',2);"><?php echo lang('v_rpt_re_funnelConversionrate');?></a></li>
+	</ul>
 	</header>
 		<div id="container" class="module_content" style="height: 300px"></div>
 	</article>	
@@ -65,9 +70,9 @@ $(document).ready(function() {
                 }
             },
             yAxis: {
-            	allowDecimals:false,
-                title: { text:'<?php echo lang('v_rpt_re_funneleventC');?>'},
-                min:0
+                	allowDecimals:false,
+                    title: { text:'<?php echo lang('v_rpt_re_funneleventC');?>'},
+                    min:0
             },
             plotOptions: {
                 column: {
@@ -109,15 +114,35 @@ $(document).ready(function() {
                   ,
 	            formatter:function(){
 	            	var msg='';
-		            if(typeof(this.points)!='undefined'&&this.points.length>0){
-			            msg='<?php echo lang("g_date")?>:'+this.x+'<br/>';
-						for(i=0;i<this.points.length;i++){
+	            	if(show_markevent==1){//mean view product
+	            		if(typeof(this.points)!='undefined'&&this.points.length>0){
+				            msg='<?php echo lang("g_date")?>:'+this.x+'<br/>';
+				            var length=this.points.length;
+							for(i=0;i<length;i++){
+								var point=this.points[i];
+								var unitprice=point.total==null?0:point.total;
+								msg+='<?php echo lang('v_rpt_re_funnelTarget');?>:'+point.series.name +','+'<?php echo lang("v_rpt_re_count");?>'+':'+point.y+","+"<?php echo lang('v_rpt_re_unitprice');?>:"+unitprice+'<br/>';
+								}
+				            }
+		            }else{//mean compare
+		            	var length=this.points.length;
+		            	
+						for(i=0;i<length;i++){
 							var point=this.points[i];
-							var unitprice=point.total==null?0:point.total;
-							msg+='<?php echo lang('v_rpt_re_funnelTarget');?>:'+point.series.name +','+'<?php echo lang("v_rpt_re_count");?>'+':'+point.y+","+"<?php echo lang('v_rpt_re_unitprice');?>:"+unitprice+"<br/>";
+							msg+='<?php echo lang('v_rpt_re_funnelTarget');?>:'+point.series.name+'<br/>';
+							var point=this.points[i];
+							if('count'==point.point.type){
+								msg+='<?php echo lang("v_rpt_re_count");?>:'+point.y+'<br/>';
 							}
-						return msg;
-			            }
+							if('conversion'==point.point.type){
+								msg+='<?php echo lang('v_rpt_re_funnelConversionrate');?>:'+point.y+'%<br/>';
+							}
+							if('value'==point.point.type){
+								msg+='<?php echo lang('v_rpt_re_unitprice');?>:'+point.y+'<br/>';
+							}
+						}	
+			          }
+		            
 		            return msg;
 	                }
 	        },
@@ -155,20 +180,37 @@ $(document).ready(function() {
 				show_thrend=data.common.show_thrend;
 				show_markevent=data.common.show_markevent;
 				//means compare ways
-				compareProductContent(data.result);
+				dataresult =data.result;
+				change('count',0);
             }else{
+                $('#tabs3').remove();
             	contentConversion(data);
+	    	    chart = new Highcharts.Chart(options);
              }
-    	    chart = new Highcharts.Chart(options);
     		chart_canvas.unblock();
     		});  
     }
 //produc
-function compareProductContent(dataresult){
+
+var count=[];
+var value=[];
+var dataresult;
+var conversion=[];
+//tab 切换显示
+function change(name,i){
 	var time_array =[];
-	
+	options.series=[];
+	$('#tabs3 li').each(function(dx,item){
+		if(i==dx){
+				$(this).addClass('active');
+			}else{
+				$(this).removeClass('active');
+				}
+		});
 	$.each(dataresult,function(index,item){
+		var con=[];
 		var counts=[];
+		var value=[];
 		if(index==0){//push time_array
 			for(var date in item.unitprice[0]){
 				time_array.push(date);
@@ -177,22 +219,50 @@ function compareProductContent(dataresult){
 			for(var date in item.date){
 				for(var u in item.unitprice[0]){
 						if(date==u){
-						counts.push({y:item.date[u],unitprice:item.unitprice[0][u],total:item.unitprice[0][u]});
+							var conversion=0;
+							if(parseInt(item.unitprice[0][u])==0||parseInt(item.scount[u])==0){
+								conversion=0;
+								}else{
+									conversion=item.scount[u]/item.date[u];
+									}
+						value.push({y:item.unitprice[0][u],type:'value'});
+						counts.push({y:item.date[u],type:'count'});//({y:item.date[u],unitprice:item.unitprice[0][u],total:item.unitprice[0][u],conversion:Math.round(conversion*100)});
+						con.push({y:Math.round(conversion*100),type:'conversion'});
 						}
-					}
+			 	}
 			}
-			var l=options.series.length;
-			options.series[l] = {};
-     	    options.series[l].data = counts;
-     	    options.series[l].name = item.name;
+			if('count'==name){
+				var l=options.series.length;
+				options.series[l] = {};
+	     	    options.series[l].data = counts;
+	     	    options.series[l].name = item.name;
+	     	    options.yAxis.title.text='<?php echo lang('v_rpt_re_funneleventC');?>';
+			}
+			if('value'==name){
+				var l=options.series.length;
+				options.series[l] = {};
+	     	    options.series[l].data = value;
+	     	    options.series[l].name = item.name;
+		     	   options.yAxis.title.text='<?php echo lang('v_rpt_re_unitprice');?>';
+			}
+			if('conversion'==name){
+				//content coversion rate
+	        	var len=options.series.length;
+	     		options.series[len]={};
+	     		//options.series[len].yAxis=1;
+	     		options.series[len].data=con;
+	     		options.series[len].name = item.name;
+	     		options.yAxis.title.text='<?php echo lang('v_rpt_re_funnelConversionrate');?>';
+	     		//options.series[len].showInLegend=false;
+			}
      	    if(index==1){
      	    	options.xAxis.categories = time_array; 
      	    	options.xAxis.labels.step = parseInt(time_array.length/10);
-         	   }
+         	}
 		});
 	options.title.text = '<?php echo lang('v_rpt_re_funnelTargettrend');?>';
 	options.subtitle.text = '<?php echo $reportTitle['timePhase'];?>';
-
+    chart = new Highcharts.Chart(options);
 }
 //
 function contentConversion(data){
@@ -308,6 +378,6 @@ function deletereport()
 	}
 	return false;
 	
-}	
+}
 </script>
 <?php include 'application/views/manage/pointmark_base.php';?>

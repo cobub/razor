@@ -31,7 +31,13 @@ function prepare(dataArray,optiondetail,i){
 		if(item==null)
 			return [];
 		var y=0;
-		if(optiondetail.series.length>0){if(typeof(optiondetail.series[0].data)=='undefined'){y=0;}else{y=optiondetail.series[0].data.max();}}
+		if(optiondetail.series.length>0){if(typeof(optiondetail.series[0].data)=='undefined'){y=0;}else{
+				var data=optiondetail.series[0].data;
+				y=data.max();
+				if(isNaN(y)){
+					y=0;}
+			}
+		}
 		if(y<=0){
 			optiondetail.yAxis.max=200;
 			y=200;

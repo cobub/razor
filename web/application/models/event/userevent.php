@@ -132,7 +132,6 @@ group by p.version_name, e.event_sk,e.eventidentifier,e.eventname
 		$this->db->from('event_defination');
 		$this->db->where('product_id',$productId);
 		$this->db->where('event_identifier',$event_id);
-		$this->db->where('active','1');
 		$r = $this->db->get();
 		return $r->result();
 		
@@ -148,7 +147,7 @@ group by p.version_name, e.event_sk,e.eventidentifier,e.eventname
 	//Through eventid get event information
 	function geteventbyid($eventid)
 	{
-		$sql = "select event_id ,event_identifier,event_name from  ".$this->db->dbprefix('event_defination')."   where event_id =$eventid and active=1";
+		$sql = "select event_id ,event_identifier,event_name from  ".$this->db->dbprefix('event_defination')."   where event_id =$eventid";
 	   $result = $this->db->query($sql);
 	    if($result!=null&&$result->num_rows()>0)
 			 {
