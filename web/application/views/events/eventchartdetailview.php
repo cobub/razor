@@ -156,6 +156,9 @@ $(document).ready(function() {
                         }
                     }
             },
+            credits:{
+                enabled:false
+            },
             legend:{
                 labelFormatter: function() {
                 	return this.name

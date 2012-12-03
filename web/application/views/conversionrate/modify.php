@@ -18,7 +18,7 @@ fieldset input[type="text"] {
 }
 		</style>
 						<fieldset>
-							<label><?php echo lang('v_rpt_re_funnelModifyfunnel');?></label> <input type="text" id="funnel_name"
+							<label><?php echo lang('v_rpt_re_funnelName');?></label> <input type="text" id="funnel_name"
 								name="funnel_name"
 								value="<?php if(isset($steplist)){echo $steplist->first_row()->targetname;}?>" />
 							<label><?php echo lang('v_rpt_re_unitprice');?></label> <input
@@ -30,7 +30,7 @@ fieldset input[type="text"] {
 							<label>
 							<a
 								href="javascript:rmField(<?php echo $step->sequence?>,<?php echo $step->eventid?>,<?php echo $step->tid?>);"
-								title="Remove"><img src="<?php echo base_url()?>assets/images/jian.png" style="border:0"/></a><?php echo lang('v_rpt_re_funnelStepadd');?><?php  echo $step->sequence?></label>
+								title="Remove"><img src="<?php echo base_url()?>assets/images/jian.png" style="border:0"/></a><?php echo lang('v_rpt_re_funnelStep');?><?php  echo $step->sequence?></label>
 							 <input type="text" readonly="readonly" value="<?php echo $step->event_name?>" param="<?php echo $step->eventid?>" name="event_id"/>
 							 <label><?php echo lang('v_rpt_re_funnelStepname');?></label> <input type="text" name="stepname"
 								step="<?php echo $step->sequence?>"

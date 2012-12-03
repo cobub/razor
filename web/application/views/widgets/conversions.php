@@ -120,13 +120,15 @@ $(document).ready(function() {
 				            var length=this.points.length;
 							for(i=0;i<length;i++){
 								var point=this.points[i];
-								var unitprice=point.total==null?0:point.total;
-								msg+='<?php echo lang('v_rpt_re_funnelTarget');?>:'+point.series.name +','+'<?php echo lang("v_rpt_re_count");?>'+':'+point.y+","+"<?php echo lang('v_rpt_re_unitprice');?>:"+unitprice+'<br/>';
+								if(!markEventIndex.content(point.series.index)){
+									var unitprice=point.total==null?0:point.total;
+									msg+='<?php echo lang('v_rpt_re_funnelTarget');?>:'+point.series.name +','+'<?php echo lang("v_rpt_re_count");?>'+':'+point.y+","+"<?php echo lang('v_rpt_re_unitprice');?>:"+unitprice+'<br/>';
+									}
 								}
 				            }
 		            }else{//mean compare
 		            	var length=this.points.length;
-		            	
+		            	msg+='<?php echo lang("g_date")?>:'+this.x+'<br/>';
 						for(i=0;i<length;i++){
 							var point=this.points[i];
 							msg+='<?php echo lang('v_rpt_re_funnelTarget');?>:'+point.series.name+'<br/>';

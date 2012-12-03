@@ -137,6 +137,15 @@ group by p.version_name, e.event_sk,e.eventidentifier,e.eventname
 		
 	}
 	
+	function isUniqueData($productId,$event_id,$event_name){
+		$this->db->from('event_defination');
+		$this->db->where('product_id',$productId);
+		$this->db->where('event_identifier',$event_id);
+		$this->db->where('event_name',$event_name);
+		$r = $this->db->get();
+		return $r->result();
+	}
+	
 	function addEvent($event_id,$event_name)
 	{
 	   $userId = $this->common->getUserId();

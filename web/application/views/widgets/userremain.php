@@ -91,6 +91,9 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
 		<div class="spacer"></div>
 </section>
 <script type="text/javascript">
+var weekuserdata;
+var monthuserdata;
+			
 var color=["","#EDFFFF","#FFFEED","#EDEDED"];			
 			
 //When page loads...
@@ -108,6 +111,114 @@ $("ul.tabs2 li").click(function() {
 	return false;
 });
 </script>
+
+<script type="text/javascript">
+function pageselectweekCallback(page_index, jq){			
+	page_index = arguments[0] ? arguments[0] : "0";
+	jq = arguments[1] ? arguments[1] : "0";   
+	var index = page_index*7;
+	var pagenum = 7;	
+	var weektr = "";	
+	for(i=0;i<pagenum && (index+i)<weekuserdata.length ;i++)
+	{ 
+		var start = weekuserdata[i+index].startdate;
+		var end   = weekuserdata[i+index].enddate;
+		var showtime = start+"~"+end;
+		weektr = weektr+"<tr><td>";
+		weektr = weektr + showtime;
+		weektr = weektr + "</td><td>";
+		weektr = weektr + weekuserdata[i+index].usercount;			
+		weektr = weektr + "</td><td>";
+		weektr = weektr + weekuserdata[i+index].week1;
+		weektr = weektr + "</td><td>";
+		weektr = weektr + weekuserdata[i+index].week2;
+		weektr = weektr + "</td><td>";
+		weektr = weektr + weekuserdata[i+index].week3;
+		weektr = weektr + "</td><td>";
+		weektr = weektr + weekuserdata[i+index].week4;
+		weektr = weektr + "</td><td>";
+		weektr = weektr + weekuserdata[i+index].week5;
+		weektr = weektr + "</td><td>";
+		weektr = weektr + weekuserdata[i+index].week6;
+		weektr = weektr + "</td><td>";
+		weektr = weektr + weekuserdata[i+index].week7;
+		weektr = weektr + "</td><td>";
+		weektr = weektr + weekuserdata[i+index].week8;					
+		weektr = weektr + "</td></tr>";
+	}
+	$('#weekdata').html(weektr);	
+   //document.getElementById('content').innerHTML = msg;				
+   return false;
+ }
+
+function pageselectmonthCallback(page_index, jq){			
+	page_index = arguments[0] ? arguments[0] : "0";
+	jq = arguments[1] ? arguments[1] : "0";   
+	var index = page_index*7;
+	var pagenum = 7;	
+	var monthtr = "";
+	for(j=0;j<pagenum && (index+j)<monthuserdata.length ;j++)
+	{
+		var start = monthuserdata[j+index].startdate;				
+		var end   = monthuserdata[j+index].enddate;
+		var showtime = start+"~"+end;
+		monthtr = monthtr+"<tr><td>";
+		monthtr = monthtr + showtime;
+		monthtr = monthtr + "</td><td>";
+		monthtr = monthtr + monthuserdata[j+index].usercount;			
+		monthtr = monthtr + "</td><td>";
+		monthtr = monthtr + monthuserdata[j+index].month1;
+		monthtr = monthtr + "</td><td>";
+		monthtr = monthtr + monthuserdata[j+index].month2;
+		monthtr = monthtr + "</td><td>";
+		monthtr = monthtr + monthuserdata[j+index].month3;
+		monthtr = monthtr + "</td><td>";
+		monthtr = monthtr + monthuserdata[j+index].month4;
+		monthtr = monthtr + "</td><td>";
+		monthtr = monthtr + monthuserdata[j+index].month5;
+		monthtr = monthtr + "</td><td>";
+		monthtr = monthtr + monthuserdata[j+index].month6;
+		monthtr = monthtr + "</td><td>";
+		monthtr = monthtr + monthuserdata[j+index].month7;
+		monthtr = monthtr + "</td><td>";
+		monthtr = monthtr + monthuserdata[j+index].month8;					
+		monthtr = monthtr + "</td></tr>";
+	}
+	$('#monthdata').html(monthtr);
+   //document.getElementById('content').innerHTML = msg;				
+   return false;
+ }         
+/** 
+* Callback function for the AJAX content loader.
+ */
+function weekinitPagination() {
+  var num_entries = (weekuserdata.length)/7;
+  // Create pagination element
+  $("#weekpage").pagination(num_entries, {
+     num_edge_entries: 2,
+     prev_text: '<?php echo  lang('g_previousPage')?>',
+     next_text: '<?php echo  lang('g_nextPage')?>',           
+     num_display_entries: 4,
+     callback: pageselectweekCallback,
+     items_per_page:1               
+           });
+ }
+
+function monthinitPagination() {
+	  var num_entries = (monthuserdata.length)/7;
+	  // Create pagination element
+	  $("#monthpage").pagination(num_entries, {
+	     num_edge_entries: 2,
+	     prev_text: '<?php echo  lang('g_previousPage')?>',
+	     next_text: '<?php echo  lang('g_nextPage')?>',           
+	     num_display_entries: 4,
+	     callback: pageselectmonthCallback,
+	     items_per_page:1               
+	           });
+	 }
+      
+</script>
+
 <script type="text/javascript">
 var type=document.getElementById('selectversion').value;
 $(document).ready(function() {	
@@ -182,67 +293,16 @@ function renderUserData(myurl)
 			}
 		}
 			else{//content compare data
-				var weekuserdata=eval(weekobj);
-				var monthuserdata=eval(monthobj);
-				for(i=0;i<weekuserdata.length;i++)
-				{
-					var start = weekuserdata[i].startdate;
-					var end   = weekuserdata[i].enddate;
-					var showtime = start+"~"+end;
-					weektr = weektr+"<tr><td>";
-					weektr = weektr + showtime;
-					weektr = weektr + "</td><td>";
-					weektr = weektr + weekuserdata[i].usercount;			
-					weektr = weektr + "</td><td>";
-					weektr = weektr + weekuserdata[i].week1;
-					weektr = weektr + "</td><td>";
-					weektr = weektr + weekuserdata[i].week2;
-					weektr = weektr + "</td><td>";
-					weektr = weektr + weekuserdata[i].week3;
-					weektr = weektr + "</td><td>";
-					weektr = weektr + weekuserdata[i].week4;
-					weektr = weektr + "</td><td>";
-					weektr = weektr + weekuserdata[i].week5;
-					weektr = weektr + "</td><td>";
-					weektr = weektr + weekuserdata[i].week6;
-					weektr = weektr + "</td><td>";
-					weektr = weektr + weekuserdata[i].week7;
-					weektr = weektr + "</td><td>";
-					weektr = weektr + weekuserdata[i].week8;					
-					weektr = weektr + "</td></tr>";
-				}	
-				for(j=0;j<monthuserdata.length;j++)	
-				{
-					var start = monthuserdata[j].startdate;				
-					var end   = monthuserdata[j].enddate;
-					var showtime = start+"~"+end;
-					monthtr = monthtr+"<tr><td>";
-					monthtr = monthtr + showtime;
-					monthtr = monthtr + "</td><td>";
-					monthtr = monthtr + monthuserdata[j].usercount;			
-					monthtr = monthtr + "</td><td>";
-					monthtr = monthtr + monthuserdata[j].month1;
-					monthtr = monthtr + "</td><td>";
-					monthtr = monthtr + monthuserdata[j].month2;
-					monthtr = monthtr + "</td><td>";
-					monthtr = monthtr + monthuserdata[j].month3;
-					monthtr = monthtr + "</td><td>";
-					monthtr = monthtr + monthuserdata[j].month4;
-					monthtr = monthtr + "</td><td>";
-					monthtr = monthtr + monthuserdata[j].month5;
-					monthtr = monthtr + "</td><td>";
-					monthtr = monthtr + monthuserdata[j].month6;
-					monthtr = monthtr + "</td><td>";
-					monthtr = monthtr + monthuserdata[j].month7;
-					monthtr = monthtr + "</td><td>";
-					monthtr = monthtr + monthuserdata[j].month8;					
-					monthtr = monthtr + "</td></tr>";
-				}
+				weekuserdata=eval(weekobj);
+				monthuserdata=eval(monthobj);
+				weekinitPagination();
+				monthinitPagination() ;
+				pageselectweekCallback(0,null);
+				pageselectmonthCallback(0,null);
 				chart_canvas.unblock();	
-				//document.getElementById('weekdata').innerHTML=weektr;	
-				$('#weekdata').html(weektr);	
+				//document.getElementById('weekdata').innerHTML=weektr;					
 				//document.getElementById('monthdata').innerHTML = monthtr;
-				$('#monthdata').html(monthtr);
+			
 			}
 		return false;
 		});  

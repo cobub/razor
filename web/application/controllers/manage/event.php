@@ -65,12 +65,18 @@ class Event extends CI_Controller {
 	    $productId = $product->id;
 	    $eventId  = $_POST['eventId'];
 	    $eventName = $_POST['eventName'];
-	    $isUnique=$this->event->isUnique($productId,$eventId);
-	    if(!empty($isUnique)){
-	    	echo false;
-	    }else{
+	    $isUniqueid=$this->event->isUnique($productId,$eventId);
+	    if(!empty($isUniqueid)){
+	    	foreach ($isUniqueid as $row){
+	    		$currentid=$row->event_id;
+	    	}
+	    	if($currentid!=$id){
+	    		echo false;
+	    		return;
+	    	}
+	    }
 	    $this->event->modifyEvent($id,$eventId,$eventName);
-	    echo true;}
+	    echo true;
 	}
 	
 	function stopEvent($id)

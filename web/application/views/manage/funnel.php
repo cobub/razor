@@ -39,7 +39,7 @@
 									if(($e1_c==0)||($e2_c==0)){
 										echo 0;
 									}else{
-										echo round(($e2_c/$e1_c)*100,2);
+										echo round(($e2_c/$e1_c)*100,1);
 									}
 								}?>%</td>
 							<td><a
@@ -180,11 +180,12 @@ $(function(){
 		if(!con){return false;}
 			var exist_events_hash = {};
 			 $.each($('fieldset[var=setp] select option:selected'), function(i,e){
-				    var event = $(e).text();
+				    var event = $(e).val();
+				    var eventName=$(e).text();
 				    if( !exist_events_hash.hasOwnProperty(event) ){
 				      exist_events_hash[event] = true;
 				    }else{
-				      alert('<?php echo lang('v_rpt_re_funnelmsgNotrepeatevent');?>: '+ event);
+				      alert('<?php echo lang('v_rpt_re_funnelmsgNotrepeatevent');?>:'+eventName);
 					con=false;
 				    }});
 		if(!con){return false;}
