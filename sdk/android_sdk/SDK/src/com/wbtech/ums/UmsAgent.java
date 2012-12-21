@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.util.Iterator;
 import java.util.Locale;
 
+import com.wbtech.ums.objects.LatitudeAndLongitude;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -727,8 +728,11 @@ private static JSONObject getErrorInfoJSONObj() {
 			    clientData.put("mccmnc", sCell!=null?""+sCell.MCCMNC:"");
 			    clientData.put("cellid",sCell!=null?sCell.CID+"":"");
 			    clientData.put("lac", sCell!=null?sCell.LAC+"":"");
-			    clientData.put("latitude", CommonUtil.getItude(sCell,UmsAgent.mUseLocationService).latitude);
-			    clientData.put("longitude", CommonUtil.getItude(sCell,UmsAgent.mUseLocationService).longitude);
+
+                LatitudeAndLongitude coordinates = CommonUtil.getLatitudeAndLongitude(sCell, UmsAgent.mUseLocationService, context);
+			    clientData.put("latitude", coordinates.latitude);
+			    clientData.put("longitude", coordinates.longitude);
+
 			    clientData.put("time", CommonUtil.getTime());
 			    Build bd = new Build();
 			    
