@@ -77,7 +77,8 @@
 							{
 								?>							
 							<option value="<?php echo $row ;?>" <?php if($row=="en_US") {echo "selected";} ?>>
-									<?php if($row=="en_US"){ echo "English(".$row.")";} if($row=="zh_CN"){echo "简体中文(".$row.")";};?></option>
+									<?php if($row=="en_US"){ echo "English(".$row.")";} if($row=="zh_CN"){echo "简体中文(".$row.")";};
+									if($row=="ja_JP"){echo "日本語(".$row.")";};?></option>
 								<?php 
 							}
 							
@@ -100,8 +101,7 @@
 	</section>
 	</form>
 <div style="position:absolute;top:480px; left:450px">
-<iframe id="requestfoot"  name="requestfoot"  width="500" height="330" frameborder="0" scrolling="no" src="http://news.cobub.com/index.php?/news/read" >
-</iframe >
+<p align="center"> &copy; Copyright 2012 Cobub Razor Solution Verion:0.3.1 <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('installview_companyname') ;?></a></p>
 </div>
 </body>
 </html>

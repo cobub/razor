@@ -20,8 +20,7 @@ class Archive extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->helper('date');
-		$this->load->model('comparevalue/compare','compare');
-		$this->load->model('alert/sendEmail','sendEmail');
+		$this->load->model('alert/sendemail','sendemail');
 	}
 	
 	/*
@@ -137,7 +136,7 @@ class Archive extends CI_Controller
 // 		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
 // 		$timezonestime = date ( 'Y-m-d H:i:m', $timezonestimestamp );
 // 		$date = date('Y-m-d',strtotime("-1 day", strtotime($timezonestime)));
-		$this->sendEmail->comparevalue($date);
+		$this->sendemail->comparevalue($date);
 	}
 	
 	

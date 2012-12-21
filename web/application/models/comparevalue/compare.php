@@ -14,7 +14,7 @@
  */
 class Compare extends CI_Model {
 	function __construct() {
-		$this->load->Model ( 'common' );
+		$this->load->model ( 'common' );
 		$this->load->database ();
 	}
 	function getAllAlertlab(){

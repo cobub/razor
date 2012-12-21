@@ -32,6 +32,7 @@ $lang["installview_licensecontent1"] = "在安装Cobub Razor之前，请阅读�
 $lang["installview_licensecontent3"] = "<p>Cobub Razor软件包中包含HighCharts产品，HighCharts产品并非开源产品，但是您在一定条件下可以免费使用，具体请参见<a href='http://shop.highsoft.com/highcharts.html' target='_blank'>http://shop.highsoft.com/highcharts.html</a>。</p>";
 $lang["installview_licenselink"] = "阅读许可证协议";
 $lang["installview_nextstep"] = "下一步";
+$lang["installview_installselectlanguage"] = "进入安装";
 $lang["installview_installstep"] = "安装";
 $lang["installview_acceptcontent"] = "我接受Cobub Razor所附带的软件许可证协议";
 $lang["installview_versionerror"] = "您的PHP版本太低，请先升级您的PHP版本";

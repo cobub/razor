@@ -271,7 +271,7 @@ $lang['v_rpt_mk_sessionS'] = '启动次数统计';
 $lang['v_rpt_mk_channelNameE']='输入的渠道名称不合法！';
 
 //view---report----versions
-$lang['v_rpt_ve_tillYesterday']='截止昨日版本数据';
+$lang['v_rpt_ve_tillYesterday']='今日版本数据';
 $lang['v_rpt_ve_appVersion']='应用版本';
 $lang['v_rpt_ve_changingTrends']='版本变化趋势';
 $lang['v_rpt_ve_trendsAnalytics']='新增用户版本对比趋势分析';
@@ -631,7 +631,7 @@ $lang['t_activeRateMonthly']='月活跃率';
 $lang['t_numberOfPageViews']='页面访问次数(%)';
 $lang['t_averageDuration']='平均时长(%)';
 $lang['t_bounceRate']='页面跳出率(%)';
-$lang['t_averageRetentionTime'] = "平均停留时间(%)";
+$lang['t_averageRetentionTime'] = "平均停留时间";
 $lang['t_sessionsDaily'] = "日启动次数";
 $lang['t_week'] = "周";
 $lang['t_month'] = "月";

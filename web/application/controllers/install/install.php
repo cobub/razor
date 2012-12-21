@@ -798,6 +798,5 @@ class install extends CI_Controller {
 		}
 			
 	}
-
 }
 

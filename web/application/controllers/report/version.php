@@ -21,9 +21,9 @@ class version extends CI_Controller{
 	{		
 		$this->common->loadHeaderWithDateControl ();
 		$product = $this->common->getCurrentProduct();
-     	$productId = $product->id;		
-		$date = date('Y-m-d',strtotime("-1 day"));
-		$ret = $this->versionmodel->getBasicVersionInfo($productId,$date);
+     	$productId = $product->id;     	
+		$date = date('Y-m-d', time ());
+		$ret  = $this->versionmodel->getBasicVersionInfo($productId,$date);
 		$this->data['versionList'] = $ret;			
 		$this->load->view('overview/versioncontrast',$this->data);
 	}
