@@ -714,7 +714,7 @@ private static JSONObject getErrorInfoJSONObj() {
 				clientData.put("language", Locale.getDefault().getLanguage());
 				clientData.put("deviceid", tm.getDeviceId()==null?"":tm.getDeviceId());//
 			    clientData.put("appkey", CommonUtil.getAppKey(context));
-			    clientData.put("resolution", displaysMetrics.widthPixels+"*"+displaysMetrics.heightPixels);
+			    clientData.put("resolution", displaysMetrics.widthPixels+"x"+displaysMetrics.heightPixels);
 			    clientData.put("ismobiledevice", true);
 			    clientData.put("phonetype", tm.getPhoneType());//
 			    clientData.put("imsi", tm.getSubscriberId());
