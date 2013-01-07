@@ -28,15 +28,28 @@ class newusermodel extends CI_Model{
 	//Get all data access trend
 	function getAlldataofVisittrends($fromtime,$totime,$userId){
 		$dwdb = $this->load->database('dw',TRUE);
-		$sql = "select date(d.datevalue) date,
-					ifnull(sum(newusers),0) newusers,
-					ifnull(sum(startusers),0) startusers,
-					ifnull(sum(sessions),0) sessions
-				from  (select date_sk,datevalue from  ".$dwdb->dbprefix('dim_date')."   
-				where datevalue between '$fromtime' and '$totime') d left join ".$dwdb->dbprefix('dim_product')." p 
-				on p.userid=$userId and p.product_active=1 and p.channel_active=1 and p.version_active=1
-				 left join  ".$dwdb->dbprefix('sum_basic_all')." s on p.product_sk = s.product_sk and d.date_sk = s.date_sk
-						group by d.datevalue order by d.datevalue;";
+	    $sql="select date(datevalue) date,ifnull(newusers,0) newusers,
+	    ifnull(startusers,0) startusers,
+	    ifnull(sessions,0) sessions 
+	    from (select dd.datevalue from 
+	    ".$dwdb->dbprefix('dim_date')." dd 
+	    where dd.datevalue between '$fromtime' and '$totime') ds 
+        left join (select ff.datevalue date,
+        ifnull(sum(newusers),0) newusers,
+	    ifnull(sum(startusers),0) startusers,
+		ifnull(sum(sessions),0) sessions
+	    from(select d.datevalue, f.product_id,
+	    p.newusers,p.startusers,p.sessions
+	    from ".$dwdb->dbprefix('dim_date')." d ,
+	   ".$dwdb->dbprefix('sum_basic_product')."  p,
+	    ".$dwdb->dbprefix('dim_product')." f	    
+	    where d.datevalue between '$fromtime'and '$totime' 
+	    and p.date_sk=d.date_sk and
+	     f.product_id=p.product_id 
+	    and f.userid=$userId
+	    group by p.product_id,d.datevalue) ff
+	     group by ff.datevalue) fff on fff.date=ds.datevalue
+	    ";	
 		$query = $dwdb->query($sql);
 		$ret = array();
 		if($query!=null&& $query->num_rows()>0){
@@ -240,13 +253,29 @@ class newusermodel extends CI_Model{
 		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 		
 		$dwdb = $this->load->database('dw',TRUE);
-		$sql = "select d.datevalue,ifnull(sum(sessions),0) sessions,ifnull(sum(startusers),0) startusers,
-		ifnull(sum(newusers),0) newusers,ifnull(sum(usingtime),0) usingtime,ifnull(sum(allusers),0) allusers
-		from   ".$dwdb->dbprefix('sum_basic_all')."  s inner join  ".$dwdb->dbprefix('dim_product')."   p on  p.product_id = $productId
-		and p.product_sk = s.product_sk and p.product_active=1 and p.channel_active=1 and p.version_active=1 right join (
-		select date_sk, datevalue from   ".$dwdb->dbprefix('dim_date')."  where datevalue between '$fromTime' and '$toTime' 
-		) d on s.date_sk = d.date_sk group by d.datevalue order by d.datevalue ASC;";	
-			
+		$sql = "select d.datevalue,
+			ifnull(sessions,0) sessions,
+			ifnull(startusers,0) startusers,
+			ifnull(newusers,0) newusers,
+			ifnull(usingtime,0) usingtime,
+			(select ifnull(max(allusers),0) from 
+			".$dwdb->dbprefix('dim_date')." dd,
+			".$dwdb->dbprefix('sum_basic_product')." pp 
+			where dd.datevalue=d.datevalue 
+			and pp.date_sk<=dd.date_sk 
+			and pp.product_id=$productId) allusers
+			from  ".$dwdb->dbprefix('sum_basic_product')." s 
+			inner join  ".$dwdb->dbprefix('dim_product')." p 
+			on  p.product_id = $productId
+			and p.product_id = s.product_id 
+			and p.product_active=1 and p.channel_active=1
+			and p.version_active=1 
+			right join (
+			select date_sk, datevalue from 
+			".$dwdb->dbprefix('dim_date')." where 
+			datevalue between '$fromTime' and '$toTime') d 
+			on s.date_sk = d.date_sk 
+			group by d.datevalue";					
 		$query = $dwdb->query($sql);
 		return $query;
 		
@@ -260,8 +289,8 @@ class newusermodel extends CI_Model{
 		$dwdb = $this->load->database('dw',TRUE);
 		$sql = "select d.datevalue,ifnull(sum(sessions),0) sessions,ifnull(sum(startusers),0) startusers,
 		ifnull(sum(newusers),0) newusers,ifnull(sum(usingtime),0) usingtime,ifnull(sum(allusers),0) allusers
-		from   ".$dwdb->dbprefix('sum_basic_all')."  s inner join  ".$dwdb->dbprefix('dim_product')."   p on  p.product_id = $productId
-		and p.product_sk = s.product_sk and p.product_active=1 and p.channel_active=1 and p.version_active=1 right join (
+		from   ".$dwdb->dbprefix('sum_basic_product')."  s inner join  ".$dwdb->dbprefix('dim_product')."   p on  p.product_id = $productId
+		and p.product_id = s.product_id and p.product_active=1 and p.channel_active=1 and p.version_active=1 right join (
 		select date_sk, datevalue from   ".$dwdb->dbprefix('dim_date')."  where datevalue between '$fromTime' and '$toTime'
 		) d on s.date_sk = d.date_sk group by d.datevalue order by d.datevalue ASC;";
 					
@@ -273,14 +302,30 @@ class newusermodel extends CI_Model{
 	function getallUserDataByPid($fromTime,$toTime,$productId){
 		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
 		$dwdb = $this->load->database('dw',TRUE);
-		$sql = "select d.datevalue,ifnull(sum(sessions),0) sessions,ifnull(sum(startusers),0) startusers,
-		ifnull(sum(newusers),0) newusers,ifnull(sum(usingtime),0) usingtime,ifnull(sum(allusers),0) allusers
-		from   ".$dwdb->dbprefix('sum_basic_all')."  s inner join  ".$dwdb->dbprefix('dim_product')."   p on  p.product_id = $productId
-			and p.product_sk = s.product_sk and p.product_active=1 and p.channel_active=1 and p.version_active=1 right join (
-			select date_sk, datevalue from   ".$dwdb->dbprefix('dim_date')."  where datevalue between '$fromTime' and '$toTime'
-			) d on s.date_sk = d.date_sk group by d.datevalue order by d.datevalue ASC;";
-				
-			$query = $dwdb->query($sql);
+		$sql="select d.datevalue,
+		ifnull(sessions,0) sessions,
+		ifnull(startusers,0) startusers,
+		ifnull(newusers,0) newusers,
+		ifnull(usingtime,0) usingtime,
+		(select ifnull(max(allusers),0) from
+		".$dwdb->dbprefix('dim_date')." dd,
+		".$dwdb->dbprefix('sum_basic_product')." pp
+		where dd.datevalue=d.datevalue
+		and pp.date_sk<=dd.date_sk
+		and pp.product_id=$productId) allusers
+		from  ".$dwdb->dbprefix('sum_basic_product')." s
+		inner join  ".$dwdb->dbprefix('dim_product')." p
+		on  p.product_id = $productId
+		and p.product_id = s.product_id
+		and p.product_active=1 and p.channel_active=1
+		and p.version_active=1
+		right join (
+		select date_sk, datevalue from
+		".$dwdb->dbprefix('dim_date')." where
+		datevalue between '$fromTime' and '$toTime') d
+		on s.date_sk = d.date_sk
+		group by d.datevalue";		 
+	    $query = $dwdb->query($sql);
 			return $query;
 	
 	}
@@ -290,15 +335,30 @@ class newusermodel extends CI_Model{
 	
 		$currentProduct = $this->common->getCurrentProduct();
 		$productId= $currentProduct->id;
-		//$fromTime = $this->product->getReportStartDate($currentProduct,$fromTime);
-	
 		$dwdb = $this->load->database('dw',TRUE);
-		$sql = "select d.datevalue,ifnull(sum(sessions),0) sessions,ifnull(sum(startusers),0) startusers,
-		ifnull(sum(newusers),0) newusers,ifnull(sum(usingtime),0) usingtime,ifnull(sum(allusers),0) allusers
-		from   ".$dwdb->dbprefix('sum_basic_all')."  s inner join  ".$dwdb->dbprefix('dim_product')."   p on  p.product_id = $productId
-		and p.product_sk = s.product_sk and p.product_active=1 and p.channel_active=1 and p.version_active=1 right join (
-		select date_sk, datevalue from   ".$dwdb->dbprefix('dim_date')."  where datevalue between '$fromTime' and '$toTime'
-		) d on s.date_sk = d.date_sk group by d.datevalue order by d.datevalue 	DESC;";
+		$sql = "select d.datevalue,
+			ifnull(sessions,0) sessions,
+			ifnull(startusers,0) startusers,
+			ifnull(newusers,0) newusers,
+			ifnull(usingtime,0) usingtime,
+			(select ifnull(max(allusers),0) from 
+			".$dwdb->dbprefix('dim_date')." dd,
+			".$dwdb->dbprefix('sum_basic_product')." pp 
+			where dd.datevalue=d.datevalue 
+			and pp.date_sk<=dd.date_sk 
+			and pp.product_id=$productId) allusers
+			from  ".$dwdb->dbprefix('sum_basic_product')." s 
+			inner join  ".$dwdb->dbprefix('dim_product')." p 
+			on  p.product_id = $productId
+			and p.product_id = s.product_id 
+			and p.product_active=1 and p.channel_active=1
+			and p.version_active=1 
+			right join (
+			select date_sk, datevalue from 
+			".$dwdb->dbprefix('dim_date')." where 
+			datevalue between '$fromTime' and '$toTime') d 
+			on s.date_sk = d.date_sk 
+			group by d.datevalue order by d.datevalue DESC;";
 					
 		$query = $dwdb->query($sql);
 		return $query;

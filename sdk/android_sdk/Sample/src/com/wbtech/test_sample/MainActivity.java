@@ -39,7 +39,13 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		button = (Button) findViewById(R.id.button1);
-		
+
+		/**
+		 * Call UmsAgent.setBaseURL(String url) before all other APIs.
+		 * url: CobubRazor web server
+		 * 
+		 * */
+		UmsAgent.setBaseURL("http://192.168.1.65/razor/index.php?");
 		/**
 		 * When we need to update App every time, we just need to modify VersionCode and upload App APK to server.
 		 * 
@@ -53,7 +59,7 @@ public class MainActivity extends Activity {
 		 * we set that the function of auto prompting is started only under Wi-Fi 
 		 * 
 		 * */
-		UmsAgent.setBaseURL("http://192.168.1.1/razor/index.php?");
+		
 		UmsAgent.update(this);
 		
 		

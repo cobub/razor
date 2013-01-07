@@ -113,8 +113,7 @@ class install extends CI_Controller {
 			{ 				
 				array_push($languanginfo, $directory);
 			}			
-		 }
-		 //print_r($languanginfo);
+		 }		
 		$filepath-> close();
 		$this->data['languageinfo']	=$languanginfo;
 		$this->data['newurl']=$this->datamanage->createurl();
@@ -421,12 +420,16 @@ class install extends CI_Controller {
 			$rel=$this->createdatabasesql($depotservname,$depotdbuser,$depotdbpwd,$depotsqlname,'assets/sql/dataware.sql',null,$depottablehead);
 			$this->createproducre($depotservname,$depotdbuser,$depotdbpwd,$depotsqlname,'assets/sql/datawarestore.sql','updatedatawarestore',$replacedatabase,null,$depottablehead);
 		}
-		else
+		else if($language=="en_US")
 		{
 			$ret= $this->createdatabasesql($servname,$dbuser,$dbpwd,$sqlname,'assets/sql/edatabaseinfo.sql',null,$tablehead);
 			$rel=$this->createdatabasesql($depotservname,$depotdbuser,$depotdbpwd,$depotsqlname,'assets/sql/edataware.sql',null,$depottablehead);
 			$this->createproducre($depotservname,$depotdbuser,$depotdbpwd,$depotsqlname,'assets/sql/datawarestore.sql','updatedatawarestore',$replacedatabase,null,$depottablehead);
-		}		
+		}else{
+			$ret= $this->createdatabasesql($servname,$dbuser,$dbpwd,$sqlname,'assets/sql/jdatabaseinfo.sql',null,$tablehead);
+			$rel=$this->createdatabasesql($depotservname,$depotdbuser,$depotdbpwd,$depotsqlname,'assets/sql/jdataware.sql',null,$depottablehead);
+			$this->createproducre($depotservname,$depotdbuser,$depotdbpwd,$depotsqlname,'assets/sql/datawarestore.sql','updatedatawarestore',$replacedatabase,null,$depottablehead);
+		}	
 		if($ret&&$rel)
 		{
 			return true;

@@ -37,7 +37,15 @@ class Clientdata extends CI_Model
          else 
          {
          	$service_supplier="Unknown";
-         }  		                      	 
+         } 
+         $nowtime = date ( 'Y-m-d H:i:s');
+         if(isset($clientdata->time)){
+         	$nowtime=$clientdata->time;
+         	if(strtotime($nowtime)<strtotime('1970-01-01 00:00:00')||
+         			strtotime($nowtime)==''){
+         		$nowtime = date ( 'Y-m-d H:i:s');
+         	}
+        }	                      	 
 		$data = array(
 			'productkey' => $clientdata->appkey,
 			'platform'=> $clientdata->platform,
@@ -63,33 +71,56 @@ class Clientdata extends CI_Model
 			'latitude' =>isset($clientdata ->latitude)?$clientdata ->latitude:'',
 			'longitude'=>isset($clientdata->longitude)?$clientdata->longitude:'',
 		    'isjailbroken'=>isset($clientdata->isjailbroken)?$clientdata->isjailbroken:'',
-			'date'=>isset($clientdata->time)?$clientdata->time:'',
+			'date'=>$nowtime,
 		    'service_supplier'=>$service_supplier,
 		    'clientip'=>$ip
 		);
 		$latitude = isset ( $clientdata->latitude ) ? $clientdata->latitude : '';
-		if ($latitude != '')
-		{
-			$latitude =  $clientdata->latitude;
-			$longitude = $clientdata->longitude;
-			$regionInfo = $this->google->getregioninfo ($latitude, $longitude);
+		$choose=$this->config->item('get_geographical');
+		$data["country"] = '';
+		$data["region"] = '';
+		$data["city"] = '';
+		$data["street"] = '';
+		$data["streetno"] = '';
+		$data["postcode"] = '';
+		if($choose==2){
+			if ($latitude != '')
+			{
+				$latitude =  $clientdata->latitude;
+				$longitude = $clientdata->longitude;
+				$regionInfo = $this->google->getregioninfo ($latitude, $longitude);
+			}
+			else
+			{
+				$regionInfo = $this->ipinfodb->getregioninfobyip ($ip);
+			}
+			
+			if(!empty($regionInfo))
+			{
+				$data["country"] = $regionInfo ['country'];
+				$data["region"] = $regionInfo ['region'];
+				$data["city"] = $regionInfo ['city'];
+				$data["street"] = $regionInfo ['street'];
+				$data["streetno"] = $regionInfo ['street_number'];
+				$data["postcode"] = $regionInfo ['postal_code'];
+			}
 		}
-		else
-		{
-			$ip = $this->utility->getOnlineIP ();
-			$regionInfo = $this->ipinfodb->getregioninfobyip ($ip);
+		if($choose==1){
+			require("geoip.inc");
+			require("geoipcity.inc");
+			require("geoipregionvars.php");
+			$gi = geoip_open("GeoLiteCity.dat",GEOIP_STANDARD);
+			$record = geoip_record_by_addr($gi,$ip);
+			if(!empty($record)){
+				$data["country"] = $record->country_name;
+				if($record->region!=''){
+					$data["region"] = $GEOIP_REGION_NAME[$record->country_code][$record->region];
+				}
+				$data["city"] = $record->city;
+				$data["postcode"] = $record->postal_code;
+			}
 		}
-		
-		if($regionInfo)
-		{
-			$data["country"] = $regionInfo ['country'];
-			$data["region"] = $regionInfo ['region'];
-			$data["city"] = $regionInfo ['city'];
-			$data["street"] = $regionInfo ['street'];
-			$data["streetno"] = $regionInfo ['street_number'];
-			$data["postcode"] = $regionInfo ['postal_code'];
-		}
-		
+          
 		$this->db->insert('clientdata',$data);
 	}
 }

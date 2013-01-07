@@ -365,6 +365,7 @@ $lang['v_rpt_nw_details']='联网方式分布明细';
 
 //view---report----eventlist
 $lang['v_rpt_el_allVersion']='所有版本';
+$lang['v_rpt_el_Version']='版本';
 $lang['v_rpt_el_eventID']='事件ID';
 $lang['v_rpt_el_eventName']='事件名称';
 $lang['v_rpt_el_messages']='消息数量';
@@ -675,10 +676,10 @@ $lang['t_upgradeUsers_def']='升级用户是指对从旧版本应用升级到新
 $lang['t_averageUsageDuration_def']='平均使用时长是指用户每次使用应用的平均时长。每次使用时长简单定义为应用退出事件发生的时间和应用启动事件发生的时间的时间差。此时间差的确定和OS平台有关。';
 $lang['t_accumulatedUsers_def']='累计用户是指截止到某时间启动过应用的所有用户，即截止到该时期所有的新用户数。';
 $lang['t_accumulatedStarts_def']='累计启动次数是指到指定日期应用启动的总次数（所有用户的）。同一用户每次启动都会被计入。是否是同一用户按设备ID号是否相同来判断。';
-$lang['t_activeUsersWeekly_def']='周活跃用户是指在一周内启动过应用的用户。';
-$lang['t_activeRateWeekly_def']='一周中活跃用户数/累计用户。';
-$lang['t_activeUsersMonthly_def']='月活跃用户是指一个月内启动过应用的用户。';
-$lang['t_activeRateMonthly_def']='一月中活跃用户数/累计用户。';
+$lang['t_activeUsersWeekly_def']='周活跃用户是指在上周日到周六之间启动过应用的用户。';
+$lang['t_activeRateWeekly_def']='上周（周日--周六）中活跃用户数/累计用户。';
+$lang['t_activeUsersMonthly_def']='月活跃用户是指上个月月初到上个月月末之间启动过应用的用户。';
+$lang['t_activeRateMonthly_def']='上月（上个月1号到上个月月末）中活跃用户数/累计用户。';
 $lang['t_numberOfPageViews_def']='页面访问次数是指用户访问过该页面的总次数（该页面访问次数/全部页面访问次数）。全部页面访问次数是指该应用所有页面的总访问次数。通过页面访问次数统计，可以针对性的投放广告。根据平台不同，Cobub Razor SDK使用不同方法统计页面访问次数，具体请参见各平台开发者文档。';
 $lang['t_averageDuration_def']='平均停留时间（%）是指用户每次浏览此页面的平均时间（当前页面停留时间/全部页面的停留时间）。页面停留时间是指用户从进入该页面到离开该页之间的时间差。通过页面停留时间的统计，我们可以清楚的知道用户在哪个页面停留时间较长，哪个页面较短。以针对性的投放广告。';
 $lang['t_bounceRate_def']='页面跳出率（%）是指用户在此页面中选择离开应用的次数占用户浏览该页面的总次数。页面跳出率的统计可以更好的帮助分析用户流失的可能性。以便调整相应的策略减少用户的流失。';

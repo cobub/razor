@@ -75,10 +75,10 @@ CREATE TABLE IF NOT EXISTS `umsinstall_channel` (
 CREATE TABLE IF NOT EXISTS `umsinstall_channel_product` (
   `cp_id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(5000) NOT NULL,
-  `updateurl` varchar(2000) NOT NULL,
-  `entrypoint` varchar(500) NOT NULL,
-  `location` varchar(500) NOT NULL,
-  `version` varchar(50) NOT NULL,
+  `updateurl` varchar(2000) NOT NULL DEFAULT '',
+  `entrypoint` varchar(500) NOT NULL DEFAULT '',
+  `location` varchar(500) NOT NULL DEFAULT '',
+  `version` varchar(50) NOT NULL DEFAULT '',
   `date` datetime NOT NULL,
   `productkey` varchar(50) NOT NULL,
   `man` tinyint(1) NOT NULL DEFAULT '0',
@@ -284,11 +284,11 @@ CREATE TABLE IF NOT EXISTS `umsinstall_markevent` (
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_mccmnc` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `id` int(50) NOT NULL,
   `value` varchar(50) NOT NULL,
   `name` varchar(100) NOT NULL,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

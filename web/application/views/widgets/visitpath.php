@@ -36,13 +36,50 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
   </div>
 <h3  class="h3_fontstyle">
    <?php  echo lang('v_rpt_pv_visitpath') ?></h3>
+   <div class="submit_link">
+				<select id='selectversion'
+					onchange="onSelectVersionChanged(this.options[this.selectedIndex].value)">
+				  	<?php
+						if (isset ( $version )&&!empty($version)){
+							foreach ( $version->result () as $row ) {
+									?>
+				    <option <?php if($row->version_name==$newversion){?> <?php echo 'selected';}?> value=<?php echo $row->version_name; ?>><?php echo $row->version_name;?></option>
+				    <?php }}else{?>
+				    <option selected value='noversion'><?php echo lang('v_rpt_el_Version');?></option>
+				    <?php }?>
+	  			</select>
+			</div>		
 		</header>		
 		<div id="chart"></div>
 	</article>
 </section>	
 <script type="text/javascript">
+									
+var version="<?php echo $newversion;?>";
+
+function onSelectVersionChanged(value)
+{
+	version = value;
+	if(version == '<?php echo lang('t_unknow') ?>')
+	{
+		version = "NULL";
+	}
+	clearSel(document.getElementById("chart"));
+	showDetailPath();
+	
+}
+
+function clearSel(selectname){
+     while(selectname.childNodes.length>0){
+		  selectname.removeChild(selectname.childNodes[0]);
+      }
+}
 
 $(document).ready(function(){ 
+	showDetailPath();
+}); 
+
+function showDetailPath(){
 	var chart_canvas = $("#chart");
     var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
     chart_canvas.block({
@@ -81,7 +118,7 @@ function comparator(a, b) {
 var partition = d3.layout.partition()
     .value(function(d) { return d.percentage; });
     
-d3.json("<?php echo site_url();?>/report/pagevisit/getFlowChart", function(root) {
+d3.json("<?php echo site_url();?>/report/pagevisit/getFlowChart/"+version, function(root) {
   var g = vis.selectAll("g")
       .data(partition.nodes(root))
     .enter().append("svg:g")
@@ -142,7 +179,8 @@ d3.json("<?php echo site_url();?>/report/pagevisit/getFlowChart", function(root)
   }
 });
 chart_canvas.unblock();
-}); 
+	
+}
 </script>
 <script type="text/javascript">
 function addreport()

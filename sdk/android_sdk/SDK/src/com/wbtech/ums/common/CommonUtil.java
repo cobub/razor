@@ -13,21 +13,9 @@
  */
 package com.wbtech.ums.common;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import com.wbtech.ums.objects.LatitudeAndLongitude;
-import com.wbtech.ums.objects.SCell;
+import java.util.List;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -37,11 +25,16 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
+
+import com.wbtech.ums.objects.LatitudeAndLongitude;
+import com.wbtech.ums.objects.SCell;
 
 public class CommonUtil {
 	/**
@@ -60,7 +53,7 @@ public class CommonUtil {
 	 * @param context
 	 * @return
 	 */
-	public  static boolean CurrentNoteworkTypeIsWIFI(Context context){
+	public  static boolean currentNoteworkTypeIsWIFI(Context context){
 		ConnectivityManager connectionManager = (ConnectivityManager)context.
                 getSystemService(Context.CONNECTIVITY_SERVICE);   
 		return	connectionManager.getActiveNetworkInfo().getType()==ConnectivityManager.TYPE_WIFI;
@@ -388,91 +381,35 @@ public class CommonUtil {
         return cell;
     }
     
-    
-    
-    /**
-     *Get latitude and longitude
-     * @throws Exception
-     */
-    public static LatitudeAndLongitude getItude(SCell cell,boolean mUseLocationService) throws Exception {
-        LatitudeAndLongitude itude = new LatitudeAndLongitude();
-     if(cell==null){
-    	 if(UmsConstants.DebugMode){
-    		  Log.e("getItude Error", "cell is null");
-    	 }
-    	
-
-    	 itude.latitude = "";
-         itude.longitude = "";
-         return itude;
-     }
-        if(mUseLocationService){
-            HttpClient client = new DefaultHttpClient();
-            HttpPost post = new HttpPost("http://www.google.com/loc/json");
-            try {
-                JSONObject holder = new JSONObject();
-                holder.put("version", "1.1.0");
-                holder.put("host", "maps.google.com");
-                holder.put("address_language", "zh_CN");
-                holder.put("request_address", true);
-                holder.put("radio_type", "gsm");
-                holder.put("carrier", "HTC");
-         
-                JSONObject tower = new JSONObject();
-                tower.put("mobile_country_code", cell.MCC);
-                tower.put("mobile_network_code", cell.MNC);
-                tower.put("cell_id", cell.CID);
-                tower.put("location_area_code", cell.LAC);
-         
-                JSONArray towerarray = new JSONArray();
-                towerarray.put(tower);
-                holder.put("cell_towers", towerarray);
-         
-                StringEntity query = new StringEntity(holder.toString());
-                post.setEntity(query);
-         
-                HttpResponse response = client.execute(post);
-                HttpEntity entity = response.getEntity();
-                BufferedReader buffReader = new BufferedReader(new InputStreamReader(entity.getContent()));
-                StringBuffer strBuff = new StringBuffer();
-                String result = null;
-                while ((result = buffReader.readLine()) != null) {
-                    strBuff.append(result);
+    public static LatitudeAndLongitude getLatitudeAndLongitude(Context context,boolean mUseLocationService){
+    	LatitudeAndLongitude latitudeAndLongitude  = new  LatitudeAndLongitude();
+    	if(mUseLocationService){
+    		LocationManager loctionManager =(LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        	List<String> matchingProviders=  loctionManager.getAllProviders();
+            for(String prociderString :matchingProviders){
+//            	 Log.d("provider",prociderString);
+            	 System.out.println(prociderString);
+            	Location location = loctionManager.getLastKnownLocation(prociderString);
+            	if(location!=null){
+//            		Log.d("ss", location.getLatitude()+"");
+            		latitudeAndLongitude.latitude = location.getLatitude()+"";
+            		latitudeAndLongitude.longitude = location.getLongitude()+"";
+                }else{
+                	latitudeAndLongitude.latitude = "";
+            		latitudeAndLongitude.longitude = "";
                 }
-         
-                JSONObject json = new JSONObject(strBuff.toString());
-                JSONObject subjosn = new JSONObject(json.getString("location"));
-         
-                itude.latitude = subjosn.getString("latitude");
-                itude.longitude = subjosn.getString("longitude");
-                 
-                Log.i("Itude", itude.latitude + itude.longitude);
-                 
-            } catch (Exception e) {
-            	if(UmsConstants.DebugMode){
-            		Log.e(e.getMessage(), e.toString());
             	}
-                
-                throw new Exception("error "+e.getMessage());
-            } finally{
-                post.abort();
-                client = null;
-            }
-             
-            return itude;
-        }else
-        {
-        	 itude.latitude = "";
-             itude.longitude = "";
-             if(UmsConstants.DebugMode){
-            	 printLog("getItude", "not auto getItude, value is \"\"");
-             }
-             
-             return itude;
+    	}else{
+        	latitudeAndLongitude.latitude = "";
+    		latitudeAndLongitude.longitude = "";
         }
-        
+    	
+    	
+        return latitudeAndLongitude;
+    	
     }
     
+
     /**
      * To determine whether it contains a gyroscope
      * @return
@@ -493,7 +430,7 @@ public class CommonUtil {
   public static String getNetworkType(Context context){
       TelephonyManager manager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
     int type=  manager.getNetworkType();
-    String typeString="UNKOWN";
+    String typeString="UNKNOWN";
     if(type==TelephonyManager.NETWORK_TYPE_CDMA){
     	typeString ="CDMA";
     }
@@ -522,7 +459,7 @@ public class CommonUtil {
     	typeString ="UMTS";
     }
     if(type==TelephonyManager.NETWORK_TYPE_UNKNOWN){
-    	typeString ="UNKOWN";
+    	typeString ="UNKNOWN";
     }
    
 	return typeString;

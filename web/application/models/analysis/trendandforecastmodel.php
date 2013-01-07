@@ -29,9 +29,7 @@ class trendandforecastmodel extends CI_Model {
 				array_push($arrkeys,$k);
 			}
 			
-		}
-		
-// 		print_r($arrkeys);
+		}		
 		for($i = 0;$i<count($arrkeys);$i++){
 			if($i>=count($arrkeys)-5){
 				break;
@@ -56,9 +54,7 @@ class trendandforecastmodel extends CI_Model {
 					$returnarray["$v"]["$v2"]=$avg;
 				}
 			}
-		}
-// 		print_r($returnarray);
-		
+		} 		
 		return $returnarray;
 	}
 	

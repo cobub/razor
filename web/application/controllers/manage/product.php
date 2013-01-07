@@ -22,6 +22,7 @@ class Product extends CI_Controller
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		$this->load->Model('common');
+		$this->load->Model ( 'user/ums_user' );
 		$this->load->model('channelmodel','channel');
 		$this->load->model('product/productmodel','product');
 		$this->load->model('product/productanalyzemodel');
@@ -42,7 +43,7 @@ class Product extends CI_Controller
 	{
 		$this->common->loadHeader(lang('m_new_app'));				
 		$this->data['platform']=$this->channel->getplatform();		
-		$this->data['category'] = $this->product->getProductCategory();
+		$this->data['category'] =$this->ums_user->getproductCategories();
 		$this->load->view('manage/createproduct',$this->data);			
 	}	
 	function uploadchannel()

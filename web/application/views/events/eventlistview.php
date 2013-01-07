@@ -1,6 +1,3 @@
-<script type="text/javascript">
-var version = '<?php echo $current_version?>';
-</script>
 <section id="main" class="column">
 
  <article class="module width_full"> <header>
@@ -42,15 +39,7 @@ var version = '<?php echo $current_version?>';
 	</thead>
 	<tbody id="eventlistpageinfo">
 	   <div id='out'>
-	    	<?php
-	    	  $num = count($event->result());	
-	    	  $array = $event->result ();
-	    	  if (count ( $array ) < PAGE_NUMS) {
-	    	  	$nums = count ( $array );
-	    	  } else {
-	    	  	$nums = PAGE_NUMS;
-	    	  }
-	    	  ?>
+	    
 	   </div>
 	</tbody>
 	
@@ -63,9 +52,17 @@ var version = '<?php echo $current_version?>';
 
 <script type="text/javascript">
 var chart_canvas;
+var eventdata;
+var version="all";
 //Here must first load
    document.getElementById('select').value=version;
    $(document).ready(function() {
+		    var myurl="<?php echo site_url().'/report/eventlist/getEventListData/'?>"+version;
+		    rederUserData(myurl);
+		
+	});
+   function rederUserData(myurl)
+   { 
 
 	    chart_canvas = $('#eventlistdata');
 		 var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
@@ -83,25 +80,22 @@ var chart_canvas;
 		        },
 		        baseZ:997
 		    });
+	    jQuery.getJSON(myurl, null, function(data) { 
+		    
+	    	   var event=data.event;
+			   eventdata=eval(event); 
+		       initPagination();
+			   pageselectCallback(0,null); 
 
-		 initPagination();
-		 pageselectCallback(0,null);
-	});
-
-   document.onreadystatechange=eventListDataInit;
-   function eventListDataInit()
-   {
-      if (document.readyState=="complete")
-      {
-    	  chart_canvas.unblock();
-      }
-   } 
+			});    
+	  
+   }
 
    /** 
     * Callback function for the AJAX content loader.
     */
-   function initPagination() {
-      var num_entries = <?php if(isset($num)) echo $num; ?>/<?php echo PAGE_NUMS;?>;
+   function initPagination() {	   
+      var num_entries = (eventdata.length)/<?php echo PAGE_NUMS;?>;
        // Create pagination element
        $("#pagination").pagination(num_entries, {
            num_edge_entries: 2,
@@ -112,8 +106,6 @@ var chart_canvas;
            items_per_page:1
        });
     }
-   var eventdata = eval(<?php echo "'".json_encode($event->result())."'"?>);
-   
    function pageselectCallback(page_index, jq){
    	page_index = arguments[0] ? arguments[0] : "0";
    	jq = arguments[1] ? arguments[1] : "0";   
@@ -131,13 +123,14 @@ var chart_canvas;
 		msg = msg + (eventdata[i+index].count?eventdata[i+index].count:'0');
 		msg = msg + "</td><td>";
 		msg = msg + "<a href='<?php echo site_url()?>/report/eventlist/getEventDeatil/"
-		+eventdata[i+index].event_sk+"/<?php echo $current_version?>/"+
+		+eventdata[i+index].event_sk+"/"+version+"/"+
 		eventdata[i+index].eventidentifier+"'><?php echo  lang('v_rpt_el_eventStatistics')?></a>";
 		msg = msg + "</td></tr>";
    	}
    	
       //document.getElementById('eventlistpageinfo').innerHTML = msg;
-    $('#eventlistpageinfo').html(msg);				
+    $('#eventlistpageinfo').html(msg);	
+    chart_canvas.unblock();			
       return false;
    }
     
@@ -169,14 +162,8 @@ $("ul.tabs3 li").click(function() {
 function selectChange(value)
 {
     version = value;
-    getdata();
+    myurl= "<?php echo site_url().'/report/eventlist/getEventListData/'?>"+version;
+    rederUserData(myurl);
            
-}
-
-
-function getdata()
-{	 
-	window.location = "<?php echo site_url().'/report/eventlist/getEventListData/'?>"+version;
-	
 }
 </script>

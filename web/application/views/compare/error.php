@@ -30,7 +30,7 @@
 	<article class="module width_full">
 		<header>		
 		<h3 class="h3_fontstyle"><?php echo  lang('m_rpt_errors')?></h3>
-		<span class="relative r"> <a class="bottun4 hover" href="<?php echo site_url()?>/report/errorlog/exportComparedata"><font>导出CSV</font></a>
+		<span class="relative r"> <a class="bottun4 hover" href="<?php echo site_url()?>/report/errorlog/exportComparedata"><font><?php echo  lang('g_exportToCSV')?></font></a>
  		</span>
 		</header>
 		<table class="tablesorter" cellspacing="0">

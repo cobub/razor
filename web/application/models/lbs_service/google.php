@@ -53,6 +53,8 @@ class google extends CI_Model {
 		}
 		$data = array ();
 		$result = $result->results;
+		if(empty($result))
+			return;
 		$result = $result [0];
 		$result = $result->address_components;
 		$length = sizeof ( $result );

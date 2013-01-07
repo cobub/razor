@@ -64,12 +64,12 @@
 			<tbody> 
 			<?php if(isset($overall)):?>
 			<tr> 
-    				<td><?php echo $overall['alltime'];?></td> 
+    				<td><?php echo $today1->allusers;?></td> 
     				<td><?php echo $today1->allsessions;?></td> 
-    				<td><?php echo $overall['7dayactive'];?></td> 
-    				<td><?php if($overall['alltime']==0){echo '0.0%';}else{echo percent($overall['7dayactive'],$overall['alltime']);} ?></td>
-    				<td><?php echo $overall['1month'];?></td>
-					<td><?php if($overall['alltime']==0){echo '0.0%';}else{echo percent($overall['1month'],$overall['alltime']);} ?></td>
+    				<td><?php if(empty($overall->week_activeuser)){echo 0;}else{echo $overall->week_activeuser;} ?></td> 
+    				<td><?php if(empty($overall->week_percent)){echo '0.0%';}else{echo round($overall->week_percent*100,1).'%';}?></td>
+    				<td><?php if(empty($overall->month_activeuser)){echo 0;}else{echo $overall->month_activeuser;} ?></td>
+					<td><?php if(empty($overall->month_percent)){echo '0.0%';}else{echo round($overall->month_percent*100,1).'%';}?></td>
 				</tr> 
 			<?php endif;?>
 			</tbody>			

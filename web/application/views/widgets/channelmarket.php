@@ -98,7 +98,7 @@ $(document).ready(function() {
 				        shared:false,
 				        formatter: function() {
 					        var content=this.x+'<br>';
-					        var m=0;
+					        var m=0;					       
 					        for(var i=0;i<category.length;i++){
 						        if(category[i]==this.x){
 							        m=i;
@@ -168,6 +168,7 @@ $(document).ready(function() {
 <script type="text/javascript">     
     function renderCharts(myurl)
     {
+    	
       	 var chart_canvas = $('#container');
       	    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
       		    
@@ -185,21 +186,24 @@ $(document).ready(function() {
       	        baseZ:997
       	    });
       	    
-      	 	jQuery.getJSON(myurl, null, function(data) {          		
+      	 	jQuery.getJSON(myurl, null, function(data) { 
+          	 	      		
           		var data_array =[];
           		for(var key in data.dataList.content)
               	{
               		data_array.push(key);              		
           		}
           		for(var j=0;j<data_array.length;j++)
-          	    {          		
+          	    {    
+         			     		
           			var reportData=[];    
           			var reportTitle;      			
           		    var marketData = data_array[j];          		   
-          		    var eachmarketdata = data.dataList.content[marketData];          		   
+          		    var eachmarketdata = data.dataList.content[marketData];            		            		   
           		    var categories = [];
           		    for(var i=0;i<eachmarketdata.length;i++)
           		    {
+          		    	       
               		           var eachdata = eachmarketdata[i];                 		    
                 		    	 if(type=='newuser')
                    		    	{
@@ -234,39 +238,23 @@ $(document).ready(function() {
 
                    		    	if(type=='weekrate')                       		    	
                    		    	{  
-                       		    		allusers[i]=eachdata.allusersacc;
-                    					var weekrealuser;
-                    					if(allusers[i]==0)
-                    		           	{
-                    		       			weekrealuser = 0;
-                    		       		}
-                    		       		else
-                    		           	{
-                    		       			weekrealuser = eachdata.startusers*100.0/allusers[i];
-                    		           	}
+                       		    	weekrealuser = eachdata.percent*100;                    		          
                     				reportData.push(parseFloat(parseFloat(weekrealuser,10).toFixed(1)));                       			
                    		    		reportTitle="<?php echo $reportTitle['activeWeekly'] ?>";
+                   		    		
                    		    	} 
 
                        		 	if(type=='monthrate')                       		    	
-                   		    	{
-                           		 	allusers[i]=eachdata.allusersacc;
-                           		 	var monthrealuser;
-                					if(allusers[i]==0)
-                		           	{
-                						monthrealuser = 0;
-                		       		}
-                		       		else
-                		           	{
-                		       			monthrealuser = eachdata.startusers*100.0/allusers[i];
-                		           	}
+                   		    	{                           		 	
+                		       		monthrealuser =  eachdata.percent*100;                		          
                 				    reportData.push(parseFloat(parseFloat(monthrealuser,10).toFixed(1)));    
                               	    reportTitle="<?php echo $reportTitle['activeMonthly'] ?>";
-                   		    	}  
+                                	
+                   		    	}                    		    	
                    			
                    		    categories.push(eachdata.datevalue.substr(0,10));  
           		    }
-            		category=categories;
+            		category=categories;            		
             		options.series[j]={};
            			if(marketData=="")
            				{
@@ -275,47 +263,59 @@ $(document).ready(function() {
            			else
            				{
            				  options.series[j].name=marketData;
-           				}     
+           				}  
+	       				if(type=="weekrate"||type=="monthrate") 
+	       				{           				
+	       					options.yAxis.max=100;
+	           			}
+	           			else
+		           		{
+		           			options.yAxis.max=null;
+	           			}
        				 	 tooltipdata[j]= reportData;	 
        				 	 tooltipname[j]= options.series[j].name;
            				 options.series[j].data = reportData;
            				 options.title.text = reportTitle;
             			 options.xAxis.labels.step = parseInt(categories.length/10);
                   		 options.xAxis.categories = categories;
-                   		 optionsLength=(j+1);        			   		         			  		   
+                   		 optionsLength=(j+1); 
+                   		     			   		         			  		   
           	    }
         		 //content markevent
-			    var marklist=data.marklist;
-			    var defdate=data.defdate;
-			    var markevents=data.markevents;
-			    if(marklist.length>=1){
-			    	$.each(marklist,function(index,item){
-				    	markEventIndex[index]=optionsLength;
-				    	options.series[optionsLength]={};
-				    	options.series[optionsLength].type='column';
-				    	options.series[optionsLength].name="<?php echo lang('m_dateevents');?>";
-				    	options.colors=[];
-				    	options.colors[optionsLength]="#DB9D00";
-				    	var contentdata=[];
-				    	for(var j=0;j<defdate.length;j++){
-							var markevent=null;
-				    		$.each(markevents,function(i,o){
-				    			if(item.userid==o.userid){
-									if(defdate[j]==o.marktime){
-										markevent=o;
-									}	
-								}
-					    	});
-							if(markevent!=null){
-								tooltipmarkevent[j]=markevent.title;
-								contentdata.push(markevent);
-							}else{
-								contentdata.push(null);
-								}	
-						}
-				    	options.series[optionsLength].data=prepare(contentdata,options,index);
-					    });
-				    }
+         		 var marklist=data.marklist;
+          		 if(marklist!=null)
+          		 {
+           			var defdate=data.defdate;
+    			    var markevents=data.markevents;
+    			    if(marklist.length>=1){
+    			    	$.each(marklist,function(index,item){
+    				    	markEventIndex[index]=optionsLength;
+    				    	options.series[optionsLength]={};
+    				    	options.series[optionsLength].type='column';
+    				    	options.series[optionsLength].name="<?php echo lang('m_dateevents');?>";
+    				    	options.colors=[];
+    				    	options.colors[optionsLength]="#DB9D00";
+    				    	var contentdata=[];
+    				    	for(var j=0;j<defdate.length;j++){
+    							var markevent=null;
+    				    		$.each(markevents,function(i,o){
+    				    			if(item.userid==o.userid){
+    									if(defdate[j]==o.marktime){
+    										markevent=o;
+    									}	
+    								}
+    					    	});
+    							if(markevent!=null){
+    								tooltipmarkevent[j]=markevent.title;
+    								contentdata.push(markevent);
+    							}else{
+    								contentdata.push(null);
+    								}	
+    						}
+    				    	options.series[optionsLength].data=prepare(contentdata,options,index);
+    					    });
+    				    }
+                 }
 			//end content   
           	    chart = new Highcharts.Chart(options);
           		chart_canvas.unblock();

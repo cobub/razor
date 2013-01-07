@@ -32,13 +32,20 @@ class Userlog extends CI_Model
 		{
 			$title= $strArr[0];
 		}
-		
+		$nowtime = date ( 'Y-m-d H:i:s');
+		if(isset($userlog->time)){
+			$nowtime=$userlog->time;
+			if(strtotime($nowtime)<strtotime('1970-01-01 00:00:00')||
+					strtotime($nowtime)==''){
+				$nowtime = date ( 'Y-m-d H:i:s');
+			}
+		}
 		$data = array(
 			'appkey' => $userlog->appkey,
 		    'title' => $title,
 			'stacktrace'=> $userlog->stacktrace,
 			'os_version'=> $userlog->os_version,
-			'time' => $userlog->time,
+			'time' => $nowtime,
 			'device' => $userlog->deviceid,
 			'activity'=>$userlog->activity,
 		    'version'=>isset($userlog->version)?$userlog->version:''

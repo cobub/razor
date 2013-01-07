@@ -55,9 +55,15 @@ class ipinfodb extends CI_Model {
 		}
 		$data = array ();
 		$data ["postal_code"] = '';
-		$data ["country"] = $result [4];
-		$data ["region"] = $result [5];
-		$data ["city"] = $result [6];
+		if($result [4]!='-'){
+		$data ["country"] = $result [4];}
+		if($result [5]!='-'){
+		$data ["region"] = $result [5];}
+		if($result [6]!='-'){
+		$data ["city"] = $result [6];}
+		$data ["country"] = '';
+		$data ["region"] = '';
+		$data ["city"] = '';
 		$data ["street"] = '';
 		$data ["street_number"] = '';
 		return $data;

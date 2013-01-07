@@ -61,7 +61,7 @@
 					<input type="text" id="dpTo2">
 		<input type="button" id='btn' value="<?php echo  lang('g_update')?>" class="alt_btn" onclick="styleTimeButtonClicked()"></div>
 						
-	  <hr>
+	 <hr style="height:15px;border:none">
 	  
 			<table class="tablesorter" cellspacing="0" style="height:100px"> 
 			<thead> 

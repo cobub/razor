@@ -362,6 +362,7 @@ $lang['v_rpt_nw_details']	=	'ネットワーク方式詳細';
 		
 //view---report----eventlist		
 $lang['v_rpt_el_allVersion']	=	'全バージョン';
+$lang['v_rpt_el_Version']='バージョン';
 $lang['v_rpt_el_eventID']	=	'イベントID';
 $lang['v_rpt_el_eventName']	=	'イベント名';
 $lang['v_rpt_el_messages']	=	'メッセージ数';

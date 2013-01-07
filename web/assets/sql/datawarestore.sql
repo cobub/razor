@@ -38,8 +38,7 @@ from   databaseprefix.umsdatainstall_clientdata a
 where  not exists (select 1
                    from   umsinstall_dim_devicebrand b
                    where  a.devicename = b.devicebrand_name);
-                   
-                   insert into umsinstall_dim_deviceos
+ insert into umsinstall_dim_deviceos
            (deviceos_name)
 select distinct osversion
 from   databaseprefix.umsdatainstall_clientdata a
@@ -111,13 +110,13 @@ set
 	dp.channel_active = c.active,
 	dp.product_key = cd.productkey,
 	dp.version_name = cd.version,
-        dp.platform = pf.name
+    dp.platform = pf.name
 where
 	p.id = cp.product_id and
 	cp.channel_id = c.channel_id and 
 	cp.productkey = cd.productkey and 
 	p.category = pc.id and 
-        c.platform = pf.id and
+    c.platform = pf.id and
 	dp.product_id = p.id and 
 	dp.channel_id = c.channel_id and 
 	dp.version_name = cd.version and
@@ -268,8 +267,7 @@ insert into umsinstall_fact_clientdata
             hour_sk,
             deviceidentifier,
             clientdataid,
-			network_sk,
-			isnew
+			network_sk
 			)
 select i.product_sk,
        b.deviceos_sk,
@@ -282,8 +280,7 @@ select i.product_sk,
        hour(a.date),
        a.deviceid,
        a.id,
-       n.network_sk,
-	   case (select count(*) from umsinstall_fact_clientdata ff, umsinstall_dim_product pp where ff.date_sk < g.date_sk and ff.product_sk = pp.product_sk and pp.product_id = i.product_id and ff.deviceidentifier = a.deviceid) when 1 then 0 else 1 end isnew	  
+       n.network_sk
 from   databaseprefix.umsdatainstall_clientdata a,
        umsinstall_dim_deviceos b,
        umsinstall_dim_devicebrand c,
@@ -347,7 +344,6 @@ where  date(u.start_millis) = d.datevalue and
 set e = now();
 insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
     values('runfact','umsinstall_fact_usinglog',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
-
 
 set s = now();
 insert into umsinstall_fact_errorlog
@@ -699,14 +695,96 @@ set e = now();
 insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
     values('runmonthly','umsinstall_fact_reserveusers_monthly',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
-end;
+    set s = now();
+Insert into umsinstall_sum_basic_activeusers(product_id, month_activeuser,month_percent)
+select p.product_id,count(distinct f.deviceidentifier) activeusers,
+count(distinct f.deviceidentifier)/(select count(distinct ff.deviceidentifier) 
+from umsinstall_fact_clientdata  ff,umsinstall_dim_date dd,umsinstall_dim_product  pp 
+where dd.datevalue<=enddate and pp.product_id=p.product_id
+and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 
+and ff.product_sk=pp.product_sk and ff.date_sk=dd.date_sk) percent
+from umsinstall_fact_clientdata  f,umsinstall_dim_date d,umsinstall_dim_product  p 
+where d.datevalue between begindate and enddate 
+and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 
+and f.product_sk=p.product_sk and f.date_sk=d.date_sk group by p.product_id
+on duplicate key update month_activeuser=values(month_activeuser),month_percent=values(month_percent);
 
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runmonthly','umsinstall_sum_basic_activeusers',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+    
+set s = now();
+Insert into umsinstall_sum_basic_channel_activeusers(date_sk,product_id,channel_id,activeuser,percent,flag)
+select (select date_sk from umsinstall_dim_date where datevalue = begindate) startdate,p.product_id,p.channel_id,
+count(distinct f.deviceidentifier) activeusers,count(distinct f.deviceidentifier)/(select
+count(distinct ff.deviceidentifier) from umsinstall_fact_clientdata  ff,
+umsinstall_dim_date dd,umsinstall_dim_product  pp 
+where dd.datevalue<=enddate and pp.product_id=p.product_id and pp.channel_id=p.channel_id
+and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 
+and ff.product_sk=pp.product_sk and ff.date_sk=dd.date_sk),1
+from umsinstall_fact_clientdata  f,umsinstall_dim_date d,umsinstall_dim_product  p 
+where d.datevalue between begindate and enddate 
+and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 
+and f.product_sk=p.product_sk and f.date_sk=d.date_sk group by p.product_id,p.channel_id
+on duplicate key update activeuser = values(activeuser),percent=values(percent);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runmonthly','umsinstall_sum_basic_channel_activeusers',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
+end;
 --$$
+
 CREATE PROCEDURE `runsum`(IN `today` DATE)
     NO SQL
 begin
 declare s datetime;
 declare e datetime;
+
+-- update fact_clientdata  
+set s = now();
+update  umsinstall_fact_clientdata a,
+		umsinstall_fact_clientdata b,
+		umsinstall_dim_date c,
+		umsinstall_dim_product d,
+		umsinstall_dim_product f 
+set     a.isnew=0 
+
+where   ((a.date_sk>b.date_sk) or (a.date_sk=b.date_sk and a.dataid>b.dataid)) 
+and     a.isnew=1 
+and     a.date_sk=c.date_sk 
+and     c.datevalue=today
+and     a.product_sk=d.product_sk 
+and     b.product_sk=f.product_sk 
+and     a.deviceidentifier=b.deviceidentifier 
+and     d.product_id=f.product_id;
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runfact','umsinstall_fact_clientdata update',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
+set s = now();
+
+update umsinstall_fact_clientdata a,
+       umsinstall_fact_clientdata b,
+       umsinstall_dim_date c,
+       umsinstall_dim_product d,
+       umsinstall_dim_product f 
+set    a.isnew_channel=0 
+where  ((a.date_sk>b.date_sk) or (a.date_sk=b.date_sk and a.dataid>b.dataid))
+       and a.isnew_channel=1 
+       and a.date_sk=c.date_sk 
+       and c.datevalue=today 
+       and a.product_sk=d.product_sk 
+       and b.product_sk=f.product_sk 
+       and a.deviceidentifier=b.deviceidentifier 
+       and d.product_id=f.product_id 
+       and d.channel_id=f.channel_id;
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runfact','umsinstall_fact_clientdata update',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
 -- sum usinglog for each sessions
 set s = now();
 insert into umsinstall_fact_usinglog_daily
@@ -728,6 +806,302 @@ set e = now();
 insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
     values('runsum','umsinstall_fact_usinglog_daily',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
+-- sum_basic_product 
+
+set s = now();
+insert into umsinstall_sum_basic_product(product_id,date_sk,sessions) 
+select p.product_id, d.date_sk,count(f.deviceidentifier) 
+from umsinstall_fact_clientdata f,
+	 umsinstall_dim_date d,
+	 umsinstall_dim_product p
+where d.datevalue = today 
+      and f.date_sk = d.date_sk 
+      and f.product_sk=p.product_sk
+group by p.product_id on duplicate key update sessions = values(sessions);
+
+insert into umsinstall_sum_basic_product(product_id,date_sk,startusers) 
+select p.product_id, d.date_sk,count(distinct f.deviceidentifier) 
+from umsinstall_fact_clientdata f,
+     umsinstall_dim_date d,
+     umsinstall_dim_product p 
+where d.datevalue = today 
+      and f.date_sk = d.date_sk 
+      and p.product_sk=f.product_sk 
+group by p.product_id on duplicate key update startusers = values(startusers);
+
+insert into umsinstall_sum_basic_product(product_id,date_sk,newusers) 
+select p.product_id, f.date_sk,sum(f.isnew) 
+from umsinstall_fact_clientdata f, 
+     umsinstall_dim_date d, 
+     umsinstall_dim_product p 
+where d.datevalue = today 
+      and f.date_sk = d.date_sk 
+      and p.product_sk = f.product_sk 
+      and p.product_active = 1 
+      and p.channel_active = 1 
+      and p.version_active = 1 
+group by p.product_id,f.date_sk on duplicate key update newusers = values(newusers);
+
+insert into umsinstall_sum_basic_product(product_id,date_sk,upgradeusers) 
+select p.product_id, d.date_sk,
+count(distinct f.deviceidentifier) 
+from umsinstall_fact_clientdata f, 
+     umsinstall_dim_date d, 
+     umsinstall_dim_product p 
+where d.datevalue = today 
+      and f.date_sk = d.date_sk 
+      and p.product_sk = f.product_sk 
+      and p.product_active = 1
+      and p.channel_active = 1 
+      and p.version_active = 1 
+      and exists 
+(select 1 
+from umsinstall_fact_clientdata ff, 
+     umsinstall_dim_date dd, umsinstall_dim_product pp 
+where dd.datevalue < today 
+      and ff.date_sk = dd.date_sk 
+      and pp.product_sk = ff.product_sk
+      and pp.product_id = p.product_id 
+      and pp.product_active = 1 
+      and pp.channel_active = 1 
+      and pp.version_active = 1 
+      and f.deviceidentifier = ff.deviceidentifier 
+      and STRCMP( pp.version_name, p.version_name ) < 0) 
+group by p.product_id,d.date_sk on duplicate key update upgradeusers = values(upgradeusers);
+
+insert into umsinstall_sum_basic_product(product_id,date_sk,allusers) 
+select f.product_id, 
+(
+ select date_sk 
+ from umsinstall_dim_date 
+where datevalue=today) date_sk,
+sum(f.newusers) 
+from umsinstall_sum_basic_product f,
+     umsinstall_dim_date d 
+where d.date_sk=f.date_sk 
+      and d.datevalue<=today 
+group by f.product_id on duplicate key update allusers = values(allusers);
+
+insert into umsinstall_sum_basic_product(product_id,date_sk,allsessions) 
+select f.product_id,(select date_sk from umsinstall_dim_date where datevalue=today) date_sk,sum(f.sessions) 
+from umsinstall_sum_basic_product f,
+     umsinstall_dim_date d 
+where d.datevalue<=today 
+      and d.date_sk=f.date_sk 
+group by f.product_id on duplicate key update allsessions = values(allsessions);
+
+insert into umsinstall_sum_basic_product(product_id,date_sk,usingtime)
+select p.product_id,f.date_sk,sum(duration) 
+from umsinstall_fact_usinglog_daily f,
+     umsinstall_dim_product p,
+     umsinstall_dim_date d 
+where f.date_sk = d.date_sk 
+      and d.datevalue = today 
+      and f.product_sk=p.product_sk 
+group by p.product_id on duplicate key update usingtime = values(usingtime);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runsum','umsinstall_sum_basic_product',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
+-- sum_basic_channel 
+set s = now();
+insert into umsinstall_sum_basic_channel(product_id,channel_id,date_sk,sessions) 
+select p.product_id,p.channel_id,d.date_sk,count(f.deviceidentifier) 
+from umsinstall_fact_clientdata f, 
+     umsinstall_dim_date d,
+     umsinstall_dim_product p
+where d.datevalue = today 
+      and f.date_sk = d.date_sk 
+      and f.product_sk=p.product_sk
+group by p.product_id,p.channel_id on duplicate key update sessions = values(sessions);
+
+insert into umsinstall_sum_basic_channel(product_id,channel_id,date_sk,startusers) 
+select p.product_id,p.channel_id, d.date_sk,count(distinct f.deviceidentifier) 
+from umsinstall_fact_clientdata f,
+	 umsinstall_dim_date d,
+	 umsinstall_dim_product p 
+where d.datevalue = today 
+      and f.date_sk = d.date_sk 
+      and p.product_sk=f.product_sk 
+group by p.product_id,p.channel_id on duplicate key update startusers = values(startusers);
+
+insert into umsinstall_sum_basic_channel(product_id,channel_id,date_sk,newusers) 
+select p.product_id,p.channel_id,f.date_sk,sum(f.isnew_channel) 
+from umsinstall_fact_clientdata f,
+     umsinstall_dim_date d, 
+     umsinstall_dim_product p 
+where d.datevalue = today 
+      and f.date_sk = d.date_sk 
+      and p.product_sk = f.product_sk 
+      and p.product_active = 1 
+      and p.channel_active = 1 
+      and p.version_active = 1 
+group by p.product_id,p.channel_id,f.date_sk on duplicate key update newusers = values(newusers);
+
+insert into umsinstall_sum_basic_channel(product_id,channel_id,date_sk,upgradeusers) 
+select p.product_id,p.channel_id,d.date_sk,
+count(distinct f.deviceidentifier) 
+from umsinstall_fact_clientdata f,
+     umsinstall_dim_date d, 
+     umsinstall_dim_product p 
+where d.datevalue = today 
+      and f.date_sk = d.date_sk 
+      and p.product_sk = f.product_sk  
+      and p.product_active = 1 
+      and p.channel_active = 1 
+     and p.version_active = 1 
+and exists 
+(select 1 
+from umsinstall_fact_clientdata ff,
+     umsinstall_dim_date dd,
+     umsinstall_dim_product pp 
+where dd.datevalue < today 
+      and ff.date_sk = dd.date_sk 
+      and pp.product_sk = ff.product_sk 
+      and pp.product_id = p.product_id 
+      and pp.channel_id=p.channel_id 
+      and pp.product_active = 1 
+      and pp.channel_active = 1 
+      and pp.version_active = 1 
+      and f.deviceidentifier = ff.deviceidentifier 
+      and STRCMP( pp.version_name, p.version_name ) < 0) 
+ group by p.product_id,p.channel_id,d.date_sk on duplicate key update upgradeusers = values(upgradeusers);
+
+insert into umsinstall_sum_basic_channel(product_id,channel_id,date_sk,allusers) 
+select f.product_id,f.channel_id,
+(select date_sk 
+  from umsinstall_dim_date 
+  where datevalue=today) date_sk,
+sum(f.newusers)
+from umsinstall_sum_basic_channel f,
+     umsinstall_dim_date d
+where d.date_sk=f.date_sk 
+      and d.datevalue<=today 
+group by f.product_id,f.channel_id on duplicate key update allusers = values(allusers); 
+
+insert into umsinstall_sum_basic_channel(product_id,channel_id,date_sk,allsessions) 
+select f.product_id,f.channel_id,(select date_sk from umsinstall_dim_date where datevalue=today) date_sk,
+sum(f.sessions) 
+from umsinstall_sum_basic_channel f,
+     umsinstall_dim_date d 
+where d.datevalue<=today 
+      and d.date_sk=f.date_sk 
+group by f.product_id,f.channel_id on duplicate key update allsessions = values(allsessions);
+
+insert into umsinstall_sum_basic_channel(product_id,channel_id,date_sk,usingtime)
+select p.product_id,p.channel_id,f.date_sk,sum(duration) 
+from umsinstall_fact_usinglog_daily f,
+     umsinstall_dim_product p,
+     umsinstall_dim_date d where f.date_sk = d.date_sk 
+and d.datevalue = today and f.product_sk=p.product_sk 
+group by p.product_id,p.channel_id on duplicate key update usingtime = values(usingtime);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runsum','umsinstall_sum_basic_channel',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+  
+    
+-- sum_basic_product_version 
+
+set s = now();
+insert into umsinstall_sum_basic_product_version(product_id,date_sk,version_name,sessions) 
+select p.product_id, d.date_sk,p.version_name,count(f.deviceidentifier) 
+from umsinstall_fact_clientdata f,
+     umsinstall_dim_date d,
+     umsinstall_dim_product p
+where d.datevalue = today 
+      and f.date_sk = d.date_sk 
+      and f.product_sk=p.product_sk
+group by p.product_id,p.version_name on duplicate key update sessions = values(sessions);
+
+insert into umsinstall_sum_basic_product_version(product_id,date_sk,version_name,startusers) 
+select p.product_id, d.date_sk,p.version_name,count(distinct f.deviceidentifier) 
+from umsinstall_fact_clientdata f,
+     umsinstall_dim_date d,
+     umsinstall_dim_product p 
+where d.datevalue = today 
+      and f.date_sk = d.date_sk
+      and p.product_sk=f.product_sk 
+group by p.product_id,p.version_name on duplicate key update startusers = values(startusers);
+
+insert into umsinstall_sum_basic_product_version(product_id,date_sk,version_name,newusers) 
+select p.product_id, f.date_sk,p.version_name,sum(f.isnew) 
+from umsinstall_fact_clientdata f,
+     umsinstall_dim_date d, 
+     umsinstall_dim_product p 
+where d.datevalue = today 
+      and f.date_sk = d.date_sk  
+      and p.product_sk = f.product_sk 
+      and p.product_active = 1 
+      and p.channel_active = 1 
+      and p.version_active = 1 
+      group by p.product_id,p.version_name,f.date_sk  
+on duplicate key update newusers = values(newusers);
+
+insert into umsinstall_sum_basic_product_version(product_id,date_sk,version_name,upgradeusers) 
+select p.product_id, d.date_sk,p.version_name,
+count(distinct f.deviceidentifier)
+from umsinstall_fact_clientdata f, 
+     umsinstall_dim_date d,  
+     umsinstall_dim_product p 
+where d.datevalue = today 
+      and f.date_sk = d.date_sk 
+      and p.product_sk = f.product_sk 
+      and p.product_active = 1 
+      and p.channel_active = 1 
+      and p.version_active = 1 
+      and exists 
+(select 1 
+from umsinstall_fact_clientdata ff, 
+     umsinstall_dim_date dd,
+     umsinstall_dim_product pp 
+where dd.datevalue < today 
+      and ff.date_sk = dd.date_sk 
+      and pp.product_sk = ff.product_sk
+      and pp.product_id = p.product_id 
+      and pp.product_active = 1 
+      and pp.channel_active = 1 
+      and pp.version_active = 1 
+      and f.deviceidentifier = ff.deviceidentifier 
+      and STRCMP( pp.version_name, p.version_name ) < 0) 
+ group by   p.product_id,p.version_name,d.date_sk on duplicate key update upgradeusers = values(upgradeusers);
+
+insert into umsinstall_sum_basic_product_version(product_id,date_sk,version_name,allusers) 
+select f.product_id, 
+(select date_sk 
+ from umsinstall_dim_date 
+where datevalue=today) date_sk,
+f.version_name,
+sum(f.newusers) 
+from umsinstall_sum_basic_product_version f,
+     umsinstall_dim_date d
+where d.date_sk=f.date_sk 
+      and d.datevalue<=today
+group by f.product_id,f.version_name on duplicate key update allusers = values(allusers);
+
+insert into umsinstall_sum_basic_product_version(product_id,date_sk,version_name,allsessions) 
+select f.product_id,(select date_sk from umsinstall_dim_date where datevalue=today) date_sk,f.version_name,sum(f.sessions) 
+from umsinstall_sum_basic_product_version f,
+     umsinstall_dim_date d 
+where d.datevalue<=today 
+      and d.date_sk=f.date_sk 
+group by f.product_id,f.version_name on duplicate key update allsessions = values(allsessions);
+
+insert into umsinstall_sum_basic_product_version(product_id,date_sk,version_name,usingtime)
+select p.product_id,f.date_sk,p.version_name,sum(duration) 
+from umsinstall_fact_usinglog_daily f,
+     umsinstall_dim_product p,
+     umsinstall_dim_date d 
+where f.date_sk = d.date_sk 
+      and d.datevalue = today 
+      and f.product_sk=p.product_sk 
+group by p.product_id,p.version_name on duplicate key update usingtime = values(usingtime);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+values('runsum','umsinstall_sum_basic_product_version',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));  
+  
 
 set s = now();
 -- update segment_sk column
@@ -741,56 +1115,6 @@ where  f.duration >= s.startvalue
 set e = now();
 insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
     values('runsum','umsinstall_fact_usinglog_daily update',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
-
-
-set s = now();
--- sum_basic_all --
-Insert into umsinstall_sum_basic_all(product_sk,date_sk,sessions) 
-Select f.product_sk, d.date_sk,count(f.deviceidentifier) 
-from umsinstall_fact_clientdata f, umsinstall_dim_date d 
-where d.datevalue = today and 
-f.date_sk = d.date_sk 
-group by f.product_sk,d.date_sk 
-on duplicate key update sessions = values(sessions);
-
-Insert into umsinstall_sum_basic_all(product_sk,date_sk,startusers) 
-Select f.product_sk, d.date_sk,
-count(distinct f.deviceidentifier) 
-from umsinstall_fact_clientdata f, umsinstall_dim_date d 
-where d.datevalue = today and 
-f.date_sk = d.date_sk group by 
-f.product_sk,d.date_sk on duplicate key update 
-startusers = values(startusers);
-
-Insert into umsinstall_sum_basic_all(product_sk,date_sk,newusers) 
-Select f.product_sk, d.date_sk,count(distinct f.deviceidentifier) from umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where d.datevalue = today and f.date_sk = d.date_sk and p.product_sk = f.product_sk and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 and not exists (select * from umsinstall_fact_clientdata ff, umsinstall_dim_date dd, umsinstall_dim_product pp where ff.date_sk = dd.date_sk and ff.product_sk = pp.product_sk and dd.datevalue < today and pp.product_id = p.product_id and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 and f.deviceidentifier = ff.deviceidentifier) group by f.product_sk,d.date_sk  on duplicate key update newusers = values(newusers);
-
-
-Insert into umsinstall_sum_basic_all(product_sk,date_sk,upgradeusers) 
-Select p.product_sk, d.date_sk,count(distinct f.deviceidentifier) from umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where d.datevalue = today and f.date_sk = d.date_sk and p.product_sk = f.product_sk  and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 and exists (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_date dd, umsinstall_dim_product pp where dd.datevalue < today and ff.date_sk = dd.date_sk and pp.product_sk = ff.product_sk and pp.product_id = p.product_id and pp.channel_id = p.channel_id and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 and f.deviceidentifier = ff.deviceidentifier and STRCMP( pp.version_name, p.version_name ) < 0) group by p.product_sk,d.date_sk on duplicate key update upgradeusers = values(upgradeusers);
-
-
-
-Insert into umsinstall_sum_basic_all(product_sk,date_sk,allusers) 
-Select f.product_sk, max(f.date_sk), 
-count(distinct f.deviceidentifier) from 
-umsinstall_fact_clientdata f,umsinstall_dim_date d where d.date_sk = f.date_sk 
-and d.datevalue <= today group by f.product_sk on
-duplicate key update allusers = values(allusers);
-
-Insert into umsinstall_sum_basic_all(product_sk,date_sk,allsessions) 
-Select f.product_sk, max(f.date_sk),count(f.deviceidentifier) 
-from umsinstall_fact_clientdata f, umsinstall_dim_date d where 
-d.datevalue <= today and f.date_sk = d.date_sk 
-group by f.product_sk on duplicate key update 
-allsessions = values(allsessions);
-
-insert into umsinstall_sum_basic_all(product_sk,date_sk,usingtime)
-select f.product_sk,f.date_sk,sum(duration) from umsinstall_fact_usinglog_daily f, umsinstall_dim_date d where f.date_sk = d.date_sk and d.datevalue = today group by f.product_sk,f.date_sk on duplicate key update usingtime = values(usingtime);
-set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('runsum','umsinstall_sum_basic_all',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
-
 
 set s = now();
 -- sum_basic_byhour --
@@ -1182,12 +1506,50 @@ on duplicate key update week8=values(week8);
 set e = now();
 insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
     values('runweekly','umsinstall_fact_reserveusers_weekly',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
-    end;
-   
+
+set s = now();
+Insert into umsinstall_sum_basic_activeusers(product_id, week_activeuser,week_percent)
+select p.product_id,count(distinct f.deviceidentifier) activeusers,
+count(distinct f.deviceidentifier)/(select count(distinct ff.deviceidentifier) 
+from umsinstall_fact_clientdata  ff,umsinstall_dim_date dd,umsinstall_dim_product  pp 
+where dd.datevalue<=enddate and p.product_id=pp.product_id
+and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 
+and ff.product_sk=pp.product_sk and ff.date_sk=dd.date_sk) percent
+from umsinstall_fact_clientdata  f,umsinstall_dim_date d,umsinstall_dim_product  p 
+where d.datevalue between begindate and enddate 
+and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 
+and f.product_sk=p.product_sk and f.date_sk=d.date_sk group by p.product_id
+on duplicate key update week_activeuser = values(week_activeuser),week_percent = values(week_percent);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runweekly','umsinstall_sum_basic_activeusers',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+    
+set s = now();
+Insert into umsinstall_sum_basic_channel_activeusers(date_sk,product_id,channel_id,activeuser,percent,flag)
+select (select date_sk from umsinstall_dim_date where datevalue = begindate) startdate,p.product_id,p.channel_id,
+count(distinct f.deviceidentifier) activeusers,count(distinct f.deviceidentifier)/(select 
+count(distinct ff.deviceidentifier) from umsinstall_fact_clientdata  ff,
+umsinstall_dim_date dd,umsinstall_dim_product  pp
+where dd.datevalue<=enddate and pp.product_id=p.product_id and pp.channel_id=p.channel_id
+and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 
+and ff.product_sk=pp.product_sk and ff.date_sk=dd.date_sk ),0
+from umsinstall_fact_clientdata  f,umsinstall_dim_date d,umsinstall_dim_product  p 
+where d.datevalue between begindate and enddate
+and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 
+and f.product_sk=p.product_sk and f.date_sk=d.date_sk group by p.product_id,p.channel_id
+on duplicate key update activeuser = values(activeuser),percent=values(percent);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runweekly','umsinstall_sum_basic_channel_activeusers',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
+end;
 --$$
  
  CREATE  PROCEDURE `rundaily`(IN `yesterday` DATE)
     NO SQL
+
 begin
 
 declare csession varchar(128);
@@ -1196,9 +1558,6 @@ declare clastsession varchar(128);
 declare cactivityid int;
 declare clastactivityid int;
 
-declare cdatesk int;
-declare clastdatesk int;
-
 declare cproductsk int;
 declare clastproductsk int;
 
@@ -1206,11 +1565,11 @@ declare single int;
 declare endflag int;
 declare seq int;
 
-declare usinglogcursor cursor      
+declare usinglogcursor cursor
 
-for                                                  
+for
 
-select f.date_sk,product_sk,session_id,activity_sk from umsinstall_fact_usinglog f, umsinstall_dim_date d where f.date_sk = d.date_sk
+select product_sk,session_id,activity_sk from umsinstall_fact_usinglog f, umsinstall_dim_date d where f.date_sk = d.date_sk
 
 and d.datevalue = yesterday;
 
@@ -1225,20 +1584,20 @@ open usinglogcursor;
 
 repeat
 
-  fetch usinglogcursor into cdatesk,cproductsk,csession,cactivityid;
+  fetch usinglogcursor into cproductsk,csession,cactivityid;
 
-  if csession=clastsession then  
-      insert into umsinstall_sum_accesspath(date_sk,product_sk,fromid,toid,jump,count)
+  if csession=clastsession then
+      insert into umsinstall_sum_accesspath(product_sk,fromid,toid,jump,count)
 
-     select cdatesk,cproductsk,clastactivityid,cactivityid,seq,1
+     select cproductsk,clastactivityid,cactivityid,seq,1
 
      on duplicate key update count=values(count)+1;
     set seq = seq +1;
 
-  else             
+  else
 
-insert into umsinstall_sum_accesspath(date_sk,product_sk,fromid,toid,jump,count)
-              select clastdatesk,clastproductsk,clastactivityid,-999 as cactivityid,seq,1
+insert into umsinstall_sum_accesspath(product_sk,fromid,toid,jump,count)
+              select clastproductsk,clastactivityid,-999 as cactivityid,seq,1
 
             on duplicate key update count=values(count)+1;
     
@@ -1250,17 +1609,35 @@ insert into umsinstall_sum_accesspath(date_sk,product_sk,fromid,toid,jump,count)
 
    set clastsession = csession;
    set clastactivityid = cactivityid;
-   set clastdatesk = cdatesk;
    set clastproductsk = cproductsk;
 
 until endflag=1 end repeat;
 
 close usinglogcursor;
-         
-insert into umsinstall_sum_accesslevel(date_sk,product_sk,fromid,toid,level,count)
-select al.date_sk,product_sk,fromid,toid,min(jump),sum(count) from umsinstall_sum_accesspath al, umsinstall_dim_date d where al.date_sk = d.date_sk and d.datevalue = yesterday group by date_sk,product_sk,fromid,toid
-on duplicate key update count = values(count)+1;
 
+insert into umsinstall_sum_accesslevel(product_sk,fromid,toid,level,count)
+select product_sk,fromid,toid,min(jump),sum(count) from umsinstall_sum_accesspath group by product_sk,fromid,toid
+on duplicate key update count = values(count);
+
+update umsinstall_fact_clientdata a,umsinstall_fact_clientdata b,umsinstall_dim_date c,
+umsinstall_dim_product d,umsinstall_dim_product f set a.isnew=0 where 
+((a.date_sk>b.date_sk) or (a.date_sk=b.date_sk and a.dataid>b.dataid)) 
+and a.isnew=1 
+and a.date_sk=c.date_sk and c.datevalue between DATE_SUB(yesterday,INTERVAL 7 DAY) and yesterday
+and a.product_sk=d.product_sk 
+and b.product_sk=f.product_sk 
+and a.deviceidentifier=b.deviceidentifier and d.product_id=f.product_id;
+
+update umsinstall_fact_clientdata a,umsinstall_fact_clientdata b,umsinstall_dim_date c,
+umsinstall_dim_product d,umsinstall_dim_product f set a.isnew_channel=0 where 
+((a.date_sk>b.date_sk) or (a.date_sk=b.date_sk and a.dataid>b.dataid)) 
+and a.isnew_channel=1 
+and a.date_sk=c.date_sk and c.datevalue between DATE_SUB(yesterday,INTERVAL 7 DAY) and yesterday
+and a.product_sk=d.product_sk 
+and b.product_sk=f.product_sk 
+and a.deviceidentifier=b.deviceidentifier and d.product_id=f.product_id and d.channel_id=f.channel_id;
 
 end;
+
+
 

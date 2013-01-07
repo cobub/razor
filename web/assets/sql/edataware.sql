@@ -40,14 +40,13 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_date` (
 
 CREATE TABLE IF NOT EXISTS `umsinstall_sum_accesslevel` (
   `pid` int(11) NOT NULL AUTO_INCREMENT,
-  `date_sk` int(11) NOT NULL,
-  `product_sk` int(11) NOT NULL,
+  `product_sk` int(11) NULL,
   `fromid` int(11) NOT NULL,
   `toid` int(11) NOT NULL,
-  `level` int(11) NOT NULL,
+  `level` int(11) NULL,
   `count` int(11) NOT NULL,
   PRIMARY KEY (`pid`),
-  UNIQUE KEY `date_sk` (`date_sk`,`product_sk`,`fromid`,`toid`,`level`)
+  UNIQUE KEY `date_sk` (`product_sk`,`fromid`,`toid`,`level`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -58,15 +57,45 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_accesslevel` (
 
 CREATE TABLE IF NOT EXISTS `umsinstall_sum_accesspath` (
   `pid` int(11) NOT NULL AUTO_INCREMENT,
-  `date_sk` int(11) NOT NULL,
-  `product_sk` int(11) NOT NULL,
+  `product_sk` int(11) NULL,
   `fromid` int(11) NOT NULL,
   `toid` int(11) NOT NULL,
-  `jump` int(11) NOT NULL,
+  `jump` int(11) NULL,
   `count` int(11) NOT NULL,
   PRIMARY KEY (`pid`),
-  UNIQUE KEY `date_sk` (`date_sk`,`product_sk`,`fromid`,`toid`,`jump`)
+  UNIQUE KEY `date_sk` (`product_sk`,`fromid`,`toid`,`jump`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+--
+-- 表的结构 `sum_basic_activeusers`
+--
+
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_activeusers` (
+  `product_id` int(11) NOT NULL,
+  `week_activeuser` int(11) NOT NULL DEFAULT '0',
+  `month_activeuser` int(11) NOT NULL DEFAULT '0',
+  `week_percent` float NOT NULL DEFAULT '0',
+  `month_percent` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`product_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+--
+-- 表的结构 `sum_basic_channel_activeusers`
+--
+
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_channel_activeusers` (
+  `pid` int(11) NOT NULL AUTO_INCREMENT,
+  `date_sk` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `channel_id` int(11) NOT NULL,
+  `activeuser` int(11) NOT NULL DEFAULT '0',
+  `percent` float NOT NULL DEFAULT '0',
+  `flag` int(11) NOT NULL,
+  PRIMARY KEY (`pid`),
+  UNIQUE KEY `date_sk` (`date_sk`,`product_id`,`channel_id`,`flag`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 --
@@ -252,6 +281,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_segment_usinglog` (
 -- 表的结构 `fact_clientdata`
 --
 
+
 CREATE TABLE IF NOT EXISTS `umsinstall_fact_clientdata` (
   `dataid` int(11) NOT NULL AUTO_INCREMENT,
   `product_sk` int(11) NOT NULL,
@@ -266,7 +296,8 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_clientdata` (
   `clientdataid` int(11) NOT NULL,
   `network_sk` int(11) NOT NULL,
   `hour_sk` int(11) NOT NULL,
-  `isnew` tinyint(4) NOT NULL,
+  `isnew` tinyint(4) NOT NULL DEFAULT '1',
+  `isnew_channel` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`dataid`),
   KEY `deviceidentifier` (`deviceidentifier`(255)),
   KEY `product_sk` (`product_sk`,`date_sk`,`deviceidentifier`(255))
@@ -325,7 +356,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_launch_daily` (
   `launchid` int(11) NOT NULL AUTO_INCREMENT,
   `product_sk` int(11) NOT NULL,
   `date_sk` int(11) NOT NULL,
-  `segment_sk` int(11) NOT NULL,
+  `segment_sk` int(11) NOT NULL DEFAULT '0',
   `accesscount` int(11) NOT NULL,
   PRIMARY KEY (`launchid`),
   UNIQUE KEY `product_sk` (`product_sk`,`date_sk`,`segment_sk`)
@@ -343,15 +374,15 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_reserveusers_monthly` (
   `enddate_sk` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `version_name` varchar(128) NOT NULL,
-  `usercount` int(11) NOT NULL,
-  `month1` int(11) NOT NULL,
-  `month2` int(11) NOT NULL,
-  `month3` int(11) NOT NULL,
-  `month4` int(11) NOT NULL,
-  `month5` int(11) NOT NULL,
-  `month6` int(11) NOT NULL,
-  `month7` int(11) NOT NULL,
-  `month8` int(11) NOT NULL,
+  `usercount` int(11) NOT NULL DEFAULT '0',
+  `month1` int(11) NOT NULL DEFAULT '0',
+  `month2` int(11) NOT NULL DEFAULT '0',
+  `month3` int(11) NOT NULL DEFAULT '0',
+  `month4` int(11) NOT NULL DEFAULT '0',
+  `month5` int(11) NOT NULL DEFAULT '0',
+  `month6` int(11) NOT NULL DEFAULT '0',
+  `month7` int(11) NOT NULL DEFAULT '0',
+  `month8` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`rid`),
   UNIQUE KEY `startdate_sk` (`startdate_sk`,`enddate_sk`,`product_id`,`version_name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
@@ -367,15 +398,15 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_reserveusers_weekly` (
   `enddate_sk` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `version_name` varchar(128) NOT NULL,
-  `usercount` int(11) NOT NULL,
-  `week1` int(11) NOT NULL,
-  `week2` int(11) NOT NULL,
-  `week3` int(11) NOT NULL,
-  `week4` int(11) NOT NULL,
-  `week5` int(11) NOT NULL,
-  `week6` int(11) NOT NULL,
-  `week7` int(11) NOT NULL,
-  `week8` int(11) NOT NULL,
+  `usercount` int(11) NOT NULL DEFAULT '0',
+  `week1` int(11) NOT NULL DEFAULT '0',
+  `week2` int(11) NOT NULL DEFAULT '0',
+  `week3` int(11) NOT NULL DEFAULT '0',
+  `week4` int(11) NOT NULL DEFAULT '0',
+  `week5` int(11) NOT NULL DEFAULT '0',
+  `week6` int(11) NOT NULL DEFAULT '0',
+  `week7` int(11) NOT NULL DEFAULT '0',
+  `week8` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`rid`),
   UNIQUE KEY `startdate_sk` (`startdate_sk`,`enddate_sk`,`product_id`,`version_name`) 
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
@@ -410,7 +441,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_usinglog_daily` (
   `product_sk` int(11) NOT NULL,
   `date_sk` int(11) NOT NULL,
   `session_id` varchar(64) NOT NULL,
-  `segment_sk` int(11) NOT NULL,
+  `segment_sk` int(11) NOT NULL DEFAULT '0',
   `duration` int(11) NOT NULL,
   PRIMARY KEY (`usingid`),
   UNIQUE KEY `product_sk` (`product_sk`,`date_sk`,`session_id`)
@@ -446,27 +477,6 @@ CREATE TABLE IF NOT EXISTS `umsinstall_log` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sum_basic_all`
---
-
-CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_all` (
-  `sid` int(11) NOT NULL AUTO_INCREMENT,
-  `product_sk` int(11) NOT NULL,
-  `date_sk` int(11) NOT NULL,
-  `sessions` int(11) NOT NULL,
-  `startusers` int(11) NOT NULL,
-  `newusers` int(11) NOT NULL,
-  `upgradeusers` int(11) NOT NULL,
-  `allusers` int(11) NOT NULL,
-  `allsessions` int(11) NOT NULL,
-  `usingtime` int(11) NOT NULL,
-  PRIMARY KEY (`sid`),
-  UNIQUE KEY `product_sk` (`product_sk`,`date_sk`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
--- --------------------------------------------------------
-
---
 -- 表的结构 `sum_basic_byhour`
 --
 
@@ -475,9 +485,9 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_byhour` (
   `product_sk` int(11) NOT NULL,
   `date_sk` int(11) NOT NULL,
   `hour_sk` tinyint(11) NOT NULL,
-  `sessions` int(11) NOT NULL,
-  `startusers` int(11) NOT NULL,
-  `newusers` int(11) NOT NULL,
+  `sessions` int(11) NOT NULL DEFAULT '0',
+  `startusers` int(11) NOT NULL DEFAULT '0',
+  `newusers` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`fid`),
   UNIQUE KEY `product_sk` (`product_sk`,`date_sk`,`hour_sk`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
@@ -493,16 +503,77 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_usinglog_activity` (
   `date_sk` int(11) NOT NULL,
   `product_sk` int(11) NOT NULL,
   `activity_sk` int(11) DEFAULT NULL,
-  `accesscount` int(11) NOT NULL,
-  `totaltime` int(11) NOT NULL,
-  `exitcount` int(11) NOT NULL,
+  `accesscount` int(11) NOT NULL DEFAULT '0',
+  `totaltime` int(11) NOT NULL DEFAULT '0',
+  `exitcount` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`usingid`),
   UNIQUE KEY `date_sk` (`date_sk`,`product_sk`,`activity_sk`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
+--
+-- 表的结构`sum_basic_product`
+--
 
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_product` (
+  `sid` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `date_sk` int(11) NOT NULL,
+  `sessions` int(11) NOT NULL DEFAULT '0',
+  `startusers` int(11) NOT NULL DEFAULT '0',
+  `newusers` int(11) NOT NULL DEFAULT '0',
+  `upgradeusers` int(11) NOT NULL DEFAULT '0',
+  `allusers` int(11) NOT NULL DEFAULT '0',
+  `allsessions` int(11) NOT NULL DEFAULT '0',
+  `usingtime` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`sid`),
+  UNIQUE KEY `product_id` (`product_id`,`date_sk`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+-- ---------------------------------------------------------
+
+--
+-- 表的结构`sum_basic_channel`
+--
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_channel` (
+  `sid` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `channel_id` int(11) NOT NULL,
+  `date_sk` int(11) NOT NULL,
+  `sessions` int(11) NOT NULL DEFAULT '0',
+  `startusers` int(11) NOT NULL DEFAULT '0',
+  `newusers` int(11) NOT NULL DEFAULT '0',
+  `upgradeusers` int(11) NOT NULL DEFAULT '0',
+  `allusers` int(11) NOT NULL DEFAULT '0',
+  `allsessions` int(11) NOT NULL DEFAULT '0',
+  `usingtime` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`sid`),
+  UNIQUE KEY `channel_id` (`product_id`,`channel_id`,`date_sk`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构`sum_basic_product_version` 
+--
+
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_product_version` (
+  `sid` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `date_sk` int(11) NOT NULL,
+  `version_name` varchar(64) NOT NULL,
+  `sessions` int(11) NOT NULL DEFAULT '0',
+  `startusers` int(11) NOT NULL DEFAULT '0',
+  `newusers` int(11) NOT NULL DEFAULT '0',
+  `upgradeusers` int(11) NOT NULL DEFAULT '0',
+  `allusers` int(11) NOT NULL DEFAULT '0',
+  `allsessions` int(11) NOT NULL DEFAULT '0',
+  `usingtime` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`sid`),
+  UNIQUE KEY `product_id` (`product_id`,`date_sk`,`version_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
 
 --
 -- 转存表中的数据 `dim_date`

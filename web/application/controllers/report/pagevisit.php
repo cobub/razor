@@ -29,7 +29,6 @@ class Pagevisit extends CI_Controller {
 	
 	function index()
 	{
-		$product = $this->common->getCurrentProduct ();
 		$this->common->loadHeaderWithDateControl ();	
 		$currentProduct = $this->common->getCurrentProduct();
 		$fromTime = $this->common->getFromTime();
@@ -52,6 +51,13 @@ class Pagevisit extends CI_Controller {
 		{
 			$this->data['type']=$type;
 		}
+		$currentProduct = $this->common->getCurrentProduct();
+		$result=$this->page->getVersionData($currentProduct->id);
+		$this->data['newversion']='noversion';
+		if($result!=null&&$result->num_rows()>0){
+			$this->data['version']=$result;
+			$this->data['newversion']=$result->first_row()->version_name;
+		}
 		$this->load->view ( 'layout/reportheader');
 		$this->load->view('widgets/visitpath',$this->data);
 	}
@@ -62,16 +68,26 @@ class Pagevisit extends CI_Controller {
 		$this->load->view("widgets/flowchartview");
 	}
 	
-	function getFlowChart()
+	function getFlowChart($version)
 	{
+		if($version=='noversion'||$version==null){
+			$rootArray = array(
+					'name'=>lang('g_noData'),
+					'percentage' => 1,
+					'level' => 0,
+					"children"=>array()
+			);
+			echo json_encode($rootArray);
+			return;
+		}
 		$currentProduct = $this->common->getCurrentProduct();
 		$fromTime = $this->common->getFromTime();
 		$toTime = $this->common->getToTime();
 		$productId = $currentProduct->id;
-		
-		$query = $this->page->getFlowData($fromTime,$toTime,$productId);
+		$version=trim($version,'');
+		$query = $this->page->getFlowData($version,$productId);
 		$topLevelArray = array();
-		$topLevelData = $this->page->getTopLevelData($fromTime,$toTime,$productId);
+		$topLevelData = $this->page->getTopLevelData($version,$productId);
 		foreach($topLevelData->result() as $topRow)
 		{
 			$key = $topRow->activity_name;

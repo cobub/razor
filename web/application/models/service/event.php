@@ -67,11 +67,19 @@ class Event extends CI_Model
 		}
 		else 
 		{
+			$nowtime = date ( 'Y-m-d H:i:s');
+			if(isset($event->time)){
+				$nowtime=$event->time;
+				if(strtotime($nowtime)<strtotime('1970-01-01 00:00:00')||
+						strtotime($nowtime)==''){
+					$nowtime = date ( 'Y-m-d H:i:s');
+				}
+			}
 		$data = array(
 			'productkey' => $event->appkey,
 			'event_id'=> $getEventid,
 			'label'=>isset($event->label)?$event->label:'',
-			'clientdate' => $event->time,
+			'clientdate' => $nowtime,
 			'num'=> isset($event->acc)?$event->acc:1,
 			'event'=>$event->activity,
 		    'version'=>isset($event->version)?$event->version:''

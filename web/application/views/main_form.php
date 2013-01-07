@@ -14,7 +14,7 @@
 				<article>
 				<div id="container"  class="module_content" style="height:250px">
 		
-		</div>
+		       </div>
 			   </article>
 		
 				<div class="clear"></div>
@@ -206,7 +206,7 @@ function renderCharts(myurl)
 	jQuery.getJSON(myurl, null, function(data) {	 
 		var categories = [];		
 		var obj = data.content;	
-		var objoftrend = data.contentofTrend;
+		var objoftrend = data.contentofTrend;		
 	    for(var i=0;i<obj.length;i++)
 	    {		   
 	    	newUserData.push(parseInt(obj[i].newusers,10));

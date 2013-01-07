@@ -382,3 +382,15 @@ $config['redis'] = 0;
 */
 
 $config['redis_interval'] = 10;
+
+/*
+ |--------------------------------------------------------------------------
+| Get geographical
+|--------------------------------------------------------------------------
+|
+| choose the function to get geographical
+| 1.geoip(Ip access to the local file geographical)
+| 2.google and ipinfodb(google:get geographical through gprs,ipinfo:get geographical via ip)
+|
+*/
+$config['get_geographical']= 2;

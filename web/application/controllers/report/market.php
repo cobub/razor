@@ -23,13 +23,14 @@ class market extends CI_Controller{
 		$productId = $product->id;
 		$data['productId'] = $productId;		
 		$today = date ( 'Y-m-d', time () );
+		$count7=date("w")+7;
 		$yestodayTime = date ( "Y-m-d", strtotime ( "-1 day" ) );
-		$seven_day = date ( "Y-m-d", strtotime ( "-6 day" ) );
-		$thirty_day = date ( "Y-m-d", strtotime ( "-30 day" ) );
-				
-		$sevendayactive=$this->product->getActiveUsersNum($seven_day,$today,$productId);
+		$seven_day = date ( "Y-m-d", strtotime ("-".$count7." day") );
+		$thirty_day = date ( "Y-m-d", strtotime ( "-1 month" ) );
+		$thirty_day = substr($thirty_day,0,8).'01';
+		$sevendayactive=$this->product->getActiveDays($seven_day,0,$productId);
 		$data['sevendayactive']=$sevendayactive;
-		$thirty_day_active=$this->product->getActiveUsersNum($thirty_day,$today,$productId);
+		$thirty_day_active=$this->product->getActiveDays($thirty_day,1,$productId);
 		$data['thirty_day_active']=$thirty_day_active;
 		$todayData = $this->product->getAnalyzeDataByDateAndProductID($today,$productId);
 	    $yestodayData = $this->product->getAnalyzeDataByDateAndProductID($yestodayTime,$productId);
@@ -77,14 +78,17 @@ class market extends CI_Controller{
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();
 		$markets = $this->product->getProductChanelById($productId);
+		
 		$ret = array();
 		if($markets!=null && $markets->num_rows()>0)
 		{
-			foreach ($markets->result() as $row)
-			{
-				if($type=="monthrate"||$type=="weekrate")
+			foreach ($markets->result() as $row)			{
+				
+				if($type=="monthrate")
 				{
-					$data = $this->	product->getActiveNumber($row->channel_id,$fromTime,$toTime,$type);
+					$data = $this->	product->getActiveNumbers($productId,$fromTime,$toTime,1);
+				}else if($type=="weekrate"){
+					$data = $this->	product->getActiveNumbers($productId,$fromTime,$toTime,0);					
 				}
 				else
 				{					
@@ -94,19 +98,34 @@ class market extends CI_Controller{
 		}
 		else
 		{
-			$data="";
+			$data=null;
 		}		
 		$result = array();
-		$result['dataList']=$data;
+		$result['dataList']=$data;		
 		//load markevents
 		$mark=array();
 		$currentProduct = $this->common->getCurrentProduct();
 		$this->load->model('point_mark','pointmark');
 		$markevnets=$this->pointmark->listPointviewtochart($this->common->getUserId(),$productId,$fromTime,$toTime)->result_array();
 		$marklist=$this->pointmark->listPointviewtochart($this->common->getUserId(),$productId,$fromTime,$toTime,'listcount');
-		$result['marklist']=$marklist;
+		
 		$result['markevents']=$markevnets;
-		$result['defdate']=$this->common->getDateList($fromTime,$toTime);
+		if($type=="weekrate")
+		{
+			
+		   $result['marklist']=$this->product->getRateVersion($productId,$fromTime,$toTime,0);
+		   $result['defdate']=$this->product->getRatedate($productId,$fromTime,$toTime,0);	
+		}
+		else if($type=="monthrate")
+		{
+			$result['marklist']=$this->product->getRateVersion($productId,$fromTime,$toTime,1);
+			$result['defdate']=$this->product->getRatedate($productId,$fromTime,$toTime,1);
+		}
+		else
+		{
+			$result['marklist']=$marklist;
+			$result['defdate']=$this->common->getDateList($fromTime,$toTime);
+		}		
 		//end load markevents
 		echo  json_encode($result);
 		

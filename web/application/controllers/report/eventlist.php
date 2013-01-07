@@ -17,22 +17,16 @@ class Eventlist extends CI_Controller {
 	function index() {
 		$this->common->loadHeader ();
 		$productId = $this->common->getCurrentProduct ();	
-		$productId=$productId->id;
-		$this->data ['event'] = $this->event->getEventListByProductIdAndProductVersion ( $productId, 'all' );
-		$this->data ['versions'] = $this->event->getProductVersions ( $productId );
-		$this->data ['current_version'] = 'all';
+		$productId=$productId->id;		
+		$this->data ['versions'] = $this->event->getProductVersions ( $productId );		
 		$this->load->view ( 'events/eventlistview', $this->data );
 	}
 	
-	function getEventListData($version = '') {
-		$this->common->loadHeader ();
+	function getEventListData($version = '') {		
 		$productId = $this->common->getCurrentProduct ();	
 		$productId=$productId->id;
-		$this->data ['event'] = $this->event->getEventListByProductIdAndProductVersion ( $productId, $version );
-		    
-		$this->data ['versions'] = $this->event->getProductVersions ( $productId );
-		$this->data ['current_version'] = $version;
-		$this->load->view ( 'events/eventlistview', $this->data );
+		$result['event'] = $this->event->getEventListInfo( $productId, $version );		    
+		echo json_encode($result);	
 	}
 	
 	

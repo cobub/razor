@@ -47,6 +47,7 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
 		</article>	
 		</section>	
 <script>
+var realname='<?php echo  lang('t_activeUsers')?>';
 var chartdata;
 var fromCurTime;
 var toCurTime;
@@ -110,6 +111,14 @@ $( "#dpTimeTo" ).datepicker({ dateFormat: "yy-mm-dd" });
 function changefirstchartName(changename)
 {	
 	changeChartTitleName(timephase,changename);
+	if(changename=="startuser")
+	{		
+		realname="<?php echo  lang('t_activeUsers')?>";
+	}
+	else
+	{    
+		realname="<?php echo  lang('t_newUsers')?>";
+	}
 	chartname = changename;
 	var data = chartdata;
 	if(typeof(data.type)!='undefined'&&data.type.name=='compare'){//mean copare
@@ -129,7 +138,7 @@ function changefirstchartName(changename)
 		    }
 		    options.series[index]={};
 			options.series[index].data = newUsers;
-			options.series[index].name=item.name;
+			options.series[index].name=realname;
 			options.title.text = titlename;		
 				if(index==0){
 				options.xAxis.labels.step = parseInt(categories.length/10);
@@ -149,6 +158,7 @@ function changefirstchartName(changename)
 		    realhour=obj[i].hour+":00";				    	
 	    	categories.push(realhour);
 	    }
+	    options.series[0].name =realname;
 		options.series[0].data = newUsers;
 		options.xAxis.labels.step = parseInt(categories.length/10);
 		options.xAxis.categories = categories;  
@@ -344,7 +354,7 @@ function renderCharts(myurl)
 					options.series[0].data = newUsers;
 					options.xAxis.labels.step = parseInt(categories.length/10);
 					options.xAxis.categories = categories;  
-					options.series[0].name = "<?php echo lang('t_activeUsers') ?>";
+					options.series[0].name = realname;
 					options.legend.enabled=false;
 				    }  
 		options.title.text = titlename;

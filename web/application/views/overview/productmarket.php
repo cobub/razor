@@ -25,9 +25,8 @@
 	<?php 
 	$todayDataArray = $todayData->result_array();
 	$yestaodayDataArray = $yestodayData->result_array();
-	$sevenDayActive = $sevendayactive->result_array();
-	$thirtyDayActive = $thirty_day_active->result_array();
-//	$today_newuser_array = $today_newuser;
+	$sevenDayActive = $sevendayactive->result_array();	
+	$thirtyDayActive = $thirty_day_active->result_array();	
 	for ($i=0;$i<$count;$i++)
 	{?>
 		<tr>
@@ -38,10 +37,10 @@
 					<td><?php echo $todayDataArray[$i]['startusers']?></td>
 					<td><?php echo $yestaodayDataArray[$i]['startusers']?></td>
 					<td><?php echo $todayDataArray[$i]['allusers']?></td>
-					<td><?php if($todayDataArray[$i]['allusers']==0){echo '0.0%';}else{echo percent($sevenDayActive[$i]['startusers'],$todayDataArray[$i]['allusers']);} 
-	?></td>
-					<td><?php if($todayDataArray[$i]['allusers']==0){echo '0.0%';}else{echo percent($thirtyDayActive[$i]['startusers'],$todayDataArray[$i]['allusers']);} 
-	?></td>
+					<td><?php if(empty($sevenDayActive[$i]['percent'])){echo '0.0%';}
+					else{ echo round($sevenDayActive[$i]['percent']*100,1).'%';}?></td>
+					<td><?php if(empty($thirtyDayActive[$i]['percent'])){echo '0.0%';}
+					else{ echo round($thirtyDayActive[$i]['percent']*100,1).'%';}?></td>
 					<!--  td><?php // echo ($new_user_time_phase[$i]*100)."%" ; ?></td>-->
 				</tr>
 		<?php }?>

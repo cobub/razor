@@ -21,12 +21,28 @@ class errormodel extends CI_Model {
 
 	//get error count and count/sessions data by version
 	function geterroralldata($productId,$fromTime,$toTime) {
-		$dwdb = $this->load->database ( 'dw', TRUE );		
-		$sql="Select
-		      p.version_name,
-              ifnull(count(f.id),0) errorcount,
-              ifnull(count(f.id)/(select sum(sessions) from ".$dwdb->dbprefix('sum_basic_all')." s,".$dwdb->dbprefix('dim_date')." sd, ".$dwdb->dbprefix('dim_product')." sp where s.date_sk =sd.date_sk and sd.datevalue between '$fromTime' and '$toTime' and s.product_sk = sp.product_sk and sp.product_id='$productId' and sp.version_name=p.version_name),0) percentage
-              from ".$dwdb->dbprefix('fact_errorlog')." f, ".$dwdb->dbprefix('dim_date')." d, ".$dwdb->dbprefix('dim_product')." p where f.date_sk = d.date_sk and d.datevalue between '$fromTime' and '$toTime' and f.product_sk = p.product_sk and p.product_id = $productId and p.product_active=1 and p.channel_active=1 and p.version_active=1 group by p.version_name order by version_name";
+		$dwdb = $this->load->database ( 'dw', TRUE );	
+		$sql="select p.version_name,
+		      ifnull(count(f.id),0) errorcount,
+		      ifnull(count(f.id)/(select sum(sessions)
+              from ".$dwdb->dbprefix('sum_basic_product_version')." s,
+              ".$dwdb->dbprefix('dim_date')." d
+              where s.date_sk = d.date_sk 
+              and d.datevalue 
+              between '$fromTime' and '$toTime'  
+              and  s.product_id =$productId
+              and s.version_name=p.version_name),0) percentage
+              from ".$dwdb->dbprefix('fact_errorlog')." f,
+              ".$dwdb->dbprefix('dim_date')."  d,
+              ".$dwdb->dbprefix('dim_product')." p 
+              where f.date_sk = d.date_sk and 
+              d.datevalue between '$fromTime' and '$toTime' 
+              and f.product_sk = p.product_sk 
+              and p.product_id = $productId and 
+              p.product_active=1 and p.channel_active=1 
+              and p.version_active=1 
+              group by p.version_name 
+              order by version_name";		
 		$query= $dwdb->query ($sql);
 		$ret=array();
 		if ($query != null && $query->num_rows() > 0) {
@@ -51,16 +67,33 @@ class errormodel extends CI_Model {
 	
 	function getCompareErrorData($productId,$fromTime,$toTime){
 		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql="SELECT c.datevalue, ifnull( s.errorcount, 0 ) errorcounts , ifnull( s.percentage, 0 ) percent
-		from(select d.datevalue,ifnull(count(f.id),0) errorcount,
-		ifnull(count(f.id)/(select sum(sessions)
-		from ".$dwdb->dbprefix('sum_basic_all')." s,".$dwdb->dbprefix('dim_date')." sd, ".$dwdb->dbprefix('dim_product')." sp 
-		where s.date_sk =sd.date_sk and sd.datevalue=d.datevalue and s.product_sk = sp.product_sk and sp.product_id='$productId'),0) percentage,d.datevalue date
-		from ".$dwdb->dbprefix('fact_errorlog')." f, ".$dwdb->dbprefix('dim_date')." d, ".$dwdb->dbprefix('dim_product')." p 
-		where f.date_sk = d.date_sk and d.datevalue between '$fromTime' and '$toTime' and f.product_sk = p.product_sk and p.product_id = $productId and p.product_active=1 and p.channel_active=1 and p.version_active=1
-		group by d.datevalue) s right join (select datevalue from ".$dwdb->dbprefix('dim_date')."  
-		where datevalue between '$fromTime' and '$toTime') c on s.datevalue = c.datevalue";
-		$query= $dwdb->query ($sql);
+		$sql="select c.datevalue, 
+				ifnull( s.errorcount, 0 ) errorcounts ,
+				ifnull( s.percentage, 0 ) percent
+				from(select d.date_sk,
+				ifnull(count(f.id),0) errorcount,
+				ifnull(count(f.id)/(select sum(sessions) from
+				".$dwdb->dbprefix('sum_basic_product')." s,
+				".$dwdb->dbprefix('dim_date')." d
+				where s.date_sk =d.date_sk and 
+				d.datevalue between '$fromTime' and '$toTime'
+				and s.product_id=$productId),0) percentage
+				from ".$dwdb->dbprefix('fact_errorlog')." f,
+				".$dwdb->dbprefix('dim_date')." d,
+				".$dwdb->dbprefix('dim_product')." p 
+				where f.date_sk = d.date_sk 
+				and d.datevalue between '$fromTime' and '$toTime' 
+				and f.product_sk = p.product_sk 
+				and p.product_id = $productId and p.product_active=1 
+				and p.channel_active=1 and
+				 p.version_active=1
+				  group by d.date_sk) s 
+				right join (select datevalue,date_sk 
+				from ".$dwdb->dbprefix('dim_date')." 
+				where datevalue between
+				 '$fromTime' and '$toTime') c
+				on s.date_sk = c.date_sk";		
+		$query= $dwdb->query ($sql);		
 		$ret=array();
 		if ($query != null && $query->num_rows() > 0) {
 		
@@ -86,12 +119,30 @@ class errormodel extends CI_Model {
 	//get error count and count/sessions data by os
 	function getErrorAllDataOnOs($productId,$fromTime,$toTime) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql="Select
-o.deviceos_name,
-ifnull(count(f.id),0) errorcount,      
-ifnull(count(f.id)/(select count(*) from  ".$dwdb->dbprefix('fact_clientdata')."  s,".$dwdb->dbprefix('dim_date')." sd, ".$dwdb->dbprefix('dim_product')." sp  where s.date_sk =sd.date_sk and sd.datevalue between '$fromTime' and '$toTime' and s.product_sk = sp.product_sk and sp.product_id=1 and s.deviceos_sk=o.deviceos_sk),0) percentage
-from ".$dwdb->dbprefix('fact_errorlog')."  f, ".$dwdb->dbprefix('dim_date')." d, ".$dwdb->dbprefix('dim_product')." p, ".$dwdb->dbprefix('dim_deviceos')." o where f.date_sk = d.date_sk and d.datevalue between '$fromTime' and '$toTime' and f.product_sk = p.product_sk and p.product_id = $productId and p.product_active=1 and p.channel_active=1 and p.version_active=1 and f.osversion_sk = o.deviceos_sk group by o.deviceos_name order by o.deviceos_name
-		";
+		$sql="select
+              o.deviceos_name,
+              ifnull(count(f.id),0) errorcount,      
+              ifnull(count(f.id)/(select count(*) 
+              from  ".$dwdb->dbprefix('fact_clientdata')."  s,
+              ".$dwdb->dbprefix('dim_date')." sd, 
+              ".$dwdb->dbprefix('dim_product')." sp  
+              where s.date_sk =sd.date_sk and 
+              sd.datevalue between '$fromTime' and '$toTime'
+               and s.product_sk = sp.product_sk and 
+               sp.product_id=$productId and
+                s.deviceos_sk=o.deviceos_sk),0) percentage
+               from ".$dwdb->dbprefix('fact_errorlog')."  f, 
+               ".$dwdb->dbprefix('dim_date')." d,
+                ".$dwdb->dbprefix('dim_product')." p, 
+                ".$dwdb->dbprefix('dim_deviceos')." o 
+                where f.date_sk = d.date_sk and 
+                d.datevalue between '$fromTime' and '$toTime' 
+                and f.product_sk = p.product_sk and
+                 p.product_id = $productId and p.product_active=1
+                  and p.channel_active=1 and p.version_active=1 
+                  and f.osversion_sk = o.deviceos_sk 
+                  group by o.deviceos_name 
+                  order by o.deviceos_name";
 
 		$query= $dwdb->query ($sql);
 		$ret=array();
@@ -121,8 +172,27 @@ from ".$dwdb->dbprefix('fact_errorlog')."  f, ".$dwdb->dbprefix('dim_date')." d,
 		$sql="Select
         o.devicebrand_name,
        ifnull(count(f.id),0) errorcount,
-       ifnull(count(f.id)/(select count(*) from ".$dwdb->dbprefix('fact_clientdata')."  s,".$dwdb->dbprefix('dim_date')." sd, ".$dwdb->dbprefix('dim_product')." sp  where s.date_sk =sd.date_sk and sd.datevalue between '$fromTime' and '$toTime' and s.product_sk = sp.product_sk and sp.product_id=$productId and s.devicebrand_sk=o.devicebrand_sk),0) percentage
-       from ".$dwdb->dbprefix('fact_errorlog')." f, ".$dwdb->dbprefix('dim_date')." d, ".$dwdb->dbprefix('dim_product')." p, ".$dwdb->dbprefix('dim_devicebrand')." o where f.date_sk = d.date_sk and d.datevalue between '$fromTime' and '$toTime' and f.product_sk = p.product_sk and p.product_id = $productId and p.product_active=1 and p.channel_active=1 and p.version_active=1 and f.deviceidentifier = o.devicebrand_sk group by o.devicebrand_name order by errorcount desc
+       ifnull(count(f.id)/(select count(*) 
+       from ".$dwdb->dbprefix('fact_clientdata')."  s,
+       ".$dwdb->dbprefix('dim_date')." sd,
+        ".$dwdb->dbprefix('dim_product')." sp 
+         where s.date_sk =sd.date_sk and
+          sd.datevalue between '$fromTime' and '$toTime' 
+          and s.product_sk = sp.product_sk and 
+          sp.product_id=$productId and 
+          s.devicebrand_sk=o.devicebrand_sk),0) percentage
+       from ".$dwdb->dbprefix('fact_errorlog')." f, 
+       ".$dwdb->dbprefix('dim_date')." d, 
+       ".$dwdb->dbprefix('dim_product')." p, 
+       ".$dwdb->dbprefix('dim_devicebrand')." o
+       where f.date_sk = d.date_sk and
+        d.datevalue between '$fromTime' and '$toTime' 
+        and f.product_sk = p.product_sk and 
+        p.product_id = $productId and p.product_active=1 
+        and p.channel_active=1 and p.version_active=1 
+        and f.deviceidentifier = o.devicebrand_sk 
+        group by o.devicebrand_name 
+        order by errorcount desc
 		limit 0,".REPORT_TOP_TEN;
 
 		$query= $dwdb->query ($sql);
@@ -156,11 +226,17 @@ from ".$dwdb->dbprefix('fact_errorlog')."  f, ".$dwdb->dbprefix('dim_date')." d,
          count(f.stacktrace) errorcount,
          p.version_name,
          max(f.time) time
-from    ".$dwdb->dbprefix('fact_errorlog')." f,".$dwdb->dbprefix('dim_errortitle')." et,
-         ".$dwdb->dbprefix('dim_product')." p,".$dwdb->dbprefix('dim_date')." d
-where    f.product_sk = p.product_sk and f.title_sk = et.title_sk 
-         and p.product_id = $productid  and p.product_active=1 and p.channel_active=1 and p.version_active=1 and f.date_sk = d.date_sk and d.datevalue between '$from' and '$to'
-group by p.version_name,f.title_sk order by version_name desc, f.time desc;
+         from    ".$dwdb->dbprefix('fact_errorlog')." f,
+         ".$dwdb->dbprefix('dim_errortitle')." et,
+         ".$dwdb->dbprefix('dim_product')." p,
+         ".$dwdb->dbprefix('dim_date')." d
+         where  f.product_sk = p.product_sk and f.title_sk = et.title_sk 
+         and p.product_id = $productid  
+         and p.product_active=1 and p.channel_active=1 
+         and p.version_active=1 and f.date_sk = d.date_sk 
+         and d.datevalue between '$from' and '$to'
+         group by p.version_name,f.title_sk 
+         order by version_name desc, f.time desc;
 		";
 		//echo $sql;
 		$query = $dwdb->query ( $sql );

@@ -94,7 +94,7 @@ order by percentage desc limit 10;
 						 		".$dwdb->dbprefix('dim_date')."  		 dd,
 								 ".$dwdb->dbprefix('dim_product')."  		 pp,
 								 ".$dwdb->dbprefix('dim_devicebrand')."  		 bb
-						 where ff.date_sk = dd.date_sk and
+						 where dd.datevalue between '$fromTime' and '$toTime' and ff.date_sk = dd.date_sk and
 						    ff.product_sk = pp.product_sk
 							and ff.devicebrand_sk = bb.devicebrand_sk
 					and pp.product_id = $productId and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) percentage
