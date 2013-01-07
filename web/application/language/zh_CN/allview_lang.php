@@ -6,7 +6,7 @@
  *
  * @package		Cobub Razor
  * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
+ * @copyright	Copyright (c) 2011 - 2013, NanJing Western Bridge Co.,Ltd.
  * @license		http://www.cobub.com/products/cobub-razor/license
  * @link		http://www.cobub.com/products/cobub-razor/
  * @since		Version 1.0
@@ -51,9 +51,9 @@ $lang['l_oldPassword']='原密码';
 
 
 //*************************************FOOTER*************************************
-$lang['f_version']='Verion:0.3 DEV.COBUB.COM ';
+$lang['f_version']='Verion:0.4 DEV.COBUB.COM ';
 $lang['f_detail']= "*Cobub Razor软件包中包含HighCharts产品，HighCharts产品并非开源产品，<br/>但是您在一定条件下可以免费使用，具体请参见<a href='http://shop.highsoft.com/highcharts.html' target='_blank'>http://shop.highsoft.com/highcharts.html</a>。";
-$lang['f_copyright'] = '&copy Copyright 2012，版本：0.3 <a href="http://dev.cobub.com">COBUB SOLUTION</a>';
+$lang['f_copyright'] = '&copy Copyright 2013，版本：0.4 <a href="http://dev.cobub.com">COBUB SOLUTION</a>';
 
 //**************************************Email***************************************
 $lang['e_clickLink'] = '。请点击下面的链接激活账号：';
