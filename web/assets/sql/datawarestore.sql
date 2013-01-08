@@ -337,7 +337,8 @@ from   databaseprefix.umsdatainstall_clientusinglog u,
        umsinstall_dim_product p,
        umsinstall_dim_activity a
 where  date(u.start_millis) = d.datevalue and 
-       u.appkey = p.product_key
+       u.appkey = p.product_key 
+       and p.product_id=a.product_id 
        and u.version = p.version_name 
        and u.activities = a.activity_name
        and u.insertdate between starttime and endtime;
@@ -1599,12 +1600,12 @@ repeat
 
   else
      update umsinstall_sum_accesspath set count=count+1 
-     where product_sk=cproductsk and fromid=clastactivityid 
+     where product_sk=clastproductsk and fromid=clastactivityid 
      and toid=-999 and jump=seq;
      
      if row_count()=0 then 
      insert into umsinstall_sum_accesspath(product_sk,fromid,toid,jump,count) 
-     select cproductsk,clastactivityid,-999,seq,1;
+     select clastproductsk,clastactivityid,-999,seq,1;
      end if;
      set seq = 1;
 
