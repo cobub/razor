@@ -6,7 +6,7 @@
  *
  * @package		Cobub Razor
  * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2013, NanJing Western Bridge Co.,Ltd.
+ * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
  * @license		http://www.cobub.com/products/cobub-razor/license
  * @link		http://www.cobub.com/products/cobub-razor/
  * @since		Version 1.0

@@ -1587,23 +1587,26 @@ repeat
   fetch usinglogcursor into cproductsk,csession,cactivityid;
 
   if csession=clastsession then
+      update umsinstall_sum_accesspath set count=count+1 
+      where product_sk=cproductsk and fromid=clastactivityid 
+      and toid=cactivityid and jump=seq;
+      
+      if row_count()=0 then 
       insert into umsinstall_sum_accesspath(product_sk,fromid,toid,jump,count)
-
-     select cproductsk,clastactivityid,cactivityid,seq,1
-
-     on duplicate key update count=values(count)+1;
+      select cproductsk,clastactivityid,cactivityid,seq,1;
+      end if;
     set seq = seq +1;
 
   else
-
-insert into umsinstall_sum_accesspath(product_sk,fromid,toid,jump,count)
-              select clastproductsk,clastactivityid,-999 as cactivityid,seq,1
-
-            on duplicate key update count=values(count)+1;
-    
-
-
-             set seq = 1;
+     update umsinstall_sum_accesspath set count=count+1 
+     where product_sk=cproductsk and fromid=clastactivityid 
+     and toid=-999 and jump=seq;
+     
+     if row_count()=0 then 
+     insert into umsinstall_sum_accesspath(product_sk,fromid,toid,jump,count) 
+     select cproductsk,clastactivityid,-999,seq,1;
+     end if;
+     set seq = 1;
 
      end if;
 

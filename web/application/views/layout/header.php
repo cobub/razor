@@ -328,7 +328,7 @@ type="text/javascript"></script>
 			</p>
 			 -->
 			<p>
-				<strong>&copy; Copyright 2012 Cobub Solution </strong>
+				<strong>&copy; Copyright 2013 Cobub Solution </strong>
 			</p>
 			<p>
 				Verion:0.4 <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('g_devCobubC');?></a>
