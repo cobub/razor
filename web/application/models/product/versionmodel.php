@@ -165,7 +165,7 @@ class versionmodel extends CI_Model {
 		 and p.product_active=1 
 		and p.channel_active=1 and p.version_active=1 
 		group by d.version_name
-		order by d.version_name desc limit $version ";			
+		order by startusers desc,newusers desc limit $version ";			
 		}
 		else
 		{
@@ -191,7 +191,7 @@ class versionmodel extends CI_Model {
 			 and p.product_active=1 
 			and p.channel_active=1 and p.version_active=1 
 			group by d.version_name
-			order by d.version_name desc";
+			order by startusers desc,newusers desc ";
 		}		
 		$query = $dwdb->query ( $sql );
 		return $query;
