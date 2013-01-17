@@ -123,7 +123,7 @@ class ProductModel extends CI_Model {
 				$tmp ['sessions'] = $row ['sessions'];
 				$tmp ['usingtime'] = $row ['usingtime'];
 				
-				array_push ( $content_arr [$channel_name], $tmp );
+				array_push ( $content_arr[$channel_name], $tmp );
 			
 			}
 			$all_version_name = array_keys ( $content_arr );
@@ -136,20 +136,31 @@ class ProductModel extends CI_Model {
      function getChannelActiverate($product_id,$fromTime, $toTime,$type)
      {     	
      	if($type==0){
-     		$fromTime="DATE_SUB('".$fromTime."',INTERVAL 7 DAY)";
+     		$fromTime="DATE_SUB('".$fromTime."',INTERVAL 13 DAY)";
+     		$toTime="DATE_SUB('".$toTime."',INTERVAL 7 DAY)";
      	}else{
-     		$fromTime="DATE_SUB('".$fromTime."',INTERVAL 1 MONTH)";
+     		$fromTime="DATE_SUB('".$fromTime."',INTERVAL 2 MONTH)";
+     		$fromTime="DATE_SUB($fromTime,INTERVAL -1 DAY)";
+     		$toTime="DATE_SUB('".$toTime."',INTERVAL 1 MONTH)";
      	}
      	$dwdb = $this->load->database ( 'dw', TRUE );
-     	$sql="select d.datevalue,ca.channel_id,pp.channel_name,percent
+     	$sql="select tt.datevalue,tt.channel_id,tt.channel_name,ifnull(percent,0) percent 
+     	from (select d.date_sk,ca.channel_id,percent
      	from " . $dwdb->dbprefix ( 'sum_basic_channel_activeusers' ). " ca,
-     	" . $dwdb->dbprefix ( 'dim_product' ) . " pp," . $dwdb->dbprefix ( 'dim_date' ) . " d
-     	where d.datevalue between $fromTime and '$toTime' and d.date_sk=ca.date_sk
-     	and ca.flag=$type and pp.product_id= $product_id
-     	and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1
-     	and ca.product_id=pp.product_id and ca.channel_id=pp.channel_id
-     	group by d.datevalue,ca.channel_id
-     	order by d.datevalue asc";     	
+     	" . $dwdb->dbprefix ( 'dim_date' ) . " d
+     	where d.datevalue between $fromTime and $toTime and d.date_sk=ca.date_sk
+     	and ca.flag=$type and ca.product_id= $product_id
+     	group by d.datevalue,ca.channel_id) t right join(select * from(
+     	select channel_id,channel_name 
+     	from " . $dwdb->dbprefix ( 'dim_product' ). " 
+     	where product_id =$product_id and product_active=1 and channel_active=1 
+     	and version_active=1 group by channel_id) dt inner join(
+     	select d.datevalue,a.date_sk from " . $dwdb->dbprefix ( 'dim_date' ). " d,
+     	" . $dwdb->dbprefix ( 'sum_basic_channel_activeusers' ). " a 
+     	where d.datevalue between $fromTime and $toTime 
+     	and d.date_sk=a.date_sk and a.flag=$type
+     	group by a.date_sk) f) tt on tt.channel_id = t.channel_id and tt.date_sk=t.date_sk	
+     	order by tt.date_sk asc";     	
      	$query = $dwdb->query ( $sql );
      	if($query != null && $query->num_rows() > 0)
      	{
@@ -165,7 +176,7 @@ class ProductModel extends CI_Model {
 	// activeMonthly
 	function getActiveNumbers($product_id,$fromTime, $toTime,$type){		
 		$ret = array ();
-		$getdata=$this->getChannelActiverate($product_id,$fromTime, $toTime,$type);
+		$getdata=$this->getChannelActiverate($product_id,$fromTime, $toTime,$type);		
 		if ($getdata != null) 
 		{
 			$content_arr = array ();
@@ -179,19 +190,9 @@ class ProductModel extends CI_Model {
 				$tmp ['percent'] = $row ['percent'];
 				$tmp ['datevalue'] = $row ['datevalue'];
 				array_push ( $content_arr [$channel_name], $tmp );
-			}	
-		}
-		else
-			{
-				$content_arr['VersionIsNullActiveRate'] = array ();
-				$tmp = array ();
-				$tmp ['percent'] = 0;
-				$tmp ['datevalue'] = "0000-00-00 00:00:00";
-				array_push ( $content_arr['VersionIsNullActiveRate'], $tmp );
-				
 			}
 			$ret ['content'] = $content_arr;
-		
+		}		
 		return $ret;				
 	}
 	function getActiveNumber($channel_id, $fromTime, $toTime, $type) {
