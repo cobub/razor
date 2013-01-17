@@ -82,8 +82,8 @@ class market extends CI_Controller{
 		$ret = array();
 		if($markets!=null && $markets->num_rows()>0)
 		{
-			foreach ($markets->result() as $row)			{
-				
+			foreach ($markets->result() as $row)	
+			 {
 				if($type=="monthrate")
 				{
 					$data = $this->	product->getActiveNumbers($productId,$fromTime,$toTime,1);
@@ -95,12 +95,24 @@ class market extends CI_Controller{
 					$data = $this->product->getAllMarketData($row->channel_id,$fromTime,$toTime);
 				}
 			}
+			if($type=="monthrate"||$type=="weekrate")
+			{
+				if($data==null||count($data)==0)
+				{
+					$content_arr['VersionIsNullActiveRate'] = array ();
+					$tmp = array ();
+					$tmp ['percent'] = 0;
+					$tmp ['datevalue'] = "0000-00-00 00:00:00";
+					array_push ( $content_arr['VersionIsNullActiveRate'], $tmp );
+					$ret ['content'] = $content_arr;
+				}
+			}
 		}
 		else
 		{
-			$data=null;
+			$data="";
 		}		
-		$result = array();
+		$result = array();	
 		$result['dataList']=$data;		
 		//load markevents
 		$mark=array();
