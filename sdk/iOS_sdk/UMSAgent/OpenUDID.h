@@ -48,7 +48,7 @@
 #define kOpenUDIDErrorOptedOut      1
 #define kOpenUDIDErrorCompromised   2
 
-@interface OpenUDID : NSObject {
+@interface UMS_OpenUDID : NSObject {
 }
 + (NSString*) value;
 + (NSString*) valueWithError:(NSError**)error;

@@ -71,13 +71,13 @@ static NSString * const kOpenUDIDSlotPBPrefix = @"org.OpenUDID.slot.";
 static NSString * const kAppGUUID = @"app_guuid";
 static int const kOpenUDIDRedundancySlots = 100;
 
-@interface OpenUDID (Private)
+@interface UMS_OpenUDID (Private)
 + (void) _setDict:(id)dict forPasteboard:(id)pboard;
 + (NSMutableDictionary*) _getDictFromPasteboard:(id)pboard;
 + (NSString*) _getOpenUDID;
 @end
 
-@implementation OpenUDID
+@implementation UMS_OpenUDID
 
 // Archive a NSDictionary inside a pasteboard of a given type
 // Convenience method to support iOS & Mac OS X
@@ -170,7 +170,7 @@ static int const kOpenUDIDRedundancySlots = 100;
 // Otherwise, it will register the current app and return the OpenUDID
 //
 + (NSString*) value {
-    return [OpenUDID valueWithError:nil];
+    return [UMS_OpenUDID valueWithError:nil];
 }
 + (NSString*) valueWithError:(NSError **)error {
 
@@ -228,7 +228,7 @@ static int const kOpenUDIDRedundancySlots = 100;
             // assign availableSlotPBid to be the first one available
             if (availableSlotPBid==nil) availableSlotPBid = slotPBid;
         } else {
-            NSDictionary* dict = [OpenUDID _getDictFromPasteboard:slotPB];
+            NSDictionary* dict = [UMS_OpenUDID _getDictFromPasteboard:slotPB];
             NSString* oudid = [dict objectForKey:kOpenUDIDKey];
             OpenUDIDLog(@"SlotPB dict = %@",dict);
             if (oudid==nil) {
@@ -263,7 +263,7 @@ static int const kOpenUDIDRedundancySlots = 100;
             // this is the case where this app instance is likely to be the first one to use OpenUDID on this device
             // we create the OpenUDID, legacy or semi-random (i.e. most certainly unique)
             //
-            openUDID = [OpenUDID _getOpenUDID];
+            openUDID = [UMS_OpenUDID _getOpenUDID];
         } else {
             // or we leverage the OpenUDID shared by other apps that have already gone through the process
             // 
@@ -308,7 +308,7 @@ static int const kOpenUDIDRedundancySlots = 100;
         // Save the local dictionary to the corresponding UIPasteboard slot
         //
         if (openUDID && localDict)
-            [OpenUDID _setDict:localDict forPasteboard:slotPB];
+            [UMS_OpenUDID _setDict:localDict forPasteboard:slotPB];
     }
 
     // Save the dictionary locally if applicable

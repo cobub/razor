@@ -132,7 +132,7 @@
     
     self.startDate = [[NSDate date] copy];
     NSString *currentTime = [[NSString alloc] initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
-    NSString *sessionIdentifier = [[NSString alloc] initWithFormat:@"%@%@", currentTime, [OpenUDID value]
+    NSString *sessionIdentifier = [[NSString alloc] initWithFormat:@"%@%@", currentTime, [UMS_OpenUDID value]
                                    ];
     self.sessionId = [self md5:sessionIdentifier];
     if(isLogEnabled)
@@ -811,7 +811,7 @@
     CGFloat scale = [[UIScreen mainScreen] scale];
     info.resolution = [[NSString alloc] initWithFormat:@"%.fx%.f",rect.size.width*scale,rect.size.height*scale];
     //Using open UDID 
-    info.deviceid = [OpenUDID value];
+    info.deviceid = [UMS_OpenUDID value];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
     NSArray *languages = [defaults objectForKey:@"AppleLanguages"]; 
     info.language = [languages objectAtIndex:0];
