@@ -76,7 +76,7 @@ class Os extends CI_Controller {
 	/*
 	 * Get os data by time phase, called by ajax
 	 */
-	function getOsData($timePhase) {
+	function getOsData() {
 		$productId = $this->common->getCurrentProduct ();
 		$fromTime = $this->common->getFromTime ();
 		$toTime = $this->common->getToTime ();
