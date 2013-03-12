@@ -26,7 +26,7 @@ class productanalyzemodel extends CI_Model {
         ifnull(startusers,0) startusers
         from (select channel_id,channel_name
         from " . $dwdb->dbprefix ( 'dim_product' ) . "
-        where product_id=$product_id
+        where product_id=$product_id and channel_active = 1
          group by channel_id ) ppp 
         left join (select channel_id,max(allusers) allusers
          from " . $dwdb->dbprefix ( 'sum_basic_channel' ) . "  bp,
