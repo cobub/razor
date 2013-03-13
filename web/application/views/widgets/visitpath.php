@@ -24,7 +24,7 @@ text {
 style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png) repeat-y left top;"<?php }?>>
 	<article class="module width_full" style="height:500px;background:lightgrey;" >
 		<header>
-  <div style="float:left;margin-left:2%;margin-top: 5px;">
+  <div style="float:left;margin-left:2%;margin-top: 7px;">
 	<?php   if(isset($add))
   {?>
   <a href="#" onclick="addreport()">

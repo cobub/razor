@@ -27,6 +27,7 @@ class productanalyzemodel extends CI_Model {
         from (select channel_id,channel_name
         from " . $dwdb->dbprefix ( 'dim_product' ) . "
         where product_id=$product_id
+         and channel_active=1
          group by channel_id ) ppp 
         left join (select channel_id,max(allusers) allusers
          from " . $dwdb->dbprefix ( 'sum_basic_channel' ) . "  bp,
@@ -48,8 +49,7 @@ class productanalyzemodel extends CI_Model {
          and p.product_id=pp.product_id
           group by pp.channel_id) ff
           on ff.channel_id=ppp.channel_id 
-          group by ppp.channel_id
-		";		
+          group by ppp.channel_id";		
 		$query = $dwdb->query ( $sql );
 		return $query;
 	}
@@ -84,7 +84,11 @@ class productanalyzemodel extends CI_Model {
 		and p.product_id=$productId) pp
 		 on d.date_sk=pp.date_sk";
 		$query = $dwdb->query ( $sql );
-		return $query->first_row ();
+		if($query!=null&&$query->num_rows()>0)
+		{
+			$query=$query->first_row ();
+		}
+		return $query;
 	}
 	function getYestodayUpdateUser($productId, $date) {
 		$dwdb = $this->load->database ( 'dw', TRUE );

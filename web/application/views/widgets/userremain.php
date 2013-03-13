@@ -5,7 +5,7 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
 		<?php endif;?>			
 		<article class="module width_full">
 		<header>
-		<div style="float:left;margin-left:2%;margin-top: 5px;">
+		<div style="float:left;margin-left:2%;margin-top: 7px;">
 	<?php   if(isset($add))
   {?>
   <a href="#" onclick="addreport()">
@@ -66,7 +66,7 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
 			<thead> 
 				<tr> 
    					<th><?php echo  lang('v_rpt_ur_first_use_month')?></th> 
-    				<th><?php echo  lang('t_numberofUsers')?></th> 
+    				<th><?php echo  lang('t_newUsers')?></th> 
     				<th><?php echo  lang('v_rpt_ur_one_month')?></th> 
     				<th><?php echo  lang('v_rpt_ur_two_months')?></th> 
     				<th><?php echo  lang('v_rpt_ur_three_months')?></th> 

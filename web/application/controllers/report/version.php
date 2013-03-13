@@ -111,6 +111,7 @@ class version extends CI_Controller{
 			$row['newuserpercent']=percent($row['newusers'],$sum21);
 		    $row['startuserpercent']=percent($row['startusers'],$sum2);
 			array_push($result2,$row);
+			
 		}		
 		
 		$result = array ($result1, $result2 );

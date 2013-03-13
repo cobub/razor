@@ -268,6 +268,7 @@ class Funnels extends CI_Controller {
 		$result['defdate']=$this->common->getDateList($fromTime,$toTime);
 		//end load markevents
 		echo json_encode($result);
+	   
 	}
 	//export the compare data
 	function exportComparedata(){

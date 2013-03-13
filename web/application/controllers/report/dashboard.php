@@ -31,12 +31,12 @@ class Dashboard extends CI_Controller {
 		$height     = $_POST['height'];
 		$type       = $_POST['type'];		   
 		$userid = $this->common->getUserId();
-		$src=site_url()."/report/".$controller."/add".$reportname."report";
+		$src="/report/".$controller."/add".$reportname."report";
 		$ret=$this->dashboard->addreport($productid,$userid,$reportname,$controller,$src,$height,$type);				
 		$html="";
 		if($ret==1)
 		{		
-			$html=$html."<iframe src='".$src."/del' id='".$reportname."' frameborder='0' scrolling='no'style='width:100%;height:".$height."px;margin: 10px 3% 0 0.3%;'></iframe>";
+			$html=$html."<iframe src='".site_url().$src."/del' id='".$reportname."' frameborder='0' scrolling='no'style='width:100%;height:".$height."px;margin: 10px 3% 0 0.3%;'></iframe>";
 		}	
 		if($ret>=8)
 		{

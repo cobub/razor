@@ -4,7 +4,7 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
 	<!--Region -->
 	<article class="module width_full">
 	<header>
-	 <div style="float:left;margin-left:2%;margin-top: 5px;">
+	 <div style="float:left;margin-left:2%;margin-top: 7px;">
 	<?php   if(isset($add))
   {?>
   <a href="#" onclick="addreport()">

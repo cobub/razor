@@ -283,8 +283,7 @@ class productbasic extends CI_Controller {
 	   					$maxlength=count($detailData[$j]);
 	   				}
 	   				$title[$j+2]=iconv("UTF-8", "GBK",$products[$j]->name);
-	   			}
-	   		//	print_r($detailData[0][2]);
+	   			}	   		
 	   			$export->setTitle ($title);
 	   		}else{
 	   			$title[0]=$labels[$i];

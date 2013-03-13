@@ -31,8 +31,7 @@ class SendEmail extends CI_Model {
 		$emailtime = date ( 'Y-m-d', $timezonestimestamp );
 		
 		$alertlab = array();
-		$alertlab = $this->compare->getAllAlertlab();
-		
+		$alertlab = $this->compare->getAllAlertlab();		
 		for($i=0;$i<count($alertlab);$i++){
 			
 			$label =$alertlab[$i]['label'];

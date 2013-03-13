@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.util.Iterator;
 import java.util.Locale;
 
+import org.apache.http.util.LangUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +47,7 @@ import com.wbtech.ums.common.NetworkUitlity;
 import com.wbtech.ums.common.UmsConstants;
 import com.wbtech.ums.dao.GetInfoFromFile;
 import com.wbtech.ums.dao.SaveInfo;
+import com.wbtech.ums.objects.LatitudeAndLongitude;
 import com.wbtech.ums.objects.MyMessage;
 import com.wbtech.ums.objects.SCell;
 
@@ -75,10 +77,10 @@ public class UmsAgent {
 	private static boolean isPostFile=true;
 	private static boolean isFirst=true;
 	
-	private static long tcp_sndofbegin=0;
-	private static long tcp_rcvofbegin=0;
-	private static long tcp_snd=0;
-	private static long tcp_rcv=0;
+//	private static long tcp_sndofbegin=0;
+//	private static long tcp_rcvofbegin=0;
+//	private static long tcp_snd=0;
+//	private static long tcp_rcv=0;
 	
 	
 	
@@ -88,6 +90,13 @@ public class UmsAgent {
 	 */
 	public static void setBaseURL(String url){
 		UmsConstants.preUrl = url;
+	}
+	
+	public static void setSessionContinueMillis(long interval){
+		if(interval > 0){
+			UmsConstants.kContinueSessionMillis = interval;
+		}
+		
 	}
 	
 	public static void setAutoLocation(boolean AutoLocation) {
@@ -269,6 +278,7 @@ private static JSONObject getErrorInfoJSONObj() {
 	private JSONObject getEventJOSNobj(Context context,String label ,String event_id,int acc) {
 		JSONObject localJSONObject =  new JSONObject();
 		String time=CommonUtil.getTime();
+		appkey = CommonUtil.getAppKey(context);
 	    try
 	    {
 	      
@@ -305,6 +315,8 @@ private static JSONObject getErrorInfoJSONObj() {
 	 * @param context
 	 */
 	private static void postOnPauseInfo(Context context) {
+		
+		saveSessionTime(context);
 		
 		end_millis = CommonUtil.getTime();
 		end = Long.valueOf(System.currentTimeMillis());
@@ -371,10 +383,12 @@ private static JSONObject getErrorInfoJSONObj() {
 			
 		}
 		
+		isCreateNewSessionID(context);
+		
 		activities = CommonUtil.getActivityName(context); 
 		try {
 			if(session_id==null){
-				session_id =generateSeesion(context);
+				generateSeesion(context);
 			}
 			
 		} catch (Exception e) {
@@ -385,6 +399,23 @@ private static JSONObject getErrorInfoJSONObj() {
 
 	}
 	
+	private static void isCreateNewSessionID(Context context) {
+		// TODO Auto-generated method stub
+		long currenttime = System.currentTimeMillis();
+	
+		SharedPreferences preferences= context.getSharedPreferences("UMS_session_ID_savetime", Context.MODE_PRIVATE);
+		long session_save_time  = preferences.getLong("session_save_time", currenttime);
+		if(currenttime - session_save_time > UmsConstants.kContinueSessionMillis){
+			try {
+				generateSeesion(context);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
 	/**
 	 * Automatic Updates
 	 * @param context
@@ -610,12 +641,27 @@ private static JSONObject getErrorInfoJSONObj() {
 			String localDate = CommonUtil.getTime();
 			str = str + localDate;
 			sessionId = MD5Utility.md5Appkey(str);
+			SharedPreferences preferences = context.getSharedPreferences("UMS_sessionID", Context.MODE_PRIVATE);
+			Editor edit =preferences.edit();
+			edit.putString("session_id", sessionId);
+			edit.commit();
+			saveSessionTime(context);
+			session_id =sessionId;
 			return sessionId;
 		}
-		return null;
+		return sessionId;
 	}
 	
 	
+	private static void saveSessionTime(Context context) {
+		// TODO Auto-generated method stub
+		SharedPreferences preferences2sessiontime = context.getSharedPreferences("UMS_session_ID_savetime", Context.MODE_PRIVATE);
+		Editor editor = preferences2sessiontime.edit();
+		long currenttime = System.currentTimeMillis();
+		editor.putLong("session_save_time", currenttime);
+		editor.commit();
+	}
+
 	/**
 	 * Upload all data
 	 * @param context
@@ -719,17 +765,16 @@ private static JSONObject getErrorInfoJSONObj() {
 			    clientData.put("phonetype", tm.getPhoneType());//
 			    clientData.put("imsi", tm.getSubscriberId());
 			    clientData.put("network", CommonUtil.getNetworkType(context));
+			    clientData.put("time", CommonUtil.getTime());
 			    clientData.put("version", CommonUtil.getVersion(context));
 			    
 			    
 			    SCell sCell = CommonUtil.getCellInfo(context);
-			    
+			      
 			    clientData.put("mccmnc", sCell!=null?""+sCell.MCCMNC:"");
 			    clientData.put("cellid",sCell!=null?sCell.CID+"":"");
 			    clientData.put("lac", sCell!=null?sCell.LAC+"":"");
-			    clientData.put("latitude", CommonUtil.getItude(sCell,UmsAgent.mUseLocationService).latitude);
-			    clientData.put("longitude", CommonUtil.getItude(sCell,UmsAgent.mUseLocationService).longitude);
-			    clientData.put("time", CommonUtil.getTime());
+			   
 			    Build bd = new Build();
 			    
 			    clientData.put("modulename", bd.MODEL);
@@ -739,8 +784,12 @@ private static JSONObject getErrorInfoJSONObj() {
 			    clientData.put("havewifi", CommonUtil.isWiFiActive(context));
 			    clientData.put("havegps", locationManager==null? false:true);
 			    clientData.put("havegravity", CommonUtil.isHaveGravity(context));//
+			
+			    LatitudeAndLongitude coordinates = CommonUtil.getLatitudeAndLongitude(context, UmsAgent.mUseLocationService);
+			    clientData.put("latitude", coordinates.latitude);
+			    clientData.put("longitude", coordinates.longitude);  
 			    CommonUtil.printLog("clientData---------->",clientData.toString());
-			 	} catch (JSONException e) {
+			 	} catch (JSONException e) {  
 					e.printStackTrace();
 				} catch (Exception e) {
 					e.printStackTrace();

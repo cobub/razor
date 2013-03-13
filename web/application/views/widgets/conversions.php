@@ -18,7 +18,7 @@
 style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png) repeat-y left top;"<?php }?>>
 	<article class="module width_full">
 	<header>
-	<div style="float:left;margin-left:2%;margin-top: 5px;">
+	<div style="float:left;margin-left:2%;margin-top: 7px;">
 	<?php   if(isset($add))
   {?>
   <a href="#" onclick="addreport()">
@@ -45,6 +45,7 @@ var options ;
 var show_thrend=1;
 var show_markevent=1;
 var markEventIndex=[];
+var formaterdata;
 var myurl='<?php echo site_url()?>/report/funnels/getChartData';
 $(document).ready(function() {
 	options = {
@@ -120,8 +121,18 @@ $(document).ready(function() {
 				            var length=this.points.length;
 							for(i=0;i<length;i++){
 								var point=this.points[i];
+								var unitprice;
 								if(!markEventIndex.content(point.series.index)){
-									var unitprice=point.total==null?0:point.total;
+									for(var j=0;j<formaterdata.length;j++)
+							         {
+							         	var targetname=formaterdata[j].targetname;							         	
+							         	if(point.series.name==targetname)
+							         	{
+							         		var price=formaterdata[j].unitprice;
+							         		unitprice=point.y*price;
+							         		break;
+								        }
+							     	 }									
 									msg+='<?php echo lang('v_rpt_re_funnelTarget');?>:'+point.series.name +','+'<?php echo lang("v_rpt_re_count");?>'+':'+point.y+","+"<?php echo lang('v_rpt_re_unitprice');?>:"+unitprice+'<br/>';
 									}
 								}
@@ -176,16 +187,18 @@ $(document).ready(function() {
     	        },
     	        baseZ:997
     	    });
-    	   
+    	 
     	jQuery.getJSON(myurl, null, function(data) { 
         	if(typeof data.common!='undefined'){
 				show_thrend=data.common.show_thrend;
 				show_markevent=data.common.show_markevent;
 				//means compare ways
+				formaterdata=data.dataList;
 				dataresult =data.result;
 				change('count',0);
             }else{
                 $('#tabs3').remove();
+                formaterdata=data.dataList;
             	contentConversion(data);
 	    	    chart = new Highcharts.Chart(options);
              }
@@ -280,18 +293,18 @@ function contentConversion(data){
      	    for(var k=0;k<temp_item.eventnum.length;k++)
      	    {
          	    if(dataList[j].eventnum[k]!=null)
-         	    {
-     	    	num_array.push({y:parseInt(dataList[j].eventnum[k]),unitprice:dataList[j]['unitprice'],total:dataList[j]['unitprice']});
+         	    {             	   	
+                  num_array.push(parseInt(dataList[j].eventnum[k]));
          	    }
          	}
-         	options.series[j].data = num_array;
-         	options.series[j].unitprice=dataList[j]['unitprice'];
+         	options.series[j].data = num_array;        
          }
         	for(var i=0;i<data.defdate.length;i++){
         		time_array.push(data.defdate[i]);
             }
-        	options.xAxis.categories = time_array; 
-     	    options.xAxis.labels.step = parseInt(time_array.length/10);
+            
+        	options.xAxis.categories = data.defdate; 
+     	    options.xAxis.labels.step = 1;
 	options.title.text = '<?php echo lang('v_rpt_re_funnelTargettrend');?>';
 	options.subtitle.text = '<?php echo $reportTitle['timePhase'];?>';
 	 //content markevent
@@ -327,7 +340,7 @@ function contentConversion(data){
 	    	options.series[seriesLength].data=prepare(contentdata,options,index);
 		    });
 	    }
-//end content
+//end content  
 }
 </script>
 <script type="text/javascript">
