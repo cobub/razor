@@ -4,7 +4,6 @@ import com.wbtech.ums.UmsAgent;//
 
 
 
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
@@ -106,7 +105,7 @@ public class MainActivity extends Activity {
 		 *   If the App starts without network, then the messages will be stored in local position
 		 *   and App will try to send next time.
 		 * 
-�?     * Real-time Sending :
+		 * Real-time Sending :
          *  Once App produces a message, sending it to server immediately. 
 		 *
 		 * Call UmsAgent.setDefaultReportPolicy(Context,int) to select mode of sending data

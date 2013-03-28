@@ -6,6 +6,7 @@
 .project
 .metadata
 bin/
+gen/
 tmp/
 *.tmp
 *.bak
@@ -48,6 +49,8 @@ local.properties
 *_p.c
 *.ilk
 *.meta
+*.obj
+*.pch
 *.pdb
 *.pgc
 *.pgd
@@ -96,6 +99,8 @@ publish
 
 # Others
 [Bb]in
+[Oo]bj
+sql
 TestResults
 *.Cache
 ClientBin
