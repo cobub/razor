@@ -165,3 +165,4 @@ pip-log.txt
 
 #Subversion
 .svn
+.svn/
