@@ -2,7 +2,7 @@ Cobub Razor - Open Source Mobile Analytics
 =============
 [![Cobub Razor](http://dev.cobub.com/wp-content/uploads/2012/07/cobub-logo1.png)](http://dev.cobub.com)
 
-Firstly, welcome to goto DEMO site to have a try:   
+Firstly, welcome to access the DEMO website to have a try:   
   
 - [**Cobub Razor Demo - English Version**](http://demo.cobub.com/razor/en)  
 - [**Cobub Razor Demo - Chinese Version**](http://demo.cobub.com/razor)
