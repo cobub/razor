@@ -44,6 +44,7 @@
     BOOL isLogEnabled;
     BOOL isCrashReportEnabled;
     NSDate *startDate;
+    NSDate *sessionStopDate;
     NSString *updateOnliWifi;
     NSString *sessionmillis;
     BOOL *isOnlineConfig;
@@ -65,6 +66,7 @@
 @property (nonatomic,strong) NSDate *startDate;
 @property (nonatomic,strong) NSString *sessionId;
 @property (nonatomic,strong) NSString *pageName;
+@property (nonatomic,strong) NSDate *sessionStopDate;
 
 @end
 
@@ -78,6 +80,7 @@
 @synthesize startDate;
 @synthesize sessionId;
 @synthesize pageName;
+@synthesize sessionStopDate;
 
 +(UMSAgent*)getInstance
 {
@@ -187,6 +190,12 @@
        {
            [UMSAgent endTracPage:self.pageName];
        }
+    
+        sessionStopDate = [NSDate date];
+        if(isLogEnabled)
+        {
+            NSLog(@"Resign Active: click home button or lose focus. End Trace Page and save session stop date.");
+        }
     //Since We use viewWillAppear and viewWillDisappear to record, So just remove from here
 //    NSString *page_name = [[NSBundle mainBundle] bundleIdentifier];
 //    if(policy == REALTIME)
@@ -222,7 +231,29 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     NSString *currentTime = [[NSString alloc] initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
-    self.sessionId = [self md5:currentTime];
+    if(sessionStopDate!=nil)
+    {
+        NSTimeInterval sessionStopInterval = -[sessionStopDate timeIntervalSinceNow];
+        if(sessionStopInterval + 0.0000001 > 30)
+        {
+            self.sessionId = [self md5:currentTime];
+            if(isLogEnabled)
+            {
+                NSLog(@"Stop session more than 30 seconds, so consider as new session id.");
+            }
+        }
+        else
+        {
+            if(isLogEnabled)
+            {
+                NSLog(@"Stop session less than 30 seconds, so consider as old session.");
+            }
+        }
+    }
+    else
+    {
+        self.sessionId = [self md5:currentTime];
+    }
     if(isLogEnabled)
     {
         NSLog(@"Current session ID = %@",sessionId);
@@ -247,7 +278,7 @@
         if(pageStartDate!=nil)
         {
             NSString *start_mils = [self getDateStr:pageStartDate];
-            NSTimeInterval duration = (-[startDate timeIntervalSinceNow])*1000;
+            NSTimeInterval duration = (-[pageStartDate timeIntervalSinceNow])*1000;
             NSString *durationStr = [[NSString alloc] initWithFormat:@"%f",duration];
             NSString *activities = currentPageName;
             NSString *appVersion = [self getVersion];
@@ -325,7 +356,7 @@
             return;
         }
         acLog.endMils = [self getCurrentTime];
-        NSTimeInterval duration = (-[startDate timeIntervalSinceNow])*1000;
+        NSTimeInterval duration = (-[pageStartDate timeIntervalSinceNow])*1000;
         acLog.duration = [[NSString alloc] initWithFormat:@"%f",duration];
         acLog.activity = currentPageName;
         acLog.version = [self getVersion];
