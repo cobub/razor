@@ -303,8 +303,8 @@ function contentConversion(data){
         		time_array.push(data.defdate[i]);
             }
             
-        	options.xAxis.categories = data.defdate; 
-     	    options.xAxis.labels.step = 1;
+    options.xAxis.categories = data.defdate; 
+    options.xAxis.labels.step = parseInt(data.defdate.length/10); 
 	options.title.text = '<?php echo lang('v_rpt_re_funnelTargettrend');?>';
 	options.subtitle.text = '<?php echo $reportTitle['timePhase'];?>';
 	 //content markevent

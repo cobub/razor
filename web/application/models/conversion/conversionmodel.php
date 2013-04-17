@@ -79,34 +79,38 @@ group by e.event_sk,d.datevalue';
 		$sql = 'select t.targetname,te.eventalias,te.eventid,te.sequence 
 		from ' . $this->db->dbprefix ( 'target' ) . ' t,' . $this->db->dbprefix ( 'targetevent' ) . ' te 
 		where t.tid = te.targetid and te.targetid = ' . $targetid . ' order by te.sequence';
-		$queryresult = $this->db->query ( $sql );
+		$queryresult = $this->db->query ( $sql );		
 		if (! empty ( $queryresult )) {
 			$queryresult = $queryresult->result ();
 		}
 		return $queryresult;
 	}
-	function detailfunnel2($fromdate, $todate, $version) {
+	function detailfunnel2($fromdate, $todate, $version,$productId) {
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql1 = 'select t.event_id,count(*) num 
 		from ' . $dwdb->dbprefix ( 'fact_event' ) . ' e, ' . $dwdb->dbprefix ( 'dim_date' ) . ' d,
 		' . $dwdb->dbprefix ( 'dim_product' ) . ' p,' . $dwdb->dbprefix ( 'dim_event' ) . ' t 
-		where e.event_sk = t.event_sk and e.product_sk = p.product_sk and p.product_id = 1 
+		where e.event_sk = t.event_sk and e.product_sk = p.product_sk and p.product_id = '.$productId.'
 		and p.version_name="' . $version . '" and e.date_sk = d.date_sk 
 		and d.datevalue between "' . $fromdate . '" and "' . $todate . '" group by e.event_sk';
 		$sql2 = 'select t.event_id,count(*) num
 		from ' . $dwdb->dbprefix ( 'fact_event' ) . ' e, ' . $dwdb->dbprefix ( 'dim_date' ) . ' d,
 		' . $dwdb->dbprefix ( 'dim_product' ) . ' p,' . $dwdb->dbprefix ( 'dim_event' ) . ' t
-		where e.event_sk = t.event_sk and e.product_sk = p.product_sk and p.product_id = 1 
+		where e.event_sk = t.event_sk and e.product_sk = p.product_sk and p.product_id = '.$productId.'
 		and e.date_sk = d.date_sk
-		and d.datevalue between "' . $fromdate . '" and "' . $todate . '" group by e.event_sk';
-		if ($version != 'all') {
+		and d.datevalue between "' . $fromdate . '" and "' . $todate . '" group by e.event_sk';		
+		if ($version != 'all') 
+		{
 			$queryresult = $dwdb->query ( $sql1 );
-		} else {
-			$queryresult = $dwdb->query ( $sql2 );
+		} 
+		else
+		{
+			$queryresult = $dwdb->query ( $sql2 );			
 		}
-		if (! empty ( $queryresult )) {
+		if (! empty ( $queryresult )) 
+		{
 			$queryresult = $queryresult->result ();
-		}
+		}		
 		return $queryresult;
 	}
 	function getFunnelByTargetid($targetid) {
