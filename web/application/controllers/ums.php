@@ -283,6 +283,11 @@ class Ums extends CI_Controller {
 			return;
 		}
 		$encoded_content = $_POST ['content'];
+        if ( !isset( $HTTP_RAW_POST_DATA ) ) $HTTP_RAW_POST_DATA =file_get_contents( 'php://input' );
+        if (isset($_SERVER['HTTP_CONTENT_TYPE']) && $_SERVER['HTTP_CONTENT_TYPE']=='gzip'){
+        	$encoded_content = gzinflate( substr($HTTP_RAW_POST_DATA,10,-8) );
+        }
+
 		log_message ( "debug", $encoded_content );
 		$content = json_decode ( $encoded_content );
 		$key = $content->appkey;

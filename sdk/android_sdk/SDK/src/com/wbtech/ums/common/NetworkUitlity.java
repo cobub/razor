@@ -13,9 +13,13 @@
  */
 package com.wbtech.ums.common;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLDecoder;
+import java.util.zip.GZIPOutputStream;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -78,7 +82,34 @@ public class NetworkUitlity {
 		return message;
 	}
 	
-	
+	/**
+	 * compress string use gzip to reduce the size
+	 * */
+	public static MyMessage postCompressed(String requestUrl,String data){
+		MyMessage message = new MyMessage();
+		try {
+			URL url = new URL(requestUrl);
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			conn.setDoOutput(true);
+	        conn.setRequestProperty("Content-encoding", "gzip");
+	        conn.setRequestProperty("Content-type", "application/octet-stream");
+	        GZIPOutputStream dos1 = new GZIPOutputStream(conn.getOutputStream());
+	        dos1.write(data.getBytes("utf-8"));
+	        dos1.flush();
+	        dos1.close();
+	        if(conn.getResponseCode() == HttpStatus.SC_OK){
+	        	message.setFlag(true);
+	        } else {
+	        	message.setFlag(false);
+				message.setMsg(conn.getResponseMessage());
+	        }
+		} catch (Exception e) {
+			Log.e("dakele", e.getMessage(), e);
+		}
+		message.setFlag(false);
+		return message;
+	}
+
 	
 	
 
