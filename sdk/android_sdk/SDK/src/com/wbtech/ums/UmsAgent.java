@@ -19,7 +19,6 @@ import java.text.ParseException;
 import java.util.Iterator;
 import java.util.Locale;
 
-import org.apache.http.util.LangUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -694,7 +693,7 @@ private static JSONObject getErrorInfoJSONObj() {
 					sb.append(new String(s,0,i));
 				}
 				if(CommonUtil.isNetworkAvailable(context)){
-					MyMessage message=	NetworkUitlity.post(UmsConstants.preUrl+UmsConstants.uploadUrl, sb+"");
+					MyMessage message=	NetworkUitlity.postCompressed(UmsConstants.preUrl+UmsConstants.uploadUrl, sb+"");
 					if(message.isFlag()){
 						File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/mobclick_agent_cached_"+context.getPackageName());
 						file.delete();
