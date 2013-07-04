@@ -1,6 +1,6 @@
 SET NAMES 'utf8';
 --
--- 表的结构 `dim_activity`
+-- Table Structure of  `dim_activity`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_activity` (
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_activity` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dim_date`
+-- Table Structure of  `dim_date`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_date` (
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_date` (
 
 -- --------------------------------------------------------
 --
--- 表的结构 `sum_accesslevel`
+-- Table Structure of  `sum_accesslevel`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_sum_accesslevel` (
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_accesslevel` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sum_accesspath`
+-- Table Structure of  `sum_accesspath`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_sum_accesspath` (
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_accesspath` (
 
 -- --------------------------------------------------------
 --
--- 表的结构 `sum_basic_activeusers`
+-- Table Structure of  `sum_basic_activeusers`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_activeusers` (
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_activeusers` (
 
 -- --------------------------------------------------------
 --
--- 表的结构 `dim_devicebrand`
+-- Table Structure of  `dim_devicebrand`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_devicebrand` (
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_devicebrand` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dim_devicelanguage`
+-- Table Structure of  `dim_devicelanguage`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_devicelanguage` (
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_devicelanguage` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dim_deviceos`
+-- Table Structure of  `dim_deviceos`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_deviceos` (
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_deviceos` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dim_deviceresolution`
+-- Table Structure of  `dim_deviceresolution`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_deviceresolution` (
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_deviceresolution` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dim_devicesupplier`
+-- Table Structure of  `dim_devicesupplier`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_devicesupplier` (
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_devicesupplier` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dim_errortitle`
+-- Table Structure of  `dim_errortitle`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_errortitle` (
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_errortitle` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dim_event`
+-- Table Structure of  `dim_event`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_event` (
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_event` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dim_location`
+-- Table Structure of  `dim_location`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_location` (
@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_location` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dim_network`
+-- Table Structure of  `dim_network`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_network` (
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_network` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dim_product`
+-- Table Structure of  `dim_product`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_product` (
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_product` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dim_segment_launch`
+-- Table Structure of  `dim_segment_launch`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_segment_launch` (
@@ -244,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_segment_launch` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `dim_segment_usinglog`
+-- Table Structure of  `dim_segment_usinglog`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_segment_usinglog` (
@@ -260,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_segment_usinglog` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `fact_clientdata`
+-- Table Structure of  `fact_clientdata`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_fact_clientdata` (
@@ -279,6 +279,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_clientdata` (
   `hour_sk` int(11) NOT NULL,
   `isnew` tinyint(4) NOT NULL DEFAULT '1',
   `isnew_channel` tinyint(4) NOT NULL DEFAULT '1',
+  `useridentifier` varchar(256) default NULL,
   PRIMARY KEY (`dataid`),
   KEY `deviceidentifier` (`deviceidentifier`(255)),
   KEY `product_sk` (`product_sk`,`date_sk`,`deviceidentifier`(255))
@@ -287,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_clientdata` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `fact_errorlog`
+-- Table Structure of  `fact_errorlog`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_fact_errorlog` (
@@ -309,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_errorlog` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `fact_event`
+-- Table Structure of  `fact_Table Structure of `
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_fact_event` (
@@ -330,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_event` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `fact_launch_daily`
+-- Table Structure of  `fact_launch_daily`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_fact_launch_daily` (
@@ -346,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_launch_daily` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `fact_reserveusers_monthly`
+-- Table Structure of  `fact_reserveusers_monthly`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_fact_reserveusers_monthly` (
@@ -371,7 +372,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_reserveusers_monthly` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `fact_reserveusers_weekly`
+-- Table Structure of  `fact_reserveusers_weekly`
 --
 CREATE TABLE IF NOT EXISTS `umsinstall_fact_reserveusers_weekly` (
   `rid` int(11) NOT NULL AUTO_INCREMENT,
@@ -395,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_reserveusers_weekly` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `fact_usinglog`
+-- Table Structure of  `fact_usinglog`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_fact_usinglog` (
@@ -415,7 +416,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_usinglog` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `fact_usinglog_daily`
+-- Table Structure of  `fact_usinglog_daily`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_fact_usinglog_daily` (
@@ -432,7 +433,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_usinglog_daily` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `hour24`
+-- Table Structure of  `hour24`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_hour24` (
@@ -443,7 +444,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_hour24` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `log`
+-- Table Structure of  `log`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_log` (
@@ -459,7 +460,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_log` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sum_basic_byhour`
+-- Table Structure of  `sum_basic_byhour`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_byhour` (
@@ -476,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_byhour` (
 
 -- --------------------------------------------------------
 --
--- 表的结构 `sum_basic_channel_activeusers`
+-- Table Structure of  `sum_basic_channel_activeusers`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_channel_activeusers` (
@@ -494,7 +495,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_channel_activeusers` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sum_usinglog_activity`
+-- Table Structure of  `sum_usinglog_activity`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_sum_usinglog_activity` (
@@ -512,7 +513,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_usinglog_activity` (
 -- --------------------------------------------------------
 
 --
--- 表的结构`sum_basic_product`
+-- Table Structure of `sum_basic_product`
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_product` (
@@ -532,7 +533,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_product` (
 -- ---------------------------------------------------------
 
 --
--- 表的结构`sum_basic_channel`
+-- Table Structure of `sum_basic_channel`
 --
 CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_channel` (
   `sid` int(11) NOT NULL AUTO_INCREMENT,
@@ -553,7 +554,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_channel` (
 -- --------------------------------------------------------
 
 --
--- 表的结构`sum_basic_product_version` 
+-- Table Structure of `sum_basic_product_version` 
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_product_version` (
@@ -575,7 +576,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_product_version` (
 -- --------------------------------------------------------
 
 --
--- 转存表中的数据 `dim_date`
+-- Default value for table  `dim_date`
 --
 
 INSERT INTO `umsinstall_dim_date` (`date_sk`, `datevalue`, `year`, `quarter`, `month`, `week`, `dayofweek`, `day`) VALUES
@@ -4603,32 +4604,32 @@ INSERT INTO `umsinstall_dim_date` (`date_sk`, `datevalue`, `year`, `quarter`, `m
 (4018, '2020-12-30 00:00:00', 2020, 4, 12, 52, 3, 31);
 
 --
--- 转存表中的数据 `dim_segment_launch`
+-- Default value for table  `dim_segment_launch`
 --
 
 INSERT INTO `umsinstall_dim_segment_launch` (`segment_sk`, `segment_name`, `startvalue`, `endvalue`, `effective_date`, `expiry_date`) VALUES
-(1, '1-2次', 1, 2, '0000-00-00', '9999-12-31'),
-(2, '3-5次', 3, 5, '0000-00-00', '9999-12-31'),
-(3, '6-9次', 6, 9, '0000-00-00', '9999-12-31'),
-(4, '10-19次', 10, 19, '0000-00-00', '9999-12-31'),
-(5, '20-49次', 20, 49, '0000-00-00', '9999-12-31'),
-(6, '50次以上', 50, 2147483647, '0000-00-00', '9999-12-31');
+(1, '1-2', 1, 2, '0000-00-00', '9999-12-31'),
+(2, '3-5', 3, 5, '0000-00-00', '9999-12-31'),
+(3, '6-9', 6, 9, '0000-00-00', '9999-12-31'),
+(4, '10-19', 10, 19, '0000-00-00', '9999-12-31'),
+(5, '20-49', 20, 49, '0000-00-00', '9999-12-31'),
+(6, '50', 50, 2147483647, '0000-00-00', '9999-12-31');
 
 --
--- 转存表中的数据 `dim_segment_usinglog`
+-- Default value for table  `dim_segment_usinglog`
 --
 INSERT INTO `umsinstall_dim_segment_usinglog` (`segment_sk`, `segment_name`, `startvalue`, `endvalue`, `effective_date`, `expiry_date`) VALUES
-(1, '0-3秒', 0, 3000, '0000-00-00', '9999-12-31'),
-(2, '3-10秒', 3000, 10000, '0000-00-00', '9999-12-31'),
-(3, '10-30秒', 10000, 30000, '0000-00-00', '9999-12-31'),
-(4, '30-60秒', 30000, 60000, '0000-00-00', '9999-12-31'),
-(5, '1-3分钟', 60000, 180000, '0000-00-00', '9999-12-31'),
-(6, '3-10分钟', 180000, 600000, '0000-00-00', '9999-12-31'),
-(7, '10-30分钟', 600000, 1800000, '0000-00-00', '9999-12-31'),
-(8, '30分钟以上', 1800000, 2147483647, '0000-00-00', '9999-12-31');
+(1, '0-3', 0, 3000, '0000-00-00', '9999-12-31'),
+(2, '3-10', 3000, 10000, '0000-00-00', '9999-12-31'),
+(3, '10-30', 10000, 30000, '0000-00-00', '9999-12-31'),
+(4, '30-60', 30000, 60000, '0000-00-00', '9999-12-31'),
+(5, '1-3', 60000, 180000, '0000-00-00', '9999-12-31'),
+(6, '3-10', 180000, 600000, '0000-00-00', '9999-12-31'),
+(7, '10-30', 600000, 1800000, '0000-00-00', '9999-12-31'),
+(8, '30', 1800000, 2147483647, '0000-00-00', '9999-12-31');
 
 --
--- 转存表中的数据 `hour24`
+-- Default value for table  `hour24`
 --
 INSERT INTO `umsinstall_hour24` (`hour`) VALUES
 (0),
