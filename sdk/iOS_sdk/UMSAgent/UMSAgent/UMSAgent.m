@@ -167,18 +167,18 @@
 {
     if([UMSAgent getInstance].policy == REALTIME)
     {
-        if([UMSAgent getInstance].isLogEnabled)
-        {
-            NSLog(@"Commit using Time of page %@",page_name);
-        }
+//        if([UMSAgent getInstance].isLogEnabled)
+//        {
+//            NSLog(@"Commit using Time of page %@",page_name);
+//        }
         [[UMSAgent getInstance] performSelectorInBackground:@selector(commitUsingTime:) withObject:page_name];
     }
     else
     {
-        if([UMSAgent getInstance].isLogEnabled)
-        {
-            NSLog(@"Save Activity using time to cache of %@",page_name);
-        }
+//        if([UMSAgent getInstance].isLogEnabled)
+//        {
+//            NSLog(@"Save Activity using time to cache of %@",page_name);
+//        }
         [[UMSAgent getInstance] performSelectorInBackground:@selector(saveActivityUsingTime:) withObject:page_name];
     }
 
@@ -438,6 +438,8 @@
     CheckUpdateReturn *returnData = [CheckUpdateDao checkUpdate:appKey version:@"1.0"];
     [self performSelectorOnMainThread:@selector(end_postdataThread:) withObject:returnData waitUntilDone:NO];
 }
+
+
 -(void) end_postdataThread:(id)ret
 {
     CheckUpdateReturn *retObj  =ret;
@@ -497,6 +499,15 @@
 }
 
 
++(void)bindUserIdentifier:(NSString *)userid
+{
+    
+    [[NSUserDefaults standardUserDefaults] setObject:userid forKey:@"userid"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
+
 -(void) processEvent:(Event *)event
 {
     [self performSelectorInBackground:@selector(postEventInBackGround:) withObject:event];
@@ -517,7 +528,7 @@
             {
                 [requestDic setObject:eventArray forKey:@"eventInfo"];
             }
-            
+
             if([activityLogArray count] >0)
             {
                 [requestDic setObject:activityLogArray forKey:@"activityInfo"];
@@ -760,6 +771,14 @@
             [requestDictionary setObject:clientData.language forKey:@"language"];
             [requestDictionary setObject:clientData.resolution forKey:@"resolution"];
             [requestDictionary setObject:clientData.deviceid forKey:@"deviceid"];
+            if (clientData.userid!=nil) {
+                [requestDictionary setObject:clientData.userid forKey:@"userid"];
+            }
+            else
+            {
+                [requestDictionary setObject:@"" forKey:@"userid"];
+            }
+            
             if(clientData.mccmnc!=nil)
             {
                 [requestDictionary setObject:clientData.mccmnc forKey:@"mccmnc"];
@@ -847,6 +866,12 @@
     NSArray *languages = [defaults objectForKey:@"AppleLanguages"]; 
     info.language = [languages objectAtIndex:0];
     
+    NSString *userid = [[NSUserDefaults standardUserDefaults] objectForKey:@"userid"];
+    if (userid==nil) {
+        userid = @"";
+    }
+        
+    info.userid = userid;    
     
     CTTelephonyNetworkInfo*netInfo =[[CTTelephonyNetworkInfo alloc] init];
     CTCarrier*carrier =[netInfo subscriberCellularProvider];
@@ -874,7 +899,7 @@
     NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"ABC"];
     [dateFormatter setTimeZone:gmt];
     NSString *timeStamp = [dateFormatter stringFromDate:[NSDate date]];
-    NSLog(@"Current Time 2 = %@",timeStamp);
+   // NSLog(@"Current Time 2 = %@",timeStamp);
     return timeStamp;
     
 }
@@ -896,6 +921,7 @@
     //[self isWiFiAvailable];
     CommonReturn *ret ;
     ret = [PostClientDataDao postClient:self.appKey deviceInfo:clientData];
+        
     if(ret.flag >0)
     {
         if(isLogEnabled)
@@ -951,14 +977,7 @@ uncaughtExceptionHandler(NSException *exception) {
     NSLog(@"Stack Trace: %@", [exception callStackSymbols]);    
     NSString *stackTrace = [[NSString alloc] initWithFormat:@"%@\n%@",exception,[exception callStackSymbols]]; 
     [[UMSAgent getInstance] saveErrorLog:stackTrace];
-//    if([UMSAgent getInstance].policy == REALTIME)
-//    {
-//        [[UMSAgent getInstance] performSelectorInBackground:@selector(postErrorLog:) withObject:stackTrace];
-//    }
-//    else
-//    {
-//        [[UMSAgent getInstance] performSelectorInBackground:@selector(saveErrorLog:) withObject:stackTrace];
-//    }
+
 }
 
 -(void)postErrorLog:(NSString*)stackTrace
@@ -1038,7 +1057,7 @@ uncaughtExceptionHandler(NSException *exception) {
         [UMSAgent getInstance].policy = [config.reportpolicy intValue];
     }
     else {
-        NSLog(@"本地配置");
+        NSLog(@"Not Online");
     }
 }
 
@@ -1086,50 +1105,6 @@ uncaughtExceptionHandler(NSException *exception) {
     uname(&systemInfo);
     return  [NSString stringWithCString:systemInfo.machine
                               encoding:NSUTF8StringEncoding];
-//    if([deviceName isEqualToString:@"i386"])
-//    {
-//        return @"iPod Touch";
-//    }
-//    if([deviceName isEqualToString:@"iPod2,1"])
-//    {
-//        return @"iPod Touch 2";
-//    }
-//    if([deviceName isEqualToString:@"iPod3,1"])
-//    {
-//        return @"iPod Touch 3";
-//    }
-//    if([deviceName isEqualToString:@"iPod4,1"])
-//    {
-//        return @"iPod Touch 4";
-//    }
-//    if([deviceName isEqualToString:@"iPhone1,1"])
-//    {
-//        return @"iPhone";
-//    }
-//    if([deviceName isEqualToString:@"iPhone1,2"])
-//    {
-//        return @"iPhone 3G";
-//    }
-//    if([deviceName isEqualToString:@"iPhone2,1"])
-//    {
-//        return @"iPhone 3GS";
-//    }
-//    if([deviceName isEqualToString:@"iPad1,1"])
-//    {
-//        return @"iPad";
-//    }
-//    if([deviceName isEqualToString:@"iPad2,1"])
-//    {
-//        return @"iPad 2";
-//    }
-//    if([deviceName isEqualToString:@"iPhone3,1"])
-//    {
-//        return @"iPhone 4";
-//    }
-//    if([deviceName isEqualToString:@"iPhone4,1"])
-//    {
-//        return @"iPhone 4S";
-//    }
 }
 
 @end

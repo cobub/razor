@@ -267,10 +267,10 @@
 			</p>
 			 -->
 			<p>
-				<strong>&copy; Copyright 2012 Cobub Solution </strong>
+				<strong>&copy; Copyright 2012-2015 Cobub Solution </strong>
 			</p>
 			<p>
-				Verion:0.3.1 <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('g_devCobubC');?></a>
+				Verion:<?php echo $this->config->item('cobub_version')?> <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('g_devCobubC');?></a>
 			</p>
 		</footer>
 

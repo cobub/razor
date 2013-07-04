@@ -28,6 +28,10 @@ $lang['l_password']='Password';
 $lang['l_forgetPassword']='Forgot password?';
 $lang['l_welcome'] = 'Welcome';
 $lang['l_remeberMe'] = 'Remember me';
+$lang['l_versioninform']='Cobub Razor new releases Version:';
+$lang['l_vinformtogo']=', please go to ';
+$lang['l_vinformupdate']='';
+$lang['l_vnoinform']='Do not remind me';
 //login--max   
 $lang['l_loginmax'] = "Your failed login attempts have reached the maximum five times today. Please contact the administrator!";
 // Login---signup/register
@@ -53,7 +57,7 @@ $lang['l_oldPassword']='Old password';
 //*************************************FOOTER*************************************
 $lang['f_version']='Verion:0.4 DEV.COBUB.COM ';
 $lang['f_detail']= "* The Cobub Razor package contains HighCharts products. The HighCharts products are not open source products,<br>but under certain conditions are free to use, please look into <a href='http://shop.highsoft.com/highcharts.html' target='_blank'>http://shop.highsoft.com/highcharts.html</a>.";
-$lang['f_copyright'] = '&copy Copyright 2013, Version:0.4 <a href="http://dev.cobub.com">COBUB SOLUTION</a>';
+$lang['f_copyright'] = '&copy Copyright 2013, Version:%body% <a href="http://dev.cobub.com">COBUB SOLUTION</a>';
 
 //**************************************Email***************************************
 $lang['e_clickLink'] = '.Please click on the link below to activate your account:';
@@ -369,12 +373,18 @@ $lang['v_rpt_el_Version']='Version';
 $lang['v_rpt_el_eventID']='Event ID';
 $lang['v_rpt_el_eventName']='Event Name';
 $lang['v_rpt_el_messages']='Number Of Messages';
+$lang['v_rpt_ol_number']='Sum';
 $lang['v_rpt_el_eventStatistics']='Event Statistics';
+$lang['v_rpt_ol_orderStatistics']='Detailed Statistics';
+$lang['v_rpt_ol_detail']="Detailed Statistics";
 $lang['v_rpt_el_eventMsgs']='Number of Event Messages';
+$lang['v_rpt_ol_eventMsgs']='Sum';
 $lang['v_rpt_el_eventMsgsInActives']='Number of Event Messages/Active Users';
 $lang['v_rpt_el_eventMsgsInSessions']='Number of Event Messages/Sessions';
 $lang['v_rpt_el_MsgsInActive'] = "Number of Messages/Active Users";
+$lang['v_rpt_ol_MsgsInActive'] = "Sum/Active Users";
 $lang['v_rpt_el_MsgsInSessions'] = "Number of Messages/Sessions";
+$lang['v_rpt_ol_MsgsInSessions'] = "Sum/Sessions";
 $lang['v_rpt_el_entryEventID'] = 'Please enter event ID!';
 $lang['v_rpt_el_entryEventName'] = 'Please enter event name!';
 $lang['v_rpt_el_addEventS'] = 'Event added successfully!';
@@ -384,8 +394,11 @@ $lang['v_rpt_el_enterEventD'] = "Please enter event description!";
 $lang['v_rpt_el_modifyEventS'] = "Event modified successfully!";
 $lang['v_rpt_el_waitModifyE'] = "Modifying event. Please wait...";
 $lang['v_rpt_el_eventNum'] = 'The number of event messages';
+$lang['v_rpt_ol_eventNum'] = 'Sum';
 $lang['v_rpt_el_eventNumA'] = 'The number of event messages/Active Users';
+$lang['v_rpt_ol_eventNumA'] = 'Sum/Active Users';
 $lang['v_rpt_el_eventNumS'] = 'The number of event messages/Sessions';
+$lang['v_rpt_ol_eventNumS'] = 'Sum/Sessions';
 $lang['v_rpt_el_eventIDExists'] = 'Event ID already exists!';
 
 //view---report----errorlog
@@ -505,7 +518,7 @@ $lang['v_rpt_addok']='Add completed';
 
 $lang['emailtext']="Dear Cobub Razor User:<br><br>
  
-The mobile app %s‘s data volatility exceed the expectation on %s:<br>
+The mobile app %s?? data volatility exceed the expectation on %s:<br>
 Data Type: %s<br>
 Predicted Value: %s<br>
 Actual Value:%s<br>
@@ -558,10 +571,10 @@ $lang['v_man_au_editSuccess'] = 'Edit Successful';
 $lang['v_man_au_appName'] = "App Name";
 $lang['v_man_au_deleteAppS'] = "The App is deleted successfully.";
 $lang['v_man_au_addSuccess'] = 'Add Successful';
-$lang['v_man_au_versionError']="Version Type is wrong。";
+$lang['v_man_au_versionError']="Version Type is wrong.";
 //view---manage---autoupdate-info
 
-$lang['v_man_au_info_autoUpdate']='Automatic Updates';
+$lang['v_man_au_info_autoUpdate']='Automatica Updates';
 $lang['v_man_au_info_updateApk']='Update APK*';
 $lang['v_man_au_info_selectFile']='Select Files';
 $lang['v_man_au_info_maxlimit']='Maximum limit:';
@@ -680,9 +693,9 @@ $lang['t_activeRateWeekly_def']='The number of active users in last Sunday to Sa
 $lang['t_activeUsersMonthly_def']='Active Users Monthly is the number of users who had launched the App in the beginning of the last month to the end of the last month.';
 $lang['t_activeRateMonthly_def']='The beginning of the last month to the end of the last month the number of active users / cumulative user';
 $lang['t_numberOfPageViews_def']='Page View(%) is the total view times of current page(Page View Number of current page/The sum of Page View Number of all pages).Depending platform, Cobub Razor SDK use different methods to track Page View. For detail, please refer to the developer guide of platforms.';
-$lang['t_averageDuration_def']='Average time of visiting this page for each time(retention time of current page / the sum of  retention time of  all pages)。View Duration is the length of time between entering of page event and leaving of page event.Average Duration allows you monitor the time users spent on the pages.';
-$lang['t_bounceRate_def']='Bounce Rate of Page(%) is the proportion  that the times of users leave the page in times of users visit the page. Bounce Rate Of Page helps to monitor and improve users’ loss.';
-$lang['t_userRetention_def']='User retention is a measure of how many new users are still using the App after a certain period of time. Correspondingly, there’s figure of “User Loss”. User Retention + User Loss = 1.';
+$lang['t_averageDuration_def']='Average time of visiting this page for each time(retention time of current page / the sum of  retention time of  all pages)??iew Duration is the length of time between entering of page event and leaving of page event.Average Duration allows you monitor the time users spent on the pages.';
+$lang['t_bounceRate_def']='Bounce Rate of Page(%) is the proportion  that the times of users leave the page in times of users visit the page. Bounce Rate Of Page helps to monitor and improve users??loss.';
+$lang['t_userRetention_def']='User retention is a measure of how many new users are still using the App after a certain period of time. Correspondingly, there?? figure of ??ser Loss?? User Retention + User Loss = 1.';
 
 
 //*****************************************General****************************************
@@ -700,6 +713,10 @@ $lang['g_trash']='Trash';
 $lang['g_save']='Save';
 $lang['g_create'] ='Create';
 $lang['g_s']="s";
+$lang['g_minutes']="minutes";
+$lang['g_mabove']="minutes or more";
+$lang['g_secondary']="times";
+$lang['g_moresecondary']="times or more";
 $lang['g_percent']='Percent';
 $lang['g_today']='Today';
 $lang['g_yesterday']='Yesterday';
@@ -804,8 +821,8 @@ $lang['m_operate']='Action';
 $lang['m_newsreport']='Annotation Edit';
 $lang['m_modify']='Modify Info';
 $lang['m_delete']='Delete';
-$lang['m_isdel']='Are you sure to delete?';
-$lang['m_waittingdel']='Waitting ……';
+$lang['m_isdel']='Are you sure to delete ';
+$lang['m_waittingdel']='Waitting ...';
 $lang['m_delsuccess']='Delete success';
 $lang['m_errordeltryagain']='Error delete,Please try again a later';
 $lang['m_faildeloninfo']='Failed delete,News Does Not Exists';
@@ -813,7 +830,7 @@ $lang['m_tiptitle']='Please Enter The Title';
 $lang['m_tipdesc']='Please Enter The Description';
 $lang['m_subsuccess']='Submit Success';
 $lang['m_modifysuccess']='Modify Success';
-$lang['m_changesubtomodify']='News Already exists ,Modify？';
+$lang['m_changesubtomodify']='News Already exists ,Modify ';
 $lang['m_markeventlist']='Annotation List';
 $lang['m_user']='Mark User';
 $lang['m_eventsDetail']='Event Detail';
@@ -825,3 +842,19 @@ $lang['c_compare2two4']='Please select 2-4 products';
 /*********************************Suspended box*************************************/
 $lang['s_suspend_title']='Pin to dashboard';
 $lang['s_suspend_deltitle']='Delete to dashboard';
+
+$lang['v_rpt_realtime_onlineuser_title'] = "Online Users";
+$lang['v_rpt_realtime_onlineuser_subtitle'] = "Online Users with in 30 minutes";
+$lang['v_rpt_realtime_onlineuser_size'] = "Online Users";
+$lang["v_rpt_realtime_onlineuser_time"] = "Hour";
+$lang["v_rpt_realtime_minutes"] = "Minutes";
+$lang["v_rpt_realtime_now"] = "Now";
+
+$lang["v_rpt_realtime_pageviews_title"] = "Realtime activities";
+$lang['v_rpt_realtime_pageviews_subtitle'] = "Realtime activities within 30 minutes";
+
+$lang["v_rpt_realtime_areas_title"] = "Online users by area";
+$lang["v_rpt_realtime_areas_region"] = "Region";
+
+$lang["v_rpt_realtime_transrate_title"] = "Realtime conversions";
+$lang["v_rpt_realtime_event_title"] = "Realtime events";

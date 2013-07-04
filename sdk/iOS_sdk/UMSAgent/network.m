@@ -29,7 +29,7 @@
 	NSURL *url = [NSURL URLWithString:URLString];
 	NSString *str = [content JSONRepresentation];
 	str = [NSString stringWithFormat:@"content=%@",str];
-	NSLog(@"URL=%@;Send Data = %@",url,str);
+	//NSLog(@"URL=%@;Send Data = %@",url,str);
 	NSData *requestData = [str dataUsingEncoding:NSUTF8StringEncoding];
 	NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:url];
 	[request setHTTPMethod: @"POST"];

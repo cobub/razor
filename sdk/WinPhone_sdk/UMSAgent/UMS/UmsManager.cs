@@ -74,6 +74,11 @@ namespace UMSAgent.UMS
         //user config read and save 
         private void initUserSetting()
         {
+            if (!setting.Contains("UserIdentifier"))
+            {
+                setting.Add("UserIdentifier", "");
+
+            }
             if (!setting.Contains("hasDateToSend"))
             {
                 setting.Add("hasDateToSend", "0");

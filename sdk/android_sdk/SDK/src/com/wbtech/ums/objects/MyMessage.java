@@ -14,8 +14,8 @@
 package com.wbtech.ums.objects;
 
 public class MyMessage {
-	public  boolean flag;
-	public  String msg;
+	private  boolean flag;
+	private  String msg;
 	public boolean isFlag() {
 		return flag;
 	}

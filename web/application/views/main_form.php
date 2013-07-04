@@ -110,8 +110,10 @@
 		<article class="module module width_full">
 		<header><h3><?php echo lang('v_CR_news'); ?></h3></header>
 		<iframe src="http://news.cobub.com/index.php?/news/getnews"  width="100%" 
-		height="270px" frameborder="0" scrolling="no" ></iframe>		
-		</article>
+		height="270px" frameborder="0" scrolling="no" ></iframe>
+		<iframe src="<?php echo site_url()."/news/postnews" ?>"  
+		 frameborder="0" scrolling="no"  style="display:none;"></iframe>		
+		</article>	
 		<div class="clear"></div>
 		<div class="spacer"></div>
 	</section>

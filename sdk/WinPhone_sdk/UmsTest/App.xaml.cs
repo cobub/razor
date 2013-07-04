@@ -82,7 +82,9 @@ namespace UmsTest
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
             UMSAgent.UMSApi.setDebugMode(true);
-            UMSAgent.UMSApi.onAppStart("14aaa92e098df46cb53ed5196e0c331c", "http://demo.cobub.com/razor/index.php");
+            UMSAgent.UMSApi.onAppStart("5ef319f926726cdca01d381f6c80a03d", "http://192.168.1.4/webtest/index.php");
+            UMSAgent.UMSApi.bindUserIdentifier("woyear");
+            UMSAgent.UMSApi.postClientdata();
             UMSAgent.UMSApi.updateOnlineConfig();
             UMSAgent.UMSApi.getNewVersion();
         }

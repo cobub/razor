@@ -17,18 +17,61 @@ class Ums_user extends CI_Model {
 		$this->load->database ();
 	}
 	
-	function getUserList() {
+	function getUserList() 
+	{
 		$this->db->select('users.id,users.username,users.email,user_roles.name');
 		$this->db->from('users');
 		$this->db->join('user2role','users.id = user2role.userid','left');
-		$this->db->join('user_roles','user2role.roleid = user_roles.id','left');
-		
-//		$sql = "select users.*,user2role.*,user_roles.id as role_id, user_roles.name from users left outer join user2role on users.id = user2role.userid left outer join user_roles on user2role.roleid = user_roles.id";
+		$this->db->join('user_roles','user2role.roleid = user_roles.id','left');		
 		$query = $this->db->get();
-//		$query = $this->db->query ( $sql );
 		return $query;
+	}
+	
+	function getUserProducts($userId)
+	{
+		$allProductQuery = $this->db->query("select * from ".$this->db->dbprefix('product')." where active = 1");
+		$productsArray = array();
+		if($allProductQuery && $allProductQuery->num_rows()>0)
+		{
+			foreach ($allProductQuery->result() as $row)
+			{
+				$hasPermission = $this->isUserHasPermissionToProduct($userId, $row->id);
+				$product = array(
+					'id'=>$row->id,
+					'name'=>$row->name,
+					'permission'=>$hasPermission
+						);
+				array_push($productsArray,$product);
+			}
+		}
+		return $productsArray;
+	}
+	
+	function bindUserProducts($userId,$productArray)
+	{
+		$this->db->query("delete from " . $this->db->dbprefix('user2product') . " where user_id = $userId");
 		
-		
+		if($productArray && count($productArray)>0)
+		{
+			foreach($productArray as $value)
+			{
+				$data = array(
+					'user_id'=>$userId,
+					'product_id'=>$value
+						);
+				$this->db->insert("user2product",$data);
+			}
+		}
+	}
+	
+	function isUserHasPermissionToProduct($userId,$productId)
+	{
+		$query = $this->db->get_where('user2product',array('user_id'=>$userId,'product_id'=>$productId));
+		if($query && $query->num_rows()>0)
+		{
+			return TRUE;
+		}
+		return FALSE;
 	}
 	
 	function getRoles()
@@ -49,25 +92,29 @@ class Ums_user extends CI_Model {
 		$sql = "select id,name from ".$this->db->dbprefix('product_category')."  where active=1 and id=$id";	  
 		$query = $this->db->query($sql);
 		$row = $query->first_row ();
-		if ($query->num_rows > 0) {
+		if ($query->num_rows > 0) 
+		{
 			return $row;
 		}		
 		return null;
 	}
 	// add app type
-	function addtypeOfapplication($type_applicationName) {
+	function addtypeOfapplication($type_applicationName)
+	 {
 	
 		$data = array ('name' => $type_applicationName);
 		$this->db->insert ('product_category', $data );
-	}
+	 }
 	//update app type by id
-	function updatetypeOfapplica($id,$name){
+	function updatetypeOfapplica($id,$name)
+	{
 		$data = array ('name' => $name);
 		$this->db->where ( 'id', $id );
 		$this->db->update ( 'product_category', $data );
 	}
 	//delete app type
-	function deletetypeOfapplica($id){
+	function deletetypeOfapplica($id)
+	{
 		$data=array(
 				'active'=>0
 		);
@@ -104,19 +151,15 @@ class Ums_user extends CI_Model {
 	}
 	
 	
-	function getResourcesByRole($roleid) {
+	function getResourcesByRole($roleid) 
+	{
 		$sql = "select ".$this->db->dbprefix('user_resources').".id,".$this->db->dbprefix('user_resources').".name,".$this->db->dbprefix('user_resources').".description,".$this->db->dbprefix('user_permissions').".resource,".$this->db->dbprefix('user_permissions').".read from  ".$this->db->dbprefix('user_resources')." left outer join ".$this->db->dbprefix('user_permissions')."   on ".$this->db->dbprefix('user_resources').".id=".$this->db->dbprefix('user_permissions').".resource  and ".$this->db->dbprefix('user_permissions').".role = ".$roleid;
-//		echo $sql;
 		$query = $this->db->query($sql);
-//        $this->db->select('user_permissions.resource,user_permissions.read,user_resources.name,user_resources.description,user_resources.id');
-//		$this->db->from ( 'user_resources' );
-//		$this->db->join ( 'user_permissions','user_permissions.role = user_resources.id ','left outer');		
-//		$this->db->where('role',$roleid);
-//		$query = $this->db->get ();	
 		return $query;
 	}
 	
-	function modifyRoleCapability($role, $resource, $capability) {
+	function modifyRoleCapability($role, $resource, $capability) 
+	{
 		$this->db->from ( 'user_permissions' );
 		$this->db->where ( 'role', $role );
 		$this->db->where ( 'resource', $resource );
@@ -132,12 +175,6 @@ class Ums_user extends CI_Model {
 		}
 	}
 	
-	//	function deleteRole($role)
-	//	{
-	//	    $this->db->where('name', $role);
-	//        $this->db->delete('user_role'); 
-	//		
-	//	}
 	function  getRoleidByRolename($name)
 	{
 	    $this->db->from('user_roles');
@@ -146,7 +183,8 @@ class Ums_user extends CI_Model {
 	    return $r->first_row()->id;
 	}
 	
-	function isUnique($tablename,$name){
+	function isUnique($tablename,$name)
+	{
 		$this->db->from($tablename);
 		$this->db->where('name',$name);
 		$r = $this->db->get();
@@ -154,7 +192,8 @@ class Ums_user extends CI_Model {
 		
 	}
 	
-	function isUniqueApp($tablename,$name){
+	function isUniqueApp($tablename,$name)
+	{
 		$this->db->from($tablename);
 		$this->db->where('name',$name);
 		$this->db->where('active','1');
@@ -163,26 +202,27 @@ class Ums_user extends CI_Model {
 	
 	}
 
-	function addRole($role,$description) {
-		
-
+	function addRole($role,$description)
+	 {
 		$data = array ('name' => $role, 'description' => $description );		
 		$this->db->insert ( 'user_roles', $data );
-	}
+	 }
 	
-	function addResource($resourceName, $description) {
-		
+	function addResource($resourceName, $description) 
+	{	
 		$data = array ('name' => $resourceName, 'description' => $description );
 		$this->db->insert ( 'user_resources', $data );
 	}
 	
-	function modifyresource($id, $name, $description) {
+	function modifyresource($id, $name, $description)
+	 {
 		$data = array ('name' => $name, 'description' => $description );
 		$this->db->where ( 'id', $id );
 		$this->db->update ( 'user_resources', $data );
 	}
 	
-function getUserInfoById($id) {
+    function getUserInfoById($id) 
+    {
 		
 		$this->db->from ( 'users' );
 		$this->db->where ( 'id', $id );
@@ -194,10 +234,17 @@ function getUserInfoById($id) {
 		else 
 		return null;
 	}
+	
 	function modifyuserRole($id,$roleId)
 	{
 	    $data = array ('roleid' => $roleId );
 		$this->db->where ( 'userid', $id );
 		$this->db->update ( 'user2role', $data );
+	}
+	
+	function bindUserRole($userId,$roleId)
+	{
+		$data = array('userid'=> $userId,'roleid'=>$roleId);
+		$this->db->insert('user2role',$data);
 	}
 }

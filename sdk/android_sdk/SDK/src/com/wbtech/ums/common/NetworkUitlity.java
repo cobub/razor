@@ -78,7 +78,30 @@ public class NetworkUitlity {
 		return message;
 	}
 	
-	
+	public static String Post(String url, String data) {
+
+        CommonUtil.printLog("ums",url);
+
+
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost(url);
+        try {
+            StringEntity se = new StringEntity("content="+data, HTTP.UTF_8);
+            CommonUtil.printLog("postdata", "content="+data);
+            se.setContentType("application/x-www-form-urlencoded");
+            httppost.setEntity(se);
+            HttpResponse response = httpclient.execute(httppost);
+            int status = response.getStatusLine().getStatusCode();
+            CommonUtil.printLog("ums",status+"");
+            String returnXML = EntityUtils.toString(response.getEntity());
+            Log.d("returnString", URLDecoder.decode(returnXML));
+            return URLDecoder.decode(returnXML);
+            
+        } catch (Exception e) { 
+            CommonUtil.printLog("ums",e.toString());
+        }
+        return null;
+    }
 	
 	
 

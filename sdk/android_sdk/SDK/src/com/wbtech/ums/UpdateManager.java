@@ -40,7 +40,7 @@ public class UpdateManager {
 	public static Context mContext;
 	public static String force;
 	public  static ProgressDialog progressDialog ;
-	private static String Msg = "Found  new version ， update?";
+	private static String Msg = "Found  new version , update?";
 	private static String updateMsg = null;
 
 	public static String apkUrl =null;

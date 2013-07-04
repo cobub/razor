@@ -99,9 +99,9 @@
              	<tr><td><?php echo lang('installview_dataserve') ;?></td>
              	<td><input name='ip' value='<?php if(isset($ip)){echo $ip;} else{echo set_value('ip');} ?>'></input></td>
                <td><?php echo form_error('ip'); ?></td></tr>
+                <tr><td><?php echo lang('installview_dataname') ;?></td><td><input name='dbname' type="text" value="<?php echo set_value('dbname'); ?>"></input></td><td><?php echo form_error('dbname'); ?></td></tr>
                 <tr><td><?php echo lang('installview_dataaccount') ;?></td><td><input name='username' type="text" value="<?php echo set_value('username'); ?>"></input></td><td><?php echo form_error('username'); ?></td></tr>
                 <tr><td><?php echo lang('installview_datapassword') ;?></td><td><input name='password' type="text" value="<?php echo set_value('password'); ?>"></input></td><td><?php echo form_error('password'); ?></td></tr>
-                <tr><td><?php echo lang('installview_dataname') ;?></td><td><input name='dbname' type="text" value="<?php echo set_value('dbname'); ?>"></input></td><td><?php echo form_error('dbname'); ?></td></tr>
                 <tr><td><?php echo lang('installview_datatablehead') ;?></td><td>
                 <input name='tablehead' type="text" value="<?php if((set_value('tablehead')=="razor_")||(set_value('tablehead')=="")) {echo "razor_";} else {echo set_value('tablehead'); }?>"></input></td><td><?php echo form_error('tablehead'); ?></td></tr>                
              </table>            
@@ -112,9 +112,9 @@
              	<tr><td><?php echo lang('installview_datadepotserve') ;?></td>
              	<td><input name='depotip' value='<?php if(isset($ip)){echo $ip;} else{ echo set_value('depotip');} ?>'></input></td>
                <td><?php echo form_error('depotip'); ?></td></tr>
+                <tr><td><?php echo lang('installview_datadepotname') ;?></td><td><input name='depotdbname' type="text" value="<?php echo set_value('depotdbname'); ?>"></input></td><td><?php echo form_error('depotdbname'); ?></td></tr>
                 <tr><td><?php echo lang('installview_datadepotaccount') ;?></td><td><input name='depotusername' type="text" value="<?php echo set_value('depotusername'); ?>"></input></td><td><?php echo form_error('depotusername'); ?></td></tr>
                 <tr><td><?php echo lang('installview_datadepotpwd') ;?></td><td><input name='depotpassword' type="text" value="<?php echo set_value('depotpassword'); ?>"></input></td><td><?php echo form_error('depotpassword'); ?></td></tr>
-                <tr><td><?php echo lang('installview_datadepotname') ;?></td><td><input name='depotdbname' type="text" value="<?php echo set_value('depotdbname'); ?>"></input></td><td><?php echo form_error('depotdbname'); ?></td></tr>
                 <tr><td><?php echo lang('installview_datadepottablehead') ;?></td><td><input name='depottablehead' type="text" value="<?php if((set_value('tablehead')=="razor_")||(set_value('tablehead')=="")) {echo "razor_";} else {echo set_value('depottablehead'); }?>"></input></td>
                 <td><?php echo form_error('depottablehead'); ?></td></tr>
                 
@@ -134,6 +134,6 @@
 			</article>		
 	</section>
 	<div style="position:absolute;top:1180px; left:500px">
-<p align="center"> &copy; Copyright 2012 Cobub Razor Solution Verion:0.3.1 <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('installview_companyname') ;?></a></p></div>
+<p align="center"> &copy; Copyright 2012-2015 Cobub Razor Solution Version:<?php  echo $this->config->item('version')?> <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('installview_companyname') ;?></a></p></div>
 </body>
 </html>

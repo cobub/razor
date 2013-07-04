@@ -95,7 +95,7 @@
 		<div class="spacer"></div>
 	</section>
 <div style="position:absolute;top:580px; left:400px">
-<p align="center"> &copy; Copyright 2012 Cobub Razor Solution Verion:0.3.1 <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('installview_companyname') ;?></a></p>
+<p align="center"> &copy; Copyright 2012-2015 Cobub Razor Solution Version:<?php  echo $this->config->item('version')?> <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('installview_companyname') ;?></a></p>
 </div>
 </body>
 

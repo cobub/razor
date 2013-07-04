@@ -100,7 +100,10 @@ $(document).ready(function() {
 });
 
 function renderCharts(myurl)
-{	
+{		 
+	 var  seconds="<?php echo lang('g_s') ?>";
+	 var  minutes="<?php echo lang('g_minutes')?>";
+	 var  moreminute="<?php echo lang('g_mabove')?>";	 
 	 var chart_canvas = $('#container');
 	 var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
 		    
@@ -118,20 +121,33 @@ function renderCharts(myurl)
 	        baseZ:997
 	    });
 	   
-	    jQuery.getJSON(myurl, null, function(data) {  
+	    jQuery.getJSON(myurl, null, function(data) 
+	   {  
 	    	productName=[]; 
 	    	percentData=[];
 	    	var j=0;
 	    	k=0;
 			m=0;
-			for (var key in data) {
+			for (var key in data) 
+			{
 				productName.push(key);
 				var obj=data[key];
 				var categories=[];
 				var chartData=[];
 				for(i=0;i<obj.length;i++)
 				{
-					categories.push(obj[i].segment_name);
+					if(i<=3)
+					{
+						categories.push(obj[i].segment_name+seconds);	
+					}
+					else if(i==obj.length-1)
+					{
+						categories.push(obj[i].segment_name+moreminute);	
+					}
+					else
+					{
+						categories.push(obj[i].segment_name+minutes);	
+					}				
 					chartData.push(parseInt(obj[i].numbers));
 					percentData.push(Highcharts.numberFormat(obj[i].percentage*100,1) +' %');
 				}

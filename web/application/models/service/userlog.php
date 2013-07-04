@@ -20,9 +20,11 @@ class Userlog extends CI_Model
 		$this->load->database();
 	}	
 	
-	function addUserlog($userlog)
+	function addUserlog($content)
 	{
-		
+		$this->load->model('servicepublicclass/errorlogpublic','errorlogpublic');
+		$userlog= new errorlogpublic();
+		$userlog->loaderrorlog($content);
 		$strArr=explode("\n",$userlog->stacktrace);
 		if(count($strArr) >= 3)
 		{

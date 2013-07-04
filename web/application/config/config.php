@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost:80/web';
+$config['base_url']	= 'http://localhost/web';
 
 /*
 |--------------------------------------------------------------------------
@@ -394,3 +394,5 @@ $config['redis_interval'] = 10;
 |
 */
 $config['get_geographical']= 2;
+$config['default_country'] = '中国';
+$config['version']= 0.5;

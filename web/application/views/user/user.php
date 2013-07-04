@@ -18,6 +18,7 @@
     				<th><?php echo  lang('l_re_email')?></th> 
     				<th><?php echo  lang('v_user_userRole')?></th>    				
     				<th><?php echo  lang('v_user_modifyUserRole')?></th>
+    				<th><?php echo  "Assign Products"?></th>
 				</tr> 
 			</thead> 
 			<tbody> 
@@ -44,8 +45,9 @@
 							}
 							
 							?>
-							
-						</fieldset>
+						</select>
+						</td>
+						<td><a href="<?php echo site_url().'/user/assignProducts/'.$row->id;?>">Assign Products</a></td>
 				</tr> 
 			<?php } endif;?>
 			

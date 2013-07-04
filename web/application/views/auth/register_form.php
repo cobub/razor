@@ -105,7 +105,7 @@ $captcha = array(
 			</tbody> 
 			</table>
 			<br/>
-<p align="center"><b><?php echo lang('f_copyright') ;?></b></p>		
+<p align="center"><b><?php echo str_replace("%body%",$this->config->item('cobub_version'),lang('f_copyright')) ;?></b></p>		
 	</div>
 </article>
 </section>

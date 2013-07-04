@@ -29,14 +29,37 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 
+import com.wbtech.ums.dao.SaveInfo;
 import com.wbtech.ums.objects.LatitudeAndLongitude;
 import com.wbtech.ums.objects.SCell;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class CommonUtil {
+    
+    public static void saveInfoToFile(Handler handler,String type, JSONObject info, Context context) {
+        JSONArray newdata = new JSONArray();
+        try {
+            newdata.put(0, info);
+            if (handler != null) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put(type, newdata);
+                handler.post(new SaveInfo(context, jsonObject));
+            } else {
+                CommonUtil.printLog(CommonUtil.getActivityName(context), "handler--null");
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 	/**
 	 * checkPermissions
 	 * @param context
@@ -57,6 +80,17 @@ public class CommonUtil {
 		ConnectivityManager connectionManager = (ConnectivityManager)context.
                 getSystemService(Context.CONNECTIVITY_SERVICE);   
 		return	connectionManager.getActiveNetworkInfo().getType()==ConnectivityManager.TYPE_WIFI;
+	}
+	/**
+	 * return UserIdentifier
+	 */
+	public static String getUserIdentifier(Context context){
+	    String packageName = context.getPackageName();
+        SharedPreferences localSharedPreferences = context
+                .getSharedPreferences("ums_agent_online_setting_" + packageName, 0);
+       
+        return  localSharedPreferences.getString("identifier", "");
+	    
 	}
 	
 	
@@ -144,6 +178,9 @@ public class CommonUtil {
 	 * @return  appkey
 	 */
 	public static String getAppKey(Context paramContext) {
+	    if(paramContext==null){
+	        return "";
+	    }
 		String umsAppkey;
 		try {
 			PackageManager localPackageManager = paramContext
@@ -166,7 +203,7 @@ public class CommonUtil {
 				localException.printStackTrace();
 			}
 		}
-		return null;
+		return "";
 	}
 
 	/**
@@ -175,6 +212,9 @@ public class CommonUtil {
 	 * @return
 	 */
 	public static String getActivityName(Context context) {
+	    if(context==null){
+	        return "";
+	    }
 		ActivityManager am = (ActivityManager) context
 				.getSystemService(Context.ACTIVITY_SERVICE);
 		if(checkPermissions(context, "android.permission.GET_TASKS")){
@@ -185,7 +225,7 @@ public class CommonUtil {
 				Log.e("lost permission", "android.permission.GET_TASKS");
 			}
 			
-			return null;
+			return "";
 		}
 		
 		
@@ -244,6 +284,9 @@ public class CommonUtil {
 	 * @return
 	 */
 	public static String getDeviceID(Context context) {
+	    if(context==null){
+	        return "";
+	    }
 		if(checkPermissions(context, "android.permission.READ_PHONE_STATE")){
 			String deviceId = "";
 			if (checkPhoneState(context)) {
@@ -262,7 +305,7 @@ public class CommonUtil {
 					Log.e("commonUtil", "deviceId is null");
 				}
 				
-				return null;
+				return "";
 			}
 		}else{
 			if(UmsConstants.DebugMode){
@@ -506,6 +549,9 @@ public static boolean isNetworkTypeWifi(Context context) {
 public static String getVersion(Context context) {
 	String versionName = "";  
 	try {  
+	    if(context==null){
+	        return "";
+	    }
 		PackageManager pm = context.getPackageManager();  
 		PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);  
 		versionName = pi.versionName;  
