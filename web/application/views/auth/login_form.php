@@ -94,10 +94,12 @@ $captcha = array(
 				<?php }?>
 
 				<br />
-				<p align="center">
-					<b><?php echo str_replace("%body%",$this->config->item('version'),lang('f_copyright')) ;?>
-					</b>
-				</p>
+			                                <p align="center">
+
+  &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
+  <a href="http://dev.cobub.com/docs/cobub-razor/release-note/" target="_blank">Release Notes</a><br/>
+<p align="center">  <a hreft ="http://dev.cobub.com" target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics Solution">Mobile Analytics of       Open Source</a>
+                        </p>    </p><br/>
 				<p align="center">
 					<?php echo lang('f_detail') ;?>
 				</p>
