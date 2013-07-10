@@ -35,7 +35,7 @@ $lang['l_vnoinform']='Do not remind me';
 //login--max   
 $lang['l_loginmax'] = "Your failed login attempts have reached the maximum five times today. Please contact the administrator!";
 // Login---signup/register
-$lang['l_re_createYourAccount']='Create Your Account';
+$lang['l_re_createYourAccount']='Create New User';
 $lang['l_re_email']='Email';
 $lang['l_re_confirmPassword']='Confirm Password';
 $lang['l_re_captcha']='CAPTCHA';
@@ -120,6 +120,7 @@ $lang['m_roleManagement']='Role Management';
 $lang['m_resourceManagement']='Resource Management';
 $lang['m_appType']='App Type';
 $lang['m_developerGuide']='Developer Guide';
+$lang['m_openAPIManual']='OpenAPI Manual';
 //Menu---Profile
 $lang['m_pr_modifyProfile']='Modify Profile';
 $lang['m_pr_companyName']='Company Name';

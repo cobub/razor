@@ -117,6 +117,7 @@ $lang['m_roleManagement']	=	'役割管理';
 $lang['m_resourceManagement']	=	'リソース管理';
 $lang['m_appType']	=	'アプリケーションタイプ';
 $lang['m_developerGuide']	=	'開発者ガイド';
+$lang['m_openAPIManual']='OpenAPI Manual';
 //Menu---Profile		
 $lang['m_pr_modifyProfile']	=	'プロフィール修正';
 $lang['m_pr_companyName']	=	'会社名';

@@ -35,7 +35,7 @@ $lang['l_vnoinform']='不再提醒';
 //login--max   
 $lang['l_loginmax'] = "您已经达到今日的最大错误登录数5次，请联系管理员！";
 // Login---signup/register
-$lang['l_re_createYourAccount']='创建您的账户';
+$lang['l_re_createYourAccount']='创建新用户';
 $lang['l_re_email']='邮箱';
 $lang['l_re_confirmPassword']='确认密码';
 $lang['l_re_captcha']='验证码';
@@ -120,6 +120,7 @@ $lang['m_roleManagement']='角色管理';
 $lang['m_resourceManagement']='资源管理';
 $lang['m_appType']='添加类型';
 $lang['m_developerGuide']='开发者指南';
+$lang['m_openAPIManual']='OpenAPI 手册'
 
 //Menu---Profile
 $lang['m_pr_modifyProfile']='修改个人资料';

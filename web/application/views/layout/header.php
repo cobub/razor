@@ -127,7 +127,7 @@
                     ?></span> </a></h1>
                 <h3 class="section_title"><?php if(isset($username)):
                 ?>
-                <?php  echo anchor('/', lang('v_console'));?>| <?php  echo anchor('/profile/modify/', lang('m_profile'));?>| <?php  echo anchor('/auth/change_password/', lang('m_changePassword'));?>| <?php  echo anchor('/auth/logout/', lang('m_logout'));?>
+                <?php  echo anchor('/', lang('v_console'));?> | <?php  echo anchor('/profile/modify/', lang('m_profile'));?> | <?php  echo anchor('/auth/change_password/', lang('m_changePassword'));?> | <?php  echo anchor('/auth/logout/', lang('m_logout'));?>
                 <?php  else:?>
                 <?php  echo anchor('/auth/login/', lang('l_login'));?>
                 <?php  endif;?></h3>
@@ -434,7 +434,7 @@ if(isset($username)):
                     <?php echo anchor('/user/applicationManagement/', lang('m_appType'));
                     ?>
                 </li>
-                <li class="icn_manacategory">
+                <li class="icn_new_user">
                     <?php echo anchor('/user/newUser/', lang('t_newUser'));
                     ?>
                 </li>
@@ -455,6 +455,15 @@ if(isset($username)):
                     target="_blank"><?php echo lang('m_developerGuide');
                     ?></a>
                 </li>
+                
+                 <li class="icn_openAPIManual">
+                    <a href="<?php if(isset($language)): if($language=="zh_CN")
+                    { echo 'http://dev.cobub.com/zh/docs/cobub-razor/cobub-razor-api-manual/';}
+                    else{ echo 'http://dev.cobub.com/docs/cobub-razor/cobub-razor-api-manual/'; } endif?>"
+                    target="_blank"><?php echo lang('m_openAPIManual');
+                    ?></a>
+                </li>
+                
             </ul>
             <footer>
                 <hr />
@@ -471,13 +480,14 @@ if(isset($username)):
                 </p>
                 -->
                 <p>
-                    <strong>&copy; Copyright 2012-2015 Cobub Solution </strong>
-                </p>
-                <p>
-                    Version:<?php echo $this->config->item('version')
-                    ?> <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('g_devCobubC');
-                    ?></a>
-                </p>
+
+				<strong>&copy;  Copyright 2012-2015 Cobub Razor Version:<?php  echo $this->config->item('version')?>
+				<a href="http://dev.cobub.com/docs/cobub-razor/release-note/" target="_blank">Release Notes</a></strong>
+			</p>
+			<p>
+ <a href ="http://dev.cobub.com" target ="_blank" title="Mobile Analytics"  alt="Cobub Razor - Open Source Mobile Analytics Solution">Mobile Analytics of Open Source</a>
+			
+			</p>
             </footer>
         </aside>
         <?php endif;

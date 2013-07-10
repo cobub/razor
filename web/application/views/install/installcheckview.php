@@ -53,14 +53,14 @@
 <body>
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title" style="width:70%"><a href="http://www.cobub.com/products/cobub-razor/" target="_blank"><?php echo lang('installview_installheader') ;?></a></h1>			
+			<h1 class="site_title" style="width:70%"><a href="http://dev.cobub.com" target="_blank"><img   class="logo" src="<?php echo $newurl.'/assets/images/razorlogo.png'?>"/><span style="vertical-align: top;"><?php echo lang('installview_installheader') ;?></span></a></h1>			
 		</hgroup>
 	</header> 	
 			<section id="main" class="column" style="width:100%">
 		<article class="module width_full">
 			<header><h3><?php echo lang('installview_checkheader') ;?></h3></header>
 	<div>			
-    <span id="imgtitle"><a href="http://www.cobub.com/products/cobub-razor/" target="_blank"><img src="<?php if(isset($language)):
+    <span id="imgtitle"><a href="http://dev.cobub.com" target="_blank"><img src="<?php if(isset($language)):
     if($language=="zh_CN"){ echo $newurl.'/assets/images/cobub-razor-logo.png';}
     else{echo $newurl.'/assets/images/ecobubrazorlogo.png';} endif;?>"/></a></span>
      </div>
@@ -78,8 +78,8 @@
     if($language=="zh_CN"){ echo 'http://dev.cobub.com/zh/docs/cobub-razor/installation-guide/';}
     else{echo 'http://dev.cobub.com/docs/cobub-razor/installation-guide/';} endif;?>" target="_blank">
     <?php if(isset($language)):
-    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">帮助</p>';}
-    else{echo '<p style="font-size: 16px;font-weight: bold;">Help</p>';} endif;?></a>
+    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">安装帮助</p>';}
+    else{echo '<p style="font-size: 16px;font-weight: bold;">Help On Installation</p>';} endif;?></a>
 			 </div>
 			<div style="height:350px;position:absolute;top:730px;left:420px;">
 			<font color="red">
@@ -169,7 +169,10 @@
 	</section>
 
 <div style="position:absolute;top:920px; left:500px">
-<p align="center"> &copy; Copyright 2012-2015 Cobub Razor Solution Version:<?php  echo $this->config->item('version')?> <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('installview_companyname') ;?></a></p></div>
+<p align="center"> &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
+ <a href="http://dev.cobub.com/docs/cobub-razor/release-note/" target="_blank">Release Notes</a><br/>
+ <a hreft ="http://dev.cobub.com" target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics Solution">Mobile Analytics of Open Source</a></p>
+</div>
 
 </body>
 
