@@ -120,7 +120,7 @@ $lang['m_roleManagement']='角色管理';
 $lang['m_resourceManagement']='资源管理';
 $lang['m_appType']='添加类型';
 $lang['m_developerGuide']='开发者指南';
-$lang['m_openAPIManual']='OpenAPI 手册'
+$lang['m_openAPIManual']='OpenAPI 手册';
 
 //Menu---Profile
 $lang['m_pr_modifyProfile']='修改个人资料';
