@@ -168,10 +168,22 @@
 		<div class="spacer"></div>
 	</section>
 
-<div style="position:absolute;top:920px; left:500px">
+<div style="position:absolute;top:850px; left:500px">
 <p align="center"> &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
- <a href="http://dev.cobub.com/docs/cobub-razor/release-note/" target="_blank">Release Notes</a><br/>
- <a hreft ="http://dev.cobub.com" target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics Solution">Mobile Analytics of Open Source</a></p>
+
+ <a href=" <?php if($language=="zh_CN")
+                       { echo 'http://dev.cobub.com/zh/docs/cobub-razor/release-note/';}
+                                       else{ echo 'http://dev.cobub.com/docs/cobub-razor/release-note/'; } ?>" target="_blank"> Release Notes</a><br/>
+                                           <a href ="
+ <?php if($language=="zh_CN")
+                        { echo 'http://dev.cobub.com/zh/';}
+                                         else{ echo 'http://dev.cobub.com/'; } ?>
+ " target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics                         Solution">Mobile Analytics of Open Source</a>
+
+
+
+
+
 </div>
 
 </body>

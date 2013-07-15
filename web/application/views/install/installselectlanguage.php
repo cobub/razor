@@ -106,8 +106,19 @@
 	</form>
 <div style="position:absolute;top:480px; left:450px">
 <p align="center"> &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
- <a href="http://dev.cobub.com/docs/cobub-razor/release-note/" target="_blank">Release Notes</a><br/>
- <a hreft ="http://dev.cobub.com" target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics Solution">Mobile Analytics of Open Source</a></p>
-</div>
+
+
+<a href="http://dev.cobub.com/docs/cobub-razor/release-note/" target="_blank"> Release Notes</a><br/>
+<a href ="http://dev.cobub.com/" target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics                   Solution">Mobile Analytics of Open Source</a>
+
+</p>
+
+
+
+
+
+
+
+
 </body>
 </html>
