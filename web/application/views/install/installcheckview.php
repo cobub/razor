@@ -61,7 +61,7 @@
 			<header><h3><?php echo lang('installview_checkheader') ;?></h3></header>
 	<div>			
     <span id="imgtitle"><a href="http://dev.cobub.com" target="_blank"><img src="<?php if(isset($language)):
-    if($language=="zh_CN"){ echo $newurl.'/assets/images/cobub-razor-logo.png';}
+    if($language=="zh_CN"){ echo $newurl.'/assets/images/ecobubrazorlogo.png';}
     else{echo $newurl.'/assets/images/ecobubrazorlogo.png';} endif;?>"/></a></span>
      </div>
         <hr style="color:#9FA0A2;" />
