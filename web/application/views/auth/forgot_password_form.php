@@ -29,7 +29,20 @@ if ($this->config->item('use_username', 'tank_auth')) {
 </table>
 
 <br/>
-<p align="center"><b><?php echo lang('f_copyright') ;?></b></p>
+
+<p align="center">
+  
+                                             &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?> 
+ <a href=" <?php if($this->config->item('language')=="zh_CN")
+                       { echo 'http://dev.cobub.com/zh/docs/cobub-razor/release-note/';}
+                 else{ echo 'http://dev.cobub.com/docs/cobub-razor/release-note/'; } ?>" target="_blank">Release Notes</a><br/>
+  <p align="center">  <a href ="
+ <?php if($this->config->item('language')=="zh_CN")
+                        { echo 'http://dev.cobub.com/zh/';}
+                  else{ echo 'http://dev.cobub.com/'; } ?>
+ " target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics                   Solution">Mobile Analytics of       Open          Source</a>
+                          </p>    </p><br/>
+
 </div>
 </article>
 </section>
