@@ -1,5 +1,7 @@
 package com.wbtech.ums.controller;
 
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.os.Handler;
 
@@ -10,8 +12,6 @@ import com.wbtech.ums.common.UmsConstants;
 import com.wbtech.ums.dao.JSONParser;
 import com.wbtech.ums.objects.MyMessage;
 import com.wbtech.ums.objects.PostObjEvent;
-
-import org.json.JSONObject;
 
 public class EventController {
 	static final String EVENTURL = UmsConstants.preUrl + UmsConstants.eventUrl;

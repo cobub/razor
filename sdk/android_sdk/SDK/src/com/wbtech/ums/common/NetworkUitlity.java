@@ -32,24 +32,26 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.wbtech.ums.objects.MyMessage;
+
 public class NetworkUitlity {
 	public static long paramleng = 256L;
-	public static String DEFAULT_CHARSET=" HTTP.UTF_8";
+	public static String DEFAULT_CHARSET = " HTTP.UTF_8";
+
 	public static MyMessage post(String url, String data) {
 		// TODO Auto-generated method stub
-		CommonUtil.printLog("ums",url);
+		CommonUtil.printLog("ums", url);
 		String returnContent = "";
-		MyMessage message=new MyMessage();
+		MyMessage message = new MyMessage();
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(url);
 		try {
-			StringEntity se = new StringEntity("content="+data, HTTP.UTF_8);
-			CommonUtil.printLog("postdata", "content="+data);
+			StringEntity se = new StringEntity("content=" + data, HTTP.UTF_8);
+			CommonUtil.printLog("postdata", "content=" + data);
 			se.setContentType("application/x-www-form-urlencoded");
 			httppost.setEntity(se);
 			HttpResponse response = httpclient.execute(httppost);
 			int status = response.getStatusLine().getStatusCode();
-			CommonUtil.printLog("ums",status+"");
+			CommonUtil.printLog("ums", status + "");
 			String returnXML = EntityUtils.toString(response.getEntity());
 			returnContent = URLDecoder.decode(returnXML);
 			switch (status) {
@@ -57,52 +59,75 @@ public class NetworkUitlity {
 				message.setFlag(true);
 				message.setMsg(returnContent);
 				break;
-				
+
 			default:
-				Log.e("error", status+returnContent);
+				Log.e("error", status + returnContent);
 				message.setFlag(false);
 				message.setMsg(returnContent);
 				break;
 			}
-		} catch (Exception e) {	
+		} catch (Exception e) {
 			JSONObject jsonObject = new JSONObject();
-			
-				try {
-					jsonObject.put("err", e.toString());
-					returnContent = jsonObject.toString();
-					message.setFlag(false);
-					message.setMsg(returnContent);
-				} catch (JSONException e1) {
-					e1.printStackTrace();
-				}
-				
-			
+
+			try {
+				jsonObject.put("err", e.toString());
+				returnContent = jsonObject.toString();
+				message.setFlag(false);
+				message.setMsg(returnContent);
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
+
 		}
 		CommonUtil.printLog("UMSAGENT", message.getMsg());
 		return message;
 	}
-	
+
+	public static String Post(String url, String data) {
+
+		CommonUtil.printLog("ums", url);
+
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(url);
+		try {
+			StringEntity se = new StringEntity("content=" + data, HTTP.UTF_8);
+			CommonUtil.printLog("postdata", "content=" + data);
+			se.setContentType("application/x-www-form-urlencoded");
+			httppost.setEntity(se);
+			HttpResponse response = httpclient.execute(httppost);
+			int status = response.getStatusLine().getStatusCode();
+			CommonUtil.printLog("ums", status + "");
+			String returnXML = EntityUtils.toString(response.getEntity());
+			Log.d("returnString", URLDecoder.decode(returnXML));
+			return URLDecoder.decode(returnXML);
+
+		} catch (Exception e) {
+			CommonUtil.printLog("ums", e.toString());
+		}
+		return null;
+	}
+
 	/**
 	 * compress string use gzip to reduce the size
 	 * */
-	public static MyMessage postCompressed(String requestUrl,String data){
+	public static MyMessage postCompressed(String requestUrl, String data) {
 		MyMessage message = new MyMessage();
 		try {
 			URL url = new URL(requestUrl);
-			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
-	        conn.setRequestProperty("Content-encoding", "gzip");
-	        conn.setRequestProperty("Content-type", "application/octet-stream");
-	        GZIPOutputStream dos1 = new GZIPOutputStream(conn.getOutputStream());
-	        dos1.write(data.getBytes("utf-8"));
-	        dos1.flush();
-	        dos1.close();
-	        if(conn.getResponseCode() == HttpStatus.SC_OK){
-	        	message.setFlag(true);
-	        } else {
-	        	message.setFlag(false);
+			conn.setRequestProperty("Content-encoding", "gzip");
+			conn.setRequestProperty("Content-type", "application/octet-stream");
+			GZIPOutputStream dos1 = new GZIPOutputStream(conn.getOutputStream());
+			dos1.write(data.getBytes("utf-8"));
+			dos1.flush();
+			dos1.close();
+			if (conn.getResponseCode() == HttpStatus.SC_OK) {
+				message.setFlag(true);
+			} else {
+				message.setFlag(false);
 				message.setMsg(conn.getResponseMessage());
-	        }
+			}
 		} catch (Exception e) {
 			Log.e("dakele", e.getMessage(), e);
 		}
@@ -110,8 +135,4 @@ public class NetworkUitlity {
 		return message;
 	}
 
-	
-	
-
-	
 }
