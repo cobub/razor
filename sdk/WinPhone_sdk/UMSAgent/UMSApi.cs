@@ -38,6 +38,7 @@ namespace UMSAgent
             ERRORDATA,//5
             PAGEINFODATA//6
         };
+        public static bool isValidKey= false;
       
         private static readonly UmsManager umsManager = new UmsManager();
 
@@ -64,8 +65,33 @@ namespace UMSAgent
                 registerEvent();
                 manager = new DataManager(appKey);
                 device_resolution = Utility.getResolution();
+                isValidKey = true;
+                
+            }
+            
+        }
+        // bind user id
+        public static void bindUserIdentifier(string userid)
+        {
+            IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+            if (settings.Contains("UserIdentifier"))
+                settings.Remove("UserIdentifier");
+            settings.Add("UserIdentifier", userid);
+            
+            settings.Save();
+        }
+
+        //post clientdata and all data
+        public static void postClientdata()
+        {
+            if (isValidKey)
+            {
                 new Thread(new ThreadStart(postClientData)).Start();
                 new Thread(new ThreadStart(postAllData)).Start();
+            }
+            else
+            {
+                DebugTool.Log("not valid appkey!");
             }
             
         }
@@ -110,7 +136,7 @@ namespace UMSAgent
         {
             if (string.IsNullOrEmpty(appkey))
             {
-                DebugTool.Log("apkey is invalid!");
+                DebugTool.Log("appkey is invalid!");
                 return false;
             }
            // DebugTool.Log("apkey is  valid!");
@@ -203,9 +229,6 @@ namespace UMSAgent
             {
                 //DebugTool.Log("error input");
             }
-        }
-
-        
-        
+        }        
     }
 }

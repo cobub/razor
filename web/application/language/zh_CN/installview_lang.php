@@ -46,12 +46,12 @@ $lang["installview_welcomeintro"] = "是一个专为移动应用开发者提供�
 $lang["installview_welcomedemand"] = "请根据操作提示安装部署你的移动应用分析系统！";
 //check info 
 $lang["installview_check"] = "系统检查";
-$lang["installview_checkversion"] = "php版本：";
+$lang["installview_checkversion"] = "php版本(>=5.2.6)：";
 $lang["installview_checkexpand"] = "MySqli 扩展：";
-$lang["installview_checkpermission"] = "具有写入权限的目录：";
+$lang["installview_checkpermission"] = "具有写入权限的目录（包括目录下的文件）：";
 //database info 
 $lang["installview_datawarn"] = "配置不同的数据库、数据仓库连接可以提高系统性能。";
-$lang["installview_datawarninfo"] = "如果您不能提供2个数据库，请确保数据库与数据仓库的配置相同";
+$lang["installview_datawarninfo"] = "如果您不能提供2个数据库，请确保数据库与数据仓库的配置相同（注意：请在安装之前创建至少1个空的数据库）";
 $lang["installview_dataset"] = "数据库设置";
 $lang["installview_dataserve"] = "数据库服务器:";
 $lang["installview_dataaccount"] = "数据库账号:";

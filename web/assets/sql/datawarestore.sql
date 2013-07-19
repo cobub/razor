@@ -267,7 +267,8 @@ insert into umsinstall_fact_clientdata
             hour_sk,
             deviceidentifier,
             clientdataid,
-			network_sk
+			network_sk,
+			useridentifier
 			)
 select i.product_sk,
        b.deviceos_sk,
@@ -280,7 +281,8 @@ select i.product_sk,
        hour(a.date),
        a.deviceid,
        a.id,
-       n.network_sk
+       n.network_sk,
+       a.useridentifier
 from   databaseprefix.umsdatainstall_clientdata a,
        umsinstall_dim_deviceos b,
        umsinstall_dim_devicebrand c,

@@ -28,7 +28,8 @@ var percentData=[];
 var k=0;
 var m=0;
 
-$(document).ready(function() {
+$(document).ready(function() 
+{
 	options = {
 			 chart: {
 	                renderTo: 'container',
@@ -102,6 +103,8 @@ $(document).ready(function() {
 
 function renderCharts(myurl)
 {	
+	 var  secondary="<?php echo lang('g_secondary'); ?>";
+	 var  moresecondary="<?php echo lang('g_moresecondary'); ?>";
 	 var chart_canvas = $('#container');
 	 var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
 		    
@@ -119,7 +122,8 @@ function renderCharts(myurl)
 	        baseZ:997
 	    });
 	   
-	    jQuery.getJSON(myurl, null, function(data) { 
+	    jQuery.getJSON(myurl, null, function(data) 
+	    { 
 	    	productName=[];  
 	    	percentData=[];
 	    	var j=0;
@@ -132,7 +136,14 @@ function renderCharts(myurl)
 				var chartData=[];
 				for(i=0;i<obj.length;i++)
 				{
-					categories.push(obj[i].segment_name);
+					if(i<obj.length-1)
+					{
+						categories.push(obj[i].segment_name+secondary);						
+					}
+					else
+					{
+						categories.push(obj[i].segment_name+moresecondary);						
+					}
 					chartData.push(parseInt(obj[i].access));
 					percentData.push(Highcharts.numberFormat(obj[i].percentage*100,1) +' %');
 				}

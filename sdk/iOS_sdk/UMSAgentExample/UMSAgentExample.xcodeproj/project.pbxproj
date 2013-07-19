@@ -20,10 +20,10 @@
 		3609A5CE15180C7300BEDA05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3609A5AF15180C7300BEDA05 /* Foundation.framework */; };
 		3609A5D615180C7300BEDA05 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3609A5D415180C7300BEDA05 /* InfoPlist.strings */; };
 		3609A5D915180C7300BEDA05 /* UMSAgentExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5D815180C7300BEDA05 /* UMSAgentExampleTests.m */; };
-		364A1EAB16302D2300AA249C /* libUMSAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 364A1EAA16302D2300AA249C /* libUMSAgent.a */; };
 		36B3015D162AF22D0098FEF5 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B3015B162AF22D0098FEF5 /* SecondViewController.m */; };
 		36B3015E162AF22D0098FEF5 /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36B3015C162AF22D0098FEF5 /* SecondViewController.xib */; };
 		36B8E537151C51B5004C3C1F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B8E536151C51B5004C3C1F /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		842AB7F1172BA24700241CA6 /* libUMSAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 842AB7F0172BA24700241CA6 /* libUMSAgent.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,12 +56,12 @@
 		3609A5D515180C7300BEDA05 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3609A5D715180C7300BEDA05 /* UMSAgentExampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSAgentExampleTests.h; sourceTree = "<group>"; };
 		3609A5D815180C7300BEDA05 /* UMSAgentExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSAgentExampleTests.m; sourceTree = "<group>"; };
-		364A1EAA16302D2300AA249C /* libUMSAgent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMSAgent.a; sourceTree = "<group>"; };
 		36B3015A162AF22D0098FEF5 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
 		36B3015B162AF22D0098FEF5 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		36B3015C162AF22D0098FEF5 /* SecondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondViewController.xib; sourceTree = "<group>"; };
 		36B8E536151C51B5004C3C1F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		36E13C881522F7080005499D /* UMSAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSAgent.h; sourceTree = "<group>"; };
+		842AB7F0172BA24700241CA6 /* libUMSAgent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMSAgent.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +73,7 @@
 				3609A5AE15180C7300BEDA05 /* UIKit.framework in Frameworks */,
 				3609A5B015180C7300BEDA05 /* Foundation.framework in Frameworks */,
 				3609A5B215180C7300BEDA05 /* CoreGraphics.framework in Frameworks */,
-				364A1EAB16302D2300AA249C /* libUMSAgent.a in Frameworks */,
+				842AB7F1172BA24700241CA6 /* libUMSAgent.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,7 +171,7 @@
 		36E13C871522F7080005499D /* ums */ = {
 			isa = PBXGroup;
 			children = (
-				364A1EAA16302D2300AA249C /* libUMSAgent.a */,
+				842AB7F0172BA24700241CA6 /* libUMSAgent.a */,
 				36E13C881522F7080005499D /* UMSAgent.h */,
 			);
 			name = ums;
@@ -344,7 +344,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nan Li (6A685Z7GX5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nan Li (6A685Z7GX5)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -360,6 +361,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-ObjC";
+				PROVISIONING_PROFILE = "C49C6841-979A-42CA-A64A-1086D4E72591";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C49C6841-979A-42CA-A64A-1086D4E72591";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -370,7 +373,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nan Li (6A685Z7GX5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nan Li (6A685Z7GX5)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -380,6 +384,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
+				PROVISIONING_PROFILE = "C49C6841-979A-42CA-A64A-1086D4E72591";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C49C6841-979A-42CA-A64A-1086D4E72591";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -399,6 +405,7 @@
 					"\"$(SRCROOT)/../UMSAgent/build/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -417,6 +424,7 @@
 					"\"$(SRCROOT)/../UMSAgent/build/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

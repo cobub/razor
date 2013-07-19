@@ -28,10 +28,14 @@ $lang['l_password']='密码';
 $lang['l_forgetPassword']='忘记密码？';
 $lang['l_welcome'] = '欢迎';
 $lang['l_remeberMe'] = '记住我';
+$lang['l_versioninform']='Cobub Razor 推出新版本Version:';
+$lang['l_vinformtogo']='，请前往';
+$lang['l_vinformupdate']='下载更新。';
+$lang['l_vnoinform']='不再提醒';
 //login--max   
 $lang['l_loginmax'] = "您已经达到今日的最大错误登录数5次，请联系管理员！";
 // Login---signup/register
-$lang['l_re_createYourAccount']='创建您的账户';
+$lang['l_re_createYourAccount']='创建新用户';
 $lang['l_re_email']='邮箱';
 $lang['l_re_confirmPassword']='确认密码';
 $lang['l_re_captcha']='验证码';
@@ -53,7 +57,7 @@ $lang['l_oldPassword']='原密码';
 //*************************************FOOTER*************************************
 $lang['f_version']='Verion:0.4 DEV.COBUB.COM ';
 $lang['f_detail']= "*Cobub Razor软件包中包含HighCharts产品，HighCharts产品并非开源产品，<br/>但是您在一定条件下可以免费使用，具体请参见<a href='http://shop.highsoft.com/highcharts.html' target='_blank'>http://shop.highsoft.com/highcharts.html</a>。";
-$lang['f_copyright'] = '&copy Copyright 2013，版本：0.4 <a href="http://dev.cobub.com">COBUB SOLUTION</a>';
+$lang['f_copyright'] = '&copy Copyright 2013，版本：%body% <a href="http://dev.cobub.com">COBUB SOLUTION</a>';
 
 //**************************************Email***************************************
 $lang['e_clickLink'] = '。请点击下面的链接激活账号：';
@@ -116,6 +120,8 @@ $lang['m_roleManagement']='角色管理';
 $lang['m_resourceManagement']='资源管理';
 $lang['m_appType']='添加类型';
 $lang['m_developerGuide']='开发者指南';
+$lang['m_openAPIManual']='OpenAPI 手册';
+
 //Menu---Profile
 $lang['m_pr_modifyProfile']='修改个人资料';
 $lang['m_pr_companyName']='公司名称';
@@ -150,6 +156,7 @@ $lang['m_rpt_carriers']='运营商';
 $lang['m_rpt_networking']='联网方式';
 $lang['m_rpt_events']='事件与转化率';
 $lang['m_rpt_eventlist']='事件列表';
+$lang['m_rpt_orderlist']='订单';
 $lang['m_rpt_errors']='错误分析';
 $lang['m_rpt_errorsOfVersion']='错误分析（版本）';
 $lang['m_rpt_errorsOnOS']='错误分析（OS）';
@@ -369,12 +376,18 @@ $lang['v_rpt_el_Version']='版本';
 $lang['v_rpt_el_eventID']='事件ID';
 $lang['v_rpt_el_eventName']='事件名称';
 $lang['v_rpt_el_messages']='消息数量';
+$lang['v_rpt_ol_number']='金额';
 $lang['v_rpt_el_eventStatistics']='事件统计';
+$lang['v_rpt_ol_orderStatistics']='详细统计';
+$lang['v_rpt_ol_detail']="详细统计";
 $lang['v_rpt_el_eventMsgs']='事件消息数量';
+$lang['v_rpt_ol_eventMsgs']='金额';
 $lang['v_rpt_el_eventMsgsInActives']='事件消息数量统计/活跃用户';
 $lang['v_rpt_el_eventMsgsInSessions']='事件消息数量统计/启动次数';
 $lang['v_rpt_el_MsgsInActive'] = "消息数量/活跃用户";
+$lang['v_rpt_ol_MsgsInActive'] = "金额/活跃用户";
 $lang['v_rpt_el_MsgsInSessions'] = "消息数量/启动次数";
+$lang['v_rpt_ol_MsgsInSessions'] = "金额/启动次数";
 $lang['v_rpt_el_entryEventID'] = '请输入事件ID！';
 $lang['v_rpt_el_entryEventName'] = '请输入事件名称！';
 $lang['v_rpt_el_addEventS'] = '添加事件成功！';
@@ -384,8 +397,11 @@ $lang['v_rpt_el_enterEventD'] = "请输入事件描述！";
 $lang['v_rpt_el_modifyEventS'] = "修改事件成功！";
 $lang['v_rpt_el_waitModifyE'] = "正在修改事件，请稍候...";
 $lang['v_rpt_el_eventNum'] = '事件消息数量';
+$lang['v_rpt_ol_eventNum'] = '金额';
 $lang['v_rpt_el_eventNumA'] = '事件消息数量/活跃用户';
+$lang['v_rpt_ol_eventNumA'] = '金额/活跃用户';
 $lang['v_rpt_el_eventNumS'] = '事件消息数量/启动次数';
+$lang['v_rpt_ol_eventNumS'] = '金额/启动次数';
 $lang['v_rpt_el_eventIDExists'] = '事件ID已经存在！';
 
 //view---report----errorlog
@@ -683,7 +699,7 @@ $lang['t_activeRateMonthly_def']='上月（上个月1号到上个月月末）中
 $lang['t_numberOfPageViews_def']='页面访问次数是指用户访问过该页面的总次数（该页面访问次数/全部页面访问次数）。全部页面访问次数是指该应用所有页面的总访问次数。通过页面访问次数统计，可以针对性的投放广告。根据平台不同，Cobub Razor SDK使用不同方法统计页面访问次数，具体请参见各平台开发者文档。';
 $lang['t_averageDuration_def']='平均停留时间（%）是指用户每次浏览此页面的平均时间（当前页面停留时间/全部页面的停留时间）。页面停留时间是指用户从进入该页面到离开该页之间的时间差。通过页面停留时间的统计，我们可以清楚的知道用户在哪个页面停留时间较长，哪个页面较短。以针对性的投放广告。';
 $lang['t_bounceRate_def']='页面跳出率（%）是指用户在此页面中选择离开应用的次数占用户浏览该页面的总次数。页面跳出率的统计可以更好的帮助分析用户流失的可能性。以便调整相应的策略减少用户的流失。';
-$lang['t_userRetention_def']='用户留存是指在一段时间后原来的“新用户”中任然在使用该应用的用户数量。与此相对的是“用户流失率”。用户留存率 + 用户流失率 = 1。';
+$lang['t_userRetention_def']='用户留存是指在一段时间后原来的“新用户”中仍然在使用该应用的用户数量。与此相对的是“用户流失率”。用户留存率 + 用户流失率 = 1。';
 
 
 //*****************************************General****************************************
@@ -701,6 +717,10 @@ $lang['g_trash']='丢弃';
 $lang['g_save']='保存';
 $lang['g_create'] ='创建';
 $lang['g_s']="秒";
+$lang['g_minutes']="分钟";
+$lang['g_mabove']="分钟以上";
+$lang['g_secondary']="次";
+$lang['g_moresecondary']="次以上";
 $lang['g_percent']='比例';
 $lang['g_today']='今日';
 $lang['g_yesterday']='昨日';

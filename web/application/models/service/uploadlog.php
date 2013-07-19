@@ -22,13 +22,15 @@ class Uploadlog extends CI_Model
 		$this->load->model('service/userlog','userlog');
 		$this->load->model('service/clientdata','clientdata');
 		$this->load->model('service/activitylog','activitylog');
-		$this->load->model('service/utility','utility');	
+		$this->load->model('service/utility','utility');
 	}	
 	
 	function addUploadlog($content)
 	{
-//		$eventInfo = $content->eventInfo;
-		$eventInfo=isset($content->eventInfo)?$content->eventInfo:"";
+		$this->load->model('servicepublicclass/uploadlogpublic','uploadlogpublic');
+		$uploadlog = new uploadlogpublic();
+		$uploadlog->loaduploadlog($content);
+		$eventInfo=isset($uploadlog->eventInfo)?$uploadlog->eventInfo:"";
 		if(isset($eventInfo))
 		{
 			if(is_array($eventInfo))
@@ -39,7 +41,7 @@ class Uploadlog extends CI_Model
 				}
 			}
 		}
-		$errorInfo =isset($content->errorInfo)?$content->errorInfo:"";
+		$errorInfo =isset($uploadlog->errorInfo)?$uploadlog->errorInfo:"";
 		if(isset($errorInfo))
 		{
 			if(is_array($errorInfo))
@@ -50,7 +52,7 @@ class Uploadlog extends CI_Model
 				}
 			}
 		}
-		$clientData = isset($content->clientData)?$content->clientData:"";
+		$clientData = isset($uploadlog->clientData)?$uploadlog->clientData:"";
 		if(isset($clientData))
 		{
 			if(is_array($clientData))
@@ -61,7 +63,7 @@ class Uploadlog extends CI_Model
 				}
 			}
 		}
-		$activityInfo = isset($content->activityInfo)?$content->activityInfo:"";
+		$activityInfo = isset($uploadlog->activityInfo)?$uploadlog->activityInfo:"";
 		if(isset($activityInfo))
 		{
 			if(is_array($activityInfo))

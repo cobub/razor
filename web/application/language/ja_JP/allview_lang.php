@@ -25,6 +25,10 @@ $lang['l_password']	=	'パスワード';
 $lang['l_forgetPassword']	=	'パスワードを忘れましたか？';
 $lang['l_welcome']	=	 'ようこそ';
 $lang['l_remeberMe']	=	 '忘れないでね';
+$lang['l_versioninform']='Cobub Razor新しいリリースバージョン：';
+$lang['l_vinformtogo']='、に行く';
+$lang['l_vinformupdate']='更新プログラムをダウンロードします。';
+$lang['l_vnoinform']='私を思い出さないようにしてください';
 //login--max   		
 $lang['l_loginmax']	=	 "あなたのログインの失敗回数が本日5回目になりました。管理者に連絡してください。";
 // Login---signup/register		
@@ -50,7 +54,7 @@ $lang['l_oldPassword']	=	'旧パスワード';
 //*************************************FOOTER*************************************		
 $lang['f_version']	="	Verion:0.4 DEV.COBUB.COM ";
 $lang['f_detail']	=	"* The Cobub RazorのパッケージはHighChartsの 製品を含んでいます。HighChartsの製品はオープンソースの製品ではありませんが、<br>正しい条件下では無償で使用することができます, 次のURLを参照してください。 <a href='http://shop.highsoft.com/highcharts.html' target='_blank'>http://shop.highsoft.com/highcharts.html</a>.";
-$lang['f_copyright']	=	"&copy Copyright 2013, バージョン:0.4 <a href='http://dev.cobub.com'>COBUB SOLUTION</a>";
+$lang['f_copyright']	=	"&copy Copyright 2013, バージョン:%body% <a href='http://dev.cobub.com'>COBUB SOLUTION</a>";
 		
 //**************************************Email***************************************		
 $lang['e_clickLink']	=	 '.下記のリンクをクリックしてアクティベーションを行ってください:';
@@ -113,6 +117,7 @@ $lang['m_roleManagement']	=	'役割管理';
 $lang['m_resourceManagement']	=	'リソース管理';
 $lang['m_appType']	=	'アプリケーションタイプ';
 $lang['m_developerGuide']	=	'開発者ガイド';
+$lang['m_openAPIManual']='OpenAPI Manual';
 //Menu---Profile		
 $lang['m_pr_modifyProfile']	=	'プロフィール修正';
 $lang['m_pr_companyName']	=	'会社名';
@@ -700,6 +705,10 @@ $lang['g_trash']	=	'廃棄';
 $lang['g_save']	=	'保存';
 $lang['g_create']	=	'作成';
 $lang['g_s']	=	"s";
+$lang['g_minutes']="分";
+$lang['g_mabove']="分以上";
+$lang['g_secondary']="回";
+$lang['g_moresecondary']="回以上";
 $lang['g_percent']	=	'パーセント';
 $lang['g_today']	=	'今日';
 $lang['g_yesterday']	=	'昨日';

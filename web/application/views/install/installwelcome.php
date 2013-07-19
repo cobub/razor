@@ -53,15 +53,17 @@
 <body>
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title" style="width:70%"><a href="http://www.cobub.com/products/cobub-razor/" target="_blank"><?php echo lang('installview_installheader') ;?></a></h1>			
+			<h1 class="site_title" style="width:70%"><a href="http://dev.cobub.com" target="_blank">
+			<img   class="logo" src="<?php echo $newurl.'/assets/images/razorlogo.png'?>"/>
+			<span style="vertical-align: top;"><?php echo lang('installview_installheader') ;?></span></a></h1>			
 		</hgroup>
 	</header> 	
 			<section id="main" class="column" style="width:100%" >
 		<article class="module width_full">
 			<header><h3><?php echo lang('installview_welcomestep') ;?></h3></header>
 	<div>			
-    <span id="imgtitle"><a href="http://www.cobub.com/products/cobub-razor/" target="_blank"><img src="<?php if(isset($language)):
-    if($language=="zh_CN"){ echo $newurl.'/assets/images/cobub-razor-logo.png';}
+    <span id="imgtitle"><a href="http://dev.cobub.com" target="_blank"><img src="<?php if(isset($language)):
+    if($language=="zh_CN"){ echo $newurl.'/assets/images/ecobubrazorlogo.png';}
     else{echo $newurl.'/assets/images/ecobubrazorlogo.png';} endif;?>"/></a></span>
      </div> 
      <hr style="color:#9FA0A2;" />
@@ -78,8 +80,8 @@
     if($language=="zh_CN"){ echo 'http://dev.cobub.com/zh/docs/cobub-razor/installation-guide/';}
     else{echo 'http://dev.cobub.com/docs/cobub-razor/installation-guide/';} endif;?>" target="_blank">
     <?php if(isset($language)):
-    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">帮助</p>';}
-    else{echo '<p style="font-size: 16px;font-weight: bold;">Help</p>';} endif;?></a>
+    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">安装帮助</p>';}
+    else{echo '<p style="font-size: 16px;font-weight: bold;">Help On Installation</p>';} endif;?></a>
 			 </div>
 			<div style="position:absolute;top:270px;left:420px;">			
             <p align="left" class="STYLE5"><?php echo lang('installview_welcome') ;?></p>
@@ -109,8 +111,21 @@
 		<div  class="spacer"></div>
 	</section>
 <div style="position:absolute;top:580px; left:500px">
-<p align="center"> &copy; Copyright 2012 Cobub Razor Solution Verion:0.3.1 <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('installview_companyname') ;?></a></p></div>
-</body>
+<p align="center"> &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
+
+<a href="<?php if ($language=="zh_CN")
+      {echo 'http://dev.cobub.com/zh/docs/cobub-razor/release-note/';}
+      else
+      {echo 'http://dev.cobub.com/docs/cobub-razor/release-note/';}
+  ?>" target="_blank"> Release Notes</a><br/>
+  <a href ="<?php if ($language=="zh_CN")
+      {echo 'http://dev.cobub.com/zh/';}
+      else
+          {echo 'http://dev.cobub.com/';}
+      ?>" target ="_blank" title="Mobile Analytics" 
+      alt="Cobub Razor - Open Source Mobile Analytics Solution">Mobile Analytics of Open Source</a>
+
+</p></div>
 </html>
 <script type="text/javascript">
 function isaccpet()

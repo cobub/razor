@@ -80,9 +80,13 @@ class Redis {
 		{
 		    return $this->command(strtoupper($method), $arguments[0]);
 		}
-		if (isset($arguments[1])) 
+		if (isset($arguments[2])) 
 		{
-		    return $this->command(strtoupper($method) . ' ' . $arguments[0], $arguments[1]);            
+		    return $this->command(strtoupper($method) . ' ' . $arguments[0].' '.$arguments[1],$arguments[2]);            
+		}
+		if (isset($arguments[1]))
+		{
+			return $this->command(strtoupper($method) . ' ' . $arguments[0], $arguments[1]);
 		}
 		return $this->command(strtoupper($method) . ' ' . $arguments[0]);
 	}

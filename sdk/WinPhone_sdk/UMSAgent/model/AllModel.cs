@@ -77,7 +77,7 @@ namespace UMSAgent.Model
             return obj;
         
         }
-      
+        
         //get client data
         public ClientData getClientData()
         {
@@ -92,6 +92,7 @@ namespace UMSAgent.Model
             clientdata.appkey = key;
             clientdata.time = Utility.getTime();
             IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+            clientdata.userid = settings["UserIdentifier"].ToString();
             if (settings["autolocation"].ToString().Equals("1"))
             {
                 double[] location = Utility.GetLocationProperty();

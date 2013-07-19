@@ -13,16 +13,16 @@
  */
 package com.wbtech.ums.common;
 public class UmsConstants {
-public static boolean DebugMode=true;
-public static long kContinueSessionMillis = 30000L;
-public static final Object saveOnlineConfigMutex = new Object();
-public static final String eventUrl="/ums/postEvent";
-public static final String errorUrl = "/ums/postErrorLog";
-public static final String clientDataUrl = "/ums/postClientData";
-public static final String updataUrl = "/ums/getApplicationUpdate";
-public static final String activityUrl = "/ums/postActivityLog";
-public static final String onlineConfigUrl ="/ums/getOnlineConfiguration";
-public static final String uploadUrl = "/ums/uploadLog";
-public static String preUrl="";
+    public static boolean DebugMode=true;
+    public static long kContinueSessionMillis = 30000L;
+    public static final Object saveOnlineConfigMutex = new Object();
+    public static final String eventUrl="/ums/postEvent";
+    public static final String errorUrl = "/ums/postErrorLog";
+    public static final String clientDataUrl = "/ums/postClientData";
+    public static final String updataUrl = "/ums/getApplicationUpdate";
+    public static final String activityUrl = "/ums/postActivityLog";
+    public static final String onlineConfigUrl ="/ums/getOnlineConfiguration";
+    public static final String uploadUrl = "/ums/uploadLog";
+    public static String preUrl="";
 }
   

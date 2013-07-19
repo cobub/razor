@@ -29,7 +29,7 @@ namespace UMSAgent.Common
         public delegate void stateChangedHandler(int type,string msg, object obj);
         public event stateChangedHandler stateChanged;
         public string my_url;
-        public  string message;
+        public string message;
         public object obj;
         public string ret;
         public int type;

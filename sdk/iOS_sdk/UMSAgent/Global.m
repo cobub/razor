@@ -37,7 +37,7 @@ static NSString *BASEURL;
 
 +(NSString *)getBaseURL
 {
-    NSLog(BASEURL);
+    //NSLog(BASEURL);
     return BASEURL;
 }
 

@@ -26,17 +26,17 @@ $lang["installview_licensecontent1"] = "Please read the license agreement before
 $lang["installview_licensecontent3"] = "<p>The Cobub Razor package contains HighCharts products. The HighCharts products are not open source products,<br>but under certain conditions are free to use, please look into <a href='http://shop.highsoft.com/highcharts.html' target='_blank'>http://shop.highsoft.com/highcharts.html</a>.</p>";
 $lang["installview_licenselink"] = "Read the license agreement";
 
-$lang["installview_checkstep"] = "1、System checks";
-$lang["installview_databasestep"] = "2、Create Database";
-$lang["installview_websitestep"] = "3、Create site and superuser";
-$lang["installview_finshstep"] = "4、Complete";
+$lang["installview_checkstep"] = "1.System checks";
+$lang["installview_databasestep"] = "2.Create Database";
+$lang["installview_websitestep"] = "3.Create site and superuser";
+$lang["installview_finshstep"] = "4.Complete";
 $lang["installview_nextstep"] = "Next";
 $lang["installview_installselectlanguage"] = "Enter the installation";
 $lang["installview_installstep"] = "Install";
 $lang["installview_acceptcontent"] = "I accept the license attached to Cobub Razor";
 $lang["installview_versionerror"] = "Your PHP version is too low, please upgrade your version of PHP";
 $lang["installview_mysqlierror"] = "Your mysqli no open";
-$lang["installview_writeerror"]="Your file does not have write permissions, please add the file permissions";
+$lang["installview_writeerror"]="Your files have no write permission, please grant the files write permission";
 $lang["installview_companyname"] = "DEV.COBUB.COM";
 //welcome info 
 $lang["installview_welcome"] = "Welcome to Cobub Razor!";
@@ -44,12 +44,12 @@ $lang["installview_welcomeintro"] = " is a dedicated data analysis software for 
 $lang["installview_welcomedemand"] = "Please follow the instruction to install and deploy your own Cobub Razor System.";
 //check info 
 $lang["installview_check"] = "System checks";
-$lang["installview_checkversion"] = "PHP Version：";
-$lang["installview_checkexpand"] = "MySqli Support：";
-$lang["installview_checkpermission"] = "Write permissions to the directory:";
+$lang["installview_checkversion"] = "PHP Version(>=5.2.6):";
+$lang["installview_checkexpand"] = "MySqli Support:";
+$lang["installview_checkpermission"] = "Write permissions to the directories (Including files in them):";
 //database info 
 $lang["installview_datawarn"] = "Cobub Razor highly recommend you create two databases for the performance consideration. One for production, and the other for data warehouse.";
-$lang["installview_datawarninfo"] = "You should provide same configurations for production db and data warehouse if you don't have two databases.";
+$lang["installview_datawarninfo"] = "You should provide same configurations for production db and data warehouse if you don't have two databases.(You should have created at least 1 empty database before installation)";
 $lang["installview_dataset"] = "Database Settings";
 $lang["installview_dataserve"] = "Database server:";
 $lang["installview_dataaccount"] = "Database account:";

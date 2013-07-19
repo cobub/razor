@@ -422,6 +422,9 @@ background: url(../images/img/icn_error_onos.png) no-repeat center left;
 #sidebar li.icn_developerguider a {
 background: url(../images/img/developer_guider.png) no-repeat center left;
 }
+#sidebar li.icn_openAPIManual a {
+background: url(../images/img/icn_open_api.png) no-repeat center left;
+}
 #sidebar li.icn_term_define a {
 background: url(../images/img/term_define.png) no-repeat center left;
 }
@@ -476,6 +479,9 @@ background: url(../images/img/icn_role.png) no-repeat center left;
 }
 #sidebar li.icn_mangageuser a {
 background: url(../images/img/icn_users.png) no-repeat center left;
+}
+#sidebar li.icn_new_user a {
+background: url(../images/img/icn_new_user.png) no-repeat center left;
 }
 #sidebar li.icn_manaresource a {
 background: url(../images/img/icn_rouserce.png) no-repeat center left;

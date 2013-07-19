@@ -32,6 +32,7 @@
     [requestDictionary setObject:deviceInfo.resolution forKey:@"resolution"];
     [requestDictionary setObject:deviceInfo.deviceid forKey:@"deviceid"];
     [requestDictionary setObject:appkey forKey:@"appkey"];
+    [requestDictionary setObject:deviceInfo.userid forKey:@"userid"];
     if(deviceInfo.mccmnc!=nil)
     {
         [requestDictionary setObject:deviceInfo.mccmnc forKey:@"mccmnc"];
@@ -69,7 +70,7 @@
         [requestDictionary setObject:activity forKey:@"activities"];
         [requestDictionary setObject:appkey forKey:@"appkey"];
         [requestDictionary setObject:version forKey:@"version"];
-        NSString *retString = [network SendData:url data:requestDictionary];        
+        NSString *retString = [network SendData:url data:requestDictionary];
         NSDictionary * retDictionary = [retString JSONValue];
         ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
         ret.msg = [retDictionary objectForKey:@"msg"];

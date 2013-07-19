@@ -23,7 +23,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [UMSAgent startWithAppKey:@"14aaa92e098df46cb53ed5196e0c331c" ReportPolicy:REALTIME ServerURL:@"http://demo.cobub.com/razor/index.php?"];
+    [UMSAgent bindUserIdentifier:@"wbtech"];
+
+    [UMSAgent startWithAppKey:@"423627aa25edb759785ca38f1c65a46d" ReportPolicy:REALTIME ServerURL:@"http://192.168.1.4/webtest/index.php?"];
+    
     
     [UMSAgent setIsLogEnabled:YES];
     

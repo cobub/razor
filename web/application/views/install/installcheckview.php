@@ -53,15 +53,15 @@
 <body>
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title" style="width:70%"><a href="http://www.cobub.com/products/cobub-razor/" target="_blank"><?php echo lang('installview_installheader') ;?></a></h1>			
+			<h1 class="site_title" style="width:70%"><a href="http://dev.cobub.com" target="_blank"><img   class="logo" src="<?php echo $newurl.'/assets/images/razorlogo.png'?>"/><span style="vertical-align: top;"><?php echo lang('installview_installheader') ;?></span></a></h1>			
 		</hgroup>
 	</header> 	
 			<section id="main" class="column" style="width:100%">
 		<article class="module width_full">
 			<header><h3><?php echo lang('installview_checkheader') ;?></h3></header>
 	<div>			
-    <span id="imgtitle"><a href="http://www.cobub.com/products/cobub-razor/" target="_blank"><img src="<?php if(isset($language)):
-    if($language=="zh_CN"){ echo $newurl.'/assets/images/cobub-razor-logo.png';}
+    <span id="imgtitle"><a href="http://dev.cobub.com" target="_blank"><img src="<?php if(isset($language)):
+    if($language=="zh_CN"){ echo $newurl.'/assets/images/ecobubrazorlogo.png';}
     else{echo $newurl.'/assets/images/ecobubrazorlogo.png';} endif;?>"/></a></span>
      </div>
         <hr style="color:#9FA0A2;" />
@@ -78,10 +78,10 @@
     if($language=="zh_CN"){ echo 'http://dev.cobub.com/zh/docs/cobub-razor/installation-guide/';}
     else{echo 'http://dev.cobub.com/docs/cobub-razor/installation-guide/';} endif;?>" target="_blank">
     <?php if(isset($language)):
-    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">帮助</p>';}
-    else{echo '<p style="font-size: 16px;font-weight: bold;">Help</p>';} endif;?></a>
+    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">安装帮助</p>';}
+    else{echo '<p style="font-size: 16px;font-weight: bold;">Help On Installation</p>';} endif;?></a>
 			 </div>
-			<div style="height:350px;position:absolute;top:230px;left:420px;">
+			<div style="height:350px;position:absolute;top:730px;left:420px;">
 			<font color="red">
 		    <p><?php if(isset($versionerror)) echo $versionerror;?></p>
             <p><?php if(isset($mysqlierror)) echo $mysqlierror;?></p>
@@ -111,43 +111,43 @@
                 </td></tr>
                 <tr><td><?php echo lang('installview_checkpermission') ;?></td>
                 <?php if(isset($configpath)):
-	                if($configwrite)
-	                 { 	  	
-				  	  echo "<tr><td><img src='".$newurl."/assets/images/icn_alert_success.png'/>".$configpath."</td></tr>"; 
-				     }
-				   else
-				   {
-				  	echo  "<tr><td><img src='".$newurl."/assets/images/icn_alert_error.png'/>".$configpath."</tr></td>"; 
-				   }
+                if($configwrite)
+                { 	  	
+                    echo "<tr><td>".$configpath."</td><td><img src='".$newurl."/assets/images/icn_alert_success.png'/></td></tr>"; 
+                }
+                else
+                {
+                    echo  "<tr><td>".$configpath."</td><td><img src='".$newurl."/assets/images/icn_alert_error.png'/></td></tr>"; 
+                }
 			    endif;?>
               <?php if(isset($captchapath)):
                 if($captchwrite)
                 { 			  	
-			  	 echo "<tr><td><img src='".$newurl."/assets/images/icn_alert_success.png'/>".$captchapath."</tr></td>"; 
+			  	 echo "<tr><td>".$captchapath."</td><td><img src='".$newurl."/assets/images/icn_alert_success.png'/></td></tr>"; 
 			    }
 			    else
 			    {
-			  	 echo  "<tr><td><img src='".$newurl."/assets/images/icn_alert_error.png'/>".$captchapath."</tr></td>"; 
+			  	 echo  "<tr><td>".$captchapath."</td><td><img src='".$newurl."/assets/images/icn_alert_error.png'/></td></tr>"; 
 			    } 
 			  endif;?> 
 		       <?php if(isset($assetspath)):
                 if($assetswrite)
 		       {  
-		       	echo "<tr><td><img src='".$newurl."/assets/images/icn_alert_success.png'/>".$assetspath."</td></tr>"; 
+		       	echo "<tr><td>".$assetspath."</td><td><img src='".$newurl."/assets/images/icn_alert_success.png'/></td></tr>"; 
 		       }
 		       else
 		       {
-		       	echo  "<tr><td><img src='".$newurl."/assets/images/icn_alert_error.png'/>".$assetspath."</td></tr>";
+		       	echo  "<tr><td>".$assetspath."</td><td><img src='".$newurl."/assets/images/icn_alert_error.png'/></td></tr>";
 		       }     
               endif;?> 	
                 <?php if(isset($sqlpath)):
                 if($sqlwrite)
 		       {  
-		       	echo "<tr><td><img src='".$newurl."/assets/images/icn_alert_success.png'/>".$sqlpath."</td></tr>"; 
+		       	echo "<tr><td>".$sqlpath."</td><td><img src='".$newurl."/assets/images/icn_alert_success.png'/></td></tr>"; 
 		       }
 		       else
 		       {
-		       	echo  "<tr><td><img src='".$newurl."/assets/images/icn_alert_error.png'/>".$sqlpath."</td></tr>";
+		       	echo  "<tr><td>".$sqlpath."</td><td><img src='".$newurl."/assets/images/icn_alert_error.png'/></td></tr>";
 		       }     
               endif;?> 	               
              </table>
@@ -158,7 +158,7 @@
 		<ul  class="tabs">
 		<div>		
 		<a href='<?php if($phpversion=="true"&&$mysqli=="true"&&$writetrue=="true") {echo $newurl.'/index.php?/install/install/databaseinfo/'.$language;}
-		else{  echo $newurl.'/index.php?/install/install/systemcheck';  } ?>'>
+		else{  echo $newurl.'/index.php?/install/install/systemcheck/'.$language;  } ?>'>
 		<input type="submit" value="<?php echo lang('installview_nextstep') ;?>"></a>
 		</div>
 		</ul>
@@ -168,8 +168,23 @@
 		<div class="spacer"></div>
 	</section>
 
-<div style="position:absolute;top:920px; left:500px">
-<p align="center"> &copy; Copyright 2012 Cobub Razor Solution Verion:0.3 <a href="http://dev.cobub.com/" target="_blank"><?php echo lang('installview_companyname') ;?></a></p></div>
+<div style="position:absolute;top:850px; left:500px">
+<p align="center"> &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
+
+ <a href=" <?php if($language=="zh_CN")
+                       { echo 'http://dev.cobub.com/zh/docs/cobub-razor/release-note/';}
+                                       else{ echo 'http://dev.cobub.com/docs/cobub-razor/release-note/'; } ?>" target="_blank"> Release Notes</a><br/>
+                                           <a href ="
+ <?php if($language=="zh_CN")
+                        { echo 'http://dev.cobub.com/zh/';}
+                                         else{ echo 'http://dev.cobub.com/'; } ?>
+ " target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics                         Solution">Mobile Analytics of Open Source</a>
+
+
+
+
+
+</div>
 
 </body>
 

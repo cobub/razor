@@ -44,6 +44,13 @@ namespace UMSAgent.MyObject
         private string Appkey;
         private string Latitude;
         private string Longitude;
+        private string Userid;
+
+        public string userid
+        {
+            get { return Userid; }
+            set { Userid = value; }
+        }
         
         
         public string platform

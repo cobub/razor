@@ -4,16 +4,16 @@
    version = "1.0">
    <FileBreakpoints>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../UMSAgent/UMSAgent/UMSAgent.m"
-         timestampString = "354532142.612995"
+         timestampString = "391570009.243236"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "336"
-         endingLineNumber = "336"
-         landmarkName = "-getDeviceInfo"
+         startingLineNumber = "339"
+         endingLineNumber = "339"
+         landmarkName = "-saveActivityUsingTime:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -130,7 +130,6 @@ namespace UMSAgent.Common
             allinfo.appkey = UmsManager.appkey;
             string ret = "";
             IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
-
            
             if (settings.Contains("clientdata"))
             {

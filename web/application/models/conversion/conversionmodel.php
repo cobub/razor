@@ -5,17 +5,18 @@ class Conversionmodel extends CI_Model {
 		$this->load->database ();
 	
 	}
-	function getConversionListByProductIdAndUserId($productid, $userid, $fromdate, $todate, $version) {
+	function getConversionListByProductIdAndUserId($productid, $userid, $fromdate, $todate, $version) 
+	{
 		$dwdb = $this->load->database ( 'dw', TRUE );
 		$sql_1 = 'select t.tid,t.unitprice,t.targetname,te.eventalias a1,tee.eventalias a2,te.eventid sid,tee.eventid eid
-from ' . $this->db->dbprefix ( 'target' ) . ' t, ' . $this->db->dbprefix ( 'targetevent' ) . ' te,' . $this->db->dbprefix ( 'targetevent' ) . ' tee
-where t.userid = ? and t.productid = ? and t.tid = te.targetid and t.tid = tee.targetid 
-and te.sequence = 1 and 
-tee.sequence = (select max(sequence) from ' . $this->db->dbprefix ( 'targetevent' ) . '  where targetid = t.tid)  GROUP BY t.tid';
+       from ' . $this->db->dbprefix ( 'target' ) . ' t, ' . $this->db->dbprefix ( 'targetevent' ) . ' te,' . $this->db->dbprefix ( 'targetevent' ) . ' tee
+       where t.userid = ? and t.productid = ? and t.tid = te.targetid and t.tid = tee.targetid 
+       and te.sequence = 1 and 
+       tee.sequence = (select max(sequence) from ' . $this->db->dbprefix ( 'targetevent' ) . '  where targetid = t.tid)  GROUP BY t.tid';
 		$sql_2 = 'select t.event_id,count(*) num,d.datevalue from ' . $dwdb->dbprefix ( 'fact_event' ) . ' e, ' . $dwdb->dbprefix ( 'dim_date' ) . ' d, ' . $dwdb->dbprefix ( 'dim_product' ) . ' p,' . $dwdb->dbprefix ( 'dim_event' ) . ' t where e.event_sk = t.event_sk and 
-e.product_sk = p.product_sk and p.product_id = ?  and 
-e.date_sk = d.date_sk and d.datevalue between \'' . $fromdate . '\' and \'' . $todate . '\' 
-group by e.event_sk,d.datevalue';
+       e.product_sk = p.product_sk and p.product_id = ?  and 
+       e.date_sk = d.date_sk and d.datevalue between \'' . $fromdate . '\' and \'' . $todate . '\' 
+       group by e.event_sk,d.datevalue';
 		$data ['targetdata'] = $this->db->query ( $sql_1, array ($userid,$productid) )->result_array();
 		$data ['eventdata'] = $dwdb->query ( $sql_2, array ($productid))->result_array();
 		return $data;

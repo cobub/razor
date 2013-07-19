@@ -47,7 +47,7 @@ $lang["installview_welcomeintro"] 	=	 " はモバイルアプリ専用のデー�
 $lang["installview_welcomedemand"] 	=	 "次の指示に従ってあなた自身のCobub Razor Systemをインストール、デプロイしてください。";
 //check info
 $lang["installview_check"] 	=	 "システム確認";
-$lang["installview_checkversion"] 	=	 "PHPバージョン：";
+$lang["installview_checkversion"] 	=	 "PHPバージョン(>=5.2.6)：";
 $lang["installview_checkexpand"] 	=	 "MySqli サポート：";
 $lang["installview_checkpermission"] 	=	 "ディレクトリへの書込権限:";
 //database info

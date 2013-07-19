@@ -12,28 +12,17 @@
  * @since		Version 1.0
  * @filesource
  */
-class Activitylog extends CI_Model
-{
-	function Activitylog()
-	{
-		parent::__construct();
-		$this->load->database();
-		$this->load->library('redis');
-	}	
-	
-	function addActivitylog($activitylog)
-	{
-		$data = array(
-			'appkey' => $activitylog->appkey,
-			'session_id'=> $activitylog->session_id,
-			'start_millis'=> $activitylog->start_millis,
-			'end_millis' => $activitylog->end_millis,
-			'activities' => $activitylog->activities,
-			'duration'=>$activitylog->duration,
-			'version'=>isset($activitylog->version)?$activitylog->version:''
-		);
-		$this->redis->lpush("razor_clientusinglogs",serialize($data));
-		$this->processor->process();
-	}
+class Activitylog extends CI_Model {
+    function Activitylog() {
+        parent::__construct();
+        $this -> load -> library('redis');
+    }
+
+    function addActivitylog($activitylog) {
+        $data = array('appkey' => $activitylog -> appkey, 'session_id' => $activitylog -> session_id, 'start_millis' => $activitylog -> start_millis, 'end_millis' => $activitylog -> end_millis, 'activities' => $activitylog -> activities, 'duration' => $activitylog -> duration, 'version' => isset($activitylog -> version) ? $activitylog -> version : '');
+        $this -> redis -> lpush("razor_clientusinglogs", serialize($data));
+        $this -> processor -> process();
+    }
+
 }
 ?>

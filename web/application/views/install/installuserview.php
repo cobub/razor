@@ -53,15 +53,15 @@
 <body>
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title" style="width:70%"><a href="http://www.cobub.com/products/cobub-razor/" target="_blank"><?php echo lang('installview_installheader') ;?></a></h1>			
+	<h1 class="site_title" style="width:70%"><a href="http://dev.cobub.com" target="_blank"><img   class="logo" src="<?php echo $newurl.'/assets/images/razorlogo.png'?>"/><span style="vertical-align: top;"><?php echo lang('installview_installheader') ;?></span></a></h1>			
 		</hgroup>
 	</header> 	
 			<section id="main" class="column" style="width:100%">
 		<article class="module width_full">
 			<header><h3><?php echo lang('installview_websiteheader') ;?></h3></header>
 	<div>			
-    <span id="imgtitle"><a href="http://www.cobub.com/products/cobub-razor/" target="_blank"><img src="<?php if(isset($language)):
-    if($language=="zh_CN"){ echo $newurl.'/assets/images/cobub-razor-logo.png';}
+    <span id="imgtitle"><a href="http://dev.cobub.com" target="_blank"><img src="<?php if(isset($language)):
+    if($language=="zh_CN"){ echo $newurl.'/assets/images/ecobubrazorlogo.png';}
     else{echo $newurl.'/assets/images/ecobubrazorlogo.png';} endif;?>"/></a></span>
      </div>
      <hr style="color:#9FA0A2;" />
@@ -78,8 +78,8 @@
     if($language=="zh_CN"){ echo 'http://dev.cobub.com/zh/docs/cobub-razor/installation-guide/';}
     else{echo 'http://dev.cobub.com/docs/cobub-razor/installation-guide/';} endif;?>" target="_blank">
     <?php if(isset($language)):
-    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">帮助</p>';}
-    else{echo '<p style="font-size: 16px;font-weight: bold;">Help</p>';} endif;?></a>
+    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">安装帮助</p>';}
+    else{echo '<p style="font-size: 16px;font-weight: bold;">Help On Installation</p>';} endif;?></a>
 			 </div>
 			<div style="position:absolute;top:280px;left:420px;">
 			<P align="left" class="STYLE5"><?php echo lang('installview_websiteheader') ;?></P>	
@@ -91,43 +91,43 @@
                 
                  <tr><td><?php echo lang('installview_timezones') ;?></td>
                 <td><select name="webtimezones" id="webtimezones" style="width:160px">
-               <option value="UM12"  >UTC -12:00</option>
-                <option value="UM11" >UTC -11:00</option>
-                 <option value="UM10"  >UTC -10:00</option>
-                <option value="UM95" >UTC -9:30</option>
-                <option value="UM9"  >UTC -9:00</option>
-                <option value="UM8" >UTC -8:00</option>
-                 <option value="UM7"  >UTC -7:00</option>
-                <option value="UM6" >UTC -6:00</option>
-                <option value="UM5"  >UTC -5:00</option>
-                <option value="UM45" >UTC -4:30</option>
-                 <option value="UM4"  >UTC -4:00</option>
-                <option value="UM35" >UTC -3:30</option>
-                <option value="UM3"  >UTC -3:00</option>
-                <option value="UM2" >UTC -2:00</option>
-                 <option value="UM1"  >UTC -1:00</option>
-                <option value="UTC" selected="selected">UTC</option>
-                <option value="UP1"  >UTC +1:00</option>
-                <option value="UP2" >UTC +2:00</option>
-                 <option value="UP3"  >UTC +3:00</option>
-                <option value="UP35" >UTC +3:30</option>
-                <option value="UP4"  >UTC +4:00</option>
-                <option value="UP45" >UTC +4:30</option>
-                 <option value="UP5"  >UTC +5:00</option>
-                <option value="UP55" >UTC +5:30</option>
-                <option value="UP575"  >UTC +5:30</option>
-                <option value="UP6" >UTC +6:00</option>
-                 <option value="UP65"  >UTC +6:30'</option>
-                <option value="UP7" >UTC +7:00</option>
-                <option value="UP8" >UTC +8:00</option>
-                <option value="UP875"  >UTC +8:45</option>
-                <option value="UP9" >UTC +9:00</option>
-                <option value="UP95" >UTC +9:30</option>
-                 <option value="UP10"  >UTC +10:00</option>
-                <option value="UP105" >UTC +10:30</option>
-                <option value="UP11" >UTC +11:00</option>
-                <option value="UP115" >UTC +11:30</option>
-                <option value="UP12"  >UTC +12:00</option>
+               <option value="UM12" <?php if ($webtimezones == 'UM12') echo 'selected="selected"'; ?> >UTC -12:00</option>
+                <option value="UM11" <?php if ($webtimezones == 'UM11') echo 'selected="selected"'; ?>>UTC -11:00</option>
+                 <option value="UM10" <?php if ($webtimezones == 'UM10') echo 'selected="selected"'; ?> >UTC -10:00</option>
+                <option value="UM95" <?php if ($webtimezones == 'UM95') echo 'selected="selected"'; ?>>UTC -9:30</option>
+                <option value="UM9" <?php if ($webtimezones == 'UM9') echo 'selected="selected"'; ?> >UTC -9:00</option>
+                <option value="UM8" <?php if ($webtimezones == 'UM8') echo 'selected="selected"'; ?>>UTC -8:00</option>
+                 <option value="UM7" <?php if ($webtimezones == 'UM7') echo 'selected="selected"'; ?> >UTC -7:00</option>
+                <option value="UM6" <?php if ($webtimezones == 'UM6') echo 'selected="selected"'; ?>>UTC -6:00</option>
+                <option value="UM5" <?php if ($webtimezones == 'UM5') echo 'selected="selected"'; ?> >UTC -5:00</option>
+                <option value="UM45" <?php if ($webtimezones == 'UM45') echo 'selected="selected"'; ?>>UTC -4:30</option>
+                 <option value="UM4" <?php if ($webtimezones == 'UM4') echo 'selected="selected"'; ?> >UTC -4:00</option>
+                <option value="UM35" <?php if ($webtimezones == 'UM35') echo 'selected="selected"'; ?>>UTC -3:30</option>
+                <option value="UM3" <?php if ($webtimezones == 'UM3') echo 'selected="selected"'; ?> >UTC -3:00</option>
+                <option value="UM2" <?php if ($webtimezones == 'UM2') echo 'selected="selected"'; ?>>UTC -2:00</option>
+                 <option value="UM1" <?php if ($webtimezones == 'UM1') echo 'selected="selected"'; ?> >UTC -1:00</option>
+                 <option value="UTC" <?php if ($webtimezones == 'UTC') echo 'selected="selected"'; ?>>UTC</option>
+                <option value="UP1" <?php if ($webtimezones == 'UP1') echo 'selected="selected"'; ?> >UTC +1:00</option>
+                <option value="UP2" <?php if ($webtimezones == 'UP2') echo 'selected="selected"'; ?>>UTC +2:00</option>
+                 <option value="UP3" <?php if ($webtimezones == 'UP3') echo 'selected="selected"'; ?> >UTC +3:00</option>
+                <option value="UP35" <?php if ($webtimezones == 'UP35') echo 'selected="selected"'; ?>>UTC +3:30</option>
+                <option value="UP4" <?php if ($webtimezones == 'UP4') echo 'selected="selected"'; ?> >UTC +4:00</option>
+                <option value="UP45" <?php if ($webtimezones == 'UP45') echo 'selected="selected"'; ?>>UTC +4:30</option>
+                 <option value="UP5" <?php if ($webtimezones == 'UP5') echo 'selected="selected"'; ?> >UTC +5:00</option>
+                <option value="UP55" <?php if ($webtimezones == 'UP55') echo 'selected="selected"'; ?>>UTC +5:30</option>
+                <option value="UP575" <?php if ($webtimezones == 'UP575') echo 'selected="selected"'; ?> >UTC +5:45</option>
+                <option value="UP6" <?php if ($webtimezones == 'UP6') echo 'selected="selected"'; ?>>UTC +6:00</option>
+                 <option value="UP65" <?php if ($webtimezones == 'UP65') echo 'selected="selected"'; ?> >UTC +6:30</option>
+                <option value="UP7" <?php if ($webtimezones == 'UP7') echo 'selected="selected"'; ?>>UTC +7:00</option>
+                <option value="UP8" <?php if ($webtimezones == 'UP8') echo 'selected="selected"'; ?>>UTC +8:00</option>
+                <option value="UP875" <?php if ($webtimezones == 'UP875') echo 'selected="selected"'; ?> >UTC +8:45</option>
+                <option value="UP9" <?php if ($webtimezones == 'UP9') echo 'selected="selected"'; ?>>UTC +9:00</option>
+                <option value="UP95" <?php if ($webtimezones == 'UP95') echo 'selected="selected"'; ?>>UTC +9:30</option>
+                 <option value="UP10" <?php if ($webtimezones == 'UP10') echo 'selected="selected"'; ?> >UTC +10:00</option>
+                <option value="UP105" <?php if ($webtimezones == 'UP105') echo 'selected="selected"'; ?>>UTC +10:30</option>
+                <option value="UP11" <?php if ($webtimezones == 'UP11') echo 'selected="selected"'; ?>>UTC +11:00</option>
+                <option value="UP115" <?php if ($webtimezones == 'UP115') echo 'selected="selected"'; ?>>UTC +11:30</option>
+                <option value="UP12" <?php if ($webtimezones == 'UP12') echo 'selected="selected"'; ?> >UTC +12:00</option>
                 </select></td><td></td></tr>
                              
              	<tr><td><?php echo lang('installview_usersupperaccount') ;?></td><td><input name='superuser' value="<?php echo set_value('superuser'); ?>"></input></td>
@@ -155,8 +155,27 @@
 		<div class="spacer"></div>
 	</section>
 <div style="position:absolute;top:770px; left:500px">
-<p align="center"> &copy; Copyright 2012 Cobub Razor Solution Verion:0.3.1<a href="http://dev.cobub.com/" target="_blank"><?php echo lang('installview_companyname') ;?></a></p></div>
+<p align="center"> &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
+<a href="<?php if ($language=="zh_CN")
+     {echo 'http://dev.cobub.com/zh/docs/cobub-razor/release-note/';}
+     else
+     {echo 'http://dev.cobub.com/docs/cobub-razor/release-note/';}
+ ?>" target="_blank"> Release Notes</a><br/>
+ <a href ="<?php if ($language=="zh_CN")
+     {echo 'http://dev.cobub.com/zh/';}
+     else
+     {echo 'http://dev.cobub.com/';}
+ ?>" target ="_blank" title="Mobile Analytics" 
+ alt="Cobub Razor - Open Source Mobile Analytics Solution">
+ Mobile Analytics of Open Source</a>
 
-</body>
+
+
+
+
+
+
+
+</div>
 
 </html>

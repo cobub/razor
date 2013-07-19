@@ -27,6 +27,7 @@
     NSString *modulename;
     NSString *time;
     NSString *isjailbroken;
+    NSString *userid;
 }
 
 @property (nonatomic,strong) NSString *platform;
@@ -41,5 +42,6 @@
 @property (nonatomic,strong) NSString *modulename;
 @property (nonatomic,strong) NSString *time;
 @property (nonatomic,strong) NSString *isjailbroken;
+@property (nonatomic,strong) NSString *userid;
 
 @end

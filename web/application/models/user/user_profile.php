@@ -22,19 +22,9 @@ class User_profile extends CI_Model
 		
 		function getUserPorfile($uerid)
 		{
-//			$query = $this->db->query("select * from users where id = $uerid");
-//			if($query!=null&&$query->num_rows()>0)
-//			{
-//			  $ret=array(
-//			         'username'=>$query->first_row()->username,
-//			          'email'=>$query->first_row()->email
-//			 );
-//			 return $ret;
-//			}
-        $sql = "select ".$this->db->dbprefix('users').".username,".$this->db->dbprefix('users').".email useremail,".$this->db->dbprefix('user_profiles').".* from ".$this->db->dbprefix('users')."   left join ".$this->db->dbprefix('user_profiles')."  on ".$this->db->dbprefix('user_profiles').".user_id = ".$this->db->dbprefix('users').".id where ".$this->db->dbprefix('users').".id = ".$uerid;
-		$query = $this->db->query($sql);
-		
-		return $query->first_row();
+	        $sql = "select ".$this->db->dbprefix('users').".username,".$this->db->dbprefix('users').".email useremail,".$this->db->dbprefix('user_profiles').".* from ".$this->db->dbprefix('users')."   left join ".$this->db->dbprefix('user_profiles')."  on ".$this->db->dbprefix('user_profiles').".user_id = ".$this->db->dbprefix('users').".id where ".$this->db->dbprefix('users').".id = ".$uerid;
+			$query = $this->db->query($sql);			
+			return $query->first_row();
 		}				
 		function addUserPorfile($userId,$username,$companyname,$contact,$telephone,$QQ,$MSN,$Gtalk)
 		{

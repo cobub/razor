@@ -27,6 +27,7 @@
 @synthesize resolution;
 @synthesize time;
 @synthesize version;
+@synthesize userid;
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -43,6 +44,7 @@
         self.resolution = [aDecoder decodeObjectForKey:@"resolution"];
         self.time = [aDecoder decodeObjectForKey:@"time"];
         self.version = [aDecoder decodeObjectForKey:@"version"];
+        self.userid = [aDecoder decodeObjectForKey:@"userid"];
     }
     return self;
 }
@@ -61,6 +63,7 @@
     [aCoder encodeObject:resolution forKey:@"resolution"];
     [aCoder encodeObject:time forKey:@"time"];
     [aCoder encodeObject:version forKey:@"version"];
+    [aCoder encodeObject:userid forKey:@"userid"];
 }
 
 

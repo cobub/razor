@@ -12,10 +12,8 @@
  * @since		Version 1.0
  * @filesource
  */
-class Userlog extends CI_Model
-{
-	function Userlog()
-	{
+class Userlog extends CI_Model {
+	function Userlog() {
 		parent::__construct();
 		$this->load->database();
 		$this->load->library('redis');
@@ -24,9 +22,8 @@ class Userlog extends CI_Model
 	/*
 	 * Add user log to Redis
 	 */
-	function addUserlog($userlog)
-	{
-		$strArr=explode("\n",$userlog->stacktrace);
+	function addUserlog($userlog) {
+		$strArr = explode("\n", $userlog->stacktrace);
 		if(count($strArr) >= 3)
 		{
 			$title= $strArr[0]."\n".$strArr[1]."\n".$strArr[2];
@@ -47,7 +44,7 @@ class Userlog extends CI_Model
 		    'version'=>isset($userlog->version)?$userlog->version:''
 		
 		);
-		$this->redis->lpush("razor_errors",serialize($data));
+		$this->redis->lpush("razor_errors", serialize($data));
 		$this->processor->process();
 	}
 }

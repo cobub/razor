@@ -129,7 +129,7 @@
 $(document).ready(function() {	
     initPagination();
 	pageselectCallback(0,null);	
-	addreportwidgets();	
+	addreportwidgets();		
 });
 
 function deletereport(deletename)
@@ -349,20 +349,33 @@ function changesectionheight(reportnum)
 {
 	if(reportnum!=0&&reportnum!=-1)
 	{
-		var realheight=1300+500*reportnum;		
-		document.getElementById("main").style.height =''+realheight+'px';			
+		if(reportnum<=2)
+		{
+			var realheight=1300+550*reportnum;				
+			document.getElementById("main").style.height =''+realheight+'px';	
+			document.getElementById("sidebar").style.height =''+realheight+'px';
+		}
+		else
+		{
+			var realheight=1300+500*reportnum;				
+			document.getElementById("main").style.height =''+realheight+'px';
+			document.getElementById("sidebar").style.height =''+realheight+'px';
+		}
+							
 	}
-  else if(reportnum==-1)
+   else if(reportnum==-1)
    {
 	   var cstr=document.getElementById("main").style.height;	  
 	   var clength=cstr.length;	  
 	   var cheight=cstr.substring(0, clength-2);	   
 	   var realheight=parseInt(cheight)+500*reportnum; 
-	   document.getElementById("main").style.height =''+realheight+'px';	 
-   }
+	   document.getElementById("main").style.height =''+realheight+'px';	
+	   document.getElementById("sidebar").style.height =''+realheight+'px'; 
+   }	
 	else
 	{
-		document.getElementById("main").style.height ="1300px" ;	
+		document.getElementById("main").style.height ="1300px" ;
+		document.getElementById("sidebar").style.height ="1300px" ;			
 	}	
 }
 </script>
