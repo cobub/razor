@@ -20,7 +20,6 @@ import java.text.ParseException;
 import java.util.Iterator;
 import java.util.Locale;
 
-import org.apache.http.util.LangUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -654,7 +653,7 @@ public class UmsAgent {
                     sb.append(new String(s, 0, i));
                 }
                 if (CommonUtil.isNetworkAvailable(context)) {
-                    MyMessage message = NetworkUitlity.post(UmsConstants.preUrl
+                    MyMessage message = NetworkUitlity.postCompressed(UmsConstants.preUrl
                             + UmsConstants.uploadUrl, sb + "");
                     if (message.isFlag()) {
                         File file = new File(Environment.getExternalStorageDirectory()

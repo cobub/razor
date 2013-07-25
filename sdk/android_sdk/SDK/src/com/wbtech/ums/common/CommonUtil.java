@@ -17,6 +17,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -37,10 +41,6 @@ import android.util.Log;
 import com.wbtech.ums.dao.SaveInfo;
 import com.wbtech.ums.objects.LatitudeAndLongitude;
 import com.wbtech.ums.objects.SCell;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class CommonUtil {
     
@@ -471,42 +471,75 @@ public class CommonUtil {
    * @return  WIFI or MOBILE
    */
   public static String getNetworkType(Context context){
-      TelephonyManager manager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-    int type=  manager.getNetworkType();
-    String typeString="UNKNOWN";
-    if(type==TelephonyManager.NETWORK_TYPE_CDMA){
-    	typeString ="CDMA";
-    }
-    if(type==TelephonyManager.NETWORK_TYPE_EDGE){
-    	typeString ="EDGE";
-    }
-    if(type==TelephonyManager.NETWORK_TYPE_EVDO_0){
-    	typeString ="EVDO_0";
-    }
-    if(type==TelephonyManager.NETWORK_TYPE_EVDO_A){
-    	typeString ="EVDO_A";
-    }
-    if(type==TelephonyManager.NETWORK_TYPE_GPRS){
-    	typeString ="GPRS";
-    }
-    if(type==TelephonyManager.NETWORK_TYPE_HSDPA){
-    	typeString ="HSDPA";
-    }
-    if(type==TelephonyManager.NETWORK_TYPE_HSPA){
-    	typeString ="HSPA";
-    }
-    if(type==TelephonyManager.NETWORK_TYPE_HSUPA){
-    	typeString ="HSUPA";
-    }
-    if(type==TelephonyManager.NETWORK_TYPE_UMTS){
-    	typeString ="UMTS";
-    }
-    if(type==TelephonyManager.NETWORK_TYPE_UNKNOWN){
-    	typeString ="UNKNOWN";
-    }
-   
-	return typeString;
-  }
+		String typeString = "UNKNOWN";
+		// check if wifi or mobile first
+		final ConnectivityManager connectivityManager = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		final NetworkInfo mobNetInfoActivity = connectivityManager.getActiveNetworkInfo();
+		if (mobNetInfoActivity == null || !mobNetInfoActivity.isAvailable()) {
+			return typeString;
+		}
+
+		int netType = mobNetInfoActivity.getType();
+		if (netType == ConnectivityManager.TYPE_WIFI) {
+			return "wifi";
+		} else if (netType == ConnectivityManager.TYPE_MOBILE) {
+			// for mobile net
+			TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+			int type = manager.getNetworkType();
+
+			switch (type) {
+			case TelephonyManager.NETWORK_TYPE_GPRS:
+				typeString = "GPRS";
+				break;
+			case TelephonyManager.NETWORK_TYPE_EDGE:
+				typeString = "EDGE";
+				break;
+			case TelephonyManager.NETWORK_TYPE_UMTS:
+				typeString = "UMTS";
+				break;
+
+			case TelephonyManager.NETWORK_TYPE_CDMA:
+				typeString = "CDMA";
+				break;
+			case TelephonyManager.NETWORK_TYPE_EVDO_0:
+				typeString = "EVDO rev. 0";
+				break;
+			case TelephonyManager.NETWORK_TYPE_EVDO_A:
+				typeString = "EVDO rev. A";
+				break;
+			case TelephonyManager.NETWORK_TYPE_1xRTT:
+				typeString = "1xRTT";
+				break;
+			case TelephonyManager.NETWORK_TYPE_HSDPA:
+				typeString = "HSDPA";
+				break;
+			case TelephonyManager.NETWORK_TYPE_HSUPA:
+				typeString = "HSUPA";
+				break;
+			case TelephonyManager.NETWORK_TYPE_HSPA:
+				typeString = "HSPA";
+				break;
+			case TelephonyManager.NETWORK_TYPE_IDEN:
+				typeString = "iDen";
+				break;
+			case TelephonyManager.NETWORK_TYPE_EVDO_B:
+				typeString = "EVDO rev. B";
+				break;
+			case TelephonyManager.NETWORK_TYPE_LTE:
+				typeString = "LTE";
+				break;
+			case TelephonyManager.NETWORK_TYPE_EHRPD:
+				typeString = "eHRPD";
+				break;
+			case TelephonyManager.NETWORK_TYPE_HSPAP:
+				typeString = "HSPA+";
+				break;
+			}
+
+		}
+		return typeString;
+	}
   /**
    * Determine the current network type  
    * @param context
