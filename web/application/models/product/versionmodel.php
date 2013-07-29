@@ -99,7 +99,24 @@ class versionmodel extends CI_Model {
 				from ".$dwdb->dbprefix('dim_product')." pp
 				where pp.product_id =$productid and
 				pp.product_active=1 and pp.channel_active=1
-				 and pp.version_active=1 
+				and pp.version_active=1 
+				  and pp.version_name in (select 
+                version_name
+            from
+                (select 
+                sum(startusers), version_name
+            from
+                razor_sum_basic_product_version 
+            where
+               date_sk in (select 
+                        date_sk
+                    from
+                        razor_dim_date 
+                    where
+                        datevalue between '$fromTime' and '$toTime')
+            group by version_name
+            order by sum(startusers) desc
+            limit 10) rs)
 				 group by pp.version_name) p
 				left join (select * from 
 				".$dwdb->dbprefix('sum_basic_product_version')." 
