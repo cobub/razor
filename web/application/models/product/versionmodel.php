@@ -45,11 +45,12 @@ class versionmodel extends CI_Model {
 			and s.product_id = $productId and
 			 p.product_id = s.product_id 
 			 and p.product_active=1 
-			and p.channel_active=1 
+			 and p.channel_active=1
+			 and s.session >0
 			and p.version_active=1 
 			and p.version_name=s.version_name
 			 group by p.version_name) t
-			  right join 
+			  left join 
 			( select distinct pp.version_name
 			 from ".$dwdb->dbprefix('dim_product')." pp 
 			where pp.product_id = $productId
