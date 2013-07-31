@@ -504,7 +504,26 @@ public class CommonUtil {
     if(type==TelephonyManager.NETWORK_TYPE_UNKNOWN){
     	typeString ="UNKNOWN";
     }
-   
+    if(type==TelephonyManager.NETWORK_TYPE_1xRTT){
+        typeString ="1xRTT";
+    }
+    if(type==11){
+        typeString ="iDen";
+    }
+    if(type==12){
+        typeString ="EVDO_B";
+    }
+    if(type==13){
+        typeString ="LTE";
+    }
+    if(type==14){
+        typeString ="eHRPD";
+    }
+    if(type==15){
+        typeString ="HSPA+";
+    }
+    
+    
 	return typeString;
   }
   /**
