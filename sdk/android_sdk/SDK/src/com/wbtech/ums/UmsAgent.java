@@ -136,9 +136,17 @@ public class UmsAgent {
      * @param context
      */
     public static void onError(final Context context) {
-        MyCrashHandler handler = MyCrashHandler.getInstance();
-        handler.init(context.getApplicationContext());
-        Thread.setDefaultUncaughtExceptionHandler(handler);
+        Thread thread = new Thread(new Runnable() {
+            
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                MyCrashHandler handler = MyCrashHandler.getInstance();
+                handler.init(context.getApplicationContext());
+                Thread.setDefaultUncaughtExceptionHandler(handler);
+            }
+        });
+        handler.post(thread);
     }
 
     /**
@@ -748,8 +756,8 @@ public class UmsAgent {
 
             Build bd = new Build();
 
-            clientData.put("modulename", bd.MODEL);
-            clientData.put("devicename", bd.MANUFACTURER + bd.PRODUCT);
+            clientData.put("modulename", bd.PRODUCT);
+            clientData.put("devicename", bd.MANUFACTURER +" "+ bd.MODEL);
             clientData.put("wifimac", wifiManager.getConnectionInfo().getMacAddress());
             clientData.put("havebt", adapter == null ? false : true);
             clientData.put("havewifi", CommonUtil.isWiFiActive(context));
