@@ -51,6 +51,8 @@ class UserEvent extends CI_Model {
                     }
                 }
                 $eventobj = array('event_sk' => $eventsk, 'eventidentifier' => $identifierarray[$i]['eventidentifier'], 'eventname' => $identifierarray[$i]['eventname'], 'count' => $count);
+                $count =  0;
+                $eventsk = 0;
                 array_push($eventresult, $eventobj);
             }
         }
