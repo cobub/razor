@@ -18,7 +18,7 @@ class region extends CI_Controller {
     function __construct() {
         parent::__construct ();
 
-        $default_country = $this->config->item ('default_country');
+        $this->default_country = $this->config->item ('default_country');
         $this->load->helper ( array ('form', 'url' ) );
         $this->load->library ( 'form_validation' );
         $this->load->model ( 'common' );		
@@ -119,7 +119,7 @@ class region extends CI_Controller {
         $currentProduct = $this->common->getCurrentProduct ();
         $fromTime = $this->common->getFromTime();
         $toTime =   $this->common->getToTime();
-        $country = 'China';
+        $country = $this->default_country;
         if(empty($currentProduct)){
             $products = $this->common->getCompareProducts();
             if(empty($products)){
@@ -346,7 +346,7 @@ class region extends CI_Controller {
                 $activedata=$this->region->getactivebycountry($fromTime, $toTime,$products[$m]->id);
                 $newdata=$this->region->getnewbycountry($fromTime, $toTime,$products[$m]->id);		
             }else{
-                $country = 'China';
+                $country = $this->default_country;
                 $activedata=$this->region->getactivebypro($fromTime, $toTime,$products[$m]->id,$country);
                 $newdata=$this->region->getnewbypro($fromTime, $toTime,$products[$m]->id,$country);	
             }
