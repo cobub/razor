@@ -124,11 +124,13 @@ class Archive extends CI_Controller
 		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
 		$timezonestime = date ( 'Y-m-d H:i:m', $timezonestimestamp );
 		$date = date('Y-m-d',strtotime("-1 day", strtotime($timezonestime)));
+		$date2 = date('Y-m-d',strtotime($timezonestime));
 		//run archiveUsinglog
 		$dwdb = $this->load->database('dw',TRUE);
 		$logdate = date('Y-m-d H:i:s',$timezonestimestamp);
 		log_message("debug","ETL archiveUsingLog at $logdate and date = $date");
 		$dwdb->query("call rundaily('$date')");
+		$dwdb->query("call rundailyremain('$date','$date2')");
 		$this->archiveCompareValue($date);
 	}
 	
