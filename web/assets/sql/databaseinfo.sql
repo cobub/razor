@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_clientdata` (
   `city` varchar(50) DEFAULT NULL,
   `street` varchar(500) DEFAULT NULL,
   `streetno` varchar(50) DEFAULT NULL,
-  `postcode` varchar(50) DEFAULT NULL DEFAULT '',
+  `postcode` varchar(50) DEFAULT NULL,
   `network` varchar(128) NOT NULL DEFAULT '1',
   `isjailbroken` int(10) NOT NULL DEFAULT '0',
   `insertdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
