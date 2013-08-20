@@ -1645,5 +1645,285 @@ and a.deviceidentifier=b.deviceidentifier and d.product_id=f.product_id and d.ch
 
 end;
 
+CREATE  PROCEDURE `rundailyremain`(IN `begindate` DATE,IN `enddate` DATE)
+    NO SQL
 
+begin
+
+declare s datetime;
+declare e datetime;
+
+set s = now();
+-- update user count
+-- for all version
+insert into umsinstall_fact_reserveusers_daily (startdate_sk, enddate_sk, product_id,version_name, usercount)
+select 
+(select date_sk from umsinstall_dim_date where datevalue = begindate) startdate_sk ,
+(select date_sk from umsinstall_dim_date where datevalue = enddate) enddate_sk, 
+p.product_id,'all', count(distinct f.deviceidentifier) count from umsinstall_fact_clientdata f, umsinstall_dim_date d, 
+umsinstall_dim_product p where f.date_sk = d.date_sk and d.datevalue = begindate  and f.product_sk = p.product_sk 
+and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 and f.isnew = 1
+group by p.product_id on duplicate key update usercount = values(usercount);
+
+-- for each version
+
+insert into umsinstall_fact_reserveusers_daily (startdate_sk, enddate_sk, product_id, version_name,usercount)
+select 
+(select date_sk from umsinstall_dim_date where datevalue=begindate) startdate_sk ,
+(select date_sk from umsinstall_dim_date where datevalue=enddate) enddate_sk, 
+p.product_id,p.version_name, count(distinct f.deviceidentifier) count from umsinstall_fact_clientdata f, umsinstall_dim_date d,
+umsinstall_dim_product p where f.date_sk = d.date_sk and d.datevalue =begindate  
+and f.product_sk = p.product_sk and p.product_active=1 and p.channel_active=1 and p.version_active=1 and f.isnew=1
+group by p.product_id,p.version_name on duplicate key update usercount=values(usercount);
+
+-- day1
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id,version_name, day1)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue = date_add(begindate,interval -1 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue = date_add(enddate,interval -1 DAY)) enddate,
+p.product_id,'all',
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue >= date_add(begindate,interval -1 DAY) and dd.datevalue < date_add(enddate,interval -1 DAY) and ff.deviceidentifier = f.deviceidentifier and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 and ff.isnew = 1 ) group by p.product_id
+on duplicate key update day1 = values(day1);
+
+-- day2
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id,version_name,  day2)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue = date_add(begindate,interval -2 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue = date_add(enddate,interval -2 DAY)) enddate,
+p.product_id,'all',
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue >= date_add(begindate,interval -2 DAY) and dd.datevalue < date_add(enddate,interval -2 DAY) and ff.deviceidentifier = f.deviceidentifier and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 and ff.isnew = 1) group by p.product_id
+on duplicate key update day2 = values(day2);
+
+-- day3
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id,version_name,day3)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue = date_add(begindate,interval -3 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue = date_add(enddate,interval -3 DAY)) enddate,
+p.product_id,'all',
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue >= date_add(begindate,interval -3 DAY) and dd.datevalue < date_add(enddate,interval -3 DAY) and ff.deviceidentifier = f.deviceidentifier and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 and ff.isnew = 1) group by p.product_id
+on duplicate key update day3 = values(day3);
+
+-- day4
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id,version_name, day4)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue = date_add(begindate,interval -4 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue = date_add(enddate,interval -4 DAY)) enddate,
+p.product_id,'all',
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue >= date_add(begindate,interval -4 DAY) and dd.datevalue < date_add(enddate,interval -4 DAY) and ff.deviceidentifier = f.deviceidentifier and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 and ff.isnew = 1) group by p.product_id
+on duplicate key update day4 = values(day4);
+
+-- day5
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id,version_name, day5)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue = date_add(begindate,interval -5 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue = date_add(enddate,interval -5 DAY)) enddate,
+p.product_id,'all',
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue >= date_add(begindate,interval -5 DAY) and dd.datevalue < date_add(enddate,interval -5 DAY) and ff.deviceidentifier = f.deviceidentifier and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 and ff.isnew = 1) group by p.product_id
+on duplicate key update day5 = values(day5);
+
+-- day6
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id,version_name, day6)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue = date_add(begindate,interval -6 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue = date_add(enddate,interval -6 DAY)) enddate,
+p.product_id,'all',
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue >= date_add(begindate,interval -6 DAY) and dd.datevalue < date_add(enddate,interval -6 DAY) and ff.deviceidentifier = f.deviceidentifier and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 and ff.isnew = 1) group by p.product_id
+on duplicate key update day6 = values(day6);
+
+-- day7
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id,version_name, day7)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue = date_add(begindate,interval -7 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue = date_add(enddate,interval -7 DAY)) enddate,
+p.product_id,'all',
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue >= date_add(begindate,interval -7 DAY) and dd.datevalue < date_add(enddate,interval -7 DAY) and ff.deviceidentifier = f.deviceidentifier and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 and ff.isnew = 1) group by p.product_id
+on duplicate key update day7 = values(day7);
+
+-- day8
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id,version_name, day8)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue = date_add(begindate,interval -8 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue = date_add(enddate,interval -8 DAY)) enddate,
+p.product_id,'all',
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue >= date_add(begindate,interval -8 DAY) and dd.datevalue < date_add(enddate,interval -8 DAY) and ff.deviceidentifier = f.deviceidentifier and pp.product_active = 1 and pp.channel_active = 1 and pp.version_active = 1 and ff.isnew = 1) group by p.product_id
+on duplicate key update day8 = values(day8);
+
+-- By version
+
+-- day1
+
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id, version_name,day1)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue= date_add(begindate,interval -1 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue= date_add(enddate,interval -1 DAY)) enddate,
+p.product_id,p.version_name,
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk 
+and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active=1 
+and p.channel_active=1 and p.version_active=1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where ff.product_sk = pp.product_sk 
+ and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue >= date_add(begindate,interval -1 DAY) 
+ and dd.datevalue < date_add(enddate,interval -1 DAY) and ff.deviceidentifier = f.deviceidentifier and pp.product_active=1 
+ and pp.channel_active=1 and pp.version_active=1 and ff.isnew=1) group by p.product_id,p.version_name
+on duplicate key update day1=values(day1);
+
+-- day2
+
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id,version_name, day2)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue= date_add(begindate,interval -2 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue= date_add(enddate,interval -2 DAY)) enddate,
+p.product_id,p.version_name,
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk 
+and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active=1 and p.channel_active=1 
+and p.version_active=1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where ff.product_sk = pp.product_sk 
+ and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue >= date_add(begindate,interval -2 DAY)
+ and dd.datevalue < date_add(enddate,interval -2 DAY) and ff.deviceidentifier = f.deviceidentifier and pp.product_active=1 and pp.channel_active=1 
+ and pp.version_active=1 and ff.isnew=1) group by p.product_id,p.version_name
+on duplicate key update day2=values(day2);
+
+-- day3
+
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id, version_name,day3)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue= date_add(begindate,interval -3 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue= date_add(enddate,interval -3 DAY)) enddate,
+p.product_id,p.version_name,
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk and 
+f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active=1 and p.channel_active=1 
+and p.version_active=1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd 
+ where ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id 
+ and dd.datevalue >= date_add(begindate,interval -3 DAY) and dd.datevalue < date_add(enddate,interval -3 DAY) 
+ and ff.deviceidentifier = f.deviceidentifier and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1 and ff.isnew=1) 
+ group by p.product_id,p.version_name
+on duplicate key update day3=values(day3);
+
+ -- day4
+ 
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id, version_name,day4)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue= date_add(begindate,interval -4 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue= date_add(enddate,interval -4 DAY)) enddate,
+p.product_id,p.version_name,
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where
+f.date_sk = d.date_sk and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate 
+and p.product_active=1 and p.channel_active=1 and p.version_active=1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where ff.product_sk = pp.product_sk 
+ and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue >= date_add(begindate,interval -4 DAY) 
+ and dd.datevalue < date_add(enddate,interval -4 DAY) and ff.deviceidentifier = f.deviceidentifier and pp.product_active=1 
+ and pp.channel_active=1 and pp.version_active=1 and ff.isnew=1) group by p.product_id,p.version_name
+on duplicate key update day4=values(day4);
+
+ -- day5
+ 
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id, version_name,day5)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue= date_add(begindate,interval -5 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue= date_add(enddate,interval -5 DAY)) enddate,
+p.product_id,p.version_name,
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk 
+and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active=1 and p.channel_active=1 
+and p.version_active=1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd 
+ where ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue 
+ between date_add(begindate,interval -5 DAY) and dd.datevalue < date_add(enddate,interval -5 DAY) and ff.deviceidentifier = f.deviceidentifier 
+ and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1 and ff.isnew=1) group by p.product_id,p.version_name
+on duplicate key update day5=values(day5);
+
+ -- day6
+ 
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id, version_name,day6)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue= date_add(begindate,interval -6 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue= date_add(enddate,interval -6 DAY)) enddate,
+p.product_id,p.version_name,
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk 
+and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active=1 
+and p.channel_active=1 and p.version_active=1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where
+ ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and 
+ dd.datevalue >= date_add(begindate,interval -6 DAY) and dd.datevalue < date_add(enddate,interval -6 DAY) and ff.deviceidentifier = f.deviceidentifier 
+ and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1 and ff.isnew=1) group by p.product_id,p.version_name
+on duplicate key update day6=values(day6);
+
+-- day7
+
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id,version_name, day7)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue= date_add(begindate,interval -7 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue= date_add(enddate,interval -7 DAY)) enddate,
+p.product_id,p.version_name,
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk 
+and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active=1 
+and p.channel_active=1 and p.version_active=1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd 
+ where ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue
+ between date_add(begindate,interval -7 DAY) and dd.datevalue < date_add(enddate,interval -7 DAY) and ff.deviceidentifier = f.deviceidentifier 
+ and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1 and ff.isnew=1) group by p.product_id,p.version_name
+on duplicate key update day7=values(day7);
+
+-- day8
+
+insert into umsinstall_fact_reserveusers_daily(startdate_sk, enddate_sk, product_id, version_name,day8)
+Select 
+(select date_sk from umsinstall_dim_date where datevalue= date_add(begindate,interval -8 DAY)) startdate,
+(select date_sk from umsinstall_dim_date where datevalue= date_add(enddate,interval -8 DAY)) enddate,
+p.product_id,p.version_name,
+count(distinct f.deviceidentifier)
+from 
+umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk 
+and f.product_sk = p.product_sk and d.datevalue >= begindate and d.datevalue < enddate and p.product_active=1 
+and p.channel_active=1 and p.version_active=1 and exists 
+ (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd 
+ where ff.product_sk = pp.product_sk and ff.date_sk = dd.date_sk and pp.product_id = p.product_id 
+ and dd.datevalue >= date_add(begindate,interval -8 DAY) and dd.datevalue < date_add(enddate,interval -8 DAY) 
+ and ff.deviceidentifier = f.deviceidentifier and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1 and ff.isnew=1) 
+ group by p.product_id,p.version_name
+on duplicate key update day8=values(day8);
+
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runweekly','umsinstall_fact_reserveusers_daily',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
+end;
 
