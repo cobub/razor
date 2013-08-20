@@ -85,6 +85,8 @@ class Userremain extends CI_Controller {
 		    $products=$this->common->getCompareProducts();
 			if(count($products)>=2){
 			for($i=0;$i<count($products);$i++){
+				$data['userremainday'][$i]['data']=$this->userremain->getUserRemainCountByDay($version,$products[$i]->id,$from,$to)->result_array();
+				$data['userremainday'][$i]['name']=$products[$i]->name;
 				$data['userremainweek'][$i]['data']=$this->userremain->getUserRemainCountByWeek($version,$products[$i]->id,$from,$to)->result_array();
 				$data['userremainweek'][$i]['name']=$products[$i]->name;
 				$data['userremainmonth'][$i]['data']=$this->userremain->getUserRemainCountByMonth($version,$products[$i]->id,$from,$to)->result_array();
@@ -94,9 +96,11 @@ class Userremain extends CI_Controller {
 		    }else if(!empty($productId)){
 			$productId=$productId->id;
 			$this->common->requireProduct();
-			$procuctversion=$this->userevent->getProductVersions($productId);			
+			$procuctversion=$this->userevent->getProductVersions($productId);	
+			$userremain_d= $this->userremain->getUserRemainCountByDay($version,$productId,$from,$to);
 			$userremain_w= $this->userremain->getUserRemainCountByWeek($version,$productId,$from,$to);
-			$userremain_m= $this->userremain->getUserRemainCountByMonth($version,$productId,$from,$to);			
+			$userremain_m= $this->userremain->getUserRemainCountByMonth($version,$productId,$from,$to);
+			$data['userremainday'] = $userremain_d->result();
 			$data['userremainweek'] = $userremain_w->result();
 			$data['userremainmonth'] = $userremain_m->result();
 			echo json_encode ($data);
