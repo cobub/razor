@@ -322,6 +322,16 @@ $lang['v_rpt_re_count']='数量';
 
 //view---report----user retention
 $lang['v_rpt_ur_retention']='留存';
+$lang['v_rpt_ur_firstUseDay']='首次使用日';
+$lang['v_rpt_ur_one_days']='+1天';
+$lang['v_rpt_ur_two_days']='+2天';
+$lang['v_rpt_ur_three_days']='+3天';
+$lang['v_rpt_ur_four_days']='+4天';
+$lang['v_rpt_ur_five_days']='+5天';
+$lang['v_rpt_ur_six_days']='+6天';
+$lang['v_rpt_ur_seven_days']='+7天';
+$lang['v_rpt_ur_eight_days']='+8天';
+$lang['t_day'] = "日";
 $lang['v_rpt_ur_firstUseWeek']='首次使用周';
 $lang['v_rpt_ur_one_weeks']='+1周';
 $lang['v_rpt_ur_two_weeks']='+2周';
