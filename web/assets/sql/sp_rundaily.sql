@@ -19,6 +19,9 @@ declare e datetime;
 declare single int;
 declare endflag int;
 declare seq int;
+DECLARE col VARCHAR(16); 
+DECLARE days INT; 
+DECLARE d INT; 
 
 declare usinglogcursor cursor
 
@@ -81,7 +84,91 @@ close usinglogcursor;
 set e = now();
 insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
     values('rundaily','umsinstall_sum_accesspath',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+set s = now();
+
+-- generate the count of new users for yesterday
+
+-- for channels, versions
+INSERT INTO umsinstall_sum_reserveusers_daily 
+            (startdate_sk, 
+             enddate_sk, 
+             product_id, 
+             version_name, 
+             channel_name, 
+             usercount) 
+SELECT (SELECT date_sk 
+        FROM   umsinstall_dim_date 
+        WHERE  datevalue = yesterday)     startdate_sk, 
+       (SELECT date_sk 
+        FROM   umsinstall_dim_date 
+        WHERE  datevalue = yesterday)       enddate_sk, 
+       ifnull(p.product_id,-1), 
+       ifnull(p.version_name,'all'),
+       ifnull(p.channel_name,'all'), 
+       Count(DISTINCT f.deviceidentifier) count 
+FROM   umsinstall_fact_clientdata f, 
+       umsinstall_dim_date d, 
+       umsinstall_dim_product p 
+WHERE  f.date_sk = d.date_sk 
+       AND d.datevalue = yesterday 
+       AND f.product_sk = p.product_sk 
+       AND p.product_active = 1 
+       AND p.channel_active = 1 
+       AND p.version_active = 1 
+       AND f.isnew = 1 
+GROUP  BY p.product_id, 
+          p.version_name,
+          p.channel_name with rollup
+ON DUPLICATE KEY UPDATE usercount=VALUES(usercount);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('rundaily','umsinstall_sum_reserveusers_daily new users for app,version,channel dimensions',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
+
+set d = 1;
+while d<=8 do
+  begin
+    set col = concat('day',d);
+
+    set days = -d;
     
+    set s = now();
+    
+    -- 8 days for app,channel, version
+    SET @sql=concat(
+        'insert into umsinstall_sum_reserveusers_daily(startdate_sk, enddate_sk, product_id, version_name,channel_name,',
+        col,
+        ')
+        Select 
+        (select date_sk from umsinstall_dim_date where datevalue= date_add(\'',yesterday,'\',interval ',days,' DAY)) startdate,
+        (select date_sk from umsinstall_dim_date where datevalue= date_add(\'',yesterday,'\',interval ',days,' DAY)) enddate,
+        ifnull(p.product_id,-1),ifnull(p.version_name,\'all\'),ifnull(p.channel_name,\'all\'),
+        count(distinct f.deviceidentifier)
+        from
+        umsinstall_fact_clientdata f, umsinstall_dim_date d, umsinstall_dim_product p where f.date_sk = d.date_sk 
+        and f.product_sk = p.product_sk and d.datevalue = \'',yesterday,'\' and p.product_active=1 
+        and p.channel_active=1 and p.version_active=1 and exists 
+         (select 1 from umsinstall_fact_clientdata ff, umsinstall_dim_product pp, umsinstall_dim_date dd where ff.product_sk = pp.product_sk 
+         and ff.date_sk = dd.date_sk and pp.product_id = p.product_id and dd.datevalue between 
+         date_add(\'',yesterday,'\',interval ',days,' DAY) and 
+         date_add(\'',yesterday,'\',interval ',days,' DAY) and ff.deviceidentifier = f.deviceidentifier and pp.product_active=1 
+         and pp.channel_active=1 and pp.version_active=1 and ff.isnew=1) group by p.product_id,p.version_name,p.channel_name with rollup
+        on duplicate key update ',col,'=values(',col,');');
+        
+    
+    PREPARE sl FROM @sql;
+    EXECUTE sl;
+    DEALLOCATE PREPARE sl;
+    
+    set e = now();
+    insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('rundaily',concat('umsinstall_sum_reserveusers_daily DAY ',-d,' reserve users for app,channel,version dimensions'),s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+    
+    set d = d + 1; 
+  end;
+end while;
+
 set s = now();
 
 insert into umsinstall_sum_accesslevel(product_sk,fromid,toid,level,count)
