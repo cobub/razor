@@ -13,14 +13,13 @@
  * @filesource
  */
 class Userremainmodel extends CI_Model {
-	function __construct() {
-		parent::__construct ();
-	}
-	
-	function getUserRemainCountByWeek($version,$productId,$from,$to, $channel = 'all')
-    {
-        $dwdb = $this->load->database ( 'dw', TRUE );
-        $sql="select date(d1.datevalue) startdate,
+    function __construct() {
+        parent::__construct();
+    }
+
+    function getUserRemainCountByWeek($version, $productId, $from, $to, $channel = 'all') {
+        $dwdb = $this -> load -> database('dw', TRUE);
+        $sql = "select date(d1.datevalue) startdate,
             date(d2.datevalue) enddate,
             f.version_name,
             f.usercount,
@@ -32,9 +31,9 @@ class Userremainmodel extends CI_Model {
             f.week6,
             f.week7,
             f.week8
-            from  ".$dwdb->dbprefix('sum_reserveusers_weekly')."   f,
-                ".$dwdb->dbprefix('dim_date')."    d1,
-                ".$dwdb->dbprefix('dim_date')."    d2
+            from  " . $dwdb -> dbprefix('sum_reserveusers_weekly') . "   f,
+                " . $dwdb -> dbprefix('dim_date') . "    d1,
+                " . $dwdb -> dbprefix('dim_date') . "    d2
                 where  f.startdate_sk = d1.date_sk
                 and f.enddate_sk = d2.date_sk
                 and d1.datevalue >= '$from'
@@ -42,16 +41,45 @@ class Userremainmodel extends CI_Model {
                 and f.product_id = $productId 
                 and f.version_name='$version'
                 and f.channel_name='$channel'
-                order by d1.datevalue;";	  
-        log_message('debug', 'getUserRemainCountByWeek() SQL: '.$sql);
-        $query = $dwdb->query ( $sql );
+                order by d1.datevalue;";
+        log_message('debug', 'getUserRemainCountByWeek() SQL: ' . $sql);
+        $query = $dwdb -> query($sql);
         return $query;
     }
 
-    function getUserRemainCountByMonth($version,$productId,$from,$to, $channel)
-    {
-        $dwdb = $this->load->database ( 'dw', TRUE );
-        $sql="	select date(d1.datevalue) startdate,
+    function getUserRemainCountByDay($version, $productId, $from, $to, $channel = 'all') {
+        $dwdb = $this -> load -> database('dw', TRUE);
+        $sql = "select date(d1.datevalue) startdate,
+			date(d2.datevalue) enddate,
+			f.version_name,
+			f.usercount,
+			    f.day1,
+			       f.day2,
+			       f.day3,
+			       f.day4,
+			       f.day5,
+			       f.day6,
+			       f.day7,
+			       f.day8
+			from  " . $dwdb -> dbprefix('sum_reserveusers_daily') . "   f,
+			     " . $dwdb -> dbprefix('dim_date') . "    d1,
+			     " . $dwdb -> dbprefix('dim_date') . "    d2
+			where  f.startdate_sk = d1.date_sk
+			       and f.enddate_sk = d2.date_sk
+		      and d1.datevalue >= '$from'
+		       and d2.datevalue <= '$to'
+		      and f.product_id = $productId 
+		      and f.version_name='$version'
+		      and f.channel_name='$channel'
+	         order by d1.datevalue;";
+        log_message('debug', 'getUserRemainCountByDay() SQL: ' . $sql);
+        $query = $dwdb -> query($sql);
+        return $query;
+    }
+
+    function getUserRemainCountByMonth($version, $productId, $from, $to, $channel) {
+        $dwdb = $this -> load -> database('dw', TRUE);
+        $sql = "	select date(d1.datevalue) startdate,
             date(d2.datevalue) enddate,
             f.version_name,
             f.usercount,
@@ -63,9 +91,9 @@ class Userremainmodel extends CI_Model {
             f.month6,
             f.month7,
             f.month8
-            from ".$dwdb->dbprefix('sum_reserveusers_monthly')."   f,
-                ".$dwdb->dbprefix('dim_date')."    d1,
-                ".$dwdb->dbprefix('dim_date')."     d2
+            from " . $dwdb -> dbprefix('sum_reserveusers_monthly') . "   f,
+                " . $dwdb -> dbprefix('dim_date') . "    d1,
+                " . $dwdb -> dbprefix('dim_date') . "     d2
                 where  f.startdate_sk = d1.date_sk 
                 and f.enddate_sk = d2.date_sk 
                 and d1.datevalue >= '$from'
@@ -75,9 +103,10 @@ class Userremainmodel extends CI_Model {
                 and f.channel_name = '$channel'
                 order by d1.datevalue;";
 
-        log_message('debug', 'getUserRemainCountByMonth() SQL: '.$sql);
-        $query = $dwdb->query ( $sql );
+        log_message('debug', 'getUserRemainCountByMonth() SQL: ' . $sql);
+        $query = $dwdb -> query($sql);
 
         return $query;
     }
+
 }
