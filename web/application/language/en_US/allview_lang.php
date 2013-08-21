@@ -356,6 +356,16 @@ $lang['v_rpt_re_count']='Count';
 
 //view---report----user retention
 $lang['v_rpt_ur_retention']='Retention';
+$lang['v_rpt_ur_firstUseDay']='First-use Day';
+$lang['v_rpt_ur_one_days']='+1 Day';
+$lang['v_rpt_ur_two_days']='+2 Days';
+$lang['v_rpt_ur_three_days']='+3 Days';
+$lang['v_rpt_ur_four_days']='+4 Days';
+$lang['v_rpt_ur_five_days']='+5 Days';
+$lang['v_rpt_ur_six_days']='+6 Days';
+$lang['v_rpt_ur_seven_days']='+7 Days';
+$lang['v_rpt_ur_eight_days']='+8 Days';
+$lang['t_day'] = "Daily";
 $lang['v_rpt_ur_firstUseWeek']='First-use Week';
 $lang['v_rpt_ur_one_weeks']='+1 Week';
 $lang['v_rpt_ur_two_weeks']='+2 Weeks';
@@ -897,6 +907,7 @@ $lang["v_rpt_realtime_areas_region"] = "Region";
 
 $lang["v_rpt_realtime_transrate_title"] = "Realtime conversions";
 $lang["v_rpt_realtime_event_title"] = "Realtime events";
+
 
 $lang['getui']='Igetui';
 $lang['getuiHomePage'] = 'IgetuiHomePage';
