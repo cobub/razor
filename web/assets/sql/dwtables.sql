@@ -345,14 +345,15 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_launch_daily` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Table Structure of  `fact_reserveusers_weekly`
+-- Table Structure of  `sum_reserveusers_weekly`
 --
-CREATE TABLE IF NOT EXISTS `umsinstall_fact_reserveusers_daily` (
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_reserveusers_daily` (
   `rid` int(11) NOT NULL AUTO_INCREMENT,
   `startdate_sk` int(11) NOT NULL,
   `enddate_sk` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `version_name` varchar(128) NOT NULL,
+  `channel_name` varchar(128) NOT NULL,
   `usercount` int(11) NOT NULL DEFAULT '0',
   `day1` int(11) NOT NULL DEFAULT '0',
   `day2` int(11) NOT NULL DEFAULT '0',
