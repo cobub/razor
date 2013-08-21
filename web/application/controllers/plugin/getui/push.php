@@ -75,6 +75,8 @@ class push extends CI_Controller {
 			// print_r( $resarr);
 			$data['devicelist']=json_encode($resarr);
 			$data['tag'] = $tagvalue;
+			// print_r($data);
+
 			$result=$this->common->curl_post(SERVER_BASE_URL.'/index.php?/push',$data);
 			 // echo $result;
 			if(count($resarr)<500){
@@ -95,6 +97,7 @@ class push extends CI_Controller {
 			// echo $uid;
 			$arr=array(
 				'userid'=>$uid,
+				'productid'=>$productid,
 				'title'=>'push message by getui',
 				'description'=>"send message ".$appcontent,
 				'private'=>1,
@@ -123,6 +126,7 @@ class push extends CI_Controller {
 		$transmissionContentNotify = $_POST['transmissionContentNotify'];
 		$offlined  = $_POST['offlined'];
 		$offlineTime = $_POST['offlineTime'];
+		$productid = $_POST['productid'];
 		$data = array(
 			'appid'=>$appid,
 			'appkey'=>$appkey,
@@ -136,10 +140,37 @@ class push extends CI_Controller {
 			'offlineTime'=>$offlineTime
 			);
 
-		$result=$this->common->curl_post(SERVER_BASE_URL.'/index.php?/push/transmission',$data);
+
+		$flag =true;
+		$i=0;
+
+		while ($flag) {
+			// $devicelist=$this->common->curl_post(site_url()."/Tag/tags/getDeviceidList",$requestdata);
+			$devicelist=$this->tag->getDeviceidList($productid,$tagvalue,$i,500);
+			$resarr = $devicelist->result_array();
+			// echo $a[0]['deviceidentifier'];
+			// print_r( $resarr);
+			$data['devicelist']=json_encode($resarr);
+			$data['tag'] = $tagvalue;
+			// print_r($data);
+
+			$result=$this->common->curl_post(SERVER_BASE_URL.'/index.php?/push/transmission',$data);
+			 // echo $result;
+			if(count($resarr)<500){
+				$flag=false;
+			}
+			$i=$i+1;
+		}
+
+
+
+
+		
+		
 		// $result=$this->common->curl_post('http://localhost/usercenter/index.php?/push/transmission',$data);
-		$result= json_decode ( $result );
-		if ($result->result=='ok') {
+		$result= json_decode ( $result,true );
+		// print_r($result);
+		if ($result['result']=='ok') {
 			$res = array (
 					'flag' => 1,
 					'msg' => 'ok' 
@@ -148,6 +179,7 @@ class push extends CI_Controller {
 			// echo $uid;
 			$arr=array(
 				'userid'=>$uid,
+				'productid'=>$productid,
 				'title'=>'push message by getui',
 				'description'=>"send message ".$transmissionContentNotify,
 				'private'=>1,

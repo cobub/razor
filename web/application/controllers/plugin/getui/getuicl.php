@@ -83,6 +83,7 @@ class getuicl extends CI_Controller {
 
 		// $this->common->cleanCurrentProduct ();
 		$this->data['productid']=$producrid;
+		$this->data['tagvalue']=$tag;
 		$this->data ['appname'] = $appname;
 		$this->data ['appid'] = $appid;
 		$this->data ['userSecret'] = $userSecret;

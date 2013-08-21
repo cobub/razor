@@ -270,14 +270,14 @@ CREATE TABLE IF NOT EXISTS `umsinstall_login_attempts` (
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_markevent` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `id` int(50) NOT NULL auto_increment,
   `userid` int(50) NOT NULL,
-  `productid` int(50) NOT NULL,
+  `productid` int(50) NOT NULL default '-1',
   `title` varchar(45) NOT NULL,
   `description` varchar(128) NOT NULL,
-  `private` tinyint(1) NOT NULL DEFAULT '0',
+  `private` tinyint(1) NOT NULL default '0',
   `marktime` date NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8  AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------

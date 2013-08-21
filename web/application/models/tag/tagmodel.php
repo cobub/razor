@@ -25,8 +25,8 @@ class TagModel extends CI_Model
 		function getDeviceidList($productId,$tags,$pagenum,$size)
 		{
 			$dwdb = $this->load->database ( 'dw', TRUE );
-			$sql = "SELECT distinct deviceidentifier FROM `razor_fact_clientdata` f, 
-					razor_dim_product p , razor_dim_location l 
+			$sql = "SELECT distinct deviceidentifier FROM ".$dwdb->dbprefix('fact_clientdata')."  f, 
+			".$dwdb->dbprefix('dim_product')." p , ".$dwdb->dbprefix('dim_location')." l 
 					where p.product_sk = f.product_sk and l.location_sk = f.location_sk and 
 					p.product_id = ".$productId;
 			

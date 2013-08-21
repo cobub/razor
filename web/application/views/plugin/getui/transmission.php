@@ -93,6 +93,7 @@
 	sendmsg.onclick = function(){
 
 		var tagvalue = document.getElementById('tagvalue').value;
+		var productid = document.getElementById('productid').value;
 		
 		var mastersecret = document.getElementById('mastersecret').value;
 		var appid = document.getElementById('appid').value;
@@ -113,12 +114,18 @@
 		}
 
 		var transmissionContentNotify = document.getElementById('transmissionContentNotify').value;
+		if(transmissionContentNotify==''){
+			document.getElementById('msg').style.display='';
+			document.getElementById('msg').innerHTML="<?php echo '内容不可为空';?>"; 
+			return;
+		}
 		
 			var data = {
 				appid:appid,
 				userKey:userKey,
 				pushUser:is2all,
 				userSecret:userSecret,
+				productid:productid,
 				mastersecret:mastersecret,
 				tagvalue:tagvalue,
 				appkey:appkey,
@@ -132,19 +139,29 @@
 						type : "post",
 						url : "<?php echo site_url()?>/plugin/getui/push/transmission",
 						data : data,
-						success : function(msg) {							    
+						success : function(msg) {							
+							
+							var arr=eval('('+msg+')');
 							  document.getElementById('msg').style.display='';
-							  if(msg.flag!=1){
-							  	document.getElementById('msg').innerHTML="<?php echo lang('push_fail');?>"; 
+							  if(arr.flag!=1){
+							  	//alert(arr.msg);
+							  	document.getElementById('msg').style.display='';
+							  	document.getElementById('msg').innerHTML="<?php echo lang('push_fail');?>"+'  '+arr.msg.result; 
 							  }else{
+							  	document.getElementById('msg').style.display='';
 							  	document.getElementById('msg').innerHTML='<?php echo lang("push_success");?>'; 
-							  }												 
+							  }
+																 
 						},
 						error : function(XmlHttpRequest, textStatus, errorThrown) {
-							alert("<?php echo lang('t_error') ?>");
+							
+							document.getElementById('msg').style.display='';
+							document.getElementById('msg').innerHTML="<?php echo lang('push_fail');?>"; 
+							//alert("<?php echo lang('t_error') ?>");
 						},
 						beforeSend : function() {							
-							
+							document.getElementById('msg').style.display='';
+							document.getElementById('msg').innerHTML="<?php echo '正在推送消息，请稍候...';?>"; 
 						},
 						complete : function() {
 						}
