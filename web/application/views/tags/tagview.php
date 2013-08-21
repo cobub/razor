@@ -313,7 +313,7 @@ $("#btn_submit").click(function()
 	getCurrentTagList();
 	document.getElementById("data_for_submit").value = JSON.stringify(all_tag_list);
 	document.getElementById("product_id").value = product_id;
-	document.getElementById("tag_type").value = product_id;
+	
 
 	var tag_type="all";
 	var name=document.getElementById("select_saved_tags").value;
@@ -327,8 +327,11 @@ $("#btn_submit").click(function()
         $.each(version_tags,function(k,v){
 
             if(jQuery.inArray(v,v_l)==-1)
+            {
+            	alert(k+":"+v);
             	tag_type = "custom";
-        	return;
+        	    return;
+            }
             });
 
         if(tag_type!="custom")
@@ -338,24 +341,30 @@ $("#btn_submit").click(function()
         $.each(channel_tags,function(k,v){
 
             if(jQuery.inArray(v,c_l)==-1)
+            {
+            	alert(k+":"+v);
             	tag_type = "custom";
-        	return;
+        	return;}
             });
         }
         if(tag_type!="custom")
         {
 
         var r_l = $("#tag_region").val().split(","); 
+        
         $.each(region_tags,function(k,v){
 
             if(jQuery.inArray(v,r_l)==-1)
+            {
+                alert(k+":"+v);
             	tag_type = "custom";
+                return;
+            }
             });
 
         }
        
     }
-   // alert(tag_type);
         
     document.getElementById("tag_type").value = tag_type;
 	

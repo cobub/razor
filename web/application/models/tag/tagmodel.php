@@ -94,7 +94,7 @@ class TagModel extends CI_Model
 		function getRegion()
 		{
 			$dwdb = $this->load->database ( 'dw', TRUE );
-			$sql = "select DISTINCT region from  ".$dwdb->dbprefix('dim_location')."";
+			$sql = "select DISTINCT region from  ".$dwdb->dbprefix('dim_location')." where region!=''";
 			
 			$res = $dwdb->query ( $sql );
 			
@@ -117,7 +117,7 @@ class TagModel extends CI_Model
 		function getVersionById($id)
 		{
 			$dwdb = $this->load->database ( 'dw', TRUE );
-			$sql = "select distinct version_name  from  ".$dwdb->dbprefix('dim_product')." where product_id=".$id;
+			$sql = "select distinct version_name  from  ".$dwdb->dbprefix('dim_product')." where product_id=".$id." and version_name!=''";
 				
 			$res = $dwdb->query ( $sql );
 				
@@ -140,7 +140,7 @@ class TagModel extends CI_Model
 		function getChannelById($id)
 		{
 			$dwdb = $this->load->database ( 'dw', TRUE );
-			$sql = "select distinct channel_name  from  ".$dwdb->dbprefix('dim_product')." where product_id=".$id;
+			$sql = "select distinct channel_name  from  ".$dwdb->dbprefix('dim_product')." where product_id=".$id." and channel_name!=''";
 		
 			$res = $dwdb->query ( $sql );
 		
