@@ -104,6 +104,7 @@ $lang['m_cp_newPassword']='New Password';
 $lang['m_cp_saveChanges']='Save Changes';
 $lang['m_termsAndD']="Terms & Definitions";
 $lang['m_myapps']='My Apps';
+$lang['m_plugin']='My plug-in';
 $lang['m_profile']='Profile';
 $lang['m_changePassword']='Change Password';
 $lang['m_resetPassword'] = 'Reset Password';
@@ -121,6 +122,7 @@ $lang['m_resourceManagement']='Resource Management';
 $lang['m_appType']='App Type';
 $lang['m_developerGuide']='Developer Guide';
 $lang['m_openAPIManual']='OpenAPI Manual';
+$lang['m_account_author']='Account Authorization';
 //Menu---Profile
 $lang['m_pr_modifyProfile']='Modify Profile';
 $lang['m_pr_companyName']='Company Name';
@@ -184,6 +186,40 @@ $lang['v_activeUserTrend'] = 'Active Users Trend';
 $lang['v_sessoinsTrend'] = 'Sessions Trend';
 $lang['V_Trendvalue']='Trend value';
 $lang['v_deletreport'] = 'Are you sure to delete?';
+
+// view----applist
+
+$lang['v_getuiPluginsIntroduce']='basic introduction';
+$lang['v_getuiPlugins']='getui plugin';
+$lang['v_appActive']='activate';
+$lang['v_appId']='appId';
+$lang['v_push']='push_notice';
+$lang['v_cleanPush'] = 'transmission_push';
+$lang['v_active']='activate';
+$lang['v_checkKeys'] = 'check keys';
+$lang['v_warningInfo']='can not push before the App is activated';
+$lang['v_userStatus'] ='Current User Status';
+$lang['v_userStatusActive'] ='activated';
+$lang['v_userStatusInactive'] ='forbidden';
+$lang['v_getuiPluginsContent']='A push for third-party applications across mobile platforms consistent and reliable message push a service, service to the client\'s active push messages. Third-party applications can achieve a push for a single destination address, you can also achieve mass message push, you can also specify the tag for targeted groups push. A push in addition to providing basic transparency for third-party messaging, it also provides some news shows, to achieve the client\'s notification prompts bomb box operation, etc., to help customers achieve a more customized quickly push service messages.
+<br />A push plug-in is cobub razor To facilitate the use of a more precise push service provided';
+$lang['v_warning1'] ='Invalid paraments';
+$lang['v_warning2'] ='register App failure';
+$lang['v_warning3'] ='auth failure';
+$lang['v_sdk'] = 'Download SDK';
+$lang['v_integrationGuide'] = 'Integration Manuals';
+$lang['v_userStatusExplain'] = 'Igetui account status will be activated when user first activates an Igetui application. Once insufficient balance,  Igetui account will be converted to inactive status.
+<br /> If you have any questions, please contact: support@cobub.com';
+
+// view ----activate
+
+$lang['v_activateApp']='activate application';
+$lang['v_appName']='application name';
+$lang['v_responseInfo'] ='response information';
+$lang['v_tipPackageName'] = 'must fill in PackageName';
+$lang['v_warningInfo1']='have activated and not to activate again';
+$lang['v_warningInfo3']='activate failure';
+$lang['v_warningInfo4']='offer information uncompletely and activate failure'; 
 // view----user
 
 $lang['v_user_userList']='User List';
@@ -370,6 +406,7 @@ $lang['v_rpt_nw_details']='Details Of Networking';
 
 //view---report----eventlist
 $lang['v_rpt_el_allVersion']='All Versions';
+$lang['v_rpt_el_allChannel']='All Channels';
 $lang['v_rpt_el_Version']='Version';
 $lang['v_rpt_el_eventID']='Event ID';
 $lang['v_rpt_el_eventName']='Event Name';
@@ -780,6 +817,7 @@ $lang['c_network']='Network Statistics';
 $lang['c_funnels']='Funnels';
 $lang['c_erroronos']='Error On OS';
 $lang['c_errorondevice']='Error On Device';
+//$lang['c_pluginlist']='Plugin';
 
 /***************************************widget report name**********************************************/
 $lang['w_savereport']="Report the location to save successfully";
@@ -859,3 +897,106 @@ $lang["v_rpt_realtime_areas_region"] = "Region";
 
 $lang["v_rpt_realtime_transrate_title"] = "Realtime conversions";
 $lang["v_rpt_realtime_event_title"] = "Realtime events";
+
+$lang['getui']='Igetui';
+$lang['getuiHomePage'] = 'IgetuiHomePage';
+$lang['getui_tagerapp']='The tarDownload the applicationget application:';
+$lang['getui_note_title']='Notice title:';
+$lang['getui_note_content']='Notice contents:';
+$lang['getui_after_clicknote']='Follow-up action after click：';
+$lang['getui_startapp']='Start application';
+$lang['getui_opennet']='Open the webpage';
+$lang['getui_downapp']='Download the application';
+$lang['getui_neturl']='Web page address';
+$lang['getui_neturl_note']='Click on the notification to open the destination Web page address';
+$lang['getui_selectuser']='Choose to receive user:';
+$lang['getui_alluser']='All users:';
+$lang['getui_taguser']='Tag user:';
+$lang['getui_platform']='Platform:';
+$lang['getui_set']='Advanced settings';
+$lang['getui_transcontent']='Transparent transmission：';
+$lang['getui_transcontent_note']='Click on notification, the SDK will send the content to your application';
+$lang['getui_transcontent_noteii']='You can enter up to 600 characters';
+$lang['getui_clear']='Notification can clear：';
+$lang['getui_yes']='yes';
+$lang['getui_no']='no';
+$lang['getui_clearnote']='Choose "no" user cannot be cleared after notification, please carefully chosen';
+$lang['getui_v']='Notification by Vibration ';
+$lang['getui_offline']='Offline message：';
+$lang['getui_offlinetime']='Offline time：';
+$lang['getui_hour']='Hours';
+$lang['getui_hour_note']='(Must be an integer between 1-72)';
+$lang['getui_note_logo']='Notification icon：';
+$lang['getui_submit']='Send notification';
+$lang['getui_ring']='Notification by Bell：';
+$lang['getui_appname']='App Name';
+$lang['getui_option']='Option';
+$lang['getui_view']='View the report';
+$lang['getui_applist']='Application list';
+$lang['getui_data']='Getui Data report';
+$lang['getui_newuser']='New Registered Number Report';
+$lang['getui_online']='Online User Number Report';
+$lang['getui_push']='Push Reports';
+$lang['getui_recive']='Receiving Reports';
+$lang['getui_click']='Hits Report';
+$lang['getui_report']='Data report';
+
+/**********************************pluginlist****************************************/
+$lang['plg_userkey']='UserKey*';
+$lang['plg_usersecret']='UserSecret*';
+$lang['plg_save']=' Save ';
+$lang['plg_getkey']='How to Get?';
+$lang['plg_keysecret_error']='UserKey and UserSecret authentication failed, please Re-Enter!';
+$lang['plg_keysecret_success']='UserKey and UserSecret authentication Is Successful!';
+$lang['plg_enter_keysecret']='UserKey and UserSecret can not be Empty!';
+$lang['plg_pluginlist']='Plugin List';
+$lang['plg_myplugins']='My Plugin';
+$lang['plg_usable_plugins']='Available plug-ins';
+$lang['plg_name']='Plugin';
+$lang['plg_status']='PluginStatus';
+$lang['plg_description']='Description';
+$lang['plg_use_instruct']='Instructions For Use';
+$lang['plg_plugin_manage']='Plugin Manager';
+$lang['plg_get_keysecret_home']='You have.';
+$lang['plg_get_keysecret_home1']='You have not';
+$lang['plg_get_keysecret_home2']='Cobub User Center';
+$lang['plg_get_keysecret_home3']='account authorization. Please Sign';
+$lang['plg_get_keysecret_home4']='Cobub User Center';
+$lang['plg_get_keysecret_home5']='in order to use plug-in functionality.';
+$lang['plg_get_keysecret_home6']='How to account authorization?';
+
+$lang['plg_get_keysecret']='You have not Cobub User Center account authorization. Please Sign Cobub User Center in order to use plug-in functionality.';
+$lang['plg_get_keysecret1']='You have not';
+$lang['plg_get_keysecret2']='Cobub User Center';
+$lang['plg_get_keysecret3']='account authorization. Sign ';
+$lang['plg_get_keysecret4']='Cobub User Center';
+$lang['plg_get_keysecret5']='nd obtain an authorization code to complete the account authorization, which is available after';
+$lang['plg_get_keysecret6']='Cobub User Center';
+$lang['plg_get_keysecret7']='offers a wealth of features:';
+$lang['plg_get_keysecret8']='How to account authorization?';
+$lang['plg_get_keysecret9']='(In Cobub Center for authorized users, please return to: Administration -> Account Authorization)!';
+$lang['v_plugins_new_version']='a new version is available.';
+/******************************view report plug**************************************/
+$lang['v_plugins_account']='Account Authorization';
+$lang['v_plugins_userauthen']='Cobub User Center Authentication';
+$lang['v_plugins_version']='Version ';
+$lang['v_plugins_provider']='By';
+$lang['v_plugins_enterkey']='Please Enter KEY';
+$lang['v_plugins_entersecret']='Please Enter SECRET';
+$lang['v_plugins_keyerror']='Enter the UserKey Is Wrong!';
+$lang['v_plugins_secreterror']='Enter the UserSecret Is Wrong!';
+$lang['v_plugins_active']='Enable';
+$lang['v_plugins_forbidden']='Fobidden';
+
+$lang['v_plugins_introduce']='UserKey and UserSecret is Cobub Razor communication between the center and Cobub user keys, the user only after the user center to obtain registration, the user only if the key is authenticated before they can use the system to provide a plug-in functionality.';
+$lang['head_plugin_m']='Plugin manager';
+$lang['push_success']='push message success';
+$lang['push_fail']='push message fail';
+$lang['getui_transmission']='transmission message';
+$lang['v_plugins_introduce1']='UserKey and UserSecret is ';
+$lang['v_plugins_introduce2']='Cobub Razor';
+$lang['v_plugins_introduce3']='communication between the';
+$lang['v_plugins_introduce4']='Cobub User Center';
+$lang['v_plugins_introduce5']='and Cobub user keys, the user only after the user center to obtain registration, the user only if the key is authenticated before they can use the system to provide a plug-in functionality.';
+$lang['getui_report']='Getui report';
+

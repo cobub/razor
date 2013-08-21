@@ -29,6 +29,9 @@
         <link rel="stylesheet"
         href="<?php echo base_url();?>/assets/css/helplayout.css"
         type="text/css" media="screen" />
+        <link rel="stylesheet"
+	href="<?php echo base_url();?>assets/css/bootstrap-tagmanager.css" type="text/css"
+	media="screen" />
         <!--[if lt IE 9]>
         <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ie.css" type="text/css" media="screen" />
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -45,12 +48,30 @@
         type="text/css" media="screen" />
         <script src="<?php echo base_url();?>assets/js/json/json2.js"
         type="text/javascript"></script>
+
+         
+<!-- old version of jQuery --><!-- 
         <script src="<?php echo base_url();?>assets/js/jquery-1.7.1.min.js"
         type="text/javascript"></script>
         <script src="<?php echo base_url();?>assets/js/jquery-ui-1.8.min.js"
         type="text/javascript"></script>
         <script src="<?php echo base_url();?>assets/js/jquery-ui-1.8.16.custom.min.js"
         type="text/javascript"></script>
+         -->
+         
+         <script src="<?php echo base_url();?>assets/js/tag/jquery-1.9.1.js"
+	type="text/javascript"></script>
+
+<script
+	src="<?php echo base_url();?>assets/js/tag/jquery-ui-1.10.3.custom.js"
+	type="text/javascript"></script>
+	
+	<script
+	src="<?php echo base_url();?>assets/js/jquery-1.9-pack.js"
+	type="text/javascript"></script>
+        <script src="<?php echo base_url();?>assets/js/jquery.validate.js"
+        type="text/javascript"></script> 
+        
         <script src="<?php echo base_url();?>assets/js/hideshow.js"
         type="text/javascript"></script>
         <script
@@ -80,6 +101,14 @@
         <script	src="<?php echo base_url();?>assets/js/easydialog/easydialog.min.js"
         type="text/javascript"></script>
         <!-- easydialog -->
+        <script src="<?php echo base_url();?>assets/js/jquery.uploadify.v2.1.4.min.js"
+        type="text/javascript"></script>
+        <script src="<?php echo base_url();?>assets/js/swfobject.js"
+        type="text/javascript"></script>
+        <link href="<?php echo base_url();?>assets/css/uploadify.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url();?>assets/css/default.css" rel="stylesheet" type="text/css" />
+        <script	src="<?php echo base_url();?>assets/js/bootstrap-tagmanager.js"
+type="text/javascript"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 $(".tablesorter").tablesorter();
@@ -268,8 +297,12 @@ if(isset($username)):
             <h3><?php echo lang('m_manage')
             ?></h3>
             <ul class="toggle">
+            
                 <li class="icn_my_application">
                     <?php  echo anchor('/', lang('v_console'));?>
+                </li>
+                 <li class="icn_system">
+                    <?php  echo anchor('/report/console', lang('m_myapps'));?>
                 </li>
                 <?php if(isset($admin)&& !(isset($product))):
                 ?>
@@ -280,7 +313,22 @@ if(isset($username)):
                 <li class="icn_app_channel">
                     <?php  echo anchor('/manage/channel/', lang('m_channelManagement'));?>
                 </li>
+                  <?php if(isset($admin)&& !(isset($product))):
+                ?>
+                <li class="icn_plugin_manage">
+                    <?php  echo anchor('/manage/pluginlist', lang('head_plugin_m'));?>
+                </li>
+                <?php  endif;?>
+                <li class="icn_managerole">
+                    <?php  echo anchor('/manage/accountauth/', lang('m_account_author'));?>
+                </li>
+
             </ul>
+            
+
+            
+            
+           
             <?php  endif;?>
             <?php if(isset($product)):
             ?>
@@ -439,8 +487,48 @@ if(isset($username)):
                     ?>
                 </li>
             </ul>
+
+ <!--plugin show-->
+ 
+            
+             
+             <?php $arr= $this->pluginm->run("getPluginInfo","");
+                    for($i=0;$i<count($arr);$i++){
+                        $identifier= $arr[$i]['identifier']; 
+                         $pluginstatus=$this->plugin->getPluginStatusByIdentifier($identifier);
+                         $uid = $this->common->getUserId();
+                         $isactive = $this->plugin->getUserActive($uid);
+                            if($pluginstatus==1&& $isactive){
+                                // print_r( $arr[$i]['menus']);
+                                $men = $arr[$i]['menus'];
+                                 $menus="<hr/><h3>".$men['title']."</h3><ul class='toggle'>";
+                                for( $j=0;$j<count($men['menus']);$j++){
+                                    // while(list($key,$val)= each($men['menus'][$i])){
+                                    if($men['menus'][$j]['level1']){
+                                         $menus = $menus. "<li class='icn_my_application'><a href='".site_url () .$men['menus'][$j]['link']."'class='colorMediumBlue bold spanHover'>".$men['menus'][$j]['name']."</a></li>";
+                                    }
+                                       
+                                // }
+                                }
+
+                                $menus = $menus."</ul>";
+                                echo $menus;
+                            }
+                            
+                    }
+                ?>
+
+            <!-- end  plugin-->
+
+
+            
             <?php endif;
             ?>
+
+
+            
+
+
             <ul>
                 <hr/>
                 <br/>

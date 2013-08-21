@@ -112,7 +112,7 @@ function addRole() {
 		jQuery
 				.ajax({
 					type : "post",
-					url : "<?php echo base_url()?>/index.php?/user/addRole",
+					url : "<?php echo base_url()?>/index.php/user/addRole",
 					data : data,
 					success : function(msg) {
 						if(!msg){

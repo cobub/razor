@@ -63,6 +63,36 @@ class ChannelModel extends CI_Model
 			}
 			return null;
 		}
+
+        /**
+         * @function getChannelName: Get channel name by id
+         * @para $channel_id
+         * @author jianghe.cao
+         */
+        function getChannelName($channel_id) {
+            $this->db->from($this->db->dbprefix('channel'));
+            $this->db->where('channel_id', $channel_id);
+            $query = $this->db->get();
+            if ($query->num_rows() > 0) {
+                return $query->row()->channel_name;
+            } else {
+                return '';
+            }
+        }
+
+        /**
+         * @function getChannelList
+         * @author jianghe.cao
+         */
+        function getChannelList($product_id) {
+            $dwdb = $this->load->database('dw', true);
+            $sql = 'select distinct channel_name from '.$dwdb->dbprefix('dim_product')
+                .' where product_active=1 and channel_active=1 and version_active=1'
+                .' and product_id='.$product_id.' order by channel_name asc';
+            $query = $dwdb->query($sql);
+            return $query->result();
+        }
+
 		function isUniqueChannel($userid,$channelname,$platform)
 		{
 			$sql = 'select * from '.$this->db->dbprefix('channel').' 

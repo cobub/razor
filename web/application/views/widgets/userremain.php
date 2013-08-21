@@ -17,7 +17,20 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
 	  </div>		
 	<h3 class="h3_fontstyle">        
 		<?php echo  lang('v_rpt_ur_retention')?></h3>
-		<select id="selectversion" name="selectversion" onchange='changeversion(value)'  style="position:relative;top:5px;display: none;<?php //if(!isset($show_version)){echo 'inline';}else{echo 'none';}?>">
+        <div class='submit_link'>
+		<select id="selectchannel" name="selectchannel" onchange='changeversionorchannel(selectversion.value, selectchannel.value)'>
+			
+			<option value="all" selected><?php echo lang('v_rpt_el_allChannel') ; ?></opton>			
+			<?php if(isset($product_channels)) 
+			{
+				foreach ($product_channels as $row)
+				{?>
+				<option value="<?php echo $row->channel_name; ?>"><?php echo $row->channel_name; ?></option>	
+			<?php 	}
+			}?>
+			
+		</select>
+		<select id="selectversion" name="selectversion" onchange='changeversionorchannel(selectversion.value, selectchannel.value)'>
 			
 			<option value="all" selected><?php echo lang('v_rpt_el_allVersion') ; ?></opton>			
 			<?php if(isset($productversion)) 
@@ -29,6 +42,8 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
 			}?>
 			
 		</select>
+        </div>
+
 			<div class="submit_link">
 			<ul class="tabs2" style="position:relative;top:-5px;">				
 				<li><a id="week" href="#tab1"><?php echo  lang('t_week')?></a></li>
@@ -116,10 +131,14 @@ $("ul.tabs2 li").click(function() {
 function pageselectweekCallback(page_index, jq){			
 	page_index = arguments[0] ? arguments[0] : "0";
 	jq = arguments[1] ? arguments[1] : "0";   
-	var index = page_index*7;
-	var pagenum = 7;	
+	var index = page_index*9;
+	var pagenum = 9;	
 	var weektr = "";	
-	for(i=0;i<pagenum && (index+i)<weekuserdata.length ;i++)
+    if (index+pagenum >= weekuserdata.length)
+    {
+        pagenum = weekuserdata.length % pagenum;
+    }
+	for(i=pagenum-1;i>=0 && (index+i)<weekuserdata.length ;i--)
 	{ 
 		var start = weekuserdata[i+index].startdate;
 		var end   = weekuserdata[i+index].enddate;
@@ -154,10 +173,14 @@ function pageselectweekCallback(page_index, jq){
 function pageselectmonthCallback(page_index, jq){			
 	page_index = arguments[0] ? arguments[0] : "0";
 	jq = arguments[1] ? arguments[1] : "0";   
-	var index = page_index*7;
-	var pagenum = 7;	
+	var index = page_index*9;
+	var pagenum = 9;	
 	var monthtr = "";
-	for(j=0;j<pagenum && (index+j)<monthuserdata.length ;j++)
+    if (index+pagenum >= monthuserdata.length)
+    {
+        pagenum = monthuserdata.length % pagenum;
+    }
+	for(j=pagenum-1;j>=0 && (index+j)<monthuserdata.length ;j--)
 	{
 		var start = monthuserdata[j+index].startdate;				
 		var end   = monthuserdata[j+index].enddate;
@@ -192,7 +215,7 @@ function pageselectmonthCallback(page_index, jq){
 * Callback function for the AJAX content loader.
  */
 function weekinitPagination() {
-  var num_entries = (weekuserdata.length)/7;
+  var num_entries = (weekuserdata.length)/9;
   // Create pagination element
   $("#weekpage").pagination(num_entries, {
      num_edge_entries: 2,
@@ -205,7 +228,7 @@ function weekinitPagination() {
  }
 
 function monthinitPagination() {
-	  var num_entries = (monthuserdata.length)/7;
+	  var num_entries = (monthuserdata.length)/9;
 	  // Create pagination element
 	  $("#monthpage").pagination(num_entries, {
 	     num_edge_entries: 2,
@@ -307,16 +330,16 @@ function renderUserData(myurl)
 		return false;
 		});  
 }
- function changeversion(value)
+ function changeversionorchannel(version, channel)
  {   
-	 type=value;	 
-	 var userurl  = "<?php echo site_url();?>/report/userremain/getUserRemainweekMonthData/"+type;
+	 var userurl  = "<?php echo site_url();?>/report/userremain/getUserRemainweekMonthData/" + version + "/" + channel;
 	 renderUserData(userurl);
  }
+
  var weekMaxlength=0;
  var weekStart=0;
  var weekpageindex=0;
- var pagesize=7;
+ var pagesize=9;
  //compare week data
  function CompareWeekData(){
 	 var weektr="";
@@ -477,23 +500,23 @@ function initWeekPagination() {
     // Create pagination element
     $("#weekpage").pagination(weeknum_enteries, {
         num_edge_entries: 2,
-        prev_text: '<?php echo lang('g_previousPage') ?>',       //上一页按钮里text 
-        next_text: '<?php echo lang('g_nextPage') ?>',       //下一页按钮里text            
-        num_display_entries: 4,
-        callback: weekpageselectCallback,
-        items_per_page:1
+            prev_text: '<?php echo lang('g_previousPage') ?>',       //上一页按钮里text 
+            next_text: '<?php echo lang('g_nextPage') ?>',       //下一页按钮里text            
+            num_display_entries: 4,
+            callback: weekpageselectCallback,
+            items_per_page:1
     });
- }
- function initMonthPagination(){
-	 var monthnum_entries = Math.ceil(monthMaxlength/pagesize);
-	  $("#monthpage").pagination(monthnum_entries, {
-	        num_edge_entries: 2,
-	        prev_text: '<?php echo lang('g_previousPage') ?>',       //上一页按钮里text 
-	        next_text: '<?php echo lang('g_nextPage') ?>',       //下一页按钮里text            
-	        num_display_entries: 4,
-	        callback: monthpageselectCallback,
-	        items_per_page:1
-	    });
+}
+function initMonthPagination(){
+    var monthnum_entries = Math.ceil(monthMaxlength/pagesize);
+    $("#monthpage").pagination(monthnum_entries, {
+        num_edge_entries: 2,
+            prev_text: '<?php echo lang('g_previousPage') ?>',       //上一页按钮里text 
+            next_text: '<?php echo lang('g_nextPage') ?>',       //下一页按钮里text            
+            num_display_entries: 4,
+            callback: monthpageselectCallback,
+            items_per_page:1
+    });
 }
 function weekpageselectCallback(page_index, jq){
 	weekpageindex=page_index;

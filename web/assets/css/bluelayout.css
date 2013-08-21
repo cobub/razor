@@ -492,6 +492,12 @@ background: url(../images/img/icn_categories.png) no-repeat center left;
 #sidebar li.icn_sendpolicy a {
 background: url(../images/img/icn_sendpolicy.png) no-repeat center left;
 }
+#sidebar li.icn_tag a {
+background: url(../images/img/icn_tag.png) no-repeat center left;
+}
+#sidebar li.icn_plugin_manage a {
+background: url(../images/img/icn_plugin_manage.png) no-repeat center left;
+}
 #sidebar p {
 color: #666666;
 padding-left: 6%;

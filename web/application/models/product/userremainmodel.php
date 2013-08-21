@@ -17,66 +17,67 @@ class Userremainmodel extends CI_Model {
 		parent::__construct ();
 	}
 	
-	function getUserRemainCountByWeek($version,$productId,$from,$to)
-	{
-	      $dwdb = $this->load->database ( 'dw', TRUE );
-	    $sql="select date(d1.datevalue) startdate,
-			date(d2.datevalue) enddate,
-			f.version_name,
-			f.usercount,
-			    f.week1,
-			       f.week2,
-			       f.week3,
-			       f.week4,
-			       f.week5,
-			       f.week6,
-			       f.week7,
-			       f.week8
-			from  ".$dwdb->dbprefix('fact_reserveusers_weekly')."   f,
-			     ".$dwdb->dbprefix('dim_date')."    d1,
-			     ".$dwdb->dbprefix('dim_date')."    d2
-			where  f.startdate_sk = d1.date_sk
-			       and f.enddate_sk = d2.date_sk
-		      and d1.datevalue >= '$from'
-		       and d2.datevalue <= '$to'
-		      and f.product_id = $productId 
-		      and f.version_name='$version'
-	         order by d1.datevalue;";	  
-	    $query = $dwdb->query ( $sql );
-	    return $query;
-	}
-	
-    function getUserRemainCountByMonth($version,$productId,$from,$to)
-	{
-$dwdb = $this->load->database ( 'dw', TRUE );
-	    $sql="	select date(d1.datevalue) startdate,
-				date(d2.datevalue) enddate,
-				f.version_name,
-				f.usercount,
-				    f.month1,
-				       f. month2,
-				       f.month3,
-				       f.month4,
-				       f.month5,
-				       f.month6,
-				       f.month7,
-				       f.month8
-				from ".$dwdb->dbprefix('fact_reserveusers_monthly')."   f,
-				     ".$dwdb->dbprefix('dim_date')."    d1,
-				    ".$dwdb->dbprefix('dim_date')."     d2
-				where  f.startdate_sk = d1.date_sk 
-				and f.enddate_sk = d2.date_sk 
-	             and d1.datevalue >= '$from'
-			      and d2.datevalue <= '$to'
-			      and f.product_id = $productId
-			      and f.version_name = '$version'
-					order by d1.datevalue;";
+	function getUserRemainCountByWeek($version,$productId,$from,$to, $channel = 'all')
+    {
+        $dwdb = $this->load->database ( 'dw', TRUE );
+        $sql="select date(d1.datevalue) startdate,
+            date(d2.datevalue) enddate,
+            f.version_name,
+            f.usercount,
+            f.week1,
+            f.week2,
+            f.week3,
+            f.week4,
+            f.week5,
+            f.week6,
+            f.week7,
+            f.week8
+            from  ".$dwdb->dbprefix('sum_reserveusers_weekly')."   f,
+                ".$dwdb->dbprefix('dim_date')."    d1,
+                ".$dwdb->dbprefix('dim_date')."    d2
+                where  f.startdate_sk = d1.date_sk
+                and f.enddate_sk = d2.date_sk
+                and d1.datevalue >= '$from'
+                and d2.datevalue <= '$to'
+                and f.product_id = $productId 
+                and f.version_name='$version'
+                and f.channel_name='$channel'
+                order by d1.datevalue;";	  
+        log_message('debug', 'getUserRemainCountByWeek() SQL: '.$sql);
+        $query = $dwdb->query ( $sql );
+        return $query;
+    }
 
-	    $query = $dwdb->query ( $sql );
-	    
-	    return $query;
-	}
+    function getUserRemainCountByMonth($version,$productId,$from,$to, $channel)
+    {
+        $dwdb = $this->load->database ( 'dw', TRUE );
+        $sql="	select date(d1.datevalue) startdate,
+            date(d2.datevalue) enddate,
+            f.version_name,
+            f.usercount,
+            f.month1,
+            f. month2,
+            f.month3,
+            f.month4,
+            f.month5,
+            f.month6,
+            f.month7,
+            f.month8
+            from ".$dwdb->dbprefix('sum_reserveusers_monthly')."   f,
+                ".$dwdb->dbprefix('dim_date')."    d1,
+                ".$dwdb->dbprefix('dim_date')."     d2
+                where  f.startdate_sk = d1.date_sk 
+                and f.enddate_sk = d2.date_sk 
+                and d1.datevalue >= '$from'
+                and d2.datevalue <= '$to'
+                and f.product_id = $productId
+                and f.version_name = '$version'
+                and f.channel_name = '$channel'
+                order by d1.datevalue;";
 
-	
-	
+        log_message('debug', 'getUserRemainCountByMonth() SQL: '.$sql);
+        $query = $dwdb->query ( $sql );
+
+        return $query;
+    }
 }

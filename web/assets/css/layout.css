@@ -506,6 +506,12 @@ background: url(../images/img/icn_categories.png) no-repeat center left;
 #sidebar li.icn_sendpolicy a {
 background: url(../images/img/icn_sendpolicy.png) no-repeat center left;
 }
+#sidebar li.icn_tag a {
+background: url(../images/img/icn_tag.png) no-repeat center left;
+}
+#sidebar li.icn_plugin_manage a {
+background: url(../images/img/icn_plugin_manage.png) no-repeat center left;
+}
 #sidebar p {
 color: #666666;
 padding-left: 6%;
@@ -1116,6 +1122,28 @@ cursor: pointer;
 }
 
 input[type=submit].alt_btn:hover {
+color: #001217;
+}
+
+
+input[type=button].alt_btn_new {
+background: #D0D1D4 url(../images/btn_submit_2.png) repeat-x;
+border: 1px solid#30B0C8;
+-webkit-box-shadow: 0 1px 0 #fff;
+-moz-box-shadow: 0 1px 0 #fff;
+box-shadow: 0 1px 0 #fff;
+font-weight: bold;
+height: 22px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+padding: 0 10px;
+color: #003E49;
+text-shadow: 0 1px 0 #6CDCF9;
+cursor: pointer;
+}
+
+input[type=button].alt_btn_new:hover {
 color: #001217;
 }
 

@@ -157,8 +157,8 @@
 		<footer>
 		<ul  class="tabs">
 		<div>		
-		<a href='<?php if($phpversion=="true"&&$mysqli=="true"&&$writetrue=="true") {echo $newurl.'/index.php?/install/install/databaseinfo/'.$language;}
-		else{  echo $newurl.'/index.php?/install/install/systemcheck/'.$language;  } ?>'>
+		<a href='<?php if($phpversion=="true"&&$mysqli=="true"&&$writetrue=="true") {echo $newurl.'/index.php?/install/installation/databaseinfo/'.$language;}
+		else{  echo $newurl.'/index.php?/install/installation/systemcheck/'.$language;  } ?>'>
 		<input type="submit" value="<?php echo lang('installview_nextstep') ;?>"></a>
 		</div>
 		</ul>
@@ -173,12 +173,21 @@
 
  <a href=" <?php if($language=="zh_CN")
                        { echo 'http://dev.cobub.com/zh/docs/cobub-razor/release-note/';}
-                                       else{ echo 'http://dev.cobub.com/docs/cobub-razor/release-note/'; } ?>" target="_blank"> Release Notes</a><br/>
+               else{ echo 'http://dev.cobub.com/docs/cobub-razor/release-note/'; } ?>" target="_blank"><?php
+                            if ($language == "zh_CN") {
+                                echo '发布说明';}
+                            else {
+                                echo 'Release Note';} ?></a><br/>
                                            <a href ="
  <?php if($language=="zh_CN")
                         { echo 'http://dev.cobub.com/zh/';}
                                          else{ echo 'http://dev.cobub.com/'; } ?>
- " target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics                         Solution">Mobile Analytics of Open Source</a>
+                                             " target ="_blank" title="<?php if ($language == 'zh_CN') {echo '移动应用分析';}
+                else {echo 'Mobile Analytic';}?>" 
+                    alt="Cobub Razor - Open Source Mobile Analytics                         Solution"><?php if ($language == "zh_CN") {
+                            echo '开源移动应用分析';}
+                        else {
+                            echo 'Mobile Analytics of Open Source';}?></a>
 
 
 

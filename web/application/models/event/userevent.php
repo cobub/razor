@@ -136,7 +136,7 @@ class UserEvent extends CI_Model {
         $sql = "select distinct version_name from  " . $dwdb -> dbprefix('dim_product') . "  where 
 	   product_active=1 and channel_active=1 and version_active=1 
 	   and product_id=$productid order by version_name desc";
-        $query = $dwdb -> query($sql);
+        $query = $dwdb->query($sql);
         return $query;
     }
 

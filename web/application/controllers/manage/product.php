@@ -75,7 +75,8 @@ class Product extends CI_Controller {
             $category = $this -> input -> post('category');
             $description = $this -> input -> post('description');
             $key = $this -> product -> addProduct($userId, $appname, $channel, $platform, $category, $description);
-            $this -> common -> show_message(lang('v_man_au_addSuccess') . ",AppKey:$key," . anchor('/', lang('v_man_pr_submitSuccessReturn')));
+            $this -> common -> show_message(lang('v_man_au_addSuccess') . ",AppKey:$key," . anchor('/report/console', lang('v_man_pr_submitSuccessReturn')));
+            
         } else {
             $this -> data['platform'] = $this -> channel -> getplatform();
             $this -> data['category'] = $this -> product -> getProductCategory();
@@ -83,7 +84,7 @@ class Product extends CI_Controller {
             $this -> data['selectchannel'] = $this -> input -> post('channel');
             $this -> data['selectcategory'] = $this -> input -> post('category');
             $this -> data['description'] = $this -> input -> post('description');
-            $this -> load -> view('manage/createproduct', $this -> data);
+            $this -> load -> view('manage/createproduct', $this -> data); 
         }
     }
 
@@ -121,7 +122,7 @@ class Product extends CI_Controller {
                 $category = $this -> input -> post('category');
                 $description = $this -> input -> post('description');
                 $this -> product -> updateproduct($appname, $category, $description, $product_id, $productkey);
-                $this -> common -> show_message(lang('v_man_au_editSuccess') . anchor('/', lang('v_man_pr_submitSuccessReturn')));
+                $this -> common -> show_message(lang('v_man_au_editSuccess') . anchor('/report/console', lang('v_man_pr_submitSuccessReturn')));
             } else {
                 $this -> data['product'] = $this -> product -> getproductinfo($product_id);
                 $this -> data['selectcategory'] = $this -> input -> post('category');

@@ -29,24 +29,38 @@ $language = $this->config->item('language');
 			<article class="stats_overview width_full">
 			
 					<p class="overview_day"><?php echo  lang('v_totalUsers')?></p>
+					<p style="height:8px;"><br /></p>
 					<p class="overview_count"><?php echo isset($today_totaluser)?$today_totaluser:0;?></p>
+					<p style="height:6px;"><br /></p>
 					<hr>
-					<div class="overview_today">
+					<div class="overview_today" >
 						<p class="overview_day"><?php echo  lang('g_today')?></p>
+						<p style="height:8px;"><br /></p>
 						<p class="overview_count"><?php echo isset($today_newuser)?$today_newuser:0;?></p>
+						<p style="height:6px;"><br /></p>
 						<p class="overview_type"><?php echo  lang('t_newUsers')?></p>
+						<p  style="height:8px;"><br /></p>
 						<p class="overview_count"><?php echo isset($today_startuser)?$today_startuser:0;?></p>
+						<p style="height:6px;"><br /></p>
 						<p class="overview_type"><?php echo  lang('t_activeUsers')?></p>
+						<p  style="height:8px;"><br /></p>
 						<p class="overview_count"><?php echo isset($today_startcount)?$today_startcount:0;?></p>
+						<p style="height:6px;"><br /></p>
 						<p class="overview_type"><?php echo  lang('t_sessions')?></p>
 					</div>
 					<div class="overview_previous">
 						<p class="overview_day"><?php echo  lang('g_yesterday')?></p>
+						<p style="height:8px;"><br /></p>
 						<p class="overview_count"><?php echo isset($yestoday_newuser)?$yestoday_newuser:0;?></p>
+						<p style="height:6px;"><br /></p>
 						<p class="overview_type"><?php echo  lang('t_newUsers')?></p>
+						<p style="height:8px;"><br /></p>
 						<p class="overview_count"><?php echo isset($yestoday_startuser)?$yestoday_startuser:0;?></p>
+						<p style="height:6px;"><br /></p>
 						<p class="overview_type"><?php echo  lang('t_activeUsers')?></p>
+						<p style="height:8px;"><br /></p>
 						<p class="overview_count"><?php echo isset($yestoday_startcount)?$yestoday_startcount:0;?></p>
+						<p style="height:6px;"><br /></p>
 						<p class="overview_type"><?php echo  lang('t_sessions')?></p>
 					</div>
 					

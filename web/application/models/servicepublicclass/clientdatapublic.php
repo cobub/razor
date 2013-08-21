@@ -52,7 +52,7 @@ class clientdatapublic extends CI_Model {
         $this -> network = isset($content -> network) ? $content -> network : '';
         $this -> latitude = isset($content -> latitude) ? $content -> latitude : '';
         $this -> longitude = isset($content -> longitude) ? $content -> longitude : '';
-        $this -> isjailbroken = isset($content -> isjailbroken) ? $content -> isjailbroken : '';
+        $this -> isjailbroken = isset($content -> isjailbroken) ? $content -> isjailbroken : 0;
         $this -> userid = isset($content -> userid) ? $content -> userid : '';
         $this -> time = isset($content -> time) ? $content -> time : '';
         $this -> mccmnc = isset($content -> mccmnc) ? $content -> mccmnc : '';

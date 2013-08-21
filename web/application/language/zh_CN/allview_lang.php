@@ -104,6 +104,7 @@ $lang['m_cp_newPassword']='新密码';
 $lang['m_cp_saveChanges']='保存';
 $lang['m_termsAndD']="术语和定义";
 $lang['m_myapps']='我的应用';
+$lang['m_plugin']='我的插件';
 $lang['m_profile']='个人资料';
 $lang['m_changePassword']='修改密码';
 $lang['m_resetPassword'] = '重置密码';
@@ -121,6 +122,7 @@ $lang['m_resourceManagement']='资源管理';
 $lang['m_appType']='添加类型';
 $lang['m_developerGuide']='开发者指南';
 $lang['m_openAPIManual']='OpenAPI 手册';
+$lang['m_account_author']='账户授权';
 
 //Menu---Profile
 $lang['m_pr_modifyProfile']='修改个人资料';
@@ -186,6 +188,48 @@ $lang['v_activeUserTrend'] = '活跃用户趋势';
 $lang['v_sessoinsTrend'] = '启动次数趋势';
 $lang['V_Trendvalue']='趋势值';
 $lang['v_deletreport'] = '确定要删除吗？';
+
+// view----applist
+
+$lang['v_basicIntroduce']='基本介绍';
+$lang['v_appList']='应用列表';
+$lang['v_appActive']='应用激活';
+$lang['v_appId']='个推Appid';
+$lang['v_getuiPluginsContent']='个推插件是cobub razor为了方便用户更加精准的使用个推服务而提供的,它可以为第三方应用提供跨手机平台的
+一致的、稳定可靠的消息推送服务，实现服务端到客户端的消息主动推送。第三方应用既可以实现针对单一目标
+地址的推送，也可以实现群发消息推送，还可以通过指定tag进行定向群组推送。个推插件除了为第三方提供
+基本的透传消息推送服务，还提供了一些消息展示方式，实现在客户端的通知提示、弹框操作等，帮助客户快速实现
+更为定制化的消息推送服务。';
+$lang['v_push']='推送通知';
+$lang['v_cleanPush'] = '透传推送';
+$lang['v_active']='激活';
+$lang['v_actived']='已激活';
+$lang['v_checkKeys'] = '查看密钥';
+$lang['v_warningInfo']='该应用未激活前不能进行推送服务';
+$lang['v_warningInfos'] ='用户状态不可用，请激活后再进行推送服务';
+$lang['v_userStatus'] ='当前用户状态';
+$lang['v_userStatusActive'] ='可用';
+$lang['v_userStatusInactive'] ='不可用';
+$lang['v_warning1'] ='userKey和userSecret不正确';
+$lang['v_warning2'] ='注册APP失败';
+$lang['v_warning3'] ='认证失败';
+$lang['v_integrationGuide'] = 'SDK集成指南';
+$lang['v_userStatusExplain'] = '个推账户状态为不可用时，系统将不能进行推送服务，请及时充值。如有问题，请联系';
+$lang['v_userStatusExplain1']='或发送邮件至：support@cobub.com<br />具体SDK集成步骤，请参考';
+$lang['v_tap']='注：SDK只能从';
+$lang['v_tap1'] ='下载方可使用推送服务，请勿前往个推官网下载';
+
+// view ----activate
+
+$lang['v_activateApp']='激活应用';
+$lang['v_appName']='应用名称'; 
+$lang['v_responseInfo'] ='反馈信息';
+$lang['v_tipPackageName'] = '填写PackageName是app激活成功必备的内容';
+$lang['v_tipGetPackageName'] = '如何获取PackageName';
+$lang['v_warningInfo1']='已经 激活，不能再激活';
+$lang['v_warningInfo3']='激活失败';
+$lang['v_warningInfo4']='填写信息不完整，激活失败';
+$lang['v_keysInfo']='密钥信息';
 // view----user
 
 $lang['v_user_userList']='用户列表';
@@ -372,6 +416,7 @@ $lang['v_rpt_nw_details']='联网方式分布明细';
 
 //view---report----eventlist
 $lang['v_rpt_el_allVersion']='所有版本';
+$lang['v_rpt_el_allChannel']='所有渠道';
 $lang['v_rpt_el_Version']='版本';
 $lang['v_rpt_el_eventID']='事件ID';
 $lang['v_rpt_el_eventName']='事件名称';
@@ -755,6 +800,7 @@ $lang['g_downloadSVG']='下载SVG图片';
 
 //*****************************************Controller****************************************
 $lang['c_user']='系统管理';
+$lang['c_activate']='个推首页';
 $lang['c_product']='应用';
 $lang['c_welcom']='欢迎使用';
 $lang['c_productbasic']='应用基本统计';
@@ -783,6 +829,7 @@ $lang['c_network']='联网方式统计';
 $lang['c_funnels']='漏斗模型';
 $lang['c_erroronos']='错误分析(操作系统)';
 $lang['c_errorondevice']='错误分析(设备)';
+//$lang['c_pluginlist']='插件';
 
 /***************************************widget report name**********************************************/
 $lang['w_savereport']="报表位置保存成功";
@@ -846,3 +893,101 @@ $lang['c_compare2two4']='请选择2-4个产品进行比较';
 /*********************************Suspended box*************************************/
 $lang['s_suspend_title']='添加到控制面板';
 $lang['s_suspend_deltitle']='从控制面板中删除';
+
+/**********************************pluginlist****************************************/
+$lang['plg_userkey']='UserKey*';
+$lang['plg_usersecret']='UserSecret*';
+$lang['plg_save']='保存密钥';
+$lang['plg_getkey']='如何获取？';
+$lang['plg_keysecret_error']='密钥验证失败，请重新输入！';
+$lang['plg_keysecret_success']='密钥验证成功！';
+$lang['plg_pluginlist']='插件列表';
+$lang['plg_myplugins']='我的插件';
+$lang['plg_usable_plugins']='可用插件';
+$lang['plg_name']=' 插件 ';
+$lang['plg_status']='插件状态';
+$lang['plg_description']=' 描述 ';
+$lang['plg_get_keysecret_home']='您在';
+$lang['plg_get_keysecret_home1']='您尚未在';
+$lang['plg_get_keysecret_home2']='Cobub用户中心';
+$lang['plg_get_keysecret_home3']='进行账户授权。请免费注册';
+$lang['plg_get_keysecret_home4']='Cobub用户中心';
+$lang['plg_get_keysecret_home5']='方可使用插件功能。';
+$lang['plg_get_keysecret_home6']='如何进行账户授权？';
+$lang['plg_get_keysecret1']='您尚未在';
+$lang['plg_get_keysecret2']='Cobub用户中心';
+$lang['plg_get_keysecret3']='注册，免费注册获得授权码后，即可在Cobub Razor管理-账户授权模块进行授权，授权后，就能使用<br /><br />';
+$lang['plg_get_keysecret4']='&nbsp&nbsp&nbsp&nbsp&nbspCobub用户中心';
+$lang['plg_get_keysecret5']='提供的丰富的插件与扩展功能。';
+$lang['plg_get_keysecret8']='如何进行账户授权？';
+$lang['plg_get_keysecret9']='（在Cobub用户中心获取授权后请返回到：管理->账户授权）！';
+
+
+$lang['plg_use_instruct']='使用说明';
+$lang['plg_plugin_manage']='插件管理';
+/******************************view report plug**************************************/
+$lang['v_plugins_account']='账户授权';
+$lang['v_plugins_version']='版本 ';
+$lang['v_plugins_provider']='提供者 ';
+$lang['v_plugins_enterkey']='请输入KEY';
+$lang['v_plugins_entersecret']='请输入SECRET';
+$lang['v_plugins_keyerror']='输入的KEY不合法！';
+$lang['v_plugins_secreterror']='输入的SECRET不合法！';
+$lang['v_plugins_active']='启用';
+$lang['v_plugins_forbidden']='禁用';
+$lang['v_plugins_introduce1']='UserKey 与  UserSecret 是 ';
+$lang['v_plugins_introduce2']='Cobub Razor';
+$lang['v_plugins_introduce3']='与';
+$lang['v_plugins_introduce4']='Cobub用户中心';
+$lang['v_plugins_introduce5']='之间通信的密钥， 用户在用户中心注册后方可获取， 用户只有在密钥通过验证后才可使用系统提供的插件功能。';
+$lang['v_plugins_new_version']='有新版本可用。';
+
+
+
+$lang['getui']='个推';
+$lang['getuiHomePage'] = '个推首页';
+$lang['getui_tagerapp']='目标应用:';
+$lang['getui_note_title']='通知标题:';
+$lang['getui_note_content']='通知内容:';
+$lang['getui_after_clicknote']='点击通知后续动作：';
+$lang['getui_startapp']='启动应用';
+$lang['getui_opennet']='打开网页';
+$lang['getui_downapp']='下载应用';
+$lang['getui_neturl']='网页地址';
+$lang['getui_neturl_note']='点击通知后打开的目标网页地址';
+$lang['getui_selectuser']='选择接收用户:';
+$lang['getui_alluser']='所有用户:';
+$lang['getui_taguser']='标签用户:';
+$lang['getui_platform']='平台:';
+$lang['getui_set']='高级设置';
+$lang['getui_transcontent']='透传内容：';
+$lang['getui_transcontent_note']='点击通知后SDK会将透传內容发给你的应用';
+$lang['getui_transcontent_noteii']='最多可以输入600个字';
+$lang['getui_clear']='通知能否清除：';
+$lang['getui_yes']='是';
+$lang['getui_no']='否';
+$lang['getui_clearnote']='选“否”后用户不能清除通知，请慎重选择';
+$lang['getui_v']='收到通知振动：';
+$lang['getui_offline']='是否进离线消息：';
+$lang['getui_offlinetime']='离线时间：';
+$lang['getui_hour']='小时';
+$lang['getui_hour_note']='(必须是1-72之间的整数)';
+$lang['getui_note_logo']='通知图标：';
+$lang['getui_submit']='发送通知';
+$lang['getui_ring']='收到通知响铃：';
+$lang['getui_appname']='应用名称';
+$lang['getui_option']='操作';
+$lang['getui_view']='查看报表';
+$lang['getui_applist']='应用列表';
+$lang['getui_data']='个推数据报表';
+$lang['getui_newuser']='新增注册数报表';
+$lang['getui_online']='在线用户数报表';
+$lang['getui_push']='推送数报表';
+$lang['getui_recive']='接收数报表';
+$lang['getui_click']='点击数报表';
+$lang['getui_report']='数据报表';
+$lang['head_plugin_m']='插件管理';
+$lang['push_success']='推送成功';
+$lang['push_fail']='推送失败';
+$lang['getui_transmission']='透传消息';
+$lang['getui_report']='个推报表';

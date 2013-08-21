@@ -20,7 +20,7 @@ class Common extends CI_Model {
         $this -> load -> library('tank_auth');
         $this -> load -> library('ums_acl');
         $this -> load -> library('export');
-
+        $this->load->model('pluginm');
         $this -> load -> database();
     }
 
@@ -132,6 +132,7 @@ class Common extends CI_Model {
     function loadHeader($viewname = "", $showDate = FALSE) {
         $this -> load -> model('interface/getnewversioninfo', 'getnewversioninfo');
         $this -> load -> model('product/productmodel', 'product');
+        $this -> load -> model('pluginlistmodel','plugin');
         $this -> load -> helper('cookie');
         if (!$this -> common -> isUserLogin()) {
 
@@ -195,9 +196,13 @@ class Common extends CI_Model {
             if ($inform == "noinform") {
                 $dataheader['versioninform'] = $inform;
             }
+           
+
             $this -> load -> view('layout/header', $dataheader);
         }
     }
+
+    
 
     function show_message($message) {
         $this -> session -> set_userdata('message', $message);
@@ -446,6 +451,26 @@ class Common extends CI_Model {
             $export -> addRow($row);
         $export -> export();
         die();
+    }
+    
+    function curl_post($url, $vars) {
+    	$ch = curl_init();
+    	curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
+    	curl_setopt($ch, CURLOPT_URL,$url);
+    	curl_setopt($ch, CURLOPT_POST, 1 );
+    	curl_setopt($ch, CURLOPT_HEADER, 0 ) ;
+    	curl_setopt($ch, CURLOPT_POSTFIELDS, $vars);
+    	$response = curl_exec($ch);
+    	curl_close($ch);
+    	
+    	if ($response)
+    	{
+    		return $response;
+    	}
+    	else
+    	{
+    		return false;
+    	}
     }
 
 }

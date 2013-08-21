@@ -60,7 +60,7 @@
 		
 		
 	</header>
-	<form method="post" action="<?php echo $newurl; ?>/index.php?/install/install/selectlanguage"> 	
+	<form method="post" action="<?php echo $newurl; ?>/index.php?/install/installation/selectlanguage"> 	
 			<section id="main" class="column" style="width:100%" >
 		<article class="module width_full">
 			<header><h3>Select language</h3></header>
@@ -108,8 +108,8 @@
 <p align="center"> &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
 
 
-<a href="http://dev.cobub.com/docs/cobub-razor/release-note/" target="_blank"> Release Notes</a><br/>
-<a href ="http://dev.cobub.com/" target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics                   Solution">Mobile Analytics of Open Source</a>
+<a href="http://dev.cobub.com/docs/cobub-razor/release-note/" target="_blank"><?php echo 'Release Note'; ?></a><br/>
+<a href ="http://dev.cobub.com/" target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics                   Solution"><?php echo 'Mobile Analytics of Open Source'; ?></a>
 
 </p>
 

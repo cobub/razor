@@ -16,7 +16,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
-
+db_updates/
 # External tool builders
 .externalToolBuilders/
 

@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.LocationManager;
@@ -702,7 +703,10 @@ public class UmsAgent {
 
     private static void postClientDatas(Context context) {
         if (isFirst) {
-
+            Intent intent = new Intent();
+            intent.setAction("cobub.razor.message");
+            intent.putExtra("deviceid", CommonUtil.getDeviceID(context));
+            context.sendBroadcast(intent);
             JSONObject clientData = getClientDataJSONObject(context);
 
             if (1 == CommonUtil.getReportPolicyMode(context)

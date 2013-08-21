@@ -73,7 +73,7 @@
 			<h3><font color="#9d9d9d"><?php echo lang('installview_websitestep') ;?></font></h3>
 			<h3><font color="#9d9d9d"><?php echo lang('installview_finshstep') ;?></font></h3>			
 			</div>			
-			<form method="post" action="<?php echo $newurl; ?>/index.php?/install/install/createdatabase">
+			<form method="post" action="<?php echo $newurl; ?>/index.php?/install/installation/createdatabase">
 			<div id="showerror"  style="position:absolute;top:245px;left:420px;">	
 			<div id='errorinfo' ><font color="red" size="4px"><?php if(isset($error)) echo $error; ?></font></div>
 			 <div id='errorinfo' ><font color="red" size="4px"><?php if(isset($errord)) echo $errord; ?></font></div>	
@@ -133,19 +133,27 @@
 		</footer>		
 			</article>		
 	</section>
-	<div style="position:absolute;top:1180px; left:500px">
+<div style="position:absolute;top:1180px; left:500px">
 <p align="center"> &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
-<a href="<?php if ($language=="zh_CN")
-     {echo 'http://dev.cobub.com/zh/docs/cobub-razor/release-note/';}
-     else
-     {echo 'http://dev.cobub.com/docs/cobub-razor/release-note/';}
- ?>" target="_blank"> Release Notes</a><br/>
- <a href ="<?php if ($language=="zh_CN")
-     {echo 'http://dev.cobub.com/zh/';}
-     else
-     {echo 'http://dev.cobub.com/';}
- ?>" target ="_blank" title="Mobile Analytics" 
- alt="Cobub Razor - Open Source Mobile Analytics Solution">Mobile Analytics of Open Source</a>
+
+ <a href=" <?php if($language=="zh_CN")
+                       { echo 'http://dev.cobub.com/zh/docs/cobub-razor/release-note/';}
+               else{ echo 'http://dev.cobub.com/docs/cobub-razor/release-note/'; } ?>" target="_blank"><?php
+                            if ($language == "zh_CN") {
+                                echo '发布说明';}
+                            else {
+                                echo 'Release Note';} ?></a><br/>
+                                           <a href ="
+ <?php if($language=="zh_CN")
+                        { echo 'http://dev.cobub.com/zh/';}
+                                         else{ echo 'http://dev.cobub.com/'; } ?>
+                                             " target ="_blank" title="<?php if ($language == 'zh_CN') {echo '移动应用分析';}
+                else {echo 'Mobile Analytic';}?>" 
+                    alt="Cobub Razor - Open Source Mobile Analytics                         Solution"><?php if ($language == "zh_CN") {
+                            echo '开源移动应用分析';}
+                        else {
+                            echo 'Mobile Analytics of Open Source';}?></a>
+
 
 
 
