@@ -2,7 +2,7 @@
 <section id="main" class="column">
     <article class="module width_full">
         <header>
-            <h3>Assign Product to Users</h3>
+            <h3><?php echo lang('v_title_assign_products');?></h3>
         </header>
         <div class="module_content">
             <input type="hidden" id="userid" name="userid" value="<?php echo $userid;?>">
@@ -25,7 +25,7 @@
                     <?php endif;
                     ?>
                     <tr>
-                        <td><?php echo form_submit('user/doAssignProducts', "Assign Products");
+                        <td><?php echo form_submit('user/doAssignProducts', lang('v_assign_products'));
                         ?></td>
                     </tr>
                 </tbody>

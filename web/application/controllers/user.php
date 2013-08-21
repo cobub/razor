@@ -131,7 +131,7 @@ class User extends CI_Controller {
             $data['userid'] = $userId;
             $data["products"] = $this -> user -> getUserProducts($userId);
             $this -> common -> loadHeader(lang('m_userManagement'));
-            $this -> common -> show_message("Assign products to users success.  " . anchor('/user', lang('v_user_userList')));
+            $this -> common -> show_message(lang('v_tip_assign_products') . anchor('/user', lang('v_user_userList')));
 
         } else {
             $this -> common -> loadHeader();

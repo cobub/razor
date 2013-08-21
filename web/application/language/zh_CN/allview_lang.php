@@ -237,6 +237,9 @@ $lang['v_user_userRole']='用户角色';
 $lang['v_user_modifyUserRole']='修改用户角色';
 $lang['v_user_guest']='过客';
 $lang['v_user_user']='用户';
+$lang['v_assign_products']='分配产品';
+$lang['v_title_assign_products']='产品分配';
+$lang['v_tip_assign_products']='产品分配成功';
 
 //view---usage--nodata
 $lang['v_usage_nodata'] = "您没有相应的数据，请添加相关数据！";

@@ -31,11 +31,13 @@
 	type="text/css" media="screen" />
 <script src="<?php echo base_url();?>assets/js/json/json2.js"
 	type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/jquery-1.7.1.min.js"
+<script src="<?php echo base_url();?>assets/js/tag/jquery-1.9.1.js"
 	type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/jquery-ui-1.8.min.js"
+<script src="<?php echo base_url();?>assets/js/tag/jquery-ui-1.10.3.custom.js"
 	type="text/javascript"></script>
-	<script src="<?php echo base_url();?>assets/js/jquery-ui-1.8.16.custom.min.js"
+	<script src="<?php echo base_url();?>assets/js/tag/jquery-ui-1.10.3.custom.min.js"
+	type="text/javascript"></script>
+	<script src="<?php echo base_url();?>assets/js/jquery-1.9-pack.js"
 	type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/js/hideshow.js"
 	type="text/javascript"></script>

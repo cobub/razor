@@ -193,24 +193,24 @@ $lang['v_getuiPluginsIntroduce']='basic introduction';
 $lang['v_getuiPlugins']='getui plugin';
 $lang['v_appActive']='activate';
 $lang['v_appId']='appId';
-$lang['v_push']='push_notice';
-$lang['v_cleanPush'] = 'transmission_push';
+$lang['v_push']='push notice';
+$lang['v_cleanPush'] = 'transmission push';
 $lang['v_active']='activate';
 $lang['v_checkKeys'] = 'check keys';
-$lang['v_warningInfo']='can not push before the App is activated';
+$lang['v_warningInfo']='Can not push before the App is activated';
 $lang['v_userStatus'] ='Current User Status';
-$lang['v_userStatusActive'] ='activated';
-$lang['v_userStatusInactive'] ='forbidden';
+$lang['v_userStatusActive'] ='available';
+$lang['v_userStatusInactive'] ='unavailable';
 $lang['v_getuiPluginsContent']='A push for third-party applications across mobile platforms consistent and reliable message push a service, service to the client\'s active push messages. Third-party applications can achieve a push for a single destination address, you can also achieve mass message push, you can also specify the tag for targeted groups push. A push in addition to providing basic transparency for third-party messaging, it also provides some news shows, to achieve the client\'s notification prompts bomb box operation, etc., to help customers achieve a more customized quickly push service messages.
 <br />A push plug-in is cobub razor To facilitate the use of a more precise push service provided';
 $lang['v_warning1'] ='Invalid paraments';
 $lang['v_warning2'] ='register App failure';
 $lang['v_warning3'] ='auth failure';
-$lang['v_sdk'] = 'Download SDK';
-$lang['v_integrationGuide'] = 'Integration Manuals';
-$lang['v_userStatusExplain'] = 'Igetui account status will be activated when user first activates an Igetui application. Once insufficient balance,  Igetui account will be converted to inactive status.
-<br /> If you have any questions, please contact: support@cobub.com';
-
+$lang['v_integrationGuide'] = 'SDK Integration Manuals';
+$lang['v_userStatusExplain'] = 'Cobub Razor will not offer push service when Igetui account status is unavailable, please top up in time. If you have any questions, please contact: support@cobub.com';
+$lang['v_userStatusExplain1'] = 'or send email to support@cobub .com <br />Specific SDK integration steps, please refer to';
+$lang['v_tap']='Notice:SDK only can be downloaded from';
+$lang['v_tap1']='and then use push services, please do not go elsewhere to download SDK';
 // view ----activate
 
 $lang['v_activateApp']='activate application';
@@ -227,6 +227,9 @@ $lang['v_user_userRole']='User Role';
 $lang['v_user_modifyUserRole']='Modify User Role';
 $lang['v_user_guest']='guest';
 $lang['v_user_user']='user';
+$lang['v_assign_products']='Assign Products';
+$lang['v_title_assign_products']='Products Assign To Users';
+$lang['v_tip_assign_products']='Assign products to users success';
 
 //view---usage--nodata
 $lang['v_usage_nodata'] = "You do not have corresponding data. Please add relevant data!";
@@ -356,16 +359,6 @@ $lang['v_rpt_re_count']='Count';
 
 //view---report----user retention
 $lang['v_rpt_ur_retention']='Retention';
-$lang['v_rpt_ur_firstUseDay']='First-use Day';
-$lang['v_rpt_ur_one_days']='+1 Day';
-$lang['v_rpt_ur_two_days']='+2 Days';
-$lang['v_rpt_ur_three_days']='+3 Days';
-$lang['v_rpt_ur_four_days']='+4 Days';
-$lang['v_rpt_ur_five_days']='+5 Days';
-$lang['v_rpt_ur_six_days']='+6 Days';
-$lang['v_rpt_ur_seven_days']='+7 Days';
-$lang['v_rpt_ur_eight_days']='+8 Days';
-$lang['t_day'] = "Daily";
 $lang['v_rpt_ur_firstUseWeek']='First-use Week';
 $lang['v_rpt_ur_one_weeks']='+1 Week';
 $lang['v_rpt_ur_two_weeks']='+2 Weeks';
@@ -908,7 +901,6 @@ $lang["v_rpt_realtime_areas_region"] = "Region";
 $lang["v_rpt_realtime_transrate_title"] = "Realtime conversions";
 $lang["v_rpt_realtime_event_title"] = "Realtime events";
 
-
 $lang['getui']='Igetui';
 $lang['getuiHomePage'] = 'IgetuiHomePage';
 $lang['getui_tagerapp']='The tarDownload the applicationget application:';
@@ -1011,7 +1003,3 @@ $lang['v_plugins_introduce4']='Cobub User Center';
 $lang['v_plugins_introduce5']='and Cobub user keys, the user only after the user center to obtain registration, the user only if the key is authenticated before they can use the system to provide a plug-in functionality.';
 $lang['getui_report']='Getui report';
 
-/************************************************************************************/
-$lang['m_open_mobile_analytics']='Mobile Analytics of Open Source';
-$lang['m_copyright_version']='Copyright 2012-2015 Cobub Razor Version:';
-$lang['m_release_note']='Release Notes';
