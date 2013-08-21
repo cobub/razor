@@ -130,7 +130,6 @@ class Archive extends CI_Controller
 		$logdate = date('Y-m-d H:i:s',$timezonestimestamp);
 		log_message("debug","ETL archiveUsingLog at $logdate and date = $date");
 		$dwdb->query("call rundaily('$date')");
-		$dwdb->query("call rundailyremain('$date','$date2')");
 		$this->archiveCompareValue($date);
 	}
 	
