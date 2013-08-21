@@ -41,7 +41,7 @@ class Userremainmodel extends CI_Model {
                 and f.product_id = $productId 
                 and f.version_name='$version'
                 and f.channel_name='$channel'
-                order by d1.datevalue;";
+                order by d1.datevalue desc;";
         log_message('debug', 'getUserRemainCountByWeek() SQL: ' . $sql);
         $query = $dwdb -> query($sql);
         return $query;
@@ -71,13 +71,13 @@ class Userremainmodel extends CI_Model {
 		      and f.product_id = $productId 
 		      and f.version_name='$version'
 		      and f.channel_name='$channel'
-	         order by d1.datevalue;";
+	         order by d1.datevalue desc;";
         log_message('debug', 'getUserRemainCountByDay() SQL: ' . $sql);
         $query = $dwdb -> query($sql);
         return $query;
     }
 
-    function getUserRemainCountByMonth($version='all', $productId, $from, $to, $channel='all') {
+    function getUserRemainCountByMonth($version='all', $productId, $from, $to, $channel) {
         $dwdb = $this -> load -> database('dw', TRUE);
         $sql = "	select date(d1.datevalue) startdate,
             date(d2.datevalue) enddate,
@@ -101,7 +101,7 @@ class Userremainmodel extends CI_Model {
                 and f.product_id = $productId
                 and f.version_name = '$version'
                 and f.channel_name = '$channel'
-                order by d1.datevalue;";
+                order by d1.datevalue desc;";
 
         log_message('debug', 'getUserRemainCountByMonth() SQL: ' . $sql);
         $query = $dwdb -> query($sql);

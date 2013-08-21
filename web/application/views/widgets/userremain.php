@@ -168,10 +168,15 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
     function pageselectdayCallback(page_index, jq){			
 	page_index = arguments[0] ? arguments[0] : "0";
 	jq = arguments[1] ? arguments[1] : "0";   
-	var index = page_index*7;
-	var pagenum = 7;	
-	var daytr = "";	
-	for(i=0;i<pagenum && (index+i)<dayuserdata.length ;i++)
+	var index = page_index*9;
+	var pagenum = 9;	
+    var daytr = "";
+    if (index+pagenum >= dayuserdata.length)
+    {
+        pagenum = dayuserdata.length % pagenum;
+    }
+
+	for(i=pagenum-1;i>=0 && (index+i)<dayuserdata.length ;i--)
 	{ 
 		var start = dayuserdata[i+index].startdate;
 		var end   = dayuserdata[i+index].enddate;
@@ -181,21 +186,21 @@ style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png
 		daytr = daytr + "</td><td>";
 		daytr = daytr + dayuserdata[i+index].usercount;			
 		daytr = daytr + "</td><td>";
-		daytr = daytr + '<strong>' + dayuserdata[i+index].day1 + '</strong> (' + ((dayuserdata[i+index].day1/dayuserdata[i+index].usercount)*100).toFixed(2) +  '%)';
+		daytr = daytr + '<strong>' + dayuserdata[i+index].day1 + '</strong> (' + ((dayuserdata[i+index].day1/dayuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		daytr = daytr + "</td><td>";
-		daytr = daytr + '<strong>' + dayuserdata[i+index].day2 + '</strong> (' + ((dayuserdata[i+index].day2/dayuserdata[i+index].usercount)*100).toFixed(2) +  '%)';
+		daytr = daytr + '<strong>' + dayuserdata[i+index].day2 + '</strong> (' + ((dayuserdata[i+index].day2/dayuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		daytr = daytr + "</td><td>";
-		daytr = daytr + '<strong>' + dayuserdata[i+index].day3 + '</strong> (' + ((dayuserdata[i+index].day3/dayuserdata[i+index].usercount)*100).toFixed(2) +  '%)';
+		daytr = daytr + '<strong>' + dayuserdata[i+index].day3 + '</strong> (' + ((dayuserdata[i+index].day3/dayuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		daytr = daytr + "</td><td>";
-		daytr = daytr + '<strong>' + dayuserdata[i+index].day4 + '</strong> (' + ((dayuserdata[i+index].day4/dayuserdata[i+index].usercount)*100).toFixed(2) +  '%)';
+		daytr = daytr + '<strong>' + dayuserdata[i+index].day4 + '</strong> (' + ((dayuserdata[i+index].day4/dayuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		daytr = daytr + "</td><td>";
-		daytr = daytr + '<strong>' + dayuserdata[i+index].day5 + '</strong> (' + ((dayuserdata[i+index].day5/dayuserdata[i+index].usercount)*100).toFixed(2) +  '%)';
+		daytr = daytr + '<strong>' + dayuserdata[i+index].day5 + '</strong> (' + ((dayuserdata[i+index].day5/dayuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		daytr = daytr + "</td><td>";
-		daytr = daytr + '<strong>' + dayuserdata[i+index].day6 + '</strong> (' + ((dayuserdata[i+index].day6/dayuserdata[i+index].usercount)*100).toFixed(2) +  '%)';
+		daytr = daytr + '<strong>' + dayuserdata[i+index].day6 + '</strong> (' + ((dayuserdata[i+index].day6/dayuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		daytr = daytr + "</td><td>";
-		daytr = daytr + '<strong>' + dayuserdata[i+index].day7 + '</strong> (' + ((dayuserdata[i+index].day7/dayuserdata[i+index].usercount)*100).toFixed(2) +  '%)';
+		daytr = daytr + '<strong>' + dayuserdata[i+index].day7 + '</strong> (' + ((dayuserdata[i+index].day7/dayuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		daytr = daytr + "</td><td>";
-		daytr = daytr + '<strong>' + dayuserdata[i+index].day8 + '</strong> (' + ((dayuserdata[i+index].day8/dayuserdata[i+index].usercount)*100).toFixed(2) +  '%)';					
+		daytr = daytr + '<strong>' + dayuserdata[i+index].day8 + '</strong> (' + ((dayuserdata[i+index].day8/dayuserdata[i+index].usercount)*100).toFixed(1) +  '%)';					
 		daytr = daytr + "</td></tr>";
 	}
 	$('#daydata').html(daytr);	
@@ -221,23 +226,23 @@ function pageselectweekCallback(page_index, jq){
 		weektr = weektr+"<tr><td>";
 		weektr = weektr + showtime;
 		weektr = weektr + "</td><td>";
-		weektr = weektr + weekuserdata[i+index].usercount;			
+		weektr = weektr + weekuserdata[i+index].usercount;
 		weektr = weektr + "</td><td>";
-		weektr = weektr + weekuserdata[i+index].week1;
+		weektr = weektr + '<strong>' + weekuserdata[i+index].week1 + '</strong> (' + ((weekuserdata[i+index].week1/weekuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		weektr = weektr + "</td><td>";
-		weektr = weektr + weekuserdata[i+index].week2;
+		weektr = weektr + '<strong>' + weekuserdata[i+index].week2 + '</strong> (' + ((weekuserdata[i+index].week2/weekuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		weektr = weektr + "</td><td>";
-		weektr = weektr + weekuserdata[i+index].week3;
+		weektr = weektr + '<strong>' + weekuserdata[i+index].week3 + '</strong> (' + ((weekuserdata[i+index].week3/weekuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		weektr = weektr + "</td><td>";
-		weektr = weektr + weekuserdata[i+index].week4;
+		weektr = weektr + '<strong>' + weekuserdata[i+index].week4 + '</strong> (' + ((weekuserdata[i+index].week4/weekuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		weektr = weektr + "</td><td>";
-		weektr = weektr + weekuserdata[i+index].week5;
+		weektr = weektr + '<strong>' + weekuserdata[i+index].week5 + '</strong> (' + ((weekuserdata[i+index].week5/weekuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		weektr = weektr + "</td><td>";
-		weektr = weektr + weekuserdata[i+index].week6;
+		weektr = weektr + '<strong>' + weekuserdata[i+index].week6 + '</strong> (' + ((weekuserdata[i+index].week6/weekuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		weektr = weektr + "</td><td>";
-		weektr = weektr + weekuserdata[i+index].week7;
+		weektr = weektr + '<strong>' + weekuserdata[i+index].week7 + '</strong> (' + ((weekuserdata[i+index].week7/weekuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		weektr = weektr + "</td><td>";
-		weektr = weektr + weekuserdata[i+index].week8;					
+		weektr = weektr + '<strong>' + weekuserdata[i+index].week8 + '</strong> (' + ((weekuserdata[i+index].week8/weekuserdata[i+index].usercount)*100).toFixed(1) +  '%)';
 		weektr = weektr + "</td></tr>";
 	}
 	$('#weekdata').html(weektr);	
@@ -265,23 +270,23 @@ function pageselectmonthCallback(page_index, jq){
 		monthtr = monthtr+"<tr><td>";
 		monthtr = monthtr + showtime;
 		monthtr = monthtr + "</td><td>";
-		monthtr = monthtr + monthuserdata[j+index].usercount;			
+		monthtr = monthtr + monthuserdata[j+index].usercount;
 		monthtr = monthtr + "</td><td>";
-		monthtr = monthtr + monthuserdata[j+index].month1;
+		monthtr = monthtr + '<strong>' + monthuserdata[j+index].month1 + '</strong> (' + ((monthuserdata[j+index].month1/monthuserdata[j+index].usercount)*100).toFixed(1) +  '%)';
 		monthtr = monthtr + "</td><td>";
-		monthtr = monthtr + monthuserdata[j+index].month2;
+		monthtr = monthtr + '<strong>' + monthuserdata[j+index].month2 + '</strong> (' + ((monthuserdata[j+index].month2/monthuserdata[j+index].usercount)*100).toFixed(1) +  '%)';
 		monthtr = monthtr + "</td><td>";
-		monthtr = monthtr + monthuserdata[j+index].month3;
+		monthtr = monthtr + '<strong>' + monthuserdata[j+index].month3 + '</strong> (' + ((monthuserdata[j+index].month3/monthuserdata[j+index].usercount)*100).toFixed(1) +  '%)';
 		monthtr = monthtr + "</td><td>";
-		monthtr = monthtr + monthuserdata[j+index].month4;
+		monthtr = monthtr + '<strong>' + monthuserdata[j+index].month4 + '</strong> (' + ((monthuserdata[j+index].month4/monthuserdata[j+index].usercount)*100).toFixed(1) +  '%)';
 		monthtr = monthtr + "</td><td>";
-		monthtr = monthtr + monthuserdata[j+index].month5;
+		monthtr = monthtr + '<strong>' + monthuserdata[j+index].month5 + '</strong> (' + ((monthuserdata[j+index].month5/monthuserdata[j+index].usercount)*100).toFixed(1) +  '%)';
 		monthtr = monthtr + "</td><td>";
-		monthtr = monthtr + monthuserdata[j+index].month6;
+		monthtr = monthtr + '<strong>' + monthuserdata[j+index].month6 + '</strong> (' + ((monthuserdata[j+index].month6/monthuserdata[j+index].usercount)*100).toFixed(1) +  '%)';
 		monthtr = monthtr + "</td><td>";
-		monthtr = monthtr + monthuserdata[j+index].month7;
+		monthtr = monthtr + '<strong>' + monthuserdata[j+index].month7 + '</strong> (' + ((monthuserdata[j+index].month7/monthuserdata[j+index].usercount)*100).toFixed(1) +  '%)';
 		monthtr = monthtr + "</td><td>";
-		monthtr = monthtr + monthuserdata[j+index].month8;					
+		monthtr = monthtr + '<strong>' + monthuserdata[j+index].month8 + '</strong> (' + ((monthuserdata[j+index].month8/monthuserdata[j+index].usercount)*100).toFixed(1) +  '%)';
 		monthtr = monthtr + "</td></tr>";
 	}
 	$('#monthdata').html(monthtr);
@@ -293,7 +298,7 @@ function pageselectmonthCallback(page_index, jq){
 * Callback function for the AJAX content loader.
  */
 function dayinitPagination() {
-  var num_entries = (weekuserdata.length)/7;
+  var num_entries = (dayuserdata.length)/9;
   // Create pagination element
   $("#daypage").pagination(num_entries, {
      num_edge_entries: 2,
