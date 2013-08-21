@@ -191,9 +191,12 @@ $lang['v_deletreport'] = 'Are you sure to delete?';
 
 $lang['v_getuiPluginsIntroduce']='basic introduction';
 $lang['v_getuiPlugins']='getui plugin';
+$lang['v_basicIntroduce']='Basic Introduction';
+$lang['v_appList']='Application List';
 $lang['v_appActive']='activate';
+$lang['v_actived']='activated';
 $lang['v_appId']='appId';
-$lang['v_push']='push notice';
+$lang['v_push']='push message';
 $lang['v_cleanPush'] = 'transmission push';
 $lang['v_active']='activate';
 $lang['v_checkKeys'] = 'check keys';
@@ -201,16 +204,15 @@ $lang['v_warningInfo']='Can not push before the App is activated';
 $lang['v_userStatus'] ='Current User Status';
 $lang['v_userStatusActive'] ='available';
 $lang['v_userStatusInactive'] ='unavailable';
-$lang['v_getuiPluginsContent']='A push for third-party applications across mobile platforms consistent and reliable message push a service, service to the client\'s active push messages. Third-party applications can achieve a push for a single destination address, you can also achieve mass message push, you can also specify the tag for targeted groups push. A push in addition to providing basic transparency for third-party messaging, it also provides some news shows, to achieve the client\'s notification prompts bomb box operation, etc., to help customers achieve a more customized quickly push service messages.
-<br />A push plug-in is cobub razor To facilitate the use of a more precise push service provided';
+$lang['v_getuiPluginsContent']='Cobub Razor IGetui plugin provides message pushing service accross mobile platforms (Current just support Android).';
 $lang['v_warning1'] ='Invalid paraments';
 $lang['v_warning2'] ='register App failure';
 $lang['v_warning3'] ='auth failure';
 $lang['v_integrationGuide'] = 'SDK Integration Manuals';
-$lang['v_userStatusExplain'] = 'Cobub Razor will not offer push service when Igetui account status is unavailable, please top up in time. If you have any questions, please contact: support@cobub.com';
-$lang['v_userStatusExplain1'] = 'or send email to support@cobub .com <br />Specific SDK integration steps, please refer to';
-$lang['v_tap']='Notice:SDK only can be downloaded from';
-$lang['v_tap1']='and then use push services, please do not go elsewhere to download SDK';
+$lang['v_userStatusExplain'] = 'Cobub Razor will not offer push service when Igetui account status is unavailable, please top up in time. If you have any questions, please contact: ';
+$lang['v_userStatusExplain1'] = ' or send email to support@cobub.com <br />Specific SDK integration steps, please refer to ';
+$lang['v_tap']='Notice:SDK only can be downloaded from ';
+$lang['v_tap1']=' and then use push services, please do not go elsewhere to download SDK';
 // view ----activate
 
 $lang['v_activateApp']='activate application';
