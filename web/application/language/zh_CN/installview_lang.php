@@ -100,8 +100,8 @@ $lang["installview_verficationverifypwd"] = "确认密码";
 $lang["installview_verficationemail"] = "E-mail";
 $lang["installview_verficationcreatefailed"] = "数据库创建失败！";
 
-$lang["installview_innodberror"] = "请升级数据库版本！";
-$lang["installview_innodberrordw"] = "请升级数据仓库版本！";
+$lang["installview_innodberror"] = "请升级数据库版本并确保已启用InnoDB！";
+$lang["installview_innodberrordw"] = "请升级数据仓库版本并确保已启用InnoDB！";
 $lang["installview_innodbclose"] = "请修改数据库配置文件，启动InnoDB";
 $lang["installview_innodbclosedw"] = "请修改数据仓库配置文件,启动InnoDB";
 

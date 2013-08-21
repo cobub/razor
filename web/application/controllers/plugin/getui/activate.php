@@ -78,12 +78,11 @@ class Activate extends CI_Controller {
 				$this->responseArray ['appName'] = $appName;
 				$this->responseArray ['app_identifier'] = $app_identifier;
 				$this->responseArray ['userId'] = $userId;
-				$this->responseArray ['activateDate'] = date ( 'Y-m-d H:i:s' );
+				$this->responseArray ['activateDate'] = $obj['createtime'];
 				
 				$product_id = $this->activatemodel->getProductId ( $appName );
 				
 				$this->responseArray ['productId'] = $product_id;
-print_r($this->responseArray);
 				
 				if ($this->activatemodel->saveUsersInfo ( $this->responseArray )) {
 					$this->common->loadHeader ( lang ( 'v_keysInfo' ) );

@@ -74,7 +74,7 @@ $captcha = array(
 							<td></td>
 							<td></td>
 							<td><?php echo form_submit('submit', lang('l_login')); ?></td>
-							<td><?php echo anchor('/auth/forgot_password/', lang('l_forgetPassword')); ?>
+							<td>
 							</td>
 							<td></td>
 						</tr>
@@ -96,15 +96,15 @@ $captcha = array(
 				<br />
 			                                <p align="center">
 
-                                            &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?> 
+                                            &copy; <?php echo lang('m_copyright_version')?><?php  echo $this->config->item('version')?> 
 <a href=" <?php if($this->config->item('language')=="zh_CN")
                       { echo 'http://dev.cobub.com/zh/docs/cobub-razor/release-note/';}
-                else{ echo 'http://dev.cobub.com/docs/cobub-razor/release-note/'; } ?>" target="_blank">Release Notes</a><br/>
+                else{ echo 'http://dev.cobub.com/docs/cobub-razor/release-note/'; } ?>" target="_blank"><?php echo lang('m_release_note')?></a><br/>
  <p align="center">  <a href ="
 <?php if($this->config->item('language')=="zh_CN")
                        { echo 'http://dev.cobub.com/zh/';}
                  else{ echo 'http://dev.cobub.com/'; } ?>
-" target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics                   Solution">Mobile Analytics of       Open Source</a>
+" target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics                   Solution"><?php echo lang('m_open_mobile_analytics')?></a>
                          </p>    </p><br/>
 
 

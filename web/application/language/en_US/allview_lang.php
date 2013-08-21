@@ -1011,3 +1011,7 @@ $lang['v_plugins_introduce4']='Cobub User Center';
 $lang['v_plugins_introduce5']='and Cobub user keys, the user only after the user center to obtain registration, the user only if the key is authenticated before they can use the system to provide a plug-in functionality.';
 $lang['getui_report']='Getui report';
 
+/************************************************************************************/
+$lang['m_open_mobile_analytics']='Mobile Analytics of Open Source';
+$lang['m_copyright_version']='Copyright 2012-2015 Cobub Razor Version:';
+$lang['m_release_note']='Release Notes';

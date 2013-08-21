@@ -9,50 +9,25 @@ $language = $this->config->item ( 'language' );
 <title><?php
 echo lang ( 'l_cobubRazor' )?></title>
 </head>
-<!--  
-<link rel="stylesheet"
-	href="<?php echo base_url();?>assets/css/layout_tag.css" type="text/css"
-	media="screen" />
--->
+
 <link rel="stylesheet"
 	href="<?php echo base_url();?>assets/css/tag/jquery.tagsinput.css"
 	type="text/css" media="screen" />
 
 
-<link rel="stylesheet"
-	href="<?php echo base_url();?>assets/css/tag/tagit.css" type="text/css"
-	media="screen" />
-<link rel="stylesheet"
-	href="<?php echo base_url();?>assets/css/tag/jquery-ui-1.10.3.custom.css"
-	type="text/css" media="screen" />
 
-	<!-- 
-<script src="<?php echo base_url();?>assets/js/tag/jquery-1.9.1.js"
-	type="text/javascript"></script>
 
-<script
-	src="<?php echo base_url();?>assets/js/tag/jquery-ui-1.10.3.custom.js"
-	type="text/javascript"></script>
-	
-	 -->
 	
 	<script src="<?php echo base_url();?>assets/js/tag/jquery.blockUI.js"
 	type="text/javascript"></script>
-<!--  
-<script src="<?php echo base_url();?>assets/js/tag/jquery.1.5.2.js"
-        type="text/javascript"></script>
-        <script src="<?php echo base_url();?>assets/js/tag/jquery-ui-1.8.2.js"
-        type="text/javascript"></script>
-        
-<script src="<?php echo base_url();?>assets/js/tag/tagit.js"
-        type="text/javascript"></script>
--->
+
 <script src="<?php echo base_url();?>assets/js/tag/jquery.tagsinput.js"
 	type="text/javascript"></script>
 
 <section id="main" class="column">
 
-	<article class="module width_3_quarter" >
+	<!--   article class="module width_3_quarter" -->
+	<article class="module width_full" >
 		<header>
 			<h3><?php echo  '选择标签组'?></h3>
 			<select id="select_saved_tags" onchange='chooseTagsGroup()'
@@ -118,7 +93,7 @@ echo lang ( 'l_cobubRazor' )?></title>
 		</footer>
 	</article>
 	<!-- end of stats article -->
-	
+	<!--  
 	<article class="module width_quarter">
 			<header><h3><?php echo  lang('v_overview')?></h3></header>
 			<article class="stats_overview width_full">
@@ -138,7 +113,7 @@ echo lang ( 'l_cobubRazor' )?></title>
 				</article>
 		</article>
 
-
+-->
 	<!--  
 		<article class="module width_quarter">
 			<header><h3><?php echo  '你可以保存当前选择TAG列表'?></h3></header>

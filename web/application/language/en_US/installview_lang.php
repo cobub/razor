@@ -98,8 +98,8 @@ $lang["installview_verficationverifypwd"] = "Confirm Password";
 $lang["installview_verficationemail"] = "E-mail";
 $lang["installview_verficationcreatefailed"] = "Database creation failed!";
 
-$lang["installview_innodberror"] = "Please upgrade the database version!";
-$lang["installview_innodberrordw"] = "Please upgrade data warehouses version!";
+$lang["installview_innodberror"] = "Please upgrade the database version and enable InnoDB!";
+$lang["installview_innodberrordw"] = "Please upgrade data warehouses version and enable InnoDB!";
 $lang["installview_innodbclose"] = "Please modify database configuration file to start InnoDB!";
 $lang["installview_innodbclosedw"] = "Please modify the data warehouse configuration file to start InnoDB!";
 

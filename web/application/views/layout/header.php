@@ -37,7 +37,7 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <link rel="stylesheet"
-        href="<?php echo base_url();?>assets/css/jquery-ui.css" type="text/css"
+        href="<?php echo base_url();?>assets/css/tag/jquery-ui-1.10.3.custom.css" type="text/css"
         media="screen" />
         <link rel="stylesheet"
         href="<?php echo base_url();?>assets/css/<?php  $style = get_cookie('style');
@@ -569,11 +569,11 @@ if(isset($username)):
                 -->
                 <p>
 
-				<strong>&copy;  Copyright 2012-2015 Cobub Razor Version:<?php  echo $this->config->item('version')?>
-				<a href="http://dev.cobub.com/docs/cobub-razor/release-note/" target="_blank">Release Notes</a></strong>
+				<strong>&copy;  <?php echo lang('m_copyright_version')?><?php  echo $this->config->item('version')?>
+				<a href="http://dev.cobub.com/docs/cobub-razor/release-note/" target="_blank"><?php echo lang('m_release_note')?></a></strong>
 			</p>
 			<p>
- <a href ="http://dev.cobub.com" target ="_blank" title="Mobile Analytics"  alt="Cobub Razor - Open Source Mobile Analytics Solution">Mobile Analytics of Open Source</a>
+ <a href ="http://dev.cobub.com" target ="_blank" title="Mobile Analytics"  alt="Cobub Razor - Open Source Mobile Analytics Solution"><?php echo lang('m_open_mobile_analytics')?></a>
 			
 			</p>
             </footer>

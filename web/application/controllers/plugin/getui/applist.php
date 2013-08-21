@@ -81,8 +81,8 @@ class Applist extends CI_Controller {
 			$data ['userSecret'] = $userKeys->user_secret;
 			$data['isAuth']=1;
 
-			if($type)	redirect ( site_url () .  "/Tag/tags?product_id=" . $data ['productId']. "&url=" .site_url () . "/plugin/getui/getuicl/transmission");
-				else  redirect ( site_url () . "/Tag/tags?product_id=" . $data ['productId']. "&url=" .site_url () . "/plugin/getui/getuicl");
+			if($type)	redirect ( site_url () .  "/tag/tags?product_id=" . $data ['productId']. "&url=" .site_url () . "/plugin/getui/getuicl/transmission");
+				else  redirect ( site_url () . "/tag/tags?product_id=" . $data ['productId']. "&url=" .site_url () . "/plugin/getui/getuicl");
 		} else {
 				
 			$data['flag'] = $flag;

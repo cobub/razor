@@ -187,6 +187,17 @@ $("#logo_upload").uploadify({
 		var appkey = document.getElementById("appkey").value;
 		var appntitle = document.getElementById('appntitle').value;
 		var appcontent = document.getElementById('appcontent').value;
+		if(appntitle==''){
+			document.getElementById('msg').style.display='';
+			document.getElementById('msg').innerHTML="<?php echo '标题不可为空';?>"; 
+			return;
+		}
+		if(appcontent==''){
+			document.getElementById('msg').style.display='';
+			document.getElementById('msg').innerHTML="<?php echo '内容不可为空';?>"; 
+			return;
+		}
+		
 		var selectvalue = document.getElementById('select').value;
 		var startapp=false;
 		var opennet=false;
@@ -269,7 +280,7 @@ $("#logo_upload").uploadify({
 							  document.getElementById('msg').style.display='';
 							  if(arr.flag!=1){
 							  	//alert(arr.msg);
-							  	document.getElementById('msg').innerHTML="<?php echo lang('push_fail');?>"; 
+							  	document.getElementById('msg').innerHTML="<?php echo lang('push_fail');?>"+'  '+arr.msg.result; 
 							  }else{
 							  	document.getElementById('msg').innerHTML='<?php echo lang("push_success");?>'; 
 							  }

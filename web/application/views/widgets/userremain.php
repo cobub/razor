@@ -297,11 +297,8 @@ function dayinitPagination() {
   // Create pagination element
   $("#daypage").pagination(num_entries, {
      num_edge_entries: 2,
-     prev_text: '<?php echo  lang('g_previousPage')?>
-        ',
-        next_text: '
-<?php echo  lang('g_nextPage')?>
-    ',
+     prev_text: '<?php echo  lang('g_previousPage')?>',
+        next_text: '<?php echo  lang('g_nextPage')?>',
     num_display_entries: 4,
     callback: pageselectdayCallback,
     items_per_page:1
@@ -316,12 +313,8 @@ function dayinitPagination() {
     // Create pagination element
     $("#weekpage").pagination(num_entries, {
     num_edge_entries: 2,
-    prev_text: '
-<?php echo  lang('g_previousPage')?>
-    ',
-    next_text: '
-<?php echo  lang('g_nextPage')?>
-    ',
+    prev_text: '<?php echo  lang('g_previousPage')?>',
+    next_text: '<?php echo  lang('g_nextPage')?>',
     num_display_entries: 4,
     callback: pageselectweekCallback,
     items_per_page:1
@@ -333,12 +326,8 @@ function dayinitPagination() {
     // Create pagination element
     $("#monthpage").pagination(num_entries, {
     num_edge_entries: 2,
-    prev_text: '
-<?php echo  lang('g_previousPage')?>
-    ',
-    next_text: '
-<?php echo  lang('g_nextPage')?>
-    ',
+    prev_text: '<?php echo  lang('g_previousPage')?>',
+    next_text: '<?php echo  lang('g_nextPage')?>',
     num_display_entries: 4,
     callback: pageselectmonthCallback,
     items_per_page:1
@@ -362,8 +351,7 @@ var m_timepart=[];
 function renderUserData(myurl)
 {	
 	 var chart_canvas = $('#contents');
-	 var loading_img = $("<img src='<?php echo base_url(); ?>
-        /assets/images / loader.gif'/>");
+	 var loading_img = $("<img src='<?php echo base_url(); ?>/assets/images/loader.gif'/>");
 
         chart_canvas.block({
         message: loading_img,
@@ -417,9 +405,7 @@ function renderUserData(myurl)
         }
 
         if(dayobj.length>1&&typeof(dayobj[0].data)!='undefined'){
-        $('#tab2 th:eq(0)').after('<th>
-<?php echo lang('v_app')?>
-    </th>');
+        $('#tab2 th:eq(0)').after('<th><?php echo lang('v_app')?></th>');
     dayMaxlength=d_timepart.length;
     CompareDayData();
     //monthtr=CompareMonthData(m_timepart,productNames,monthtr,monthobj);
@@ -427,9 +413,7 @@ function renderUserData(myurl)
     chart_canvas.unblock();
     }
     if(weekobj.length>1&&typeof(weekobj[0].data)!='undefined'){
-    $('#tab1 th:eq(0)').after('<th>
-<?php echo lang('v_app')?>
-    </th>');
+    $('#tab1 th:eq(0)').after('<th><?php echo lang('v_app')?></th>');
     weekMaxlength=w_timepart.length;
     CompareWeekData();
     initWeekPagination();
@@ -437,9 +421,7 @@ function renderUserData(myurl)
     chart_canvas.unblock();
     }
     if(monthobj.length>1&&typeof(monthobj[0].data)!='undefined'){
-    $('#tab2 th:eq(0)').after('<th>
-<?php echo lang('v_app')?>
-    </th>');
+    $('#tab2 th:eq(0)').after('<th><?php echo lang('v_app')?></th>');
     monthMaxlength=m_timepart.length;
     CompareMonthData();
     //monthtr=CompareMonthData(m_timepart,productNames,monthtr,monthobj);
@@ -467,8 +449,7 @@ function renderUserData(myurl)
     }
     function changeversionorchannel(version, channel)
     {
-    var userurl  = "
-<?php echo site_url(); ?>/report/userremain/getUserRemainweekMonthData/" + version + "/" + channel;
+    var userurl  = "<?php echo site_url(); ?>/report/userremain/getUserRemainweekMonthData/" + version + "/" + channel;
 	 renderUserData(userurl);
  }
 
@@ -650,28 +631,20 @@ function renderUserData(myurl)
         };
         jQuery.ajax({
         type :  "post",
-        url  :  "
-<?php echo site_url()?>
-    /report/dashboard / addshowreport",
+        url  :  "<?php echo site_url()?>/report/dashboard/addshowreport",
     data :  data,
     success : function(msg) {
     if(msg=="")
     {
-    alert("
-<?php echo lang('w_addreportrepeat') ?>
-    ");
+    alert("<?php echo lang('w_addreportrepeat') ?>");
     }
     else if(msg>=8)
     {
-    alert("
-<?php echo lang('w_overmaxnum'); ?>
-    ");
+    alert("<?php echo lang('w_overmaxnum'); ?>");
     }
     else
     {
-    alert("
-<?php echo lang('w_addreportsuccess') ?>
-    ");
+    alert("<?php echo lang('w_addreportsuccess') ?>");
     }
 
     },
@@ -702,47 +675,35 @@ function deletereport()
         // Create pagination element
         $("#daypage").pagination(daynum_enteries, {
         num_edge_entries: 2,
-        prev_text: '
-<?php echo lang('g_previousPage') ?>
-    ',       //上一页按钮里text
-    next_text: '
-<?php echo lang('g_nextPage') ?>
-    ',       //下一页按钮里text
-    num_display_entries: 4,
-    callback: daypageselectCallback,
-    items_per_page:1
-    });
+        prev_text: '<?php echo lang('g_previousPage') ?>',
+        next_text: '<?php echo lang('g_nextPage') ?>',
+        num_display_entries: 4,
+        callback: daypageselectCallback,
+        items_per_page:1
+        });
     }
 
     function initWeekPagination() {
     var weeknum_enteries = Math.ceil(weekMaxlength/pagesize);
     // Create pagination element
     $("#weekpage").pagination(weeknum_enteries, {
-    num_edge_entries: 2,
-    prev_text: '
-<?php echo lang('g_previousPage') ?>
-    ',       //prev page text
-    next_text: '
-<?php echo lang('g_nextPage') ?>
-    ',       //next page text
-    num_display_entries: 4,
-    callback: weekpageselectCallback,
-    items_per_page:1
+        num_edge_entries: 2,
+        prev_text: '<?php echo lang('g_previousPage') ?>',       //prev page text
+        next_text: '<?php echo lang('g_nextPage') ?>',       //next page text
+        num_display_entries: 4,
+        callback: weekpageselectCallback,
+        items_per_page:1
     });
     }
     function initMonthPagination(){
     var monthnum_entries = Math.ceil(monthMaxlength/pagesize);
     $("#monthpage").pagination(monthnum_entries, {
-    num_edge_entries: 2,
-    prev_text: '
-<?php echo lang('g_previousPage') ?>
-    ',       //prev page text
-    next_text: '
-<?php echo lang('g_nextPage') ?>
-    ',       //next page text
-    num_display_entries: 4,
-    callback: monthpageselectCallback,
-    items_per_page:1
+        num_edge_entries: 2,
+        prev_text: '<?php echo lang('g_previousPage') ?>',       //prev page text
+        next_text: '<?php echo lang('g_nextPage') ?>',       //next page text
+        num_display_entries: 4,
+        callback: monthpageselectCallback,
+        items_per_page:1
     });
     }
     function weekpageselectCallback(page_index, jq){

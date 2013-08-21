@@ -364,7 +364,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_reserveusers_daily` (
   `day7` int(11) NOT NULL DEFAULT '0',
   `day8` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`rid`),
-  UNIQUE KEY `startdate_sk` (`startdate_sk`,`enddate_sk`,`product_id`,`version_name`) 
+  UNIQUE KEY `startdate_sk` (`startdate_sk`,`enddate_sk`,`product_id`,`version_name`,`channel_name`) 
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------

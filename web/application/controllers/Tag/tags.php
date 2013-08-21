@@ -50,7 +50,7 @@ class Tags extends CI_Controller {
     	$data['channel']=$this->getProductChannelById($productId);
     	$data['region'] = $this->getRegion();
     	$data['productId'] = $productId;
-		$this->load->view('Tag/tagview',$data);
+		$this->load->view('tags/tagview',$data);
     }
     
     function addTagWidgets()

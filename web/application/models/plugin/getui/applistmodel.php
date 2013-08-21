@@ -78,6 +78,9 @@ function getApplist(){
 	}
 
 	function getAppid($product_id){
+		if(!$product_id)
+			return '';
+		
 		$sql = "select * from ".$this->db->dbprefix('getui_product')." where product_id=".$product_id;
 		$res = $this->db->query($sql); 
 		if($res!=null&& $res->num_rows()>0){

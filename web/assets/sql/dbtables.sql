@@ -391,18 +391,18 @@ CREATE TABLE IF NOT EXISTS `umsinstall_product_version` (
 --
 
 CREATE TABLE IF NOT EXISTS `umsinstall_reportlayout` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `id` int(50) NOT NULL auto_increment,
   `userid` int(50) NOT NULL,
   `productid` int(50) NOT NULL,
   `reportname` varchar(128) NOT NULL,
   `controller` varchar(128) NOT NULL,
-  `method` varchar(45) NOT NULL,
+  `method` varchar(45) default ' ',
   `height` int(50) NOT NULL,
   `src` varchar(512) NOT NULL,
   `location` int(50) NOT NULL,
   `type` int(10) NOT NULL,
   `createtime` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------

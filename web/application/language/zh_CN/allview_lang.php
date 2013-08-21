@@ -1001,3 +1001,8 @@ $lang['push_success']='推送成功';
 $lang['push_fail']='推送失败';
 $lang['getui_transmission']='透传消息';
 $lang['getui_report']='个推报表';
+
+/********************************************************/
+$lang['m_open_mobile_analytics']='开源的移动应用统计分析';
+$lang['m_copyright_version']='版权所有 2012-2015 Cobub Razor 版本：';
+$lang['m_release_note']='发行说明';
