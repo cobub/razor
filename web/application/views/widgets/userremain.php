@@ -630,7 +630,7 @@ function renderUserData(myurl)
         var data={
         reportname:reportname,
         controller:reportcontroller,
-        height    :480,
+        height    :580,
         type      :1,
         position  :0
         };
