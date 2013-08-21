@@ -721,10 +721,10 @@ function deletereport()
     num_edge_entries: 2,
     prev_text: '
 <?php echo lang('g_previousPage') ?>
-    ',       //上一页按钮里text
+    ',       //prev page text
     next_text: '
 <?php echo lang('g_nextPage') ?>
-    ',       //下一页按钮里text
+    ',       //next page text
     num_display_entries: 4,
     callback: weekpageselectCallback,
     items_per_page:1
@@ -736,10 +736,10 @@ function deletereport()
     num_edge_entries: 2,
     prev_text: '
 <?php echo lang('g_previousPage') ?>
-    ',       //上一页按钮里text
+    ',       //prev page text
     next_text: '
 <?php echo lang('g_nextPage') ?>
-    ',       //下一页按钮里text
+    ',       //next page text
     num_display_entries: 4,
     callback: monthpageselectCallback,
     items_per_page:1
