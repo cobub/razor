@@ -17,7 +17,7 @@
 					<fieldset>
 						<label><?php echo lang('v_appName') ?></label><?php echo form_error('appname'); ?>
 						<input
-							type="text" id='appname' name='appname'   readonly="readonly" value= <?php echo $appName?>   <?php echo isset($flag)?'disabled':'';?>>
+							type="text" id='appname' name='appname'   readonly="readonly" value= "<?php echo $appName?>">
 					
 					</fieldset>
 

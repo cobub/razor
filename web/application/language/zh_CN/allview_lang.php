@@ -907,7 +907,7 @@ $lang['c_compare2two4']='请选择2-4个产品进行比较';
 $lang['s_suspend_title']='添加到控制面板';
 $lang['s_suspend_deltitle']='从控制面板中删除';
 
-/**********************************pluginlist****************************************/
+/**********************************pluginlist**v0.6**************************************/
 $lang['plg_userkey']='UserKey*';
 $lang['plg_usersecret']='UserSecret*';
 $lang['plg_save']='保存密钥';
@@ -920,6 +920,8 @@ $lang['plg_usable_plugins']='可用插件';
 $lang['plg_name']=' 插件 ';
 $lang['plg_status']='插件状态';
 $lang['plg_description']=' 描述 ';
+$lang['plg_use_instruct']='使用说明';
+$lang['plg_plugin_manage']='插件管理';
 $lang['plg_get_keysecret_home']='您在';
 $lang['plg_get_keysecret_home1']='您尚未在';
 $lang['plg_get_keysecret_home2']='Cobub用户中心';
@@ -929,15 +931,11 @@ $lang['plg_get_keysecret_home5']='方可使用插件功能。';
 $lang['plg_get_keysecret_home6']='如何进行账户授权？';
 $lang['plg_get_keysecret1']='您尚未在';
 $lang['plg_get_keysecret2']='Cobub用户中心';
-$lang['plg_get_keysecret3']='注册，免费注册获得授权码后，即可在Cobub Razor管理-账户授权模块进行授权，授权后，就能使用<br /><br />';
-$lang['plg_get_keysecret4']='&nbsp&nbsp&nbsp&nbsp&nbspCobub用户中心';
-$lang['plg_get_keysecret5']='提供的丰富的插件与扩展功能。';
-$lang['plg_get_keysecret8']='如何进行账户授权？';
-$lang['plg_get_keysecret9']='（在Cobub用户中心获取授权后请返回到：管理->账户授权）！';
-
-
-$lang['plg_use_instruct']='使用说明';
-$lang['plg_plugin_manage']='插件管理';
+$lang['plg_get_keysecret3']='进行账户授权。免费注册';
+$lang['plg_get_keysecret4']='Cobub用户中心';
+$lang['plg_get_keysecret5']='并获取授权码后即可完成账户授权，';
+$lang['plg_get_keysecret6']='授权后即可获得Cobub用户中心提供的丰富功能。';
+$lang['plg_get_keysecret7']='如何进行账户授权？';
 /******************************view report plug**************************************/
 $lang['v_plugins_account']='账户授权';
 $lang['v_plugins_version']='版本 ';
@@ -954,7 +952,6 @@ $lang['v_plugins_introduce3']='与';
 $lang['v_plugins_introduce4']='Cobub用户中心';
 $lang['v_plugins_introduce5']='之间通信的密钥， 用户在用户中心注册后方可获取， 用户只有在密钥通过验证后才可使用系统提供的插件功能。';
 $lang['v_plugins_new_version']='有新版本可用。';
-
 
 
 $lang['getui']='个推';
@@ -1006,6 +1003,6 @@ $lang['getui_transmission']='透传消息';
 $lang['getui_report']='个推报表';
 
 /********************************************************/
-$lang['m_open_mobile_analytics']='开源的移动应用统计分析';
+$lang['m_open_mobile_analytics']='开源移动应用分析';
 $lang['m_copyright_version']='版权所有 2012-2015 Cobub Razor 版本：';
 $lang['m_release_note']='发行说明';

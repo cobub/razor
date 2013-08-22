@@ -956,14 +956,14 @@ $lang['getui_recive']='Receiving Reports';
 $lang['getui_click']='Hits Report';
 $lang['getui_report']='Data report';
 
-/**********************************pluginlist****************************************/
+
+/**********************************pluginlist***v0.6*************************************/
 $lang['plg_userkey']='UserKey*';
 $lang['plg_usersecret']='UserSecret*';
 $lang['plg_save']=' Save ';
 $lang['plg_getkey']='How to Get?';
 $lang['plg_keysecret_error']='UserKey and UserSecret authentication failed, please Re-Enter!';
 $lang['plg_keysecret_success']='UserKey and UserSecret authentication Is Successful!';
-$lang['plg_enter_keysecret']='UserKey and UserSecret can not be Empty!';
 $lang['plg_pluginlist']='Plugin List';
 $lang['plg_myplugins']='My Plugin';
 $lang['plg_usable_plugins']='Available plug-ins';
@@ -979,21 +979,15 @@ $lang['plg_get_keysecret_home3']='account authorization. Please Sign';
 $lang['plg_get_keysecret_home4']='Cobub User Center';
 $lang['plg_get_keysecret_home5']='in order to use plug-in functionality.';
 $lang['plg_get_keysecret_home6']='How to account authorization?';
-
-$lang['plg_get_keysecret']='You have not Cobub User Center account authorization. Please Sign Cobub User Center in order to use plug-in functionality.';
 $lang['plg_get_keysecret1']='You have not';
 $lang['plg_get_keysecret2']='Cobub User Center';
 $lang['plg_get_keysecret3']='account authorization. Sign ';
 $lang['plg_get_keysecret4']='Cobub User Center';
-$lang['plg_get_keysecret5']='nd obtain an authorization code to complete the account authorization, which is available after';
-$lang['plg_get_keysecret6']='Cobub User Center';
-$lang['plg_get_keysecret7']='offers a wealth of features:';
-$lang['plg_get_keysecret8']='How to account authorization?';
-$lang['plg_get_keysecret9']='(In Cobub Center for authorized users, please return to: Administration -> Account Authorization)!';
-$lang['v_plugins_new_version']='a new version is available.';
+$lang['plg_get_keysecret5']='and obtain an authorizationr';
+$lang['plg_get_keysecret6']='code to complete the account authorization, which is available after Cobub users rich functionality provided by the center.';
+$lang['plg_get_keysecret7']='How to account authorization?';
 /******************************view report plug**************************************/
 $lang['v_plugins_account']='Account Authorization';
-$lang['v_plugins_userauthen']='Cobub User Center Authentication';
 $lang['v_plugins_version']='Version ';
 $lang['v_plugins_provider']='By';
 $lang['v_plugins_enterkey']='Please Enter KEY';
@@ -1002,20 +996,23 @@ $lang['v_plugins_keyerror']='Enter the UserKey Is Wrong!';
 $lang['v_plugins_secreterror']='Enter the UserSecret Is Wrong!';
 $lang['v_plugins_active']='Enable';
 $lang['v_plugins_forbidden']='Fobidden';
-
-$lang['v_plugins_introduce']='UserKey and UserSecret is Cobub Razor communication between the center and Cobub user keys, the user only after the user center to obtain registration, the user only if the key is authenticated before they can use the system to provide a plug-in functionality.';
-$lang['head_plugin_m']='Plugin manager';
-$lang['push_success']='push message success';
-$lang['push_fail']='push message fail';
-$lang['getui_transmission']='transmission message';
 $lang['v_plugins_introduce1']='UserKey and UserSecret is ';
 $lang['v_plugins_introduce2']='Cobub Razor';
 $lang['v_plugins_introduce3']='communication between the';
 $lang['v_plugins_introduce4']='Cobub User Center';
 $lang['v_plugins_introduce5']='and Cobub user keys, the user only after the user center to obtain registration, the user only if the key is authenticated before they can use the system to provide a plug-in functionality.';
+$lang['v_plugins_new_version']='a new version is available.';
+
+
+$lang['head_plugin_m']='Plugin manager';
+$lang['push_success']='push message success';
+$lang['push_fail']='push message fail';
+$lang['getui_transmission']='transmission message';
 $lang['getui_report']='Getui report';
 
-/********************************************************/
+/******************************************************************************/
 $lang['m_open_mobile_analytics']='Mobile Analytics of Open Source';
 $lang['m_copyright_version']='Copyright 2012-2015 Cobub Razor Version:';
 $lang['m_release_note']='Release Notes';
+
+

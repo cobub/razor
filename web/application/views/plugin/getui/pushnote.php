@@ -1,6 +1,6 @@
-<section id="main" class="column" >
+<section id="main" class="column" style='height:1000px;' >
 				<h4 class="alert_warning" style='display:none' id="msg"></h4>
-			<article class="module width_full">
+			<article class="module width_full" >
 			<header><h3><?php echo  lang('getui');?></h3>	
 				
 			</header>

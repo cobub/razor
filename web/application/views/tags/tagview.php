@@ -328,7 +328,7 @@ $("#btn_submit").click(function()
 
             if(jQuery.inArray(v,v_l)==-1)
             {
-            	alert(k+":"+v);
+            	//alert(k+":"+v);
             	tag_type = "custom";
         	    return;
             }
@@ -342,7 +342,7 @@ $("#btn_submit").click(function()
 
             if(jQuery.inArray(v,c_l)==-1)
             {
-            	alert(k+":"+v);
+            	//alert(k+":"+v);
             	tag_type = "custom";
         	return;}
             });
@@ -356,7 +356,7 @@ $("#btn_submit").click(function()
 
             if(jQuery.inArray(v,r_l)==-1)
             {
-                alert(k+":"+v);
+                //alert(k+":"+v);
             	tag_type = "custom";
                 return;
             }

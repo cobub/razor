@@ -2,8 +2,8 @@
 <?php if(isset($msg)):?>
 <h4 class="alert_warning" id="msg"> 
 	 <?php echo lang('plg_get_keysecret1')?><a href="http://dev.cobub.com/users" target="_blank"><?php echo lang('plg_get_keysecret2')?></a><?php echo lang('plg_get_keysecret3')?>
-	 <a href="http://dev.cobub.com/users" target="_blank"><?php echo lang('plg_get_keysecret4')?></a><?php echo lang('plg_get_keysecret5')?><a href="http://dev.cobub.com/users" target="_blank"></a>
-	 <a href="http://192.168.1.4/ucenter/index.php?/help/userkey" target="_blank"><?php echo lang('plg_get_keysecret8')?></a></h4>
+	 <a href="http://dev.cobub.com/users" target="_blank"><?php echo lang('plg_get_keysecret4')?></a><?php echo lang('plg_get_keysecret5')?>
+	<?php echo lang('plg_get_keysecret6')?> <a href="http://192.168.1.4/ucenter/index.php?/help/userkey" target="_blank"><?php echo lang('plg_get_keysecret7')?></a></h4>
 <?php endif;?>
 
 	<!-- end of show user key&secret-->

@@ -844,3 +844,57 @@ $lang['c_compare2two4']	=	'2-4個の製品を選択してください';
 /*********************************Suspended box*************************************/		
 $lang['s_suspend_title']	=	'ダッシュボードに追加';
 $lang['s_suspend_deltitle']	=	'ダッシュボードから削除';
+
+/********************************************************/
+$lang['m_open_mobile_analytics']='オープンソースのモバイル解析';
+$lang['m_copyright_version']='著作権2012-2015 Cobub Razor バージョン：';
+$lang['m_release_note']='リリースノート';
+
+/**********************************pluginlist**v0.6**************************************/
+$lang['plg_userkey']='UserKey*';
+$lang['plg_usersecret']='UserSecret*';
+$lang['plg_save']='保存';
+$lang['plg_getkey']='取得する方法は？';
+$lang['plg_keysecret_error']='認証が失敗し、再入力してください！';
+$lang['plg_keysecret_success']='成功であることが証明！';
+$lang['plg_pluginlist']='プラグイン一覧';
+$lang['plg_myplugins']='私のプラグイン';
+$lang['plg_usable_plugins']='プラグインを利用可能';
+$lang['plg_name']=' プラグイン ';
+$lang['plg_status']='プラグインの状態';
+$lang['plg_description']=' 説明';
+$lang['plg_use_instruct']='使用説明書';
+$lang['plg_plugin_manage']='プラグインマネージャー';
+$lang['plg_get_keysecret_home']='あなた';
+$lang['plg_get_keysecret_home1']='あなたはユーザ·センター·アカウント認証を';
+$lang['plg_get_keysecret_home2']='Cobubいない';
+$lang['plg_get_keysecret_home3']='。プラグイン機能を使用する前に、';
+$lang['plg_get_keysecret_home4']='Cobubユーザ·センター';
+$lang['plg_get_keysecret_home5']='に署名してください';
+$lang['plg_get_keysecret_home6']='認可を考慮するには？';
+$lang['plg_get_keysecret1']='あなたは、ユーザ·センター·アカウント認証を';
+$lang['plg_get_keysecret2']='Cobubいない。';
+$lang['plg_get_keysecret3']='Cobubユーザ·センターに署名し、センターが提供する';
+$lang['plg_get_keysecret4']='Cobubユーザー';
+$lang['plg_get_keysecret5']='が豊富な機能後に使用可能になっているアカウン';
+$lang['plg_get_keysecret6']='トの認証を完了する認証コードを取得する。';
+$lang['plg_get_keysecret7']='認可を考慮するには？';
+/******************************view report plug**************************************/
+$lang['v_plugins_account']='アカウントの承認';
+$lang['v_plugins_version']='バージョン ';
+$lang['v_plugins_provider']='プロバイダー ';
+$lang['v_plugins_enterkey']='KEYを入力してください';
+$lang['v_plugins_entersecret']='SECRETを入力してください';
+$lang['v_plugins_keyerror']='違法KEYを入力してください！';
+$lang['v_plugins_secreterror']='違法SECRETを入力してください！';
+$lang['v_plugins_active']='可能にする';
+$lang['v_plugins_forbidden']='無効';
+$lang['v_plugins_introduce1']='UserSecretとUserKeyはユーザーキーの間';
+$lang['v_plugins_introduce2']='Cobub通信';
+$lang['v_plugins_introduce3']='と';
+$lang['v_plugins_introduce4']='Cobubかみそりセンターです。';
+$lang['v_plugins_introduce5']='センターでは、ユーザーアクセスの前に、彼らは、プラグイン機能を提供するために、システムを使用する前に、キーが認証されている場合にのみ、ユーザーは、ユーザーを登録しました。';
+$lang['v_plugins_new_version']='新しいバージョンが入手可能です。';
+
+
+
