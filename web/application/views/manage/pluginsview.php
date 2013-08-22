@@ -1,9 +1,9 @@
 <section id="main" class="column">
 <?php if(isset($msg)):?>
 <h4 class="alert_warning" id="msg"> 
-	 <?php echo lang('plg_get_keysecret1')?><a href="http://dev.cobub.com/users" ><?php echo lang('plg_get_keysecret2')?></a><?php echo lang('plg_get_keysecret3')?>
-	 <a href="http://dev.cobub.com/users"><?php echo lang('plg_get_keysecret4')?></a><?php echo lang('plg_get_keysecret5')?><a href="http://dev.cobub.com/users"></a>
-	 <a href="http://192.168.1.4/ucenter/index.php?/help/userkey"><?php echo lang('plg_get_keysecret8')?></a></h4>
+	 <?php echo lang('plg_get_keysecret1')?><a href="http://dev.cobub.com/users" target="_blank"><?php echo lang('plg_get_keysecret2')?></a><?php echo lang('plg_get_keysecret3')?>
+	 <a href="http://dev.cobub.com/users" target="_blank"><?php echo lang('plg_get_keysecret4')?></a><?php echo lang('plg_get_keysecret5')?><a href="http://dev.cobub.com/users" target="_blank"></a>
+	 <a href="http://192.168.1.4/ucenter/index.php?/help/userkey" target="_blank"><?php echo lang('plg_get_keysecret8')?></a></h4>
 <?php endif;?>
 
 	<!-- end of show user key&secret-->
@@ -43,10 +43,10 @@
 								href="<?php echo site_url().'/manage/pluginlist/activePlug/'.$plugin['identifier'];?>"><?php echo lang('v_plugins_active')?></a>
 						<?php else:?>
 						<a style="color:red"
-								href="<?php echo site_url().'/manage/pluginlist/disablePlug/'.$plugin['identifier'];?>"><?php echo lang('v_plugins_forbidden')?></a>
+								href="<?php echo site_url().'/manage/pluginlist/disablePlug/'.$plugin['identifier'];?>" ><?php echo lang('v_plugins_forbidden')?></a>
 						<?php endif;?>
 						</td>
-							<td><p style="font:14px arial, sans-serif;"><?php echo $plugin['description']?></p><br /><?php echo lang('v_plugins_version')?><?php echo $plugin['version']?>&nbsp &nbsp|&nbsp &nbsp<?php echo lang('v_plugins_provider')?><?php echo $plugin['provider']?>&nbsp &nbsp |&nbsp &nbsp<a href="<?php echo $plugin['detail']?>"><?php echo lang('plg_use_instruct')?></a>&nbsp &nbsp|&nbsp &nbsp<?php echo $plugin['date']?></td>
+							<td><p style="font:14px arial, sans-serif;"><?php echo $plugin['description']?></p><br /><?php echo lang('v_plugins_version')?><?php echo $plugin['version']?>&nbsp &nbsp|&nbsp &nbsp<?php echo lang('v_plugins_provider')?><?php echo $plugin['provider']?>&nbsp &nbsp |&nbsp &nbsp<a href="<?php echo $plugin['detail']?>" target="_blank"><?php echo lang('plg_use_instruct')?></a>&nbsp &nbsp|&nbsp &nbsp<?php echo $plugin['date']?></td>
 						</tr>
 						<?php }?>
 					<?php endif;?>

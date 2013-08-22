@@ -144,7 +144,7 @@
 							var arr=eval('('+msg+')');
 							  document.getElementById('msg').style.display='';
 							  if(arr.flag!=1){
-							  	//alert(arr.msg);
+							  	// alert(arr.msg);
 							  	document.getElementById('msg').style.display='';
 							  	document.getElementById('msg').innerHTML="<?php echo lang('push_fail');?>"+'  '+arr.msg.result; 
 							  }else{

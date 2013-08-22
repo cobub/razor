@@ -361,6 +361,16 @@ $lang['v_rpt_re_count']='Count';
 
 //view---report----user retention
 $lang['v_rpt_ur_retention']='Retention';
+$lang['v_rpt_ur_firstUseDay']='First-user Day';
+$lang['v_rpt_ur_one_days']='+1 Days';
+$lang['v_rpt_ur_two_days']='+2 Days';
+$lang['v_rpt_ur_three_days']='+3 Days';
+$lang['v_rpt_ur_four_days']='+4 Days';
+$lang['v_rpt_ur_five_days']='+5 Days';
+$lang['v_rpt_ur_six_days']='+6 Days';
+$lang['v_rpt_ur_seven_days']='+7 Days';
+$lang['v_rpt_ur_eight_days']='+8 Days';
+$lang['t_day']='Daily';
 $lang['v_rpt_ur_firstUseWeek']='First-use Week';
 $lang['v_rpt_ur_one_weeks']='+1 Week';
 $lang['v_rpt_ur_two_weeks']='+2 Weeks';
@@ -1005,3 +1015,7 @@ $lang['v_plugins_introduce4']='Cobub User Center';
 $lang['v_plugins_introduce5']='and Cobub user keys, the user only after the user center to obtain registration, the user only if the key is authenticated before they can use the system to provide a plug-in functionality.';
 $lang['getui_report']='Getui report';
 
+/********************************************************/
+$lang['m_open_mobile_analytics']='Mobile Analytics of Open Source';
+$lang['m_copyright_version']='Copyright 2012-2015 Cobub Razor Version:';
+$lang['m_release_note']='Release Notes';
