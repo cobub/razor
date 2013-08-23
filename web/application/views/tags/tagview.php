@@ -444,7 +444,7 @@ function addTagsGroup()
 	
 	jQuery.ajax({
 		type : "post",
-		url : "<?php echo site_url()?>/Tag/tags/addTagsGroup",
+		url : "<?php echo site_url()?>/tag/tags/addTagsGroup",
 		data : data,
 		success : function(msg) {
 			tagsgroup.push(name);
@@ -453,12 +453,10 @@ function addTagsGroup()
 			all_tags_data_select[name] = postData;
 			$.unblockUI();
 			submitData();
-			
-			//alert("ok");		 
 		},
 		error : function(XmlHttpRequest, textStatus, errorThrown) {
 			$.unblockUI();
-			alert("error");
+			alert("保存标签组失败");
 		},
 		beforeSend : function() {
 			
