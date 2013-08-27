@@ -55,7 +55,7 @@ $lang['l_oldPassword']='原密码';
 
 
 //*************************************FOOTER*************************************
-$lang['f_version']='Verion:0.4 DEV.COBUB.COM ';
+$lang['f_version']='Verion:0.6 DEV.COBUB.COM ';
 $lang['f_detail']= "*Cobub Razor软件包中包含HighCharts产品，HighCharts产品并非开源产品，<br/>但是您在一定条件下可以免费使用，具体请参见<a href='http://shop.highsoft.com/highcharts.html' target='_blank'>http://shop.highsoft.com/highcharts.html</a>。";
 $lang['f_copyright'] = '&copy Copyright 2013，版本：%body% <a href="http://dev.cobub.com">COBUB SOLUTION</a>';
 
@@ -232,6 +232,7 @@ $lang['v_warningInfo4']='填写信息不完整，激活失败';
 $lang['v_keysInfo']='密钥信息';
 // view----user
 
+$lang['v_user_createTip']='用户创建成功';
 $lang['v_user_userList']='用户列表';
 $lang['v_user_userRole']='用户角色';
 $lang['v_user_modifyUserRole']='修改用户角色';
@@ -1006,3 +1007,8 @@ $lang['getui_report']='个推报表';
 $lang['m_open_mobile_analytics']='开源移动应用分析';
 $lang['m_copyright_version']='版权所有 2012-2015 Cobub Razor 版本：';
 $lang['m_release_note']='发行说明';
+$lang['m_link_Cobub']='http://dev.cobub.com/zh';
+
+/****************************20130826v0.6**************************************/
+$lang['v_element_edit']='编辑';
+$lang['v_element_trash']='删除';

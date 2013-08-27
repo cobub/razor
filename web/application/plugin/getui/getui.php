@@ -20,19 +20,19 @@ class getui implements pluginInterface {
 	}
 	
 	function getMenus() {
-		$sideBars = "<h3>个推</h3>
-            <ul class='toggle'>
-                <li class='icn_my_application'>
+		// $sideBars = "<h3>个推</h3>
+  //           <ul class='toggle'>
+  //               <li class='icn_my_application'>
 
-                    <a href='" . site_url () . "/plugin/getui/applist' class='colorMediumBlue bold spanHover'>个推首页</a>
+  //                   <a href='" . site_url () . "/plugin/getui/applist' class='colorMediumBlue bold spanHover'>个推首页</a>
 
-                </li>
+  //               </li>
                
-                <li class='icn_add_apps'>
-               <a href='" . site_url () . "/plugin/getui/getuiapplist' class='colorMediumBlue bold spanHover'> 个推报表</a></li>
+  //               <li class='icn_add_apps'>
+  //              <a href='" . site_url () . "/plugin/getui/getuiapplist' class='colorMediumBlue bold spanHover'> 个推报表</a></li>
 
                
-            </ul>";
+  //           </ul>";
 
         $menus = array();    
 

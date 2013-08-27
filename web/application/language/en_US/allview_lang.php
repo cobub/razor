@@ -224,6 +224,7 @@ $lang['v_warningInfo3']='activate failure';
 $lang['v_warningInfo4']='offer information uncompletely and activate failure'; 
 // view----user
 
+$lang['v_user_createTip']='Create user success';
 $lang['v_user_userList']='User List';
 $lang['v_user_userRole']='User Role';
 $lang['v_user_modifyUserRole']='Modify User Role';
@@ -1012,7 +1013,11 @@ $lang['getui_report']='Getui report';
 
 /******************************************************************************/
 $lang['m_open_mobile_analytics']='Mobile Analytics of Open Source';
-$lang['m_copyright_version']='Copyright 2012-2015 Cobub Razor Version:';
+$lang['m_copyright_version']='Copyright 2012-2015 Cobub Razor  Version:';
 $lang['m_release_note']='Release Notes';
+$lang['m_link_Cobub']='http://dev.cobub.com';
 
+/****************************20130826v0.6**************************************/
+$lang['v_element_edit']='Edit';
+$lang['v_element_trash']='Trash';
 

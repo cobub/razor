@@ -37,9 +37,9 @@
     				<td><?php echo $rel['channel_name'];?></td> 
     				<td><?php echo $rel['name'];?></td>    				 
     				<td><a  href="<?php echo site_url();?>/manage/channel/editchannel/<?php echo $rel['channel_id']; ?>">
-    				<img src="<?php echo base_url();?>assets/images/icn_edit.png" title="Edit" style="border:0px"/></a>
+    				<img src="<?php echo base_url();?>assets/images/icn_edit.png" title=<?php echo lang('v_element_edit')?> style="border:0px"/></a>
     				<a href="javascript:if(confirm('<?php echo lang('v_man_pr_deleteNote') ?>'))location='<?php echo site_url();?>/manage/channel/deletechannel/<?php echo $rel['channel_id']; ?>'">
-    				<img src="<?php echo base_url();?>assets/images/icn_trash.png" title="Trash" style="border:0px"/></a>
+    				<img src="<?php echo base_url();?>assets/images/icn_trash.png" title=<?php echo lang('v_element_trash')?> style="border:0px"/></a>
     				</td>    				 
 				</tr> 
 			<?php } endif;?>			
@@ -105,9 +105,9 @@
     				<td><?php echo $rel['channel_name'];?></td> 
     				<td><?php echo $rel['name'];?></td>    				 
     				<td><a  href="<?php echo site_url();?>/manage/channel/editchannel/<?php echo $rel['channel_id']; ?>">
-    				<img src="<?php echo base_url();?>assets/images/icn_edit.png" title="Edit" style="border:0px;"/></a>
+    				<img src="<?php echo base_url();?>assets/images/icn_edit.png" title=<?php echo lang('v_element_edit')?> style="border:0px;"/></a>
     				<a href="javascript:if(confirm('<?php echo lang('v_man_pr_deleteNote') ?>'))location='<?php echo site_url();?>/manage/channel/deletechannel/<?php echo $rel['channel_id']; ?>'">
-    				<img src="<?php echo base_url();?>assets/images/icn_trash.png" title="Trash" style="border:0px"/></a>
+    				<img src="<?php echo base_url();?>assets/images/icn_trash.png" title=<?php echo lang('v_element_trash')?> style="border:0px"/></a>
     				</td>    				 
 				</tr> 
 			<?php } endif;?>			
@@ -172,7 +172,8 @@ function addchannel() {
 	}
 	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
 	for (var i = 0; i < channel_name.length; i++) {
-		if(pattern.test(channel_name.substr(i, 1))){
+		var str = channel_name.substr(i, 1);
+		if(pattern.test(str)||str.indexOf('\\')>=0){
 			document.getElementById('msg').innerHTML = '<font color=red><?php echo lang('v_rpt_mk_channelNameE') ?></font>';
 			document.getElementById('msg').style.display="block";
 			return;
@@ -203,7 +204,7 @@ function addchannel() {
 							document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_man_pr_existChannelS') ?></font>";	
 							document.getElementById('msg').style.display="block";
 						}else{
-						document.getElementById('msg').innerHTML = "<?php echo lang('v_man_pr_modifyChannelS') ?>";										 
+						document.getElementById('msg').innerHTML = "<?php echo lang('v_man_pr_addChannelS') ?>";										 
 						document.getElementById('msg').style.display="block";
 						window.location="<?php echo site_url()?>/manage/channel";	}
 					},
@@ -212,8 +213,8 @@ function addchannel() {
 						document.getElementById('addchannelButton').disabled=false;
 					},
 					beforeSend : function() {
-						document.getElementById('msg').innerHTML = '<?php echo lang('v_man_pr_modifyChannel') ?>';
-						document.getElementById('msg').style.display="block";
+						/*document.getElementById('msg').innerHTML = "<?php echo lang('v_man_pr_modifyChannel') ?>";
+						document.getElementById('msg').style.display="block";*/
 					},
 					complete : function() {
 					}
@@ -232,7 +233,8 @@ function addsychannel() {
 	}
 	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
 	for (var i = 0; i < channel_name.length; i++) {
-		if(pattern.test(channel_name.substr(i, 1))){
+		var str = channel_name.substr(i, 1);
+		if(pattern.test(str)||str.indexOf('\\')>=0){
 			document.getElementById('msg').innerHTML = '<font color=red><?php echo lang('v_rpt_mk_channelNameE') ?></font>';
 			document.getElementById('msg').style.display="block";
 			return;
@@ -262,7 +264,7 @@ function addsychannel() {
 							document.getElementById('msg').style.display="block";
 							document.getElementById('addSyschannelBtn').disabled=false;
 						}else{
-						document.getElementById('msg').innerHTML = "<?php echo lang('v_man_pr_modifyChannelS') ?>";	
+						document.getElementById('msg').innerHTML = "<?php echo lang('v_man_pr_addChannelS') ?>";	
 						document.getElementById('msg').style.display="block";
 						window.location="<?php echo site_url()?>/manage/channel";}									 
 					},
@@ -271,8 +273,8 @@ function addsychannel() {
 						document.getElementById('addSyschannelBtn').disabled=false;
 					},
 					beforeSend : function() {
-						document.getElementById('msg').innerHTML = '<?php echo lang('v_man_pr_modifyChannel') ?>';
-						document.getElementById('msg').style.display="block";
+						/*document.getElementById('msg').innerHTML = '<?php echo lang('v_man_pr_modifyChannel') ?>';
+						document.getElementById('msg').style.display="block";*/
 					},
 					complete : function() {
 					}

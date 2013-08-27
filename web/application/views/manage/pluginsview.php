@@ -1,9 +1,12 @@
 <section id="main" class="column">
 <?php if(isset($msg)):?>
-<h4 class="alert_warning" id="msg"> 
-	 <?php echo lang('plg_get_keysecret1')?><a href="http://dev.cobub.com/users" target="_blank"><?php echo lang('plg_get_keysecret2')?></a><?php echo lang('plg_get_keysecret3')?>
-	 <a href="http://dev.cobub.com/users" target="_blank"><?php echo lang('plg_get_keysecret4')?></a><?php echo lang('plg_get_keysecret5')?>
-	<?php echo lang('plg_get_keysecret6')?> <a href="http://192.168.1.4/ucenter/index.php?/help/userkey" target="_blank"><?php echo lang('plg_get_keysecret7')?></a></h4>
+<h4 class="alert_warning" id="msg" style="color: #BB6616;text-indent: 32px;font-size: 14px;line-height: 28px;" >
+<style type="text/css">
+a:hover {text-decoration: underline }
+</style> 
+	 <?php echo lang('plg_get_keysecret1')?><a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank"><?php echo lang('plg_get_keysecret2')?></a><?php echo lang('plg_get_keysecret3')?>
+	 <?php echo lang('plg_get_keysecret4')?><?php echo lang('plg_get_keysecret5')?>
+	 <?php echo lang('plg_get_keysecret6')?><a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank"><?php echo lang('plg_get_keysecret7')?></a></h4>
 <?php endif;?>
 
 	<!-- end of show user key&secret-->

@@ -57,7 +57,8 @@ function editchannel(channel_id)
 	}
 	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
 	for (var i = 0; i < channel_name.length; i++) {
-		if(pattern.test(channel_name.substr(i, 1))){
+		var str = channel_name.substr(i, 1);
+		if(pattern.test(str)||str.indexOf('\\')>=0){
 			document.getElementById('msg').innerHTML = '<font color=red><?php echo lang('t_error') ?></font>';
 			document.getElementById('msg').style.display="block";
 			return;
@@ -93,8 +94,8 @@ function editchannel(channel_id)
 						alert("<?php echo lang('t_error') ?>");
 					},
 					beforeSend : function() {
-						document.getElementById('msg').innerHTML = '<?php echo lang('v_man_pr_modifyChannel') ?>';
-						document.getElementById('msg').style.display="block";
+						/*document.getElementById('msg').innerHTML = '<?php echo lang('v_man_pr_modifyChannel') ?>';
+						document.getElementById('msg').style.display="block";*/
 
 					},
 					complete : function() {

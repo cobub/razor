@@ -24,10 +24,13 @@
                     ?>
                     <?php endif;
                     ?>
+                     <?php if($products&&count($products)>0) {?>
                     <tr>
                         <td><?php echo form_submit('user/doAssignProducts', lang('v_assign_products'));
                         ?></td>
                     </tr>
+                    <?php }
+                    ?>
                 </tbody>
             </table>
             <br/>

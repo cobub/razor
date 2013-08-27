@@ -458,8 +458,7 @@ if(isset($username)):
                 </li>
                 <br/>
             </ul>
-            <h3><?php echo lang('m_manage')
-            ?></h3>
+            
             <?php endif;
             ?>
 
@@ -488,11 +487,10 @@ if(isset($username)):
                 </li>
             </ul>
 
- <!--plugin show-->
- 
-            
-             
-             <?php $arr= $this->pluginm->run("getPluginInfo","");
+            <?php endif;
+            ?>
+
+                <?php $arr= $this->pluginm->run("getPluginInfo","");
                     for($i=0;$i<count($arr);$i++){
                         $identifier= $arr[$i]['identifier']; 
                          $pluginstatus=$this->plugin->getPluginStatusByIdentifier($identifier);
@@ -500,32 +498,50 @@ if(isset($username)):
                          $isactive = $this->plugin->getUserActive($uid);
                             if($pluginstatus==1&& $isactive){
                                 // print_r( $arr[$i]['menus']);
-                                $men = $arr[$i]['menus'];
-                                 $menus="<hr/><h3>".$men['title']."</h3><ul class='toggle'>";
-                                for( $j=0;$j<count($men['menus']);$j++){
-                                    // while(list($key,$val)= each($men['menus'][$i])){
-                                    if($men['menus'][$j]['level1']){
-                                         $menus = $menus. "<li class='icn_my_application'><a href='".site_url () .$men['menus'][$j]['link']."'class='colorMediumBlue bold spanHover'>".$men['menus'][$j]['name']."</a></li>";
+                                if(!(isset($product))){
+                                     $flag = false;
+                                    $men = $arr[$i]['menus'];
+                                     $menus="<hr/><h3>".$men['title']."</h3><ul class='toggle'>";
+                                    for( $j=0;$j<count($men['menus']);$j++){
+                                        // while(list($key,$val)= each($men['menus'][$i])){
+                                        if($men['menus'][$j]['level1']){
+                                            $flag = true;
+                                             $menus = $menus. "<li class='icn_my_application'><a href='".site_url () .$men['menus'][$j]['link']."'class='colorMediumBlue bold spanHover'>".$men['menus'][$j]['name']."</a></li>";
+                                        }
+                                           
+                                    // }
                                     }
-                                       
-                                // }
+
+                                    $menus = $menus."</ul>";
+                                    if($flag){
+                                         echo $menus;
+                                    }
+                                   
+                                }else{
+                                     $flag = false;
+                                     $men = $arr[$i]['menus'];
+                                     $menus="<hr/><h3>".$men['title']."</h3><ul class='toggle'>";
+                                    for( $j=0;$j<count($men['menus']);$j++){
+                                        // while(list($key,$val)= each($men['menus'][$i])){
+                                        if($men['menus'][$j]['level2']){
+                                            $flag = true;
+                                             $menus = $menus. "<li class='icn_my_application'><a href='".site_url () .$men['menus'][$j]['link']."'class='colorMediumBlue bold spanHover'>".$men['menus'][$j]['name']."</a></li>";
+                                        }
+                                           
+                                    // }
+                                    }
+
+                                    $menus = $menus."</ul>";
+                                    if($flag){
+                                         echo $menus;
+                                    }
+                                   
                                 }
 
-                                $menus = $menus."</ul>";
-                                echo $menus;
                             }
                             
                     }
                 ?>
-
-            <!-- end  plugin-->
-
-
-            
-            <?php endif;
-            ?>
-
-
             
 
 
@@ -573,7 +589,7 @@ if(isset($username)):
 				<a href="http://dev.cobub.com/docs/cobub-razor/release-note/" target="_blank"><?php echo lang('m_release_note')?></a></strong>
 			</p>
 			<p>
- <a href ="http://dev.cobub.com" target ="_blank" title="Mobile Analytics"  alt="Cobub Razor - Open Source Mobile Analytics Solution"><?php echo lang('m_open_mobile_analytics')?></a>
+ <a href ="<?php echo lang('m_link_Cobub')?>" target ="_blank" title="Mobile Analytics"  alt="Cobub Razor - Open Source Mobile Analytics Solution"><?php echo lang('m_open_mobile_analytics')?></a>
 			
 			</p>
             </footer>

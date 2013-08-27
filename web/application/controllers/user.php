@@ -81,7 +81,7 @@ class User extends CI_Controller {
                     $userId = $userinfo['user_id'];
                     $roleid = $this -> input -> post("userrole");
                     $this -> ums_user -> bindUserRole($userId, $roleid);
-                    $this -> common -> show_message("Create user success" . anchor('/user', lang('v_user_userList')));
+                    $this -> common -> show_message(lang('v_user_createTip') . anchor('/user', lang('v_user_userList')));
                 } else {
 
                 }

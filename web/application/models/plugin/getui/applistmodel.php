@@ -37,18 +37,26 @@ class ApplistModel extends CI_Model
 			{
 				$product_name = $query_product ->row($i) -> name;
 				$product_id = $query_product ->row($i) -> id;
-				$sql_getui =  "select * from ". $this->db->dbprefix("getui_product")." where product_id =".$product_id;
-				$query_getui = $this -> db -> query($sql_getui);
-				$rows_getui = $query_getui -> num_rows();
-				if($query_getui != null && $rows_getui > 0) 
+				$product_active = $query_product ->row($i) -> active;
+				if($product_active == 0)
 				{
-					$isActive = $query_getui -> row() -> is_active;
+					 $sql_getui = "delete from " . $this -> db -> dbprefix('getui_product') . " where product_id = ".$product_id;
+      				 $this -> db -> query($sql_getui);
+      			}else{
+
+					$sql_getui =  "select * from ". $this->db->dbprefix("getui_product")." where product_id =".$product_id;
+					$query_getui = $this -> db -> query($sql_getui);
+					$rows_getui = $query_getui -> num_rows();
+					if($query_getui != null && $rows_getui > 0) 
+					{
+						$isActive = $query_getui -> row() -> is_active;
 				
-				}else{
+					}else{
 						$isActive = 0;
 					}
 				
-				$applist[$i] = array('androidlist'=>$product_name,'product_id'=>$product_id,'isActive'=>$isActive);
+					$applist[$i] = array('androidlist'=>$product_name,'product_id'=>$product_id,'isActive'=>$isActive);
+				}
 			}
 			
 			return $applist;

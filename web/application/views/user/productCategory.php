@@ -29,9 +29,9 @@
     				<td><?php echo $row->id;?></td>                
     				<td><?php echo $row->name;?></td>     				  				
     				<td><a  href="<?php echo site_url();?>/user/edittypeOfapplication/<?php echo $row->id; ?>">
-    				<img src="<?php echo base_url();?>assets/images/icn_edit.png" title="Edit" style="border:0px;"/></a>
+    				<img src="<?php echo base_url();?>assets/images/icn_edit.png" title=<?php echo lang('v_element_edit')?> style="border:0px;"/></a>
     				<a href="javascript:if(confirm('<?php echo lang('v_user_appM_deleteType') ?>'))location='<?php echo site_url();?>/user/deletetypeOfapplication/<?php echo $row->id; ?>'">
-    				<img src="<?php echo base_url();?>assets/images/icn_trash.png" title="Trash" style="border:0px;"/></a>
+    				<img src="<?php echo base_url();?>assets/images/icn_trash.png" title=<?php echo lang('v_element_trash')?> style="border:0px;"/></a>
     				</td>  
 				</tr> 
 			<?php } endif;?>
@@ -72,9 +72,10 @@ function addtypeOfapplica() {
 		return;
 
 	}
-	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+	var pattern = new RegExp("[-+`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
 	for (var i = 0; i < type_applicationName.length; i++) {
-		if(pattern.test(type_applicationName.substr(i, 1))){
+		var str = type_applicationName.substr(i, 1);
+		if(pattern.test(str)||str.indexOf('\\')>=0){
 			document.getElementById('msg').innerHTML = '<font color=red><?php echo lang('v_user_appM_errorInput') ?></font>';
 			document.getElementById('msg').style.display="block";
 			return;

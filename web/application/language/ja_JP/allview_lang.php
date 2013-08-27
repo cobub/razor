@@ -849,6 +849,7 @@ $lang['s_suspend_deltitle']	=	'ダッシュボードから削除';
 $lang['m_open_mobile_analytics']='オープンソースのモバイル解析';
 $lang['m_copyright_version']='著作権2012-2015 Cobub Razor バージョン：';
 $lang['m_release_note']='リリースノート';
+$lang['m_link_Cobub']='http://dev.cobub.com';
 
 /**********************************pluginlist**v0.6**************************************/
 $lang['plg_userkey']='UserKey*';
@@ -896,5 +897,8 @@ $lang['v_plugins_introduce4']='Cobubかみそりセンターです。';
 $lang['v_plugins_introduce5']='センターでは、ユーザーアクセスの前に、彼らは、プラグイン機能を提供するために、システムを使用する前に、キーが認証されている場合にのみ、ユーザーは、ユーザーを登録しました。';
 $lang['v_plugins_new_version']='新しいバージョンが入手可能です。';
 
+/****************************20130826v0.6**************************************/
+$lang['v_element_edit']='編集';
+$lang['v_element_trash']='削除';
 
 

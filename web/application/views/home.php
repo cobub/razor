@@ -3,8 +3,9 @@
 <?php if(isset($msg)):?>
 <h4 class="alert_warning" id="msg"> <style type="text/css">
 				 a:hover {text-decoration: underline }
-		    </style><?php echo lang('plg_get_keysecret_home1')?>&nbsp<a  href="http://dev.cobub.com/users"><?php echo lang('plg_get_keysecret_home2')?></a>&nbsp<?php echo lang('plg_get_keysecret_home3')?>&nbsp
-		    <a  href="http://dev.cobub.com/users"><?php echo lang('plg_get_keysecret_home4')?></a>&nbsp<?php echo lang('plg_get_keysecret_home5')?>&nbsp<a  href="http://dev.cobub.com/users"><?php echo lang('plg_get_keysecret_home6')?></a>
+		    </style><?php echo lang('plg_get_keysecret_home1')?>&nbsp<a  href="http://dev.cobub.com/users" target="_blank"><?php echo lang('plg_get_keysecret_home2')?></a>&nbsp
+		    <?php echo lang('plg_get_keysecret_home3')?><?php echo lang('plg_get_keysecret_home4')?><?php echo lang('plg_get_keysecret_home5')?>
+		    <a  href="http://dev.cobub.com/users" tartget="_blank"><?php echo lang('plg_get_keysecret_home6')?></a>
 		   </h4>
 <?php endif;?>
 				

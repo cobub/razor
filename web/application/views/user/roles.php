@@ -90,7 +90,8 @@ function addRole() {
 
 	}
 	for (var i = 0; i < role.length; i++) {
-		if(pattern.test(role.substr(i, 1))){
+		var str= role.substr(i, 1);
+		if(pattern.test(str)||str.indexOf('\\')>=0){
 			document.getElementById('msg').innerHTML = '<font color=red><?php echo lang('v_user_rolem_errorInput') ?></font>';
 			document.getElementById('msg').style.display="block";
 			return;
@@ -112,7 +113,7 @@ function addRole() {
 		jQuery
 				.ajax({
 					type : "post",
-					url : "<?php echo base_url()?>/index.php/user/addRole",
+					url : "<?php echo base_url()?>index.php?/user/addRole",
 					data : data,
 					success : function(msg) {
 						if(!msg){

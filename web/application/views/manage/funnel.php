@@ -44,11 +44,11 @@
 								}?>%</td>
 							<td><a
 								href="<?php echo site_url()?>/report/funnels/editFunnel/<?php echo $result['tid'][$i]?>">
-									<img style="border: 0px" title="Edit"
+									<img style="border: 0px" title=<?php echo lang('v_element_edit')?>
 									src="<?php echo base_url()?>/assets/images/icn_edit.png">
 							</a> <a
 								href="javascript:if(confirm('<?php echo lang('v_rpt_re_funnelmsgIsdelete');?>')){location.href='<?php echo site_url()?>/manage/funnels/deleteFunnel/<?php echo $result['tid'][$i]?>'}">
-									<img style="border: 0px" title="Trash"
+									<img style="border: 0px" title=<?php echo lang('v_element_trash')?>
 									src="<?php echo base_url()?>/assets/images/icn_trash.png" style="border:0;">
 							</a></td>
 						</tr>
