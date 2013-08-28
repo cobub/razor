@@ -30,7 +30,7 @@
 function edittype_applica(id)
 {	
 	var type_applica_name = trim(document.getElementById('type_applicationthead_name').value);
-	var pattern = new RegExp("[`+-~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+	var pattern = new RegExp("[`+~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
 	if(type_applica_name=='')
 	{
 		document.getElementById('msg').innerHTML = '<font color=red><?php echo lang('v_user_appM_addTypeFail') ?></font>';
@@ -40,6 +40,7 @@ function edittype_applica(id)
 	}
 	for (var i = 0; i < type_applica_name.length; i++) {
 		var str = type_applica_name.substr(i, 1);
+		// alert(pattern.test(str)+str);
 		if(pattern.test(str)||str.indexOf('\\')>=0){
 			document.getElementById('msg').innerHTML = '<font color=red><?php echo lang('v_user_appM_errorInput') ?></font>';
 			document.getElementById('msg').style.display="block";

@@ -923,20 +923,16 @@ $lang['plg_status']='插件状态';
 $lang['plg_description']=' 描述 ';
 $lang['plg_use_instruct']='使用说明';
 $lang['plg_plugin_manage']='插件管理';
-$lang['plg_get_keysecret_home']='您在';
-$lang['plg_get_keysecret_home1']='您尚未在';
-$lang['plg_get_keysecret_home2']='Cobub用户中心';
-$lang['plg_get_keysecret_home3']='进行账户授权。请免费注册';
-$lang['plg_get_keysecret_home4']='Cobub用户中心';
-$lang['plg_get_keysecret_home5']='方可使用插件功能。';
-$lang['plg_get_keysecret_home6']='如何进行账户授权？';
-$lang['plg_get_keysecret1']='您尚未在';
-$lang['plg_get_keysecret2']='Cobub用户中心';
-$lang['plg_get_keysecret3']='进行账户授权。免费注册';
-$lang['plg_get_keysecret4']='Cobub用户中心';
-$lang['plg_get_keysecret5']='并获取授权码后即可完成账户授权，';
-$lang['plg_get_keysecret6']='授权后即可获得Cobub用户中心提供的丰富功能。';
-$lang['plg_get_keysecret7']='如何进行账户授权？';
+$lang['plg_get_keysecret_home']='您尚未在<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub用户中心</a>进行账户授权。请免费注册Cobub用户中心方可使用插件功能。
+<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>';
+$lang['v_cobub_user_center']='Cobub用户中心';
+
+$lang['plg_get_keysecret']='您尚未在<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub用户中心</a>进行账户授权。
+免费注册Cobub用户中心并获取授权码后即可完成账户授权，授权后即可获得Cobub用户中心提供的丰富功能。
+<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>';
+
+
+
 /******************************view report plug**************************************/
 $lang['v_plugins_account']='账户授权';
 $lang['v_plugins_version']='版本 ';
@@ -947,11 +943,9 @@ $lang['v_plugins_keyerror']='输入的KEY不合法！';
 $lang['v_plugins_secreterror']='输入的SECRET不合法！';
 $lang['v_plugins_active']='启用';
 $lang['v_plugins_forbidden']='禁用';
-$lang['v_plugins_introduce1']='UserKey 与  UserSecret 是 ';
-$lang['v_plugins_introduce2']='Cobub Razor';
-$lang['v_plugins_introduce3']='与';
-$lang['v_plugins_introduce4']='Cobub用户中心';
-$lang['v_plugins_introduce5']='之间通信的密钥， 用户在用户中心注册后方可获取， 用户只有在密钥通过验证后才可使用系统提供的插件功能。';
+$lang['v_plugins_introduce']='UserKey 与  UserSecret 是Cobub Razor
+与<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub用户中心</a>
+之间通信的密钥， 用户在用户中心注册后方可获取， 用户只有在密钥通过验证后才可使用系统提供的插件功能。';
 $lang['v_plugins_new_version']='有新版本可用。';
 
 

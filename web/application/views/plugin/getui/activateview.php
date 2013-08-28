@@ -22,7 +22,7 @@
 					</fieldset>
 
 					<fieldset>
-						<label><?php echo "PackageName" ?></label> <label><a href="http://192.168.1.4/ucenter/index.php?/help/getui#n2" target="_blank"><?php echo lang('v_tipGetPackageName') ?></a></label><?php echo form_error('packagename'); ?>
+						<label><?php echo "PackageName" ?></label> <label><a href="http://dev.cobub.com/users/index.php?/help/getui#n2" target="_blank"><?php echo lang('v_tipGetPackageName') ?></a></label><?php echo form_error('packagename'); ?>
 						
 						<input
 							type="text" id='packagename' name='packagename' <?php echo isset($flag)?'disabled':'';?> value="<?php echo isset($flag)?$app_identifier:"";?>">

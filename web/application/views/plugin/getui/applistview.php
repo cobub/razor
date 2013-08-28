@@ -5,9 +5,8 @@ $language = $this->config->item('language');
 <section id="main" class="column">
 		<?php if(isset($msgw)):?>
 		<h4 class="alert_warning" id="msg"> 
-		 <?php echo lang('plg_get_keysecret1')?><a href="http://dev.cobub.com/users" ><?php echo lang('plg_get_keysecret2')?></a><?php echo lang('plg_get_keysecret3')?>
-			 <a href="http://dev.cobub.com/users"><?php echo lang('plg_get_keysecret4')?></a><?php echo lang('plg_get_keysecret5')?><a href="http://dev.cobub.com/users"></a>
-			 <a href="http://192.168.1.4/ucenter/index.php?/help/userkey"><?php echo lang('plg_get_keysecret8')?></a></h4>
+		 <?php echo lang('plg_get_keysecret')?>
+			 </h4>
 		<?php endif;?>
 		<?php if(isset($msg)):?>
 		<h4 class="alert_error" id="msg"><?php echo $msg;?></h4>
@@ -21,9 +20,9 @@ $language = $this->config->item('language');
 			
 
 				<h4><?php echo  lang('v_userStatus').': '?> <?php echo ($flag==1)? lang('v_userStatusActive'):lang('v_userStatusInactive'); ?></h4>	
-				<p><?php echo lang('v_userStatusExplain')?><a href="http://dev.cobub.com/users"  target="_blank" ><?php echo lang('plg_get_keysecret_home2')?></a><?php echo lang('v_userStatusExplain1')?><a href="http://192.168.1.4/ucenter/index.php?/help/getui#n2"  target="_blank"><?php echo lang('v_integrationGuide')?></a></p>
+				<p><?php echo lang('v_userStatusExplain')?><a href="http://dev.cobub.com/users"  target="_blank" ><?php echo lang('v_cobub_user_center')?></a><?php echo lang('v_userStatusExplain1')?><a href="http://dev.cobub.com/users/index.php?/help/getui#n2"  target="_blank"><?php echo lang('v_integrationGuide')?></a></p>
 
-					<p><small><?php echo  lang('v_tap')?><a href="http://dev.cobub.com/users"  target="_blank" ><?php echo lang('plg_get_keysecret_home2')?></a><?php echo  lang('v_tap1')?></small></p>
+					<p><small><?php echo  lang('v_tap')?><a href="http://dev.cobub.com/users"  target="_blank" ><?php echo lang('v_cobub_user_center')?></a><?php echo  lang('v_tap1')?></small></p>
 		       	</div>
 			</div>		
 		</article><!-- end of stats article -->	

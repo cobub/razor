@@ -973,20 +973,16 @@ $lang['plg_status']='PluginStatus';
 $lang['plg_description']='Description';
 $lang['plg_use_instruct']='Instructions For Use';
 $lang['plg_plugin_manage']='Plugin Manager';
-$lang['plg_get_keysecret_home']='You have.';
-$lang['plg_get_keysecret_home1']='You have not';
-$lang['plg_get_keysecret_home2']='Cobub User Center';
-$lang['plg_get_keysecret_home3']='account authorization. Please Sign';
-$lang['plg_get_keysecret_home4']='Cobub User Center';
-$lang['plg_get_keysecret_home5']='in order to use plug-in functionality.';
-$lang['plg_get_keysecret_home6']='How to account authorization?';
-$lang['plg_get_keysecret1']='You have not';
-$lang['plg_get_keysecret2']='Cobub User Center';
-$lang['plg_get_keysecret3']='account authorization. Sign ';
-$lang['plg_get_keysecret4']='Cobub User Center';
-$lang['plg_get_keysecret5']='and obtain an authorizationr';
-$lang['plg_get_keysecret6']='code to complete the account authorization, which is available after Cobub users rich functionality provided by the center.';
-$lang['plg_get_keysecret7']='How to account authorization?';
+$lang['plg_get_keysecret_home']='You have not<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank"> Cobub User Center </a>
+account authorization. Please Sign Cobub User Center before using plug-in functionality. 
+<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">How to account authorization?</a>';
+$lang['v_cobub_user_center']='Cobub Users Center';
+
+$lang['plg_get_keysecret']='You have not <a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub User Center</a> account authorization.
+Sign Cobub User Center and obtain an authorization code to complete the account authorization, 
+which is available after Cobub User Center provides the rich functionality. 
+<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">How to account authorization?'</a>;
+
 /******************************view report plug**************************************/
 $lang['v_plugins_account']='Account Authorization';
 $lang['v_plugins_version']='Version ';
@@ -997,11 +993,10 @@ $lang['v_plugins_keyerror']='Enter the UserKey Is Wrong!';
 $lang['v_plugins_secreterror']='Enter the UserSecret Is Wrong!';
 $lang['v_plugins_active']='Enable';
 $lang['v_plugins_forbidden']='Fobidden';
-$lang['v_plugins_introduce1']='UserKey and UserSecret is ';
-$lang['v_plugins_introduce2']='Cobub Razor';
-$lang['v_plugins_introduce3']='communication between the';
-$lang['v_plugins_introduce4']='Cobub User Center';
-$lang['v_plugins_introduce5']='and Cobub user keys, the user only after the user center to obtain registration, the user only if the key is authenticated before they can use the system to provide a plug-in functionality.';
+$lang['v_plugins_introduce']='UserKey with UserSecret is Cobub Razor with 
+<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub-User-Center</a> 
+communication between key centers registered user before the user access, 
+the user only if the key is authenticated before they can use the system to provide a plug-in functionality.';
 $lang['v_plugins_new_version']='a new version is available.';
 
 

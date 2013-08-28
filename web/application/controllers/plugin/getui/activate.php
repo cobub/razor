@@ -21,14 +21,15 @@ class Activate extends CI_Controller {
 		) );
 		$this->load->library ( 'form_validation' );
 		$this->load->Model ( 'common' );
+		$this->common->requireLogin ();
 		$this->load->Model ( 'plugin/getui/activatemodel', 'activatemodel' );
 	
 	}
 	
 	function index() {
-		$appName = $_GET ['appName'];
+		$appName = $_GET ['appName'];	
 		$this->data ['appName'] = $appName;
-		$this->common->loadHeader ( lang ( 'v_activateApp' ) );
+		$this->common->loadHeader ( lang ( 'v_activateApp' ) );	
 		$this->load->view ( 'plugin/getui/activateview', $this->data );
 	}
 	
@@ -46,8 +47,10 @@ class Activate extends CI_Controller {
 			$app_identifier = $this->input->post ( "packagename" );
 			$this->data ['app_identifier'] = $app_identifier;
 		
+		
 			$url_active = SERVER_BASE_URL."/index.php?/api/igetui/register";
 			$response = $this->common->curl_post ( $url_active, $this->data );
+		echo $response;
 			$obj = json_decode ( $response, true );
 			$flag = $obj ['flag'];
 

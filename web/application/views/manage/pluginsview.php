@@ -4,9 +4,7 @@
 <style type="text/css">
 a:hover {text-decoration: underline }
 </style> 
-	 <?php echo lang('plg_get_keysecret1')?><a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank"><?php echo lang('plg_get_keysecret2')?></a><?php echo lang('plg_get_keysecret3')?>
-	 <?php echo lang('plg_get_keysecret4')?><?php echo lang('plg_get_keysecret5')?>
-	 <?php echo lang('plg_get_keysecret6')?><a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank"><?php echo lang('plg_get_keysecret7')?></a></h4>
+	 <?php echo lang('plg_get_keysecret')?></h4>
 <?php endif;?>
 
 	<!-- end of show user key&secret-->

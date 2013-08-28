@@ -22,8 +22,8 @@ class Applist extends CI_Controller {
 				'url' 
 		) );
 		$this->load->library ( 'form_validation' );
-		
 		$this->load->Model ( 'common' );
+		$this->common->requireLogin ();
 		$this->load->Model ( 'plugin/getui/applistmodel', 'applistmodel' );
 		$this->load->Model ( 'plugin/getui/activatemodel', 'activatemodel' );
 	

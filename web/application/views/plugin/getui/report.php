@@ -162,7 +162,7 @@ $(document).ready(function() {
     {
     	
       	 var chart_canvas = $('#container');
-      	    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
+      	    var loading_img = $("<img src='<?php echo base_url();?>assets/images/loader.gif'/>");
       		   
       	  
       	    

@@ -19,10 +19,12 @@ class report extends CI_Controller {
 
 		$num = $this->common->curl_post(SERVER_BASE_URL."/index.php?/api/igetui/getuiOnlineCnt",$data);
 		$result= json_decode ( $num );
-
-		if($result->status=='Succ'){
+		if(isset($result->status)){
+			if($result->status=='Succ'){
 			$data['onlineuser']=$result->count;
-		}else{
+			}
+		}
+		else{
 			$data['onlineuser']=0;
 		}
 
