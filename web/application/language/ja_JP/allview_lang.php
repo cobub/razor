@@ -866,21 +866,14 @@ $lang['plg_status']='プラグインの状態';
 $lang['plg_description']=' 説明';
 $lang['plg_use_instruct']='使用説明書';
 $lang['plg_plugin_manage']='プラグインマネージャー';
-$lang['plg_get_keysecret_home']='あなた';
-$lang['plg_get_keysecret_home1']='あなたはユーザ·センター·アカウント認証を';
-$lang['plg_get_keysecret_home2']='Cobubいない';
-$lang['plg_get_keysecret_home3']='。プラグイン機能を使用する前に、';
-$lang['plg_get_keysecret_home4']='Cobubユーザ·センター';
-$lang['plg_get_keysecret_home5']='に署名してください';
-$lang['plg_get_keysecret_home6']='認可を考慮するには？';
-$lang['plg_get_keysecret1']='あなたは、ユーザ·センター·アカウント認証を';
-$lang['plg_get_keysecret2']='Cobubいない。';
-$lang['plg_get_keysecret3']='Cobubユーザ·センターに署名し、センターが提供する';
-$lang['plg_get_keysecret4']='Cobubユーザー';
-$lang['plg_get_keysecret5']='が豊富な機能後に使用可能になっているアカウン';
-$lang['plg_get_keysecret6']='トの認証を完了する認証コードを取得する。';
-$lang['plg_get_keysecret7']='認可を考慮するには？';
+$lang['plg_get_keysecret_home']='あなたは、ユーザ·センター·アカウント認証をCobubいない。
+プラグイン機能を使用する前に、Cobubユーザ·センターに署名してください。
+認可を考慮するには？';
+$lang['plg_get_keysecret']='あなたのアカウントはCobubユーザ·センター承認で行われていません。
+Cobubユーザ·センターに署名し、センターが提供するCobubユーザーが豊富な機能後に使用可能になっているアカウントの認証を完了する認証コードを取得する。
+認可を考慮するには？';
 /******************************view report plug**************************************/
+$lang['v_cobub_user_center']='Cobub ユーザーセンター';
 $lang['v_plugins_account']='アカウントの承認';
 $lang['v_plugins_version']='バージョン ';
 $lang['v_plugins_provider']='プロバイダー ';
@@ -890,11 +883,8 @@ $lang['v_plugins_keyerror']='違法KEYを入力してください！';
 $lang['v_plugins_secreterror']='違法SECRETを入力してください！';
 $lang['v_plugins_active']='可能にする';
 $lang['v_plugins_forbidden']='無効';
-$lang['v_plugins_introduce1']='UserSecretとUserKeyはユーザーキーの間';
-$lang['v_plugins_introduce2']='Cobub通信';
-$lang['v_plugins_introduce3']='と';
-$lang['v_plugins_introduce4']='Cobubかみそりセンターです。';
-$lang['v_plugins_introduce5']='センターでは、ユーザーアクセスの前に、彼らは、プラグイン機能を提供するために、システムを使用する前に、キーが認証されている場合にのみ、ユーザーは、ユーザーを登録しました。';
+$lang['v_plugins_introduce']='UserSecretとUserKeyはキー間Cobub - ユーザーセンター通信、それらはプラグイン機能を提供するために、システムを使用する前に、キーが認証されている場合にのみ、ユーザに登録する前にユーザCobub - ユーザーセンターとCobubかみそりです。';
+
 $lang['v_plugins_new_version']='新しいバージョンが入手可能です。';
 
 /****************************20130826v0.6**************************************/

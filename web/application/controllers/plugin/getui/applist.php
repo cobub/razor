@@ -21,6 +21,7 @@ class Applist extends CI_Controller {
 				'form',
 				'url' 
 		) );
+		$this->load->language('plugin_getui');
 		$this->load->library ( 'form_validation' );
 		$this->load->Model ( 'common' );
 		$this->common->requireLogin ();

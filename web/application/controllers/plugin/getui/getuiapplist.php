@@ -3,6 +3,7 @@ class getuiapplist extends CI_Controller {
 	private $data = array ();
 	function __construct() {
 		parent::__construct ();
+		$this->load->language('plugin_getui');
 		$this->load->Model ( 'common' );
 		$this->load->Model ( 'plugin/getui/applistmodel', 'plugins' );
 		

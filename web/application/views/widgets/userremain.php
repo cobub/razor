@@ -711,6 +711,11 @@ function deletereport()
         items_per_page:1
     });
     }
+    function daypageselectCallback(page_index, jq) {
+        weekpageindex = page_index;
+        CompareDayData();
+        return false;
+    }
     function weekpageselectCallback(page_index, jq){
     weekpageindex=page_index;
     CompareWeekData();

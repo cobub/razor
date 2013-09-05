@@ -28,7 +28,7 @@ class ApplistModel extends CI_Model
 	function getProductInfo () 
 	{
 		$sql_product = "select * from ". $this->db->dbprefix("product")." where product_platform = 1";
-		
+		$applist=array();
 		$query_product = $this -> db -> query($sql_product);
 		$rows_product = $query_product -> num_rows();
 		if($query_product != null && $rows_product > 0) 

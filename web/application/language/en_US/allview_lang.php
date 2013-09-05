@@ -914,50 +914,6 @@ $lang["v_rpt_realtime_areas_region"] = "Region";
 $lang["v_rpt_realtime_transrate_title"] = "Realtime conversions";
 $lang["v_rpt_realtime_event_title"] = "Realtime events";
 
-$lang['getui']='Igetui';
-$lang['getuiHomePage'] = 'IgetuiHomePage';
-$lang['getui_tagerapp']='The tarDownload the applicationget application:';
-$lang['getui_note_title']='Notice title:';
-$lang['getui_note_content']='Notice contents:';
-$lang['getui_after_clicknote']='Follow-up action after click：';
-$lang['getui_startapp']='Start application';
-$lang['getui_opennet']='Open the webpage';
-$lang['getui_downapp']='Download the application';
-$lang['getui_neturl']='Web page address';
-$lang['getui_neturl_note']='Click on the notification to open the destination Web page address';
-$lang['getui_selectuser']='Choose to receive user:';
-$lang['getui_alluser']='All users:';
-$lang['getui_taguser']='Tag user:';
-$lang['getui_platform']='Platform:';
-$lang['getui_set']='Advanced settings';
-$lang['getui_transcontent']='Transparent transmission：';
-$lang['getui_transcontent_note']='Click on notification, the SDK will send the content to your application';
-$lang['getui_transcontent_noteii']='You can enter up to 600 characters';
-$lang['getui_clear']='Notification can clear：';
-$lang['getui_yes']='yes';
-$lang['getui_no']='no';
-$lang['getui_clearnote']='Choose "no" user cannot be cleared after notification, please carefully chosen';
-$lang['getui_v']='Notification by Vibration ';
-$lang['getui_offline']='Offline message：';
-$lang['getui_offlinetime']='Offline time：';
-$lang['getui_hour']='Hours';
-$lang['getui_hour_note']='(Must be an integer between 1-72)';
-$lang['getui_note_logo']='Notification icon：';
-$lang['getui_submit']='Send notification';
-$lang['getui_ring']='Notification by Bell：';
-$lang['getui_appname']='App Name';
-$lang['getui_option']='Option';
-$lang['getui_view']='View the report';
-$lang['getui_applist']='Application list';
-$lang['getui_data']='Getui Data report';
-$lang['getui_newuser']='New Registered Number Report';
-$lang['getui_online']='Online User Number Report';
-$lang['getui_push']='Push Reports';
-$lang['getui_recive']='Receiving Reports';
-$lang['getui_click']='Hits Report';
-$lang['getui_report']='Data report';
-
-
 /**********************************pluginlist***v0.6*************************************/
 $lang['plg_userkey']='UserKey*';
 $lang['plg_usersecret']='UserSecret*';
@@ -999,13 +955,6 @@ communication between key centers registered user before the user access,
 the user only if the key is authenticated before they can use the system to provide a plug-in functionality.';
 $lang['v_plugins_new_version']='a new version is available.';
 
-
-$lang['head_plugin_m']='Plugin manager';
-$lang['push_success']='push message success';
-$lang['push_fail']='push message fail';
-$lang['getui_transmission']='transmission message';
-$lang['getui_report']='Getui report';
-
 /******************************************************************************/
 $lang['m_open_mobile_analytics']='Mobile Analytics of Open Source';
 $lang['m_copyright_version']='Copyright 2012-2015 Cobub Razor  Version:';
@@ -1016,3 +965,19 @@ $lang['m_link_Cobub']='http://dev.cobub.com';
 $lang['v_element_edit']='Edit';
 $lang['v_element_trash']='Trash';
 
+$lang['head_plugin_m']='Plugin manager';
+
+/**************************IOS PUSH*************************************/
+$lang['m_certificate'] = 'certificate';
+$lang['m_iosinfo'] = 'IOS Infor';
+$lang['m_ios_warning1'] = 'Register_id happened changes or fail to save at database';
+$lang['m_ios_warning2'] = 'Fail to register';
+$lang['m_ios_warning3'] = 'It is uncomplete to fill up the blanks';
+$lang['m_ios_register'] = 'AppRegister';
+$lang['m_register'] = 'Register';
+$lang['m_getBundleid'] = 'How to get BundleID?';
+$lang['m_registered'] = 'Registered';
+$lang['m_IOSpush'] = 'IOS Menu';
+$lang['m_cer_warning'] ='Can not push before the certificate is uploaded,please first go to user center and upload relevant certificate';
+$lang['m_acc_warning'] = 'User account can not be used';
+$lang['m_reg_warning'] = 'Can not push before the App is registered';

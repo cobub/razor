@@ -3,6 +3,7 @@ class push extends CI_Controller {
 	
 	function __construct() {
 		parent::__construct ();
+		$this->load->language('plugin_getui');
 		$this->load->Model ( 'common' );
 		
 		$this->common->requireLogin ();
