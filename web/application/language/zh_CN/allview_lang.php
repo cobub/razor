@@ -958,21 +958,6 @@ $lang['v_element_trash']='删除';
 $lang['head_plugin_m']='插件管理';
 
 /******************************************************************************/
-$lang['m_gcmhome']='gcm首页';
 
 
-/**************************IOS PUSH*************************************/
-$lang['m_certificate'] = '证书';
-$lang['m_iosinfo'] = 'IOS信息';
-$lang['m_ios_warning1'] = '注册ＩＤ被更改或者数据库保存失败';
-$lang['m_ios_warning2'] = '注册失败';
-$lang['m_ios_warning3'] = '信息填写不完整';
-$lang['m_ios_register'] = '应用注册';
-$lang['m_register'] = '注册';
-$lang['m_getBundleid'] = '如何获取BundleID？';
-$lang['m_registered'] = '已注册';
-$lang['m_IOSpush'] = 'IOS首页';
-$lang['m_cer_warning'] ='证书未上传不能进行推送服务,请先到用户中心上传相关证书';
-$lang['m_acc_warning'] = '用户账户不可用';
-$lang['m_reg_warning'] = '未注册前不能进行推送服务';
 

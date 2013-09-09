@@ -937,7 +937,7 @@ $lang['v_cobub_user_center']='Cobub Users Center';
 $lang['plg_get_keysecret']='You have not <a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub User Center</a> account authorization.
 Sign Cobub User Center and obtain an authorization code to complete the account authorization, 
 which is available after Cobub User Center provides the rich functionality. 
-<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">How to account authorization?'</a>;
+<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">How to account authorization?</a>';
 
 /******************************view report plug**************************************/
 $lang['v_plugins_account']='Account Authorization';
@@ -967,17 +967,3 @@ $lang['v_element_trash']='Trash';
 
 $lang['head_plugin_m']='Plugin manager';
 
-/**************************IOS PUSH*************************************/
-$lang['m_certificate'] = 'certificate';
-$lang['m_iosinfo'] = 'IOS Infor';
-$lang['m_ios_warning1'] = 'Register_id happened changes or fail to save at database';
-$lang['m_ios_warning2'] = 'Fail to register';
-$lang['m_ios_warning3'] = 'It is uncomplete to fill up the blanks';
-$lang['m_ios_register'] = 'AppRegister';
-$lang['m_register'] = 'Register';
-$lang['m_getBundleid'] = 'How to get BundleID?';
-$lang['m_registered'] = 'Registered';
-$lang['m_IOSpush'] = 'IOS Menu';
-$lang['m_cer_warning'] ='Can not push before the certificate is uploaded,please first go to user center and upload relevant certificate';
-$lang['m_acc_warning'] = 'User account can not be used';
-$lang['m_reg_warning'] = 'Can not push before the App is registered';
