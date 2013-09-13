@@ -261,7 +261,6 @@ class Common extends CI_Model {
             $acl = new Ums_acl();
             $userid = $this -> tank_auth -> get_user_id();
             $role = $this -> getUserRoleById($userid);
-
             if ($acl -> can_read($role, $id)) {
                 return true;
             } else {

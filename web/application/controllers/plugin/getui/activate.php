@@ -51,7 +51,6 @@ class Activate extends CI_Controller {
 		
 			$url_active = SERVER_BASE_URL."/index.php?/api/igetui/register";
 			$response = $this->common->curl_post ( $url_active, $this->data );
-		echo $response;
 			$obj = json_decode ( $response, true );
 			$flag = $obj ['flag'];
 
