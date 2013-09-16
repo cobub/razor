@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_errorlog` (
   `title` text NOT NULL,
   `stacktrace` text NOT NULL,
   `version` varchar(50) NOT NULL,
-  `isfix` int(11) NOT NULL,
+  `isfix` int(11) DEFAULT NULL,
   `insertdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -396,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_reportlayout` (
   `productid` int(50) NOT NULL,
   `reportname` varchar(128) NOT NULL,
   `controller` varchar(128) NOT NULL,
-  `method` varchar(45) default ' ',
+  `method` varchar(45) default NULL,
   `height` int(50) NOT NULL,
   `src` varchar(512) NOT NULL,
   `location` int(50) NOT NULL,
@@ -564,7 +564,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_target` (
   `userid` int(11) NOT NULL,
   `productid` int(11) NOT NULL,
   `targetname` varchar(128) NOT NULL,
-  `targettype` int(11) NOT NULL,
+  `targettype` int(11) DEFAULT NULL,
   `unitprice` decimal(12,2) NOT NULL,
   `targetstatusc` int(11) NOT NULL,
   `createdate` datetime NOT NULL,
@@ -818,6 +818,7 @@ CREATE TABLE `umsinstall_plugins` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
+
 -- --------------------------------------------------------
 --
 -- Default value for table `getui_product`
@@ -836,3 +837,16 @@ CREATE TABLE IF NOT EXISTS `umsinstall_getui_product` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+
+-- 
+-- Default value for table `gcmappkeys`
+-- 
+
+CREATE TABLE IF NOT EXISTS `umsinstall_gcmappkeys` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `appkey` varchar(128) NOT NULL,
+  `status` smallint(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

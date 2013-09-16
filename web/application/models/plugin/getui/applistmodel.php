@@ -27,8 +27,9 @@ class ApplistModel extends CI_Model
 	
 	function getProductInfo () 
 	{
-		$sql_product = "select * from ". $this->db->dbprefix("product")." where product_platform = 1";
-		
+		$userId = $this->common->getUserId ();
+		$sql_product = "select * from ". $this->db->dbprefix("product")." where product_platform = 1 and user_id= ".$userId;
+		$applist=array();
 		$query_product = $this -> db -> query($sql_product);
 		$rows_product = $query_product -> num_rows();
 		if($query_product != null && $rows_product > 0) 
@@ -40,11 +41,11 @@ class ApplistModel extends CI_Model
 				$product_active = $query_product ->row($i) -> active;
 				if($product_active == 0)
 				{
-					 $sql_getui = "delete from " . $this -> db -> dbprefix('getui_product') . " where product_id = ".$product_id;
+					 $sql_getui = "delete from " . $this -> db -> dbprefix('getui_product') . " where product_id =".$product_id." and user_id=".$userId;
       				 $this -> db -> query($sql_getui);
       			}else{
 
-					$sql_getui =  "select * from ". $this->db->dbprefix("getui_product")." where product_id =".$product_id;
+					$sql_getui =  "select * from ". $this->db->dbprefix("getui_product")." where product_id =".$product_id." and user_id=".$userId;
 					$query_getui = $this -> db -> query($sql_getui);
 					$rows_getui = $query_getui -> num_rows();
 					if($query_getui != null && $rows_getui > 0) 

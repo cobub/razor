@@ -490,7 +490,10 @@ if(isset($username)):
             <?php endif;
             ?>
 
-                <?php $arr= $this->pluginm->run("getPluginInfo","");
+                <?php
+               
+                $arr= $this->pluginm->run("getPluginInfo","");
+                
                     for($i=0;$i<count($arr);$i++){
                         $identifier= $arr[$i]['identifier']; 
                          $pluginstatus=$this->plugin->getPluginStatusByIdentifier($identifier);
@@ -516,8 +519,9 @@ if(isset($username)):
                                     if($flag){
                                          echo $menus;
                                     }
-                                   
+                                    
                                 }else{
+        
                                      $flag = false;
                                      $men = $arr[$i]['menus'];
                                      $menus="<hr/><h3>".$men['title']."</h3><ul class='toggle'>";

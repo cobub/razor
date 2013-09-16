@@ -5,6 +5,7 @@ class report extends CI_Controller {
 	
 	function __construct() {
 		parent::__construct ();
+		$this->load->language('plugin_getui');
 		$this->load->Model ( 'common' );
 		$this->load->Model ( 'plugin/getui/applistmodel', 'plugins' );
 		$this->common->requireLogin ();
@@ -19,14 +20,13 @@ class report extends CI_Controller {
 
 		$num = $this->common->curl_post(SERVER_BASE_URL."/index.php?/api/igetui/getuiOnlineCnt",$data);
 		$result= json_decode ( $num );
+		$data['onlineuser']=0;
 		if(isset($result->status)){
 			if($result->status=='Succ'){
 			$data['onlineuser']=$result->count;
 			}
 		}
-		else{
-			$data['onlineuser']=0;
-		}
+		
 
 		$this->common->loadHeaderWithDateControl ( lang ( 'getui_data' ) );
 		$this->load->view ( 'plugin/getui/report', $data );
