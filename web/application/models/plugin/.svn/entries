@@ -1,0 +1,40 @@
+10
+
+dir
+4250
+http://192.168.1.2:8080/svn/ums/Branch/v0.6/web/application/models/plugin
+http://192.168.1.2:8080/svn/ums
+
+
+
+2013-09-13T10:02:49.480103Z
+4248
+shaobing.fu
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+7e31c31d-906e-344e-bfc0-3148149ebf5e
+
+gcm
+dir
+
+getui
+dir
+
+iospush
+dir
+
+radar
+dir
+

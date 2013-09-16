@@ -1,0 +1,37 @@
+END
+auth.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/ums/!svn/ver/3530/Branch/v0.6/web/application/controllers/auth.php
+END
+profile.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/ums/!svn/ver/3530/Branch/v0.6/web/application/controllers/profile.php
+END
+user.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/ums/!svn/ver/4021/Branch/v0.6/web/application/controllers/user.php
+END
+ums.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/ums/!svn/ver/3530/Branch/v0.6/web/application/controllers/ums.php
+END
+help.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/ums/!svn/ver/3530/Branch/v0.6/web/application/controllers/help.php
+END
+archive.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/ums/!svn/ver/3947/Branch/v0.6/web/application/controllers/archive.php
+END
