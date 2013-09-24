@@ -13,7 +13,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "458"
          endingLineNumber = "458"
-         landmarkName = "+postEvent:label:acc:"
+         landmarkName = "+postEvent:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -52,7 +52,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "496"
          endingLineNumber = "496"
-         landmarkName = "-processArchivedLogs"
+         landmarkName = "+postEvent:label:acc:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -65,7 +65,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "705"
          endingLineNumber = "705"
-         landmarkName = "-getArchiveClientData"
+         landmarkName = "-postOldEventDataInBackGround:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -78,8 +78,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "745"
          endingLineNumber = "745"
-         landmarkName = "-getArchiveClientData"
-         landmarkType = "5">
+         landmarkName = "@implementation UMSAgent"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -91,8 +91,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "165"
          endingLineNumber = "165"
-         landmarkName = "+endTracPage:"
-         landmarkType = "5">
+         landmarkName = "@implementation UMSAgent"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -169,8 +169,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "150"
          endingLineNumber = "150"
-         landmarkName = "+startTracPage:"
-         landmarkType = "5">
+         landmarkName = "@implementation UMSAgent"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -182,7 +182,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "861"
          endingLineNumber = "861"
-         landmarkName = "-postClientDataInBackground:"
+         landmarkName = "-getDeviceInfo"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -195,7 +195,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "503"
          endingLineNumber = "503"
-         landmarkName = "-processArchivedLogs"
+         landmarkName = "+bindUserIdentifier:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -208,7 +208,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "862"
          endingLineNumber = "862"
-         landmarkName = "-postClientDataInBackground:"
+         landmarkName = "-getDeviceInfo"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -221,7 +221,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "664"
          endingLineNumber = "664"
-         landmarkName = "-archiveClientData"
+         landmarkName = "-postEventInBackGround:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -234,7 +234,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "485"
          endingLineNumber = "485"
-         landmarkName = "-processArchivedLogs"
+         landmarkName = "+postEvent:acc:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -247,7 +247,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "486"
          endingLineNumber = "486"
-         landmarkName = "-processArchivedLogs"
+         landmarkName = "+postEvent:acc:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -351,7 +351,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "619"
          endingLineNumber = "619"
-         landmarkName = "-postEventInBackGround:"
+         landmarkName = "-getArchiveActivityLog"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -364,7 +364,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "620"
          endingLineNumber = "620"
-         landmarkName = "-postEventInBackGround:"
+         landmarkName = "-getArchiveActivityLog"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

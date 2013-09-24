@@ -14,7 +14,7 @@
 
 #import "postEventDao.h"
 #import "Global.h"
-#import "SBJson.h"
+#import "NSDictionary_JSONExtensions.h"
 #import "network.h"
 
 @implementation postEventDao
@@ -34,10 +34,13 @@
     [requestDictionary setObject:appkey forKey:@"appkey"];
     
     NSString *retString = [network SendData:url data:requestDictionary];
-    
-    NSDictionary * retDictionary = [retString JSONValue];
-    ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
-    ret.msg = [retDictionary objectForKey:@"msg"];
+    NSError *error = nil;
+    NSDictionary *retDictionary = [NSDictionary dictionaryWithJSONString:retString error:&error];
+    if(!error)
+    {
+        ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
+        ret.msg = [retDictionary objectForKey:@"msg"];
+    }
     return ret;
 
 

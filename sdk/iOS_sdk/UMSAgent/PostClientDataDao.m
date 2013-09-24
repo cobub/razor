@@ -15,7 +15,7 @@
 #import "PostClientDataDao.h"
 #include "Global.h"
 #include "network.h"
-#include "SBJson.h"
+#import "NSDictionary_JSONExtensions.h"
 #import "ClientData.h"
 
 @implementation PostClientDataDao
@@ -49,9 +49,13 @@
     [requestDictionary setObject:deviceInfo.time forKey:@"time"];
     [requestDictionary setObject:deviceInfo.isjailbroken forKey:@"isjailbroken"];
     NSString *retString = [network SendData:url data:requestDictionary];
-    NSDictionary * retDictionary = [retString JSONValue];
-    ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
-    ret.msg = [retDictionary objectForKey:@"msg"];
+    NSError *error = nil;
+    NSDictionary *retDictionary = [NSDictionary dictionaryWithJSONString:retString error:&error];
+    if(!error)
+    {
+        ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
+        ret.msg = [retDictionary objectForKey:@"msg"];
+    }
     return ret;
     }
 }
@@ -71,9 +75,13 @@
         [requestDictionary setObject:appkey forKey:@"appkey"];
         [requestDictionary setObject:version forKey:@"version"];
         NSString *retString = [network SendData:url data:requestDictionary];
-        NSDictionary * retDictionary = [retString JSONValue];
-        ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
-        ret.msg = [retDictionary objectForKey:@"msg"];
+        NSError *error = nil;
+        NSDictionary *retDictionary = [NSDictionary dictionaryWithJSONString:retString error:&error];
+        if(!error)
+        {
+            ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
+            ret.msg = [retDictionary objectForKey:@"msg"];
+        }
         return ret;
     }
 }
@@ -84,9 +92,13 @@
         NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/uploadLog"];
         CommonReturn *ret = [[CommonReturn alloc] init];
         NSString *retString = [network SendData:url data:archiveLogs];        
-        NSDictionary * retDictionary = [retString JSONValue];
-        ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
-        ret.msg = [retDictionary objectForKey:@"msg"];
+        NSError *error = nil;
+        NSDictionary *retDictionary = [NSDictionary dictionaryWithJSONString:retString error:&error];
+        if(!error)
+        {
+            ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
+            ret.msg = [retDictionary objectForKey:@"msg"];
+        }
         return ret;
     }
 }
@@ -105,9 +117,13 @@
         [requestDictionary setObject:appkey forKey:@"appkey"];
         [requestDictionary setObject:errorLog.activity forKey:@"activity"];
         NSString *retString = [network SendData:url data:requestDictionary];        
-        NSDictionary * retDictionary = [retString JSONValue];
-        ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
-        ret.msg = [retDictionary objectForKey:@"msg"];
+        NSError *error = nil;
+        NSDictionary *retDictionary = [NSDictionary dictionaryWithJSONString:retString error:&error];
+        if(!error)
+        {
+            ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
+            ret.msg = [retDictionary objectForKey:@"msg"];
+        }
         return ret;
     }
 }

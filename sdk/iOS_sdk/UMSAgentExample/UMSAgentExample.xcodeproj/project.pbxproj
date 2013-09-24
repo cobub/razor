@@ -23,7 +23,7 @@
 		36B3015D162AF22D0098FEF5 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B3015B162AF22D0098FEF5 /* SecondViewController.m */; };
 		36B3015E162AF22D0098FEF5 /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36B3015C162AF22D0098FEF5 /* SecondViewController.xib */; };
 		36B8E537151C51B5004C3C1F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B8E536151C51B5004C3C1F /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		842AB7F1172BA24700241CA6 /* libUMSAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 842AB7F0172BA24700241CA6 /* libUMSAgent.a */; };
+		36D5B8A417EFEFD20098CD0B /* libUMSAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D5B89F17EFEFD20098CD0B /* libUMSAgent.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,8 +60,8 @@
 		36B3015B162AF22D0098FEF5 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		36B3015C162AF22D0098FEF5 /* SecondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondViewController.xib; sourceTree = "<group>"; };
 		36B8E536151C51B5004C3C1F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		36E13C881522F7080005499D /* UMSAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSAgent.h; sourceTree = "<group>"; };
-		842AB7F0172BA24700241CA6 /* libUMSAgent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMSAgent.a; sourceTree = "<group>"; };
+		36D5B89F17EFEFD20098CD0B /* libUMSAgent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUMSAgent.a; path = "../../../UMSAgent/build/Debug-iphoneos/libUMSAgent.a"; sourceTree = "<group>"; };
+		36D5B8A317EFEFD20098CD0B /* UMSAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSAgent.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,11 +69,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36D5B8A417EFEFD20098CD0B /* libUMSAgent.a in Frameworks */,
 				36B8E537151C51B5004C3C1F /* CoreTelephony.framework in Frameworks */,
 				3609A5AE15180C7300BEDA05 /* UIKit.framework in Frameworks */,
 				3609A5B015180C7300BEDA05 /* Foundation.framework in Frameworks */,
 				3609A5B215180C7300BEDA05 /* CoreGraphics.framework in Frameworks */,
-				842AB7F1172BA24700241CA6 /* libUMSAgent.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,11 +168,36 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		36D5B8A017EFEFD20098CD0B /* usr */ = {
+			isa = PBXGroup;
+			children = (
+				36D5B8A117EFEFD20098CD0B /* local */,
+			);
+			name = usr;
+			path = "../../../UMSAgent/build/Debug-iphoneos/usr";
+			sourceTree = "<group>";
+		};
+		36D5B8A117EFEFD20098CD0B /* local */ = {
+			isa = PBXGroup;
+			children = (
+				36D5B8A217EFEFD20098CD0B /* include */,
+			);
+			path = local;
+			sourceTree = "<group>";
+		};
+		36D5B8A217EFEFD20098CD0B /* include */ = {
+			isa = PBXGroup;
+			children = (
+				36D5B8A317EFEFD20098CD0B /* UMSAgent.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		36E13C871522F7080005499D /* ums */ = {
 			isa = PBXGroup;
 			children = (
-				842AB7F0172BA24700241CA6 /* libUMSAgent.a */,
-				36E13C881522F7080005499D /* UMSAgent.h */,
+				36D5B89F17EFEFD20098CD0B /* libUMSAgent.a */,
+				36D5B8A017EFEFD20098CD0B /* usr */,
 			);
 			name = ums;
 			path = UMSAgentExample/ums;
@@ -224,6 +249,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
+				TargetAttributes = {
+					3609A5A815180C7300BEDA05 = {
+						DevelopmentTeam = F9C6W6M498;
+					};
+				};
 			};
 			buildConfigurationList = 3609A5A315180C7300BEDA05 /* Build configuration list for PBXProject "UMSAgentExample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -394,17 +424,22 @@
 		3609A5DD15180C7300BEDA05 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UMSAgentExample/UMSAgentExample-Prefix.pch";
 				INFOPLIST_FILE = "UMSAgentExample/UMSAgentExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/UMSAgentExample/ums\"",
-					"\"$(SRCROOT)/UMSAgentExample\"",
-					"\"$(SRCROOT)/../UMSAgent/build/Debug-iphoneos\"",
+					"\\\"$(SRCROOT)/UMSAgentExample/ums\\\"",
+					"\\\"$(SRCROOT)/UMSAgentExample\\\"",
+					"\\\"$(SRCROOT)/../UMSAgent/build/Debug-iphoneos\\\"",
+					"/Users/wb/Projects/razor/sdk/iOS_sdk/UMSAgent/build/Release-iphoneos",
+					"/Users/wb/Projects/razor/sdk/iOS_sdk/UMSAgent/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -413,17 +448,22 @@
 		3609A5DE15180C7300BEDA05 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UMSAgentExample/UMSAgentExample-Prefix.pch";
 				INFOPLIST_FILE = "UMSAgentExample/UMSAgentExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/UMSAgentExample/ums\"",
-					"\"$(SRCROOT)/UMSAgentExample\"",
-					"\"$(SRCROOT)/../UMSAgent/build/Debug-iphoneos\"",
+					"\\\"$(SRCROOT)/UMSAgentExample/ums\\\"",
+					"\\\"$(SRCROOT)/UMSAgentExample\\\"",
+					"\\\"$(SRCROOT)/../UMSAgent/build/Debug-iphoneos\\\"",
+					"/Users/wb/Projects/razor/sdk/iOS_sdk/UMSAgent/build/Release-iphoneos",
+					"/Users/wb/Projects/razor/sdk/iOS_sdk/UMSAgent/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

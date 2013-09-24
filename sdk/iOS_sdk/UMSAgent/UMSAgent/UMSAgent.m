@@ -1107,4 +1107,9 @@ uncaughtExceptionHandler(NSException *exception) {
                               encoding:NSUTF8StringEncoding];
 }
 
++ (NSString *)getUMSUDID
+{
+    return [UMS_OpenUDID value];
+}
+
 @end
