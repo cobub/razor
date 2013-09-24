@@ -1,0 +1,255 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		36461E0417D99DB400836150 /* razor_apn_network.m in Sources */ = {isa = PBXBuildFile; fileRef = 36461E0317D99DB400836150 /* razor_apn_network.m */; };
+		36615D5617D6FF5600D3815A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36615D5517D6FF5600D3815A /* Foundation.framework */; };
+		36615D5B17D6FF5600D3815A /* razor_apn_plugin.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 36615D5A17D6FF5600D3815A /* razor_apn_plugin.h */; };
+		36615D5D17D6FF5600D3815A /* razor_apn_plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 36615D5C17D6FF5600D3815A /* razor_apn_plugin.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		36615D5017D6FF5600D3815A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				36615D5B17D6FF5600D3815A /* razor_apn_plugin.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		36461E0217D99DB400836150 /* razor_apn_network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = razor_apn_network.h; sourceTree = "<group>"; };
+		36461E0317D99DB400836150 /* razor_apn_network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = razor_apn_network.m; sourceTree = "<group>"; };
+		36615D5217D6FF5600D3815A /* librazor_apn_plugin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = librazor_apn_plugin.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		36615D5517D6FF5600D3815A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		36615D5917D6FF5600D3815A /* razor_apn_plugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "razor_apn_plugin-Prefix.pch"; sourceTree = "<group>"; };
+		36615D5A17D6FF5600D3815A /* razor_apn_plugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = razor_apn_plugin.h; sourceTree = "<group>"; };
+		36615D5C17D6FF5600D3815A /* razor_apn_plugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = razor_apn_plugin.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		36615D4F17D6FF5600D3815A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36615D5617D6FF5600D3815A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		36615D4917D6FF5600D3815A = {
+			isa = PBXGroup;
+			children = (
+				36615D5417D6FF5600D3815A /* Frameworks */,
+				36615D5317D6FF5600D3815A /* Products */,
+				36615D5717D6FF5600D3815A /* razor_apn_plugin */,
+			);
+			sourceTree = "<group>";
+		};
+		36615D5317D6FF5600D3815A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				36615D5217D6FF5600D3815A /* librazor_apn_plugin.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		36615D5417D6FF5600D3815A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				36615D5517D6FF5600D3815A /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		36615D5717D6FF5600D3815A /* razor_apn_plugin */ = {
+			isa = PBXGroup;
+			children = (
+				36615D5A17D6FF5600D3815A /* razor_apn_plugin.h */,
+				36615D5C17D6FF5600D3815A /* razor_apn_plugin.m */,
+				36615D5817D6FF5600D3815A /* Supporting Files */,
+				36461E0217D99DB400836150 /* razor_apn_network.h */,
+				36461E0317D99DB400836150 /* razor_apn_network.m */,
+			);
+			path = razor_apn_plugin;
+			sourceTree = "<group>";
+		};
+		36615D5817D6FF5600D3815A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				36615D5917D6FF5600D3815A /* razor_apn_plugin-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		36615D5117D6FF5600D3815A /* razor_apn_plugin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 36615D6017D6FF5600D3815A /* Build configuration list for PBXNativeTarget "razor_apn_plugin" */;
+			buildPhases = (
+				36615D4E17D6FF5600D3815A /* Sources */,
+				36615D4F17D6FF5600D3815A /* Frameworks */,
+				36615D5017D6FF5600D3815A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = razor_apn_plugin;
+			productName = razor_apn_plugin;
+			productReference = 36615D5217D6FF5600D3815A /* librazor_apn_plugin.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		36615D4A17D6FF5600D3815A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = WBTECH;
+			};
+			buildConfigurationList = 36615D4D17D6FF5600D3815A /* Build configuration list for PBXProject "razor_apn_plugin" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 36615D4917D6FF5600D3815A;
+			productRefGroup = 36615D5317D6FF5600D3815A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				36615D5117D6FF5600D3815A /* razor_apn_plugin */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		36615D4E17D6FF5600D3815A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36615D5D17D6FF5600D3815A /* razor_apn_plugin.m in Sources */,
+				36461E0417D99DB400836150 /* razor_apn_network.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		36615D5E17D6FF5600D3815A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		36615D5F17D6FF5600D3815A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		36615D6117D6FF5600D3815A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/razor_apn_plugin.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "razor_apn_plugin/razor_apn_plugin-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		36615D6217D6FF5600D3815A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/razor_apn_plugin.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "razor_apn_plugin/razor_apn_plugin-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		36615D4D17D6FF5600D3815A /* Build configuration list for PBXProject "razor_apn_plugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				36615D5E17D6FF5600D3815A /* Debug */,
+				36615D5F17D6FF5600D3815A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		36615D6017D6FF5600D3815A /* Build configuration list for PBXNativeTarget "razor_apn_plugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				36615D6117D6FF5600D3815A /* Debug */,
+				36615D6217D6FF5600D3815A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 36615D4A17D6FF5600D3815A /* Project object */;
+}

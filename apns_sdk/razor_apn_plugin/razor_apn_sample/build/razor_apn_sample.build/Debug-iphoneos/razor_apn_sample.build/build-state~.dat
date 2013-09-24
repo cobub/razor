@@ -1,0 +1,346 @@
+Trazor_apn_sample
+v5
+r1
+cCheck dependencies
+cProcessInfoPlistFile /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/Info.plist razor_apn_sample/razor_apn_sample-Info.plist
+cCpResource /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/ResourceRules.plist build/Debug-iphoneos/razor_apn_sample.app/ResourceRules.plist
+cProcessPCH /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/razor_apn_sample-Prefix-fiweergbcliooodyjdtgyjajaagv/razor_apn_sample-Prefix.pch.pth razor_apn_sample/razor_apn_sample-Prefix.pch normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/main.o /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/main.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/AppDelegate.o /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/ViewController.o /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/ViewController.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cLd /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/razor_apn_sample normal armv7
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk
+c0000000051CC19020000000000000110
+t1372330242
+s272
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/Entitlements.plist
+c00000000511668A800000000000001A7
+t1360423080
+s423
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/ResourceRules.plist
+c00000000511668A800000000000001E5
+t1360423080
+s485
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/AdSupport.framework/AdSupport
+c00000000511668A90000000000008BE0
+t1360423081
+s35808
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c00000000511668AB0000000000322700
+t1360423083
+s3286784
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony
+c00000000511668AB000000000013E620
+t1360423083
+s1304096
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c00000000511668AB000000000062AD10
+t1360423083
+s6466832
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
+c00000000511668AB00000000000015F7
+t1360423083
+s5623
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
+c00000000511668AD0000000000000E8D
+t1360423085
+s3725
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c00000000511668AF00000000011BCDF0
+t1360423087
+s18599408
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/include/Availability.h
+c00000000511668B60000000000001B73
+t1360423094
+s7027
+
+N/Users/wb/Library/MobileDevice/Provisioning Profiles/32287028-6358-4FA6-925E-7A9A795E853E.mobileprovision
+c00000000522FE6C50000000000002D97
+t1378870981
+s11671
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app.dSYM
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/Default-568h@2x.png
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/Default.png
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/Default@2x.png
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/Info.plist
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/PkgInfo
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/ResourceRules.plist
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/embedded.mobileprovision
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/en.lproj/InfoPlist.strings
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/en.lproj/ViewController.nib
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/razor_apn_sample
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/AppDelegate.o
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/ViewController.o
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/main.o
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/razor_apn_sample.LinkFileList
+c000000005236C33500000000000001E8
+t1379320629
+s488
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample.xcent
+t2
+s0
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/../../razor_apn_plugin/build/Debug-iphoneos/librazor_apn_plugin.a
+c000000005236C3350000000000005B90
+t1379320629
+s23440
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m
+c000000005236B4D90000000000000E52
+t1379316953
+s3666
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/Default-568h@2x.png
+c0000000050262AB100000000000048A2
+t1344678577
+s18594
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/Default.png
+c0000000050262AB1000000000000198C
+t1344678577
+s6540
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/Default@2x.png
+c0000000050262AB10000000000003EEB
+t1344678577
+s16107
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/ViewController.m
+c000000005226E76F0000000000000244
+t1378281327
+s580
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/en.lproj/InfoPlist.strings
+c000000005226CC47000000000000002D
+t1378274375
+s45
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/en.lproj/ViewController.xib
+c000000005226EEDF000000000000214D
+t1378283231
+s8525
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/main.m
+c000000005226CC470000000000000151
+t1378274375
+s337
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/razor/libUMSAgent.a
+c000000005236AAB80000000000186370
+t1379314360
+s1598320
+
+N/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/razor_apn_sample-Prefix.pch
+c000000005226CC47000000000000014F
+t1378274375
+s335
+i<Availability.h>
+i<UIKit/UIKit.h>
+i<Foundation/Foundation.h>
+
+N/var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/razor_apn_sample-Prefix-fiweergbcliooodyjdtgyjajaagv/razor_apn_sample-Prefix.pch.pth
+t2
+s0
+
+Nrazor_apn_sample/razor_apn_sample-Info.plist
+c0000000052284F500000000000000475
+t1378373456
+s1141
+
+CBuild AST from /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m
+r0
+
+CBuild AST from /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/ViewController.m
+r0
+
+CBuild AST from /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/main.m
+r0
+
+CCheck dependencies
+r0
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesb8cd4cb5fae6b741^fe7eb5b5fae6b741^---0#1#0#--18"Check dependencies36"A00D7F18-797D-4185-8AC8-6057A22EEC3E-
+
+CCodeSign /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app
+r0
+
+CCompileC build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/AppDelegate.o /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s401013430.230277
+e401013430.306283
+r1
+xCompileC
+xbuild/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/AppDelegate.o
+x/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+o/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m:40:65: warning: local declaration of 'deviceToken' hides instance variable [-Wshadow-ivar]
+o    NSString *tokenKey = [[NSString alloc] initWithFormat:@"%@",deviceToken];
+o                                                                ^
+o/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m:44:5: warning: local declaration of 'deviceToken' hides instance variable [-Wshadow-ivar]
+o    deviceToken = [NSString stringWithFormat:@"%@",deviceToken];
+o    ^
+o/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m:44:52: warning: local declaration of 'deviceToken' hides instance variable [-Wshadow-ivar]
+o    deviceToken = [NSString stringWithFormat:@"%@",deviceToken];
+o                                                   ^
+o3 warnings generated.
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"Compile /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m261b3bb6fae6b741^b6674eb6fae6b741^-906"/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m:40:65: warning: local declaration of 'deviceToken' hides instance variable [-Wshadow-ivar]    NSString *tokenKey = [[NSString alloc] initWithFormat:@"%@",deviceToken];                                                                ^/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m:44:5: warning: local declaration of 'deviceToken' hides instance variable [-Wshadow-ivar]    deviceToken = [NSString stringWithFormat:@"%@",deviceToken];    ^/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m:44:52: warning: local declaration of 'deviceToken' hides instance variable [-Wshadow-ivar]    deviceToken = [NSString stringWithFormat:@"%@",deviceToken];                                                   ^3 warnings generated.3(36%IDEClangDiagnosticActivityLogMessage2@58"Local declaration of 'deviceToken' hides instance variable-401013430#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@108"file://localhost/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m0000000000000000^39#64#39#64#1405#0#14"Semantic Issue--2@58"Local declaration of 'deviceToken' hides instance variable-401013430#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@108"file://localhost/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m0000000000000000^43#4#43#4#1675#0#14"Semantic Issue--2@58"Local declaration of 'deviceToken' hides instance variable-401013430#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@108"file://localhost/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m0000000000000000^43#51#43#51#1722#0#14"Semantic Issue--0#0#0#-19%DVTDocumentLocation4@108"file://localhost/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m0000000000000000^3800"CompileC build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/AppDelegate.o razor_apn_sample/AppDelegate.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wduplicate-method-match -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -miphoneos-version-min=4.3 -iquote /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-generated-files.hmap -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-own-target-headers.hmap -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-all-target-headers.hmap -iquote /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-project-headers.hmap -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/DerivedSources/armv7 -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/DerivedSources -F/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos -include /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/razor_apn_sample-Prefix-fiweergbcliooodyjdtgyjajaagv/razor_apn_sample-Prefix.pch -MMD -MT dependencies -MF /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/AppDelegate.d --serialize-diagnostics /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/AppDelegate.dia -c /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/AppDelegate.m -o /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/AppDelegate.o36"B362690F-AC01-4D53-8401-8E9E8FFF7F56-
+
+CCompileC build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/ViewController.o /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/ViewController.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s401013430.230281
+e401013430.292844
+r1
+xCompileC
+xbuild/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/ViewController.o
+x/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/ViewController.m
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection103"Compile /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/ViewController.mb2123bb6fae6b741^7ff74ab6fae6b741^---0#0#0#-19%DVTDocumentLocation2@111"file://localhost/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/ViewController.m0000000000000000^3818"CompileC build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/ViewController.o razor_apn_sample/ViewController.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wduplicate-method-match -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -miphoneos-version-min=4.3 -iquote /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-generated-files.hmap -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-own-target-headers.hmap -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-all-target-headers.hmap -iquote /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-project-headers.hmap -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/DerivedSources/armv7 -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/DerivedSources -F/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos -include /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/razor_apn_sample-Prefix-fiweergbcliooodyjdtgyjajaagv/razor_apn_sample-Prefix.pch -MMD -MT dependencies -MF /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/ViewController.d --serialize-diagnostics /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/ViewController.dia -c /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/ViewController.m -o /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/ViewController.o36"0B6ED11A-2D2B-4E4D-9E6C-E12C97248120-
+
+CCompileC build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/main.o /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/main.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s401013430.230263
+e401013430.258023
+r1
+xCompileC
+xbuild/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/main.o
+x/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/main.m
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection93"Compile /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/main.m27173bb6fae6b741^a62942b6fae6b741^---0#0#0#-19%DVTDocumentLocation2@101"file://localhost/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/main.m0000000000000000^3758"CompileC build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/main.o razor_apn_sample/main.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wduplicate-method-match -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -miphoneos-version-min=4.3 -iquote /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-generated-files.hmap -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-own-target-headers.hmap -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-all-target-headers.hmap -iquote /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-project-headers.hmap -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/DerivedSources/armv7 -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/DerivedSources -F/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos -include /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/razor_apn_sample-Prefix-fiweergbcliooodyjdtgyjajaagv/razor_apn_sample-Prefix.pch -MMD -MT dependencies -MF /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/main.d --serialize-diagnostics /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/main.dia -c /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/main.m -o /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/main.o36"A3EAB421-1758-4AC4-B205-16921D4FE64B-
+
+CCompileXIB /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/en.lproj/ViewController.xib
+r0
+
+CCopyPNGFile /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/Default-568h@2x.png razor_apn_sample/Default-568h@2x.png
+r0
+
+CCopyPNGFile /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/Default.png razor_apn_sample/Default.png
+r0
+
+CCopyPNGFile /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/Default@2x.png razor_apn_sample/Default@2x.png
+r0
+
+CCopyStringsFile /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/en.lproj/InfoPlist.strings razor_apn_sample/en.lproj/InfoPlist.strings
+r0
+
+CCpResource /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/ResourceRules.plist build/Debug-iphoneos/razor_apn_sample.app/ResourceRules.plist
+s401013429.714099
+e401013429.716605
+r1
+xCpResource
+x/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/ResourceRules.plist
+xbuild/Debug-iphoneos/razor_apn_sample.app/ResourceRules.plist
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection66"Copy build/Debug-iphoneos/razor_apn_sample.app/ResourceRules.plist3ae8b6b5fae6b741^2a73b7b5fae6b741^---0#0#0#-19%DVTDocumentLocation2@139"file://localhost/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/ResourceRules.plist000000000080d041^790"CpResource /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/ResourceRules.plist build/Debug-iphoneos/razor_apn_sample.app/ResourceRules.plist    cd /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/ResourceRules.plist /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app36"6B5503A3-40E2-486F-8EEE-F5EB9BBA4465-
+
+CGenerateDSYMFile /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app.dSYM /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/razor_apn_sample
+r0
+
+CLd /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/razor_apn_sample normal armv7
+s401013430.313223
+e401013430.321876
+r0
+xLd
+x/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/razor_apn_sample
+xnormal
+xarmv7
+oclang: error: no such file or directory: '–all_load'
+oclang: error: no such file or directory: '–ObjC'
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection125"Link /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/razor_apn_samplefe4550b6fae6b741^416352b6fae6b741^-106"clang: error: no such file or directory: '–all_load'clang: error: no such file or directory: '–ObjC'2(21%IDEActivityLogMessage2@40"No such file or directory: '–all_load'-401013430#0#53#-2#-23%DVTTextDocumentLocation3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#25"Apple Mach-O Linker Error--2@36"No such file or directory: '–ObjC'-401013430#53#49#-2#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#25"Apple Mach-O Linker Error--0#0#0#--1498"Ld build/Debug-iphoneos/razor_apn_sample.app/razor_apn_sample normal armv7    cd /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample    setenv IPHONEOS_DEPLOYMENT_TARGET 4.3    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch armv7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk -L/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos -L/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/../razor_apn_plugin/build/Debug-iphoneos -L/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/razor -F/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos -filelist /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/Objects-normal/armv7/razor_apn_sample.LinkFileList -dead_strip "–all_load" "–ObjC" -fobjc-link-runtime -miphoneos-version-min=4.3 -weak_framework CoreTelephony -framework AdSupport -framework UIKit -framework Foundation -framework CoreGraphics -lrazor_apn_plugin -lUMSAgent -o /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/razor_apn_sample36"0B159A47-35BF-4A7E-9BA0-5D68FABEE490-
+
+CProcessInfoPlistFile /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/Info.plist razor_apn_sample/razor_apn_sample-Info.plist
+s401013429.714094
+e401013429.752856
+r1
+xProcessInfoPlistFile
+x/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/Info.plist
+xrazor_apn_sample/razor_apn_sample-Info.plist
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection52"Process razor_apn_sample/razor_apn_sample-Info.plist81ebb6b5fae6b741^61ddc0b5fae6b741^---0#0#0#-19%DVTDocumentLocation2@122"file://localhost/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/razor_apn_sample-Info.plist0000000000000000^890"ProcessInfoPlistFile build/Debug-iphoneos/razor_apn_sample.app/Info.plist razor_apn_sample/razor_apn_sample-Info.plist    cd /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility razor_apn_sample/razor_apn_sample-Info.plist -genpkginfo /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/PkgInfo -expandbuildsettings -format binary -platform iphoneos -resourcerulesfile /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/ResourceRules.plist -o /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/Info.plist36"2A3481F8-536E-4572-859D-961352603203-
+
+CProcessPCH /Users/wb/Library/Developer/Xcode/DerivedData/razor_apn_plugin-bobzzujjgonjrcdjexygebtdhfnc/Index/PrecompiledHeaders/razor_apn_sample-Prefix-bzahvqllwymwkpgecswoloxnqxgr_ast/razor_apn_sample-Prefix.pch.pth razor_apn_sample/razor_apn_sample-Prefix.pch normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
+r0
+
+CProcessPCH /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/razor_apn_sample-Prefix-fiweergbcliooodyjdtgyjajaagv/razor_apn_sample-Prefix.pch.pth razor_apn_sample/razor_apn_sample-Prefix.pch normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s401013429.767147
+e401013430.223829
+r1
+xProcessPCH
+x/var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/razor_apn_sample-Prefix-fiweergbcliooodyjdtgyjajaagv/razor_apn_sample-Prefix.pch.pth
+xrazor_apn_sample/razor_apn_sample-Prefix.pch
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection55"Precompile razor_apn_sample/razor_apn_sample-Prefix.pchfc8fc4b5fae6b741^be4b39b6fae6b741^---0#0#0#-19%DVTDocumentLocation2@122"file://localhost/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/razor_apn_sample-Prefix.pch0000000000000000^3771"ProcessPCH /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/razor_apn_sample-Prefix-fiweergbcliooodyjdtgyjajaagv/razor_apn_sample-Prefix.pch.pth razor_apn_sample/razor_apn_sample-Prefix.pch normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch armv7 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wduplicate-method-match -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -miphoneos-version-min=4.3 -iquote /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-generated-files.hmap -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-own-target-headers.hmap -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-all-target-headers.hmap -iquote /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample-project-headers.hmap -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/DerivedSources/armv7 -I/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/DerivedSources -F/Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos --serialize-diagnostics /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/razor_apn_sample-Prefix-fiweergbcliooodyjdtgyjajaagv/razor_apn_sample-Prefix.pch.dia -c /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/razor_apn_sample/razor_apn_sample-Prefix.pch -o /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/razor_apn_sample-Prefix-fiweergbcliooodyjdtgyjajaagv/razor_apn_sample-Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/_k/yzgflb4s2c37n5lgjmww2_kr0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/razor_apn_sample-Prefix-fiweergbcliooodyjdtgyjajaagv/razor_apn_sample-Prefix.pch.d36"4BE4F0ED-A809-4DAD-A542-C4776636D6A7-
+
+CProcessProductPackaging "/Users/wb/Library/MobileDevice/Provisioning Profiles/32287028-6358-4FA6-925E-7A9A795E853E.mobileprovision" /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app/embedded.mobileprovision
+r0
+
+CProcessProductPackaging /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/Entitlements.plist /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/razor_apn_sample.build/Debug-iphoneos/razor_apn_sample.build/razor_apn_sample.xcent
+r0
+
+CTouch /Users/wb/Projects/ums/apns/razor_apn_plugin/razor_apn_sample/build/Debug-iphoneos/razor_apn_sample.app
+r0
+
