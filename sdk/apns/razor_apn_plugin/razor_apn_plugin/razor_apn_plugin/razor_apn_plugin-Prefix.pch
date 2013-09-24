@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'razor_apn_plugin' target in the 'razor_apn_plugin' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

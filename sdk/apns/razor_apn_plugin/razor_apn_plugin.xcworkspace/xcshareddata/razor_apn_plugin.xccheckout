@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B1A6CE5D-F133-4F96-9DC3-39507CE2A761</string>
+	<key>IDESourceControlProjectName</key>
+	<string>razor_apn_plugin</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>735886B2-6D69-4D93-8970-33CAFD14614C</key>
+		<string>ssh://192.168.1.3/razor</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>sdk/apns/razor_apn_plugin/razor_apn_plugin.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>735886B2-6D69-4D93-8970-33CAFD14614C</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://192.168.1.3/razor</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>735886B2-6D69-4D93-8970-33CAFD14614C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>735886B2-6D69-4D93-8970-33CAFD14614C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>razor</string>
+		</dict>
+	</array>
+</dict>
+</plist>
