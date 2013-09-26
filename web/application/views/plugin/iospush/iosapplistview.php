@@ -20,9 +20,9 @@ $language = $this->config->item('language');
 			
 
 				<h4><?php echo  lang('v_userStatus').': '?> <?php echo ($flag==1)? lang('v_userStatusActive'):lang('v_userStatusInactive'); ?></h4>	
-				<p><?php echo lang('v_userStatusExplain')?><a href="http://dev.cobub.com/users"  target="_blank" ><?php echo lang('v_cobub_user_center')?></a><?php echo lang('v_userStatusExplain1')?><a href="http://dev.cobub.com/users/index.php?/help/getui#n2"  target="_blank"><?php echo lang('v_integrationGuide')?></a></p>
+				<p><?php echo lang('v_userStatusExplain')?><br /><?php echo lang('v_userStatusExplain1')?></p>
 
-					<p><small><?php echo  lang('v_tap')?><a href="http://dev.cobub.com/users"  target="_blank" ><?php echo lang('v_cobub_user_center')?></a><?php echo  lang('v_tap1')?></small></p>
+					<p><small><?php echo  lang('v_tap')?><?php echo lang('v_cobub_user_center')?><?php echo  lang('v_tap1')?></small></p>
 		       	</div>
 			</div>		
 		</article><!-- end of stats article -->	
@@ -39,9 +39,9 @@ $language = $this->config->item('language');
 			<table class="tablesorter" cellspacing="0"> 
 			<thead> 
 				<tr> 
-					<th><?php echo  lang('v_app')?></th>
+					<th><?php echo  lang('v_ios_app_name')?></th>
     				<th><?php echo  lang('m_ios_register')?></th>
-    				<th><?php echo  lang('v_push')?></th> 
+    				<th><?php echo  lang('v_ios_app_push')?></th> 
 				</tr> 
 			</thead> 
 			
@@ -65,7 +65,7 @@ $language = $this->config->item('language');
     				<td><a href="<?php echo site_url()?>/plugin/iospush/iosactivate/index?appname=<?php echo $row['androidlist']?>" ><?php echo lang('m_register')?></a> </td> 
     				<?php }?>
     				<td><a href="<?php echo ($flag==1)?site_url().'/plugin/iospush/iosapplist/pushInfo?appname='.$row['androidlist']:'javascript:userDisableAlert();';?>">
-    				<?php echo lang('v_push')?>  </a></td> 
+    				<?php echo lang('v_ios_pushed')?>  </a></td> 
     			
     				
     			</tr> 

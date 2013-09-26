@@ -24,7 +24,7 @@ class Ipush  extends CI_Model implements pluginInterface {
 	function getMenus() {
 		$menus = array();
 		$menuPush = array(
-				'name'=> 'IOS首页',
+				'name'=> '推送首页',
 				'link'=>'/plugin/iospush/iosapplist',
 				'level1'=>true,
 				'level2'=>false
@@ -32,7 +32,7 @@ class Ipush  extends CI_Model implements pluginInterface {
 		array_push($menus,$menuPush);
 		
 		$menuRet = array(
-				'title' => 'ios 推送',
+				'title' => 'IOS 推送',
 				'menus' => $menus
 		);
 		

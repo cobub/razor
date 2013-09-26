@@ -11,28 +11,29 @@
 		<div class="module_content">
 			<table class="tablesorter" cellspacing="0">
 				<tbody>
+				
+				    <fieldset>
+						<p>&nbsp;&nbsp;<?php echo lang('m_ios_register_successed') ?></p> 
+					</fieldset>
+				
 					<fieldset>
 						<label><?php echo lang('v_appName') ?></label><?php echo form_error('appname'); ?>
 						<input
-						
-
 							type="text" id='appname' name='appname'   readonly="readonly" value= "<?php echo $appname?>">
 					
 					</fieldset>
 
 					<fieldset>
-						<label><?php echo "BundleId" ?></label> <?php echo form_error('bundleid'); ?>
-						
+						<label><?php echo "Bundle ID:" ?></label> <?php echo form_error('bundleid'); ?>
 						<input
-							type="text" id='bundleid' name='bundleid' <?php echo isset($flag)?'disabled':'';?> value="<?php echo isset($flag)?$bundleid:"";?>">
+							type="text" id='bundleid' name='bundleid' readonly="readonly" value="<?php echo isset($flag)?$bundleid:"";?>">
 					</fieldset>
 
 					<?php if(isset($flag)):?>
 					<fieldset>
 						<label><?php echo "RegisterID" ?></label>
-						
 						<input
-							type="text" id='registerid' name='registerid' disabled="disabled" value="<?php echo $register_id?>">
+							type="text" id='registerid' name='registerid' readonly="readonly" value="<?php echo $register_id?>">
 					</fieldset>
 					<?php endif;?>
 

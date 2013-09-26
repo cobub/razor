@@ -69,6 +69,7 @@ class IOSActivate extends CI_Controller {
 				$this->responseArray ['productId'] = $product_id;
 				if($register_id_this==$register_id&&$this->iosactivatemodel->saveUsersInfo ( $this->responseArray ))
 				{	
+					$this->data ['msg'] = lang ( 'm_ios_register_successed' );
 					$this->common->loadHeader ( lang ( 'm_iosinfo' ) );
 					$this->load->view ( 'plugin/iospush/iosactivateview', $this->responseArray );
 				}else{
