@@ -72,18 +72,18 @@
 		var paravalue = document.getElementById('paravalue').value;
 		if(isNaN(updatesign)||updatesign<0||updatesign>900){
 			document.getElementById('msg').style.display='';
-			document.getElementById('msg').innerHTML="<?php echo '更新标志超出填写范围';?>"; 
+			document.getElementById('msg').innerHTML="<?php echo lang('v_ios_push_updatesign_out');?>"; 
 			return;
 		}
 		if(appcontent==''){
 			document.getElementById('msg').style.display='';
-			document.getElementById('msg').innerHTML="<?php echo '推送内容不可为空';?>"; 
+			document.getElementById('msg').innerHTML="<?php echo lang('v_ios_push_content_noempty');?>"; 
 			return;
 		}
 		var allSize = appcontent.length+updatesign.length+paraname.length+paravalue.length;
 		if(allSize>255){
 			document.getElementById('msg').style.display='';
-			document.getElementById('msg').innerHTML="<?php echo '总长度超出255个字节';?>"; 
+			document.getElementById('msg').innerHTML="<?php echo lang('v_ios_push_more');?>"; 
 			return;
 		}
 		var data = {

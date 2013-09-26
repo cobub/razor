@@ -32,4 +32,8 @@ $lang['v_ios_pushed']='推送';
 $lang['v_ios_app_push']='应用推送';
 $lang['v_ios_app_name']='应用名称';
 $lang['m_ios_register_successed']='注册成功后请到<a href="http://dev.cobub.com/users" target=_blank>用户中心</a>上传推送证书。';
+$lang['v_ios_push_updatesign_out']='更新标志超出填写范围';
+$lang['v_ios_push_content_noempty']='推送内容不能为空';
+$lang['v_ios_push_more']='总长度超过255个字节';
+$lang['v_ios_pushing']='正在推送消息，请稍候...';
 ?>

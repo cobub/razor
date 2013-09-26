@@ -32,4 +32,8 @@ $lang['v_ios_pushed']='Push';
 $lang['v_ios_app_push']='Application Push';
 $lang['v_ios_app_name']='Application Name';
 $lang['m_ios_register_successed']='  After successful registration, please go to <a href="http://dev.cobub.com/users" target=_blank>User Center</a> uploaded push certificate.';
+$lang['v_ios_push_updatesign_out']='Fill beyond the scope of the update flag';
+$lang['v_ios_push_content_noempty']='Push content can not be empty';
+$lang['v_ios_push_more']='Total length of more than 255 bytes';
+$lang['v_ios_pushing']='Push messages are,please wait ...';
 ?>
