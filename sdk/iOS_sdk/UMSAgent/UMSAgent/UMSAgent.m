@@ -36,6 +36,8 @@
 #import "OpenUDID.h"
 #import <sys/utsname.h>
 #import "ClientData.h"
+#import <AdSupport/AdSupport.h>
+#import "SFHFKeychainUtils.h"
 
 @interface UMSAgent ()
 {
@@ -135,7 +137,7 @@
     
     self.startDate = [[NSDate date] copy];
     NSString *currentTime = [[NSString alloc] initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
-    NSString *sessionIdentifier = [[NSString alloc] initWithFormat:@"%@%@", currentTime, [UMS_OpenUDID value]
+    NSString *sessionIdentifier = [[NSString alloc] initWithFormat:@"%@%@", currentTime, [UMSAgent getUMSUDID]
                                    ];
     self.sessionId = [self md5:sessionIdentifier];
     if(isLogEnabled)
@@ -861,7 +863,7 @@
     CGFloat scale = [[UIScreen mainScreen] scale];
     info.resolution = [[NSString alloc] initWithFormat:@"%.fx%.f",rect.size.width*scale,rect.size.height*scale];
     //Using open UDID 
-    info.deviceid = [UMS_OpenUDID value];
+    info.deviceid = [UMSAgent getUMSUDID];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
     NSArray *languages = [defaults objectForKey:@"AppleLanguages"]; 
     info.language = [languages objectAtIndex:0];
@@ -1109,7 +1111,26 @@ uncaughtExceptionHandler(NSException *exception) {
 
 + (NSString *)getUMSUDID
 {
-    return [UMS_OpenUDID value];
+    NSString * udidInKeyChain = [SFHFKeychainUtils getPasswordForUsername:@"UMSAgentUDID" andServiceName:@"UMSAgent" error:nil];
+    if(udidInKeyChain && ![udidInKeyChain isEqualToString:@""])
+    {
+        return udidInKeyChain;
+    }
+    else
+    {
+        NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+        if(idfa && ![idfa isEqualToString:@""])
+        {
+            [SFHFKeychainUtils storeUsername:@"UMSAgentUDID" andPassword:idfa forServiceName:@"UMSAgent" updateExisting:NO error:nil];
+            return idfa;
+        }
+        else
+        {
+            NSString *openUDID = [UMS_OpenUDID value];
+            [SFHFKeychainUtils storeUsername:@"UMSAgentUDID" andPassword:openUDID forServiceName:@"UMSAgent" updateExisting:NO error:nil];
+            return openUDID;
+        }
+    }
 }
 
 @end
