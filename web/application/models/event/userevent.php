@@ -90,24 +90,25 @@ class UserEvent extends CI_Model {
         $dwdb = $this -> load -> database('dw', TRUE);
         if ($version == 'unknown')
             $version = '';
-        if ($version == 'all')
-            $sql = "select 
-                   e.event_sk,
+	if ($version == 'all'){
+		#need to add index of fact_event.event_sk and fact_event.product_sk
+		#order by null to avoid filesort
+	$sql = "select 
+                   f.event_sk,
                    e.eventidentifier,
                    e.eventname,
-                   count(f.eventid) count
-                   from " . $dwdb -> dbprefix('dim_product') . "   p, 
-                    " . $dwdb -> dbprefix('fact_event') . "  f,
-                   " . $dwdb -> dbprefix('dim_event') . "  e  
-                   where  p.product_id=$productId 
+                   count(*) count
+                   from ".$dwdb->dbprefix('fact_event')."  f,
+                    ".$dwdb->dbprefix('dim_product')."   p, 
+                   ".$dwdb->dbprefix('dim_event')."  e  
+                   where   f.product_sk = p.product_sk 
+                   and f.event_sk = e.event_sk 
+                    and p.product_id=$productId 
                    and p.product_active=1 and 
                    p.channel_active=1 and 
-                   p.version_active=1 and 
-                   f.product_sk = p.product_sk 
-                   and f.event_sk = e.event_sk 
-                   group by  e.event_sk,e.eventidentifier,
-	               e.eventname order by e.event_sk desc";
-        else {
+                   p.version_active=1 
+                   group by  f.event_sk order by null desc";
+	} else {
             if ($version == 'unknown')
                 $version = '';
             $sql = "select p.version_name,
@@ -136,7 +137,7 @@ class UserEvent extends CI_Model {
         $sql = "select distinct version_name from  " . $dwdb -> dbprefix('dim_product') . "  where 
 	   product_active=1 and channel_active=1 and version_active=1 
 	   and product_id=$productid order by version_name desc";
-        $query = $dwdb -> query($sql);
+        $query = $dwdb->query($sql);
         return $query;
     }
 
