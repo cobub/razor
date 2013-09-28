@@ -91,20 +91,11 @@ class UserEvent extends CI_Model {
         if ($version == 'unknown')
             $version = '';
 	if ($version == 'all'){
-		#need to add index of fact_event.event_sk and fact_event.product_sk
-		$sql = "select 
-                   f.event_sk,
-                  (select eventidentifier from ".$dwdb->dbprefix('dim_event')." where event_sk=f.event_sk) eventidentifier,
-                  (select eventname from ".$dwdb->dbprefix('dim_event')." where event_sk=f.event_sk) eventname,
-                   count(*) count
-                   from ".$dwdb->dbprefix('fact_event')."  f,
-                    ".$dwdb->dbprefix('dim_product')."   p
-                   where   f.product_sk = p.product_sk 
-                    and p.product_id=$productId 
+		#need to add multi-column index of fact_event.event_sk and fact_event.product_sk
+  $sql = "select RS.event_sk,f.eventidentifier,f.eventname,sum(count) count from (select event_sk,product_sk,count(1) count from ".$dwdb->dbprefix('fact_event')." group by event_sk,product_sk) RS,".$dwdb->dbprefix('dim_product')." p, ".$dwdb->dbprefix('dim_event')." f where RS.product_sk = p.product_sk and  p.product_id=$productId
                    and p.product_active=1 and 
                    p.channel_active=1 and 
-                   p.version_active=1 
-                   group by  f.event_sk order by f.event_sk desc";
+                   p.version_active=1 and f.event_sk = RS.event_sk group by RS.event_sk desc";
 		
 	} else {
             if ($version == 'unknown')
