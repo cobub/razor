@@ -14,7 +14,7 @@
 
 #import "CheckUpdateDao.h"
 #import "network.h"
-#import "SBJson.h"
+#import "NSDictionary_JSONExtensions.h"
 #import "Global.h"
 #import "UMSAgent.h"
 
@@ -34,15 +34,18 @@
         result.msg = [[NSString alloc] initWithFormat:@"%@",@"error"];
         return result;
     }
-    NSDictionary *retDictionary = [ret JSONValue];
-    result.flag = [[retDictionary objectForKey:@"flag"] intValue];
-    result.msg = [retDictionary objectForKey:@"msg"];
-    result.description = [retDictionary objectForKey:@"description"];
-    result.version = [retDictionary objectForKey:@"version"];
-    result.fileurl = [retDictionary objectForKey:@"fileurl"];
-    result.forceUpdate = [retDictionary objectForKey:@"forceupdate"];
-    result.time= [retDictionary objectForKey:@"time"];
-
+    NSError *error = nil;
+    NSDictionary *retDictionary = [NSDictionary dictionaryWithJSONString:ret error:&error];
+    if(!error)
+    {
+        result.flag = [[retDictionary objectForKey:@"flag"] intValue];
+        result.msg = [retDictionary objectForKey:@"msg"];
+        result.description = [retDictionary objectForKey:@"description"];
+        result.version = [retDictionary objectForKey:@"version"];
+        result.fileurl = [retDictionary objectForKey:@"fileurl"];
+        result.forceUpdate = [retDictionary objectForKey:@"forceupdate"];
+        result.time= [retDictionary objectForKey:@"time"];
+    }
     return result;
     
 }

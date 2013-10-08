@@ -15,7 +15,7 @@
 #import "GetOnlineConfigDao.h"
 #import "Global.h"
 #import "network.h"
-#import "SBJson.h"
+#import "NSDictionary_JSONExtensions.h"
 
 @implementation GetOnlineConfigDao
 +(ConfigPreference *) getOnlineConfig:(NSString *)appkey
@@ -29,17 +29,17 @@
     
     NSString *retString = [network SendData:url data:requestDictionary];
     
-    NSDictionary * retDictionary = [retString JSONValue];
-    
-    
-    ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
-    ret.msg = [retDictionary objectForKey:@"msg"];
-    
-        
-    ret.autogetlocation = [retDictionary objectForKey:@"autogetlocation"];
-    ret.Updateonlywifi = [retDictionary objectForKey:@"updateonlywifi"];
-    ret.sessionmillis = [retDictionary objectForKey:@"sessionmillis"];
-    ret.reportpolicy = [retDictionary objectForKey:@"reportpolicy"];
+    NSError *error = nil;
+    NSDictionary *retDictionary = [NSDictionary dictionaryWithJSONString:retString error:&error];
+    if(!error)
+    {
+        ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
+        ret.msg = [retDictionary objectForKey:@"msg"];
+        ret.autogetlocation = [retDictionary objectForKey:@"autogetlocation"];
+        ret.Updateonlywifi = [retDictionary objectForKey:@"updateonlywifi"];
+        ret.sessionmillis = [retDictionary objectForKey:@"sessionmillis"];
+        ret.reportpolicy = [retDictionary objectForKey:@"reportpolicy"];
+    }
     return ret;
 
 

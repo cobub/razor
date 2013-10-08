@@ -49,6 +49,6 @@ typedef enum {
 + (BOOL)isJailbroken;
 + (void)setOnLineConfig:(BOOL)isOnlineConfig;
 + (void)setIsLogEnabled:(BOOL)isLogEnabled;
-
++ (NSString *)getUMSUDID;
 
 @end
