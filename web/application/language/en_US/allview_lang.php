@@ -170,6 +170,7 @@ $lang['m_rpt_editFunnel']='Conversion Groups';
 
 //**************************************View***************************************
 // view---main
+$lang['v_user_center']='User Center';
 $lang['v_console']='Console';
 $lang['v_CR_news'] = "Cobub Razor News";
 $lang['v_CR_newsDelivery']='Cobub Razor News Delivery';
@@ -948,7 +949,7 @@ $lang['v_plugins_entersecret']='Please Enter SECRET';
 $lang['v_plugins_keyerror']='Enter the UserKey Is Wrong!';
 $lang['v_plugins_secreterror']='Enter the UserSecret Is Wrong!';
 $lang['v_plugins_active']='Enable';
-$lang['v_plugins_forbidden']='Fobidden';
+$lang['v_plugins_forbidden']='Disable';
 $lang['v_plugins_introduce']='UserKey with UserSecret is Cobub Razor with 
 <a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub-User-Center</a> 
 communication between key centers registered user before the user access, 

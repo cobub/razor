@@ -164,7 +164,8 @@ $lang['m_rpt_appChannel']	=	'アプリチャンネル';
 $lang['m_rpt_editFunnel']	=	'変換したグループ';
 		
 /**************************************View***************************************/		
-// view---main		
+// view---main	
+$lang['v_user_center']='ユーザーセンター';	
 $lang['v_console']	=	'コンソール';
 $lang['v_CR_news']	=	 "Cobub Razor ニュース";
 $lang['v_CR_newsDelivery']	=	'Cobub Razor ニュース配信';

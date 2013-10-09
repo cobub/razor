@@ -172,6 +172,7 @@ $lang['m_rpt_editFunnel']='转化率组';
 
 //**************************************View***************************************
 // view---main
+$lang['v_user_center']='用户中心';
 $lang['v_console']='控制台';
 $lang['v_CR_news'] = "Cobub Razor 新闻";
 $lang['v_CR_newsDelivery']='Cobub Razor 新闻中心';

@@ -569,6 +569,33 @@ class Auth extends CI_Controller {
         }
         return TRUE;
     }
+    
+    /*
+     * login user center key&secret
+    *
+    */
+    function loginucenter()
+    {
+    	////get user key&secret;
+    	$this->load->model ( 'common' );
+    	$this->load->model ( 'pluginlistmodel' );
+    	 
+    	$userId = $this->common->getUserId ();
+    	$userKeys = $this->pluginlistmodel->getUserKeys ( $userId );
+    	if ($userKeys) {
+    		$key = $userKeys->user_key;
+    		$secret = $userKeys->user_secret;
+    		////login ucenter
+    		//testcode : 
+    		//redirect("http://192.168.1.104:8877/ucenter//index.php?/auth/cobubtologin/$key/$secret");
+    		redirect(SERVER_BASE_URL."/index.php?/auth/cobubtologin/$key/$secret");
+    	}
+    	else {
+    		return ;
+    	}
+    	 
+    }
+    
 
 }
 

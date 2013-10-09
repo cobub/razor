@@ -19,11 +19,12 @@
 					  <tr >
 					    <td align="center"><a href="<?php echo site_url() ;?>/report/console"><img src="<?php echo base_url();?>assets/images/applications.png" /></a></td>
 					    <td align="center"><a href="<?php echo site_url() ;?>/manage/pluginlist"><img src="<?php echo base_url();?>assets/images/tools.png" /></a></td>
-					   
+					    <td align="center"><a href="<?php echo site_url() ;?>/auth/loginucenter"><img src="<?php echo base_url();?>assets/images/usercenter.png" /></a></td>
 					  </tr>
 					  <tr>
 					    <td align="center"><a href="<?php echo site_url() ;?>/report/console"  style="font-size:20px"><?php echo lang('m_myapps')?></a></td>
 					    <td align="center"><a href="<?php echo site_url() ;?>/manage/pluginlist"  style="font-size:20px"><?php echo lang('m_plugin')?></a></td>
+					    <td align="center"><a href="<?php echo site_url() ;?>/auth/loginucenter" style="font-size:20px"><?php echo lang('v_user_center');?></a></td>
 					    
 					  </tr>
 					</table>
