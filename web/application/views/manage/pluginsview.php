@@ -69,7 +69,7 @@ a:hover {text-decoration: underline }
 						<?php foreach ($allplugins as $row) {?>
 						<tr>
 							<td><p style="font-weight: bold;font-size: 14px;"><?php echo $row->plugin_name?></p></td>
-							<td><p style="font:14px arial, sans-serif;"><?php echo $row->plugin_describe?></p><br /><?php echo lang('v_plugins_version')?><?php echo $row->plugin_version?>&nbsp &nbsp|&nbsp &nbsp<?php echo lang('v_plugins_provider')?><?php echo $row->plugin_provider?>&nbsp &nbsp|&nbsp &nbsp<a href="<?php echo $row->plugin_detail?>" target="_blank"><?php echo lang('head_plugin_m')?></a>&nbsp &nbsp|&nbsp &nbsp<?php echo $row->plugin_upload_date?></td>
+							<td><p style="font:14px arial, sans-serif;"><?php echo $row->plugin_describe?></p><br /><?php echo lang('v_plugins_version')?><?php echo $row->plugin_version?>&nbsp &nbsp|&nbsp &nbsp<?php echo lang('v_plugins_provider')?><?php echo $row->plugin_provider?>&nbsp &nbsp|&nbsp &nbsp<a href="<?php echo $row->plugin_detail?>" target="_blank"><?php echo lang('plg_use_instruct')?></a>&nbsp &nbsp|&nbsp &nbsp<?php echo $row->plugin_upload_date?></td>
 						</tr>
 						<?php }?>
 					<?php endif;?>
