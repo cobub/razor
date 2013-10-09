@@ -930,7 +930,7 @@ $lang['plg_status']='PluginStatus';
 $lang['plg_description']='Description';
 $lang['plg_use_instruct']='Instructions For Use';
 $lang['plg_plugin_manage']='Plugin Manager';
-$lang['plg_get_keysecret_home']='You have not<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank"> Cobub User Center </a>
+$lang['plg_get_keysecret_home']='You have not Cobub User Center
 account authorization. Please Sign Cobub User Center before using plug-in functionality. 
 <a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">How to account authorization?</a>';
 $lang['v_cobub_user_center']='Cobub Users Center';
@@ -938,8 +938,8 @@ $lang['v_cobub_user_center']='Cobub Users Center';
 $lang['plg_get_keysecret']='You have not <a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub User Center</a> account authorization.
 Sign Cobub User Center and obtain an authorization code to complete the account authorization, 
 which is available after Cobub User Center provides the rich functionality. 
-<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">How to account authorization?</a>';
-
+<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">How to account authorization?</a>If you already have an authorization code. Please click ';
+$lang['plg_get_account']='account authorization.';
 /******************************view report plug**************************************/
 $lang['v_plugins_account']='Account Authorization';
 $lang['v_plugins_version']='Version ';

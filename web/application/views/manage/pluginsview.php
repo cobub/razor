@@ -4,7 +4,7 @@
 <style type="text/css">
 a:hover {text-decoration: underline }
 </style> 
-	 <?php echo lang('plg_get_keysecret')?></h4>
+	 <?php echo lang('plg_get_keysecret')?><?php  echo anchor('/manage/accountauth', lang('plg_get_account'));?></h4>
 <?php endif;?>
 
 	<!-- end of show user key&secret-->
