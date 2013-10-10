@@ -22,14 +22,23 @@
 							type="text" id='appname' name='appname'   readonly="readonly" value= "<?php echo $appname?>">
 					
 					</fieldset>
+					
+					<?php if(!isset($flag)):?>
+					<fieldset>
+						<label><?php echo "Bundle ID:" ?></label> <?php echo form_error('bundleid'); ?>
+						<input
+							type="text" id='bundleid' name='bundleid' value="<?php echo isset($flag)?$bundleid:"";?>">
+					</fieldset>
+					<?php endif;?>
+					
 
+					<?php if(isset($flag)):?>
 					<fieldset>
 						<label><?php echo "Bundle ID:" ?></label> <?php echo form_error('bundleid'); ?>
 						<input
 							type="text" id='bundleid' name='bundleid' readonly="readonly" value="<?php echo isset($flag)?$bundleid:"";?>">
 					</fieldset>
-
-					<?php if(isset($flag)):?>
+					
 					<fieldset>
 						<label><?php echo "RegisterID" ?></label>
 						<input
