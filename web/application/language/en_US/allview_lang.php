@@ -938,7 +938,7 @@ $lang['v_cobub_user_center']='Cobub Users Center';
 $lang['plg_get_keysecret']='You have not <a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub User Center</a> account authorization.
 Sign Cobub User Center and obtain an authorization code to complete the account authorization, 
 which is available after Cobub User Center provides the rich functionality. 
-<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">How to account authorization?</a>If you already have an authorization code. Please click ';
+<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">How to account authorization?</a>If you already have an authorization code, Please click ';
 $lang['plg_get_account']='account authorization.';
 /******************************view report plug**************************************/
 $lang['v_plugins_account']='Account Authorization';
