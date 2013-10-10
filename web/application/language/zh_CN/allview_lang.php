@@ -929,7 +929,7 @@ $lang['plg_get_keysecret_home']='您尚未在Cobub用户中心进行账户授权
 
 $lang['plg_get_keysecret']='您尚未在Cobub用户中心进行账户授权。
 免费注册Cobub用户中心并获取授权码后即可完成账户授权，授权后即可获得Cobub用户中心提供的丰富功能。
-<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>如果您已经获得授权码。请点击';
+<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>如果您已经获得授权码,请点击';
 $lang['plg_get_account']='账户授权。';
 /******************************view report plug**************************************/
 $lang['v_cobub_user_center']='Cobub用户中心';
