@@ -25,6 +25,7 @@
 					
 					<?php if(!isset($flag)):?>
 					<fieldset>
+					
 						<label><?php echo "Bundle ID:" ?></label> <?php echo form_error('bundleid'); ?>
 						<input
 							type="text" id='bundleid' name='bundleid' value="<?php echo isset($flag)?$bundleid:"";?>">
