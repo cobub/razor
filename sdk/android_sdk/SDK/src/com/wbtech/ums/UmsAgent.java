@@ -48,6 +48,7 @@ import com.wbtech.ums.common.MyCrashHandler;
 import com.wbtech.ums.common.NetworkUitlity;
 import com.wbtech.ums.common.UmsConstants;
 import com.wbtech.ums.controller.EventController;
+import com.wbtech.ums.controller.TagController;
 import com.wbtech.ums.dao.GetInfoFromFile;
 import com.wbtech.ums.dao.SaveInfo;
 import com.wbtech.ums.objects.LatitudeAndLongitude;
