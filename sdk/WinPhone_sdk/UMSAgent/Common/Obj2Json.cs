@@ -67,6 +67,10 @@ namespace UMSAgent.Common
                     PageInfo page = (PageInfo)obj;
                     ret = pageData2jsonstr(page);
                     break;
+                case 7://tag data
+                    Tag tag = (Tag)obj;
+                    ret = tag2jsonstr(tag);
+                    break;
 
                 default:
                     break;
@@ -74,6 +78,12 @@ namespace UMSAgent.Common
             }
             return ret;
 
+        }
+        private string tag2jsonstr(Tag d)
+        {
+            string ret = "";
+            ret = UmsJson.Serialize(d);
+            return ret;
         }
 
         private string clientData2jsonstr(ClientData d)
@@ -108,6 +118,7 @@ namespace UMSAgent.Common
             return ret;
         }
 
+
         private string errorData2jsonstr(ErrorInfo obj)
         {
             string ret = "";
@@ -135,6 +146,12 @@ namespace UMSAgent.Common
             {
                 List<ClientData> list_client_data = (List<ClientData>)settings["clientdata"];
                 allinfo.clientData = list_client_data;
+            }
+
+            if (settings.Contains("tagdata"))
+            {
+                List<Tag> list_tag_data = (List<Tag>)settings["tagdata"];
+                allinfo.tagListInfo = list_tag_data;
             }
 
             

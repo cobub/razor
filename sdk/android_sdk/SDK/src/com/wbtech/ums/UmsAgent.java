@@ -167,6 +167,19 @@ public class UmsAgent {
         handler.post(postErrorInfoRunnable);
     }
 
+
+        public static void postTags(final Context context, final String tags) {
+            Runnable tagUser = new Runnable() {
+
+                 @Override
+                public void run() {
+                        TagController.PostTag(context, tags,handler);
+                         }
+                 };
+               handler.post(tagUser);
+        }
+
+    
     private static void postErrorInfo(Context context, String error) {
 
         JSONObject errorInfo = AssembJSONObj.getErrorInfoJSONObj(error, context);

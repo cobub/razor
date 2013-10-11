@@ -960,5 +960,31 @@ $lang['head_plugin_m']='插件管理';
 
 /******************************************************************************/
 
+$lang['v_rpt_realtime_title'] = "实时报表";
+$lang['v_rpt_realtime_onlineuser_title'] = "在线用户";
+$lang['v_rpt_realtime_onlineuser_subtitle'] = "30分钟内在线用户统计";
+$lang['v_rpt_realtime_onlineuser_size'] = "在线用户数";
+$lang["v_rpt_realtime_onlineuser_time"] = "时间";
+$lang["v_rpt_realtime_minutes"] = "分钟";
+$lang["v_rpt_realtime_now"] = "此时此刻";
+
+$lang["v_rpt_realtime_pageviews_title"] = "浏览界面";
+$lang['v_rpt_realtime_pageviews_subtitle'] = "用户正在浏览的界面的数量";
+$lang['v_rpt_realtime_pageviews_table_tile'] = "浏览界面(30分钟)";
+$lang["v_rpt_realtime_pageview"] = "浏览界面";
+$lang["v_rpt_realtime_pageview_count"] = "界面数量";
+
+$lang["v_rpt_realtime_areas_title"] = "地理位置";
+$lang["v_rpt_realtime_areas_region"] = "省份";
+
+$lang["v_rpt_realtime_transrate_title"] = "转化率";
+$lang["v_rpt_realtime_event_title"] = "事件";
+$lang["v_rpt_realtime_event_report_title"]="事件";
+$lang["v_rpt_realtime_event_in_minute"]="事件(每分钟)";
+$lang["v_rpt_realtime_transtrte_subtitle"]="目标事件达成(每分钟)";
+$lang["v_rpt_realtime_transtrte_tabtitle"]="目标事件达成(30分钟)";
+$lang["v_rpt_realtime_event_in30minute"]="事件(30分钟)";
+
+
 
 

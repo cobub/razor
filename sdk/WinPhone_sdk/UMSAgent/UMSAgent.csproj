@@ -74,6 +74,7 @@
     <Compile Include="MyObject\ExceptionContainer.cs" />
     <Compile Include="MyObject\OnLineConfig.cs" />
     <Compile Include="MyObject\PageInfo.cs" />
+    <Compile Include="MyObject\Tag.cs" />
     <Compile Include="MyObject\UpdatePreference.cs" />
     <Compile Include="MyObject\UpdateRet.cs" />
     <Compile Include="MyObject\UserRepolicy.cs" />

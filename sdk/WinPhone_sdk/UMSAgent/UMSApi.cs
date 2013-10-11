@@ -36,7 +36,8 @@ namespace UMSAgent
             EVENTDATA,//3
             AllDATA,//4
             ERRORDATA,//5
-            PAGEINFODATA//6
+            PAGEINFODATA,//6
+            TAGDATA//7
         };
         public static bool isValidKey= false;
       
@@ -229,6 +230,16 @@ namespace UMSAgent
             {
                 //DebugTool.Log("error input");
             }
-        }        
+        }
+
+
+        //post tag
+        public static void postTag(string tag)
+        {
+            manager.tagDataProceed(tag);
+        }
+
+        
+        
     }
 }

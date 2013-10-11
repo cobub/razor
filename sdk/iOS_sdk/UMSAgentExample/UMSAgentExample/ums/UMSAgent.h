@@ -39,6 +39,8 @@ typedef enum {
 
 +(void)postEvent:(NSString *)event_id label:(NSString *)label acc:(NSInteger)acc;
 
++(void)postTag:(NSString *)tag;
+
 +(void)bindUserIdentifier:(NSString *)userid;
 
 +(void)startTracPage:(NSString*)page_name;
