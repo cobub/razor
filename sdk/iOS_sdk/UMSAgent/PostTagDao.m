@@ -8,7 +8,7 @@
 
 #import "PostTagDao.h"
 #import "Global.h"
-#import "SBJson.h"
+#import "NSDictionary_JSONExtensions.h"
 #import "network.h"
 @implementation PostTagDao
 +(CommonReturn *)postTag:(NSString *)appkey tag:(Tag *)tag
@@ -24,7 +24,8 @@
     
     NSString *retString = [network SendData:url data:requestDictionary];
     
-    NSDictionary * retDictionary = [retString JSONValue];
+    NSError* error = nil;
+    NSDictionary * retDictionary = [NSDictionary dictionaryWithJSONString:retString error:&error];
     ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
     ret.msg = [retDictionary objectForKey:@"msg"];
     return ret;

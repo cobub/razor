@@ -1215,8 +1215,9 @@ uncaughtExceptionHandler(NSException *exception) {
     uname(&systemInfo);
     return  [NSString stringWithCString:systemInfo.machine
                               encoding:NSUTF8StringEncoding];
+}
 
-+ (NSString *)getUMSUDID
++(NSString *)getUMSUDID
 {
     NSString * udidInKeyChain = [SFHFKeychainUtils getPasswordForUsername:@"UMSAgentUDID" andServiceName:@"UMSAgent" error:nil];
     if(udidInKeyChain && ![udidInKeyChain isEqualToString:@""])
