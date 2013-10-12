@@ -924,13 +924,13 @@ $lang['plg_status']='插件状态';
 $lang['plg_description']=' 描述 ';
 $lang['plg_use_instruct']='集成指南';
 $lang['plg_plugin_manage']='插件管理';
-$lang['plg_get_keysecret_home']='您尚未在<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub用户中心</a>进行账户授权。请免费注册Cobub用户中心方可使用插件功能。
+$lang['plg_get_keysecret_home']='您尚未在Cobub用户中心进行账户授权。请免费注册Cobub用户中心方可使用插件功能。
 <a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>';
 
-$lang['plg_get_keysecret']='您尚未在<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub用户中心</a>进行账户授权。
+$lang['plg_get_keysecret']='您尚未在Cobub用户中心进行账户授权。
 免费注册Cobub用户中心并获取授权码后即可完成账户授权，授权后即可获得Cobub用户中心提供的丰富功能。
-<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>';
-
+<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>如果您已经获得授权码,请点击';
+$lang['plg_get_account']='账户授权。';
 /******************************view report plug**************************************/
 $lang['v_cobub_user_center']='Cobub用户中心';
 $lang['v_plugins_account']='账户授权';

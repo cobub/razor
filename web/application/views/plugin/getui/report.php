@@ -51,8 +51,8 @@ var tooltipmarkevent=[];
 var tooltipdata=new Array(new Array(),new Array());
 var tooltipname=[];
 var colors=['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', 
-             '#A47D7C', '#B5CA92','#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', 
-             '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
+            '#A47D7C', '#B5CA92', '#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', 
+            '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
 $(document).ready(function() {	
 	options = {
 		            chart: {
@@ -120,6 +120,7 @@ $(document).ready(function() {
 <script type="text/javascript">     
     function renderCharts(myurl)
     {
+<<<<<<< HEAD
     	
       		 var chart_canvas = $('#container');
 	    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
@@ -138,6 +139,12 @@ $(document).ready(function() {
 	        baseZ:997
 	    });	 
       	    
+=======
+  	
+      	 var chart_canvas = $('#container');
+      	    var loading_img = $("<img src='<?php echo base_url();?>assets/images/loader.gif'/>");
+
+>>>>>>> 1501005ea84b5c67d55ecf586683496cd5fd9f13
       	 	jQuery.getJSON(myurl, null, function(data) {
       	 	 // alert(data.dataList[0].date);
       	 	 // alert(data);

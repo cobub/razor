@@ -38,37 +38,27 @@
 				<tr> 
     				<th><?php  echo lang('getui_appname');?></th> 
     				<th><?php echo lang('getui_option')?></th> 
-    				
 				</tr> 
 			</thead> 
-			<tbody>
-					
-						
+			<tbody>	
 						<?php    
 						for ($i=0; $i < count($arr); $i++) { 
 							$app = $arr[$i][0]; ?>
-						<tr><td><?php echo $app['name'];?></td>
-							<td><?php echo anchor('/plugin/getui/report/?type=user&id='.$app['id'], lang('getui_view'));?></td></tr>
+						<tr>
+						    <td><?php echo $app['name'];?></td>
+							<td><?php echo anchor('/plugin/getui/report/?type=user&id='.$app['id'], lang('getui_view'));?></td>
+						</tr>
 
 						<?php }?>
 
-						
-
-					
-
-					
 				</tbody>
 			</table>
 			</div><!-- end of #tab1 -->
-			
-			
-			
+	
 		</div><!-- end of .tab_container -->
 		
 		</article><!-- end of content manager article -->
-		
-		
-		
+
 		<div class="clear"></div>
 		<div class="spacer"></div>
 	</section>
@@ -101,8 +91,8 @@ var tooltipmarkevent=[];
 var tooltipdata=new Array(new Array(),new Array());
 var tooltipname=[];
 var colors=['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', 
-             '#A47D7C', '#B5CA92','#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', 
-             '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
+            '#A47D7C', '#B5CA92', '#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', 
+            '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
 $(document).ready(function() {	
 	options = {
 		            chart: {
@@ -171,6 +161,7 @@ $(document).ready(function() {
     function renderCharts(myurl)
     {
     	
+<<<<<<< HEAD
       	 		 var chart_canvas = $('#container');
 	    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
 		    
@@ -188,6 +179,11 @@ $(document).ready(function() {
 	        baseZ:997
 	    });	 
       	    
+=======
+      	 var chart_canvas = $('#container');
+      	    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
+ 
+>>>>>>> 1501005ea84b5c67d55ecf586683496cd5fd9f13
       	 	jQuery.getJSON(myurl, null, function(data) {
       	 	 // alert(data.dataList[0].date);
       	 	 // alert(data);
