@@ -67,7 +67,7 @@ class Clientdata extends CI_Model {
 			'network'=>isset($clientdata->network)?$clientdata->network:'',
 			'latitude' =>isset($clientdata ->latitude)?$clientdata ->latitude:'',
 			'longitude'=>isset($clientdata->longitude)?$clientdata->longitude:'',
-		    'isjailbroken'=>isset($clientdata->isjailbroken)?$clientdata->isjailbroken:'',
+		    'isjailbroken'=>isset($clientdata->isjailbroken)?$clientdata->isjailbroken:0,
 			'date'=>$nowtime,
 		    'service_supplier'=>$service_supplier,
 		    'clientip'=>$ip
