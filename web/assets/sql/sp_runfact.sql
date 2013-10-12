@@ -7,6 +7,9 @@ begin
 declare s datetime;
 declare e datetime;
 
+insert into umsinstall_log(op_type,op_name,op_starttime)
+    values('runfact','-----start  runfact-----',now());
+
 set s = now();
 
 insert into umsinstall_fact_clientdata
@@ -64,8 +67,8 @@ where
        and a.insertdate between starttime and endtime;
 
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('runfact','umsinstall_fact_clientdata',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('runfact','umsinstall_fact_clientdata',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
 
 set s = now();
@@ -99,8 +102,8 @@ where  date(u.start_millis) = d.datevalue and
        and u.activities = a.activity_name
        and u.insertdate between starttime and endtime;
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('runfact','umsinstall_fact_usinglog',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('runfact','umsinstall_fact_usinglog',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
 set s = now();
 insert into umsinstall_fact_errorlog
@@ -142,8 +145,8 @@ where  e.appkey = p.product_key
        and p.product_active = 1 and p.channel_active = 1 and p.version_active = 1
        and e.insertdate between starttime and endtime; 
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('runfact','umsinstall_fact_errorlog',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('runfact','umsinstall_fact_errorlog',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
 
 set s = now();
@@ -180,7 +183,11 @@ where  f.event_id = e.event_id
        and date(f.clientdate) = d.datevalue
        and f.insertdate between starttime and endtime;
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('runfact','umsinstall_fact_event',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('runfact','umsinstall_fact_event',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 set s = now();
+
+insert into umsinstall_log(op_type,op_name,op_starttime)
+    values('runfact','-----finish runfact-----',now());
+    
 end;

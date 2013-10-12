@@ -850,3 +850,12 @@ CREATE TABLE IF NOT EXISTS `umsinstall_gcmappkeys` (
   `status` smallint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `umsinstall_device_tag` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `deviceid` varchar(256) NOT NULL,
+    `tags` varchar(1024) default NULL,
+    `productkey` varchar(64) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

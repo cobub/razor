@@ -7,11 +7,12 @@ begin
 declare s datetime;
 declare e datetime;
 
+insert into umsinstall_log(op_type,op_name,op_starttime)
+    values('rundim','-----start rundim-----',now());
 
--- dim location --
+
+/* dim location */
 set s = now();
-
-/* dim_location */
 insert into umsinstall_dim_location
            (country,
             region,
@@ -26,12 +27,11 @@ where  not exists (select 1
                           and a.region = b.region
                           and a.city = b.city);
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('rundim','umsinstall_dim_location',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('rundim','umsinstall_dim_location',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
--- devicebrand ----
+/* dim devicebrand */
 set s = now();
-
 insert into umsinstall_dim_devicebrand(devicebrand_name)
 select distinct devicename
 from   databaseprefix.umsdatainstall_clientdata a
@@ -47,12 +47,11 @@ where  not exists (select *
                    where  b.deviceos_name = a.osversion);
                    
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('rundim','umsinstall_dim_deviceos',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('rundim','umsinstall_dim_deviceos',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
--- devicelanguage ----
+/* dim devicelanguage */
 set s = now();
-
 insert into umsinstall_dim_devicelanguage
            (devicelanguage_name)
 select distinct language
@@ -61,10 +60,10 @@ where  not exists (select *
                    from   umsinstall_dim_devicelanguage b
                    where  a.language = b.devicelanguage_name);
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('rundim','umsinstall_dim_devicelanguage',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('rundim','umsinstall_dim_devicelanguage',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
--- resolution ----
+/* dim resolution */
 set s = now();
 insert into umsinstall_dim_deviceresolution
            (deviceresolution_name)
@@ -75,10 +74,10 @@ where  not exists (select *
                    where  a.resolution = b.deviceresolution_name);
                    
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('rundim','umsinstall_dim_deviceresolution',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('rundim','umsinstall_dim_deviceresolution',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
--- devicesupplier ----
+/* dim devicesupplier */
 set s = now();
 insert into umsinstall_dim_devicesupplier
            (devicesupplier_name)
@@ -89,10 +88,10 @@ where  not exists (select *
                    where  a.service_supplier = b.devicesupplier_name);
 
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('rundim','umsinstall_dim_devicesupplier',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('rundim','umsinstall_dim_devicesupplier',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
--- dim_product ----
+/* dim product */
 set s = now();
 update 
 umsinstall_dim_product dp, 
@@ -168,12 +167,11 @@ from  databaseprefix.umsdatainstall_product p inner join
                                dp.version_name = cd.version and
                                dp.userid = cp.user_id);
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('rundim','umsinstall_dim_product',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('rundim','umsinstall_dim_product',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
--- dim_network ----
-set s = now();                               
-                               
+/* dim network */
+set s = now();                              
 insert into umsinstall_dim_network
            (networkname)
 select distinct cd.network
@@ -183,10 +181,10 @@ where  not exists (select 1
                        where  nw.networkname = cd.network);
 
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('rundim','umsinstall_dim_network',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('rundim','umsinstall_dim_network',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
--- activity ----
+/* dim activity */
 set s = now();   
 
 insert into umsinstall_dim_activity  (activity_name,product_id)
@@ -201,10 +199,10 @@ and not exists (select 1
 and a.product_id = p.id);
 
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('rundim','umsinstall_dim_activity',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('rundim','umsinstall_dim_activity',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
--- errirtitle ----
+/* dim errortitle */
 set s = now();
 insert into umsinstall_dim_errortitle
            (title_name,isfix)
@@ -213,14 +211,11 @@ from   databaseprefix.umsdatainstall_errorlog f
 where  not exists (select *
                    from   umsinstall_dim_errortitle ee
                    where  ee.title_name = f.title);
-                   
--- dim_event
--- update dim_event
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('rundim','umsinstall_dim_errortitle',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration)
+     values('rundim','umsinstall_dim_errortitle',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
--- event ----
+/* dim event */
 set s = now();
 update umsinstall_dim_event e,databaseprefix.umsdatainstall_event_defination d
 set e.eventidentifier = d.event_identifier,
@@ -242,6 +237,14 @@ and ee.product_id = f.product_id
 and ee.createtime = f.create_date);
 
 set e = now();
-insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
-    values('rundim','umsinstall_dim_event',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
+    values('rundim','umsinstall_dim_event',s,e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
+insert into umsinstall_log(op_type,op_name,op_starttime)
+    values('rundim','-----finish rundim-----',now());
+
+
+
 end;
+
+
