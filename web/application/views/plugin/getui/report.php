@@ -1,5 +1,5 @@
 <section class="column"  id="main">
-	<h4 class="alert_warning"  id="msg"> 当前在线用户数：<?php echo $onlineuser;?></h4>
+	<h4 class="alert_warning"  id="msg"> <?php echo lang('current_user_num')?>：<?php echo $onlineuser;?></h4>
 
 	<article class="module width_full" style='width:1040px;'>
 	<header>
@@ -85,24 +85,7 @@ $(document).ready(function() {
 				    tooltip: {
 				        crosshairs: true,
 				        shared:false,
-				        formatter: function() {
-					        var content=this.x+'<br>';
-					        var m=0;					       
-					        for(var i=0;i<category.length;i++){
-						        if(category[i]==this.x){
-							        m=i;
-							        break;
-						        }
-						    }
-					        if(this.series.name=='<?php echo lang('m_dateevents');?>'){
-		                           content=tooltipmarkevent[m];
-		                    }else{
-			                    for(var j=0;j<tooltipname.length;j++){
-				                    content=content+'<span style="color:'+colors[j]+'">'+tooltipname[j]+'</span>:'+tooltipdata[j][m]+'<br>';
-				                }
-		                    }
-					        return content;
-				        }
+				        
 				    },
 		            plotOptions: {
 			            column: {
@@ -115,30 +98,7 @@ $(document).ready(function() {
 		                        lineWidth: 1
 		                    }
 		                },series:{
-		                	cursor:'pointer',
-		                	events:{
-		        				click:function(e){
-		        					if(!markEventIndex.content(e.point.series.index)){
-		        						sendBack(e);
-		        						return;
-		        						}
-		    						var rights=e.point.rights==1?'<?php echo lang('m_public')?>':'<?php echo lang('m_private')?>';
-		        					var content='<div><?php echo lang('m_marktime')?>:'+e.point.date+'</div>';
-		        					content+='<div><?php echo lang('m_user')?>:'+e.point.username+'</div>';
-		        					content+='<div><?php echo lang('m_title')?>:'+e.point.title+'</div>';
-		        					content+='<div><?php echo lang('m_description')?>:'+e.point.description+'</div>';
-		        					content+='<div><?php echo lang('m_rights')?>:'+rights+'</div>';
-		        					 hs.htmlExpand(null, {
-		                                 pageOrigin: {
-		                                     x: e.pageX,
-		                                     y: e.pageY
-		                                 },
-		                                 headingText: '<?php echo lang('m_eventsDetail')?>',
-		                                 maincontentText:content,
-		                                 width: 200
-		                             });	
-		        					}
-		                        }
+		                	cursor:'pointer'
 			                }
 		            },
 		            legend:{
@@ -161,15 +121,28 @@ $(document).ready(function() {
     function renderCharts(myurl)
     {
     	
-      	 var chart_canvas = $('#container');
-      	    var loading_img = $("<img src='<?php echo base_url();?>assets/images/loader.gif'/>");
-      		   
-      	  
+      		 var chart_canvas = $('#container');
+	    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
+		    
+	    chart_canvas.block({
+	        message: loading_img,
+	        css:{
+	            width:'32px',
+	            border:'none',
+	            background: 'none'
+	        },
+	        overlayCSS:{
+	            backgroundColor: '#FFF',
+	            opacity: 0.8
+	        },
+	        baseZ:997
+	    });	 
       	    
       	 	jQuery.getJSON(myurl, null, function(data) {
       	 	 // alert(data.dataList[0].date);
       	 	 // alert(data);
       	 	
+          	 	    var d =data.headList.length;
           	 	    for(var i=0;i<data.headList.length;i++){
           	 	    	var appdata =[];
           	 	    	var categories=[];
@@ -183,12 +156,13 @@ $(document).ready(function() {
           	 	    		
           	 	    	}
           	 	    options.series[i].data = appdata;
+          	 	  
 					options.xAxis.labels.step = parseInt(categories.length/10);
 					options.xAxis.categories = categories; 
 					<!--options.title.text = <?php echo lang('getui_data');?>;-->
           	 	    }
           	 	    chart = new Highcharts.Chart(options);
-          		
+          			chart_canvas.unblock();
           		});  
     }
   	    

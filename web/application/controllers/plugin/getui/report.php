@@ -51,7 +51,7 @@ class report extends CI_Controller {
 		
 		  $ret= $this->common->curl_post(SERVER_BASE_URL."/index.php?/api/igetui/getuiReport",$data);
 		// $ret='{"dataList":[{"date":"2013-08-09","datas":[12,11]},{"date":"2013-08-08","datas":[2,10]},{"date":"2013-08-07","datas":[4,12]},{"date":"2013-08-06","datas":[2,14]},{"date":"2013-08-05","datas":[34,33]},{"date":"2013-08-04","datas":[33,45]},{"date":"2013-08-03","datas":[33,56]}],"status":"Succ","headList":["test","Total"]}';
-		
+		// print_r($ret);
 		echo $ret;
 	}
 

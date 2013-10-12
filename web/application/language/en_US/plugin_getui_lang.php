@@ -57,3 +57,4 @@ $lang['getui_transmission']='transmission message';
 $lang['getui_report']='Data report';
 $lang['push_success']='push message success';
 $lang['push_fail']='push message fail';
+$lang['current_user_num']="Current user number";
