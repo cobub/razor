@@ -120,7 +120,7 @@ $(document).ready(function() {
 <script type="text/javascript">     
     function renderCharts(myurl)
     {
-<<<<<<< HEAD
+
     	
       		 var chart_canvas = $('#container');
 	    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
@@ -139,12 +139,7 @@ $(document).ready(function() {
 	        baseZ:997
 	    });	 
       	    
-=======
-  	
-      	 var chart_canvas = $('#container');
-      	    var loading_img = $("<img src='<?php echo base_url();?>assets/images/loader.gif'/>");
 
->>>>>>> 1501005ea84b5c67d55ecf586683496cd5fd9f13
       	 	jQuery.getJSON(myurl, null, function(data) {
       	 	 // alert(data.dataList[0].date);
       	 	 // alert(data);
