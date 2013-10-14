@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/web';
+$config['base_url']	= 'http://localhost/razor/web';
 
 /*
 |--------------------------------------------------------------------------
@@ -67,9 +67,9 @@ $config['url_suffix'] = '';
 | This determines which set of language files should be used. Make sure
 | there is an available translation if you intend to use something other
 | than english.
-|
+|  $config['language']	= 'zh_CN';en_US
 */
-  $config['language']	= 'en_US';
+  $config['language']	= 'zh_CN';
 /*
 |--------------------------------------------------------------------------
 | Default Character Set
@@ -125,7 +125,7 @@ $config['subclass_prefix'] = 'MY_';
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-&=';
 
 
 /*
@@ -369,7 +369,7 @@ $config['proxy_ips'] = '';
 |	1 = Enable Redis
 |
 */
-$config['redis'] = 0;
+$config['redis'] = 1;
 
 /*
  |--------------------------------------------------------------------------
@@ -394,5 +394,4 @@ $config['redis_interval'] = 10;
 |
 */
 $config['get_geographical']= 2;
-$config['default_country'] = '中国';
-$config['version']= 0.6;
+$config['version']= 0.5;

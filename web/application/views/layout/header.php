@@ -310,6 +310,10 @@ if(isset($username)):
                     <?php  echo anchor('/manage/product/create', lang('m_new_app'));?>
                 </li>
                 <?php  endif;?>
+                 <li class="icn_manacategory">
+                    <?php echo anchor('/user/applicationManagement/', lang('m_appType'));
+                    ?>
+                </li>
                 <li class="icn_app_channel">
                     <?php  echo anchor('/manage/channel/', lang('m_channelManagement'));?>
                 </li>
@@ -477,10 +481,7 @@ if(isset($username)):
                 </li>
                 <!--
                 <li class="icn_manaresource"><?php echo anchor('/user/resourcemanage/', lang('m_resourceManagement'));?></li> -->
-                <li class="icn_manacategory">
-                    <?php echo anchor('/user/applicationManagement/', lang('m_appType'));
-                    ?>
-                </li>
+               
                 <li class="icn_new_user">
                     <?php echo anchor('/user/newUser/', lang('t_newUser'));
                     ?>

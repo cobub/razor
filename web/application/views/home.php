@@ -13,9 +13,9 @@
 			</header>
 				<div class="module_content">
 				<article>
-				<div id="container"  class="module_content" style="height:430px">
+				<div id="container"  class="module_content" style="height:330px">
 					
-					<table style="padding-top:3cm" width="100%" border="0" cellspacing="0" cellpadding="0">
+					<table style="padding-top:1.5cm" width="100%" border="0" cellspacing="0" cellpadding="0">
 					  <tr >
 					    <td align="center"><a href="<?php echo site_url() ;?>/report/console"><img src="<?php echo base_url();?>assets/images/applications.png" /></a></td>
 					    <td align="center"><a href="<?php echo site_url() ;?>/manage/pluginlist"><img src="<?php echo base_url();?>assets/images/tools.png" /></a></td>
