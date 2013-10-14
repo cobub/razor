@@ -8,7 +8,7 @@ $lang['m_ios_warning3'] = 'It is uncomplete to fill up the blanks';
 $lang['m_ios_register'] = 'Apple\'s Push Application Register';
 $lang['m_register'] = 'Register';
 $lang['m_getBundleid'] = 'How to get BundleID?';
-$lang['m_registered'] = 'Registered';
+$lang['m_registered'] = 'Update';
 $lang['m_IOSpush'] = 'Apple Push Menu';
 $lang['m_cer_warning'] ='Can not push before the certificate is uploaded,please first go to';
 $lang['m_cer_warning1']='<a href="http://dev.cobub.com/users" target=_blank>user center and upload relevant certificate</a>';

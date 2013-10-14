@@ -8,7 +8,7 @@ $lang['m_ios_warning3'] = '信息填写不完整';
 $lang['m_ios_register'] = '苹果推送应用注册';
 $lang['m_register'] = '注册';
 $lang['m_getBundleid'] = '如何获取BundleID？';
-$lang['m_registered'] = '已注册';
+$lang['m_registered'] = '更新';
 $lang['m_IOSpush'] = '苹果推送首页';
 $lang['m_cer_warning'] ='证书未上传不能进行推送服务,请先到';
 $lang['m_cer_warning1']='<a href="http://dev.cobub.com/users" target=_blank>用户中心上传相关证书</a>';
