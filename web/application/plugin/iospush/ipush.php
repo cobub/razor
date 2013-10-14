@@ -15,7 +15,7 @@ class Ipush  extends CI_Model implements pluginInterface {
 				'description' => 'ios push',
 				'version' => '0.1',
 				'date' => '2013-08-30',
-				'provider' => '<a href="http://dev.cobuub.com" target="_blank">南京西桥科技</a>',
+				'provider' => '<a href="http://www.wbkit.com" target="_blank">南京西桥科技</a>',
 				'detail'=> 'http://dev.cobub.com/users/index.php?/help',
 				'menus' => $this->getMenus () 
 		);
