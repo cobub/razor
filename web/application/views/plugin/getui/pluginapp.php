@@ -1,4 +1,4 @@
-<section id="main" class="column">
+<section id="main" class="column" style='height:1000px;'>
 		
 <h4 class="alert_info" id='msg' style="display: none;"></h4>
 		
@@ -23,6 +23,30 @@
 			<div id="container" class="module_content" style="height: 300px"></div>
 		</div>
 		<input type="hidden" id='appid' name="appid" value="<?php echo $appid?>" />
+	</article>
+
+
+
+	<article class="module width_full" >
+	<header>
+	<h3 class="h3_fontstyle">		
+	<?php  echo '汇总数据' ?></h3>
+		</header>
+		<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+    				<th><?php  echo "日期";?></th> 
+    				<th><?php  echo lang('getui_newuser');?></th> 
+    				<th><?php  echo lang('getui_online');?></th> 
+    				<th><?php  echo lang('getui_push');?></th> 
+    				<th><?php  echo lang('getui_recive');?></th> 
+    				<th><?php echo lang('getui_click')?></th> 
+				</tr> 
+			</thead> 
+			<tbody id='tablebody'>	
+						
+			</tbody>
+			</table>
 	</article>
 
 		
@@ -93,6 +117,18 @@ var tooltipname=[];
 var colors=['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', 
             '#A47D7C', '#B5CA92', '#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', 
             '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
+
+ var userdata ;
+ var onlinedata;
+ var pushdata;
+ var recivedata;
+ var clickdata;
+ var chart_canvas
+ var flag1=true;
+ var flag2=true;
+ var flag3=true;
+ var flag4=true;
+
 $(document).ready(function() {	
 	options = {
 		            chart: {
@@ -152,16 +188,7 @@ $(document).ready(function() {
 		        };
 	 
  var appid=document.getElementById('appid').value;
-	var myurl="<?php echo site_url();?>/plugin/getui/report/getdata/?type="+type+"&appid="+appid;	
-	// alert(myurl);
-	renderCharts(myurl);	
-});
-</script>
-<script type="text/javascript">     
-    function renderCharts(myurl)
-    {
-    	
-      	 		 var chart_canvas = $('#container');
+ chart_canvas  = $('#container');
 	    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
 		    
 	    chart_canvas.block({
@@ -177,12 +204,97 @@ $(document).ready(function() {
 	        },
 	        baseZ:997
 	    });	 
-      	    
+	
 
-      	 	jQuery.getJSON(myurl, null, function(data) {
-      	 	 // alert(data.dataList[0].date);
-      	 	 // alert(data);
-      	 	       var d =data.headList.length;
+	var myurl="<?php echo site_url();?>/plugin/getui/report/getdata/?type=online&appid="+appid+"&time="+new Date();	
+	jQuery.getJSON(myurl, null, function(data) {
+	onlinedata=data; 
+	flag1=false;
+
+	var myurl="<?php echo site_url();?>/plugin/getui/report/getdata/?type=push&appid="+appid+"&time="+new Date();
+	jQuery.getJSON(myurl, null, function(data) {
+	pushdata=data;
+	flag2=false;
+
+		var myurl="<?php echo site_url();?>/plugin/getui/report/getdata/?type=receive&appid="+appid+"&time="+new Date();	
+		jQuery.getJSON(myurl, null, function(data) {
+		receivedata=data;
+		flag3=false;
+
+			var myurl="<?php echo site_url();?>/plugin/getui/report/getdata/?type=click&appid="+appid+"&time="+new Date();
+			jQuery.getJSON(myurl, null, function(data) {
+			clickdata=data; 
+			flag4=false;
+
+				var myurl="<?php echo site_url();?>/plugin/getui/report/getdata/?type="+type+"&appid="+appid+"&time="+new Date();	
+
+				jQuery.getJSON(myurl, null, function(newdata) {
+				userdata=newdata;
+				renderCharts(myurl);
+				var tbody = document.getElementById('tablebody');
+				var str="";
+				// alert('sdf');
+				// do{
+
+				// 	}while(flag4||flag3||flag2||flag1)
+
+				if(newdata.status=="Succ"&&onlinedata.status=="Succ"&&pushdata.status=="Succ"&&receivedata.status=="Succ"&&clickdata.status=="Succ"){
+					for(var i=newdata.headList.length-1;i<newdata.headList.length;i++){
+						for(var j=newdata.dataList.length-1;j>=0;j--){
+
+							
+
+							str = str+"<tr><td>"+newdata.dataList[j].date+"</td><td>"+userdata.dataList[j].datas[i]+"</td><td>"+onlinedata.dataList[j].datas[i]+"</td><td>"+pushdata.dataList[j].datas[i]+"</td><td>"+receivedata.dataList[j].datas[i]+"</td><td>"+clickdata.dataList[j].datas[i]+"</td></tr>";
+						}
+						tbody.innerHTML=str;
+					}
+				}else{
+					tbody.innerHTML=str;
+				}
+				
+
+
+				 }); 
+			});  
+
+		 });  
+	 });  
+	});  
+
+	
+
+	
+
+	
+
+	// alert(myurl);
+	 
+	
+});
+</script>
+<script type="text/javascript">     
+    function renderCharts(myurl)
+    {
+    	
+      	 		
+	    
+	    if(type=='user'){
+	    	data = userdata;
+	    }
+	     if(type=='online'){
+	    	data = onlinedata;
+	    }
+	     if(type=='push'){
+	    	data = pushdata;
+	    }
+	     if(type=='click'){
+	    	data = clickdata;
+	    }
+	     if(type=='receive'){
+	    	data = receivedata;
+	    }
+	    if(data.status=='Succ'){
+	    	var d =data.headList.length;
           	 	    for(var i=d-1;i<data.headList.length;i++){
           	 	    	var appdata =[];
           	 	    	var categories=[];
@@ -203,7 +315,15 @@ $(document).ready(function() {
           	 	    }
           	 	    chart = new Highcharts.Chart(options);
           		chart_canvas.unblock();
-          		});  
+	    }
+	     
+      	    
+
+      	 	// jQuery.getJSON(myurl, null, function(data) {
+      	 	//  // alert(data.dataList[0].date);
+      	 	//  // alert(data);
+      	 	     
+         //  		});  
     }
   	    
 </script>
