@@ -214,7 +214,7 @@ $lang['v_userStatusInactive'] ='不可用';
 $lang['v_warning1'] ='userKey和userSecret不正确';
 $lang['v_warning2'] ='注册APP失败';
 $lang['v_warning3'] ='认证失败';
-$lang['v_integrationGuide'] = 'SDK集成指南';
+$lang['v_integrationGuide'] = '<a href="http://dev.cobub.com/zh/docs/plugins/getui/" target="_blank">SDK集成指南</a>';
 $lang['v_userStatusExplain'] = '个推账户状态为不可用时，系统将不能进行推送服务，请及时充值。如有问题，请联系';
 $lang['v_userStatusExplain1']='或发送邮件至：support@cobub.com<br />具体SDK集成步骤，请参考';
 $lang['v_tap']='注：SDK只能从';

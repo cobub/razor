@@ -209,7 +209,7 @@ $lang['v_getuiPluginsContent']='Cobub Razor IGetui plugin provides message pushi
 $lang['v_warning1'] ='Invalid paraments';
 $lang['v_warning2'] ='register App failure';
 $lang['v_warning3'] ='auth failure';
-$lang['v_integrationGuide'] = 'SDK Integration Manuals';
+$lang['v_integrationGuide'] = '<a href="http://dev.cobub.com/docs/plugins/getui/" target="_blank">SDK Integration Manuals</a>';
 $lang['v_userStatusExplain'] = 'Cobub Razor will not offer push service when Igetui account status is unavailable, please top up in time. If you have any questions, please contact: ';
 $lang['v_userStatusExplain1'] = ' or send email to support@cobub.com <br />Specific SDK integration steps, please refer to ';
 $lang['v_tap']='Notice:SDK only can be downloaded from ';

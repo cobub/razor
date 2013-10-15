@@ -57,4 +57,5 @@ $lang['getui_transmission']='透传消息';
 $lang['getui_report']='个推报表';
 $lang['push_success']='推送成功';
 $lang['push_fail']='推送失败';
-$lang['current_user_num']="当前在线用户数";
+$lang['current_user_num']='当前在线用户数';
+$lang['getui_application_info'] = '应用信息';

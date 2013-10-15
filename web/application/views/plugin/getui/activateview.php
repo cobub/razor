@@ -5,7 +5,13 @@
 	<!-- show user key&secret -->
 	<article class="module width_full">
 		<header>
-			<h3><?php echo  lang('v_activateApp')?></h3>
+			<h3>
+			<?php if(isset($flag)):?>
+				<?php echo  lang('getui_application_info')?>
+			<?php else:?>
+			    <?php echo  lang('v_activateApp')?>
+			<?php endif;?>
+			</h3>
 		</header>
 		<?php echo form_open('plugin/getui/activate/activateApp'); ?>
 		<div class="module_content">
@@ -34,8 +40,8 @@
 			<footer>
 			<?php if(isset($flag)):?>
 				<div class="submit_link">
-				<input type='submit' id='submit' class='alt_btn'
-					name="getui/activated" value="<?php echo lang('v_actived')?>" disabled="disabled">
+				<input type='hidden' id='submit' class='alt_btn'
+					name="getui/activated" value="<?php echo lang('v_actived')?>">
 				</div>
 			<?php else:?>
 			<div class="submit_link">
@@ -50,7 +56,6 @@
 	</article>
 	<!-- end of show user key&secret-->
 	<?php if(isset($flag)): ?>
-
 	
 	<article class="module width_full">
 	<header><h3 class="tabs_involved"><?php echo  lang('v_responseInfo')?></h3></header>
@@ -60,36 +65,31 @@
 			
 			<tbody> 
 				<tr>
-					
     				<td>client_Appid</td> 
     				<td><?php echo $appId ?> </td>
-    				
     			</tr>
     		    <tr>
-				
 					<td>client_appKey</td> 
     				<td><?php echo $appKey?> </td>
     			</tr> 
     			<tr>
-					
     				<td>client_appSecret</td> 
     				<td><?php echo $appSecret?></td>
     			</tr> 
     			<tr>
-					
     				<td>client_masterSecret</td> 
     				<td> <?php echo $masterSecret?></td>
     			</tr> 
     			<tr>
-					
     				<td>activate_date</td> 
     				<td><?php echo $activateDate ?> </td>
     			</tr> 
-		
 			</tbody> 
 			</table>
 			</div><!-- end of #tab1 -->
 			</div><!-- end of .tab_container -->
 		</article>
+		
+	   &nbsp;&nbsp;&nbsp;&nbsp;<h3 class="tabs_involved"><a href="http://dev.cobub.com/zh/docs/plugins/getui/" target="_blank"><?php echo  '查看SDK集成指南'?></a></h3>		
 
 	<?php endif;?>
