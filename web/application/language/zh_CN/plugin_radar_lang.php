@@ -17,7 +17,7 @@
 $lang ['ls_title'] = "应用雷达";
 $lang ['ls_des'] = "应用雷达是Cobub Razor官方基于应用雷达开发的一款iOS应用分析插件，专业分析App store实时动态，全方位监控App store竞争态势，推广效果尽收眼底，帮助您清晰的衡量自己的竞争力。";
 $lang ['ls_version'] = "0.1";
-$lang ['ls_provider'] = "南京西桥科技";
+$lang ['ls_provider'] = "<a href='http://www.wbkit.com' target='_blank'>南京西桥科技</a>";
 $lang ['ls_date'] = "2013-8-30";
 
 //Menu
@@ -25,7 +25,7 @@ $lang ['m_main'] = "应用雷达";
 $lang ['m_sub_1'] = "应用雷达报表";
 $lang ['m_checkFailureWarning'] = "查看雷达应用失败，请确认您的APPID是否正确";
 $lang ['m_fillBlankWarning'] = "APPID不能为空";
-$lang ['m_checkApp'] = "查看应用";
+$lang ['m_checkApp'] = "基本信息";
 $lang ['m_tipInfo1'] = "必须填写APPID才能查看相应的报表信息";
 $lang ['m_appNames'] = "应用名称";
 $lang ['m_tipInfo2'] = "如何获取APPID？";
