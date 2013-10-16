@@ -2,6 +2,23 @@
 <?php if(isset($msg)):?>
 <h4 class="alert_error" id="msg"><?php echo $msg;?></h4>
 <?php endif;?>
+
+    <!-- show application records sort -->
+	<?php if(isset($verification)): ?>
+	<article class="module width_full" >
+	<header>
+	<h3 class="h3_fontstyle">		
+	<?php  echo lang('m_appRanks'); ?></h3>
+				
+		</header>
+		<div class="module_content">
+			<div id="container" class="module_content" style="height: 300px"></div>
+		</div>
+		<input type="hidden" id='appid' name="appid" value="<?php echo $appid?>" />
+	</article>
+	<?php endif;?>
+	<!-- end of show application records sort -->
+	
 	<!-- show user key&secret -->
 
 	<article class="module width_full">
@@ -43,19 +60,8 @@
 	</article>
 
 	<!-- end of show user key&secret-->
+	
 	<?php if(isset($verification)): ?>
-
-	<article class="module width_full" >
-	<header>
-	<h3 class="h3_fontstyle">		
-	<?php  echo lang('m_appRanks'); ?></h3>
-				
-		</header>
-		<div class="module_content">
-			<div id="container" class="module_content" style="height: 300px"></div>
-		</div>
-		<input type="hidden" id='appid' name="appid" value="<?php echo $appid?>" />
-	</article>
 
 	<article class="module width_full">
 	<header><h3 class="tabs_involved"><?php echo lang('m_tables')?></h3></header>
