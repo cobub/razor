@@ -959,6 +959,17 @@ $lang['v_element_trash']='删除';
 $lang['head_plugin_m']='插件管理';
 
 /******************************************************************************/
-
-
+$lang['tag_chose_all_user']='选择所有用户';
+$lang['tag_push_all_user']='对所有用户进行推送。';
+$lang['tag_chose_taggroup_user']='选择标签组用户';
+$lang['tag_all_user']='所有用户';
+$lang['tag_chose_version']='选择版本';
+$lang['tag_chose_channel']='选择渠道';
+$lang['tag_chost_pri']='选择地区(省份)';
+$lang['tag_save_user']='保存以便下次使用';
+$lang['tag_name_exited']='该名称已存在，请重新输入新的名称';
+$lang['tag_chosed']='你选择的标签：';
+$lang['tag_input_groupname']='请输入要保存的标签组名称';
+$lang['tag_save_group_fail']='保存标签组失败';
+$lang['tag_head']='选择用户';
 

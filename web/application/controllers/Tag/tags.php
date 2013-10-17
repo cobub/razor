@@ -38,7 +38,7 @@ class Tags extends CI_Controller {
 
     function index() {
     	
-    	$this->common->loadHeader('选择标签');
+    	$this->common->loadHeader(lang('tag_head'));
     	$productId = $_GET['product_id']!=null?$_GET['product_id']:1;
     	$url = $_GET['url'];
     	$data['url'] = $url;
@@ -48,7 +48,7 @@ class Tags extends CI_Controller {
     	$data['tagsgroupjson'] = $this->getTagsGroupJson($productId);
     	$data['version']=$this->getProductVersionById($productId);
     	$data['channel']=$this->getProductChannelById($productId);
-    	$data['region'] = $this->getRegion();
+    	$data['region'] = $this->getRegion($productId);
     	$data['productId'] = $productId;
 		$this->load->view('tags/tagview',$data);
     }
@@ -78,9 +78,9 @@ class Tags extends CI_Controller {
     	
     }
     
-    function getRegion()
+    function getRegion($productId)
     {
-    	$res = $this->tagmodel->getRegion();
+    	$res = $this->tagmodel->getRegion($productId);
     	return $res;
     }
     

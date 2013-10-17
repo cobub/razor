@@ -968,3 +968,16 @@ $lang['v_element_trash']='Trash';
 
 $lang['head_plugin_m']='Plugin manager';
 
+$lang['tag_chose_all_user']='Select all users';
+$lang['tag_push_all_user']='Push to all users.';
+$lang['tag_chose_taggroup_user']='Select the tag group users';
+$lang['tag_all_user']='All user';
+$lang['tag_chose_version']='Select the version';
+$lang['tag_chose_channel']='Select the channel';
+$lang['tag_chost_pri']='Select the region (province)';
+$lang['tag_save_user']='Save for next time';
+$lang['tag_name_exited']='The name already exists, please re - enter the new name';
+$lang['tag_chosed']='You choose the label:';
+$lang['tag_input_groupname']='Please enter the name of tag group to save';
+$lang['tag_save_group_fail']='Save tag group failed';
+$lang['tag_head']='Select the user';
