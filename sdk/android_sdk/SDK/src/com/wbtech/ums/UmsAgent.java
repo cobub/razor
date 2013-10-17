@@ -747,7 +747,7 @@ public class UmsAgent {
             clientData.put("ismobiledevice", true);
             clientData.put("phonetype", tm.getPhoneType());//
             clientData.put("imsi", tm.getSubscriberId());
-            clientData.put("network", CommonUtil.getNetworkType(context));
+            clientData.put("network", CommonUtil.getNetworkTypeWIFI2G3G(context));
             clientData.put("time", CommonUtil.getTime());
             clientData.put("version", CommonUtil.getVersion(context));
             clientData.put(UserIdentifier, CommonUtil.getUserIdentifier(context));
