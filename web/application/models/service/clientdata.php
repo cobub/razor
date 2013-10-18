@@ -75,13 +75,29 @@ class Clientdata extends CI_Model {
 			require ("geoipregionvars.php");
 			$gi = geoip_open("GeoLiteCity.dat", GEOIP_STANDARD);
 			$record = geoip_record_by_addr($gi, $ip);
-			if (!empty($record)) {
-				$data["country"] = $record -> country_name;
-				if ($record -> region != '') {
-					$data["region"] = $GEOIP_REGION_NAME[$record -> country_code][$record -> region];
-				}
-				$data["city"] = $record -> city;
-				$data["postcode"] = $record -> postal_code;
+            if (!empty($record)) {
+
+                if ($record->country_name != '') {
+                    $data["country"] = $record -> country_name;
+                } else {
+                    $data["country"] = "unknown";
+                }
+                if ($record -> region != '') {
+                    $data["region"] = $GEOIP_REGION_NAME[$record -> country_code][$record -> region];
+                } else {
+                    $data["region"] = "unknown";
+                }
+                if ($record->city!='') {
+                    $data["city"] = $record -> city;
+                } else {
+                    $data["city"] = "unknown";
+                }
+            }else {
+                $data["country"] = "unknown";
+                $data["region"]="unknown";
+                $data["city"]="unknown";
+
+
 			}
 		}
 

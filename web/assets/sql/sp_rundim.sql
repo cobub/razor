@@ -13,6 +13,15 @@ insert into umsinstall_log(op_type,op_name,op_starttime)
 
 /* dim location */
 set s = now();
+
+update databaseprefix.umsdatainstall_clientdata
+set region = 'unknown'
+where (region = '') or (region is null);
+
+update databaseprefix.umsdatainstall_clientdata
+set city = 'unknown'
+where (city = '') or (city is null);
+
 insert into umsinstall_dim_location
            (country,
             region,
