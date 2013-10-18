@@ -32,6 +32,7 @@ namespace UMSAgent.MyObject
         private List<ErrorInfo> errorList = new List<ErrorInfo>();
         private List<Event> eventList = new List<Event>();
         private List<PageInfo> pageInfoList=  new List<PageInfo>();
+        private List<Tag> tagList = new List<Tag>();
         private string app_key;
         public string appkey
         {
@@ -59,6 +60,14 @@ namespace UMSAgent.MyObject
             get { return pageInfoList; }
             set { pageInfoList = value; }
         }
+        public List<Tag> tagListInfo
+        {
+            get { return tagList; }
+            set { tagList = value; }
+        }
+
+
+
 
     }
 }

@@ -31,9 +31,10 @@
             <Button Content="click event" Height="72" HorizontalAlignment="Left" Margin="113,24,0,0" Name="button1" VerticalAlignment="Top" Width="210" Click="button1_Click" />
             <Button Content="Next" Height="72" HorizontalAlignment="Left" Margin="28,496,0,0" Name="button2" VerticalAlignment="Top" Width="160" Click="button2_Click" />
             <Button Content="Crash" Height="72" HorizontalAlignment="Left" Margin="28,418,0,0" Name="button3" VerticalAlignment="Top" Width="210" Click="button3_Click" Background="#4EFF0B19" />
-            <Button Content="lable event" Height="72" HorizontalAlignment="Left" Margin="113,160,0,0" Name="button4" VerticalAlignment="Top" Width="210" Click="button4_Click" />
-            <Button Content="Acc event" Height="72" HorizontalAlignment="Left" Margin="113,273,0,0" Name="button5" VerticalAlignment="Top" Width="210" Click="button5_Click" />
+            <Button Content="lable event" Height="72" HorizontalAlignment="Left" Margin="113,101,0,0" Name="button4" VerticalAlignment="Top" Width="210" Click="button4_Click" />
+            <Button Content="Acc event" Height="72" HorizontalAlignment="Left" Margin="113,179,0,0" Name="button5" VerticalAlignment="Top" Width="210" Click="button5_Click" />
             <Button Content="Null Crash" Height="72" HorizontalAlignment="Left" Margin="227,418,0,0" Name="button6" VerticalAlignment="Top" Width="210" BorderBrush="#FFA34B4B" Background="#FF46893A" Click="button6_Click"></Button>
+            <Button Content="Tag" Height="72" HorizontalAlignment="Left" Margin="139,257,0,0" Name="button7" VerticalAlignment="Top" Width="160" Click="button7_Click" />
         </Grid>
     </Grid>
  

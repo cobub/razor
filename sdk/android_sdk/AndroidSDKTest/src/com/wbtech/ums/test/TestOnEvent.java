@@ -12,32 +12,32 @@ public class TestOnEvent extends AndroidTestCase {
     
     public void testPostEventInfo(){
         Context context = getContext();
-        PostObjEvent event = new PostObjEvent( "sss", "xx", 23+"");
+        PostObjEvent event = new PostObjEvent( "sss", "xx", 23+"",context);
         
         boolean d = EventController.postEventInfo(handler,context,event);
         assertEquals(true,d);
     }
     public void testPostEventInfo1(){
         Context context = getContext();
-        PostObjEvent event = new PostObjEvent("sss", "xx", 23.3+"");
+        PostObjEvent event = new PostObjEvent("sss", "xx", 23.3+"",context);
         boolean d = EventController.postEventInfo(handler,context, event);
         assertEquals(true,d);
     }
     public void testPostEventInfo2(){
         Context context = getContext();
-        PostObjEvent event = new PostObjEvent("sss", "xx", -23.3+"");
+        PostObjEvent event = new PostObjEvent("sss", "xx", -23.3+"",context);
         boolean d = EventController.postEventInfo(handler,context, event);
         assertEquals(false,d);
     }
     public void testPostEventInfo3(){
         Context context = getContext();
-        PostObjEvent event = new PostObjEvent("sss", "xx", "");
+        PostObjEvent event = new PostObjEvent("sss", "xx", "",context);
         boolean d = EventController.postEventInfo(handler,context, event);
         assertEquals(false,d);
     }
     public void testPostEventInfo4(){
         Context context = getContext();
-        PostObjEvent event = new PostObjEvent("sss", "xx", null);
+        PostObjEvent event = new PostObjEvent("sss", "xx", null,context);
         boolean d = EventController.postEventInfo(handler,context,event );
         assertEquals(false,d);
     }

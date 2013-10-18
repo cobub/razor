@@ -139,9 +139,9 @@ CREATE TABLE IF NOT EXISTS `umsinstall_clientdata` (
   `clientip` varchar(50) NOT NULL,
   `productkey` varchar(50) NOT NULL,
   `service_supplier` varchar(64) DEFAULT NULL,
-  `country` varchar(50) DEFAULT NULL,
-  `region` varchar(50) DEFAULT NULL,
-  `city` varchar(50) DEFAULT NULL,
+  `country` varchar(50) DEFAULT 'unknown',
+  `region` varchar(50) DEFAULT 'unknown',
+  `city` varchar(50) DEFAULT 'unknown',
   `street` varchar(500) DEFAULT NULL,
   `streetno` varchar(50) DEFAULT NULL,
   `postcode` varchar(50) DEFAULT NULL,
@@ -851,3 +851,12 @@ CREATE TABLE IF NOT EXISTS `umsinstall_gcmappkeys` (
   `status` smallint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `umsinstall_device_tag` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `deviceid` varchar(256) NOT NULL,
+    `tags` varchar(1024) default NULL,
+    `productkey` varchar(64) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
