@@ -1,6 +1,9 @@
 <section class="column"  id="main" style='height:1000px;'>
 	<h4 class="alert_warning"  id="msg"> <?php echo lang('current_user_num')?>：<?php echo $onlineuser;?></h4>
-
+	<?php if(isset($timeerror)):?>
+	<h4   class="alert_warning"  id="timemsg"><?php echo $timeerror;?></h4>
+	<?php endif;?>
+	
 	<article class="module width_full" style='width:1040px;'>
 	<header>
 	<h3 class="h3_fontstyle">		
@@ -77,6 +80,8 @@ var colors=['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#
             '#A47D7C', '#B5CA92', '#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', 
             '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
 $(document).ready(function() {	
+	
+
 	options = {
 		            chart: {
 		                renderTo: 'container',

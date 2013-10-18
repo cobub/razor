@@ -981,3 +981,4 @@ $lang['tag_chosed']='You choose the label:';
 $lang['tag_input_groupname']='Please enter the name of tag group to save';
 $lang['tag_save_group_fail']='Save tag group failed';
 $lang['tag_head']='Select the user';
+$lang['time_chose_error']='Time is not more than a month';

@@ -972,4 +972,5 @@ $lang['tag_chosed']='你选择的标签：';
 $lang['tag_input_groupname']='请输入要保存的标签组名称';
 $lang['tag_save_group_fail']='保存标签组失败';
 $lang['tag_head']='选择用户';
+$lang['time_chose_error']='时间选择请勿超过一个月';
 

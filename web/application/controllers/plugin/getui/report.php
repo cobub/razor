@@ -26,8 +26,13 @@ class report extends CI_Controller {
 			$data['onlineuser']=$result->count;
 			}
 		}
+		$fromTime = $this->common->getFromTime ();
+		$toTime = $this->common->getToTime ();
+		$days= abs(strtotime($toTime) - strtotime($fromTime))/60/60/24+1;
+		if($days>31){
+			$data['timeerror']=lang('time_chose_error');
+		}
 		
-
 		$this->common->loadHeaderWithDateControl ( lang ( 'getui_data' ) );
 		$this->load->view ( 'plugin/getui/report', $data );
 	}
