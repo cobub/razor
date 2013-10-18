@@ -62,23 +62,29 @@ class IOSActivatemodel extends CI_Model
 	function checkInfo($appName)
 	{
 		$data['appname'] = $appName;
-		$product_id = $this ->iosactivatemodel ->getProductId($appName);
-		
-		$data['productId'] = $product_id;
-		$sql = "select * from ". $this->db->dbprefix("ios_product")." where product_id =".$product_id;
-
-		$query = $this->db->query($sql);
-		if($query && $query->num_rows()>0)
+		//$product_id = $this ->iosactivatemodel ->getProductId($appName);
+		$product_id = $this->getProductId($appName);
+		if($product_id)
 		{
-			$data['register_id']= $query->row()->register_id;
-			$data['bundleid']= $query->row()->bundle_id;
-			$data['flag']=1;
-		}else{
-
-			return false;
+			$data['productId'] = $product_id;
+			$sql = "select * from ". $this->db->dbprefix("ios_product")." where product_id =".$product_id;
+			
+			$query = $this->db->query($sql);
+			if($query && $query->num_rows()>0)
+			{
+				$data['register_id']= $query->row()->register_id;
+				$data['bundleid']= $query->row()->bundle_id;
+				$data['flag']=1;
+			}else{
+			
+				return false;
+			}
+			
+			return $data;
 		}
-
-		return $data;
+		
+		return false;
+		
 	}
 
 }

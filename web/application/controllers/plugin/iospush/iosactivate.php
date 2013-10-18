@@ -89,10 +89,70 @@ class IOSActivate extends CI_Controller {
 		}
 	}	
 	function checkInfo() {
+		
 		$appName = $_GET ['appname'];
 		$this->data = $this->iosactivatemodel->checkInfo ( $appName );
 		$this->common->loadHeader ( lang ( 'm_iosinfo' ) );
 		$this->load->view ( 'plugin/iospush/iosactivateview', $this->data );
 	
+	}
+	
+	function upload($register_id,$appname)
+	{
+		$this->data = $this->iosactivatemodel->checkInfo ( $appname );
+		if(!$this->iosactivatemodel->checkInfo ( $appname ))
+		{
+			$this->common->loadHeader ( lang ( 'm_iosinfo' ) );
+			$this->load->view ( 'plugin/iospush/iosactivateview', $this->data );
+			
+		}
+		
+		$this->form_validation->set_rules('crt_passwd', lang('apns_upload_crt_passwd'), 'trim|required|xss_clean');
+		if ($this->form_validation->run()) {
+			
+			$config = array(
+					'upload_path' => getcwd().'/assets/android/',
+					'allowed_types' => '*'
+			);
+			
+			$this->load->library('upload', $config);
+			if (!$this->upload->do_upload()) {
+				 $this->data['msg'] = "上传失败,请选择正确的文件类型";
+					
+			} else {
+				$file = $this->upload->data();
+					
+				$file_name = $file['file_name'];
+				$filename = getcwd().'/assets/android/'.$file_name;
+				////read file
+				$handle = fopen($filename, "r");
+				$contents = fread($handle, filesize ($filename));
+				fclose($handle);
+				////delete upload file
+				unlink($filename);
+				
+				$this->reapsen['password'] = $this->form_validation->set_value('crt_passwd');
+				$this->reapsen['registerid']=$register_id;
+				$this->reapsen['filename']= $file_name;
+				$this->reapsen['filecontent']=base64_encode($contents);
+					
+				$url_active = SERVER_BASE_URL."/index.php?/api/apns/upload";
+				$response = $this->common->curl_post ( $url_active, $this->reapsen );
+				$obj = json_decode($response, true );
+				$flag = $obj['flag'];
+					
+				if ($flag == 1){
+					$this->data['msg'] = "上传成功";
+				}
+				else{
+					$this->data['msg'] = "上传失败";
+				}
+			}
+			
+		}
+
+		$this->common->loadHeader ( lang ( 'm_iosinfo' ) );
+		$this->load->view ( 'plugin/iospush/iosactivateview', $this->data );	
+		
 	}
 }

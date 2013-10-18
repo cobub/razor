@@ -36,4 +36,8 @@ $lang['v_ios_push_updatesign_out']='Fill beyond the scope of the update flag';
 $lang['v_ios_push_content_noempty']='Push content can not be empty';
 $lang['v_ios_push_more']='Total length of more than 255 bytes';
 $lang['v_ios_pushing']='Push messages are,please wait ...';
+$lang['v_ios_certificate_pwd']='Certificate password';
+$lang['v_ios_certificate_file']='Certificate file';
+$lang['v_ios_upload']='Upload';
+$lang['v_ios_upload_certificate']='Upload certificate';
 ?>

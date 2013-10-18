@@ -36,4 +36,8 @@ $lang['v_ios_push_updatesign_out']='更新标志超出填写范围';
 $lang['v_ios_push_content_noempty']='推送内容不能为空';
 $lang['v_ios_push_more']='总长度超过255个字节';
 $lang['v_ios_pushing']='正在推送消息，请稍候...';
+$lang['v_ios_certificate_pwd']='证书密码';
+$lang['v_ios_certificate_file']='证书文件';
+$lang['v_ios_upload']='上传';
+$lang['v_ios_upload_certificate']='上传证书';
 ?>
