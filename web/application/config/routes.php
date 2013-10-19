@@ -38,9 +38,7 @@
 |
 */
 
-
-$route['default_controller'] = "report/home";
-
+$route['default_controller'] = "install/install";
 $route['404_override'] = '';
 
 
