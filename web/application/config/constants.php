@@ -63,4 +63,5 @@ define('VIEW',1);
 define('UMS_USER',2);
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
-
+// define('SERVER_BASE_URL','http://192.168.1.4/ucenter');
+define('SERVER_BASE_URL','http://dev.cobub.com/users');
