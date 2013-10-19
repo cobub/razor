@@ -68,6 +68,16 @@ namespace UMSAgent.CallBcak
         
         }
 
+        //callback of tag data
+
+        public static void call_back_process_tagdata(string msg, object obj)
+        {
+            DebugTool.Log("call back of tag data------" + msg);
+            CommonRet o = getJsonObj(msg);
+           
+
+        }
+
         //callback of event data
         public static void call_back_process_eventdata(string msg, object obj)
         {
@@ -79,6 +89,7 @@ namespace UMSAgent.CallBcak
             }
             DebugTool.Log("call back of event data------" + o.msg);
         }
+
        
         //callback of page visit
         public static void call_back_process_pageinfodata(string msg, object obj)

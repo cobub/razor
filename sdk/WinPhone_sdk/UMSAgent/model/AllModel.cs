@@ -77,7 +77,17 @@ namespace UMSAgent.Model
             return obj;
         
         }
-        
+
+        //get Tag data
+        public Tag getTagData(string tags)
+        {
+            Tag tag = new Tag();
+            tag.productkey = UmsManager.appkey;
+            tag.tags = HttpUtility.UrlEncode(tags);
+            tag.deviceid = Utility.getDeviceId();
+            return tag;
+        }
+      
         //get client data
         public ClientData getClientData()
         {
@@ -146,6 +156,9 @@ namespace UMSAgent.Model
                     break;
                 case 6:// page info data
                     url = Constants.BASEURL + Constants.postActivityLog;
+                    break;
+                case 7://tag data
+                    url = Constants.BASEURL + Constants.postTag;
                     break;
 
                 default:

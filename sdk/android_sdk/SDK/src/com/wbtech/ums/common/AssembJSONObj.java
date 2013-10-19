@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Build;
 
 import com.wbtech.ums.objects.PostObjEvent;
+import com.wbtech.ums.objects.PostObjTag;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +34,19 @@ public class AssembJSONObj {
         }
         return errorInfo;
     }
+    
+    public static JSONObject getpostTagsJSONObj(PostObjTag tagobj){
+        JSONObject object = new JSONObject();
+        try {
+            object.put("tags", tagobj==null?"":tagobj.getTags());
+            object.put("deviceid",tagobj==null?"": tagobj.getDeviceid());
+            object.put("productkey",tagobj==null?"": tagobj.getProductkey());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
+    }
+    
     
     public static JSONObject getEventJOSNobj(PostObjEvent event) {
         JSONObject localJSONObject = new JSONObject();

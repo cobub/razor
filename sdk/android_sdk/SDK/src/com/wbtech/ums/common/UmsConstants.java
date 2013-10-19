@@ -23,6 +23,8 @@ public class UmsConstants {
     public static final String activityUrl = "/ums/postActivityLog";
     public static final String onlineConfigUrl ="/ums/getOnlineConfiguration";
     public static final String uploadUrl = "/ums/uploadLog";
+    public static final String tagUser="/ums/postTag";
+//    public static final String 
     public static String preUrl="";
 }
   

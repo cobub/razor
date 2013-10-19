@@ -193,6 +193,45 @@ class Ums extends CI_Controller {
     }
 
     /*
+     * Interface to accept user id  for user tag
+     */
+
+    function postTag() {
+        $this -> load -> model('servicepublicclass/posttagpublic', 'posttagpublic');
+        if (!isset($_POST["content"])) {
+            $ret = array('flag' => -3, 'msg' => 'Invalid content.');
+            echo json_encode($ret);
+            return;
+        }
+        $encoded_content = $_POST['content'];
+        log_message("debug", $encoded_content);
+        $content = json_decode($encoded_content);
+        $posttag = new posttagpublic();
+        $posttag -> loadtag($content);
+        $retParamsCheck = $this -> utility -> isPraramerValue($content, $array = array("deviceid", "tags", "productkey"));
+        if ($retParamsCheck["flag"] <= 0) {
+            $ret = array('flag' => -2, 'msg' => $retParamsCheck['msg']);
+            echo json_encode($ret);
+            return;
+        }
+        $key = $posttag -> productkey;
+        $isKeyAvailable = $this -> utility -> isKeyAvailale($key);
+        if (!$isKeyAvailable) {
+            $ret = array('flag' => -1, 'msg' => 'NotAvailable appkey  ');
+            echo json_encode($ret);
+            return;
+        } else {
+            try {
+                $this -> usertag -> addUserTag($content);
+                $ret = array('flag' => 1, 'msg' => 'ok');
+            } catch ( Exception $ex ) {
+                $ret = array('flag' => -4, 'msg' => 'DB Error');
+            }
+        }
+        echo json_encode($ret);
+    }
+
+    /*
      * Interface to accept total log
      */
     function uploadLog() {

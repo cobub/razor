@@ -906,14 +906,24 @@ $lang["v_rpt_realtime_onlineuser_time"] = "Hour";
 $lang["v_rpt_realtime_minutes"] = "Minutes";
 $lang["v_rpt_realtime_now"] = "Now";
 
-$lang["v_rpt_realtime_pageviews_title"] = "Realtime activities";
-$lang['v_rpt_realtime_pageviews_subtitle'] = "Realtime activities within 30 minutes";
+$lang["v_rpt_realtime_pageviews_title"] = "Page View";
+
+$lang['v_rpt_realtime_title'] = "Realtime Analytics";
+$lang['v_rpt_realtime_pageviews_subtitle'] = "Realtime Activities";
+$lang['v_rpt_realtime_pageviews_table_tile'] = "Activities(Within 30 minutes)";
+$lang["v_rpt_realtime_pageview"] = "Activities";
+$lang["v_rpt_realtime_pageview_count"] = "Size";
 
 $lang["v_rpt_realtime_areas_title"] = "Online users by area";
 $lang["v_rpt_realtime_areas_region"] = "Region";
 
 $lang["v_rpt_realtime_transrate_title"] = "Realtime conversions";
 $lang["v_rpt_realtime_event_title"] = "Realtime events";
+$lang["v_rpt_realtime_event_report_title"]="Event";
+$lang["v_rpt_realtime_event_in_minute"]="Event (Within every minute)";
+$lang["v_rpt_realtime_transtrte_subtitle"]="Goal Hits(Within every minute)";
+$lang["v_rpt_realtime_transtrte_tabtitle"]="Goal Hits(Within 30 minutes)";
+$lang["v_rpt_realtime_event_in30minute"]="Events (Within 30 minutes)";
 
 /**********************************pluginlist***v0.6*************************************/
 $lang['plg_userkey']='UserKey*';

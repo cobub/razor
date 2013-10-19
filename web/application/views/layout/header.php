@@ -366,6 +366,23 @@ if(isset($username)):
                     <?php  echo anchor('/report/version/', lang('m_rpt_versions'));?>
                 </li>
             </ul>
+            
+            
+                    <h3><?php echo lang('v_rpt_realtime_title') ?></h3>
+        <?php if ($this->config->item('redis')) { ?>
+            <ul class="toggle">
+                <li class="icn_use_frequency"><?php echo anchor('/realtime/usersessions', lang('v_rpt_realtime_onlineuser_title'));?></li>
+                <li class="icn_phaseusetime"><?php echo anchor('/realtime/areas', lang('v_rpt_realtime_areas_title'));?></li>
+                <li class="icn_use_time"><?php echo anchor('/realtime/pageviews', lang('v_rpt_realtime_pageviews_title'));?></li>
+                <li class="icn_remainuser"><?php echo anchor('/realtime/event', lang('v_rpt_realtime_event_title'));?></li>
+                <li class="icn_pagevisit"><?php echo anchor('/realtime/transrate', lang('v_rpt_realtime_transrate_title'));?></li>
+            </ul>
+        <?php }?>
+            
+            
+            
+            
+            
             <h3><?php echo lang('m_rpt_users')
             ?></h3>
             <ul class="toggle">
