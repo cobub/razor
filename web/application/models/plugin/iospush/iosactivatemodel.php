@@ -86,6 +86,30 @@ class IOSActivatemodel extends CI_Model
 		return false;
 		
 	}
+	
+	////update ios_product bundle_id
+	function updateInfo($obj)
+	{
+		$name = $obj['appname'];
+		if ($name)
+		{
+			$product_id = $this->getProductId($name);
+			if($product_id){
+				$bundle_id = $obj['bundle_id'];
+					
+				$sql = "select * from ". $this->db->dbprefix("ios_product")." where product_id =".$product_id;
+				$query = $this->db->query($sql);
+				if($query && $query->num_rows()>0 && ($bundle_id != $query->row()->bundle_id))
+				{
+					$this->db->where('product_id', $product_id);
+					$this->db->update($this->db->dbprefix("ios_product"), array('bundle_id' => $bundle_id));
+					return  true;
+				}
+			}	
+		}
+		
+		return false;
+	}
 
 }
 

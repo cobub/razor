@@ -36,8 +36,18 @@ $lang['v_ios_push_updatesign_out']='更新标志超出填写范围';
 $lang['v_ios_push_content_noempty']='推送内容不能为空';
 $lang['v_ios_push_more']='总长度超过255个字节';
 $lang['v_ios_pushing']='正在推送消息，请稍候...';
-$lang['v_ios_certificate_pwd']='证书密码';
-$lang['v_ios_certificate_file']='证书文件';
+$lang['v_ios_certificate_pwd']='请 输 入 证 书 密 码：';
+$lang['v_ios_certificate_file']='请 上 传 证 书 文 件：';
 $lang['v_ios_upload']='上传';
 $lang['v_ios_upload_certificate']='上传证书';
+$lang['v_ios_upload_successed'] = '上传成功！';
+$lang['v_ios_upload_failed'] = '上传失败！';
+$lang['v_ios_upload_filewrong'] = '上传失败,请选择正确的文件类型';
+$lang['v_ios_waring_register_bundleupdate'] = 'Bundle ID 更新成功';
+$lang['v_ios_waring_register_id_file_failed'] = 'RegisterID注册成功，证书上传失败';
+$lang['v_ios_waring_register_id_file_successed'] = 'RegisterID注册成功，证书上传成功';
+$lang['v_ios_waring_register_certificate_update_success'] = '证书更新成功';
+$lang['v_ios_waring_register_certificate_update_faile'] = '证书更新失败';
+
+
 ?>
