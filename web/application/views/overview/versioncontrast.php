@@ -1,4 +1,4 @@
-<section id="main" class="column" style="height:1000px;">
+<section id="main" class="column" >
 	<h4 class="alert_success" id='msg' style="display:none;"></h4>
    <article class="module width_full">
 			<header><h3 class="tabs_involved"><?php echo  lang('v_rpt_ve_tillYesterday')?></h3>				
