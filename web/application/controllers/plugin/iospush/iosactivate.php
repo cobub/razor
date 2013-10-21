@@ -275,6 +275,7 @@ class IOSActivate extends CI_Controller {
 	
 			if($flagRegist!=1)
 			{
+				$this->data['appname'] = $appName;
 				$this->data ['msg'] = lang('m_ios_warning2');
 			}
 			else if($flagRegist==1){
