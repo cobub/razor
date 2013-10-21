@@ -40,7 +40,7 @@
 					</fieldset>
 
 					<fieldset>
-						<label><?php echo "APPID" ?></label> <label><a href="dev.cobub.com/users/index.php?/help/radar" target="_blank"><?php echo lang ('m_tipInfo2')?></a></label><?php echo form_error('appid'); ?>
+						<label><?php echo "APPID" ?></label> <label><a href="http://dev.cobub.com/users/index.php?/help/radar" target="_blank"><?php echo lang ('m_tipInfo2')?></a></label><?php echo form_error('appid'); ?>
 						
 						<input
 							type="text" id='appid' name='appid' value="<?php echo isset($verification)?$appid:"";?>">
