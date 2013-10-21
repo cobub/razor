@@ -299,6 +299,7 @@ class IOSActivate extends CI_Controller {
 						
 					$this->load->library('upload', $config);
 					if (!$this->upload->do_upload()) {
+						$this->data = $this->iosactivatemodel->checkInfo ( $appName );
 						$this->data ['msg'] = lang('v_ios_waring_register_id_file_failed');
 					}
 					else
