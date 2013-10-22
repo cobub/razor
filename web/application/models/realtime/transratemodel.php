@@ -25,9 +25,9 @@ class TransRateModel extends CI_Model {
 				$to_size = $this->redis->get ( "razor_r_p_e_" . $productId . "_" . $event_to . "_" . $dataStr );
 				$to_count += $to_size;
 				
-				if ($from_count == 0)
+				if ($from_size == 0)
 					$rate = 0;
-				else $rate = $to_count / $from_count;
+				else $rate = $to_size / $from_size;
 				if($i==0){
 				$r = array (
 						'name'=>$row->targetname,

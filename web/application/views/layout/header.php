@@ -368,8 +368,9 @@ if(isset($username)):
             </ul>
             
             
-                    <h3><?php echo lang('v_rpt_realtime_title') ?></h3>
+                    
         <?php if ($this->config->item('redis')) { ?>
+            <h3><?php echo lang('v_rpt_realtime_title') ?></h3>
             <ul class="toggle">
                 <li class="icn_use_frequency"><?php echo anchor('/realtime/usersessions', lang('v_rpt_realtime_onlineuser_title'));?></li>
                 <li class="icn_phaseusetime"><?php echo anchor('/realtime/areas', lang('v_rpt_realtime_areas_title'));?></li>
