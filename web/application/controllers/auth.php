@@ -280,10 +280,10 @@ class Auth extends CI_Controller {
             redirect('');
 
         } elseif ($this -> tank_auth -> is_logged_in(FALSE)) {// logged in, not activated
-            redirect('/auth/send_again/');
+        	redirect('/auth/send_again/');
 
         } else {
-            $this -> form_validation -> set_rules('login', 'Email or login', 'trim|required|xss_clean');
+            $this -> form_validation -> set_rules('login', lang('auth_login_wrong'), 'trim|required|xss_clean');
 
             $data['errors'] = array();
 
