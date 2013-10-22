@@ -195,6 +195,17 @@ class IOSActivate extends CI_Controller {
 					'allowed_types' => '*'
 			);
 			$this->load->library('upload', $config);
+			
+			if (!$this->upload->do_upload()) {
+			
+				$this->data = $this->iosactivatemodel->checkInfo ( $appName );
+				$this->data['msg'] = lang('v_ios_waring_register_certificate_update_faile');
+			
+				$this->common->loadHeader ( lang ( 'm_iosinfo' ) );
+				$this->load->view ( 'plugin/iospush/iosactivateview', $this->data );
+				return ;
+			}
+			
 			$file = $this->upload->data();
 				
 			$file_name = $file['file_name'];
