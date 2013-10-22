@@ -72,14 +72,7 @@
 			<h3><font color="#123901"><?php echo lang('installview_websitestep') ;?></font></h3>
 			<h3><font color="#990000"><?php echo lang('installview_finshstep') ;?></font></h3>			
 			</div>
-		<div id="informinfo"  style="position:absolute;top:280px;right:100px;">
-			 <a href="<?php if(isset($language)):
-    if($language=="zh_CN"){ echo 'http://dev.cobub.com/zh/docs/cobub-razor/installation-guide/';}
-    else{echo 'http://dev.cobub.com/docs/cobub-razor/installation-guide/';} endif;?>" target="_blank">
-    <?php if(isset($language)):
-    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">安装帮助</p>';}
-    else{echo '<p style="font-size: 16px;font-weight: bold;">Help On Installation</p>';} endif;?></a>
-			 </div>
+		
 			<div style="position:absolute;top:280px;left:420px;">			
 			<p align="left" class="STYLE5"><?php echo lang('installview_finshinform') ;?></p>
 			<p align="left"><?php echo lang('installview_finshviewtip');?></p>
@@ -87,6 +80,15 @@
             <p align="left"><b><a href="<?php  if(isset($siteurl)) echo $siteurl ?>"><?php echo lang('installview_finshlogin') ;?></a></b></p>
 			</div>
 				
+				<div id="informinfo"  style="position:absolute;top:270px;right:100px;">
+			 <a href="<?php if(isset($language)):
+    if($language=="zh_CN"){ echo 'http://dev.cobub.com/zh/docs/cobub-razor/installation-guide/';}
+    else{echo 'http://dev.cobub.com/docs/cobub-razor/installation-guide/';} endif;?>" target="_blank">
+    <?php if(isset($language)):
+    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">安装帮助</p>';}
+    else{echo '<p style="font-size: 16px;font-weight: bold;">Help On Installation</p>';} endif;?></a>
+			 </div>
+			 
 		<div class="clear"></div>	
 		<div  style="height:140px;"></div>
 		<footer>	
@@ -114,9 +116,6 @@
                             echo '开源移动应用分析';}
                         else {
                             echo 'Mobile Analytics of Open Source';}?></a>
-
-
-
 
 
 </div>

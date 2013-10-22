@@ -73,14 +73,7 @@
 			<h3><font color="#990000"><?php echo lang('installview_websitestep') ;?></font></h3>
 			<h3><font color="#9d9d9d"><?php echo lang('installview_finshstep') ;?></font></h3>		
 			</div>
-		 <div id="informinfo"  style="position:absolute;top:280px;right:100px;">
-			 <a href="<?php if(isset($language)):
-    if($language=="zh_CN"){ echo 'http://dev.cobub.com/zh/docs/cobub-razor/installation-guide/';}
-    else{echo 'http://dev.cobub.com/docs/cobub-razor/installation-guide/';} endif;?>" target="_blank">
-    <?php if(isset($language)):
-    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">安装帮助</p>';}
-    else{echo '<p style="font-size: 16px;font-weight: bold;">Help On Installation</p>';} endif;?></a>
-			 </div>
+		 
 			<div style="position:absolute;top:280px;left:420px;">
 			<P align="left" class="STYLE5"><?php echo lang('installview_websiteheader') ;?></P>	
 			<form action="<?php echo $newurl; ?>/index.php?/install/installation/createuserinfo" method="post">
@@ -140,6 +133,14 @@
                 <td><?php echo form_error('email'); ?></td></tr>                
              </table>
 			</div>
+			<div id="informinfo"  style="position:absolute;top:270px;right:100px;">
+			 <a href="<?php if(isset($language)):
+    if($language=="zh_CN"){ echo 'http://dev.cobub.com/zh/docs/cobub-razor/installation-guide/';}
+    else{echo 'http://dev.cobub.com/docs/cobub-razor/installation-guide/';} endif;?>" target="_blank">
+    <?php if(isset($language)):
+    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">安装帮助</p>';}
+    else{echo '<p style="font-size: 16px;font-weight: bold;">Help On Installation</p>';} endif;?></a>
+			 </div>
 			<div class="clear"></div>	
 			<div style="height:330px"></div>
 		<footer>

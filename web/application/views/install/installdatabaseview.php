@@ -80,14 +80,7 @@
 			 <div id='errorinfo' ><font color="red" size="4px"><?php if(isset($inerror)) echo $inerror; ?></font></div>
 			 <div id='errorinfo' ><font color="red" size="4px"><?php if(isset($inerrordw)) echo $inerrordw; ?></font></div>	
 			 </div>	
-			 <div id="informinfo"  style="position:absolute;top:296px;right:100px;">
-			 <a href="<?php if(isset($language)):
-    if($language=="zh_CN"){ echo 'http://dev.cobub.com/zh/docs/cobub-razor/installation-guide/';}
-    else{echo 'http://dev.cobub.com/docs/cobub-razor/installation-guide/';} endif;?>" target="_blank">
-    <?php if(isset($language)):
-    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">安装帮助</p>';}
-    else{echo '<p style="font-size: 16px;font-weight: bold;">Help On Installation</p>';} endif;?></a>
-			 </div>
+			 
 			<div id="database"  style="position:absolute;top:296px;left:420px;">
 			<p align="left" class="STYLE5"><?php echo lang('installview_databaseheader') ;?></p>
 			<p><?php echo lang('installview_datawarn') ;?></p>
@@ -119,8 +112,17 @@
                 <td><?php echo form_error('depottablehead'); ?></td></tr>
                 
              </table>
+            </div>
             
-			</div>
+            <div id="informinfo"  style="position:absolute;top:270px;right:100px;">
+			 <a href="<?php if(isset($language)):
+    if($language=="zh_CN"){ echo 'http://dev.cobub.com/zh/docs/cobub-razor/installation-guide/';}
+    else{echo 'http://dev.cobub.com/docs/cobub-razor/installation-guide/';} endif;?>" target="_blank">
+    <?php if(isset($language)):
+    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">安装帮助</p>';}
+    else{echo '<p style="font-size: 16px;font-weight: bold;">Help On Installation</p>';} endif;?></a>
+			 </div>
+			
 			<div class="clear"></div>	
 		<div  style="height:740px;"></div>
 		<footer>
