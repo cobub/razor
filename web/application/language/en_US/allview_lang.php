@@ -912,7 +912,7 @@ $lang['v_rpt_realtime_title'] = "Realtime Analytics";
 $lang['v_rpt_realtime_pageviews_subtitle'] = "Realtime Activities";
 $lang['v_rpt_realtime_pageviews_table_tile'] = "Activities(Within 30 minutes)";
 $lang["v_rpt_realtime_pageview"] = "Activities";
-$lang["v_rpt_realtime_pageview_count"] = "Size";
+$lang["v_rpt_realtime_pageview_count"] = "User count";
 
 $lang["v_rpt_realtime_areas_title"] = "Online users by area";
 $lang["v_rpt_realtime_areas_region"] = "Region";

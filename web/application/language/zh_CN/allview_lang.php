@@ -988,7 +988,7 @@ $lang["v_rpt_realtime_pageviews_title"] = "浏览界面";
 $lang['v_rpt_realtime_pageviews_subtitle'] = "用户正在浏览的界面的数量";
 $lang['v_rpt_realtime_pageviews_table_tile'] = "浏览界面(30分钟)";
 $lang["v_rpt_realtime_pageview"] = "浏览界面";
-$lang["v_rpt_realtime_pageview_count"] = "界面数量";
+$lang["v_rpt_realtime_pageview_count"] = "用户数量";
 
 $lang["v_rpt_realtime_areas_title"] = "地理位置";
 $lang["v_rpt_realtime_areas_region"] = "省份";
