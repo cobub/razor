@@ -1,7 +1,6 @@
 ##################
 ## Eclipse
 #################
-
 config/
 *.pydevproject
 .project
