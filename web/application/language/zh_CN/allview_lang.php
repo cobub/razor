@@ -40,7 +40,7 @@ $lang['l_re_email']='邮箱';
 $lang['l_re_confirmPassword']='确认密码';
 $lang['l_re_captcha']='验证码';
 // login----forgetpassword
-$lang['l_fp_enterEmail']='输入邮件';
+$lang['l_fp_enterEmail']='输入邮箱';
 $lang['l_fp_forgetPassword']='忘记密码';
 $lang['l_fp_details']='忘记了密码？请输入您注册时使用的邮件地址，系统会发送密码邮件给您.';
 $lang['l_fp_send']='发送';

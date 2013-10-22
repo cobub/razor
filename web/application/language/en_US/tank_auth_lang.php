@@ -47,5 +47,7 @@ $lang['auth_subject_forgot_password'] = 'Forget your password  %s?';
 $lang['auth_subject_reset_password'] = 'Your new password  %s';
 $lang['auth_subject_change_email'] = 'Your new email %s';
 
+$lang['auth_login_wrong'] = 'Email or login';
+
 /* End of file tank_auth_lang.php */
 /* Location: ./application/language/chinese/tank_auth_lang.php */

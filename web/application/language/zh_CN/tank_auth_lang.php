@@ -15,7 +15,7 @@
 // Errors
 $lang['auth_incorrect_password'] = '密码不正确';
 $lang['auth_incorrect_login'] = '错误登录名';
-$lang['auth_incorrect_email_or_username'] = '登录名或电子邮箱不正确';
+$lang['auth_incorrect_email_or_username'] = '电子邮箱不正确';
 $lang['auth_email_in_use'] = '电子邮箱已在用，请使用另外一个电子邮箱注册.';
 $lang['auth_username_in_use'] = '用户名已存在，请选择另外一个用户名.';
 $lang['auth_current_email'] = '这是您当前使用的电子邮箱';
@@ -46,6 +46,8 @@ $lang['auth_subject_activate'] = '欢迎使用 %s!';
 $lang['auth_subject_forgot_password'] = '忘记您的密码  %s?';
 $lang['auth_subject_reset_password'] = '您的新密码  %s';
 $lang['auth_subject_change_email'] = '您的新电子邮箱 %s';
+
+$lang['auth_login_wrong'] = '邮箱或用户名';
 
 
 /* End of file tank_auth_lang.php */
