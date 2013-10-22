@@ -16,6 +16,14 @@ package com.wbtech.ums.objects;
 public class MyMessage {
 	private  boolean flag;
 	private  String msg;
+	private int flagCode;
+	
+	public int getFlagCode() {
+		return flagCode;
+	}
+	public void setFlagCode(int flagCode) {
+		this.flagCode = flagCode;
+	}
 	public boolean isFlag() {
 		return flag;
 	}

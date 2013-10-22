@@ -1,10 +1,10 @@
 package com.wbtech.ums.dao;
 
-import com.wbtech.ums.common.CommonUtil;
-import com.wbtech.ums.objects.MyMessage;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.wbtech.ums.common.CommonUtil;
+import com.wbtech.ums.objects.MyMessage;
 
 public class JSONParser {
     public static MyMessage parse(String str) {
@@ -23,6 +23,7 @@ public class JSONParser {
                 message.setFlag(false);
             }
             message.setMsg(jsonObject.getString("msg")); 
+            message.setFlagCode(Integer.parseInt(flag));
         } catch (JSONException e1) {
             CommonUtil.printLog("JSONParser", e1.toString());
         } catch (NumberFormatException e2) {
