@@ -131,12 +131,13 @@ class Clientdata extends CI_Model {
                 } else {
                     $data["city"] = "unknown";
                 }
+                $data["region"] = mb_convert_encoding($data["region"],"UTF-8","UTF-8");
+                $data["city"] = mb_convert_encoding($data["city"],"UTF-8","UTF-8");
             }else {
                 $data["country"] = "unknown";
                 $data["region"]="unknown";
                 $data["city"]="unknown";
-                $data["region"] = mb_convert_encoding($data["region"],"UTF-8","UTF-8");
-                $data["city"] = mb_convert_encoding($data["city"],"UTF-8","UTF-8");
+
 
             }
         }
