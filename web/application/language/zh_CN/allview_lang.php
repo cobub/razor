@@ -948,7 +948,7 @@ $lang['v_plugins_introduce']='UserKey 与  UserSecret 是Cobub Razor
 $lang['v_plugins_new_version']='有新版本可用。';
 
 /********************************************************/
-$lang['m_open_mobile_analytics']='开源移动应用分析';
+$lang['m_open_mobile_analytics']='开源移动应用统计分析平台';
 $lang['m_copyright_version']='版权所有 2012-2015 Cobub Razor 版本：';
 $lang['m_release_note']='发行说明';
 $lang['m_link_Cobub']='http://dev.cobub.com/zh';

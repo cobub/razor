@@ -46,7 +46,7 @@ if ($this->config->item('use_username', 'tank_auth')) {
                   else{ echo 'http://dev.cobub.com/'; } ?>
  " target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics                   Solution">
  <?php if($this->config->item('language')=="zh_CN")
-                        { echo '开源移动分析';}
+                        {  echo '开源移动应用统计分析平台';}
                   else{ echo 'Mobile Analytics of       Open          Source'; } ?>
  </a>
                           </p>    </p><br/>
