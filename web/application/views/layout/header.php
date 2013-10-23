@@ -156,7 +156,7 @@ type="text/javascript"></script>
                     ?></span> </a></h1>
                 <h3 class="section_title"><?php if(isset($username)):
                 ?>
-                <?php echo anchor('/auth/loginucenter/',lang('v_user_center')); ?> | <?php  echo anchor('/', lang('v_console'));?> | <?php  echo anchor('/profile/modify/', lang('m_profile'));?> | <?php  echo anchor('/auth/change_password/', lang('m_changePassword'));?> | <?php  echo anchor('/auth/logout/', lang('m_logout'));?>
+                <a href=<?php echo SERVER_BASE_URL."/index.php?/auth/cobubtologin/$key/$secret" ?> target="_blank" ><?php echo lang('v_user_center'); ?></a> | <?php  echo anchor('/', lang('v_console'));?> | <?php  echo anchor('/profile/modify/', lang('m_profile'));?> | <?php  echo anchor('/auth/change_password/', lang('m_changePassword'));?> | <?php  echo anchor('/auth/logout/', lang('m_logout'));?>
                 <?php  else:?>
                 <?php  echo anchor('/auth/login/', lang('l_login'));?>
                 <?php  endif;?></h3>
