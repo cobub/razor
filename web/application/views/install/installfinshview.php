@@ -113,7 +113,7 @@
                                              " target ="_blank" title="<?php if ($language == 'zh_CN') {echo '移动应用分析';}
                 else {echo 'Mobile Analytic';}?>" 
                     alt="Cobub Razor - Open Source Mobile Analytics                         Solution"><?php if ($language == "zh_CN") {
-                            echo '开源移动应用分析';}
+                            echo '开源移动应用分析平台';}
                         else {
                             echo 'Mobile Analytics of Open Source';}?></a>
 
