@@ -154,9 +154,11 @@ type="text/javascript"></script>
             <hgroup>
                 <h1 class="site_title"><a href="<?php echo base_url();?>"> <img class="logo" src="<?php echo base_url();?>assets/images/razorlogo.png" style="border:0"/> <span style=""><?php echo lang('g_cobubRazor')
                     ?></span> </a></h1>
-                <h3 class="section_title"><?php if(isset($username)):
-                ?>
-                <a href=<?php echo SERVER_BASE_URL."/index.php?/auth/cobubtologin/$key/$secret" ?> target="_blank" ><?php echo lang('v_user_center'); ?></a> | <?php  echo anchor('/', lang('v_console'));?> | <?php  echo anchor('/profile/modify/', lang('m_profile'));?> | <?php  echo anchor('/auth/change_password/', lang('m_changePassword'));?> | <?php  echo anchor('/auth/logout/', lang('m_logout'));?>
+                <h3 class="section_title"><?php if(isset($username)):?>
+                <?php  if(isset($key) && isset($secret)){?>
+                <a href=<?php echo SERVER_BASE_URL."/index.php?/auth/cobubtologin/$key/$secret" ?> target="_blank" ><?php echo lang('v_user_center'); ?></a> |
+               <?php }?>
+                <?php  echo anchor('/', lang('v_console'));?> | <?php  echo anchor('/profile/modify/', lang('m_profile'));?> | <?php  echo anchor('/auth/change_password/', lang('m_changePassword'));?> | <?php  echo anchor('/auth/logout/', lang('m_logout'));?>
                 <?php  else:?>
                 <?php  echo anchor('/auth/login/', lang('l_login'));?>
                 <?php  endif;?></h3>
