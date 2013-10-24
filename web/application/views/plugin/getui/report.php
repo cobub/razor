@@ -4,7 +4,7 @@
 	<h4   class="alert_warning"  id="timemsg"><?php echo $timeerror;?></h4>
 	<?php endif;?>
 	
-	<article class="module width_full" style='width:1040px;'>
+	<article class="module width_full">
 	<header>
 	<h3 class="h3_fontstyle">		
 	<?php  echo lang('getui_data'); ?></h3>
