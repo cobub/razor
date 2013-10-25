@@ -57,7 +57,7 @@ class ApplistModel extends CI_Model
 					}
 				
 					$applist[$i] = array('androidlist'=>$product_name,'product_id'=>$product_id,'isActive'=>$isActive);
-				// }
+				 }
 			}
 			
 			return $applist;
