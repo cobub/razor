@@ -28,12 +28,15 @@ class CheckGcmInfoModel extends CI_Model {
 		$rows_product = $query_product->num_rows ();
 		if ($query_product != null && $rows_product > 0) {
 			for($i = 0; $i < $rows_product; $i ++) {
-				$product_name = $query_product->row ( $i )->name;
-				$product_id = $query_product->row ( $i )->id;
-				$applist [$i] = array (
-						'androidlist' => $product_name,
-						'appId' => $product_id 
-				);
+				if($query_product->row ( $i )->active>0)
+				{
+					$product_name = $query_product->row ( $i )->name;
+					$product_id = $query_product->row ( $i )->id;
+					$applist [$i] = array (
+							'androidlist' => $product_name,
+							'appId' => $product_id
+					);
+				}				
 			}
 		}
 		
