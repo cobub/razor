@@ -158,6 +158,9 @@ type="text/javascript"></script>
                 <?php  if(isset($key) && isset($secret)){?>
                 <a href=<?php echo SERVER_BASE_URL."/index.php?/auth/cobubtologin/$key/$secret" ?> target="_blank" ><?php echo lang('v_user_center'); ?></a> |
                <?php }?>
+               <?php  if(!isset($key) && !isset($secret)){?>
+                <a href=<?php echo SERVER_BASE_URL."/index.php?/auth/login" ?> target="_blank" ><?php echo lang('v_user_center'); ?></a> |
+               <?php }?>
                 <?php  echo anchor('/', lang('v_console'));?> | <?php  echo anchor('/profile/modify/', lang('m_profile'));?> | <?php  echo anchor('/auth/change_password/', lang('m_changePassword'));?> | <?php  echo anchor('/auth/logout/', lang('m_logout'));?>
                 <?php  else:?>
                 <?php  echo anchor('/auth/login/', lang('l_login'));?>

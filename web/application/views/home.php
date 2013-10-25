@@ -22,6 +22,9 @@
 					    <?php if(isset($key) && isset($secret)):?>
 					    <td align="center"><a href=<?php echo SERVER_BASE_URL."/index.php?/auth/cobubtologin/$key/$secret" ?> target="_blank" ><img src="<?php echo base_url();?>assets/images/usercenter.png" /></a></td>
 					   <?php endif;?>
+					   <?php if(!isset($key) && !isset($secret)):?>
+					    <td align="center"><a href=<?php echo SERVER_BASE_URL."/index.php?/auth/login" ?> target="_blank" ><img src="<?php echo base_url();?>assets/images/usercenter.png" /></a></td>
+					   <?php endif;?>
 					  </tr>
 					  <tr>
 					    <td align="center"><a href="<?php echo site_url() ;?>/report/console"  style="font-size:20px"><?php echo lang('m_myapps')?></a></td>
@@ -29,6 +32,10 @@
 					    <?php if(isset($key) && isset($secret)):?>
 					    <td align="center"><a href= <?php echo SERVER_BASE_URL."/index.php?/auth/cobubtologin/$key/$secret" ?> target="_blank" style="font-size:20px"><?php echo lang('v_user_center');?></a></td>
 					     <?php endif;?>
+					     <?php if(!isset($key) && !isset($secret)):?>
+					    <td align="center"><a href= <?php echo SERVER_BASE_URL."/index.php?/auth/login" ?> target="_blank" style="font-size:20px"><?php echo lang('v_user_center');?></a></td>
+					     <?php endif;?>
+					    
 					  </tr>
 					</table>
 		       </div>
