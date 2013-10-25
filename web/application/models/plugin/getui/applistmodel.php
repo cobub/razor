@@ -39,11 +39,11 @@ class ApplistModel extends CI_Model
 				$product_name = $query_product ->row($i) -> name;
 				$product_id = $query_product ->row($i) -> id;
 				$product_active = $query_product ->row($i) -> active;
-				// if($product_active == 0)
-				// {
+				 if($product_active == 0)
+				 {
 				// 	 $sql_getui = "delete from " . $this -> db -> dbprefix('getui_product') . " where product_id =".$product_id." and user_id=".$userId;
     //   				 $this -> db -> query($sql_getui);
-    //   			}else{
+       			}else{
 
 					$sql_getui =  "select * from ". $this->db->dbprefix("getui_product")." where product_id =".$product_id." and user_id=".$userId;
 					$query_getui = $this -> db -> query($sql_getui);
