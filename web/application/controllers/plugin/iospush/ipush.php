@@ -39,10 +39,7 @@ class Ipush extends CI_Controller {
 		
 		// 这个是沙盒测试地址，发布到appstore后记得修改哦
 		
-		$fp = stream_socket_client ( 
-
-		'ssl://gateway.sandbox.push.apple.com:2195', $err, 
-
+		$fp = stream_socket_client ( 'ssl://gateway.sandbox.push.apple.com:2195', $err, 
 		$errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx );
 		
 		$fp = stream_socket_client("ssl://gateway.sandbox.push.apple.com:2195", 

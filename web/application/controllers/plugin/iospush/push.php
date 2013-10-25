@@ -66,6 +66,7 @@ class push extends CI_Controller {
 		}
 		
 		$resu= json_decode ( $result,true );
+		
 		// print_r($result);
 		// echo $result;
 		if ($result['result']=='ok') {
