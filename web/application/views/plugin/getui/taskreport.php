@@ -13,6 +13,9 @@
     				</tr> 
 			</thead> 
 			<tbody id=''>
+
+				<tr><td><?php if(isset($sendnum)) echo $sendnum;?></td><td><?php if(isset($receivenum)) echo $receivenum;?></td></tr>
+
 				<!--
 				<?php 
 

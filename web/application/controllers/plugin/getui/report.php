@@ -91,7 +91,15 @@ class report extends CI_Controller {
 		$data['user_secret']=$userSecret;
 		$data['taskid']=$taskid;
 		$data['appid']=$appid;
-		//$ret= $this->common->curl_post(SERVER_BASE_URL."/index.php?/api/igetui/getTaskdata",$data);
+		$ret= $this->common->curl_post(SERVER_BASE_URL."/index.php?/api/igetui/getTaskdata",$data);
+		$result= json_decode ( $ret );
+		if(isset($result->result)){
+			if($result->result=='ok'){
+				$data['sendnum']=$result->msgToatl;
+				$data['receivenum']=$result->msgProcess;
+			}
+
+		}
 
 		//$data['result']=$ret;
 		$this->common->loadHeader('发送数和接收数报表');

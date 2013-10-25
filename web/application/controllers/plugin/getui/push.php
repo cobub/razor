@@ -60,7 +60,14 @@ class push extends CI_Controller {
 			$data ['opencheck'] = $opencheck;
 			$data ['urladdress'] = $urladdress;
 	
-		
+				$data['popTitle']=$_POST['popTitle'];
+				$data['popPicture_url']=$_POST ['popPicture_url'];
+				$data['showmessage']=$_POST ['showmessage'];
+				$data['popFirstButton']=$_POST ['popFirstButton'];
+				$data['popSecondButton']=$_POST ['popSecondButton'];
+				$data['apkurladdress']=$_POST ['apkurladdress'];
+				$data['apkname']=$_POST ['apkname'];
+	
 		
 // print_r($data);
 		//根据deviceid  500  循环  发送$dwdb = $this->load->database ( 'dw', TRUE );

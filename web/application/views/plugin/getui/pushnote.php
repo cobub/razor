@@ -41,30 +41,35 @@
 				</div>
 
 
-				<div id="downapp" name="downapp" style="height:300px;margin-top:20px;">
+				<div id="downapp" name="downapp" style="height:390px;margin-top:20px;">
 							
 						
 							<table>
 								<tbody>
 
-									<tr><td><label >弹框标题</label></td><td ><input id="showtitle" name="popTitle"  maxlength="20"  type="text" style='width:230px;' ></input></td></tr>
-									<br><tr><td><label>弹框图片（可选）</label></td><td><input type="file" name="filename" id="popPicture" value="选择文件"></input>
-										<input type="hidden" name="popPicture"></input>
+									<tr><td><label >弹框标题</label></td><td ><input id="popTitle" name="popTitle"  maxlength="20"  type="text" style='width:230px;' ></input></td></tr>
+									<br><tr><td><label>弹框图片（可选）</label></td><td>
+									<img src="<?php echo base_url();?>assets/images/launcher.png" id="pop_url_img" alt="" style="margin-bottom: -6px; margin-right: 20px; width: 42px;heigth:42px;"/>
+									<input type="file" name="filename" id="popPicture" value="选择文件"></input>
+										<input type="hidden" id='popPicture_url' name="popPicture_url" value="" />
+
 											<span >图标大小要求：25K以内</span></td></tr>
+											<tr><td></td><td><div id="popfileQueue" style="width:80%;height:60px;margin-left:100px;" ></div></td></tr>
+											
 									<br><tr><td><label>弹框内容*</label></td><td><textarea id="showmessage" name="popWords"  maxlength="50" rows="5" cols="" style="width:690px;height:80px;"></textarea>
 							</td></tr>
 
 							<br><tr><td><label>按钮名称*</label></td><td>
-								<span>左边按钮名称：</span><input style='width:80px;'  name="popFirstButton" id="lbname" value="下载" maxlength="20"/>
-								<br/><br/><span>右边按钮名称：</span><input  style='width:80px;' name="popSecondButton" id="rbname" value="取消" maxlength="20"/>
+								<span>左边按钮名称：</span><input style='width:80px;'  name="popFirstButton" id="popFirstButton" value="下载" maxlength="20"/>
+								<br/><br/><span>右边按钮名称：</span><input  style='width:80px;' name="popSecondButton" id="popSecondButton" value="取消" maxlength="20"/>
 								
 								<tr><td><label >应用下载地址*
-								</label></td><td><input type="text" style='width:230px;' id="urladdress" name="loadUrl" value="http://"  maxlength="100"></input>
+								</label></td><td><input type="text" style='width:230px;' id="apkurladdress" name="loadUrl" value="http://"  maxlength="100"></input>
 							</td></tr>
 								
 
 							<br><tr><td><label >应用名称*
-							</label></td><td><input type="text" style='width:230px;' name="loadTitle" value=""  maxlength="40"></input>
+							</label></td><td><input id='apkname' type="text" style='width:230px;' name="loadTitle" value=""  maxlength="40"></input>
 							</td></tr>
 							</tbody>
 						</table>
@@ -184,6 +189,37 @@
 	var ctime = document.getElementById("ctime");
 	var sendmsg = document.getElementById("sendmsg");
 
+$("#popPicture").uploadify({
+		'uploader'       : '<?php echo base_url();?>assets/swf/uploadify.swf',
+		'script'         : '<?php echo base_url();?>assets/swf/uploadify.php',
+		'cancelImg'      : '<?php echo base_url();?>assets/images/cancel.png',
+		'folder'         : 'uploads',
+		'queueID'        : 'popfileQueue',
+		'auto'           : true,
+		'multi'          : true,
+		'fileExt'   	 : '*.png;*.jpg',
+		'fileDesc' 		 : '只支持 (.png,.jpg)文件,文件大小不超过5K',
+		'sizeLimit'      : 25 * 1024 ,
+		'onComplete': function(event, ID, fileObj, response, data) {
+								var filename = response.substring(response.lastIndexOf("/")+1);
+								var baseurl="<?php echo base_url();?>uploads/";
+								// alert(baseurl);
+								document.getElementById('popPicture_url').value = "<?php echo base_url();?>uploads/"+filename;
+								
+								$('#pop_url_img').attr("src","<?php echo base_url();?>uploads/"+filename);
+								
+							},
+	 'onError'   : function(event, ID, fileObj){
+		       		if(fileObj.size > 25 * 1024){
+		       			alert("文件："+fileObj.name+"大小超出25 KB，请重新上传。");
+		       		}else{
+		       			alert("文件:" + fileObj.name + " 上传失败");
+		       		}}
+
+
+	});
+
+
 $("#logo_upload").uploadify({
 		'uploader'       : '<?php echo base_url();?>assets/swf/uploadify.swf',
 		'script'         : '<?php echo base_url();?>assets/swf/uploadify.php',
@@ -194,7 +230,7 @@ $("#logo_upload").uploadify({
 		'multi'          : true,
 		'fileExt'   	 : '*.png;*.jpg',
 		'fileDesc' 		 : '只支持 (.png,.jpg)文件,文件大小不超过5K',
-		'sizeLimit'      : 5 * 1024 ,
+		'sizeLimit'      : 25 * 1024 ,
 		'onComplete': function(event, ID, fileObj, response, data) {
 								var filename = response.substring(response.lastIndexOf("/")+1);
 								var baseurl="<?php echo base_url();?>uploads/";
@@ -203,8 +239,8 @@ $("#logo_upload").uploadify({
 								
 							},
 	 'onError'   : function(event, ID, fileObj){
-		       		if(fileObj.size > 5 * 1024){
-		       			alert("文件："+fileObj.name+"大小超出5 KB，请重新上传。");
+		       		if(fileObj.size > 25 * 1024){
+		       			alert("文件："+fileObj.name+"大小超出25 KB，请重新上传。");
 		       		}else{
 		       			alert("文件:" + fileObj.name + " 上传失败");
 		       		}}
@@ -255,6 +291,15 @@ $("#logo_upload").uploadify({
 		var notyVibrationed =true;
 		var offlined =true;
 		var logo_url = document.getElementById('logo_url').value;
+
+		var popTitle = document.getElementById('popTitle').value;
+		var popPicture_url = document.getElementById('popPicture_url').value;
+		var showmessage = document.getElementById('showmessage').value;
+		var popFirstButton = document.getElementById('popFirstButton').value;
+		var popSecondButton = document.getElementById('popSecondButton').value;
+		var apkurladdress = document.getElementById('apkurladdress').value;
+		var apkname = document.getElementById('apkname').value;
+
 	
 		if(document.getElementById('offline2').checked){
 			offlined=false;
@@ -274,10 +319,6 @@ $("#logo_upload").uploadify({
 		}
 
 		var transmissionContentNotify = document.getElementById('transmissionContentNotify').value;
-		
-
-
-		
 		
 		// alert(selectvalue);
 		
@@ -304,6 +345,18 @@ $("#logo_upload").uploadify({
 				logo_url:logo_url
 			};
 
+			
+				data.popTitle=popTitle;
+				data.popPicture_url=popPicture_url;
+				data.showmessage=showmessage;
+				data.popFirstButton=popFirstButton;
+				data.popSecondButton=popSecondButton;
+				data.apkurladdress=apkurladdress;
+				data.apkname=apkname;
+
+			
+
+			// data.push();
 			jQuery.ajax({
 						type : "post",
 						url : "<?php echo site_url()?>/plugin/getui/push",
