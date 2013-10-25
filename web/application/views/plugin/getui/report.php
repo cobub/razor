@@ -1,4 +1,4 @@
-<section class="column"  id="main" style='height:1000px;'>
+<section class="column"  id="main" style='height:1500px;'>
 	<h4 class="alert_warning"  id="msg"> <?php echo lang('current_user_num')?>：<?php echo $onlineuser;?></h4>
 	<?php if(isset($timeerror)):?>
 	<h4   class="alert_warning"  id="timemsg"><?php echo $timeerror;?></h4>
@@ -26,6 +26,52 @@
 		</div>
 		<input type="hidden" id='appid' name="appid" value="<?php echo $appid?>" />
 	</article>
+
+	<article class="module width_full" >
+	<header>
+	<h3 class="h3_fontstyle">		
+	<?php   echo '四日内推送记录' ?></h3>
+		</header>
+		<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+    				<th><?php  echo '标题';?></th> 
+    				<th><?php  echo "内容";?></th> 
+    				<th><?php  echo "时间";?></th> 
+    				<th><?php  echo "推送类型";?></th>
+    				<th><?php  echo "操作";?></th> 
+    				</tr> 
+			</thead> 
+			<tbody id=''>
+
+				<?php 
+
+			 	if(isset($pushrecords)):
+				for($i=0;$i<count($pushrecords);$i++)
+				{
+			 		$row = $pushrecords[$i];
+
+			 	?>
+				<tr>
+					
+    				<tr><td><?php echo $row->push_title;?></td>
+								<td><?php echo $row->push_content;?></td>
+							<td><?php echo $row->push_time;?></td>
+						<td><?php 
+						echo $row->push_type;?></td>
+					<td><a href ="<?php echo site_url()?>/plugin/getui/report/gettaskdata?taskid=<?php echo $row->taskid?>&appid=<?php echo $appid?>">详细</a></td>
+
+    				
+    			</tr> 
+			<?php } endif;?>
+
+
+
+						
+			</tbody>
+			</table>
+	</article>
+
 
 	<article class="module width_full" >
 	<header>

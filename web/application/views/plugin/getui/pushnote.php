@@ -21,6 +21,7 @@
 							<select id="select" name="pushType"  size="1"  style="width:160px;" >
 								<option name="startapp" value="1" ><?php echo  lang('getui_startapp');?></option>
 								<option name="opennet" value="2" ><?php echo  lang('getui_opennet');?></option>
+								<option name="downapk" value="3" ><?php echo  "下载应用";?></option>
 							
 							</select>
 
@@ -38,6 +39,39 @@
 								<span style="margin-left:20px;" class="warring"><?php echo  lang('getui_neturl_note');?></span>
 							</div>
 				</div>
+
+
+				<div id="downapp" name="downapp" style="height:300px;margin-top:20px;">
+							
+						
+							<table>
+								<tbody>
+
+									<tr><td><label >弹框标题</label></td><td ><input id="showtitle" name="popTitle"  maxlength="20"  type="text" style='width:230px;' ></input></td></tr>
+									<br><tr><td><label>弹框图片（可选）</label></td><td><input type="file" name="filename" id="popPicture" value="选择文件"></input>
+										<input type="hidden" name="popPicture"></input>
+											<span >图标大小要求：25K以内</span></td></tr>
+									<br><tr><td><label>弹框内容*</label></td><td><textarea id="showmessage" name="popWords"  maxlength="50" rows="5" cols="" style="width:690px;height:80px;"></textarea>
+							</td></tr>
+
+							<br><tr><td><label>按钮名称*</label></td><td>
+								<span>左边按钮名称：</span><input style='width:80px;'  name="popFirstButton" id="lbname" value="下载" maxlength="20"/>
+								<br/><br/><span>右边按钮名称：</span><input  style='width:80px;' name="popSecondButton" id="rbname" value="取消" maxlength="20"/>
+								
+								<tr><td><label >应用下载地址*
+								</label></td><td><input type="text" style='width:230px;' id="urladdress" name="loadUrl" value="http://"  maxlength="100"></input>
+							</td></tr>
+								
+
+							<br><tr><td><label >应用名称*
+							</label></td><td><input type="text" style='width:230px;' name="loadTitle" value=""  maxlength="40"></input>
+							</td></tr>
+							</tbody>
+						</table>
+
+					
+				</div>
+
 				
 			</fieldset>
 
