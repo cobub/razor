@@ -129,7 +129,7 @@ var chart_canvas = $('#container');
         	    	
             	    //alert(parseFloat(obj[j].rate));
         	    	options.series[j] = {};
-        	    	onlineUsersData.push(parseFloat(ndata[i].rate));
+        	    	onlineUsersData.push(parseFloat(ndata[i].rate)*100);
                 	//errorCountPerSessionData.push(parseFloat(obj[j].percentage));
     		    	categories.push(ndata[i].time);
     		    	
