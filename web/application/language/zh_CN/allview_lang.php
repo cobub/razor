@@ -18,9 +18,9 @@
 // Login---main
 $lang['l_login']='登录';
 $lang['l_signup']='注册';
-$lang['l_cobubRazor'] = 'Cobub Razor - 开源移动应用分析平台';
-$lang['l_welcomeCR'] = '欢迎使用Cobub Razor - 开源移动应用分析平台';
-$lang['l_welcome']='欢迎使用Cobub Razor - <a href="http://dev.cobub.com/">开源移动应用分析平台</a>';
+$lang['l_cobubRazor'] = 'Cobub Razor - 开源移动应用统计分析平台';
+$lang['l_welcomeCR'] = '欢迎使用Cobub Razor - 开源移动应用统计分析平台';
+$lang['l_welcome']='欢迎使用Cobub Razor - <a href="http://dev.cobub.com/">开源移动应用统计分析平台</a>';
 $lang['l_userlogin']='用户登录';
 $lang['l_emailOrUsername']='邮件或用户名';
 $lang['l_username']='用户名';
