@@ -41,8 +41,8 @@ class IOSApplistModel extends CI_Model
 				$product_active = $query_product ->row($i) -> active;
 				if($product_active == 0)
 				{
-					 $sql_ios = "delete from " . $this -> db -> dbprefix('ios_product') . " where product_id =".$product_id." and user_id=".$userId;
-      				 $this -> db -> query($sql_ios);
+					 //$sql_ios = "delete from " . $this -> db -> dbprefix('ios_product') . " where product_id =".$product_id." and user_id=".$userId;
+      				 //$this -> db -> query($sql_ios);
       				 
       			}else{
 
@@ -76,7 +76,7 @@ function getRegisterId($productId,$userId){
 }
 
 function getApplist(){
-		$sql ="select * from ".$this->db->dbprefix('getui_product')." ;";
+		$sql ="select * from ".$this->db->dbprefix('ios_product')." ;";
 		$result = $this->db->query($sql);
 		$re = array();
 		if($result!=null && $result->num_rows()>0){
