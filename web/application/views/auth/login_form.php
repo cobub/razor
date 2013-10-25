@@ -74,7 +74,7 @@ $captcha = array(
 							<td></td>
 							<td></td>
 							<td><?php echo form_submit('submit', lang('l_login')); ?></td>
-                            <td><?php echo anchor('/auth/forgot_password/', lang('l_forgetPassword')); ?>
+                            
 							</td>
 							<td></td>
 						</tr>

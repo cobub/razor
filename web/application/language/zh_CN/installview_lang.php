@@ -13,7 +13,7 @@
  * @filesource
  */
 $lang["installview_installheader"] = "Cobub Razor 安装向导";
-$lang["installview_logotitle"] = "移动应用分析系统";
+$lang["installview_logotitle"] = "开源移动应用统计分析平台";
 $lang["installview_welcomestep"] = "欢迎页";
 
 $lang["installview_checkheader"] = "系统检查";
