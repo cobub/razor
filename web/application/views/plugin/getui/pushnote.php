@@ -21,14 +21,14 @@
 							<select id="select" name="pushType"  size="1"  style="width:160px;" >
 								<option name="startapp" value="1" ><?php echo  lang('getui_startapp');?></option>
 								<option name="opennet" value="2" ><?php echo  lang('getui_opennet');?></option>
-								<option name="downapk" value="3" ><?php echo  "下载应用";?></option>
+								<option name="downapk" value="3" ><?php echo  lang('getui_down_app');?></option>
 							
 							</select>
 
 		       </div>
 		        <div id="opennet" name="show1" style="height:130px; display:none;">
 							<div style="height:40px;margin-top:20px;margin-left:20px;">
-								<input id="opencheck" name="opencheck" type="checkbox" lang="1" checked="checked" style="padding-left:20px;">打开网页前需要用户确认</input>
+								<input id="opencheck" name="opencheck" type="checkbox" lang="1" checked="checked" style="padding-left:20px;"><?php echo lang('getui_open_url')?></input>
 							</div>
 							<div style="height:70px;line-height:30px;">
 								<label ><span style="color: red;">*</span><?php echo  lang('getui_neturl');?></label>
@@ -41,34 +41,34 @@
 				</div>
 
 
-				<div id="downapp" name="downapp" style="height:390px;margin-top:20px;">
+				<div id="downapp" name="downapp" style="height:390px;margin-top:20px;display:none;">
 							
 						
 							<table>
 								<tbody>
 
-									<tr><td><label >弹框标题</label></td><td ><input id="popTitle" name="popTitle"  maxlength="20"  type="text" style='width:230px;' ></input></td></tr>
-									<br><tr><td><label>弹框图片（可选）</label></td><td>
+									<tr><td><label >><?php echo lang('getui_dialog_title');?></label></td><td ><input id="popTitle" name="popTitle"  maxlength="20"  type="text" style='width:230px;' ></input></td></tr>
+									<br><tr><td><label><?php echo lang('getui_dialog_pic');?></label></td><td>
 									<img src="<?php echo base_url();?>assets/images/launcher.png" id="pop_url_img" alt="" style="margin-bottom: -6px; margin-right: 20px; width: 42px;heigth:42px;"/>
 									<input type="file" name="filename" id="popPicture" value="选择文件"></input>
 										<input type="hidden" id='popPicture_url' name="popPicture_url" value="" />
 
-											<span >图标大小要求：25K以内</span></td></tr>
+											<span ><?php echo lang("getui_pic_limit");?></span></td></tr>
 											<tr><td></td><td><div id="popfileQueue" style="width:80%;height:60px;margin-left:100px;" ></div></td></tr>
 											
-									<br><tr><td><label>弹框内容*</label></td><td><textarea id="showmessage" name="popWords"  maxlength="50" rows="5" cols="" style="width:690px;height:80px;"></textarea>
+									<br><tr><td><label>><?php echo lang('getui_dialog_content');?></label></td><td><textarea id="showmessage" name="popWords"  maxlength="50" rows="5" cols="" style="width:690px;height:80px;"></textarea>
 							</td></tr>
 
-							<br><tr><td><label>按钮名称*</label></td><td>
-								<span>左边按钮名称：</span><input style='width:80px;'  name="popFirstButton" id="popFirstButton" value="下载" maxlength="20"/>
-								<br/><br/><span>右边按钮名称：</span><input  style='width:80px;' name="popSecondButton" id="popSecondButton" value="取消" maxlength="20"/>
+							<br><tr><td><label><?php echo lang('getui_button_name');?></label></td><td>
+								<span><?php echo lang('getui_first_button');?></span><input style='width:80px;'  name="popFirstButton" id="popFirstButton" value="<?php echo lang('getui_down');?>" maxlength="20"/>
+								<br/><br/><span><?php echo lang('getui_second_button');?></span><input  style='width:80px;' name="popSecondButton" id="popSecondButton" value="<?php echo lang('getui_cancel');?>" maxlength="20"/>
 								
-								<tr><td><label >应用下载地址*
+								<tr><td><label ><?php echo lang('getui_appdown_url');?>
 								</label></td><td><input type="text" style='width:230px;' id="apkurladdress" name="loadUrl" value="http://"  maxlength="100"></input>
 							</td></tr>
 								
 
-							<br><tr><td><label >应用名称*
+							<br><tr><td><label ><?php echo lang('getui_app_name');?>
 							</label></td><td><input id='apkname' type="text" style='width:230px;' name="loadTitle" value=""  maxlength="40"></input>
 							</td></tr>
 							</tbody>

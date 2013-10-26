@@ -59,3 +59,17 @@ $lang['push_success']='推送成功';
 $lang['push_fail']='推送失败';
 $lang['current_user_num']='当前在线用户数';
 $lang['getui_application_info'] = '应用信息';
+
+$lang['getui_down_app']='下载应用';
+$lang['getui_open_url']='打开网页前需要用户确认';
+$lang['getui_dialog_title']='弹框标题';
+$lang['getui_dialog_pic']='弹框图片（可选）';
+$lang['getui_pic_limit']='图标大小要求：25K以内';
+$lang['getui_dialog_content']='弹框内容*';
+$lang['getui_button_name']='按钮名称*';
+$lang['getui_first_button']='左边按钮名称：';
+$lang['getui_second_button']='右边按钮名称：';
+$lang['getui_down']='下载';
+$lang['getui_cancel']='取消';
+$lang['getui_appdown_url']='应用下载地址*';
+$lang['getui_app_name']="应用名称*";
