@@ -8,7 +8,7 @@ $crt_passwd = array(
 	'style' => "height:24px;"
 );
 ?>
-<section id="main" class="column">
+<section id="main" class="column" style='height:1500px;'>
 <?php if(isset($msg)):?>
 <h4 class="alert_warning" id="msg"><?php echo $msg;?></h4>
 <?php endif;?>
