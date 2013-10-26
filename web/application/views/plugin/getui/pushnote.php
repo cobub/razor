@@ -283,7 +283,11 @@ $("#logo_upload").uploadify({
 		
 		var offlineTime = document.getElementById('offlineTime').value;
 		var is2all=document.getElementById('tagtype').value;
-
+		if(offlineTime>72||offlineTime<1){
+			document.getElementById('msg').style.display='';
+			document.getElementById('msg').innerHTML="<?php echo '离线时间错误';?>"; 
+			return;
+		}
 		
 		
 		var notyCleared = 1;
