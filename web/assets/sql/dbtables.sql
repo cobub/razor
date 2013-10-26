@@ -149,7 +149,6 @@ CREATE TABLE IF NOT EXISTS `umsinstall_clientdata` (
   `isjailbroken` int(10) NOT NULL DEFAULT '0',
   `insertdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `useridentifier` varchar(256) default NULL,
-  `mccmnc` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

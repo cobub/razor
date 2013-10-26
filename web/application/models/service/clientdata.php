@@ -28,14 +28,8 @@ class Clientdata extends CI_Model {
         $clientdata = new clientdatapublic();
         $clientdata -> loadclientdata($content);
         $ip = $this -> utility -> getOnlineIP();
-        $i = isset($clientdata -> mccmnc) ? $clientdata -> mccmnc : '';
-        // $query = $this -> db -> query("select name from " . $this -> db -> dbprefix('mccmnc') . " where value = '$i'");
-        // if ($query != null && $query -> num_rows() > 0) {
-        //     $service_supplier = $query -> first_row() -> name;
-        // } else {
-        //     $service_supplier = "Unknown";
-        // }
-        $service_supplier=$i;
+
+        
         $nowtime = date('Y-m-d H:i:s');
         if (isset($clientdata -> time)) {
             $nowtime = $clientdata -> time;
@@ -43,7 +37,36 @@ class Clientdata extends CI_Model {
                 $nowtime = date('Y-m-d H:i:s');
             }
         }
-        $data = array('productkey' => $clientdata -> appkey,'mccmnc'=>$i, 'platform' => $clientdata -> platform, 'osversion' => $clientdata -> os_version, 'language' => $clientdata -> language, 'deviceid' => $clientdata -> deviceid, 'resolution' => $clientdata -> resolution, 'ismobiledevice' => isset($clientdata -> ismobiledevice) ? $clientdata -> ismobiledevice : '', 'devicename' => isset($clientdata -> devicename) ? $clientdata -> devicename : '', 'defaultbrowser' => isset($clientdata -> defaultbrowser) ? $clientdata -> defaultbrowser : '', 'javasupport' => isset($clientdata -> javasupport) ? $clientdata -> javasupport : '', 'flashversion' => isset($clientdata -> flashversion) ? $clientdata -> flashversion : '', 'modulename' => isset($clientdata -> modulename) ? $clientdata -> modulename : '', 'imei' => isset($clientdata -> imei) ? $clientdata -> imei : '', 'imsi' => isset($clientdata -> imsi) ? $clientdata -> imsi : '', 'havegps' => isset($clientdata -> havegps) ? $clientdata -> havegps : '', 'havebt' => isset($clientdata -> havebt) ? $clientdata -> havebt : '', 'havewifi' => isset($clientdata -> havewifi) ? $clientdata -> havewifi : '', 'havegravity' => isset($clientdata -> havegravity) ? $clientdata -> havegravity : '', 'wifimac' => isset($clientdata -> wifimac) ? $clientdata -> wifimac : '', 'version' => isset($clientdata -> version) ? $clientdata -> version : '', 'network' => isset($clientdata -> network) ? $clientdata -> network : '', 'latitude' => isset($clientdata -> latitude) ? $clientdata -> latitude : '', 'longitude' => isset($clientdata -> longitude) ? $clientdata -> longitude : '', 'isjailbroken' => isset($clientdata -> isjailbroken) ? $clientdata -> isjailbroken : 0, 'useridentifier' => isset($clientdata -> userid) ? $clientdata -> userid : '', 'date' => $nowtime, 'service_supplier' => $service_supplier, 'clientip' => $ip);
+        $data = array(
+            'productkey' => $clientdata -> appkey,
+            'platform' => $clientdata -> platform,
+            'osversion' => $clientdata -> os_version,
+            'language' => $clientdata -> language,
+            'deviceid' => $clientdata -> deviceid,
+            'resolution' => $clientdata -> resolution,
+            'ismobiledevice' => isset($clientdata -> ismobiledevice) ? $clientdata -> ismobiledevice : '',
+            'devicename' => isset($clientdata -> devicename) ? $clientdata -> devicename : '',
+            'defaultbrowser' => isset($clientdata -> defaultbrowser) ? $clientdata -> defaultbrowser : '',
+            'javasupport' => isset($clientdata -> javasupport) ? $clientdata -> javasupport : '',
+            'flashversion' => isset($clientdata -> flashversion) ? $clientdata -> flashversion : '',
+            'modulename' => isset($clientdata -> modulename) ? $clientdata -> modulename : '',
+            'imei' => isset($clientdata -> imei) ? $clientdata -> imei : '',
+            'imsi' => isset($clientdata -> imsi) ? $clientdata -> imsi : '',
+            'havegps' => isset($clientdata -> havegps) ? $clientdata -> havegps : '',
+            'havebt' => isset($clientdata -> havebt) ? $clientdata -> havebt : '',
+            'havewifi' => isset($clientdata -> havewifi) ? $clientdata -> havewifi : '',
+            'havegravity' => isset($clientdata -> havegravity) ? $clientdata -> havegravity : '',
+            'wifimac' => isset($clientdata -> wifimac) ? $clientdata -> wifimac : '',
+            'version' => isset($clientdata -> version) ? $clientdata -> version : '',
+            'network' => isset($clientdata -> network) ? $clientdata -> network : '',
+            'latitude' => isset($clientdata -> latitude) ? $clientdata -> latitude : '',
+            'longitude' => isset($clientdata -> longitude) ? $clientdata -> longitude : '',
+            'isjailbroken' => isset($clientdata -> isjailbroken) ? $clientdata -> isjailbroken : 0,
+            'useridentifier' => isset($clientdata -> userid) ? $clientdata -> userid : '',
+            'date' => $nowtime,
+            'service_supplier' => isset($clientdata -> mccmnc) ? $clientdata -> mccmnc : 'unknown',
+            'clientip' => $ip
+        );
         $latitude = isset($clientdata -> latitude) ? $clientdata -> latitude : '';
         $choose = $this -> config -> item('get_geographical');
         $data["country"] = '';

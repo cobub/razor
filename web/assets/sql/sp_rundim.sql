@@ -90,11 +90,11 @@ insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,du
 set s = now();
 insert into umsinstall_dim_devicesupplier
            (devicesupplier_name)
-select distinct service_supplier
-from   databaseprefix.umsdatainstall_clientdata a
-where  not exists (select *
+select distinct c.name
+from   databaseprefix.umsdatainstall_clientdata a,databaseprefix.umsdatainstall_mccmnc c
+where  a.service_supplier=c.value and not exists (select *
                    from   umsinstall_dim_devicesupplier b
-                   where  a.service_supplier = b.devicesupplier_name);
+                   where  c.name = b.devicesupplier_name);
 
 set e = now();
 insert into umsinstall_log(op_type,op_name,op_starttime,op_date,affected_rows,duration) 
