@@ -19,7 +19,7 @@ $confirm_new_password = array(
 );
 ?>
 <?php echo form_open($this->uri->uri_string()); ?>
-<section id="main" class="column">
+<section id="main" class="column" style='height:1500px;'>
 <article class="module width_full">
 <header><h3><?php echo lang('m_changePassword') ?></h3></header>
 	<div class="module_content">

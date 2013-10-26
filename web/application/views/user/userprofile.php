@@ -72,7 +72,7 @@ if(isset($profile))
 
 ?>
 <?php echo form_open(site_url().'/profile/saveprofile/'); ?>
-<section id="main" class="column">
+<section id="main" class="column" style='height:1500px;'>
 <article class="module width_full">
 <header><h3><?php echo  lang('m_pr_modifyProfile')?></h3></header>
 	<div class="module_content">
