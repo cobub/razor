@@ -286,9 +286,9 @@ $("#logo_upload").uploadify({
 
 		
 		
-		var notyCleared = true;
-		var notyBelled =true;
-		var notyVibrationed =true;
+		var notyCleared = 1;
+		var notyBelled =1;
+		var notyVibrationed =1;
 		var offlined =true;
 		var logo_url = document.getElementById('logo_url').value;
 
@@ -307,15 +307,15 @@ $("#logo_upload").uploadify({
 		}
 
 		if(document.getElementById('vibrate2').checked){
-			notyVibrationed = false;
+			notyVibrationed = 0;
 		}
 
 		if(document.getElementById('ring2').checked){
-			notyBelled=false;
+			notyBelled=0;
 		}
 
 		if(document.getElementById('clear2').checked){
-			notyCleared=false;
+			notyCleared=0;
 		}
 
 		var transmissionContentNotify = document.getElementById('transmissionContentNotify').value;
