@@ -16,7 +16,7 @@ $description = array (
 );
 ?>
 <?php echo form_open('manage/product/saveApp'); ?>
-<section id="main" class="column">
+<section id="main" class="column" style='height:1000px;'>
 	<h4 class="alert_info" id='msg' style="display: none"></h4>
 
 	<article class="module width_full">

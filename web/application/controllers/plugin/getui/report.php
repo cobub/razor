@@ -43,6 +43,7 @@ class report extends CI_Controller {
 		//获取推送记录
 		$pushrecords = $this->common->curl_post(SERVER_BASE_URL."/index.php?/api/igetui/getGetuiRecords",$data);
 		$pushrecordsResult = json_decode($pushrecords);
+
 		if(isset($pushrecordsResult->flag)){
 			if($pushrecordsResult->flag>0){
 				$data['pushrecords']=$pushrecordsResult->records;
@@ -92,11 +93,17 @@ class report extends CI_Controller {
 		$data['taskid']=$taskid;
 		$data['appid']=$appid;
 		$ret= $this->common->curl_post(SERVER_BASE_URL."/index.php?/api/igetui/getTaskdata",$data);
+		// echo $ret;
 		$result= json_decode ( $ret );
-		if(isset($result->result)){
-			if($result->result=='ok'){
-				$data['sendnum']=$result->msgToatl;
-				$data['receivenum']=$result->msgProcess;
+		// echo $result->flag;
+		if(isset($result->flag)){
+			if($result->flag==1){
+					$retfromucenter = json_decode($result->result);
+				if($retfromucenter->result=='ok'){
+					$data['sendnum']=$retfromucenter->msgTotal;
+				$data['receivenum']=$retfromucenter->msgProcess;
+				}
+				
 			}
 
 		}

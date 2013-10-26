@@ -31,6 +31,7 @@ class Ums extends CI_Controller {
         $this -> load -> model($servicePrefix . '/activitylog', 'activitylog');
         $this -> load -> model($servicePrefix . '/onlineconfig', 'onlineconfig');
         $this -> load -> model($servicePrefix . '/uploadlog', 'uploadlog');
+        $this -> load -> model($servicePrefix . '/usertag', 'usertag');
     }
 
     /*

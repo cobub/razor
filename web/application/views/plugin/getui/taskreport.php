@@ -15,30 +15,8 @@
 			<tbody id=''>
 
 				<tr><td><?php if(isset($sendnum)) echo $sendnum;?></td><td><?php if(isset($receivenum)) echo $receivenum;?></td></tr>
-
-				<!--
-				<?php 
-
-			 	if(isset($pushrecords)):
-				for($i=0;$i<count($pushrecords);$i++)
-				{
-			 		$row = $pushrecords[$i];
-
-			 	?>
-				<tr>
-					
-    				<tr><td><?php echo $row->push_title;?></td>
-								<td><?php echo $row->push_content;?></td>
-							<td><?php echo $row->push_time;?></td>
-						<td><?php if ($row->push_type==1)echo "普通推送";else echo "透传推送";?></td>
-					<td><a href ="<?php echo site_url()?>/plugin/getui/report/gettaskdata?taskid=<?php echo $row->taskid?>&appid=<?php echo $appid?>">详细</a></td>
-
-    				
-    			</tr> 
-			<?php } endif;?>
-
-			-->
-
+				
+				
 						
 			</tbody>
 			</table>
