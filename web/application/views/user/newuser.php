@@ -37,7 +37,7 @@ $captcha = array(
 );
 ?>
 <?php echo form_open(site_url().'/user/createNewUser/'); ?>
-<section id="main" class="column">
+<section id="main" class="column" style='height:1500px;'>
 <article class="module width_full">
 <header><h3><?php echo lang('l_re_createYourAccount') ?></h3></header>
 	<div class="module_content">
