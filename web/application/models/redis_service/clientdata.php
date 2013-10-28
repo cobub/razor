@@ -59,7 +59,7 @@ class Clientdata extends CI_Model {
             'longitude' => isset($clientdata -> longitude) ? $clientdata -> longitude : '',
             'isjailbroken' => isset($clientdata -> isjailbroken) ? $clientdata -> isjailbroken : 0,
             'date' => $nowtime,
-            'service_supplier' => isset($clientdata -> mccmnc) ? $clientdata -> mccmnc : 'unknown',
+            'service_supplier' => isset($clientdata -> mccmnc) ? $clientdata -> mccmnc : '0',
             'clientip' => $ip
         );
         $latitude = isset($clientdata -> latitude) ? $clientdata -> latitude : '';

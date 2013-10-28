@@ -55,7 +55,7 @@ where
        and a.devicename = c.devicebrand_name
        and a.resolution = d.deviceresolution_name
        and a.language = e.devicelanguage_name
-       and a.service_supplier = f.devicesupplier_name
+       and a.service_supplier = f.mccmnc
        and date(a.date) = g.datevalue
        and a.country = h.country
        and a.region = h.region
