@@ -41,7 +41,7 @@ class Clientdata extends CI_Model {
             'deviceid' => $clientdata -> deviceid,
             'resolution' => $clientdata -> resolution,
             'ismobiledevice' => isset($clientdata -> ismobiledevice) ? $clientdata -> ismobiledevice : '',
-            'devicename' => isset($clientdata -> devicename) ? $clientdata -> devicename : '',
+            'devicename' => isset($clientdata -> devicename) ? $clientdata -> devicename : 'unknown',
             'defaultbrowser' => isset($clientdata -> defaultbrowser) ? $clientdata -> defaultbrowser : '',
             'javasupport' => isset($clientdata -> javasupport) ? $clientdata -> javasupport : '',
             'flashversion' => isset($clientdata -> flashversion) ? $clientdata -> flashversion : '',
