@@ -64,7 +64,7 @@ class Clientdata extends CI_Model {
             'isjailbroken' => isset($clientdata -> isjailbroken) ? $clientdata -> isjailbroken : 0,
             'useridentifier' => isset($clientdata -> userid) ? $clientdata -> userid : '',
             'date' => $nowtime,
-            'service_supplier' => isset($clientdata -> mccmnc) ? $clientdata -> mccmnc : 'unknown',
+            'service_supplier' => isset($clientdata -> mccmnc) ? $clientdata -> mccmnc : '0',
             'clientip' => $ip
         );
         $latitude = isset($clientdata -> latitude) ? $clientdata -> latitude : '';
