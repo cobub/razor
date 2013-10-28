@@ -22,7 +22,8 @@ class Uploadlog extends CI_Model
 		$this->load->model('redis_service/userlog','userlog');
 		$this->load->model('redis_service/clientdata','clientdata');
 		$this->load->model('redis_service/activitylog','activitylog');
-		$this->load->model('redis_service/utility','utility');	
+		$this->load->model('redis_service/utility','utility');
+		$this->load->model('redis_service/usertag','usertag');	
 	}	
 	
 	function addUploadlog($content)
@@ -85,6 +86,21 @@ class Uploadlog extends CI_Model
 				}
 			}
 		}
+
+
+		
+		$tagInfo = isset($content->tags)?$content->tags:"";
+		if(isset($tagInfo))
+		{
+			if(is_array($tagInfo))
+			{
+				foreach ($tagInfo as $tagactivity) 
+				{
+					$this->usertag->addusertag($tagactivity);
+				}
+			}
+		}
+		
 		
 	}	
 	
