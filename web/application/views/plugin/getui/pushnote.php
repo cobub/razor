@@ -230,7 +230,7 @@ $("#logo_upload").uploadify({
 		'multi'          : true,
 		'fileExt'   	 : '*.png;*.jpg',
 		'fileDesc' 		 : '只支持 (.png,.jpg)文件,文件大小不超过5K',
-		'sizeLimit'      : 25 * 1024 ,
+		'sizeLimit'      : 5 * 1024 ,
 		'onComplete': function(event, ID, fileObj, response, data) {
 								var filename = response.substring(response.lastIndexOf("/")+1);
 								var baseurl="<?php echo base_url();?>uploads/";
@@ -239,8 +239,8 @@ $("#logo_upload").uploadify({
 								
 							},
 	 'onError'   : function(event, ID, fileObj){
-		       		if(fileObj.size > 25 * 1024){
-		       			alert("文件："+fileObj.name+"大小超出25 KB，请重新上传。");
+		       		if(fileObj.size > 5 * 1024){
+		       			alert("文件："+fileObj.name+"大小超出5 KB，请重新上传。");
 		       		}else{
 		       			alert("文件:" + fileObj.name + " 上传失败");
 		       		}}
