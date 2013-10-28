@@ -47,7 +47,7 @@
 							<table>
 								<tbody>
 
-									<tr><td><label >><?php echo lang('getui_dialog_title');?></label></td><td ><input id="popTitle" name="popTitle"  maxlength="20"  type="text" style='width:230px;' ></input></td></tr>
+									<tr><td><label><?php echo lang('getui_dialog_title');?></label></td><td ><input id="popTitle" name="popTitle"  maxlength="20"  type="text" style='width:230px;' ></input></td></tr>
 									<br><tr><td><label><?php echo lang('getui_dialog_pic');?></label></td><td>
 									<img src="<?php echo base_url();?>assets/images/launcher.png" id="pop_url_img" alt="" style="margin-bottom: -6px; margin-right: 20px; width: 42px;heigth:42px;"/>
 									<input type="file" name="filename" id="popPicture" value="选择文件"></input>
@@ -56,7 +56,7 @@
 											<span ><?php echo lang("getui_pic_limit");?></span></td></tr>
 											<tr><td></td><td><div id="popfileQueue" style="width:80%;height:60px;margin-left:100px;" ></div></td></tr>
 											
-									<br><tr><td><label>><?php echo lang('getui_dialog_content');?></label></td><td><textarea id="showmessage" name="popWords"  maxlength="50" rows="5" cols="" style="width:690px;height:80px;"></textarea>
+									<br><tr><td><label><?php echo lang('getui_dialog_content');?></label></td><td><textarea id="showmessage" name="popWords"  maxlength="50" rows="5" cols="" style="width:690px;height:80px;"></textarea>
 							</td></tr>
 
 							<br><tr><td><label><?php echo lang('getui_button_name');?></label></td><td>
