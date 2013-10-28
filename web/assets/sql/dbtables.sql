@@ -618,7 +618,7 @@ INSERT INTO `umsinstall_channel` (`channel_id`, `channel_name`, `create_date`, `
 -- Default value for table `mccmnc`
 --
 
-INSERT INTO `umsinstall_mccmnc` (`id`, `value`, `name`) VALUES
+INSERT INTO `umsinstall_mccmnc` (`value`, `name`,`countrycode`,'countryname`) VALUES
 ('20201', 'Cosmote Greece', '202', 'GR'),
 ('20205', 'Vodafone - Panafon Greece', '202', 'GR'),
 ('20209', 'Info Quest S.A. Greece', '202', 'GR'),
@@ -1613,7 +1613,7 @@ INSERT INTO `umsinstall_mccmnc` (`id`, `value`, `name`) VALUES
 ('72416', 'BSE Brazil', '724', 'BR'),
 ('72417', 'Ceterp Cel Brazil', '724', 'BR');
 
-INSERT INTO `bgame_db_mccmnc` (`value`, `name`, `countrycode`, `countryname`) VALUES
+INSERT INTO `umsinstall_db_mccmnc` (`value`, `name`, `countrycode`, `countryname`) VALUES
 ('72418', 'Norte Brasil Tel', '724', 'BR'),
 ('72419', 'Telemig Cel Brazil', '724', 'BR'),
 ('72421', 'Telerj Cel Brazil', '724', 'BR'),
