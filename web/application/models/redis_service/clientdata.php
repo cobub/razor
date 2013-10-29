@@ -64,9 +64,9 @@ class Clientdata extends CI_Model {
         );
         $latitude = isset($clientdata -> latitude) ? $clientdata -> latitude : '';
         $choose = $this -> config -> item('get_geographical');
-        $data["country"] = '';
-        $data["region"] = '';
-        $data["city"] = '';
+        $data["country"] = 'unknown';
+        $data["region"] = 'unknown';
+        $data["city"] = 'unknown';
         $data["street"] = '';
         $data["streetno"] = '';
         $data["postcode"] = '';
