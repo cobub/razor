@@ -66,19 +66,22 @@ class ApplistModel extends CI_Model
 	}
 
 function getApplist(){
-		$sql ="select * from ".$this->db->dbprefix('getui_product')." ;";
-		$result = $this->db->query($sql);
-		$re = array();
-		if($result!=null && $result->num_rows()>0){
-			$resultarr = $result->result_array();
+		$sql = "select * from " . $this->db->dbprefix ( 'getui_product' ) . " ;";
+		$result = $this->db->query ( $sql );
+		$re = array ();
+		if ($result != null && $result->num_rows () > 0) {
+			$resultarr = $result->result_array ();
 			// print_r($resultarr);
-			for($i=0;$i<count($resultarr);$i++){
-				$productid=$resultarr[$i]['product_id'];
-				$sqltoapplist="select * from ".$this->db->dbprefix('product')." where id=".$productid;
-				$res = $this->db->query($sqltoapplist);
-				if($res!=null&& $res->num_rows()>0){
-					$apparr = $res->result_array();
-					array_push($re, $apparr);
+			for($i = 0; $i < count ( $resultarr ); $i ++) {
+				$productid = $resultarr [$i] ['product_id'];
+				$sqltoapplist = "select * from " . $this->db->dbprefix ( 'product' ) . " where id=" . $productid;
+				$res = $this->db->query ( $sqltoapplist );
+				if ($res != null && $res->num_rows () > 0) {
+					if ($res->row ()->active == 1) {
+						$apparr = $res->result_array ();
+						array_push ( $re, $apparr );
+					}
+				
 				}
 			}
 		}
