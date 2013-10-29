@@ -408,10 +408,10 @@ $("#btn_submit").click(function()
        
     }
     
-     var radio=document.getElementById("radio_all");
-     if(radio.checked){
-     	tag_type='all';
-     }
+     //var radio=document.getElementById("radio_all");
+    // if(radio.checked){
+     //	tag_type='all';
+    // }
         
     document.getElementById("tag_type").value = tag_type;
 	
