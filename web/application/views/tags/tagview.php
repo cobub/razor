@@ -370,7 +370,7 @@ $("#btn_submit").click(function()
             	//alert(k+":"+v);
 
             	tag_type = "custom";
-        	    return;
+        	    //return;
             }
             });
 
@@ -384,7 +384,8 @@ $("#btn_submit").click(function()
             {
             	//alert(k+":"+v);
             	tag_type = "custom";
-        	return;}
+        	//return;
+        	}
             });
         }
         if(tag_type!="custom")
@@ -398,17 +399,19 @@ $("#btn_submit").click(function()
             {
                 //alert(k+":"+v);
             	tag_type = "custom"; 
-                return;
+               // return;
             }
             });
 
         }
+       // alert(tag_type);
        
     }
-     var radio=document.getElementById("radio_all");
-     if(radio.checked){
-     	tag_type='all';
-     }
+    
+     //var radio=document.getElementById("radio_all");
+    // if(radio.checked){
+     //	tag_type='all';
+    // }
         
     document.getElementById("tag_type").value = tag_type;
 	
