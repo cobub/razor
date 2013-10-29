@@ -393,6 +393,6 @@ $config['redis_interval'] = 10;
 | 2.google and ipinfodb(google:get geographical through gprs,ipinfo:get geographical via ip)
 |
 */
-$config['get_geographical']= 2;
-$config['default_country'] = '中国';
+$config['get_geographical']= 1;
+$config['default_country'] = 'China';
 $config['version']= 0.7;
