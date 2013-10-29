@@ -84,8 +84,16 @@ class push extends CI_Controller {
 			$data['devicelist']=json_encode($resarr);
 			$data['tag'] = $tagvalue;
 			// print_r($data);
+			$push_time=date("Y-m-d H:i");
+			log_message("debug","------------------推送时间：$push_time---------------------------");
+			log_message("debug",'参数=='.$data['appid']."    appkey==".$data['appkey']);
+
 
 			$result=$this->common->curl_post(SERVER_BASE_URL.'/index.php?/push',$data);
+
+
+			
+			log_message('debug','getui 返回值：'.$result);
 			 // echo $result;
 			if(count($resarr)<500){
 				$flag=false;
