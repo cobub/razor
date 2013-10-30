@@ -150,7 +150,7 @@ function renderCountryCharts(myurl)
 			for(i=0;i<obj.length;i++)
 			{
 			    if (obj[i].country=='unknown') {
-			        obj[i].country = '<?php echo lang('g_others')?>'
+			        obj[i].country = '<?php echo lang('t_unknow')?>'
 			    }
 				countryActiveUserCategories.push(obj[i].country);
 				countryActiveUserData.push(parseInt(obj[i].access));
@@ -161,7 +161,7 @@ function renderCountryCharts(myurl)
 			for(i=0;i<objNewUserData.length;i++)
 			{
 			    if (objNewUserData[i].country=='unknown') {
-                    objNewUserData[i].country = '<?php echo lang('g_others')?>'
+                    objNewUserData[i].country = '<?php echo lang('t_unknow')?>'
                 }
 				countryNewUserCategories.push(objNewUserData[i].country);
 				countryNewUserData.push(parseInt(objNewUserData[i].access));

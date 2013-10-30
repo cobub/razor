@@ -152,7 +152,7 @@ function renderRegionCharts(myurl)
 			for(i=0;i<obj.length;i++)
 			{
 			    if (obj[i].region=='unknown') {
-                    obj[i].region = '<?php echo lang('g_others')?>'
+                    obj[i].region = '<?php echo lang('t_unknow')?>'
                 }
 				regionActiveUserCategories.push(obj[i].region);
 				regionActiveUserData.push(parseInt(obj[i].access));
@@ -163,7 +163,7 @@ function renderRegionCharts(myurl)
 			for(i=0;i<objNewUserData.length;i++)
 			{
 			    if (objNewUserData[i].region=='unknown') {
-                    objNewUserData[i].region = '<?php echo lang('g_others')?>'
+                    objNewUserData[i].region = '<?php echo lang('t_unknow')?>'
                 }
 				regionNewUserCategories.push(objNewUserData[i].region);
 				regionNewUserData.push(parseInt(objNewUserData[i].access));
