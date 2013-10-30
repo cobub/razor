@@ -182,28 +182,55 @@ class push extends CI_Controller {
 			);
 
 
-		$flag =true;
-		$i=0;
-
-		while ($flag) {
-			// $devicelist=$this->common->curl_post(site_url()."/Tag/tags/getDeviceidList",$requestdata);
-			$devicelist=$this->tag->getDeviceidList($productid,$tagvalue,$i,500);
-			$resarr = $devicelist->result_array();
-			// echo $a[0]['deviceidentifier'];
-			// print_r( $resarr);
-			$data['devicelist']=json_encode($resarr);
-			$data['tag'] = $tagvalue;
-			// print_r($data);
-
-			$result=$this->common->curl_post(SERVER_BASE_URL.'/index.php?/push/transmission',$data);
-			 // echo $result;
-			if(count($resarr)<500){
-				$flag=false;
-			}
-			$i=$i+1;
-		}
 
 
+				if($pushUser==1){
+
+						// echo $a[0]['deviceidentifier'];
+						// print_r( $resarr);
+						
+						// print_r($data);
+							$push_time=date("Y-m-d H:i");
+							log_message("debug","------------------推送时间：$push_time---------------------------");
+							log_message("debug",'参数=='.$data['appid']."    appkey==".$data['appkey']);
+
+
+							$data['devicelist']=json_encode($resarr);
+							$data['tag'] = $tagvalue;
+							// print_r($data);
+
+							$result=$this->common->curl_post(SERVER_BASE_URL.'/index.php?/push/transmission',$data);
+
+
+						
+						log_message('debug','getui 返回值：'.$result);
+				}else{
+
+						$flag =true;
+						$i=0;
+
+						while ($flag) {
+							// $devicelist=$this->common->curl_post(site_url()."/Tag/tags/getDeviceidList",$requestdata);
+							$devicelist=$this->tag->getDeviceidList($productid,$tagvalue,$i,500);
+							$resarr = $devicelist->result_array();
+							// echo $a[0]['deviceidentifier'];
+							// print_r( $resarr);
+							$data['devicelist']=json_encode($resarr);
+							$data['tag'] = $tagvalue;
+							// print_r($data);
+
+							$result=$this->common->curl_post(SERVER_BASE_URL.'/index.php?/push/transmission',$data);
+							 // echo $result;
+							if(count($resarr)<500){
+								$flag=false;
+							}
+							$i=$i+1;
+						}
+
+
+					｝
+
+		
 
 
 		
