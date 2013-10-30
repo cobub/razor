@@ -71,35 +71,60 @@ class push extends CI_Controller {
 		
 // print_r($data);
 		//根据deviceid  500  循环  发送$dwdb = $this->load->database ( 'dw', TRUE );
+
+
+
+
+				if($pushUser==1){
+
+						// echo $a[0]['deviceidentifier'];
+						// print_r( $resarr);
+						$data['devicelist']='';
+						$data['tag'] = $tagvalue;
+						// print_r($data);
+						$push_time=date("Y-m-d H:i");
+						log_message("debug","------------------推送时间：$push_time---------------------------");
+						log_message("debug",'参数=='.$data['appid']."    appkey==".$data['appkey']);
+
+
+						$result=$this->common->curl_post(SERVER_BASE_URL.'/index.php?/push',$data);
+
+
+						
+						log_message('debug','getui 返回值：'.$result);
+				}else{
+					$flag =true;
+					$i=0;
+
+					while ($flag) {
+						// $devicelist=$this->common->curl_post(site_url()."/Tag/tags/getDeviceidList",$requestdata);
+						$devicelist=$this->tag->getDeviceidList($productid,$tagvalue,$i,500);
+						$resarr = $devicelist->result_array();
+						// echo $a[0]['deviceidentifier'];
+						// print_r( $resarr);
+						$data['devicelist']=json_encode($resarr);
+						$data['tag'] = $tagvalue;
+						// print_r($data);
+						$push_time=date("Y-m-d H:i");
+						log_message("debug","------------------推送时间：$push_time---------------------------");
+						log_message("debug",'参数=='.$data['appid']."    appkey==".$data['appkey']);
+
+
+						$result=$this->common->curl_post(SERVER_BASE_URL.'/index.php?/push',$data);
+
+
+						
+						log_message('debug','getui 返回值：'.$result);
+						 // echo $result;
+						if(count($resarr)<500){
+							$flag=false;
+						}
+						$i=$i+1;
+					}
+				}
+
 		
-		$flag =true;
-		$i=0;
-
-		while ($flag) {
-			// $devicelist=$this->common->curl_post(site_url()."/Tag/tags/getDeviceidList",$requestdata);
-			$devicelist=$this->tag->getDeviceidList($productid,$tagvalue,$i,500);
-			$resarr = $devicelist->result_array();
-			// echo $a[0]['deviceidentifier'];
-			// print_r( $resarr);
-			$data['devicelist']=json_encode($resarr);
-			$data['tag'] = $tagvalue;
-			// print_r($data);
-			$push_time=date("Y-m-d H:i");
-			log_message("debug","------------------推送时间：$push_time---------------------------");
-			log_message("debug",'参数=='.$data['appid']."    appkey==".$data['appkey']);
-
-
-			$result=$this->common->curl_post(SERVER_BASE_URL.'/index.php?/push',$data);
-
-
-			
-			log_message('debug','getui 返回值：'.$result);
-			 // echo $result;
-			if(count($resarr)<500){
-				$flag=false;
-			}
-			$i=$i+1;
-		}
+		
 		
 		$resu= json_decode ( $result,true );
 		// print_r($result);
