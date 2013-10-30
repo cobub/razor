@@ -306,6 +306,34 @@ $("#logo_upload").uploadify({
 		var apkname = document.getElementById('apkname').value;
 
 	
+		if(selectvalue==3){
+			if(popTitle==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '弹框标题不可为空';?>"; 
+				return;
+			}
+			if(showmessage==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '弹框内容不可为空';?>"; 
+				return;
+			}
+			if(popFirstButton==''||popSecondButton==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '按钮名称不可为空';?>"; 
+				return;
+			}
+			if(apkurladdress==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '应用地址不可为空';?>"; 
+				return;
+			}
+			if(apkname==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '应用名称不可为空';?>"; 
+				return;
+			}
+		}
+
 		if(document.getElementById('offline2').checked){
 			offlined=false;
 			offlineTime='';
