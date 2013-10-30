@@ -32,7 +32,8 @@
 			 ?>
 		<tr>
 					<td><?php 
-					           
+					           if ($rel->country=='unknown') 
+                                  $rel->country = lang('t_unknow');
 					           echo $rel->country; 
 					    ?></td>
 					<td><?php echo $rel->access; ?></td>
