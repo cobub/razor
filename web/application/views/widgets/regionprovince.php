@@ -151,6 +151,9 @@ function renderRegionCharts(myurl)
 			var obj = data.regionActiveUserData;
 			for(i=0;i<obj.length;i++)
 			{
+			    if (obj[i].region=='unknown') {
+                    obj[i].region = '<?php echo lang('g_others')?>'
+                }
 				regionActiveUserCategories.push(obj[i].region);
 				regionActiveUserData.push(parseInt(obj[i].access));
 				regionActiveUserPercentCategories.push(Math.round(obj[i].percentage*1000)/10);
@@ -159,6 +162,9 @@ function renderRegionCharts(myurl)
 			var objNewUserData = data.regionNewUserData;
 			for(i=0;i<objNewUserData.length;i++)
 			{
+			    if (objNewUserData[i].region=='unknown') {
+                    objNewUserData[i].region = '<?php echo lang('g_others')?>'
+                }
 				regionNewUserCategories.push(objNewUserData[i].region);
 				regionNewUserData.push(parseInt(objNewUserData[i].access));
 				regionNewUserPercentCategories.push(Math.round(objNewUserData[i].percentage*1000)/10);
