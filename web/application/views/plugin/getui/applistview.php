@@ -65,9 +65,9 @@ $language = $this->config->item('language');
     				?>
     				<td><a href="<?php echo site_url()?>/plugin/getui/activate/index?appName=<?php echo $row['androidlist']?>&appid=<?php echo $row['product_id']?>" ><?php echo lang('v_active')?></a> </td> 
     				<?php }?>
-    				<td><a href="<?php echo ($isAuth==1&&$flag==1)?site_url().'/plugin/getui/applist/pushInfo?type=0&appName='.$row['androidlist']:'javascript:userDisableAlert();';?>">
+    				<td><a href="<?php echo ($isAuth==1&&$flag==1)?site_url().'/plugin/getui/applist/pushInfo?type=0&appid='.$row['product_id'].'&appName='.$row['androidlist']:'javascript:userDisableAlert();';?>">
     				<?php echo lang('v_push')?>  </a></td> 
-    				<td><a href="<?php echo ($isAuth==1&&$flag==1)?site_url().'/plugin/getui/applist/pushInfo?type=1&appName='.$row['androidlist']:'javascript:userDisableAlert();';?>">
+    				<td><a href="<?php echo ($isAuth==1&&$flag==1)?site_url().'/plugin/getui/applist/pushInfo?type=1&appid='.$row['product_id'].'&appName='.$row['androidlist']:'javascript:userDisableAlert();';?>">
     				<?php echo lang('v_cleanPush')?></a> </td> 
     				
     			</tr> 

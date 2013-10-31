@@ -54,6 +54,26 @@ class report extends CI_Controller {
 		$this->common->loadHeaderWithDateControl ( lang ( 'getui_data' ) );
 		$this->load->view ( 'plugin/getui/report', $data );
 	}
+
+
+function getRecords(){
+		$data = array ();
+		
+		$data ['appid'] = $_GET ['appid'];
+		$uid=$this->common->getUserId();
+		$userinfo = $this->plugins->getUserinfo($uid);
+		$userKey = $userinfo[0]['user_key'];
+		$userSecret = $userinfo[0]['user_secret'];
+		$data['user_key']=$userKey;
+		$data['user_secret']=$userSecret;
+		$pushrecords = $this->common->curl_post(SERVER_BASE_URL."/index.php?/api/igetui/getGetuiRecords",$data);
+		// $pushrecords['appid']=$_GET['appid'];
+		$arr =json_decode($pushrecords);
+		$arr->appid=$_GET['appid'];
+		echo json_encode($arr);
+
+}
+
 	
 	function getdata() {
 		$appid = $_GET ['appid'];
