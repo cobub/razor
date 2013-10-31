@@ -60,10 +60,10 @@ $language = $this->config->item('language');
 					
     				<td><?php echo $row['androidlist'];?></td> 
     				<?php  if($row['isActive']){ ?>
-    				<td><a href="<?php echo site_url()?>/plugin/getui/activate/checkInfo?appName=<?php echo $row['androidlist']?>" ><?php echo  lang('v_checkKeys')?></a></td>
+    				<td><a href="<?php echo site_url()?>/plugin/getui/activate/checkInfo?appName=<?php echo $row['androidlist']?>&appid=<?php echo $row['product_id']?>" ><?php echo  lang('v_checkKeys')?></a></td>
     				<?php }else{ 
     				?>
-    				<td><a href="<?php echo site_url()?>/plugin/getui/activate/index?appName=<?php echo $row['androidlist']?>" ><?php echo lang('v_active')?></a> </td> 
+    				<td><a href="<?php echo site_url()?>/plugin/getui/activate/index?appName=<?php echo $row['androidlist']?>&appid=<?php echo $row['product_id']?>" ><?php echo lang('v_active')?></a> </td> 
     				<?php }?>
     				<td><a href="<?php echo ($isAuth==1&&$flag==1)?site_url().'/plugin/getui/applist/pushInfo?type=0&appName='.$row['androidlist']:'javascript:userDisableAlert();';?>">
     				<?php echo lang('v_push')?>  </a></td> 
