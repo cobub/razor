@@ -43,26 +43,6 @@
     				</tr> 
 			</thead> 
 			<tbody id='tbody'>
-<!-- 
-				<?php 
-
-			 	if(isset($pushrecords)):
-				for($i=0;$i<count($pushrecords);$i++)
-				{
-			 		$row = $pushrecords[$i];
-
-			 	?>
-				<tr>
-					
-    				<tr><td><?php echo $row->push_title;?></td>
-						<td><?php echo $row->push_content;?></td>
-						<td><?php echo $row->push_time;?></td>
-						<td><?php 
-						echo $row->push_type;?></td>
-					<td><a href ="<?php echo site_url()?>/plugin/getui/report/gettaskdata?taskid=<?php echo $row->taskid?>&appid=<?php echo $appid?>">详细</a></td>
-
-    				
-    			</tr>   <?php } endif;?> -->
 
 
 
@@ -70,9 +50,9 @@
 			</tbody>
 
 			</table>
-			<footer>
+			<footer><div style='float:right;'>
 				<input id="perbutton" type='button' value ='上一页' onclick='perpage()'/><label id='pagenum'></label><input id='nextbutton' type='button' value='下一页' onclick='nextpage()'/>
-			</footer>
+			</div></footer>
 
 	</article>
 
