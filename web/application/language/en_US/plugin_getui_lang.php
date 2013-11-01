@@ -72,3 +72,5 @@ $lang['getui_down']='Download';
 $lang['getui_cancel']='Cancel';
 $lang['getui_appdown_url']='Application download address*';
 $lang['getui_app_name']="Application name *";
+$lang['getui_provider'] = "WBTECH";
+$lang['getui_report'] = 'Igetui Report';

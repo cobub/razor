@@ -73,3 +73,5 @@ $lang['getui_down']='下载';
 $lang['getui_cancel']='取消';
 $lang['getui_appdown_url']='应用下载地址*';
 $lang['getui_app_name']="应用名称*";
+$lang['getui_provider'] = "南京西桥科技";
+$lang['getui_report'] = '个推报表';
