@@ -27,8 +27,8 @@
 
 		       </div>
 		        <div id="opennet" name="show1" style="height:130px; display:none;">
-							<div style="height:40px;margin-top:20px;margin-left:20px;">
-								<input id="opencheck" name="opencheck" type="checkbox" lang="1" checked="checked" style="padding-left:20px;"><?php echo lang('getui_open_url')?></input>
+							<div  type="hidden" type="hidden" style="height:40px;margin-top:20px;margin-left:20px;">
+								<input type="hidden" id="opencheck" name="opencheck" type="checkbox" lang="1" checked="checked" style="padding-left:20px;"></input>
 							</div>
 							<div style="height:70px;line-height:30px;">
 								<label ><span style="color: red;">*</span><?php echo  lang('getui_neturl');?></label>
