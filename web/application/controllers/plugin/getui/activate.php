@@ -46,6 +46,7 @@ class Activate extends CI_Controller {
 		$appName = $this->input->post ( "appname" );
 		$appid = $this->input->post ( "appid" );
 		$this->data ['appName'] = $appName;
+		$this->data ['appid'] = $appid;
 		
 		if ($this->form_validation->run ()) {
 			$app_identifier = $this->input->post ( "packagename" );
