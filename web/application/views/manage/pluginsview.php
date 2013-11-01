@@ -47,7 +47,7 @@ a:hover {text-decoration: underline }
 								href="<?php echo site_url().'/manage/pluginlist/disablePlug/'.$plugin['identifier'];?>" ><?php echo lang('v_plugins_forbidden')?></a>
 						<?php endif;?>
 						</td>
-							<td><p style="font:14px arial, sans-serif;"><?php echo $plugin['description']?></p><br /><?php echo lang('v_plugins_version')?><?php echo $plugin['version']?>&nbsp &nbsp|&nbsp &nbsp<?php echo lang('v_plugins_provider')?>&nbsp<a href="<?php echo (!isset($plugin['provider_url'])?$plugin['provider_url']:'http://dev.cobub.com') ?>" target="_blank"><?php echo $plugin['provider']?></a>&nbsp &nbsp |&nbsp &nbsp<a href="<?php echo $plugin['detail']?>" target="_blank"><?php echo lang('plg_use_instruct')?></a>&nbsp &nbsp|&nbsp &nbsp<?php echo $plugin['date']?></td>
+							<td><p style="font:14px arial, sans-serif;"><?php echo $plugin['description']?></p><br /><?php echo lang('v_plugins_version')?><?php echo $plugin['version']?>&nbsp &nbsp|&nbsp &nbsp<?php echo lang('v_plugins_provider')?>&nbsp<a href="<?php echo $plugin['provider_url'] ?>" target="_blank"><?php echo $plugin['provider']?></a>&nbsp &nbsp |&nbsp &nbsp<a href="<?php echo $plugin['detail']?>" target="_blank"><?php echo lang('plg_use_instruct')?></a>&nbsp &nbsp|&nbsp &nbsp<?php echo $plugin['date']?></td>
 						</tr>
 						<?php }?>
 					<?php endif;?>

@@ -75,3 +75,4 @@ $lang['getui_appdown_url']='应用下载地址*';
 $lang['getui_app_name']="应用名称*";
 $lang['getui_provider'] = "南京西桥科技";
 $lang['getui_report'] = '个推报表';
+$lang['getui_description']='个推插件 是Cobub Razor官方基于个推开发的一款推送插件.它集成了个推的推送功能与Cobub Razor提供的Tag功能，更加方便，快捷，精准的进行推送。';

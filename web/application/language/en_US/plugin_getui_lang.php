@@ -74,3 +74,4 @@ $lang['getui_appdown_url']='Application download address*';
 $lang['getui_app_name']="Application name *";
 $lang['getui_provider'] = "WBTECH";
 $lang['getui_report'] = 'Igetui Report';
+$lang['getui_description']='A push Cobub Razor official plugin is based on a push to push the development of a plug which incorporates a push push function provided with Cobub Razor Tag function, more convenient, fast and accurate a push.';

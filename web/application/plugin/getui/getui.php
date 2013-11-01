@@ -12,7 +12,7 @@ class getui  extends CI_Model implements pluginInterface {
 				'identifier' => 'igetui',
 				'name' => lang('getui'),
 				'level' => 1,
-				'description' => '个推插件 是Cobub Razor官方基于个推开发的一款推送插件.它集成了个推的推送功能与Cobub Razor提供的Tag功能，更加方便，快捷，精准的进行推送。',
+				'description' => lang('getui_description'),
 				'version' => '0.1',
 				'date' => '2013-08-30',
 				'provider' => lang('getui_provider'),
@@ -21,7 +21,8 @@ class getui  extends CI_Model implements pluginInterface {
 				'menus' => $this->getMenus () 
 		);
 	}
-	
+	// '个推插件 是Cobub Razor官方基于个推开发的一款推送插件.
+	//它集成了个推的推送功能与Cobub Razor提供的Tag功能，更加方便，快捷，精准的进行推送。',
 	function getMenus() {
 		// $sideBars = "<h3>个推</h3>
   //           <ul class='toggle'>
