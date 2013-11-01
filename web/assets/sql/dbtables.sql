@@ -638,27 +638,28 @@ INSERT INTO `umsinstall_platform` (`id`, `name`) VALUES
 
 
 INSERT INTO `umsinstall_product_category` (`id`, `name`, `level`, `parentid`) VALUES
-(1, "报刊杂志", 1, 0),
-(2, "社交", 1, 0),
-(3, "商业", 1, 0),
-(4, "财务", 1, 0),
-(5, "参考", 1, 0),
-(6, "导航", 1, 0),
-(7, "工具", 1, 0),
-(8, "健康健美", 1, 0),
-(9, "教育", 1, 0),
-(10, "旅行", 1, 0),
-(11, "摄影与录像", 1, 0),
-(12, "生活", 1, 0),
-(13, "体育", 1, 0),
-(14, "天气", 1, 0),
-(15, "图书", 1, 0),
-(16, "效率", 1, 0),
-(17, "新闻", 1, 0),
-(18, "音乐", 1, 0),
-(19, "医疗", 1, 0),
-(32, "娱乐", 1, 0),
-(33, "游戏", 1, 0);
+(1, "UMSINSTALL_NEWSPAPER", 1, 0),
+(2, "UMSINSTALL_SOCIAL", 1, 0),
+(3, "UMSINSTALL_BUSINESS", 1, 0),
+(4, "UMSINSTALL_FINANCIALBUSINESS", 1, 0),
+(5, "UMSINSTALL_REFERENCE", 1, 0),
+(6, "UMSINSTALL_NAVIGATION", 1, 0),
+(7, "UMSINSTALL_INSTRUMENT", 1, 0),
+(8, "UMSINSTALL_HEALTHFITNESS", 1, 0),
+(9, "UMSINSTALL_EDUCATION", 1, 0),
+(10, "UMSINSTALL_TRAVEL", 1, 0),
+(11, "UMSINSTALL_PHOTOVIDEO", 1, 0),
+(12, "UMSINSTALL_LIFE", 1, 0),
+(13, "UMSINSTALL_SPORTS", 1, 0),
+(14, "UMSINSTALL_WEATHER", 1, 0),
+(15, "UMSINSTALL_BOOKS", 1, 0),
+(16, "UMSINSTALL_EFFICIENCY", 1, 0),
+(17, "UMSINSTALL_NEWS", 1, 0),
+(18, "UMSINSTALL_MUSIC", 1, 0),
+(19, "UMSINSTALL_MEDICAL", 1, 0),
+(32, "UMSINSTALL_ENTERTAINMENT", 1, 0),
+(33, "UMSINSTALL_GAME", 1, 0);
+
 
 -- --------------------------------------------------------
 

@@ -81,7 +81,10 @@
 							{
 								?>							
 							<option value="<?php echo $row ;?>" <?php if($row=="en_US") {echo "selected";} ?>>
-									<?php if($row=="en_US"){ echo "English(".$row.")";} if($row=="zh_CN"){echo "简体中文(".$row.")";};
+									<?php  
+									if($row=="de_DE"){echo "Deutsch(".$row.")";};
+									if($row=="en_US"){echo "English(".$row.")";};
+									if($row=="zh_CN"){echo "简体中文(".$row.")";};
 									if($row=="ja_JP"){echo "日本語(".$row.")";};?></option>
 								<?php 
 							}
