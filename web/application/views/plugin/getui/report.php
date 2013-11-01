@@ -297,7 +297,7 @@ $(document).ready(function() {
 
 							
 
-							str = str+"<tr><td>"+newdata.dataList[j].date+"</td><td>"+userdata.dataList[j].datas[i]+"</td><td>"+onlinedata.dataList[j].datas[i]+"</td><td>"+pushdata.dataList[j].datas[i]+"</td><td>"+receivedata.dataList[j].datas[i]+"</td><td>"+clickdata.dataList[j].datas[i]+"</td></tr>";
+							str = "<tr><td>"+newdata.dataList[j].date+"</td><td>"+userdata.dataList[j].datas[i]+"</td><td>"+onlinedata.dataList[j].datas[i]+"</td><td>"+pushdata.dataList[j].datas[i]+"</td><td>"+receivedata.dataList[j].datas[i]+"</td><td>"+clickdata.dataList[j].datas[i]+"</td></tr>"+str;
 						}
 						tbody.innerHTML=str;
 					}
