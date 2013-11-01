@@ -15,7 +15,8 @@ class getui  extends CI_Model implements pluginInterface {
 				'description' => '个推插件 是Cobub Razor官方基于个推开发的一款推送插件.它集成了个推的推送功能与Cobub Razor提供的Tag功能，更加方便，快捷，精准的进行推送。',
 				'version' => '0.1',
 				'date' => '2013-08-30',
-				'provider' => '<a href = "http://www.wbkit.com" target="_blank">南京西桥科技</a>',
+				'provider' => '南京西桥科技',
+				'provider_url' => 'http://www.wbkit.com',
 				'detail'=> 'http://dev.cobub.com/users/index.php?/help/getui',
 				'menus' => $this->getMenus () 
 		);
