@@ -149,6 +149,9 @@ function renderCountryCharts(myurl)
 			var obj = data.activeUserData;
 			for(i=0;i<obj.length;i++)
 			{
+			    if (obj[i].country=='unknown') {
+			        obj[i].country = '<?php echo lang('t_unknow')?>'
+			    }
 				countryActiveUserCategories.push(obj[i].country);
 				countryActiveUserData.push(parseInt(obj[i].access));
 				countryActiveUserPercentCategories.push(Math.round(obj[i].percentage*1000)/10);
@@ -157,6 +160,9 @@ function renderCountryCharts(myurl)
 			var objNewUserData = data.newUserData;
 			for(i=0;i<objNewUserData.length;i++)
 			{
+			    if (objNewUserData[i].country=='unknown') {
+                    objNewUserData[i].country = '<?php echo lang('t_unknow')?>'
+                }
 				countryNewUserCategories.push(objNewUserData[i].country);
 				countryNewUserData.push(parseInt(objNewUserData[i].access));
 				countryNewUserPercentCategories.push(Math.round(objNewUserData[i].percentage*1000)/10);

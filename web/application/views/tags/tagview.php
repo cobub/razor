@@ -339,7 +339,7 @@ $("#btn_region").click(function()
 
 $("#btn_submit").click(function()
 
-{
+{	
 	getCurrentTagList();
 	document.getElementById("data_for_submit").value = JSON.stringify(all_tag_list);
 	document.getElementById("product_id").value = product_id;
@@ -348,7 +348,7 @@ $("#btn_submit").click(function()
 	var tag_type="all";
 	var name=document.getElementById("select_saved_tags").value;
 	
-
+	
 	if($('input[name="user_radio"]:checked').val()=="1")
 	{
 		//return;
@@ -358,6 +358,7 @@ $("#btn_submit").click(function()
     if(name != "<?php echo lang('tag_all_user');?>")
     {
         tag_type = "custom";
+        
     }
     if (name == "<?php echo lang('tag_all_user');?>")
     {
@@ -367,8 +368,9 @@ $("#btn_submit").click(function()
             if(jQuery.inArray(v,v_l)==-1)
             {
             	//alert(k+":"+v);
+
             	tag_type = "custom";
-        	    return;
+        	    //return;
             }
             });
 
@@ -382,7 +384,8 @@ $("#btn_submit").click(function()
             {
             	//alert(k+":"+v);
             	tag_type = "custom";
-        	return;}
+        	//return;
+        	}
             });
         }
         if(tag_type!="custom")
@@ -395,17 +398,23 @@ $("#btn_submit").click(function()
             if(jQuery.inArray(v,r_l)==-1)
             {
                 //alert(k+":"+v);
-            	tag_type = "custom";
-                return;
+            	tag_type = "custom"; 
+               // return;
             }
             });
 
         }
+       // alert(tag_type);
        
     }
+    
+     //var radio=document.getElementById("radio_all");
+    // if(radio.checked){
+     //	tag_type='all';
+    // }
         
     document.getElementById("tag_type").value = tag_type;
-	
+    alert(tag_type);
 	
 	if(document.getElementById('checkbox_save').checked)
 	  {

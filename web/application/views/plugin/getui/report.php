@@ -42,34 +42,18 @@
     				<th><?php  echo "操作";?></th> 
     				</tr> 
 			</thead> 
-			<tbody id=''>
-
-				<?php 
-
-			 	if(isset($pushrecords)):
-				for($i=0;$i<count($pushrecords);$i++)
-				{
-			 		$row = $pushrecords[$i];
-
-			 	?>
-				<tr>
-					
-    				<tr><td><?php echo $row->push_title;?></td>
-								<td><?php echo $row->push_content;?></td>
-							<td><?php echo $row->push_time;?></td>
-						<td><?php 
-						echo $row->push_type;?></td>
-					<td><a href ="<?php echo site_url()?>/plugin/getui/report/gettaskdata?taskid=<?php echo $row->taskid?>&appid=<?php echo $appid?>">详细</a></td>
-
-    				
-    			</tr> 
-			<?php } endif;?>
+			<tbody id='tbody'>
 
 
 
 						
 			</tbody>
+
 			</table>
+			<footer><div style='float:right;'>
+				<input id="perbutton" type='button' value ='上一页' onclick='perpage()'/><label id='pagenum'></label><input id='nextbutton' type='button' value='下一页' onclick='nextpage()'/>
+			</div></footer>
+
 	</article>
 
 
@@ -111,6 +95,78 @@ $("ul.tabs2 li").click(function() {
 </script>
 
 <script type="text/javascript">
+var dataofpush=[] ;
+var page=0;
+
+$(document).ready(function(){
+
+	var appid=document.getElementById('appid').value;
+	var papgenum = document.getElementById('pagenum');
+	var myurl="<?php echo site_url();?>/plugin/getui/report/getRecords?appid="+appid;
+
+	jQuery.getJSON(myurl, null, function(newdata) {
+		var tbody = document.getElementById('tbody');
+		var str="";
+
+		dataofpush = newdata;
+		for(var i=0;i<newdata.records.length&& i<10;i++){
+			str = str+"<tr><td>"+newdata.records[i].push_title+"</td><td>"+newdata.records[i].push_content+"</td><td>"+newdata.records[i].push_time+"</td><td>"+newdata.records[i].push_type+"</td><td><a href='<?php echo site_url()?>/plugin/getui/report/gettaskdata?appid="+newdata.appid+"&taskid="+newdata.records[i].taskid+"'>详细</a></td></tr>";
+					
+		}
+
+		tbody.innerHTML=str;
+		papgenum.innerHTML=page+1;
+
+	});
+
+});
+
+function nextpage(){
+	
+
+var tbody = document.getElementById('tbody');
+		var str="";
+		var j=0;
+		page++;
+		if(page>=dataofpush.records.length/10){
+			page= parseInt(dataofpush.records.length/10);
+			return;
+		}
+		
+		for(var i=page*10;i<dataofpush.records.length && j<10;i++){
+			str = str+"<tr><td>"+dataofpush.records[i].push_title+"</td><td>"+dataofpush.records[i].push_content+"</td><td>"+dataofpush.records[i].push_time+"</td><td>"+dataofpush.records[i].push_type+"</td><td><a href='<?php echo site_url()?>/plugin/getui/report/gettaskdata?appid="+dataofpush.appid+"&taskid="+dataofpush.records[i].taskid+"'>详细</a></td></tr>";
+					j++;
+		}
+
+		tbody.innerHTML=str;
+		var papgenum = document.getElementById('pagenum');
+		papgenum.innerHTML=page+1;
+
+}
+function perpage(){
+	
+		if(page<=0){
+			page=0;
+			return;
+		}
+		page--;
+	var tbody = document.getElementById('tbody');
+		var str="";
+
+		
+		var j=0
+		for(var i=page*10;i<dataofpush.records.length && j<10;i++){
+			str = str+"<tr><td>"+dataofpush.records[i].push_title+"</td><td>"+dataofpush.records[i].push_content+"</td><td>"+dataofpush.records[i].push_time+"</td><td>"+dataofpush.records[i].push_type+"</td><td><a href='<?php echo site_url()?>/plugin/getui/report/gettaskdata?appid="+dataofpush.appid+"&taskid="+dataofpush.records[i].taskid+"'>详细</a></td></tr>";
+					j++;
+		}
+
+		tbody.innerHTML=str;
+		var papgenum = document.getElementById('pagenum');
+		papgenum.innerHTML=page+1;
+
+}
+
+
 var chart;
 var options;
 var type="user";
@@ -241,7 +297,7 @@ $(document).ready(function() {
 
 							
 
-							str = str+"<tr><td>"+newdata.dataList[j].date+"</td><td>"+userdata.dataList[j].datas[i]+"</td><td>"+onlinedata.dataList[j].datas[i]+"</td><td>"+pushdata.dataList[j].datas[i]+"</td><td>"+receivedata.dataList[j].datas[i]+"</td><td>"+clickdata.dataList[j].datas[i]+"</td></tr>";
+							str = "<tr><td>"+newdata.dataList[j].date+"</td><td>"+userdata.dataList[j].datas[i]+"</td><td>"+onlinedata.dataList[j].datas[i]+"</td><td>"+pushdata.dataList[j].datas[i]+"</td><td>"+receivedata.dataList[j].datas[i]+"</td><td>"+clickdata.dataList[j].datas[i]+"</td></tr>"+str;
 						}
 						tbody.innerHTML=str;
 					}

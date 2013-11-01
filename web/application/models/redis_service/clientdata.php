@@ -25,6 +25,12 @@ class Clientdata extends CI_Model {
     }
 
     function addClientdata($clientdata) {
+    	$productId = $this -> utility -> getProductIdByKey($clientdata -> appkey);
+    	//For realtime User sessions
+    	$key = "razor_r_u_p_" . $productId . "_" . date('Y-m-d-H-i', time());
+    	$this -> redis -> hset($key, array($data["deviceid"] => $productId));
+    	$this -> redis -> expire($key, 30 * 60);
+    	
         $ip = $this -> utility -> getOnlineIP();
         $nowtime = date('Y-m-d H:i:s');
         if (isset($clientdata -> time)) {
@@ -64,9 +70,9 @@ class Clientdata extends CI_Model {
         );
         $latitude = isset($clientdata -> latitude) ? $clientdata -> latitude : '';
         $choose = $this -> config -> item('get_geographical');
-        $data["country"] = '';
-        $data["region"] = '';
-        $data["city"] = '';
+        $data["country"] = 'unknown';
+        $data["region"] = 'unknown';
+        $data["city"] = 'unknown';
         $data["street"] = '';
         $data["streetno"] = '';
         $data["postcode"] = '';
@@ -79,7 +85,7 @@ class Clientdata extends CI_Model {
                 $regionInfo = $this -> ipinfodb -> getregioninfobyip($ip);
             }
 
-            $productId = $this -> utility -> getProductIdByKey($clientdata -> appkey);
+            
             if (!empty($regionInfo)) {
                 $data["country"] = $regionInfo['country'];
                 if ($regionInfo['country'] == null || $regionInfo['country'] == "") {
@@ -141,10 +147,7 @@ class Clientdata extends CI_Model {
         //$timezonestime = date ( 'Y-m-d H:i:m', $timezonestimestamp );
         $this -> redis -> lpush("razor_clientdata", serialize($data));
 
-        //For realtime User sessions
-        $key = "razor_r_u_p_" . $productId . "_" . date('Y-m-d-H-i', time());
-        $this -> redis -> hset($key, array($data["deviceid"] => $productId));
-        $this -> redis -> expire($key, 30 * 60);
+        
 
         $this -> processor -> process();
     }

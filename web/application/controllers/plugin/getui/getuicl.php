@@ -45,9 +45,9 @@ class getuicl extends CI_Controller {
 		$this->data ['mastersecret'] = $mastersecret;
 		$this->data['tagvalue']=$tag;
 
-		$this->data['tagtype']=false;
+		$this->data['tagtype']=0;
 		if($tagtype=='all'){
-			$this->data['tagtype']=true;
+			$this->data['tagtype']=1;
 		}
 		
 		$this->common->loadHeader ( lang ( 'getui' ) );

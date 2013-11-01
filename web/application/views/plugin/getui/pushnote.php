@@ -204,9 +204,9 @@ $("#popPicture").uploadify({
 								var filename = response.substring(response.lastIndexOf("/")+1);
 								var baseurl="<?php echo base_url();?>uploads/";
 								// alert(baseurl);
-								document.getElementById('popPicture_url').value = "<?php echo base_url();?>uploads/"+filename;
+								document.getElementById('popPicture_url').value = baseurl+filename;
 								
-								$('#pop_url_img').attr("src","<?php echo base_url();?>uploads/"+filename);
+								$('#pop_url_img').attr("src",baseurl+filename);
 								
 							},
 	 'onError'   : function(event, ID, fileObj){
@@ -234,8 +234,9 @@ $("#logo_upload").uploadify({
 		'onComplete': function(event, ID, fileObj, response, data) {
 								var filename = response.substring(response.lastIndexOf("/")+1);
 								var baseurl="<?php echo base_url();?>uploads/";
-								document.getElementById('logo_url').value = "<?php echo base_url();?>uploads/"+filename;
-								$('#logo_url_img').attr("src","<?php echo base_url();?>uploads/"+filename);
+							
+								document.getElementById('logo_url').value = baseurl+filename;
+								$('#logo_url_img').attr("src",baseurl+filename);
 								
 							},
 	 'onError'   : function(event, ID, fileObj){
@@ -305,6 +306,34 @@ $("#logo_upload").uploadify({
 		var apkname = document.getElementById('apkname').value;
 
 	
+		if(selectvalue==3){
+			if(popTitle==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '弹框标题不可为空';?>"; 
+				return;
+			}
+			if(showmessage==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '弹框内容不可为空';?>"; 
+				return;
+			}
+			if(popFirstButton==''||popSecondButton==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '按钮名称不可为空';?>"; 
+				return;
+			}
+			if(apkurladdress==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '应用地址不可为空';?>"; 
+				return;
+			}
+			if(apkname==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '应用名称不可为空';?>"; 
+				return;
+			}
+		}
+
 		if(document.getElementById('offline2').checked){
 			offlined=false;
 			offlineTime='';

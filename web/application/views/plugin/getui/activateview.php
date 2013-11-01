@@ -24,6 +24,10 @@
 						<label><?php echo lang('v_appName') ?></label><?php echo form_error('appname'); ?>
 						<input
 							type="text" id='appname' name='appname'   readonly="readonly" value= "<?php echo $appName?>">
+							<input
+							
+
+							type="hidden" id='appid' name='appid'   readonly="readonly" value= "<?php echo $appid?>">
 					
 					</fieldset>
 
