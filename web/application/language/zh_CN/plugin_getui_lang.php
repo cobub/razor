@@ -59,7 +59,6 @@ $lang['push_success']='推送成功';
 $lang['push_fail']='推送失败';
 $lang['current_user_num']='当前在线用户数';
 $lang['getui_application_info'] = '应用信息';
-
 $lang['getui_down_app']='下载应用';
 $lang['getui_open_url']='打开网页前需要用户确认';
 $lang['getui_dialog_title']='弹框标题';
@@ -76,3 +75,4 @@ $lang['getui_app_name']="应用名称*";
 $lang['getui_provider'] = "南京西桥科技";
 $lang['getui_report'] = '个推报表';
 $lang['getui_description']='个推插件 是Cobub Razor官方基于个推开发的一款推送插件.它集成了个推的推送功能与Cobub Razor提供的Tag功能，更加方便，快捷，精准的进行推送。';
+$lang['getui_detail_url']='http://dev.cobub.com/users/index.php?/help/getui';
