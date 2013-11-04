@@ -414,7 +414,7 @@ $("#btn_submit").click(function()
     // }
         
     document.getElementById("tag_type").value = tag_type;
-    alert(tag_type);
+    // alert(tag_type);
 	
 	if(document.getElementById('checkbox_save').checked)
 	  {
