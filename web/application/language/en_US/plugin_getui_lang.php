@@ -76,3 +76,4 @@ $lang['getui_provider'] = "WBTECH";
 $lang['getui_report'] = 'Igetui Report';
 $lang['getui_description']='A push Cobub Razor official plugin is based on a push to push the development of a plug which incorporates a push push function provided with Cobub Razor Tag function, more convenient, fast and accurate a push.';
 $lang['getui_detail_url']='http://dev.cobub.com/users/en/index.php?/help/getui';
+$lang['getui_provider_url']='http://www.wbkit.com/index.php?lang=en';
