@@ -17,7 +17,7 @@ class getui  extends CI_Model implements pluginInterface {
 				'date' => '2013-08-30',
 				'provider' => lang('getui_provider'),
 				'provider_url' => 'http://www.wbkit.com',
-				'detail'=> 'http://dev.cobub.com/users/index.php?/help/getui',
+				'detail'=> lang('getui_detail_url'),
 				'menus' => $this->getMenus () 
 		);
 	}
