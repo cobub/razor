@@ -1,4 +1,4 @@
-<section id="main" class="column" >
+<section id="main" class="column"  style='height:1500px;' >
 				<h4 class="alert_warning" style='display:none' id="msg"></h4>
 			<article class="module width_full">
 			<header><h3><?php echo  lang('getui_transmission');?></h3>	

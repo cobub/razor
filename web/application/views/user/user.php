@@ -1,4 +1,4 @@
-<section id="main" class="column">
+<section id="main" class="column"  style='height:1500px;'>
 		
 <h4 class="alert_info" id='msg' style="display: none;"></h4>
 		
