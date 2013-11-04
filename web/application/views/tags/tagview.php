@@ -21,7 +21,7 @@ echo lang ( 'l_cobubRazor' )?></title>
 	type="text/javascript"></script>
 
 
-<section id="main" class="column">
+<section id="main" class="column"  style='height:1500px;'>
     <article class="module width_full" >
     <header>
 			<h3 class="tabs_involved">
