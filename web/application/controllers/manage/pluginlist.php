@@ -42,7 +42,9 @@ class Pluginlist extends CI_Controller {
 			$this->data ['puserkey'] = $userKeys->user_key;
 			$this->data ['pusersecret'] = $userKeys->user_secret;
 			///all use plugins
-			$json = $this->pluginlistmodel->getAllPlugins ();
+			
+			$language=$this->config->item('language');
+			$json = $this->pluginlistmodel->getAllPlugins ($language);
 			$this->data ['allplugins'] = json_decode ( $json );
 			///my plug_ins
 			$this->data ['myPlugins'] = $this->pluginlistmodel->getMyPlugins ( $userId );

@@ -38,10 +38,13 @@ class Pluginlistmodel extends CI_Model {
 	}
 	
 	// //get serve all plugins
-	function getAllPlugins() {
+	function getAllPlugins($language) {
+
 		$url = SERVER_BASE_URL."/index.php?/api/plugin/getPluginList";
-		$response = $this->common->curl_post ( $url, null );
-		
+		$datas = array (
+				'language' => $language
+		);
+		$response = $this->common->curl_post ( $url, $datas );
 		return $response;
 	}
 	
