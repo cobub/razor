@@ -2,7 +2,7 @@
 $language = $this->config->item('language');
 ?>
 
-<section id="main" class="column">
+<section id="main" class="column" style='height:1500px;'>
 			<?php if(isset($message)):?>
 		<h4 class="alert_success"><?php echo $message;?></h4>		
 		<?php endif;?>	
