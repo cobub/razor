@@ -1001,3 +1001,25 @@ $lang["v_rpt_realtime_transtrte_subtitle"]="目标事件达成(每分钟)";
 $lang["v_rpt_realtime_transtrte_tabtitle"]="目标事件达成(30分钟)";
 $lang["v_rpt_realtime_event_in30minute"]="事件(30分钟)";
 
+$lang['UMSINSTALL_NEWSPAPER']='报刊杂志';
+$lang['UMSINSTALL_SOCIAL']='社交';
+$lang['UMSINSTALL_BUSINESS']='商业';
+$lang['UMSINSTALL_FINANCIALBUSINESS']='财务';
+$lang['UMSINSTALL_REFERENCE']='参考';
+$lang['UMSINSTALL_NAVIGATION']='导航';
+$lang['UMSINSTALL_INSTRUMENT']='工具';
+$lang['UMSINSTALL_HEALTHFITNESS']='健康健美';
+$lang['UMSINSTALL_EDUCATION']='教育';
+$lang['UMSINSTALL_TRAVEL']='旅行';
+$lang['UMSINSTALL_PHOTOVIDEO']='摄影与录像';
+$lang['UMSINSTALL_LIFE']='生活';
+$lang['UMSINSTALL_SPORTS']='体育';
+$lang['UMSINSTALL_WEATHER']='天气';
+$lang['UMSINSTALL_BOOKS']='图书';
+$lang['UMSINSTALL_EFFICIENCY']='效率';
+$lang['UMSINSTALL_NEWS']='新闻';
+$lang['UMSINSTALL_MUSIC']='音乐';
+$lang['UMSINSTALL_MEDICAL']='医疗';
+$lang['UMSINSTALL_ENTERTAINMENT']='娱乐';
+$lang['UMSINSTALL_GAME']='游戏';
+

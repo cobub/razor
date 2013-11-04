@@ -36,7 +36,7 @@ $description = array (
 			<?php if(isset($category)):?>
 			<?php foreach($category->result() as $row) {?>
 					<option value="<?php echo $row->id; ?>"
-						<?php if(isset($selectcategory)&&$selectcategory== $row->id){echo "Selected";} ?>><?php echo $row->name;?></option>
+						<?php if(isset($selectcategory)&&$selectcategory== $row->id){echo "Selected";} ?>><?php echo lang($row->name);?></option>
 			<?php } endif;?>
 			</select>
 			</fieldset>

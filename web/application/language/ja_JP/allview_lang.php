@@ -893,4 +893,25 @@ $lang['v_plugins_new_version']='新しいバージョンが入手可能です。
 $lang['v_element_edit']='編集';
 $lang['v_element_trash']='削除';
 
+$lang['UMSINSTALL_NEWSPAPER']='新聞や雑誌';
+$lang['UMSINSTALL_SOCIAL']='ソーシャル';
+$lang['UMSINSTALL_BUSINESS']='ビジネス';
+$lang['UMSINSTALL_FINANCIALBUSINESS']='金融の';
+$lang['UMSINSTALL_REFERENCE']='リファレンス';
+$lang['UMSINSTALL_NAVIGATION']='ナビゲーション';
+$lang['UMSINSTALL_INSTRUMENT']='ツール';
+$lang['UMSINSTALL_HEALTHFITNESS']='健康とフィットネス';
+$lang['UMSINSTALL_EDUCATION']='教育';
+$lang['UMSINSTALL_TRAVEL']='旅行';
+$lang['UMSINSTALL_PHOTOVIDEO']='写真とビデオ';
+$lang['UMSINSTALL_LIFE']='人生';
+$lang['UMSINSTALL_SPORTS']='スポーツの';
+$lang['UMSINSTALL_WEATHER']='天気';
+$lang['UMSINSTALL_BOOKS']='図書';
+$lang['UMSINSTALL_EFFICIENCY']='効率性';
+$lang['UMSINSTALL_NEWS']='ニュース';
+$lang['UMSINSTALL_MUSIC']='音楽';
+$lang['UMSINSTALL_MEDICAL']='メディカル';
+$lang['UMSINSTALL_ENTERTAINMENT']='エンターテインメント';
+$lang['UMSINSTALL_GAME']='ゲーム';
 

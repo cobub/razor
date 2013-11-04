@@ -859,3 +859,25 @@ $lang["v_rpt_realtime_areas_region"] = "Region";
 
 $lang["v_rpt_realtime_transrate_title"] = "Echtzeit Konvertierungen";
 $lang["v_rpt_realtime_event_title"] = "Echtzeit events";
+
+$lang['UMSINSTALL_NEWSPAPER']='Newspapers and magazines';
+$lang['UMSINSTALL_SOCIAL']='Social';
+$lang['UMSINSTALL_BUSINESS']='Business';
+$lang['UMSINSTALL_FINANCIALBUSINESS']='Financial Business';
+$lang['UMSINSTALL_REFERENCE']='Reference';
+$lang['UMSINSTALL_NAVIGATION']='Navigation';
+$lang['UMSINSTALL_INSTRUMENT']='Instrument';
+$lang['UMSINSTALL_HEALTHFITNESS']='Health and fitness';
+$lang['UMSINSTALL_EDUCATION']='Education';
+$lang['UMSINSTALL_TRAVEL']='Travel';
+$lang['UMSINSTALL_PHOTOVIDEO']='Photography and Video';
+$lang['UMSINSTALL_LIFE']='Life';
+$lang['UMSINSTALL_SPORTS']='Sports';
+$lang['UMSINSTALL_WEATHER']='Weather';
+$lang['UMSINSTALL_BOOKS']='Books';
+$lang['UMSINSTALL_EFFICIENCY']='Efficiency';
+$lang['UMSINSTALL_NEWS']='News';
+$lang['UMSINSTALL_MUSIC']='Music';
+$lang['UMSINSTALL_MEDICAL']='Medical';
+$lang['UMSINSTALL_ENTERTAINMENT']='Entertainment';
+$lang['UMSINSTALL_GAME']='Game';

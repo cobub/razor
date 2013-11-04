@@ -715,27 +715,7 @@ class Installation extends CI_Controller
         $data=fread($fh,filesize($dir));//read file
         if($language=='zh_CN')
         {
-            $data=str_replace('UMSINSTALL_NEWSPAPER', '报刊杂志', $data);
-            $data=str_replace('UMSINSTALL_SOCIAL', '社交', $data);
-            $data=str_replace('UMSINSTALL_BUSINESS', '商业', $data);
-            $data=str_replace('UMSINSTALL_FINANCIALBUSINESS', '财务', $data);
-            $data=str_replace('UMSINSTALL_REFERENCE', '参考', $data);
-            $data=str_replace('UMSINSTALL_NAVIGATION', '导航', $data);
-            $data=str_replace('UMSINSTALL_INSTRUMENT', '工具', $data);
-            $data=str_replace('UMSINSTALL_HEALTHFITNESS', '健康健美', $data);
-            $data=str_replace('UMSINSTALL_EDUCATION', '教育', $data);
-            $data=str_replace('UMSINSTALL_TRAVEL', '旅行', $data);
-            $data=str_replace('UMSINSTALL_PHOTOVIDEO', '摄影与录像', $data);
-            $data=str_replace('UMSINSTALL_LIFE', '生活', $data);
-            $data=str_replace('UMSINSTALL_SPORTS', '体育', $data);
-            $data=str_replace('UMSINSTALL_WEATHER', '天气', $data);
-            $data=str_replace('UMSINSTALL_BOOKS', '图书', $data);
-            $data=str_replace('UMSINSTALL_EFFICIENCY', '效率', $data);
-            $data=str_replace('UMSINSTALL_NEWS', '新闻', $data);
-            $data=str_replace('UMSINSTALL_MUSIC', '音乐', $data);
-            $data=str_replace('UMSINSTALL_MEDICAL', '医疗', $data);
-            $data=str_replace('UMSINSTALL_ENTERTAINMENT', '娱乐', $data);
-            $data=str_replace('UMSINSTALL_GAME', '游戏', $data);
+
 
             $data=str_replace('UMSINSTALLC_SYSMANAGER', '用户管理', $data);
             $data=str_replace('UMSINSTALLC_MYAPPS', '我的应用', $data);
@@ -767,27 +747,6 @@ class Installation extends CI_Controller
         }
         if($language=='en_US')
         {
-            $data=str_replace('UMSINSTALL_NEWSPAPER', 'Newspapers and magazines', $data);
-            $data=str_replace('UMSINSTALL_SOCIAL', 'Social', $data);
-            $data=str_replace('UMSINSTALL_BUSINESS', 'Business', $data);
-            $data=str_replace('UMSINSTALL_FINANCIALBUSINESS', 'Financial Business', $data);
-            $data=str_replace('UMSINSTALL_REFERENCE', 'Reference', $data);
-            $data=str_replace('UMSINSTALL_NAVIGATION', 'Navigation', $data);
-            $data=str_replace('UMSINSTALL_INSTRUMENT', 'Instrument', $data);
-            $data=str_replace('UMSINSTALL_HEALTHFITNESS', 'Health and fitness', $data);
-            $data=str_replace('UMSINSTALL_EDUCATION', 'Education', $data);
-            $data=str_replace('UMSINSTALL_TRAVEL', 'Travel', $data);
-            $data=str_replace('UMSINSTALL_PHOTOVIDEO', 'Photography and Video', $data);
-            $data=str_replace('UMSINSTALL_LIFE', 'Life', $data);
-            $data=str_replace('UMSINSTALL_SPORTS', 'Sports', $data);
-            $data=str_replace('UMSINSTALL_WEATHER', 'Weather', $data);
-            $data=str_replace('UMSINSTALL_BOOKS', 'Books', $data);
-            $data=str_replace('UMSINSTALL_EFFICIENCY', 'Efficiency', $data);
-            $data=str_replace('UMSINSTALL_NEWS', 'News', $data);
-            $data=str_replace('UMSINSTALL_MUSIC', 'Music', $data);
-            $data=str_replace('UMSINSTALL_MEDICAL', 'Medical', $data);
-            $data=str_replace('UMSINSTALL_ENTERTAINMENT', 'Entertainment', $data);
-            $data=str_replace('UMSINSTALL_GAME', 'Game', $data);
 
             $data=str_replace('UMSINSTALLC_SYSMANAGER', 'System Management', $data);
             $data=str_replace('UMSINSTALLC_MYAPPS', 'My Apps', $data);
@@ -820,27 +779,6 @@ class Installation extends CI_Controller
 
         if($language=='ja_JP')
         {
-            $data=str_replace('UMSINSTALL_NEWSPAPER', '新聞や雑誌', $data);
-            $data=str_replace('UMSINSTALL_SOCIAL', 'ソーシャル', $data);
-            $data=str_replace('UMSINSTALL_BUSINESS', 'ビジネス', $data);
-            $data=str_replace('UMSINSTALL_FINANCIALBUSINESS', '金融の', $data);
-            $data=str_replace('UMSINSTALL_REFERENCE', 'リファレンス', $data);
-            $data=str_replace('UMSINSTALL_NAVIGATION', 'ナビゲーション', $data);
-            $data=str_replace('UMSINSTALL_INSTRUMENT', 'ツール', $data);
-            $data=str_replace('UMSINSTALL_HEALTHFITNESS', '健康とフィットネス', $data);
-            $data=str_replace('UMSINSTALL_EDUCATION', '教育', $data);
-            $data=str_replace('UMSINSTALL_TRAVEL', '旅行', $data);
-            $data=str_replace('UMSINSTALL_PHOTOVIDEO', '写真とビデオ', $data);
-            $data=str_replace('UMSINSTALL_LIFE', '人生', $data);
-            $data=str_replace('UMSINSTALL_SPORTS', 'スポーツの', $data);
-            $data=str_replace('UMSINSTALL_WEATHER', '天気', $data);
-            $data=str_replace('UMSINSTALL_BOOKS', '図書', $data);
-            $data=str_replace('UMSINSTALL_EFFICIENCY', '効率性', $data);
-            $data=str_replace('UMSINSTALL_NEWS', 'ニュース', $data);
-            $data=str_replace('UMSINSTALL_MUSIC', '音楽', $data);
-            $data=str_replace('UMSINSTALL_MEDICAL', 'メディカル', $data);
-            $data=str_replace('UMSINSTALL_ENTERTAINMENT', 'エンターテインメント', $data);
-            $data=str_replace('UMSINSTALL_GAME', 'ゲーム', $data);
 
             $data=str_replace('UMSINSTALLC_SYSMANAGER', 'ユーザー管理', $data);
             $data=str_replace('UMSINSTALLC_MYAPPS', 'マイアプリ', $data);
