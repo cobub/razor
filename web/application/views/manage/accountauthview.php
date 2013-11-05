@@ -20,7 +20,8 @@ a:hover {
 			<p style="font-size: 13px;"> <?php echo lang('v_plugins_introduce') ?>
 			<br />
 					<b>
-					<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank"><?php echo lang('plg_getkey')?></a>
+						
+					<a href="<?php if($language=='zh_CN') echo 'http://dev.cobub.com/zh/userkey/';else echo 'http://dev.cobub.com/userkey/';?>" target="_blank"><?php echo lang('plg_getkey')?></a>
 				    </b>
 			</p>
 			<table class="tablesorter" cellspacing="0">
