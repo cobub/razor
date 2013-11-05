@@ -586,9 +586,9 @@ class Auth extends CI_Controller {
     		$key = $userKeys->user_key;
     		$secret = $userKeys->user_secret;
     		////login ucenter
-    		//testcode : 
+    		//testcode : http://dev.cobub.com/users/en/index.php?/auth/login
     		//redirect("http://192.168.1.104:8877/ucenter//index.php?/auth/cobubtologin/$key/$secret");
-    		redirect(SERVER_BASE_URL."/index.php?/auth/cobubtologin/$key/$secret");
+    		redirect(SERVER_BASE_URL.lang('cobub_login_ucenter')."/cobubtologin/$key/$secret");
     	}
     	else {
     		return ;

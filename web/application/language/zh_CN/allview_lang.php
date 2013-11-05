@@ -1022,4 +1022,4 @@ $lang['UMSINSTALL_MUSIC']='音乐';
 $lang['UMSINSTALL_MEDICAL']='医疗';
 $lang['UMSINSTALL_ENTERTAINMENT']='娱乐';
 $lang['UMSINSTALL_GAME']='游戏';
-
+$lang['cobub_login_ucenter']='/index.php?/auth';

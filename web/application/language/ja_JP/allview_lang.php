@@ -914,4 +914,4 @@ $lang['UMSINSTALL_MUSIC']='音楽';
 $lang['UMSINSTALL_MEDICAL']='メディカル';
 $lang['UMSINSTALL_ENTERTAINMENT']='エンターテインメント';
 $lang['UMSINSTALL_GAME']='ゲーム';
-
+$lang['cobub_login_ucenter']='/en/index.php?/auth';

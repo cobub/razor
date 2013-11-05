@@ -1014,3 +1014,4 @@ $lang['UMSINSTALL_MUSIC']='Music';
 $lang['UMSINSTALL_MEDICAL']='Medical';
 $lang['UMSINSTALL_ENTERTAINMENT']='Entertainment';
 $lang['UMSINSTALL_GAME']='Game';
+$lang['cobub_login_ucenter']='/en/index.php?/auth';
