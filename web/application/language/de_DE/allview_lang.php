@@ -882,3 +882,4 @@ $lang['UMSINSTALL_MEDICAL']='Medical';
 $lang['UMSINSTALL_ENTERTAINMENT']='Entertainment';
 $lang['UMSINSTALL_GAME']='Game';
 $lang['cobub_login_ucenter']='/en/index.php?/auth';
+$lang['user_center_url']='http://dev.cobub.com/users/en/';

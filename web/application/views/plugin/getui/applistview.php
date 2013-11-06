@@ -20,9 +20,9 @@ $language = $this->config->item('language');
 			
 
 				<h4><?php echo  lang('v_userStatus').': '?> <?php echo ($flag==1)? lang('v_userStatusActive'):lang('v_userStatusInactive'); ?></h4>	
-				<p><?php echo lang('v_userStatusExplain')?><a href="http://dev.cobub.com/users"  target="_blank" ><?php echo lang('v_cobub_user_center')?></a><?php echo lang('v_userStatusExplain1')?><?php echo lang('v_integrationGuide')?></p>
+				<p><?php echo lang('v_userStatusExplain')?><a href="<?php echo lang('user_center_url') ?>"  target="_blank" ><?php echo lang('v_cobub_user_center')?></a><?php echo lang('v_userStatusExplain1')?><?php echo lang('v_integrationGuide')?></p>
 
-					<p><small><?php echo  lang('v_tap')?><a href="http://dev.cobub.com/users"  target="_blank" ><?php echo lang('v_cobub_user_center')?></a><?php echo  lang('v_tap1')?></small></p>
+					<p><small><?php echo  lang('v_tap')?><a href="<?php echo lang('user_center_url') ?>"  target="_blank" ><?php echo lang('v_cobub_user_center')?></a><?php echo  lang('v_tap1')?></small></p>
 		       	</div>
 			</div>		
 		</article><!-- end of stats article -->	

@@ -20,7 +20,7 @@ $lang['l_login']='登录';
 $lang['l_signup']='注册';
 $lang['l_cobubRazor'] = 'Cobub Razor - 开源移动应用统计分析平台';
 $lang['l_welcomeCR'] = '欢迎使用Cobub Razor - 开源移动应用统计分析平台';
-$lang['l_welcome']='欢迎使用Cobub Razor - <a href="http://dev.cobub.com/">开源移动应用统计分析平台</a>';
+$lang['l_welcome']='欢迎使用Cobub Razor - <a href="http://dev.cobub.com/zh/">开源移动应用统计分析平台</a>';
 $lang['l_userlogin']='用户登录';
 $lang['l_emailOrUsername']='邮件或用户名';
 $lang['l_username']='用户名';
@@ -925,11 +925,11 @@ $lang['plg_description']=' 描述 ';
 $lang['plg_use_instruct']='集成指南';
 $lang['plg_plugin_manage']='插件管理';
 $lang['plg_get_keysecret_home']='您尚未在Cobub用户中心进行账户授权。请免费注册Cobub用户中心方可使用插件功能。
-<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>';
+<a href="http://dev.cobub.com/zh/userkey/" target="_blank">如何进行账户授权？</a>';
 
 $lang['plg_get_keysecret']='您尚未在Cobub用户中心进行账户授权。
 免费注册Cobub用户中心并获取授权码后即可完成账户授权，授权后即可获得Cobub用户中心提供的丰富功能。
-<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>如果您已经获得授权码,请点击';
+<a href="http://dev.cobub.com/zh/userkey/" target="_blank">如何进行账户授权？</a>如果您已经获得授权码,请点击';
 $lang['plg_get_account']='账户授权。';
 /******************************view report plug**************************************/
 $lang['v_cobub_user_center']='Cobub用户中心';
@@ -943,7 +943,7 @@ $lang['v_plugins_secreterror']='输入的SECRET不合法！';
 $lang['v_plugins_active']='启用';
 $lang['v_plugins_forbidden']='禁用';
 $lang['v_plugins_introduce']='UserKey 与  UserSecret 是Cobub Razor
-与<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub用户中心</a>
+与<a href="http://dev.cobub.com/users/" target="_blank">Cobub用户中心</a>
 之间通信的密钥， 用户在Cobub用户中心注册后方可获取， 用户只有在密钥通过验证后才可使用系统提供的插件功能。';
 $lang['v_plugins_new_version']='有新版本可用。';
 
@@ -1023,3 +1023,4 @@ $lang['UMSINSTALL_MEDICAL']='医疗';
 $lang['UMSINSTALL_ENTERTAINMENT']='娱乐';
 $lang['UMSINSTALL_GAME']='游戏';
 $lang['cobub_login_ucenter']='/index.php?/auth';
+$lang['user_center_url']='http://dev.cobub.com/users/';

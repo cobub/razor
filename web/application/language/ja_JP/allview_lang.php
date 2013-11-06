@@ -915,3 +915,4 @@ $lang['UMSINSTALL_MEDICAL']='メディカル';
 $lang['UMSINSTALL_ENTERTAINMENT']='エンターテインメント';
 $lang['UMSINSTALL_GAME']='ゲーム';
 $lang['cobub_login_ucenter']='/en/index.php?/auth';
+$lang['user_center_url']='http://dev.cobub.com/users/en/';

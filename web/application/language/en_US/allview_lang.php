@@ -209,7 +209,7 @@ $lang['v_getuiPluginsContent']='Cobub Razor IGetui plugin provides message pushi
 $lang['v_warning1'] ='Invalid paraments';
 $lang['v_warning2'] ='register App failure';
 $lang['v_warning3'] ='auth failure';
-$lang['v_integrationGuide'] = '<a href="http://dev.cobub.com/docs/plugins/getui/" target="_blank">SDK Integration Manuals</a>';
+$lang['v_integrationGuide'] = '<a href="http://dev.cobub.com/zh/docs/plugins/getui/" target="_blank">SDK Integration Manuals</a>';
 $lang['v_userStatusExplain'] = 'Cobub Razor will not offer push service when Igetui account status is unavailable, please top up in time. If you have any questions, please contact: ';
 $lang['v_userStatusExplain1'] = ' or send email to support@cobub.com <br />Specific SDK integration steps, please refer to ';
 $lang['v_tap']='Notice:SDK only can be downloaded from ';
@@ -940,15 +940,15 @@ $lang['plg_status']='PluginStatus';
 $lang['plg_description']='Description';
 $lang['plg_use_instruct']='Instructions For Use';
 $lang['plg_plugin_manage']='Plugin Manager';
-$lang['plg_get_keysecret_home']='You have not Cobub User Center
+$lang['plg_get_keysecret_home']='You have not <a href="http://dev.cobub.com/users/en/" target="_blank" >Cobub User Center</a>
 account authorization. Please Sign Cobub User Center before using plug-in functionality. 
-<a href="http://dev.cobub.com/users/en/index.php?/help/userkey" target="_blank">How to account authorization?</a>';
+<a href="http://dev.cobub.com/userkey/" target="_blank">How to account authorization?</a>';
 $lang['v_cobub_user_center']='Cobub Users Center';
 
-$lang['plg_get_keysecret']='You have not <a href="http://dev.cobub.com/users/en/index.php?/help/userkey" target="_blank">Cobub User Center</a> account authorization.
+$lang['plg_get_keysecret']='You have not Cobub User Center account authorization.
 Sign Cobub User Center and obtain an authorization code to complete the account authorization, 
 which is available after Cobub User Center provides the rich functionality. 
-<a href="http://dev.cobub.com/users/en/index.php?/help/userkey" target="_blank">How to account authorization?</a>If you already have an authorization code, Please click ';
+<a href="http://dev.cobub.com/userkey/" target="_blank">How to account authorization?</a>If you already have an authorization code, Please click ';
 $lang['plg_get_account']='account authorization.';
 /******************************view report plug**************************************/
 $lang['v_plugins_account']='Account Authorization';
@@ -961,7 +961,7 @@ $lang['v_plugins_secreterror']='Enter the UserSecret Is Wrong!';
 $lang['v_plugins_active']='Enable';
 $lang['v_plugins_forbidden']='Disable';
 $lang['v_plugins_introduce']='UserKey with UserSecret is Cobub Razor with 
-<a href="http://dev.cobub.com/users/en/index.php?/help/userkey" target="_blank">Cobub-User-Center</a> 
+<a href="http://dev.cobub.com/users/en/" target="_blank">Cobub-User-Center </a>
 communication between key centers registered user before the user access, 
 the user only if the key is authenticated before they can use the system to provide a plug-in functionality.';
 $lang['v_plugins_new_version']='a new version is available.';
@@ -1015,3 +1015,4 @@ $lang['UMSINSTALL_MEDICAL']='Medical';
 $lang['UMSINSTALL_ENTERTAINMENT']='Entertainment';
 $lang['UMSINSTALL_GAME']='Game';
 $lang['cobub_login_ucenter']='/en/index.php?/auth';
+$lang['user_center_url']='http://dev.cobub.com/users/en/';
