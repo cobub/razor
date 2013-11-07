@@ -16,7 +16,7 @@ $description = array (
 );
 ?>
 <?php echo form_open('manage/product/saveApp'); ?>
-<section id="main" class="column" style='height:1000px;'>
+<section id="main" class="column">
 	<h4 class="alert_info" id='msg' style="display: none"></h4>
 
 	<article class="module width_full">
@@ -36,7 +36,7 @@ $description = array (
 			<?php if(isset($category)):?>
 			<?php foreach($category->result() as $row) {?>
 					<option value="<?php echo $row->id; ?>"
-						<?php if(isset($selectcategory)&&$selectcategory== $row->id){echo "Selected";} ?>><?php echo lang($row->name);?></option>
+						<?php if(isset($selectcategory)&&$selectcategory== $row->id){echo "Selected";} ?>><?php echo $row->name;?></option>
 			<?php } endif;?>
 			</select>
 			</fieldset>

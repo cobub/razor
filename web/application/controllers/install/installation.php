@@ -713,101 +713,57 @@ class Installation extends CI_Controller
         $dir =	"./assets/sql/dbtables.sql";
         $fh = fopen($dir,'r+');
         $data=fread($fh,filesize($dir));//read file
-        if($language=='zh_CN')
-        {
 
+            $data=str_replace('UMSINSTALL_NEWSPAPER', lang('UMSINSTALL_NEWSPAPER'), $data);
+            $data=str_replace('UMSINSTALL_SOCIAL', lang('UMSINSTALL_SOCIAL'), $data);
+            $data=str_replace('UMSINSTALL_BUSINESS', lang('UMSINSTALL_BUSINESS'), $data);
+            $data=str_replace('UMSINSTALL_FINANCIALBUSINESS', lang('UMSINSTALL_FINANCIALBUSINESS'), $data);
+            $data=str_replace('UMSINSTALL_REFERENCE', lang('UMSINSTALL_REFERENCE'), $data);
+            $data=str_replace('UMSINSTALL_NAVIGATION', lang('UMSINSTALL_NAVIGATION'), $data);
+            $data=str_replace('UMSINSTALL_INSTRUMENT', lang('UMSINSTALL_INSTRUMENT'), $data);
+            $data=str_replace('UMSINSTALL_HEALTHFITNESS', lang('UMSINSTALL_HEALTHFITNESS'), $data);
+            $data=str_replace('UMSINSTALL_EDUCATION', lang('UMSINSTALL_EDUCATION'), $data);
+            $data=str_replace('UMSINSTALL_TRAVEL', lang('UMSINSTALL_TRAVEL'), $data);
+            $data=str_replace('UMSINSTALL_PHOTOVIDEO', lang('UMSINSTALL_PHOTOVIDEO'), $data);
+            $data=str_replace('UMSINSTALL_LIFE', lang('UMSINSTALL_LIFE'), $data);
+            $data=str_replace('UMSINSTALL_SPORTS', lang('UMSINSTALL_SPORTS'), $data);
+            $data=str_replace('UMSINSTALL_WEATHER', lang('UMSINSTALL_WEATHER'), $data);
+            $data=str_replace('UMSINSTALL_BOOKS', lang('UMSINSTALL_BOOKS'), $data);
+            $data=str_replace('UMSINSTALL_EFFICIENCY', lang('UMSINSTALL_EFFICIENCY'), $data);
+            $data=str_replace('UMSINSTALL_NEWS', lang('UMSINSTALL_NEWS'), $data);
+            $data=str_replace('UMSINSTALL_MUSIC', lang('UMSINSTALL_MUSIC'), $data);
+            $data=str_replace('UMSINSTALL_MEDICAL', lang('UMSINSTALL_MEDICAL'), $data);
+            $data=str_replace('UMSINSTALL_ENTERTAINMENT', lang('UMSINSTALL_ENTERTAINMENT'), $data);
+            $data=str_replace('UMSINSTALL_GAME', lang('UMSINSTALL_GAME'), $data);
 
-            $data=str_replace('UMSINSTALLC_SYSMANAGER', '用户管理', $data);
-            $data=str_replace('UMSINSTALLC_MYAPPS', '我的应用', $data);
-            $data=str_replace('UMSINSTALLC_ERRORDEVICE', '错误设备统计', $data);
-            $data=str_replace('UMSINSTALLC_DASHBOARD', '基本统计', $data);
-            $data=str_replace('UMSINSTALLC_USERS', '用户', $data);
-            $data=str_replace('UMSINSTALLC_AUTOUPDATE', '自动更新', $data);
-            $data=str_replace('UMSINSTALLC_CHANNEL', '渠道', $data);
-            $data=str_replace('UMSINSTALLC_DEVICE', '设备', $data);
-            $data=str_replace('UMSINSTALLC_EVENTMANAGEMENT', '事件管理', $data);
-            $data=str_replace('UMSINSTALLC_SENDPOLICY', '发送策略', $data);
-            $data=str_replace('UMSINSTALLC_OPERATORSTATISTICS', '运营商', $data);
-            $data=str_replace('UMSINSTALLC_OSSTATISTICS', '操作系统统计', $data);
-            $data=str_replace('UMSINSTALLC_PROFILE', '个人资料', $data);
-            $data=str_replace('UMSINSTALLC_RESOLUTIONSTATISTICS', '分辨率统计', $data);
-            $data=str_replace('UMSINSTALLC_REEQUENCYSTATISTICS', '使用频率统计', $data);
-            $data=str_replace('UMSINSTALLC_USAGEDURATION', '使用时长统计', $data);
-            $data=str_replace('UMSINSTALLC_ERRORLOG', '错误日志', $data);
-            $data=str_replace('UMSINSTALLC_EVENTLIST', '事件', $data);
-            $data=str_replace('UMSINSTALLC_CHANNELSTATISTICS', '渠道统计', $data);
-            $data=str_replace('UMSINSTALLC_GEOGRAPHYSTATICS', '地域统计', $data);
-            $data=str_replace('UMSINSTALLC_ERRORONOS','错误操作系统统计', $data);
-            $data=str_replace('UMSINSTALLC_VERSIONSTATISTICS', '版本统计', $data);
-            $data=str_replace('UMSINSTALLC_APPS', '应用', $data);
-            $data=str_replace('UMSINSTALLC_RETENTION', '用户留存', $data);
-            $data=str_replace('UMSINSTALLC_PAGEVIEWSANALY', '页面访问统计', $data);
-            $data=str_replace('UMSINSTALLC_NETWORKINGSTATISTIC', '联网方式统计', $data);
-            $data=str_replace('UMSINSTALLC_FUNNELMODEL', '漏斗模型', $data);		
-        }
-        if($language=='en_US')
-        {
+            $data=str_replace('UMSINSTALLC_SYSMANAGER', lang('UMSINSTALLC_SYSMANAGER'), $data);
+            $data=str_replace('UMSINSTALLC_MYAPPS', lang('UMSINSTALLC_MYAPPS'), $data);
+            $data=str_replace('UMSINSTALLC_ERRORDEVICE', lang('UMSINSTALLC_ERRORDEVICE'), $data);
+            $data=str_replace('UMSINSTALLC_DASHBOARD', lang('UMSINSTALLC_DASHBOARD'), $data);
+            $data=str_replace('UMSINSTALLC_USERS', lang('UMSINSTALLC_USERS'), $data);
+            $data=str_replace('UMSINSTALLC_AUTOUPDATE', lang('UMSINSTALLC_AUTOUPDATE'), $data);
+            $data=str_replace('UMSINSTALLC_CHANNEL', lang('UMSINSTALLC_CHANNEL'), $data);
+            $data=str_replace('UMSINSTALLC_DEVICE', lang('UMSINSTALLC_DEVICE'), $data);
+            $data=str_replace('UMSINSTALLC_EVENTMANAGEMENT', lang('UMSINSTALLC_EVENTMANAGEMENT'), $data);
+            $data=str_replace('UMSINSTALLC_SENDPOLICY', lang('UMSINSTALLC_SENDPOLICY'), $data);
+            $data=str_replace('UMSINSTALLC_OPERATORSTATISTICS', lang('UMSINSTALLC_OPERATORSTATISTICS'), $data);
+            $data=str_replace('UMSINSTALLC_OSSTATISTICS', lang('UMSINSTALLC_OSSTATISTICS'), $data);
+            $data=str_replace('UMSINSTALLC_PROFILE', lang('UMSINSTALLC_PROFILE'), $data);
+            $data=str_replace('UMSINSTALLC_RESOLUTIONSTATISTICS', lang('UMSINSTALLC_RESOLUTIONSTATISTICS'), $data);
+            $data=str_replace('UMSINSTALLC_REEQUENCYSTATISTICS', lang('UMSINSTALLC_REEQUENCYSTATISTICS'), $data);
+            $data=str_replace('UMSINSTALLC_USAGEDURATION', lang('UMSINSTALLC_USAGEDURATION'), $data);
+            $data=str_replace('UMSINSTALLC_ERRORLOG', lang('UMSINSTALLC_ERRORLOG'), $data);
+            $data=str_replace('UMSINSTALLC_EVENTLIST', lang('UMSINSTALLC_EVENTLIST'), $data);
+            $data=str_replace('UMSINSTALLC_CHANNELSTATISTICS', lang('UMSINSTALLC_CHANNELSTATISTICS'), $data);
+            $data=str_replace('UMSINSTALLC_GEOGRAPHYSTATICS', lang('UMSINSTALLC_GEOGRAPHYSTATICS'), $data);
+            $data=str_replace('UMSINSTALLC_ERRORONOS',lang('UMSINSTALLC_ERRORONOS'), $data);
+            $data=str_replace('UMSINSTALLC_VERSIONSTATISTICS', lang('UMSINSTALLC_VERSIONSTATISTICS'), $data);
+            $data=str_replace('UMSINSTALLC_APPS', lang('UMSINSTALLC_APPS'), $data);
+            $data=str_replace('UMSINSTALLC_RETENTION', lang('UMSINSTALLC_RETENTION'), $data);
+            $data=str_replace('UMSINSTALLC_PAGEVIEWSANALY', lang('UMSINSTALLC_PAGEVIEWSANALY'), $data);
+            $data=str_replace('UMSINSTALLC_NETWORKINGSTATISTIC', lang('UMSINSTALLC_NETWORKINGSTATISTIC'), $data);
+            $data=str_replace('UMSINSTALLC_FUNNELMODEL', lang('UMSINSTALLC_FUNNELMODEL'), $data);		
 
-            $data=str_replace('UMSINSTALLC_SYSMANAGER', 'System Management', $data);
-            $data=str_replace('UMSINSTALLC_MYAPPS', 'My Apps', $data);
-            $data=str_replace('UMSINSTALLC_ERRORDEVICE', 'Error on device', $data);
-            $data=str_replace('UMSINSTALLC_DASHBOARD', 'Dashboard', $data);
-            $data=str_replace('UMSINSTALLC_USERS', 'Users', $data);
-            $data=str_replace('UMSINSTALLC_AUTOUPDATE', 'Automatic update', $data);
-            $data=str_replace('UMSINSTALLC_CHANNEL', 'Channel', $data);
-            $data=str_replace('UMSINSTALLC_DEVICE', 'Device', $data);
-            $data=str_replace('UMSINSTALLC_EVENTMANAGEMENT', 'Event Management', $data);
-            $data=str_replace('UMSINSTALLC_SENDPOLICY', 'Send policy', $data);
-            $data=str_replace('UMSINSTALLC_OPERATORSTATISTICS', 'Operator statistics', $data);
-            $data=str_replace('UMSINSTALLC_OSSTATISTICS', 'OS statistics', $data);
-            $data=str_replace('UMSINSTALLC_PROFILE', 'Profile', $data);
-            $data=str_replace('UMSINSTALLC_RESOLUTIONSTATISTICS', 'Resolution statistics', $data);
-            $data=str_replace('UMSINSTALLC_REEQUENCYSTATISTICS', 'Frequency statistics', $data);
-            $data=str_replace('UMSINSTALLC_USAGEDURATION', 'Usage Duration statistics', $data);
-            $data=str_replace('UMSINSTALLC_ERRORLOG', 'Error log', $data);
-            $data=str_replace('UMSINSTALLC_EVENTLIST', 'Evenet list', $data);
-            $data=str_replace('UMSINSTALLC_CHANNELSTATISTICS', 'Channel statistics', $data);
-            $data=str_replace('UMSINSTALLC_GEOGRAPHYSTATICS', 'Geography statistics', $data);
-            $data=str_replace('UMSINSTALLC_ERRORONOS','Error on OS', $data);
-            $data=str_replace('UMSINSTALLC_VERSIONSTATISTICS', 'Version statistics', $data);
-            $data=str_replace('UMSINSTALLC_APPS', 'Apps', $data);
-            $data=str_replace('UMSINSTALLC_RETENTION', 'Retention', $data);
-            $data=str_replace('UMSINSTALLC_PAGEVIEWSANALY', 'Page views analysis', $data);
-            $data=str_replace('UMSINSTALLC_NETWORKINGSTATISTIC', 'Networking statistics', $data);
-            $data=str_replace('UMSINSTALLC_FUNNELMODEL', 'Funnel model', $data);
-        }
-
-        if($language=='ja_JP')
-        {
-
-            $data=str_replace('UMSINSTALLC_SYSMANAGER', 'ユーザー管理', $data);
-            $data=str_replace('UMSINSTALLC_MYAPPS', 'マイアプリ', $data);
-            $data=str_replace('UMSINSTALLC_ERRORDEVICE', 'エラーデバイスの統計情報', $data);
-            $data=str_replace('UMSINSTALLC_DASHBOARD', 'アプリ統計量概要', $data);
-            $data=str_replace('UMSINSTALLC_USERS', 'ユーザー', $data);
-            $data=str_replace('UMSINSTALLC_AUTOUPDATE', '自動更新', $data);
-            $data=str_replace('UMSINSTALLC_CHANNEL', 'チャンネル', $data);
-            $data=str_replace('UMSINSTALLC_DEVICE', 'デバイス', $data);
-            $data=str_replace('UMSINSTALLC_EVENTMANAGEMENT', 'イベント管理', $data);
-            $data=str_replace('UMSINSTALLC_SENDPOLICY', 'ポリシー送信', $data);
-            $data=str_replace('UMSINSTALLC_OPERATORSTATISTICS', 'オペレーター統計量', $data);
-            $data=str_replace('UMSINSTALLC_OSSTATISTICS', 'OSバージョン', $data);
-            $data=str_replace('UMSINSTALLC_PROFILE', 'プロフィール', $data);
-            $data=str_replace('UMSINSTALLC_RESOLUTIONSTATISTICS', '解像度統計量', $data);
-            $data=str_replace('UMSINSTALLC_REEQUENCYSTATISTICS', '周期的使用統計量', $data);
-            $data=str_replace('UMSINSTALLC_USAGEDURATION', '使用継続時間統計量', $data);
-            $data=str_replace('UMSINSTALLC_ERRORLOG', 'エラーログ', $data);
-            $data=str_replace('UMSINSTALLC_EVENTLIST', 'イベント', $data);
-            $data=str_replace('UMSINSTALLC_CHANNELSTATISTICS', 'チャネル統計量', $data);
-            $data=str_replace('UMSINSTALLC_GEOGRAPHYSTATICS', '地域等軽量', $data);
-            $data=str_replace('UMSINSTALLC_ERRORONOS','OS上のエラー数', $data);
-            $data=str_replace('UMSINSTALLC_VERSIONSTATISTICS', 'バージョン統計量', $data);
-            $data=str_replace('UMSINSTALLC_APPS', 'アプリケーション', $data);
-            $data=str_replace('UMSINSTALLC_RETENTION', 'ユーザー滞留', $data);
-            $data=str_replace('UMSINSTALLC_PAGEVIEWSANALY', 'ページ訪問', $data);
-            $data=str_replace('UMSINSTALLC_NETWORKINGSTATISTIC', 'ネットワーク統計量', $data);
-            $data=str_replace('UMSINSTALLC_FUNNELMODEL', 'ファンネル数', $data);
-        }
 
         fclose($fh);
         $handle=fopen($dir,"w");
