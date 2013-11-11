@@ -1,7 +1,7 @@
 <?php
 require_once dirname ( dirname ( dirname ( __FILE__ ) ) ) . "/plugin/pluginInterface.php";
 class getui  extends CI_Model implements pluginInterface {
-	
+
 	function __construct() {
 		$this->load->language('plugin_getui');
 		
