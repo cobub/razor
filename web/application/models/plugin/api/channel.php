@@ -29,9 +29,8 @@ class Channel extends CI_Model {
 		
 		return null;
 	}
-	
 
-	//get one platform all System channels
+	//get all System channels one platform 
 	function getallsychannelbyplatform($platform)
 	{
 		$sql = "select c.*,p.name from  ".$this->db->dbprefix('channel')."  c inner join  ".$this->db->dbprefix('platform')."  p on c.platform = p.id where c.type='system' and c.active=1 and c.platform=$platform ";
