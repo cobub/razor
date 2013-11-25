@@ -75,14 +75,7 @@
 			<h3><font color="#9d9d9d"><?php echo lang('installview_websitestep') ;?></font></h3>
 			<h3><font color="#9d9d9d"><?php echo lang('installview_finshstep') ;?></font></h3>		
 			</div>
-		 <div id="informinfo"  style="position:absolute;top:300px;right:100px;">
-			 <a href="<?php if(isset($language)):
-    if($language=="zh_CN"){ echo 'http://dev.cobub.com/zh/docs/cobub-razor/installation-guide/';}
-    else{echo 'http://dev.cobub.com/docs/cobub-razor/installation-guide/';} endif;?>" target="_blank">
-    <?php if(isset($language)):
-    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">安装帮助</p>';}
-    else{echo '<p style="font-size: 16px;font-weight: bold;">Help On Installation</p>';} endif;?></a>
-			 </div>
+		
 			<div style="height:350px;position:absolute;top:730px;left:420px;">
 			<font color="red">
 		    <p><?php if(isset($versionerror)) echo $versionerror;?></p>
@@ -154,6 +147,16 @@
               endif;?> 	               
              </table>
 			</div>
+			
+			 <div id="informinfo"  style="position:absolute;top:270px;right:100px;">
+			 <a href="<?php if(isset($language)):
+    if($language=="zh_CN"){ echo 'http://dev.cobub.com/zh/docs/cobub-razor/installation-guide/';}
+    else{echo 'http://dev.cobub.com/docs/cobub-razor/installation-guide/';} endif;?>" target="_blank">
+    <?php if(isset($language)):
+    if($language=="zh_CN"){ echo '<p style="font-size: 16px;font-weight: bold;">安装帮助</p>';}
+    else{echo '<p style="font-size: 16px;font-weight: bold;">Help On Installation</p>';} endif;?></a>
+			 </div>
+			 
 			<div class="clear"></div>	
 		<div  style="height:400px;"></div>
 		<footer>
@@ -187,7 +190,7 @@
                                              " target ="_blank" title="<?php if ($language == 'zh_CN') {echo '移动应用分析';}
                 else {echo 'Mobile Analytic';}?>" 
                     alt="Cobub Razor - Open Source Mobile Analytics                         Solution"><?php if ($language == "zh_CN") {
-                            echo '开源移动应用分析';}
+                            echo '开源移动应用统计分析平台';}
                         else {
                             echo 'Mobile Analytics of Open Source';}?></a>
 

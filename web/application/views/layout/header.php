@@ -154,8 +154,13 @@ type="text/javascript"></script>
             <hgroup>
                 <h1 class="site_title"><a href="<?php echo base_url();?>"> <img class="logo" src="<?php echo base_url();?>assets/images/razorlogo.png" style="border:0"/> <span style=""><?php echo lang('g_cobubRazor')
                     ?></span> </a></h1>
-                <h3 class="section_title"><?php if(isset($username)):
-                ?>
+                <h3 class="section_title"><?php if(isset($username)):?>
+                <?php  if(isset($key) && isset($secret)){?>
+                <a href=<?php echo SERVER_BASE_URL.lang('cobub_login_ucenter')."/cobubtologin/$key/$secret" ?> target="_blank" ><?php echo lang('v_user_center'); ?></a> |
+               <?php }?>
+               <?php  if(!isset($key) && !isset($secret)){?>
+                <a href=<?php echo SERVER_BASE_URL.lang('cobub_login_ucenter')."/login" ?> target="_blank" ><?php echo lang('v_user_center'); ?></a> |
+               <?php }?>
                 <?php  echo anchor('/', lang('v_console'));?> | <?php  echo anchor('/profile/modify/', lang('m_profile'));?> | <?php  echo anchor('/auth/change_password/', lang('m_changePassword'));?> | <?php  echo anchor('/auth/logout/', lang('m_logout'));?>
                 <?php  else:?>
                 <?php  echo anchor('/auth/login/', lang('l_login'));?>
@@ -310,6 +315,10 @@ if(isset($username)):
                     <?php  echo anchor('/manage/product/create', lang('m_new_app'));?>
                 </li>
                 <?php  endif;?>
+                 <li class="icn_manacategory">
+                    <?php echo anchor('/user/applicationManagement/', lang('m_appType'));
+                    ?>
+                </li>
                 <li class="icn_app_channel">
                     <?php  echo anchor('/manage/channel/', lang('m_channelManagement'));?>
                 </li>
@@ -362,6 +371,24 @@ if(isset($username)):
                     <?php  echo anchor('/report/version/', lang('m_rpt_versions'));?>
                 </li>
             </ul>
+            
+            
+                    
+        <?php if ($this->config->item('redis')) { ?>
+            <h3><?php echo lang('v_rpt_realtime_title') ?></h3>
+            <ul class="toggle">
+                <li class="icn_use_frequency"><?php echo anchor('/realtime/usersessions', lang('v_rpt_realtime_onlineuser_title'));?></li>
+                <li class="icn_phaseusetime"><?php echo anchor('/realtime/areas', lang('v_rpt_realtime_areas_title'));?></li>
+                <li class="icn_use_time"><?php echo anchor('/realtime/pageviews', lang('v_rpt_realtime_pageviews_title'));?></li>
+                <li class="icn_remainuser"><?php echo anchor('/realtime/event', lang('v_rpt_realtime_event_title'));?></li>
+                <li class="icn_pagevisit"><?php echo anchor('/realtime/transrate', lang('v_rpt_realtime_transrate_title'));?></li>
+            </ul>
+        <?php }?>
+            
+            
+            
+            
+            
             <h3><?php echo lang('m_rpt_users')
             ?></h3>
             <ul class="toggle">
@@ -477,10 +504,7 @@ if(isset($username)):
                 </li>
                 <!--
                 <li class="icn_manaresource"><?php echo anchor('/user/resourcemanage/', lang('m_resourceManagement'));?></li> -->
-                <li class="icn_manacategory">
-                    <?php echo anchor('/user/applicationManagement/', lang('m_appType'));
-                    ?>
-                </li>
+               
                 <li class="icn_new_user">
                     <?php echo anchor('/user/newUser/', lang('t_newUser'));
                     ?>
@@ -695,4 +719,7 @@ window.location.reload();
 });
 document.getElementById("newversioninform").style.display="none";
 }
+        
+
+
         </script>

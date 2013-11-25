@@ -280,10 +280,10 @@ class Auth extends CI_Controller {
             redirect('');
 
         } elseif ($this -> tank_auth -> is_logged_in(FALSE)) {// logged in, not activated
-            redirect('/auth/send_again/');
+        	redirect('/auth/send_again/');
 
         } else {
-            $this -> form_validation -> set_rules('login', 'Email or login', 'trim|required|xss_clean');
+            $this -> form_validation -> set_rules('login', lang('auth_login_wrong'), 'trim|required|xss_clean');
 
             $data['errors'] = array();
 
@@ -569,6 +569,33 @@ class Auth extends CI_Controller {
         }
         return TRUE;
     }
+    
+    /*
+     * login user center key&secret
+    *
+    */
+    function loginucenter()
+    {
+    	////get user key&secret;
+    	$this->load->model ( 'common' );
+    	$this->load->model ( 'pluginlistmodel' );
+    	 
+    	$userId = $this->common->getUserId ();
+    	$userKeys = $this->pluginlistmodel->getUserKeys ( $userId );
+    	if ($userKeys) {
+    		$key = $userKeys->user_key;
+    		$secret = $userKeys->user_secret;
+    		////login ucenter
+    		//testcode : http://dev.cobub.com/users/en/index.php?/auth/login
+    		//redirect("http://192.168.1.104:8877/ucenter//index.php?/auth/cobubtologin/$key/$secret");
+    		redirect(SERVER_BASE_URL.lang('cobub_login_ucenter')."/cobubtologin/$key/$secret");
+    	}
+    	else {
+    		return ;
+    	}
+    	 
+    }
+    
 
 }
 

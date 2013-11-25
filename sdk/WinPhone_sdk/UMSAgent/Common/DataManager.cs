@@ -68,7 +68,7 @@ namespace UMSAgent.Common
         
         }
         //event data proceed
-        public void eventDataProceed(string eventid, string pagename, string lable = "",int acc=1)
+        public void eventDataProceed(string eventid, string pagename, string lable = "",int acc=1,double count=0.0)
         {
             Event obj = model.getEventInfo(eventid, pagename, lable,acc);
             if (settings["repolicy"].Equals("1") && Utility.isNetWorkConnected())
@@ -83,6 +83,8 @@ namespace UMSAgent.Common
             }
         
         }
+
+        
 
         //get online config preference
         public void onlineConfigProceed()
@@ -167,6 +169,23 @@ namespace UMSAgent.Common
 
         }
 
+        //tag data proceed
+        public void tagDataProceed(string tags)
+        {
+            Tag obj = model.getTagData(tags);
+            if (settings["repolicy"].Equals("1") && Utility.isNetWorkConnected())
+            {
+                Post post = new Post((int)UMSAgent.UMSApi.DataType.TAGDATA, obj);
+                post.stateChanged += new Post.stateChangedHandler(this.getData);
+                post.sendData(model.getUrl((int)UMSAgent.UMSApi.DataType.TAGDATA));
+            }
+            else
+            {
+                FileSave.saveFile((int)UMSAgent.UMSApi.DataType.TAGDATA, obj);
+            }
+        
+        }
+
         //get data from server 
         private void getData(int type,string s, object obj)
         {
@@ -201,6 +220,10 @@ namespace UMSAgent.Common
             if (type == (int)UMSApi.DataType.PAGEINFODATA)
             {
                 AsyncCallBackPro.call_back_process_pageinfodata(s, obj);
+            }
+            if (type == (int)UMSApi.DataType.TAGDATA)
+            {
+                AsyncCallBackPro.call_back_process_tagdata(s, obj);
             }
                 
         }

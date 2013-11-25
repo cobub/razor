@@ -119,7 +119,7 @@ $lang['m_userPermission']='User Permission';
 $lang['m_userManagement']='User Management';
 $lang['m_roleManagement']='Role Management';
 $lang['m_resourceManagement']='Resource Management';
-$lang['m_appType']='App Type';
+$lang['m_appType']='Type Management';
 $lang['m_developerGuide']='Developer Guide';
 $lang['m_openAPIManual']='OpenAPI Manual';
 $lang['m_account_author']='Account Authorization';
@@ -170,6 +170,7 @@ $lang['m_rpt_editFunnel']='Conversion Groups';
 
 //**************************************View***************************************
 // view---main
+$lang['v_user_center']='User Center';
 $lang['v_console']='Console';
 $lang['v_CR_news'] = "Cobub Razor News";
 $lang['v_CR_newsDelivery']='Cobub Razor News Delivery';
@@ -208,7 +209,7 @@ $lang['v_getuiPluginsContent']='Cobub Razor IGetui plugin provides message pushi
 $lang['v_warning1'] ='Invalid paraments';
 $lang['v_warning2'] ='register App failure';
 $lang['v_warning3'] ='auth failure';
-$lang['v_integrationGuide'] = 'SDK Integration Manuals';
+$lang['v_integrationGuide'] = '<a href="http://dev.cobub.com/zh/docs/plugins/getui/" target="_blank">SDK Integration Manuals</a>';
 $lang['v_userStatusExplain'] = 'Cobub Razor will not offer push service when Igetui account status is unavailable, please top up in time. If you have any questions, please contact: ';
 $lang['v_userStatusExplain1'] = ' or send email to support@cobub.com <br />Specific SDK integration steps, please refer to ';
 $lang['v_tap']='Notice:SDK only can be downloaded from ';
@@ -905,14 +906,24 @@ $lang["v_rpt_realtime_onlineuser_time"] = "Hour";
 $lang["v_rpt_realtime_minutes"] = "Minutes";
 $lang["v_rpt_realtime_now"] = "Now";
 
-$lang["v_rpt_realtime_pageviews_title"] = "Realtime activities";
-$lang['v_rpt_realtime_pageviews_subtitle'] = "Realtime activities within 30 minutes";
+$lang["v_rpt_realtime_pageviews_title"] = "Page View";
+
+$lang['v_rpt_realtime_title'] = "Realtime Analytics";
+$lang['v_rpt_realtime_pageviews_subtitle'] = "Realtime Activities";
+$lang['v_rpt_realtime_pageviews_table_tile'] = "Activities(Within 30 minutes)";
+$lang["v_rpt_realtime_pageview"] = "Activities";
+$lang["v_rpt_realtime_pageview_count"] = "User count";
 
 $lang["v_rpt_realtime_areas_title"] = "Online users by area";
 $lang["v_rpt_realtime_areas_region"] = "Region";
 
 $lang["v_rpt_realtime_transrate_title"] = "Realtime conversions";
 $lang["v_rpt_realtime_event_title"] = "Realtime events";
+$lang["v_rpt_realtime_event_report_title"]="Event";
+$lang["v_rpt_realtime_event_in_minute"]="Event (Within every minute)";
+$lang["v_rpt_realtime_transtrte_subtitle"]="Goal Hits(Within every minute)";
+$lang["v_rpt_realtime_transtrte_tabtitle"]="Goal Hits(Within 30 minutes)";
+$lang["v_rpt_realtime_event_in30minute"]="Events (Within 30 minutes)";
 
 /**********************************pluginlist***v0.6*************************************/
 $lang['plg_userkey']='UserKey*';
@@ -929,16 +940,16 @@ $lang['plg_status']='PluginStatus';
 $lang['plg_description']='Description';
 $lang['plg_use_instruct']='Instructions For Use';
 $lang['plg_plugin_manage']='Plugin Manager';
-$lang['plg_get_keysecret_home']='You have not<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank"> Cobub User Center </a>
+$lang['plg_get_keysecret_home']='You have not <a href="http://dev.cobub.com/users/en/" target="_blank" >Cobub User Center</a>
 account authorization. Please Sign Cobub User Center before using plug-in functionality. 
-<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">How to account authorization?</a>';
+<a href="http://dev.cobub.com/userkey/" target="_blank">How to account authorization?</a>';
 $lang['v_cobub_user_center']='Cobub Users Center';
 
-$lang['plg_get_keysecret']='You have not <a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub User Center</a> account authorization.
+$lang['plg_get_keysecret']='You have not Cobub User Center account authorization.
 Sign Cobub User Center and obtain an authorization code to complete the account authorization, 
 which is available after Cobub User Center provides the rich functionality. 
-<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">How to account authorization?</a>';
-
+<a href="http://dev.cobub.com/userkey/" target="_blank">How to account authorization?</a>If you already have an authorization code, Please click ';
+$lang['plg_get_account']='account authorization.';
 /******************************view report plug**************************************/
 $lang['v_plugins_account']='Account Authorization';
 $lang['v_plugins_version']='Version ';
@@ -948,9 +959,9 @@ $lang['v_plugins_entersecret']='Please Enter SECRET';
 $lang['v_plugins_keyerror']='Enter the UserKey Is Wrong!';
 $lang['v_plugins_secreterror']='Enter the UserSecret Is Wrong!';
 $lang['v_plugins_active']='Enable';
-$lang['v_plugins_forbidden']='Fobidden';
+$lang['v_plugins_forbidden']='Disable';
 $lang['v_plugins_introduce']='UserKey with UserSecret is Cobub Razor with 
-<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub-User-Center</a> 
+<a href="http://dev.cobub.com/users/en/" target="_blank">Cobub-User-Center </a>
 communication between key centers registered user before the user access, 
 the user only if the key is authenticated before they can use the system to provide a plug-in functionality.';
 $lang['v_plugins_new_version']='a new version is available.';
@@ -966,4 +977,70 @@ $lang['v_element_edit']='Edit';
 $lang['v_element_trash']='Trash';
 
 $lang['head_plugin_m']='Plugin manager';
+
+$lang['tag_chose_all_user']='Select all users';
+$lang['tag_push_all_user']='Push to all users.';
+$lang['tag_chose_taggroup_user']='Select the tag group users';
+$lang['tag_all_user']='All user';
+$lang['tag_chose_version']='Select the version';
+$lang['tag_chose_channel']='Select the channel';
+$lang['tag_chost_pri']='Select the region (province)';
+$lang['tag_save_user']='Save for next time';
+$lang['tag_name_exited']='The name already exists, please re - enter the new name';
+$lang['tag_chosed']='You choose the label:';
+$lang['tag_input_groupname']='Please enter the name of tag group to save';
+$lang['tag_save_group_fail']='Save tag group failed';
+$lang['tag_head']='Select the user';
+$lang['time_chose_error']='Time is not more than a month';
+
+$lang['UMSINSTALL_NEWSPAPER']='Newspapers and magazines';
+$lang['UMSINSTALL_SOCIAL']='Social';
+$lang['UMSINSTALL_BUSINESS']='Business';
+$lang['UMSINSTALL_FINANCIALBUSINESS']='Financial Business';
+$lang['UMSINSTALL_REFERENCE']='Reference';
+$lang['UMSINSTALL_NAVIGATION']='Navigation';
+$lang['UMSINSTALL_INSTRUMENT']='Instrument';
+$lang['UMSINSTALL_HEALTHFITNESS']='Health and fitness';
+$lang['UMSINSTALL_EDUCATION']='Education';
+$lang['UMSINSTALL_TRAVEL']='Travel';
+$lang['UMSINSTALL_PHOTOVIDEO']='Photography and Video';
+$lang['UMSINSTALL_LIFE']='Life';
+$lang['UMSINSTALL_SPORTS']='Sports';
+$lang['UMSINSTALL_WEATHER']='Weather';
+$lang['UMSINSTALL_BOOKS']='Books';
+$lang['UMSINSTALL_EFFICIENCY']='Efficiency';
+$lang['UMSINSTALL_NEWS']='News';
+$lang['UMSINSTALL_MUSIC']='Music';
+$lang['UMSINSTALL_MEDICAL']='Medical';
+$lang['UMSINSTALL_ENTERTAINMENT']='Entertainment';
+$lang['UMSINSTALL_GAME']='Game';
+$lang['cobub_login_ucenter']='/en/index.php?/auth';
+$lang['user_center_url']='http://dev.cobub.com/users/en/';
+$lang['UMSINSTALLC_SYSMANAGER']='System Management';
+$lang['UMSINSTALLC_MYAPPS']='My Apps';
+$lang['UMSINSTALLC_ERRORDEVICE']='Error on device';
+$lang['UMSINSTALLC_DASHBOARD']='Dashboard';
+$lang['UMSINSTALLC_USERS']='Users';
+$lang['UMSINSTALLC_AUTOUPDATE']='Automatic update';
+$lang['UMSINSTALLC_CHANNEL']='Channel';
+$lang['UMSINSTALLC_DEVICE']='Device';
+$lang['UMSINSTALLC_EVENTMANAGEMENT']='Event Management';
+$lang['UMSINSTALLC_SENDPOLICY']='Send policy';
+$lang['UMSINSTALLC_OPERATORSTATISTICS']='Operator statistics';
+$lang['UMSINSTALLC_OSSTATISTICS']='OS statistics';
+$lang['UMSINSTALLC_PROFILE']='Profile';
+$lang['UMSINSTALLC_RESOLUTIONSTATISTICS']='Resolution statistics';
+$lang['UMSINSTALLC_REEQUENCYSTATISTICS']='Frequency statistics';
+$lang['UMSINSTALLC_USAGEDURATION']='Usage Duration statistics';
+$lang['UMSINSTALLC_ERRORLOG']='Error log';
+$lang['UMSINSTALLC_EVENTLIST']='Evenet list';
+$lang['UMSINSTALLC_CHANNELSTATISTICS']='Channel statistics';
+$lang['UMSINSTALLC_GEOGRAPHYSTATICS']='Geography statistics';
+$lang['UMSINSTALLC_ERRORONOS']='Error on OS';
+$lang['UMSINSTALLC_VERSIONSTATISTICS']='Version statistics';
+$lang['UMSINSTALLC_APPS']='Apps';
+$lang['UMSINSTALLC_RETENTION']='Retention';
+$lang['UMSINSTALLC_PAGEVIEWSANALY']='Page views analysis';
+$lang['UMSINSTALLC_NETWORKINGSTATISTIC']='Networking statistics';
+$lang['UMSINSTALLC_FUNNELMODEL']='Funnel model';
 

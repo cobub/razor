@@ -1,7 +1,7 @@
 <?php
 require_once dirname ( dirname ( dirname ( __FILE__ ) ) ) . "/plugin/pluginInterface.php";
 class getui  extends CI_Model implements pluginInterface {
-	
+
 	function __construct() {
 		$this->load->language('plugin_getui');
 		
@@ -10,17 +10,19 @@ class getui  extends CI_Model implements pluginInterface {
 	function getPluginInfo() {
 		return array (
 				'identifier' => 'igetui',
-				'name' => '个推',
+				'name' => lang('getui'),
 				'level' => 1,
-				'description' => '个推插件 是Cobub Razor官方基于个推开发的一款推送插件.它集成了个推的推送功能与Cobub Razor提供的Tag功能，更加方便，快捷，精准的进行推送。',
+				'description' => lang('getui_description'),
 				'version' => '0.1',
 				'date' => '2013-08-30',
-				'provider' => '南京西桥科技',
-				'detail'=> 'http://dev.cobub.com/users/index.php?/help/getui',
+				'provider' => lang('getui_provider'),
+				'provider_url' => lang('getui_provider_url'),
+				'detail'=> lang('getui_detail_url'),
 				'menus' => $this->getMenus () 
 		);
 	}
-	
+	// '个推插件 是Cobub Razor官方基于个推开发的一款推送插件.
+	//它集成了个推的推送功能与Cobub Razor提供的Tag功能，更加方便，快捷，精准的进行推送。',
 	function getMenus() {
 		// $sideBars = "<h3>个推</h3>
   //           <ul class='toggle'>
@@ -44,7 +46,7 @@ class getui  extends CI_Model implements pluginInterface {
         // 	'个推报表'=>'/plugin/getui/getuiapplist'
         // 	);
         $menuHome = array(
-        	'name'=>'个推首页',
+        	'name'=>lang('getuiHomePage'),
         	'link'=>'/plugin/getui/applist',
         	'level1'=>true,
         	'level2'=>false
@@ -53,14 +55,14 @@ class getui  extends CI_Model implements pluginInterface {
         array_push($menus,$menuHome);
 
          $menuPush = array(
-        	'name'=>'个推报表',
+        	'name'=>lang('getui_report'),
         	'link'=>'/plugin/getui/getuiapplist',
         	'level1'=>true,
         	'level2'=>false
         	);
         array_push($menus,$menuPush);
         $menuRet = array(
-        	'title' => '个推',
+        	'title' => lang('getui'),
         	'menus' => $menus
         	);
 

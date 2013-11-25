@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1839C72C1808133300585130 /* PostTagDao.h in Headers */ = {isa = PBXBuildFile; fileRef = 1839C7281808133300585130 /* PostTagDao.h */; };
+		1839C72D1808133300585130 /* PostTagDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 1839C7291808133300585130 /* PostTagDao.m */; };
+		1839C72E1808133300585130 /* Tag.h in Headers */ = {isa = PBXBuildFile; fileRef = 1839C72A1808133300585130 /* Tag.h */; };
+		1839C72F1808133300585130 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 1839C72B1808133300585130 /* Tag.m */; };
 		362FE8A1152D7BB50036B178 /* ActivityLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 362FE89F152D7BB50036B178 /* ActivityLog.h */; };
 		362FE8A2152D7BB50036B178 /* ActivityLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 362FE8A0152D7BB50036B178 /* ActivityLog.m */; };
 		3630005C15131A1600E84C2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3630005B15131A1600E84C2D /* Foundation.framework */; };
@@ -80,6 +84,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1839C7281808133300585130 /* PostTagDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTagDao.h; sourceTree = "<group>"; };
+		1839C7291808133300585130 /* PostTagDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTagDao.m; sourceTree = "<group>"; };
+		1839C72A1808133300585130 /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
+		1839C72B1808133300585130 /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 		362FE89F152D7BB50036B178 /* ActivityLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityLog.h; sourceTree = "<group>"; };
 		362FE8A0152D7BB50036B178 /* ActivityLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityLog.m; sourceTree = "<group>"; };
 		3630005815131A1600E84C2D /* libUMSAgent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUMSAgent.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -262,6 +270,10 @@
 		8447F4C315186F0A00D14FD9 /* UMSDao */ = {
 			isa = PBXGroup;
 			children = (
+				1839C7281808133300585130 /* PostTagDao.h */,
+				1839C7291808133300585130 /* PostTagDao.m */,
+				1839C72A1808133300585130 /* Tag.h */,
+				1839C72B1808133300585130 /* Tag.m */,
 				8447F4C415186F4000D14FD9 /* CheckUpdateDao.h */,
 				8447F4C515186F4000D14FD9 /* CheckUpdateDao.m */,
 				8447F4D315188ACF00D14FD9 /* PostClientDataDao.h */,
@@ -335,6 +347,8 @@
 				36B6B3A11563AA1E00AEB577 /* ErrorLog.h in Headers */,
 				36B30157162AD1BD0098FEF5 /* ClientData.h in Headers */,
 				369DFBE917EEA53900A8D1E7 /* CJSONDeserializer.h in Headers */,
+				1839C72C1808133300585130 /* PostTagDao.h in Headers */,
+				1839C72E1808133300585130 /* Tag.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +469,8 @@
 				362FE8A2152D7BB50036B178 /* ActivityLog.m in Sources */,
 				36B6B3A21563AA1E00AEB577 /* ErrorLog.m in Sources */,
 				36B30158162AD1BD0098FEF5 /* ClientData.m in Sources */,
+				1839C72D1808133300585130 /* PostTagDao.m in Sources */,
+				1839C72F1808133300585130 /* Tag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -74,7 +74,7 @@ $captcha = array(
 							<td></td>
 							<td></td>
 							<td><?php echo form_submit('submit', lang('l_login')); ?></td>
-							<td>
+                            
 							</td>
 							<td></td>
 						</tr>
@@ -104,7 +104,11 @@ $captcha = array(
 <?php if($this->config->item('language')=="zh_CN")
                        { echo 'http://dev.cobub.com/zh/';}
                  else{ echo 'http://dev.cobub.com/'; } ?>
-" target ="_blank" title="Mobile Analytics" alt="Cobub Razor - Open Source Mobile Analytics                   Solution"><?php echo lang('m_open_mobile_analytics')?></a>
+" target ="_blank" title="Mobile Analytics" 
+alt="Cobub Razor - Open Source Mobile Analytics                   Solution">
+ <?php if($this->config->item('language')=="zh_CN")
+                        {  echo '开源移动应用统计分析平台';}
+                  else{ echo 'Mobile Analytics of       Open          Source'; } ?></a>
                          </p>    </p><br/>
 
 

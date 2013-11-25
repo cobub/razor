@@ -50,6 +50,11 @@
     [self presentModalViewController:secondViewController animated:YES];
 }
 
+-(IBAction) tag
+{
+    [UMSAgent postTag:@"ios tag"];
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [UMSAgent startTracPage:@"LoginActivity"];

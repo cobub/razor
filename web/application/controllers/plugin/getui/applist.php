@@ -71,7 +71,8 @@ class Applist extends CI_Controller {
 
 	function pushInfo() {
 		$appName = $_GET ['appName'];
-		$data = $this->activatemodel->checkInfo ( $appName );
+		$appid = $_GET ['appid'];
+		$data = $this->activatemodel->checkInfo ( $appName,$appid  );
 		$flag = $this -> getUserStatus();
 		$type = $_GET['type'];
 

@@ -59,13 +59,14 @@ class Activatemodel extends CI_Model
 		return false;
 	}
 	
-	function checkInfo($appName)
+	function checkInfo($appName,$appid)
 	{
 		$data['appName'] = $appName;
+		$data['appid']=$appid;
 		$product_id = $this -> activatemodel ->  getProductId($appName);
 		
 		$data['productId'] = $product_id;
-		$sql = "select * from ". $this->db->dbprefix("getui_product")." where product_id =".$product_id;
+		$sql = "select * from ". $this->db->dbprefix("getui_product")." where product_id =".$appid;
 
 		$query = $this->db->query($sql);
 		if($query && $query->num_rows()>0)

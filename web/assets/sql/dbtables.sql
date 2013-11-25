@@ -139,9 +139,9 @@ CREATE TABLE IF NOT EXISTS `umsinstall_clientdata` (
   `clientip` varchar(50) NOT NULL,
   `productkey` varchar(50) NOT NULL,
   `service_supplier` varchar(64) DEFAULT NULL,
-  `country` varchar(50) DEFAULT NULL,
-  `region` varchar(50) DEFAULT NULL,
-  `city` varchar(50) DEFAULT NULL,
+  `country` varchar(50) DEFAULT 'unknown',
+  `region` varchar(50) DEFAULT 'unknown',
+  `city` varchar(50) DEFAULT 'unknown',
   `street` varchar(500) DEFAULT NULL,
   `streetno` varchar(50) DEFAULT NULL,
   `postcode` varchar(50) DEFAULT NULL,
@@ -280,18 +280,6 @@ CREATE TABLE IF NOT EXISTS `umsinstall_markevent` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8  AUTO_INCREMENT=1;
 
--- --------------------------------------------------------
-
---
--- Table Structure of  `mccmnc`
---
-
-CREATE TABLE IF NOT EXISTS `umsinstall_mccmnc` (
-  `id` int(50) NOT NULL,
-  `value` varchar(50) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -611,43 +599,6 @@ INSERT INTO `umsinstall_channel` (`channel_id`, `channel_name`, `create_date`, `
 -- --------------------------------------------------------
 
 
---
--- Default value for table `mccmnc`
---
-
-INSERT INTO `umsinstall_mccmnc` (`id`, `value`, `name`) VALUES
-(1, "46000", "China Mobile"),
-(2, "46001", "China Unicom"),
-(3, "46002", "China Mobile"),
-(4, "46003", "China Telecom"),
-(5, "310SP", "China Telecom"),
-(8, "45406", "SMC"),
-(6, "46601", "Far EasTone"),
-(7, "46692", "Chunghwa"),
-(11, "46697", "TWN GSM"),
-(12, "45403", "Hutchison 3G"),
-(13, "52505", "STARHUB-SGP"),
-(14, "50216", "DiGi"),
-(15, "45400", "CSL"),
-(16, "23415", "Vodafone"),
-(17, "46689", "KGT"),
-(9, "45419", "Sunday3G"),
-(10, "45412", "PEOPLES"),
-(18, "20801", "Orange"),
-(19, "20802", "Orange"),
-(20, "20810", "SFR"),
-(21, "20811", "SFR"),
-(22, "20813", "SFR"),
-(23, "20815", "Free Mobile"),
-(24, "20816", "Free Mobile"),
-(25, "20820", "Bouygues Telecom"),
-(26, "20821", "Bouygues Telecom"),
-(27, "20823", "Virgin Mobile"),
-(28, "20825", "Lycamobile"),
-(29, "20826", "NRJ Mobile"),
-(30, "20827", "Afone Mobile"),
-(31, "20830", "Symacom"),
-(32, "20888", "Bouygues Telecom");
 
 -- --------------------------------------------------------
 
@@ -687,27 +638,28 @@ INSERT INTO `umsinstall_platform` (`id`, `name`) VALUES
 
 
 INSERT INTO `umsinstall_product_category` (`id`, `name`, `level`, `parentid`) VALUES
-(1, "报刊杂志", 1, 0),
-(2, "社交", 1, 0),
-(3, "商业", 1, 0),
-(4, "财务", 1, 0),
-(5, "参考", 1, 0),
-(6, "导航", 1, 0),
-(7, "工具", 1, 0),
-(8, "健康健美", 1, 0),
-(9, "教育", 1, 0),
-(10, "旅行", 1, 0),
-(11, "摄影与录像", 1, 0),
-(12, "生活", 1, 0),
-(13, "体育", 1, 0),
-(14, "天气", 1, 0),
-(15, "图书", 1, 0),
-(16, "效率", 1, 0),
-(17, "新闻", 1, 0),
-(18, "音乐", 1, 0),
-(19, "医疗", 1, 0),
-(32, "娱乐", 1, 0),
-(33, "游戏", 1, 0);
+(1, "UMSINSTALL_NEWSPAPER", 1, 0),
+(2, "UMSINSTALL_SOCIAL", 1, 0),
+(3, "UMSINSTALL_BUSINESS", 1, 0),
+(4, "UMSINSTALL_FINANCIALBUSINESS", 1, 0),
+(5, "UMSINSTALL_REFERENCE", 1, 0),
+(6, "UMSINSTALL_NAVIGATION", 1, 0),
+(7, "UMSINSTALL_INSTRUMENT", 1, 0),
+(8, "UMSINSTALL_HEALTHFITNESS", 1, 0),
+(9, "UMSINSTALL_EDUCATION", 1, 0),
+(10, "UMSINSTALL_TRAVEL", 1, 0),
+(11, "UMSINSTALL_PHOTOVIDEO", 1, 0),
+(12, "UMSINSTALL_LIFE", 1, 0),
+(13, "UMSINSTALL_SPORTS", 1, 0),
+(14, "UMSINSTALL_WEATHER", 1, 0),
+(15, "UMSINSTALL_BOOKS", 1, 0),
+(16, "UMSINSTALL_EFFICIENCY", 1, 0),
+(17, "UMSINSTALL_NEWS", 1, 0),
+(18, "UMSINSTALL_MUSIC", 1, 0),
+(19, "UMSINSTALL_MEDICAL", 1, 0),
+(32, "UMSINSTALL_ENTERTAINMENT", 1, 0),
+(33, "UMSINSTALL_GAME", 1, 0);
+
 
 -- --------------------------------------------------------
 
@@ -760,33 +712,33 @@ INSERT INTO `umsinstall_user_permissions` VALUES
 
 INSERT INTO `umsinstall_user_resources` (`id`, `name`, `description`, `parentId`) VALUES
 (1, "test", "Acl Test Controller", NULL),
-(2, "User", "用户管理", NULL),
-(3, "Product", "我的应用", NULL),
-(4, "errorlogondevice", "错误设备统计", NULL),
-(5, "productbasic", "基本统计", NULL),
-(6, "Auth", "用户", NULL),
-(7, "Autoupdate", "自动更新", NULL),
-(8, "Channel", "渠道", NULL),
-(9, "Device", "设备", NULL),
-(10, "Event", "事件管理", NULL),
-(11, "Onlineconfig", "发送策略", NULL),
-(12, "Operator", "运营商", NULL),
-(13, "Os", "操作系统统计", NULL),
-(14, "Profile", "个人资料", NULL),
-(15, "Resolution", "分辨率统计", NULL),
-(16, "Usefrequency", "使用频率统计", NULL),
-(17, "Usetime", "使用时长统计", NULL),
-(18, "errorlog", "错误日志", NULL),
-(19, "Eventlist", "事件", NULL),
-(20, "market", "渠道STATISTICS", NULL),
-(21, "region", "地域统计", NULL),
-(22, "errorlogonos", "错误操作系统统计", NULL),
-(23, "version", "版本统计", NULL),
-(24, "console", "应用", NULL),
-(25, "Userremain", "用户留存", NULL),
-(26, "Pagevisit", "页面访问统计", NULL),
-(27, "Network", "联网方式统计", NULL),
-(28, "funnels", "漏斗模型", NULL);
+(2, "User", "UMSINSTALLC_SYSMANAGER", NULL),
+(3, "Product", "UMSINSTALLC_MYAPPS", NULL),
+(4, "errorlogondevice", "UMSINSTALLC_ERRORDEVICE", NULL),
+(5, "productbasic", "UMSINSTALLC_DASHBOARD", NULL),
+(6, "Auth", "UMSINSTALLC_USERS", NULL),
+(7, "Autoupdate", "UMSINSTALLC_AUTOUPDATE", NULL),
+(8, "Channel", "UMSINSTALLC_CHANNEL", NULL),
+(9, "Device", "UMSINSTALLC_DEVICE", NULL),
+(10, "Event", "UMSINSTALLC_EVENTMANAGEMENT", NULL),
+(11, "Onlineconfig", "UMSINSTALLC_SENDPOLICY", NULL),
+(12, "Operator", "UMSINSTALLC_OPERATORSTATISTICS", NULL),
+(13, "Os", "UMSINSTALLC_OSSTATISTICS", NULL),
+(14, "Profile", "UMSINSTALLC_PROFILE", NULL),
+(15, "Resolution", "UMSINSTALLC_RESOLUTIONSTATISTICS", NULL),
+(16, "Usefrequency", "UMSINSTALLC_REEQUENCYSTATISTICS", NULL),
+(17, "Usetime", "UMSINSTALLC_USAGEDURATION", NULL),
+(18, "errorlog", "UMSINSTALLC_ERRORLOG", NULL),
+(19, "Eventlist", "UMSINSTALLC_EVENTLIST", NULL),
+(20, "market", "UMSINSTALLC_CHANNELSTATISTICS", NULL),
+(21, "region", "UMSINSTALLC_GEOGRAPHYSTATICS", NULL),
+(22, "errorlogonos", "UMSINSTALLC_ERRORONOS", NULL),
+(23, "version", "UMSINSTALLC_VERSIONSTATISTICS", NULL),
+(24, "console", "UMSINSTALLC_APPS", NULL),
+(25, "Userremain", "UMSINSTALLC_RETENTION", NULL),
+(26, "Pagevisit", "UMSINSTALLC_PAGEVIEWSANALY", NULL),
+(27, "Network", "UMSINSTALLC_NETWORKINGSTATISTIC", NULL),
+(28, "funnels", "UMSINSTALLC_FUNNELMODEL", NULL);
 -- --------------------------------------------------------
 
 INSERT INTO `umsinstall_user_roles` (`id`, `name`, `description`, `parentId`) VALUES
@@ -839,3 +791,10 @@ CREATE TABLE IF NOT EXISTS `umsinstall_getui_product` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 
+CREATE TABLE IF NOT EXISTS `umsinstall_device_tag` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `deviceid` varchar(256) NOT NULL,
+    `tags` varchar(1024) default NULL,
+    `productkey` varchar(64) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

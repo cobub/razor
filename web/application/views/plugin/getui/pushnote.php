@@ -1,4 +1,4 @@
-<section id="main" class="column" style='height:1000px;' >
+<section id="main" class="column" style='height:1500px;' >
 				<h4 class="alert_warning" style='display:none' id="msg"></h4>
 			<article class="module width_full" >
 			<header><h3><?php echo  lang('getui');?></h3>	
@@ -21,13 +21,14 @@
 							<select id="select" name="pushType"  size="1"  style="width:160px;" >
 								<option name="startapp" value="1" ><?php echo  lang('getui_startapp');?></option>
 								<option name="opennet" value="2" ><?php echo  lang('getui_opennet');?></option>
+								<option name="downapk" value="3" ><?php echo  lang('getui_down_app');?></option>
 							
 							</select>
 
 		       </div>
 		        <div id="opennet" name="show1" style="height:130px; display:none;">
-							<div style="height:40px;margin-top:20px;margin-left:20px;">
-								<input id="opencheck" name="opencheck" type="checkbox" lang="1" checked="checked" style="padding-left:20px;">打开网页前需要用户确认</input>
+							<div  type="hidden" type="hidden" style="height:40px;margin-top:20px;margin-left:20px;">
+								<input type="hidden" id="opencheck" name="opencheck" type="checkbox" lang="1" checked="checked" style="padding-left:20px;"></input>
 							</div>
 							<div style="height:70px;line-height:30px;">
 								<label ><span style="color: red;">*</span><?php echo  lang('getui_neturl');?></label>
@@ -38,6 +39,44 @@
 								<span style="margin-left:20px;" class="warring"><?php echo  lang('getui_neturl_note');?></span>
 							</div>
 				</div>
+
+
+				<div id="downapp" name="downapp" style="height:390px;margin-top:20px;display:none;">
+							
+						
+							<table>
+								<tbody>
+
+									<tr><td><label><?php echo lang('getui_dialog_title');?></label></td><td ><input id="popTitle" name="popTitle"  maxlength="20"  type="text" style='width:230px;' ></input></td></tr>
+									<br><tr><td><label><?php echo lang('getui_dialog_pic');?></label></td><td>
+									<img src="<?php echo base_url();?>assets/images/launcher.png" id="pop_url_img" alt="" style="margin-bottom: -6px; margin-right: 20px; width: 42px;heigth:42px;"/>
+									<input type="file" name="filename" id="popPicture" value="选择文件"></input>
+										<input type="hidden" id='popPicture_url' name="popPicture_url" value="" />
+
+											<span ><?php echo lang("getui_pic_limit");?></span></td></tr>
+											<tr><td></td><td><div id="popfileQueue" style="width:80%;height:60px;margin-left:100px;" ></div></td></tr>
+											
+									<br><tr><td><label><?php echo lang('getui_dialog_content');?></label></td><td><textarea id="showmessage" name="popWords"  maxlength="50" rows="5" cols="" style="width:690px;height:80px;"></textarea>
+							</td></tr>
+
+							<br><tr><td><label><?php echo lang('getui_button_name');?></label></td><td>
+								<span><?php echo lang('getui_first_button');?></span><input style='width:80px;'  name="popFirstButton" id="popFirstButton" value="<?php echo lang('getui_down');?>" maxlength="20"/>
+								<br/><br/><span><?php echo lang('getui_second_button');?></span><input  style='width:80px;' name="popSecondButton" id="popSecondButton" value="<?php echo lang('getui_cancel');?>" maxlength="20"/>
+								
+								<tr><td><label ><?php echo lang('getui_appdown_url');?>
+								</label></td><td><input type="text" style='width:230px;' id="apkurladdress" name="loadUrl" value="http://"  maxlength="100"></input>
+							</td></tr>
+								
+
+							<br><tr><td><label ><?php echo lang('getui_app_name');?>
+							</label></td><td><input id='apkname' type="text" style='width:230px;' name="loadTitle" value=""  maxlength="40"></input>
+							</td></tr>
+							</tbody>
+						</table>
+
+					
+				</div>
+
 				
 			</fieldset>
 
@@ -150,6 +189,37 @@
 	var ctime = document.getElementById("ctime");
 	var sendmsg = document.getElementById("sendmsg");
 
+$("#popPicture").uploadify({
+		'uploader'       : '<?php echo base_url();?>assets/swf/uploadify.swf',
+		'script'         : '<?php echo base_url();?>assets/swf/uploadify.php',
+		'cancelImg'      : '<?php echo base_url();?>assets/images/cancel.png',
+		'folder'         : 'uploads',
+		'queueID'        : 'popfileQueue',
+		'auto'           : true,
+		'multi'          : true,
+		'fileExt'   	 : '*.png;*.jpg',
+		'fileDesc' 		 : '只支持 (.png,.jpg)文件,文件大小不超过5K',
+		'sizeLimit'      : 25 * 1024 ,
+		'onComplete': function(event, ID, fileObj, response, data) {
+								var filename = response.substring(response.lastIndexOf("/")+1);
+								var baseurl="<?php echo base_url();?>uploads/";
+								// alert(baseurl);
+								document.getElementById('popPicture_url').value = baseurl+filename;
+								
+								$('#pop_url_img').attr("src",baseurl+filename);
+								
+							},
+	 'onError'   : function(event, ID, fileObj){
+		       		if(fileObj.size > 25 * 1024){
+		       			alert("文件："+fileObj.name+"大小超出25 KB，请重新上传。");
+		       		}else{
+		       			alert("文件:" + fileObj.name + " 上传失败");
+		       		}}
+
+
+	});
+
+
 $("#logo_upload").uploadify({
 		'uploader'       : '<?php echo base_url();?>assets/swf/uploadify.swf',
 		'script'         : '<?php echo base_url();?>assets/swf/uploadify.php',
@@ -164,8 +234,9 @@ $("#logo_upload").uploadify({
 		'onComplete': function(event, ID, fileObj, response, data) {
 								var filename = response.substring(response.lastIndexOf("/")+1);
 								var baseurl="<?php echo base_url();?>uploads/";
-								document.getElementById('logo_url').value = "<?php echo base_url();?>uploads/"+filename;
-								$('#logo_url_img').attr("src","<?php echo base_url();?>uploads/"+filename);
+							
+								document.getElementById('logo_url').value = baseurl+filename;
+								$('#logo_url_img').attr("src",baseurl+filename);
 								
 							},
 	 'onError'   : function(event, ID, fileObj){
@@ -213,37 +284,74 @@ $("#logo_upload").uploadify({
 		
 		var offlineTime = document.getElementById('offlineTime').value;
 		var is2all=document.getElementById('tagtype').value;
-
+		if(offlineTime>72||offlineTime<1){
+			document.getElementById('msg').style.display='';
+			document.getElementById('msg').innerHTML="<?php echo '离线时间错误';?>"; 
+			return;
+		}
 		
 		
-		var notyCleared = true;
-		var notyBelled =true;
-		var notyVibrationed =true;
+		var notyCleared = 1;
+		var notyBelled =1;
+		var notyVibrationed =1;
 		var offlined =true;
 		var logo_url = document.getElementById('logo_url').value;
+
+		var popTitle = document.getElementById('popTitle').value;
+		var popPicture_url = document.getElementById('popPicture_url').value;
+		var showmessage = document.getElementById('showmessage').value;
+		var popFirstButton = document.getElementById('popFirstButton').value;
+		var popSecondButton = document.getElementById('popSecondButton').value;
+		var apkurladdress = document.getElementById('apkurladdress').value;
+		var apkname = document.getElementById('apkname').value;
+
 	
+		if(selectvalue==3){
+			if(popTitle==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '弹框标题不可为空';?>"; 
+				return;
+			}
+			if(showmessage==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '弹框内容不可为空';?>"; 
+				return;
+			}
+			if(popFirstButton==''||popSecondButton==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '按钮名称不可为空';?>"; 
+				return;
+			}
+			if(apkurladdress==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '应用地址不可为空';?>"; 
+				return;
+			}
+			if(apkname==''){
+				document.getElementById('msg').style.display='';
+				document.getElementById('msg').innerHTML="<?php echo '应用名称不可为空';?>"; 
+				return;
+			}
+		}
+
 		if(document.getElementById('offline2').checked){
 			offlined=false;
 			offlineTime='';
 		}
 
 		if(document.getElementById('vibrate2').checked){
-			notyVibrationed = false;
+			notyVibrationed = 0;
 		}
 
 		if(document.getElementById('ring2').checked){
-			notyBelled=false;
+			notyBelled=0;
 		}
 
 		if(document.getElementById('clear2').checked){
-			notyCleared=false;
+			notyCleared=0;
 		}
 
 		var transmissionContentNotify = document.getElementById('transmissionContentNotify').value;
-		
-
-
-		
 		
 		// alert(selectvalue);
 		
@@ -270,6 +378,18 @@ $("#logo_upload").uploadify({
 				logo_url:logo_url
 			};
 
+			
+				data.popTitle=popTitle;
+				data.popPicture_url=popPicture_url;
+				data.showmessage=showmessage;
+				data.popFirstButton=popFirstButton;
+				data.popSecondButton=popSecondButton;
+				data.apkurladdress=apkurladdress;
+				data.apkname=apkname;
+
+			
+
+			// data.push();
 			jQuery.ajax({
 						type : "post",
 						url : "<?php echo site_url()?>/plugin/getui/push",

@@ -13,10 +13,6 @@ echo lang ( 'l_cobubRazor' )?></title>
 <link rel="stylesheet"
 	href="<?php echo base_url();?>assets/css/tag/jquery.tagsinput.css"
 	type="text/css" media="screen" />
-
-
-
-
 	
 	<script src="<?php echo base_url();?>assets/js/tag/jquery.blockUI.js"
 	type="text/javascript"></script>
@@ -24,15 +20,32 @@ echo lang ( 'l_cobubRazor' )?></title>
 <script src="<?php echo base_url();?>assets/js/tag/jquery.tagsinput.js"
 	type="text/javascript"></script>
 
-<section id="main" class="column">
+
+<section id="main" class="column"  style='height:1500px;'>
+    <article class="module width_full" >
+    <header>
+			<h3 class="tabs_involved">
+			<input type="radio" name="user_radio" id="radio_all" value="1" checked="checked">
+			<?php echo  lang('tag_chose_all_user');?>
+			</h3>
+			
+    </header>
+    <div class="module_content">
+    <?php echo lang('tag_push_all_user');?>
+    </div>
+    
+    </article>
 
 	<!--   article class="module width_3_quarter" -->
 	<article class="module width_full" >
 		<header>
-			<h3><?php echo  '选择标签组'?></h3>
+			<h3 class="tabs_involved">
+			<input type="radio" name="user_radio" id="radio_tag" value="2">
+			<?php echo  lang('tag_chose_taggroup_user')?></h3>
+			<span id="select_span" display>
 			<select id="select_saved_tags" onchange='chooseTagsGroup()'
 				style="margin-right: 3%; margin-top: 6px">
-				<option>所有用户</option>
+				<option><?php echo lang('tag_all_user')?></option>
 			
 			<?php
 			foreach ( $tagsgroup->result () as $row ) {
@@ -41,46 +54,53 @@ echo lang ( 'l_cobubRazor' )?></title>
 			    
 			    <?php }?>
 			</select>
+			</span>
 
 		</header>
-		<div class="module_content">
+		<div class="tab_container" id="tag_content">
 			<article>
-				<div id="container" class="module_content">
+				<div id="tab1" class="tab_content">
 
 					<!--  tag start-->
 					<div class="module_content">
-						<h3>选择版本</h3>
+						<h3><?php echo lang('tag_chose_version');?></h3>
 						<input id="tag_version">
 						<!--  <button id="btn_version">清空</button>-->
 					</div>
 					
 
 					<div class="module_content">
-						<h3>选择渠道</h3>
+						<h3><?php echo lang('tag_chose_channel')?></h3>
 						<input id="tag_channel">
 						<!--<button id="btn_channel">清空</button>-->
 					</div>
 
 					<div class="module_content">
-						<h3>选择地区(省份)</h3>
+						<h3><?php echo lang('tag_chost_pri');?></h3>
 						<input id="tag_region">
 						<!--<button id="btn_region">清空</button>-->
 					</div>
 					<!--  tag end-->
+					
+					<br>
+			        <div class="module_content">
+				        <input type="checkbox" id="checkbox_save" onclick="showInputText()">  <?php echo lang('tag_save_user');?> 
+				        <input
+					     type="text" id="input_tag_name" style="width: 30%; display:none">
+					    <font color='red'><label id='err_msg'></label></font>
+			        </div>
 			    </div>
+			    <br>
+			    
 			</article>
 
 			<div class="clear"></div>
-			<br>
-			<div class="module_content">
-				<input type="checkbox" id="checkbox_save" onclick="showInputText()">  保存以便下次使用 
-				<input
-					type="text" id="input_tag_name" style="width: 30%; display:none">
-					<font color='red'><label id='err_msg'></label></font>
-			</div>
+			
 		</div>
 
-		<footer>
+		
+	</article>
+	<footer>
 			<div class="submit_link">
 			<form id="tag_form" action="<?php echo $url?>" method="post">
 			    <input type="hidden" id="data_for_submit" name="tag_data">
@@ -91,7 +111,6 @@ echo lang ( 'l_cobubRazor' )?></title>
 			</form>		
 			</div>
 		</footer>
-	</article>
 	<!-- end of stats article -->
 	<!--  
 	<article class="module width_quarter">
@@ -108,9 +127,7 @@ echo lang ( 'l_cobubRazor' )?></title>
 						<div><Br></div>
 					</div>
 					
-					
-					
-				</article>
+			</article>
 		</article>
 
 -->
@@ -158,7 +175,20 @@ var region_list;
 var all_tags_data_select = <?php echo $tagsgroupjson;?>;
 var current_tags_data_select = "";
 
+function isShowTags()
+{
+	var val=$('input:radio[name="user_radio"]:checked').val();
+	if(val=="1")
+	{
+		$("#tab1").hide();
+	}
+	else
+		$("#tab1").slideDown(1000);
+	}
+
 $(document).ready(function() {
+	isShowTags();
+	$("#radio_all,#radio_tag").bind("click",isShowTags);
 	
 	//$("#input_tag_name").value ="";
 	$("#select_saved_tags option").each(function()
@@ -173,7 +203,7 @@ $(document).ready(function() {
 		document.getElementById("err_msg").innerHTML="";
 	    if(jQuery.inArray(this.value,tagsgroup)!=-1)//-1 notexist else retrun index
 	    {
-	    	document.getElementById("err_msg").innerHTML="该名称已存在，请重新输入新的名称";
+	    	document.getElementById("err_msg").innerHTML="<?php echo lang('tag_name_exited');?>";
 		    
 	    }
 	  });
@@ -231,7 +261,7 @@ function showTagList()
 	else
 		region_list = "";
 	
-    var content = "<p>你选择的标签：<p class='overview_day'><div id='tags_sel' class='tagsout'>";
+    var content = "<p><?php echo lang('tag_chosed');?><p class='overview_day'><div id='tags_sel' class='tagsout'>";
     
     for(var i in version_list)
     {
@@ -309,7 +339,7 @@ $("#btn_region").click(function()
 
 $("#btn_submit").click(function()
 
-{
+{	
 	getCurrentTagList();
 	document.getElementById("data_for_submit").value = JSON.stringify(all_tag_list);
 	document.getElementById("product_id").value = product_id;
@@ -317,11 +347,20 @@ $("#btn_submit").click(function()
 
 	var tag_type="all";
 	var name=document.getElementById("select_saved_tags").value;
-    if(name != "所有用户")
+	
+	
+	if($('input[name="user_radio"]:checked').val()=="1")
+	{
+		//return;
+	}
+	
+	
+    if(name != "<?php echo lang('tag_all_user');?>")
     {
         tag_type = "custom";
+        
     }
-    if (name == "所有用户")
+    if (name == "<?php echo lang('tag_all_user');?>")
     {
         var v_l = $("#tag_version").val().split(","); 
         $.each(version_tags,function(k,v){
@@ -329,8 +368,9 @@ $("#btn_submit").click(function()
             if(jQuery.inArray(v,v_l)==-1)
             {
             	//alert(k+":"+v);
+
             	tag_type = "custom";
-        	    return;
+        	    //return;
             }
             });
 
@@ -344,7 +384,8 @@ $("#btn_submit").click(function()
             {
             	//alert(k+":"+v);
             	tag_type = "custom";
-        	return;}
+        	//return;
+        	}
             });
         }
         if(tag_type!="custom")
@@ -357,29 +398,35 @@ $("#btn_submit").click(function()
             if(jQuery.inArray(v,r_l)==-1)
             {
                 //alert(k+":"+v);
-            	tag_type = "custom";
-                return;
+            	tag_type = "custom"; 
+               // return;
             }
             });
 
         }
+       // alert(tag_type);
        
     }
+    
+     //var radio=document.getElementById("radio_all");
+    // if(radio.checked){
+     //	tag_type='all';
+    // }
         
     document.getElementById("tag_type").value = tag_type;
-	
+    // alert(tag_type);
 	
 	if(document.getElementById('checkbox_save').checked)
 	  {
 	    if($("#input_tag_name").val()=="")
 	    {
 		   
-		    document.getElementById("err_msg").innerHTML="请输入要保存的标签组名称";
+		    document.getElementById("err_msg").innerHTML="<?php echo lang('tag_input_groupname');?>";
 		    return;
 	    }
 	    else if(jQuery.inArray($("#input_tag_name").val(),tagsgroup)!=-1)//-1 notexist else retrun index
 	    {
-	    	document.getElementById("err_msg").innerHTML="该名称已存在，请重新输入新的名称";
+	    	document.getElementById("err_msg").innerHTML="<?php echo lang('tag_name_exited');?>";
 		    return;
 	    }
 	    
@@ -456,7 +503,7 @@ function addTagsGroup()
 		},
 		error : function(XmlHttpRequest, textStatus, errorThrown) {
 			$.unblockUI();
-			alert("保存标签组失败");
+			alert("<?php echo lang('tag_save_group_fail');?>");
 		},
 		beforeSend : function() {
 			
@@ -499,7 +546,7 @@ function getCurrentTagList()
 function chooseTagsGroup()
 {
     var name=$("#select_saved_tags").val();
-    if(name == "所有用户")
+    if(name == "<?php echo lang('tag_all_user');?>")
     {
     	initAllTag();
     	return;

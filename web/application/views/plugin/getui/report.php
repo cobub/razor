@@ -1,7 +1,10 @@
-<section class="column"  id="main">
-	<h4 class="alert_warning"  id="msg"> 当前在线用户数：<?php echo $onlineuser;?></h4>
-
-	<article class="module width_full" style='width:1040px;'>
+<section class="column"  id="main" style='height:1500px;'>
+	<h4 class="alert_warning"  id="msg"> <?php echo lang('current_user_num')?>：<?php echo $onlineuser;?></h4>
+	<?php if(isset($timeerror)):?>
+	<h4   class="alert_warning"  id="timemsg"><?php echo $timeerror;?></h4>
+	<?php endif;?>
+	
+	<article class="module width_full">
 	<header>
 	<h3 class="h3_fontstyle">		
 	<?php  echo lang('getui_data'); ?></h3>
@@ -23,6 +26,58 @@
 		</div>
 		<input type="hidden" id='appid' name="appid" value="<?php echo $appid?>" />
 	</article>
+
+	<article class="module width_full" >
+	<header>
+	<h3 class="h3_fontstyle">		
+	<?php   echo '四日内推送记录' ?></h3>
+		</header>
+		<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+    				<th><?php  echo '标题';?></th> 
+    				<th><?php  echo "内容";?></th> 
+    				<th><?php  echo "时间";?></th> 
+    				<th><?php  echo "推送类型";?></th>
+    				<th><?php  echo "操作";?></th> 
+    				</tr> 
+			</thead> 
+			<tbody id='tbody'>
+
+
+
+						
+			</tbody>
+
+			</table>
+			<footer><div style='float:right;'>
+				<input id="perbutton" type='button' value ='上一页' onclick='perpage()'/><label id='pagenum'></label><input id='nextbutton' type='button' value='下一页' onclick='nextpage()'/>
+			</div></footer>
+
+	</article>
+
+
+	<article class="module width_full" >
+	<header>
+	<h3 class="h3_fontstyle">		
+	<?php   echo lang('getui_data'); ?></h3>
+		</header>
+		<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+    				<th><?php  echo lang('g_date');?></th> 
+    				<th><?php  echo lang('getui_newuser');?></th> 
+    				<th><?php  echo lang('getui_online');?></th> 
+    				<th><?php  echo lang('getui_push');?></th> 
+    				<th><?php  echo lang('getui_recive');?></th> 
+    				<th><?php echo lang('getui_click')?></th> 
+				</tr> 
+			</thead> 
+			<tbody id='tablebody'>	
+						
+			</tbody>
+			</table>
+	</article>
 </section>
 <script type="text/javascript">
 $(".tab_content").hide(); //Hide all content
@@ -40,20 +95,95 @@ $("ul.tabs2 li").click(function() {
 </script>
 
 <script type="text/javascript">
+var dataofpush=[] ;
+var page=0;
+
+$(document).ready(function(){
+
+	var appid=document.getElementById('appid').value;
+	var papgenum = document.getElementById('pagenum');
+	var myurl="<?php echo site_url();?>/plugin/getui/report/getRecords?appid="+appid;
+
+	jQuery.getJSON(myurl, null, function(newdata) {
+		var tbody = document.getElementById('tbody');
+		var str="";
+
+		dataofpush = newdata;
+		for(var i=0;i<newdata.records.length&& i<10;i++){
+			str = str+"<tr><td>"+newdata.records[i].push_title+"</td><td>"+newdata.records[i].push_content+"</td><td>"+newdata.records[i].push_time+"</td><td>"+newdata.records[i].push_type+"</td><td><a href='<?php echo site_url()?>/plugin/getui/report/gettaskdata?appid="+newdata.appid+"&taskid="+newdata.records[i].taskid+"'>详细</a></td></tr>";
+					
+		}
+
+		tbody.innerHTML=str;
+		papgenum.innerHTML=page+1;
+
+	});
+
+});
+
+function nextpage(){
+	
+
+var tbody = document.getElementById('tbody');
+		var str="";
+		var j=0;
+		page++;
+		if(page>=dataofpush.records.length/10){
+			page= parseInt(dataofpush.records.length/10);
+			return;
+		}
+		
+		for(var i=page*10;i<dataofpush.records.length && j<10;i++){
+			str = str+"<tr><td>"+dataofpush.records[i].push_title+"</td><td>"+dataofpush.records[i].push_content+"</td><td>"+dataofpush.records[i].push_time+"</td><td>"+dataofpush.records[i].push_type+"</td><td><a href='<?php echo site_url()?>/plugin/getui/report/gettaskdata?appid="+dataofpush.appid+"&taskid="+dataofpush.records[i].taskid+"'>详细</a></td></tr>";
+					j++;
+		}
+
+		tbody.innerHTML=str;
+		var papgenum = document.getElementById('pagenum');
+		papgenum.innerHTML=page+1;
+
+}
+function perpage(){
+	
+		if(page<=0){
+			page=0;
+			return;
+		}
+		page--;
+	var tbody = document.getElementById('tbody');
+		var str="";
+
+		
+		var j=0
+		for(var i=page*10;i<dataofpush.records.length && j<10;i++){
+			str = str+"<tr><td>"+dataofpush.records[i].push_title+"</td><td>"+dataofpush.records[i].push_content+"</td><td>"+dataofpush.records[i].push_time+"</td><td>"+dataofpush.records[i].push_type+"</td><td><a href='<?php echo site_url()?>/plugin/getui/report/gettaskdata?appid="+dataofpush.appid+"&taskid="+dataofpush.records[i].taskid+"'>详细</a></td></tr>";
+					j++;
+		}
+
+		tbody.innerHTML=str;
+		var papgenum = document.getElementById('pagenum');
+		papgenum.innerHTML=page+1;
+
+}
+
+
 var chart;
 var options;
 var type="user";
 var optionsLength=0;
 var markEventIndex=[];//save all markevent series index
 var  allusers= new Array();
+var chart_canvas ;
 var category=[];
 var tooltipmarkevent=[];
 var tooltipdata=new Array(new Array(),new Array());
 var tooltipname=[];
 var colors=['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', 
-             '#A47D7C', '#B5CA92','#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', 
-             '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
+            '#A47D7C', '#B5CA92', '#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', 
+            '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
 $(document).ready(function() {	
+	
+
 	options = {
 		            chart: {
 		                renderTo: 'container',
@@ -85,24 +215,7 @@ $(document).ready(function() {
 				    tooltip: {
 				        crosshairs: true,
 				        shared:false,
-				        formatter: function() {
-					        var content=this.x+'<br>';
-					        var m=0;					       
-					        for(var i=0;i<category.length;i++){
-						        if(category[i]==this.x){
-							        m=i;
-							        break;
-						        }
-						    }
-					        if(this.series.name=='<?php echo lang('m_dateevents');?>'){
-		                           content=tooltipmarkevent[m];
-		                    }else{
-			                    for(var j=0;j<tooltipname.length;j++){
-				                    content=content+'<span style="color:'+colors[j]+'">'+tooltipname[j]+'</span>:'+tooltipdata[j][m]+'<br>';
-				                }
-		                    }
-					        return content;
-				        }
+				        
 				    },
 		            plotOptions: {
 			            column: {
@@ -115,30 +228,7 @@ $(document).ready(function() {
 		                        lineWidth: 1
 		                    }
 		                },series:{
-		                	cursor:'pointer',
-		                	events:{
-		        				click:function(e){
-		        					if(!markEventIndex.content(e.point.series.index)){
-		        						sendBack(e);
-		        						return;
-		        						}
-		    						var rights=e.point.rights==1?'<?php echo lang('m_public')?>':'<?php echo lang('m_private')?>';
-		        					var content='<div><?php echo lang('m_marktime')?>:'+e.point.date+'</div>';
-		        					content+='<div><?php echo lang('m_user')?>:'+e.point.username+'</div>';
-		        					content+='<div><?php echo lang('m_title')?>:'+e.point.title+'</div>';
-		        					content+='<div><?php echo lang('m_description')?>:'+e.point.description+'</div>';
-		        					content+='<div><?php echo lang('m_rights')?>:'+rights+'</div>';
-		        					 hs.htmlExpand(null, {
-		                                 pageOrigin: {
-		                                     x: e.pageX,
-		                                     y: e.pageY
-		                                 },
-		                                 headingText: '<?php echo lang('m_eventsDetail')?>',
-		                                 maincontentText:content,
-		                                 width: 200
-		                             });	
-		        					}
-		                        }
+		                	cursor:'pointer'
 			                }
 		            },
 		            legend:{
@@ -150,27 +240,110 @@ $(document).ready(function() {
 		        
 		            ]
 		        };
-	 
- var appid=document.getElementById('appid').value;
-	var myurl="<?php echo site_url();?>/plugin/getui/report/getdata/?type="+type+"&appid="+appid;	
-	// alert(myurl);
-	renderCharts(myurl);	
+	 var appid=document.getElementById('appid').value;
+  chart_canvas  = $('#container');
+	    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
+		    
+	    chart_canvas.block({
+	        message: loading_img,
+	        css:{
+	            width:'32px',
+	            border:'none',
+	            background: 'none'
+	        },
+	        overlayCSS:{
+	            backgroundColor: '#FFF',
+	            opacity: 0.8
+	        },
+	        baseZ:997
+	    });	 
+	
+
+	var myurl="<?php echo site_url();?>/plugin/getui/report/getdata/?type=online&appid="+appid+"&time="+new Date();	
+	jQuery.getJSON(myurl, null, function(data) {
+	onlinedata=data; 
+	flag1=false;
+
+	var myurl="<?php echo site_url();?>/plugin/getui/report/getdata/?type=push&appid="+appid+"&time="+new Date();
+	jQuery.getJSON(myurl, null, function(data) {
+	pushdata=data;
+	flag2=false;
+
+		var myurl="<?php echo site_url();?>/plugin/getui/report/getdata/?type=receive&appid="+appid+"&time="+new Date();	
+		jQuery.getJSON(myurl, null, function(data) {
+		receivedata=data;
+		flag3=false;
+
+			var myurl="<?php echo site_url();?>/plugin/getui/report/getdata/?type=click&appid="+appid+"&time="+new Date();
+			jQuery.getJSON(myurl, null, function(data) {
+			clickdata=data; 
+			flag4=false;
+
+				var myurl="<?php echo site_url();?>/plugin/getui/report/getdata/?type="+type+"&appid="+appid+"&time="+new Date();	
+
+				jQuery.getJSON(myurl, null, function(newdata) {
+				userdata=newdata;
+				renderCharts(myurl);
+				var tbody = document.getElementById('tablebody');
+				var str="";
+				// alert('sdf');
+				// do{
+
+				// 	}while(flag4||flag3||flag2||flag1)
+
+				if(newdata.status=="Succ"&&onlinedata.status=="Succ"&&pushdata.status=="Succ"&&receivedata.status=="Succ"&&clickdata.status=="Succ"){
+					for(var i=newdata.headList.length-1;i<newdata.headList.length;i++){
+						for(var j=newdata.dataList.length-1;j>=0;j--){
+
+							
+
+							str = "<tr><td>"+newdata.dataList[j].date+"</td><td>"+userdata.dataList[j].datas[i]+"</td><td>"+onlinedata.dataList[j].datas[i]+"</td><td>"+pushdata.dataList[j].datas[i]+"</td><td>"+receivedata.dataList[j].datas[i]+"</td><td>"+clickdata.dataList[j].datas[i]+"</td></tr>"+str;
+						}
+						tbody.innerHTML=str;
+					}
+				}else{
+					tbody.innerHTML=str;
+				}
+				
+
+
+				 }); 
+			});  
+
+		 });  
+	 });  
+	});  
+
 });
 </script>
 <script type="text/javascript">     
     function renderCharts(myurl)
     {
+
     	
-      	 var chart_canvas = $('#container');
-      	    var loading_img = $("<img src='<?php echo base_url();?>assets/images/loader.gif'/>");
-      		   
-      	  
+      		 if(type=='user'){
+	    	data = userdata;
+	    }
+	     if(type=='online'){
+	    	data = onlinedata;
+	    }
+	     if(type=='push'){
+	    	data = pushdata;
+	    }
+	     if(type=='click'){
+	    	data = clickdata;
+	    }
+	     if(type=='receive'){
+	    	data = receivedata;
+	    }
       	    
-      	 	jQuery.getJSON(myurl, null, function(data) {
+
+      	 	if(data.status=='Succ'){
       	 	 // alert(data.dataList[0].date);
       	 	 // alert(data);
       	 	
-          	 	    for(var i=0;i<data.headList.length;i++){
+          	 	    var d =data.headList.length;
+          	 	    for(var i=0;i<data.headList.length-1;i++){
           	 	    	var appdata =[];
           	 	    	var categories=[];
 
@@ -183,13 +356,14 @@ $(document).ready(function() {
           	 	    		
           	 	    	}
           	 	    options.series[i].data = appdata;
+          	 	  
 					options.xAxis.labels.step = parseInt(categories.length/10);
 					options.xAxis.categories = categories; 
 					<!--options.title.text = <?php echo lang('getui_data');?>;-->
           	 	    }
           	 	    chart = new Highcharts.Chart(options);
-          		
-          		});  
+          			chart_canvas.unblock();
+          		};  
     }
   	    
 </script>

@@ -66,6 +66,27 @@ namespace UMSAgent.Common
                     DebugTool.Log("event list size:" + list_event.Count);
 
                     break;
+
+
+                case (int)UMSApi.DataType.TAGDATA://tag data
+                    List<Tag> list_tag = new List<Tag>();
+                    Tag tag = (Tag)obj;
+
+                    if (settings.Contains("tagdata"))
+                    {
+                        list_tag = (List<Tag>)settings["tagdata"];
+                        list_tag.Add(tag);
+                        settings["tagdata"] = list_tag;
+                    }
+                    else
+                    {
+                        list_tag.Add(tag);
+                        settings.Add("tagdata", list_tag);
+
+                    }
+                    settings.Save();
+                    DebugTool.Log("tag list size:" + list_tag.Count);
+                    break;
                 case (int)UMSApi.DataType.ERRORDATA://error data
                     
                     break;

@@ -18,9 +18,9 @@
 // Login---main
 $lang['l_login']='登录';
 $lang['l_signup']='注册';
-$lang['l_cobubRazor'] = 'Cobub Razor - 开源移动应用分析平台';
-$lang['l_welcomeCR'] = '欢迎使用Cobub Razor - 开源移动应用分析平台';
-$lang['l_welcome']='欢迎使用Cobub Razor - <a href="http://dev.cobub.com/">开源移动应用分析平台</a>';
+$lang['l_cobubRazor'] = 'Cobub Razor - 开源移动应用统计分析平台';
+$lang['l_welcomeCR'] = '欢迎使用Cobub Razor - 开源移动应用统计分析平台';
+$lang['l_welcome']='欢迎使用Cobub Razor - <a href="http://dev.cobub.com/zh/">开源移动应用统计分析平台</a>';
 $lang['l_userlogin']='用户登录';
 $lang['l_emailOrUsername']='邮件或用户名';
 $lang['l_username']='用户名';
@@ -40,7 +40,7 @@ $lang['l_re_email']='邮箱';
 $lang['l_re_confirmPassword']='确认密码';
 $lang['l_re_captcha']='验证码';
 // login----forgetpassword
-$lang['l_fp_enterEmail']='输入邮件';
+$lang['l_fp_enterEmail']='输入邮箱';
 $lang['l_fp_forgetPassword']='忘记密码';
 $lang['l_fp_details']='忘记了密码？请输入您注册时使用的邮件地址，系统会发送密码邮件给您.';
 $lang['l_fp_send']='发送';
@@ -119,7 +119,7 @@ $lang['m_userPermission']='用户权限';
 $lang['m_userManagement']='用户管理';
 $lang['m_roleManagement']='角色管理';
 $lang['m_resourceManagement']='资源管理';
-$lang['m_appType']='添加类型';
+$lang['m_appType']='类型管理';
 $lang['m_developerGuide']='开发者指南';
 $lang['m_openAPIManual']='OpenAPI 手册';
 $lang['m_account_author']='账户授权';
@@ -172,6 +172,7 @@ $lang['m_rpt_editFunnel']='转化率组';
 
 //**************************************View***************************************
 // view---main
+$lang['v_user_center']='用户中心';
 $lang['v_console']='控制台';
 $lang['v_CR_news'] = "Cobub Razor 新闻";
 $lang['v_CR_newsDelivery']='Cobub Razor 新闻中心';
@@ -213,7 +214,7 @@ $lang['v_userStatusInactive'] ='不可用';
 $lang['v_warning1'] ='userKey和userSecret不正确';
 $lang['v_warning2'] ='注册APP失败';
 $lang['v_warning3'] ='认证失败';
-$lang['v_integrationGuide'] = 'SDK集成指南';
+$lang['v_integrationGuide'] = '<a href="http://dev.cobub.com/zh/docs/plugins/getui/" target="_blank">SDK集成指南</a>';
 $lang['v_userStatusExplain'] = '个推账户状态为不可用时，系统将不能进行推送服务，请及时充值。如有问题，请联系';
 $lang['v_userStatusExplain1']='或发送邮件至：support@cobub.com<br />具体SDK集成步骤，请参考';
 $lang['v_tap']='注：SDK只能从';
@@ -921,15 +922,15 @@ $lang['plg_usable_plugins']='可用插件';
 $lang['plg_name']=' 插件 ';
 $lang['plg_status']='插件状态';
 $lang['plg_description']=' 描述 ';
-$lang['plg_use_instruct']='使用说明';
+$lang['plg_use_instruct']='集成指南';
 $lang['plg_plugin_manage']='插件管理';
-$lang['plg_get_keysecret_home']='您尚未在<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub用户中心</a>进行账户授权。请免费注册Cobub用户中心方可使用插件功能。
-<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>';
+$lang['plg_get_keysecret_home']='您尚未在Cobub用户中心进行账户授权。请免费注册Cobub用户中心方可使用插件功能。
+<a href="http://dev.cobub.com/zh/userkey/" target="_blank">如何进行账户授权？</a>';
 
-$lang['plg_get_keysecret']='您尚未在<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub用户中心</a>进行账户授权。
+$lang['plg_get_keysecret']='您尚未在Cobub用户中心进行账户授权。
 免费注册Cobub用户中心并获取授权码后即可完成账户授权，授权后即可获得Cobub用户中心提供的丰富功能。
-<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>';
-
+<a href="http://dev.cobub.com/zh/userkey/" target="_blank">如何进行账户授权？</a>如果您已经获得授权码,请点击';
+$lang['plg_get_account']='账户授权。';
 /******************************view report plug**************************************/
 $lang['v_cobub_user_center']='Cobub用户中心';
 $lang['v_plugins_account']='账户授权';
@@ -942,12 +943,12 @@ $lang['v_plugins_secreterror']='输入的SECRET不合法！';
 $lang['v_plugins_active']='启用';
 $lang['v_plugins_forbidden']='禁用';
 $lang['v_plugins_introduce']='UserKey 与  UserSecret 是Cobub Razor
-与<a href="http://dev.cobub.com/users/index.php?/help/userkey" target="_blank">Cobub用户中心</a>
+与<a href="http://dev.cobub.com/users/" target="_blank">Cobub用户中心</a>
 之间通信的密钥， 用户在Cobub用户中心注册后方可获取， 用户只有在密钥通过验证后才可使用系统提供的插件功能。';
 $lang['v_plugins_new_version']='有新版本可用。';
 
 /********************************************************/
-$lang['m_open_mobile_analytics']='开源移动应用分析';
+$lang['m_open_mobile_analytics']='开源移动应用统计分析平台';
 $lang['m_copyright_version']='版权所有 2012-2015 Cobub Razor 版本：';
 $lang['m_release_note']='发行说明';
 $lang['m_link_Cobub']='http://dev.cobub.com/zh';
@@ -959,5 +960,94 @@ $lang['head_plugin_m']='插件管理';
 
 /******************************************************************************/
 
+$lang['tag_chose_all_user']='选择所有用户';
+$lang['tag_push_all_user']='对所有用户进行推送。';
+$lang['tag_chose_taggroup_user']='选择标签组用户';
+$lang['tag_all_user']='所有用户';
+$lang['tag_chose_version']='选择版本';
+$lang['tag_chose_channel']='选择渠道';
+$lang['tag_chost_pri']='选择地区(省份)';
+$lang['tag_save_user']='保存以便下次使用';
+$lang['tag_name_exited']='该名称已存在，请重新输入新的名称';
+$lang['tag_chosed']='你选择的标签：';
+$lang['tag_input_groupname']='请输入要保存的标签组名称';
+$lang['tag_save_group_fail']='保存标签组失败';
+$lang['tag_head']='选择用户';
+$lang['time_chose_error']='时间选择请勿超过一个月';
 
 
+$lang['v_rpt_realtime_title'] = "实时报表";
+$lang['v_rpt_realtime_onlineuser_title'] = "在线用户";
+$lang['v_rpt_realtime_onlineuser_subtitle'] = "30分钟内在线用户统计";
+$lang['v_rpt_realtime_onlineuser_size'] = "在线用户数";
+$lang["v_rpt_realtime_onlineuser_time"] = "时间";
+$lang["v_rpt_realtime_minutes"] = "分钟";
+$lang["v_rpt_realtime_now"] = "此时此刻";
+
+$lang["v_rpt_realtime_pageviews_title"] = "浏览界面";
+$lang['v_rpt_realtime_pageviews_subtitle'] = "用户正在浏览的界面的数量";
+$lang['v_rpt_realtime_pageviews_table_tile'] = "浏览界面(30分钟)";
+$lang["v_rpt_realtime_pageview"] = "浏览界面";
+$lang["v_rpt_realtime_pageview_count"] = "用户数量";
+
+$lang["v_rpt_realtime_areas_title"] = "地理位置";
+$lang["v_rpt_realtime_areas_region"] = "省份";
+
+$lang["v_rpt_realtime_transrate_title"] = "转化率";
+$lang["v_rpt_realtime_event_title"] = "事件";
+$lang["v_rpt_realtime_event_report_title"]="事件";
+$lang["v_rpt_realtime_event_in_minute"]="事件(每分钟)";
+$lang["v_rpt_realtime_transtrte_subtitle"]="目标事件达成(每分钟)";
+$lang["v_rpt_realtime_transtrte_tabtitle"]="目标事件达成(30分钟)";
+$lang["v_rpt_realtime_event_in30minute"]="事件(30分钟)";
+
+$lang['UMSINSTALL_NEWSPAPER']='报刊杂志';
+$lang['UMSINSTALL_SOCIAL']='社交';
+$lang['UMSINSTALL_BUSINESS']='商业';
+$lang['UMSINSTALL_FINANCIALBUSINESS']='财务';
+$lang['UMSINSTALL_REFERENCE']='参考';
+$lang['UMSINSTALL_NAVIGATION']='导航';
+$lang['UMSINSTALL_INSTRUMENT']='工具';
+$lang['UMSINSTALL_HEALTHFITNESS']='健康健美';
+$lang['UMSINSTALL_EDUCATION']='教育';
+$lang['UMSINSTALL_TRAVEL']='旅行';
+$lang['UMSINSTALL_PHOTOVIDEO']='摄影与录像';
+$lang['UMSINSTALL_LIFE']='生活';
+$lang['UMSINSTALL_SPORTS']='体育';
+$lang['UMSINSTALL_WEATHER']='天气';
+$lang['UMSINSTALL_BOOKS']='图书';
+$lang['UMSINSTALL_EFFICIENCY']='效率';
+$lang['UMSINSTALL_NEWS']='新闻';
+$lang['UMSINSTALL_MUSIC']='音乐';
+$lang['UMSINSTALL_MEDICAL']='医疗';
+$lang['UMSINSTALL_ENTERTAINMENT']='娱乐';
+$lang['UMSINSTALL_GAME']='游戏';
+$lang['cobub_login_ucenter']='/index.php?/auth';
+$lang['user_center_url']='http://dev.cobub.com/users/';
+$lang['UMSINSTALLC_SYSMANAGER']='用户管理';
+$lang['UMSINSTALLC_MYAPPS']='我的应用';
+$lang['UMSINSTALLC_ERRORDEVICE']='错误设备统计';
+$lang['UMSINSTALLC_DASHBOARD']='基本统计';
+$lang['UMSINSTALLC_USERS']='用户';
+$lang['UMSINSTALLC_AUTOUPDATE']='自动更新';
+$lang['UMSINSTALLC_CHANNEL']='渠道';
+$lang['UMSINSTALLC_DEVICE']='设备';
+$lang['UMSINSTALLC_EVENTMANAGEMENT']='事件管理';
+$lang['UMSINSTALLC_SENDPOLICY']='发送策略';
+$lang['UMSINSTALLC_OPERATORSTATISTICS']='运营商';
+$lang['UMSINSTALLC_OSSTATISTICS']='操作系统统计';
+$lang['UMSINSTALLC_PROFILE']='个人资料';
+$lang['UMSINSTALLC_RESOLUTIONSTATISTICS']='分辨率统计';
+$lang['UMSINSTALLC_REEQUENCYSTATISTICS']='使用频率统计';
+$lang['UMSINSTALLC_USAGEDURATION']='使用时长统计';
+$lang['UMSINSTALLC_ERRORLOG']='错误日志';
+$lang['UMSINSTALLC_EVENTLIST']='事件';
+$lang['UMSINSTALLC_CHANNELSTATISTICS']='渠道统计';
+$lang['UMSINSTALLC_GEOGRAPHYSTATICS']='地域统计';
+$lang['UMSINSTALLC_ERRORONOS']='错误操作系统统计';
+$lang['UMSINSTALLC_VERSIONSTATISTICS']='版本统计';
+$lang['UMSINSTALLC_APPS']='应用';
+$lang['UMSINSTALLC_RETENTION']='用户留存';
+$lang['UMSINSTALLC_PAGEVIEWSANALY']='页面访问统计';
+$lang['UMSINSTALLC_NETWORKINGSTATISTIC']='联网方式统计';
+$lang['UMSINSTALLC_FUNNELMODEL']='漏斗模型';

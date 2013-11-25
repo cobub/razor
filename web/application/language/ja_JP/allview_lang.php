@@ -164,7 +164,8 @@ $lang['m_rpt_appChannel']	=	'アプリチャンネル';
 $lang['m_rpt_editFunnel']	=	'変換したグループ';
 		
 /**************************************View***************************************/		
-// view---main		
+// view---main	
+$lang['v_user_center']='ユーザーセンター';	
 $lang['v_console']	=	'コンソール';
 $lang['v_CR_news']	=	 "Cobub Razor ニュース";
 $lang['v_CR_newsDelivery']	=	'Cobub Razor ニュース配信';
@@ -872,6 +873,7 @@ $lang['plg_get_keysecret_home']='あなたは、ユーザ·センター·アカ�
 $lang['plg_get_keysecret']='あなたのアカウントはCobubユーザ·センター承認で行われていません。
 Cobubユーザ·センターに署名し、センターが提供するCobubユーザーが豊富な機能後に使用可能になっているアカウントの認証を完了する認証コードを取得する。
 認可を考慮するには？';
+$lang['plg_get_account']='すでに認証コードを使用している場合,アカウント認証をクリックしてください。';
 /******************************view report plug**************************************/
 $lang['v_cobub_user_center']='Cobub ユーザーセンター';
 $lang['v_plugins_account']='アカウントの承認';
@@ -891,4 +893,53 @@ $lang['v_plugins_new_version']='新しいバージョンが入手可能です。
 $lang['v_element_edit']='編集';
 $lang['v_element_trash']='削除';
 
-
+$lang['UMSINSTALL_NEWSPAPER']='新聞や雑誌';
+$lang['UMSINSTALL_SOCIAL']='ソーシャル';
+$lang['UMSINSTALL_BUSINESS']='ビジネス';
+$lang['UMSINSTALL_FINANCIALBUSINESS']='金融の';
+$lang['UMSINSTALL_REFERENCE']='リファレンス';
+$lang['UMSINSTALL_NAVIGATION']='ナビゲーション';
+$lang['UMSINSTALL_INSTRUMENT']='ツール';
+$lang['UMSINSTALL_HEALTHFITNESS']='健康とフィットネス';
+$lang['UMSINSTALL_EDUCATION']='教育';
+$lang['UMSINSTALL_TRAVEL']='旅行';
+$lang['UMSINSTALL_PHOTOVIDEO']='写真とビデオ';
+$lang['UMSINSTALL_LIFE']='人生';
+$lang['UMSINSTALL_SPORTS']='スポーツの';
+$lang['UMSINSTALL_WEATHER']='天気';
+$lang['UMSINSTALL_BOOKS']='図書';
+$lang['UMSINSTALL_EFFICIENCY']='効率性';
+$lang['UMSINSTALL_NEWS']='ニュース';
+$lang['UMSINSTALL_MUSIC']='音楽';
+$lang['UMSINSTALL_MEDICAL']='メディカル';
+$lang['UMSINSTALL_ENTERTAINMENT']='エンターテインメント';
+$lang['UMSINSTALL_GAME']='ゲーム';
+$lang['cobub_login_ucenter']='/en/index.php?/auth';
+$lang['user_center_url']='http://dev.cobub.com/users/en/';
+$lang['UMSINSTALLC_SYSMANAGER']='ユーザー管理';
+$lang['UMSINSTALLC_MYAPPS']='マイアプリ';
+$lang['UMSINSTALLC_ERRORDEVICE']='エラーデバイスの統計情報';
+$lang['UMSINSTALLC_DASHBOARD']='アプリ統計量概要';
+$lang['UMSINSTALLC_USERS']='ユーザー';
+$lang['UMSINSTALLC_AUTOUPDATE']='自動更新';
+$lang['UMSINSTALLC_CHANNEL']='チャンネル';
+$lang['UMSINSTALLC_DEVICE']='デバイス';
+$lang['UMSINSTALLC_EVENTMANAGEMENT']='イベント管理';
+$lang['UMSINSTALLC_SENDPOLICY']='ポリシー送信';
+$lang['UMSINSTALLC_OPERATORSTATISTICS']='オペレーター統計量';
+$lang['UMSINSTALLC_OSSTATISTICS']='OSバージョン';
+$lang['UMSINSTALLC_PROFILE']='プロフィール';
+$lang['UMSINSTALLC_RESOLUTIONSTATISTICS']='解像度統計量';
+$lang['UMSINSTALLC_REEQUENCYSTATISTICS']='周期的使用統計量';
+$lang['UMSINSTALLC_USAGEDURATION']='使用継続時間統計量';
+$lang['UMSINSTALLC_ERRORLOG']='エラーログ';
+$lang['UMSINSTALLC_EVENTLIST']='イベント';
+$lang['UMSINSTALLC_CHANNELSTATISTICS']='チャネル統計量';
+$lang['UMSINSTALLC_GEOGRAPHYSTATICS']='地域等軽量';
+$lang['UMSINSTALLC_ERRORONOS']='OS上のエラー数';
+$lang['UMSINSTALLC_VERSIONSTATISTICS']='バージョン統計量';
+$lang['UMSINSTALLC_APPS']='アプリケーション';
+$lang['UMSINSTALLC_RETENTION']='ユーザー滞留';
+$lang['UMSINSTALLC_PAGEVIEWSANALY']='ページ訪問';
+$lang['UMSINSTALLC_NETWORKINGSTATISTIC']='ネットワーク統計量';
+$lang['UMSINSTALLC_FUNNELMODEL']='ファンネル数';

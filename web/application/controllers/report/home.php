@@ -27,12 +27,19 @@ class Home extends CI_Controller {
         $this -> common -> cleanCurrentProduct();
         $this -> common -> loadHeader();
         $userId = $this->common->getUserId ();
-		if (! $this->pluginlistmodel->getUserKeys ( $userId )) {
-			$this->data ['msg'] = lang ( 'plg_get_keysecret_home' );
+        $userKeys = $this->pluginlistmodel->getUserKeys ( $userId );
+		if ($userKeys) {
+			$key = $userKeys->user_key;
+			$secret = $userKeys->user_secret;
+				
+			$this->data['key'] = $key;
+			$this->data['secret'] = $secret;
+				
 			$this -> load -> view('home',$this->data);
 		}
 		else {
-			$this -> load -> view('home');
+			$this->data ['msg'] = lang ( 'plg_get_keysecret_home' );
+			$this -> load -> view('home',$this->data);
 		}
        
     }

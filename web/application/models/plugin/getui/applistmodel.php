@@ -39,11 +39,11 @@ class ApplistModel extends CI_Model
 				$product_name = $query_product ->row($i) -> name;
 				$product_id = $query_product ->row($i) -> id;
 				$product_active = $query_product ->row($i) -> active;
-				if($product_active == 0)
-				{
-					 $sql_getui = "delete from " . $this -> db -> dbprefix('getui_product') . " where product_id =".$product_id." and user_id=".$userId;
-      				 $this -> db -> query($sql_getui);
-      			}else{
+				 if($product_active == 0)
+				 {
+				// 	 $sql_getui = "delete from " . $this -> db -> dbprefix('getui_product') . " where product_id =".$product_id." and user_id=".$userId;
+    			//   $this -> db -> query($sql_getui);
+       			}else{
 
 					$sql_getui =  "select * from ". $this->db->dbprefix("getui_product")." where product_id =".$product_id." and user_id=".$userId;
 					$query_getui = $this -> db -> query($sql_getui);
@@ -57,7 +57,7 @@ class ApplistModel extends CI_Model
 					}
 				
 					$applist[$i] = array('androidlist'=>$product_name,'product_id'=>$product_id,'isActive'=>$isActive);
-				}
+				 }
 			}
 			
 			return $applist;
@@ -66,19 +66,22 @@ class ApplistModel extends CI_Model
 	}
 
 function getApplist(){
-		$sql ="select * from ".$this->db->dbprefix('getui_product')." ;";
-		$result = $this->db->query($sql);
-		$re = array();
-		if($result!=null && $result->num_rows()>0){
-			$resultarr = $result->result_array();
+		$sql = "select * from " . $this->db->dbprefix ( 'getui_product' ) . " ;";
+		$result = $this->db->query ( $sql );
+		$re = array ();
+		if ($result != null && $result->num_rows () > 0) {
+			$resultarr = $result->result_array ();
 			// print_r($resultarr);
-			for($i=0;$i<count($resultarr);$i++){
-				$productid=$resultarr[$i]['product_id'];
-				$sqltoapplist="select * from ".$this->db->dbprefix('product')." where id=".$productid;
-				$res = $this->db->query($sqltoapplist);
-				if($res!=null&& $res->num_rows()>0){
-					$apparr = $res->result_array();
-					array_push($re, $apparr);
+			for($i = 0; $i < count ( $resultarr ); $i ++) {
+				$productid = $resultarr [$i] ['product_id'];
+				$sqltoapplist = "select * from " . $this->db->dbprefix ( 'product' ) . " where id=" . $productid;
+				$res = $this->db->query ( $sqltoapplist );
+				if ($res != null && $res->num_rows () > 0) {
+					if ($res->row ()->active == 1) {
+						$apparr = $res->result_array ();
+						array_push ( $re, $apparr );
+					}
+				
 				}
 			}
 		}

@@ -7,6 +7,9 @@ begin
 declare s datetime;
 declare e datetime;
 
+insert into umsinstall_log(op_type,op_name,op_starttime) 
+    values('runsum','-----start runsum-----',now());
+    
 -- update fact_clientdata  
 set s = now();
 update  umsinstall_fact_clientdata a,
@@ -15,7 +18,6 @@ update  umsinstall_fact_clientdata a,
         umsinstall_dim_product d,
         umsinstall_dim_product f 
 set     a.isnew=0 
-
 where   ((a.date_sk>b.date_sk) or (a.date_sk=b.date_sk and a.dataid>b.dataid)) 
 and     a.isnew=1 
 and     a.date_sk=c.date_sk 
@@ -490,5 +492,7 @@ insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration)
     values('runsum','umsinstall_fact_launch_daily',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
 
-set s = now();
+insert into umsinstall_log(op_type,op_name,op_starttime) 
+    values('runsum','-----finish runsum-----',now());
+    
 end;

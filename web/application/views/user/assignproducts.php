@@ -1,5 +1,5 @@
 <?php  echo form_open(site_url() . '/user/doAssignProducts/');?>
-<section id="main" class="column">
+<section id="main" class="column" style='height:1500px;'>
     <article class="module width_full">
         <header>
             <h3><?php echo lang('v_title_assign_products');?></h3>

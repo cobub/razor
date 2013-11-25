@@ -91,26 +91,54 @@ class TagModel extends CI_Model
 			
 		}
 		
-		function getRegion()
+		function getRegion($id)
 		{
 			$dwdb = $this->load->database ( 'dw', TRUE );
-			$sql = "select DISTINCT region from  ".$dwdb->dbprefix('dim_location')." where region!=''";
-			
-			$res = $dwdb->query ( $sql );
-			
-			if ($res!=null  )
-			{
-				
-				$ret = array();
-				
+
+			$sql = "SELECT product_sk
+					FROM ".$dwdb->dbprefix('dim_product')."
+					WHERE product_id =$id";
+
+			$res = $dwdb->query($sql);
+			$ret = array();
+			if($res!=null){
 				foreach ($res->result() as $row)
 				{
-					array_push($ret,$row->region);
+				   $product_sk=	$row->product_sk;
+				   $sql = "SELECT DISTINCT location_sk
+							FROM  ".$dwdb->dbprefix('fact_clientdata')."
+							WHERE product_sk =$product_sk";
+					$res1 = $dwdb->query($sql);
+					if($res1!=null){
+						foreach ($res1->result() as $row)
+						{
+							$location_sk = $row->location_sk;
+
+							$sql = "select DISTINCT region from  ".$dwdb->dbprefix('dim_location')." where region!='' and location_sk=".$location_sk;
+			
+							$res2 = $dwdb->query ( $sql );
+			
+
+							if ($res2!=null  )
+							{
+								
+								
+								
+								foreach ($res2->result() as $row)
+								{
+									array_push($ret,$row->region);
+								}
+								
+							}
+
+						}
+					}
 				}
-				return json_encode($ret);
 			}
-			else
-				return "[]";
+
+			return json_encode($ret);
+
+
 			
 		}
 		

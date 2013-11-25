@@ -597,5 +597,19 @@ public static String getVersion(Context context) {
 		Log.d(tag, log);
 	}
 }
+ public static String getNetworkTypeWIFI2G3G(Context context){
+      ConnectivityManager cm= (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+      
+      NetworkInfo info= cm.getActiveNetworkInfo();
+      String type =info.getTypeName().toLowerCase();
+      if(type.equals("wifi")){
+          
+      }else{
+          type = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getExtraInfo();  
+          System.out.println(type);
+      }
+      return type;
+      
+  }
   
 }

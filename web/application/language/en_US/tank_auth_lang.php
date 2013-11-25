@@ -31,7 +31,7 @@ $lang['auth_message_activation_email_sent'] = 'A new mail has been sent to your 
 $lang['auth_message_activation_completed'] = 'Your account has been activated successfully.';
 $lang['auth_message_activation_failed'] = 'The activation code you entered is incorrect or expired.';
 $lang['auth_message_password_changed'] = 'Your password has been changed successfully.';
-$lang['auth_message_new_password_sent'] = 'A new mail with a new password has been sent to your email.';
+$lang['auth_message_new_password_sent'] = 'Password change message has been sent to your registered email.';
 $lang['auth_message_new_password_activated'] = 'You have changed your password successfully.';
 $lang['auth_message_new_password_failed'] = 'Your password reset key has expired. Please check your email and complete the operation or reapply reset key.';
 $lang['auth_message_new_email_sent'] = 'A new mail has been sent to your eamil %s. Please change your email according to the mail tips.';
@@ -46,6 +46,8 @@ $lang['auth_subject_activate'] = 'Welcome %s!';
 $lang['auth_subject_forgot_password'] = 'Forget your password  %s?';
 $lang['auth_subject_reset_password'] = 'Your new password  %s';
 $lang['auth_subject_change_email'] = 'Your new email %s';
+
+$lang['auth_login_wrong'] = 'Email or login';
 
 /* End of file tank_auth_lang.php */
 /* Location: ./application/language/chinese/tank_auth_lang.php */

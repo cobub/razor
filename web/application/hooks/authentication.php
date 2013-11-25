@@ -51,6 +51,15 @@ class Authentication extends CI_Controller
 			{
 				$dataheader["productList"] = $productList;
 			}
+
+			$this->load->model ( 'pluginlistmodel' );
+			
+			$userId = $this->common->getUserId ();
+			$userKeys = $this->pluginlistmodel->getUserKeys ( $userId );
+			if ($userKeys) {
+				$dataheader['key'] = $userKeys->user_key;
+				$dataheader['secret'] = $userKeys->user_secret;
+			}
 			log_message("error","Load Header 123");
 			$this->load->view('layout/header',$dataheader);
 		}

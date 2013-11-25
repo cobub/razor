@@ -197,6 +197,15 @@ class Common extends CI_Model {
                 $dataheader['versioninform'] = $inform;
             }
            
+            
+            $this->load->model ( 'pluginlistmodel' );
+            	
+            $userId = $this -> getUserId();
+            $userKeys = $this->pluginlistmodel->getUserKeys ( $userId );
+            if ($userKeys) {
+            	$dataheader['key'] = $userKeys->user_key;
+            	$dataheader['secret'] = $userKeys->user_secret;
+            }
 
             $this -> load -> view('layout/header', $dataheader);
         }

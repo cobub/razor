@@ -23,4 +23,5 @@
 -(IBAction) login;
 -(IBAction) register;
 -(IBAction) goToSecondView;
+-(IBAction) tag;
 @end

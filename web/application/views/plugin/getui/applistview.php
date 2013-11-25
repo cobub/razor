@@ -2,7 +2,7 @@
 $language = $this->config->item('language');
 ?>
 
-<section id="main" class="column">
+<section id="main" class="column"  style='height:1500px;'>
 		<?php if(isset($msgw)):?>
 		<h4 class="alert_warning" id="msg"> 
 		 <?php echo lang('plg_get_keysecret')?>
@@ -20,9 +20,8 @@ $language = $this->config->item('language');
 			
 
 				<h4><?php echo  lang('v_userStatus').': '?> <?php echo ($flag==1)? lang('v_userStatusActive'):lang('v_userStatusInactive'); ?></h4>	
-				<p><?php echo lang('v_userStatusExplain')?><a href="http://dev.cobub.com/users"  target="_blank" ><?php echo lang('v_cobub_user_center')?></a><?php echo lang('v_userStatusExplain1')?><a href="http://dev.cobub.com/users/index.php?/help/getui#n2"  target="_blank"><?php echo lang('v_integrationGuide')?></a></p>
-
-					<p><small><?php echo  lang('v_tap')?><a href="http://dev.cobub.com/users"  target="_blank" ><?php echo lang('v_cobub_user_center')?></a><?php echo  lang('v_tap1')?></small></p>
+			
+					<p><small><?php echo  lang('v_tap')?><a href="<?php echo lang('user_center_url') ?>"  target="_blank" ><?php echo lang('v_cobub_user_center')?></a><?php echo  lang('v_tap1')?></small></p>
 		       	</div>
 			</div>		
 		</article><!-- end of stats article -->	
@@ -60,14 +59,14 @@ $language = $this->config->item('language');
 					
     				<td><?php echo $row['androidlist'];?></td> 
     				<?php  if($row['isActive']){ ?>
-    				<td><a href="<?php echo site_url()?>/plugin/getui/activate/checkInfo?appName=<?php echo $row['androidlist']?>" ><?php echo  lang('v_checkKeys')?></a></td>
+    				<td><a href="<?php echo site_url()?>/plugin/getui/activate/checkInfo?appName=<?php echo $row['androidlist']?>&appid=<?php echo $row['product_id']?>" ><?php echo  lang('v_checkKeys')?></a></td>
     				<?php }else{ 
     				?>
-    				<td><a href="<?php echo site_url()?>/plugin/getui/activate/index?appName=<?php echo $row['androidlist']?>" ><?php echo lang('v_active')?></a> </td> 
+    				<td><a href="<?php echo site_url()?>/plugin/getui/activate/index?appName=<?php echo $row['androidlist']?>&appid=<?php echo $row['product_id']?>" ><?php echo lang('v_active')?></a> </td> 
     				<?php }?>
-    				<td><a href="<?php echo ($isAuth==1&&$flag==1)?site_url().'/plugin/getui/applist/pushInfo?type=0&appName='.$row['androidlist']:'javascript:userDisableAlert();';?>">
+    				<td><a href="<?php echo ($isAuth==1&&$flag==1)?site_url().'/plugin/getui/applist/pushInfo?type=0&appid='.$row['product_id'].'&appName='.$row['androidlist']:'javascript:userDisableAlert();';?>">
     				<?php echo lang('v_push')?>  </a></td> 
-    				<td><a href="<?php echo ($isAuth==1&&$flag==1)?site_url().'/plugin/getui/applist/pushInfo?type=1&appName='.$row['androidlist']:'javascript:userDisableAlert();';?>">
+    				<td><a href="<?php echo ($isAuth==1&&$flag==1)?site_url().'/plugin/getui/applist/pushInfo?type=1&appid='.$row['product_id'].'&appName='.$row['androidlist']:'javascript:userDisableAlert();';?>">
     				<?php echo lang('v_cleanPush')?></a> </td> 
     				
     			</tr> 

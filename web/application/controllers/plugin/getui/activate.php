@@ -28,8 +28,10 @@ class Activate extends CI_Controller {
 	}
 	
 	function index() {
-		$appName = $_GET ['appName'];	
+		$appName = $_GET ['appName'];
+		$appid = $_GET ['appid'];	
 		$this->data ['appName'] = $appName;
+		$this->data ['appid'] = $appid;
 		$this->common->loadHeader ( lang ( 'v_activateApp' ) );	
 		$this->load->view ( 'plugin/getui/activateview', $this->data );
 	}
@@ -42,7 +44,9 @@ class Activate extends CI_Controller {
 		
 		$this->form_validation->set_rules ( 'packagename', 'PackageName', 'trim|required|xss_clean' );
 		$appName = $this->input->post ( "appname" );
+		$appid = $this->input->post ( "appid" );
 		$this->data ['appName'] = $appName;
+		$this->data ['appid'] = $appid;
 		
 		if ($this->form_validation->run ()) {
 			$app_identifier = $this->input->post ( "packagename" );
@@ -83,9 +87,10 @@ class Activate extends CI_Controller {
 				$this->responseArray ['userId'] = $userId;
 				$this->responseArray ['activateDate'] = $obj['createtime'];
 				
-				$product_id = $this->activatemodel->getProductId ( $appName );
+				$product_id = $appid;
 				
 				$this->responseArray ['productId'] = $product_id;
+				$this->responseArray ['appid'] = $product_id;
 				
 				if ($this->activatemodel->saveUsersInfo ( $this->responseArray )) {
 					$this->common->loadHeader ( lang ( 'v_keysInfo' ) );
@@ -109,7 +114,8 @@ class Activate extends CI_Controller {
 	
 	function checkInfo() {
 		$appName = $_GET ['appName'];
-		$this->data = $this->activatemodel->checkInfo ( $appName );
+		$appid = $_GET ['appid'];
+		$this->data = $this->activatemodel->checkInfo ($appName, $appid );
 		$this->common->loadHeader ( lang ( 'v_keysInfo' ) );
 		$this->load->view ( 'plugin/getui/activateview', $this->data );
 	

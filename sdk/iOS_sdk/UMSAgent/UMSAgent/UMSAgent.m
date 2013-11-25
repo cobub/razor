@@ -16,6 +16,7 @@
 #import "CheckUpdateReturn.h"
 #import "CheckUpdateDao.h"
 #import "PostClientDataDao.h"
+#import "PostTagDao.h"
 #import "postEventDao.h"
 #import "Event.h"
 #import "Global.h"
@@ -36,6 +37,7 @@
 #import "OpenUDID.h"
 #import <sys/utsname.h>
 #import "ClientData.h"
+#import "Tag.h"
 #import <AdSupport/AdSupport.h>
 #import "SFHFKeychainUtils.h"
 
@@ -500,6 +502,16 @@
     [[UMSAgent getInstance] archiveEvent:event];
 }
 
++(void)postTag:(NSString *)tag
+{
+    Tag *tags = [[Tag alloc] init];
+    tags.tags = tag;
+    tags.productkey = [[UMSAgent getInstance] appKey];
+    tags.deviceid = [UMS_OpenUDID value];
+    
+    
+    [[UMSAgent getInstance] archiveTag:tags];
+}
 
 +(void)bindUserIdentifier:(NSString *)userid
 {
@@ -515,6 +527,11 @@
     [self performSelectorInBackground:@selector(postEventInBackGround:) withObject:event];
 }
 
+-(void) processTag:(Tag *)tag
+{
+    [self performSelectorInBackground:@selector(postTagInBackGround:) withObject:tag];
+}
+
 -(void) processArchivedLogs
 {
     @autoreleasepool {
@@ -522,7 +539,8 @@
         NSMutableArray *activityLogArray = [self getArchiveActivityLog];
         NSMutableArray *errorLogArray = [self getArchiveErrorLog];
         NSMutableArray *clientDataArray = [self getArchiveClientData];
-        if([eventArray count]>0 || [activityLogArray count]>0 || [errorLogArray count]>0 || [clientDataArray count]>0)
+        NSMutableArray *tagArray = [self getArchiveTag];
+        if([eventArray count]>0 || [activityLogArray count]>0 || [errorLogArray count]>0 || [clientDataArray count]>0 || [tagArray count]>0)
         {
             NSMutableDictionary *requestDic = [[NSMutableDictionary alloc] init];
             [requestDic setObject:appKey forKey:@"appkey"];
@@ -530,7 +548,12 @@
             {
                 [requestDic setObject:eventArray forKey:@"eventInfo"];
             }
-
+            
+            if([tagArray count]>0)
+            {
+                [requestDic setObject:tagArray forKey:@"tagInfo"];
+            }
+            
             if([activityLogArray count] >0)
             {
                 [requestDic setObject:activityLogArray forKey:@"activityInfo"];
@@ -558,6 +581,7 @@
                     NSLog(@"Arcived log upload success, so remove archived logs in cache");
                 }
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"eventArray"];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tagArray"];
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"activityLog"];
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"errorLog"];
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"clientDataArray"];
@@ -597,6 +621,35 @@
     }
     return eventArray;
 }
+
+-(NSMutableArray *)getArchiveTag
+{
+    NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"tagArray"] ;
+    NSMutableArray * array = nil;
+    if(isLogEnabled)
+    {
+        NSLog(@"old  data num = %d",[array count]);
+    }
+    
+    if (oldData!=nil)
+    {
+        array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+    }
+    NSMutableArray *tagArray = [[NSMutableArray alloc] init];
+    if ([array count]>0)
+    {
+        for(Tag *mTag in array)
+        {
+            NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
+            [requestDictionary setObject:mTag.deviceid forKey:@"deviceid"];
+            [requestDictionary setObject:mTag.tags forKey:@"tags"];
+            [requestDictionary setObject:mTag.productkey forKey:@"productkey"];
+            [tagArray addObject:requestDictionary];
+        }
+    }
+    return tagArray;
+}
+
 
 -(NSMutableArray *)getArchiveActivityLog
 {
@@ -682,6 +735,29 @@
         }
     }
 }
+
+-(void)postTagInBackGround:(Tag *)tag
+{
+    @autoreleasepool {
+        CommonReturn *ret ;
+        ret = [PostTagDao postTag:self.appKey tag:tag];
+        if (ret.flag<0)
+        {
+            NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"tagArray"] ;
+            NSMutableArray * array = [[NSMutableArray alloc] init];
+            
+            if (oldData!=nil)
+            {
+                array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+            }
+            [array addObject:tag];
+            NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:array];
+            [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"tagArray"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+}
+
 
 
 -(void)postOldEventDataInBackGround:(NSMutableArray *)array
@@ -834,6 +910,38 @@
     else
     {
         [self processEvent:event];
+    }
+}
+
+-(void)archiveTag:(Tag *)tag
+{
+    NSMutableArray *mTagArray;
+    if (self.policy == BATCH) {
+        NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"tagArray"] ;
+        if (oldData!=nil)
+        {
+            mTagArray = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+        }
+        else
+        {
+            mTagArray = [[NSMutableArray alloc] init];
+        }
+        if(isLogEnabled)
+        {
+            NSLog(@"archive tag because of BATCH mode");
+        }
+        [mTagArray addObject:tag];
+        if(isLogEnabled)
+        {
+            NSLog(@"Archived tag count = %d",[mTagArray count]);
+        }
+        NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mTagArray];
+        [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"tagArray"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    else
+    {
+        [self processTag:tag];
     }
 }
 
@@ -1109,7 +1217,7 @@ uncaughtExceptionHandler(NSException *exception) {
                               encoding:NSUTF8StringEncoding];
 }
 
-+ (NSString *)getUMSUDID
++(NSString *)getUMSUDID
 {
     NSString * udidInKeyChain = [SFHFKeychainUtils getPasswordForUsername:@"UMSAgentUDID" andServiceName:@"UMSAgent" error:nil];
     if(udidInKeyChain && ![udidInKeyChain isEqualToString:@""])
