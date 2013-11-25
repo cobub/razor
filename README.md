@@ -7,7 +7,7 @@ Firstly, welcome to access the DEMO website to have a try:
 - [**Cobub Razor Demo - English Version**](http://demo.cobub.com/razor/en)  
 - [**Cobub Razor Demo - Chinese Version**](http://demo.cobub.com/razor)
 - [**Cobub Razor Demo - Japanese Version**](http://demo.cobub.com/razor/ja)  
-
+- [**Cobub Razor Demo - Geman Version**](http://demo.cobub.com/razor/de)
 ***
 
 Cobub Razor is a powerful, open source mobile analytics system. It enables user to monitor the statistics of their mobile Apps and app users' behaviors through providing detailed, multi-dimensions reports on mobile application users.  At this moment, it supports iOS, Android and Windows Phone OS platform.
@@ -56,6 +56,7 @@ Post Message:  cobubrazor@yahoogroups.com
 
 License
 -------
+
 The Cobub Razor software is released under the licenses from the Free Software Foundation.
 We are using different license for different components in the package of Cobub Razor software:
 
