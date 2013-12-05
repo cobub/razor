@@ -6,11 +6,18 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:padding="@dimen/padding_medium"
-        android:text="@string/hello_world"
-        android:id="@+id/button1"
+        android:text="@string/event"
+        android:id="@+id/button_event"
         />
+
+      <Button
+          android:id="@+id/button_error"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBaseline="@+id/button_event"
+          android:layout_alignBottom="@+id/button_event"
+          android:layout_alignParentRight="true"
+          android:text="@string/error" />
 
 </RelativeLayout>

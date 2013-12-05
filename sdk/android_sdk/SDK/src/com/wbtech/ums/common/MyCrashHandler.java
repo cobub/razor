@@ -26,6 +26,8 @@ import com.wbtech.ums.objects.MyMessage;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Looper;
+import android.util.Log;
 
 public class MyCrashHandler implements UncaughtExceptionHandler {
 	private static MyCrashHandler myCrashHandler;
@@ -54,53 +56,62 @@ public class MyCrashHandler implements UncaughtExceptionHandler {
 		// this.service = service;
 	}
 
-	public void uncaughtException(Thread arg0, Throwable arg1) {
+	public void uncaughtException(Thread thread, final Throwable arg1) {
+		Log.d("ums-threadname", thread.getName());
+		new Thread() {
+			@Override
+			public void run() {
+				super.run();
+				
+				Looper.prepare();
+				String errorinfo = getErrorInfo(arg1);
 
-		String errorinfo = getErrorInfo(arg1);
-		// String ssString =
-		// errorinfo.substring(errorinfo.indexOf("Caused by:"));
-		String[] ss = errorinfo.split("\n\t");
-		String headstring = ss[0] + "\n\t" + ss[1] + "\n\t" + ss[2] + "\n\t";
-		String newErrorInfoString = headstring + errorinfo;
+				String[] ss = errorinfo.split("\n\t");
+				String headstring = ss[0] + "\n\t" + ss[1] + "\n\t" + ss[2]
+						+ "\n\t";
+				String newErrorInfoString = headstring + errorinfo;
 
-		stacktrace = newErrorInfoString;
-		activities = CommonUtil.getActivityName(context);
-		time = CommonUtil.getTime();
-		appkey = CommonUtil.getAppKey(context);
-		os_version = CommonUtil.getOsVersion(context);
+				stacktrace = newErrorInfoString;
+				activities = CommonUtil.getActivityName(context);
+				time = CommonUtil.getTime();
+				appkey = CommonUtil.getAppKey(context);
+				os_version = CommonUtil.getOsVersion(context);
+				JSONObject errorInfo = getErrorInfoJSONString(context);
+				CommonUtil.printLog("UmsAgent", errorInfo.toString());
 
-		JSONObject errorInfo = getErrorInfoJSONString(context);
-
-		CommonUtil.printLog("UmsAgent", errorInfo.toString());
-		if (1 == CommonUtil.getReportPolicyMode(context)
-				&& CommonUtil.isNetworkAvailable(context)) {
-			if (!stacktrace.equals("")) {
-				MyMessage message = NetworkUitlity.post(UmsConstants.preUrl
-						+ UmsConstants.errorUrl, errorInfo.toString());
-				CommonUtil.printLog("UmsAgent", message.getMsg());
-				if (!message.isFlag()) {
+				if (1 == CommonUtil.getReportPolicyMode(context)
+						&& CommonUtil.isNetworkAvailable(context)) {
+					if (!stacktrace.equals("")) {
+						MyMessage message = NetworkUitlity.post(
+								UmsConstants.preUrl + UmsConstants.errorUrl,
+								errorInfo.toString());
+						CommonUtil.printLog("UmsAgent", message.getMsg());
+						if (!message.isFlag()) {
+							UmsAgent.saveInfoToFile("errorInfo", errorInfo,
+									context);
+							CommonUtil.printLog("error", message.getMsg());
+						}
+					}
+				} else {
 					UmsAgent.saveInfoToFile("errorInfo", errorInfo, context);
-					CommonUtil.printLog("error", message.getMsg());
 				}
+				android.os.Process.killProcess(android.os.Process.myPid());
+				Looper.loop();
 			}
-		} else {
-			UmsAgent.saveInfoToFile("errorInfo", errorInfo, context);
-		}
 
-		android.os.Process.killProcess(android.os.Process.myPid());
+		}.start();
 	}
 
 	private JSONObject getErrorInfoJSONString(Context context) {
 		JSONObject errorInfo = new JSONObject();
 		try {
-			Build bd = new Build();
 			errorInfo.put("stacktrace", stacktrace);
 			errorInfo.put("time", time);
 			errorInfo.put("version", CommonUtil.getVersion(context));
 			errorInfo.put("activity", activities);
 			errorInfo.put("appkey", appkey);
 			errorInfo.put("os_version", os_version);
-			errorInfo.put("deviceid", bd.MANUFACTURER + bd.PRODUCT);
+			errorInfo.put("deviceid", CommonUtil.getDeviceName());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
