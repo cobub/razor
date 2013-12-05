@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="UMS_APPKEY" android:value="bb08202a625c2b5cae5e2632f604352f "/>
+        <meta-data android:name="UMS_APPKEY" android:value="baee252f8175a0aae567018b46d77c3f"/>
     </application>
 
 </manifest>

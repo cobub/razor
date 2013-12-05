@@ -91,7 +91,7 @@ public class UmsAgent {
     // private static long tcp_rcv=0;
 
     /**
-     * set base URL like http://81.30.76.26/pluggy/ums/index.php?
+     * set base URL like http://localhost/razor/ums/index.php?
      * 
      * @param url
      */
@@ -771,11 +771,8 @@ public class UmsAgent {
             clientData.put("mccmnc", sCell != null ? "" + sCell.MCCMNC : "");
             clientData.put("cellid", sCell != null ? sCell.CID + "" : "");
             clientData.put("lac", sCell != null ? sCell.LAC + "" : "");
-
-            Build bd = new Build();
-
-            clientData.put("modulename", bd.PRODUCT);
-            clientData.put("devicename", bd.MANUFACTURER +" "+ bd.MODEL);
+            clientData.put("modulename", Build.PRODUCT);
+            clientData.put("devicename", CommonUtil.getDeviceName());
             clientData.put("wifimac", wifiManager.getConnectionInfo().getMacAddress());
             clientData.put("havebt", adapter == null ? false : true);
             clientData.put("havewifi", CommonUtil.isWiFiActive(context));
