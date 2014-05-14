@@ -19,8 +19,16 @@ class productbasic extends CI_Controller {
         $this -> load -> library('export');
         $this -> common -> checkCompareProduct();
     }
-
-    function view($productId = 0) {
+    //此处默认值改为了-1
+    function view($productId = -1) {
+        if($productId != -1){
+			$userId = $this -> common -> getUserId();
+			if (!$this->product->isAdmin() && !$this->product->isUserHasProductPermission($userId, $productId)) {
+				$this -> common -> loadHeader();
+	            $this -> load -> view('forbidden');
+	            return ;
+	        }
+		}
         //if compare then load compare page
         if (isset($_GET['type']) && 'compare' == $_GET['type']) {
             $products = $this -> common -> getCompareProducts();
