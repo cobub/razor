@@ -237,12 +237,15 @@ class Ums extends CI_Controller {
      */
     function uploadLog() {
         $this -> load -> model('servicepublicclass/uploadlogpublic', 'uploadlogpublic');
-        if (!isset($_POST["content"])) {
-            $ret = array('flag' => -3, 'msg' => 'Invalid content.');
-            echo json_encode($ret);
-            return;
+      if(isset($_POST ["content"])){
+#            foreach($_POST as $key => $value){
+#      log_message ( "error",'upload log ' . $key . '=' . $value);
+#            }
+        $encoded_content = $_POST ["content"];
+        }else{
+            if ( !isset( $HTTP_RAW_POST_DATA ) ) $HTTP_RAW_POST_DATA =file_get_contents( 'php://input' );
+            $encoded_content = gzinflate( substr($HTTP_RAW_POST_DATA,10,-8) );
         }
-        $encoded_content = $_POST['content'];
         log_message("debug", $encoded_content);
         $content = json_decode($encoded_content);
         $uploadlog = new uploadlogpublic();
