@@ -1,0 +1,11 @@
+{
+  "linters": {
+    "PHP Syntax": {
+      "type":"php"
+    },
+    "PHP Rule": {
+      "type":"phpcs",
+      "exclude": "(^web/system/)"
+    }
+  }
+}
