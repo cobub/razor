@@ -18,8 +18,8 @@
 /**
  * Alert Model
  *
- * @category F
- * @package  Default
+ * @category PHP
+ * @package  Model
  * @author   Cobub Team <open.cobub@gmail.com>
  * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
  * @link     http://www.cobub.com
@@ -38,7 +38,6 @@ class Alertmodel extends CI_Model
 
     /**
      * GetProductAlertByProuctId function
-     * 
      * Get product alert information through productid
      *
      * @param int $productId product id
@@ -61,8 +60,6 @@ class Alertmodel extends CI_Model
     }
 
     /**
-     * IsUnique function
-     *
      * Identify if the condition is been configured or not
      * 
      * @param string $exceptionlab lab
@@ -91,8 +88,6 @@ class Alertmodel extends CI_Model
     }
 
     /**
-     * Addlab function
-     *
      * Add a condtion for product
      * 
      * @param string $exceptionlab lab
