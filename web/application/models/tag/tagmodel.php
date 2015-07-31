@@ -140,8 +140,7 @@ class TagModel extends CI_Model
                     SELECT 
                         DISTINCT location_sk
 					FROM  
-                        " .
-                         $dwdb->dbprefix('fact_clientdata') . "
+                        " .$dwdb->dbprefix('fact_clientdata') . "
 					WHERE 
                         product_sk =$product_sk";
                 $res1 = $dwdb->query($sql);
@@ -252,7 +251,7 @@ class TagModel extends CI_Model
      * @param string $name name           
      * @param string $tags tags           
      *
-     * @return query result
+     * @return void
      */
     function addTagsGroup ($id, $name, $tags)
     {
@@ -272,7 +271,7 @@ class TagModel extends CI_Model
      *
      * @param int $productId product id           
      *
-     * @return query result
+     * @return $ret
      */
     function getTagsGroup ($productId)
     {
