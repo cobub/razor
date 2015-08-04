@@ -48,20 +48,14 @@ class Getnewversioninfo extends CI_Model
      */
     function newVersionInfo($version)
     {
-        $postdata=array(
-                         'version'=>"$version"
-                       );
+        $postdata=array('version'=>"$version");
         $serverURL = "http://news.cobub.com/index.php?/news/getUpdateUrl";
         $responseData = $this->datautility->post($serverURL, $postdata);
         $retObject = json_decode($responseData, true);
-		if($retObject['flag'] > 0)
-		{			
-			return $retObject['msg'];
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-	
+        if ($retObject['flag']> 0) {
+            return $retObject['msg'];
+        } else {
+            return false;
+        }
+    }
 }
