@@ -1,4 +1,4 @@
-web/application/logs/*.log
+web/application/logs/log*
 ##################
 ## Eclipse
 #################
