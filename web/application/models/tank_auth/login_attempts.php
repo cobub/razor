@@ -43,8 +43,8 @@ class Login_attempts extends CI_Model
         parent::__construct();
 
         $ci =& get_instance();
-        $this->table_name = $ci->config->item('db_table_prefix', 'tank_auth')
-        .$this->table_name;
+        $this->_table_name = $ci->config->item('db_table_prefix', 'tank_auth')
+        .$this->_table_name;
     }
 
     /**
@@ -61,7 +61,7 @@ class Login_attempts extends CI_Model
         $this->db->where('ip_address', $ip_address);
         if (strlen($login) > 0) $this->db->or_where('login', $login);
 
-        $qres = $this->db->get($this->table_name);
+        $qres = $this->db->get($this->_table_name);
         return $qres->num_rows();
     }
 
@@ -75,7 +75,7 @@ class Login_attempts extends CI_Model
      */
     function increase_attempt($ip_address, $login)
     {
-        $this->db->insert($this->table_name, array('ip_address' => $ip_address, 'login' => $login));
+        $this->db->insert($this->_table_name, array('ip_address' => $ip_address, 'login' => $login));
     }
 
     /**
@@ -95,7 +95,7 @@ class Login_attempts extends CI_Model
         // Purge obsolete login attempts
         $this->db->or_where('UNIX_TIMESTAMP(time) <', time() - $expire_period);
 
-        $this->db->delete($this->table_name);
+        $this->db->delete($this->_table_name);
     }
 }
 
