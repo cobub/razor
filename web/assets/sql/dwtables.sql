@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_deviceresolution` (
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_devicesupplier` (
   `devicesupplier_sk` int(11) NOT NULL AUTO_INCREMENT,
   `mccmnc` varchar(16) NOT NULL,
-  `devicesupplier_name` varchar(60) NOT NULL DEFAULT 'unknown',
+  `devicesupplier_name` varchar(128) NOT NULL DEFAULT 'unknown',
   `countrycode` varchar(8) DEFAULT NULL,
   `countryname` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`devicesupplier_sk`),
