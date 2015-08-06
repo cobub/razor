@@ -5,8 +5,9 @@
  * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @author		EllisLab Dev Team
+ * @copyright		Copyright (c) 2008 - 2014, EllisLab, Inc.
+ * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -22,7 +23,7 @@
  *
  * @package		CodeIgniter
  * @subpackage	Libraries
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @category	Libraries
  * @link		http://codeigniter.com/user_guide/general/routing.html
  */
@@ -261,105 +262,92 @@ class CI_Router {
 	 * @param	array
 	 * @return	array
 	 */
-	 function _validate_request($segments)
-        {
-                if (count($segments) == 0)
-                {
-                        return $segments;
-                }
-                // Does the requested controller exist in the root folder?
-                if (file_exists(APPPATH.'controllers/'.$segments[0].'.php'))
-                {
-                        return $segments;
-                }
-                // Is the controller in a sub-folder?
-                if (is_dir(APPPATH.'controllers/'.$segments[0]))
-                {
-                        $temp = array('dir' => '', 'number' => 0, 'path' => '');
-                        $temp['number'] = count($segments) - 1;
- 
-                        for($i = 0; $i <= $temp['number']; $i++)
-                        {
-                                $temp['path'] .= $segments[$i].'/';
- 
-                                if(is_dir(APPPATH.'controllers/'.$temp['path']))
-                                {
-                                        $temp['dir'][] = str_replace(array('/', '.'), '', $segments[$i]);
-                                }
-                        }
- 
-                        $this->set_directory(implode('/', $temp['dir']));
-                        $segments = array_diff($segments, $temp['dir']);
-                        $segments = array_values($segments);
-                        unset($temp);
- 
-                        if (count($segments) > 0)
-                        {
-                                // Does the requested controller exist in the sub-folder?
-                                if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'.php'))
-                                {
-                                        if ( ! empty($this->routes['404_override']))
-                                        {
-                                                $x = explode('/', $this->routes['404_override']);
- 
-                                                $this->set_directory('');
-                                                $this->set_class($x[0]);
-                                                $this->set_method(isset($x[1]) ? $x[1] : 'index');
- 
-                                                return $x;
-                                        }
-                                        else
-                                        {
-                                                show_404($this->fetch_directory().$segments[0]);
-                                        }
-                                }
-                        }
-                        else
-                        {
-                                // Is the method being specified in the route?
-                                if (strpos($this->default_controller, '/') !== FALSE)
-                                {
-                                        $x = explode('/', $this->default_controller);
- 
-                                        $this->set_class($x[0]);
-                                        $this->set_method($x[1]);
-                                }
-                                else
-                                {
-                                        $this->set_class($this->default_controller);
-                                        $this->set_method('index');
-                                }
- 
-                                // Does the default controller exist in the sub-folder?
-                                if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$this->default_controller.'.php'))
-                                {
-                                        $this->directory = '';
-                                        return array();
-                                }
- 
-                        }
- 
-                        return $segments;
-                }
-  
- 
-                // If we've gotten this far it means that the URI does not correlate to a valid
-                // controller class.  We will now see if there is an override
-                if ( ! empty($this->routes['404_override']))
-                {
-                        $x = explode('/', $this->routes['404_override']);
- 
-                        $this->set_class($x[0]);
-                        $this->set_method(isset($x[1]) ? $x[1] : 'index');
- 
-                        return $x;
-                }
- 
- 
-                // Nothing else to do at this point but show a 404
-                show_404($segments[0]);
+	function _validate_request($segments)
+	{
+		if (count($segments) == 0)
+		{
+			return $segments;
+		}
 
-        }
+		// Does the requested controller exist in the root folder?
+		if (file_exists(APPPATH.'controllers/'.$segments[0].'.php'))
+		{
+			return $segments;
+		}
+
+		// Is the controller in a sub-folder?
+		if (is_dir(APPPATH.'controllers/'.$segments[0]))
+		{
+			// Set the directory and remove it from the segment array
+			$this->set_directory($segments[0]);
+			$segments = array_slice($segments, 1);
+
+			if (count($segments) > 0)
+			{
+				// Does the requested controller exist in the sub-folder?
+				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'.php'))
+				{
+					if ( ! empty($this->routes['404_override']))
+					{
+						$x = explode('/', $this->routes['404_override']);
+
+						$this->set_directory('');
+						$this->set_class($x[0]);
+						$this->set_method(isset($x[1]) ? $x[1] : 'index');
+
+						return $x;
+					}
+					else
+					{
+						show_404($this->fetch_directory().$segments[0]);
+					}
+				}
+			}
+			else
+			{
+				// Is the method being specified in the route?
+				if (strpos($this->default_controller, '/') !== FALSE)
+				{
+					$x = explode('/', $this->default_controller);
+
+					$this->set_class($x[0]);
+					$this->set_method($x[1]);
+				}
+				else
+				{
+					$this->set_class($this->default_controller);
+					$this->set_method('index');
+				}
+
+				// Does the default controller exist in the sub-folder?
+				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$this->default_controller.'.php'))
+				{
+					$this->directory = '';
+					return array();
+				}
+
+			}
+
+			return $segments;
+		}
+
+
+		// If we've gotten this far it means that the URI does not correlate to a valid
+		// controller class.  We will now see if there is an override
+		if ( ! empty($this->routes['404_override']))
+		{
+			$x = explode('/', $this->routes['404_override']);
+
+			$this->set_class($x[0]);
+			$this->set_method(isset($x[1]) ? $x[1] : 'index');
+
+			return $x;
+		}
+
+
+		// Nothing else to do at this point but show a 404
+		show_404($segments[0]);
+	}
 
 	// --------------------------------------------------------------------
 
@@ -476,10 +464,10 @@ class CI_Router {
 	 * @param	string
 	 * @return	void
 	 */
-	 function set_directory($dir)
-        {
-                $this->directory = $dir.'/';
-        }
+	function set_directory($dir)
+	{
+		$this->directory = str_replace(array('/', '.'), '', $dir).'/';
+	}
 
 	// --------------------------------------------------------------------
 

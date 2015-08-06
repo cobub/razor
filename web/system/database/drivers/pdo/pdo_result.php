@@ -10,14 +10,14 @@
  * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
- * @since		Version 1.0
+ * @since		Version 2.1.2
  * @filesource
  */
 
 // ------------------------------------------------------------------------
 
 /**
- * SQLSRV Result Class
+ * PDO Result Class
  *
  * This class extends the parent result class: CI_DB_result
  *
@@ -25,17 +25,29 @@
  * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/database/
  */
-class CI_DB_sqlsrv_result extends CI_DB_result {
+class CI_DB_pdo_result extends CI_DB_result {
+
+	public $num_rows;
 
 	/**
 	 * Number of rows in the result set
 	 *
-	 * @access	public
-	 * @return	integer
+	 * @return	int
 	 */
-	function num_rows()
+	public function num_rows()
 	{
-		return @sqlsrv_num_rows($this->result_id);
+		if (is_int($this->num_rows))
+		{
+			return $this->num_rows;
+		}
+		elseif (($this->num_rows = $this->result_id->rowCount()) > 0)
+		{
+			return $this->num_rows;
+		}
+
+		$this->num_rows = count($this->result_id->fetchAll());
+		$this->result_id->execute();
+		return $this->num_rows;
 	}
 
 	// --------------------------------------------------------------------
@@ -48,7 +60,7 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	 */
 	function num_fields()
 	{
-		return @sqlsrv_num_fields($this->result_id);
+		return $this->result_id->columnCount();
 	}
 
 	// --------------------------------------------------------------------
@@ -63,13 +75,11 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	 */
 	function list_fields()
 	{
-		$field_names = array();
-		foreach(sqlsrv_field_metadata($this->result_id) as $offset => $field)
+		if ($this->db->db_debug)
 		{
-			$field_names[] = $field['Name'];
+			return $this->db->display_error('db_unsuported_feature');
 		}
-		
-		return $field_names;
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -84,20 +94,25 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	 */
 	function field_data()
 	{
-		$retval = array();
-		foreach(sqlsrv_field_metadata($this->result_id) as $offset => $field)
+		$data = array();
+	
+		try
 		{
-			$F 				= new stdClass();
-			$F->name 		= $field['Name'];
-			$F->type 		= $field['Type'];
-			$F->max_length	= $field['Size'];
-			$F->primary_key = 0;
-			$F->default		= '';
+			for($i = 0; $i < $this->num_fields(); $i++)
+			{
+				$data[] = $this->result_id->getColumnMeta($i);
+			}
 			
-			$retval[] = $F;
+			return $data;
 		}
-		
-		return $retval;
+		catch (Exception $e)
+		{
+			if ($this->db->db_debug)
+			{
+				return $this->db->display_error('db_unsuported_feature');
+			}
+			return FALSE;
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -109,9 +124,8 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	 */
 	function free_result()
 	{
-		if (is_resource($this->result_id))
+		if (is_object($this->result_id))
 		{
-			sqlsrv_free_stmt($this->result_id);
 			$this->result_id = FALSE;
 		}
 	}
@@ -130,7 +144,7 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	 */
 	function _data_seek($n = 0)
 	{
-		// Not implemented
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -145,7 +159,7 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	 */
 	function _fetch_assoc()
 	{
-		return sqlsrv_fetch_array($this->result_id, SQLSRV_FETCH_ASSOC);
+		return $this->result_id->fetch(PDO::FETCH_ASSOC);
 	}
 
 	// --------------------------------------------------------------------
@@ -159,12 +173,12 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	 * @return	object
 	 */
 	function _fetch_object()
-	{
-		return sqlsrv_fetch_object($this->result_id);
+	{	
+		return $this->result_id->fetchObject();
 	}
 
 }
 
 
-/* End of file mssql_result.php */
-/* Location: ./system/database/drivers/mssql/mssql_result.php */
+/* End of file pdo_result.php */
+/* Location: ./system/database/drivers/pdo/pdo_result.php */

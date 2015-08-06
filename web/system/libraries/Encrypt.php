@@ -5,8 +5,9 @@
  * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @author		EllisLab Dev Team
+ * @copyright		Copyright (c) 2008 - 2014, EllisLab, Inc.
+ * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -18,12 +19,12 @@
 /**
  * CodeIgniter Encryption Class
  *
- * Provides two-way keyed encoding using XOR Hashing and Mcrypt
+ * Provides two-way keyed encoding using Mcrypt
  *
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Libraries
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/encryption.html
  */
 class CI_Encrypt {
@@ -45,6 +46,12 @@ class CI_Encrypt {
 	{
 		$this->CI =& get_instance();
 		$this->_mcrypt_exists = ( ! function_exists('mcrypt_encrypt')) ? FALSE : TRUE;
+
+		if ($this->_mcrypt_exists === FALSE)
+		{
+			show_error('The Encrypt library requires the Mcrypt extension.');
+		}
+
 		log_message('debug', "Encrypt Class Initialized");
 	}
 
@@ -103,10 +110,10 @@ class CI_Encrypt {
 	 * Encodes the message string using bitwise XOR encoding.
 	 * The key is combined with a random hash, and then it
 	 * too gets converted using XOR. The whole thing is then run
-	 * through mcrypt (if supported) using the randomized key.
-	 * The end result is a double-encrypted message string
-	 * that is randomized with each call to this function,
-	 * even if the supplied message and key are the same.
+	 * through mcrypt using the randomized key. The end result
+	 * is a double-encrypted message string that is randomized
+	 * with each call to this function, even if the supplied
+	 * message and key are the same.
 	 *
 	 * @access	public
 	 * @param	string	the string to encode

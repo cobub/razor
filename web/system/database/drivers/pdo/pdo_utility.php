@@ -10,20 +10,20 @@
  * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
- * @since		Version 1.0
+ * @since		Version 2.1.2
  * @filesource
  */
 
 // ------------------------------------------------------------------------
 
 /**
- * Oracle Utility Class
+ * PDO Utility Class
  *
  * @category	Database
  * @author		EllisLab Dev Team
- * @link		http://codeigniter.com/user_guide/database/
+ * @link		http://codeigniter.com/database/
  */
-class CI_DB_oci8_utility extends CI_DB_utility {
+class CI_DB_pdo_utility extends CI_DB_utility {
 
 	/**
 	 * List databases
@@ -33,6 +33,11 @@ class CI_DB_oci8_utility extends CI_DB_utility {
 	 */
 	function _list_databases()
 	{
+		// Not sure if PDO lets you list all databases...
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
 		return FALSE;
 	}
 
@@ -49,7 +54,12 @@ class CI_DB_oci8_utility extends CI_DB_utility {
 	 */
 	function _optimize_table($table)
 	{
-		return FALSE; // Is this supported in Oracle?
+		// Not a supported PDO feature
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -65,13 +75,18 @@ class CI_DB_oci8_utility extends CI_DB_utility {
 	 */
 	function _repair_table($table)
 	{
-		return FALSE; // Is this supported in Oracle?
+		// Not a supported PDO feature
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
-	 * Oracle Export
+	 * PDO Export
 	 *
 	 * @access	private
 	 * @param	array	Preferences
@@ -82,7 +97,8 @@ class CI_DB_oci8_utility extends CI_DB_utility {
 		// Currently unsupported
 		return $this->db->display_error('db_unsuported_feature');
 	}
+
 }
 
-/* End of file oci8_utility.php */
-/* Location: ./system/database/drivers/oci8/oci8_utility.php */
+/* End of file pdo_utility.php */
+/* Location: ./system/database/drivers/pdo/pdo_utility.php */

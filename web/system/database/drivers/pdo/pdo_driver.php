@@ -5,11 +5,12 @@
  * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @author		EllisLab Dev Team
+ * @copyright		Copyright (c) 2008 - 2014, EllisLab, Inc.
+ * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
- * @since		Version 2.1.0
+ * @since		Version 2.1.2
  * @filesource
  */
 
@@ -25,10 +26,9 @@
  * @package		CodeIgniter
  * @subpackage	Drivers
  * @category	Database
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/database/
  */
-
 class CI_DB_pdo_driver extends CI_DB {
 
 	var $dbdriver = 'pdo';
@@ -46,7 +46,7 @@ class CI_DB_pdo_driver extends CI_DB {
 	 */
 	var $_count_string = "SELECT COUNT(*) AS ";
 	var $_random_keyword;
-	
+
 	var $options = array();
 
 	function __construct($params)
@@ -64,11 +64,11 @@ class CI_DB_pdo_driver extends CI_DB {
 			{
 				$this->hostname .= ";charset={$this->char_set}";
 			}
-			
+
 			//Set the charset with the connection options
 			$this->options['PDO::MYSQL_ATTR_INIT_COMMAND'] = "SET NAMES {$this->char_set}";
 		}
-		else if (strpos($this->hostname, 'odbc') !== FALSE)
+		elseif (strpos($this->hostname, 'odbc') !== FALSE)
 		{
 			$this->_like_escape_str = " {escape '%s'} ";
 			$this->_like_escape_chr = '!';
@@ -78,8 +78,9 @@ class CI_DB_pdo_driver extends CI_DB {
 			$this->_like_escape_str = " ESCAPE '%s' ";
 			$this->_like_escape_chr = '!';
 		}
-		
-		$this->hostname .= ";dbname=".$this->database;
+
+		empty($this->database) OR $this->hostname .= ';dbname='.$this->database;
+
 		$this->trans_enabled = FALSE;
 
 		$this->_random_keyword = ' RND('.time().')'; // database specific random keyword
@@ -94,7 +95,7 @@ class CI_DB_pdo_driver extends CI_DB {
 	function db_connect()
 	{
 		$this->options['PDO::ATTR_ERRMODE'] = PDO::ERRMODE_SILENT;
-		
+
 		return new PDO($this->hostname, $this->username, $this->password, $this->options);
 	}
 
@@ -189,15 +190,23 @@ class CI_DB_pdo_driver extends CI_DB {
 	function _execute($sql)
 	{
 		$sql = $this->_prep_query($sql);
-		$result_id = $this->conn_id->query($sql);
+		$result_id = $this->conn_id->prepare($sql);
 
-		if (is_object($result_id))
+		if (is_object($result_id) && $result_id->execute())
 		{
-			$this->affect_rows = $result_id->rowCount();
+			if (is_numeric(stripos($sql, 'SELECT')))
+			{
+				$this->affect_rows = count($result_id->fetchAll());
+			}
+			else
+			{
+				$this->affect_rows = $result_id->rowCount();
+			}
 		}
 		else
 		{
 			$this->affect_rows = 0;
+			return FALSE;
 		}
 
 		return $result_id;
@@ -319,16 +328,16 @@ class CI_DB_pdo_driver extends CI_DB {
 
 			return $str;
 		}
-
+		
 		//Escape the string
 		$str = $this->conn_id->quote($str);
-
+		
 		//If there are duplicated quotes, trim them away
 		if (strpos($str, "'") === 0)
 		{
 			$str = substr($str, 1, -1);
 		}
-
+		
 		// escape LIKE condition wildcards
 		if ($like === TRUE)
 		{
@@ -530,7 +539,7 @@ class CI_DB_pdo_driver extends CI_DB {
 		if (strpos($item, '.') !== FALSE)
 		{
 			$str = $this->_escape_char.str_replace('.', $this->_escape_char.'.'.$this->_escape_char, $item).$this->_escape_char;
-
+			
 		}
 		else
 		{
@@ -580,7 +589,7 @@ class CI_DB_pdo_driver extends CI_DB {
 	{
 		return "INSERT INTO ".$table." (".implode(', ', $keys).") VALUES (".implode(', ', $values).")";
 	}
-
+	
 	// --------------------------------------------------------------------
 
 	/**
@@ -633,7 +642,7 @@ class CI_DB_pdo_driver extends CI_DB {
 
 		return $sql;
 	}
-
+	
 	// --------------------------------------------------------------------
 
 	/**
@@ -775,7 +784,7 @@ class CI_DB_pdo_driver extends CI_DB {
 			{
 				$sql .= " OFFSET ".$offset;
 			}
-
+			
 			return $sql;
 		}
 	}

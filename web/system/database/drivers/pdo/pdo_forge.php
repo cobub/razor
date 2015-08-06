@@ -10,30 +10,36 @@
  * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
- * @since		Version 1.0
+ * @since		Version 2.1.2
  * @filesource
  */
 
 // ------------------------------------------------------------------------
 
 /**
- * Oracle Forge Class
+ * PDO Forge Class
  *
  * @category	Database
  * @author		EllisLab Dev Team
- * @link		http://codeigniter.com/user_guide/database/
+ * @link		http://codeigniter.com/database/
  */
-class CI_DB_oci8_forge extends CI_DB_forge {
+class CI_DB_pdo_forge extends CI_DB_forge {
 
 	/**
 	 * Create database
 	 *
-	 * @access	public
+	 * @access	private
 	 * @param	string	the database name
 	 * @return	bool
 	 */
-	function _create_database($name)
+	function _create_database()
 	{
+		// PDO has no "create database" command since it's
+		// designed to connect to an existing database
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
 		return FALSE;
 	}
 
@@ -48,6 +54,12 @@ class CI_DB_oci8_forge extends CI_DB_forge {
 	 */
 	function _drop_database($name)
 	{
+		// PDO has no "drop database" command since it's
+		// designed to connect to an existing database
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
 		return FALSE;
 	}
 
@@ -149,7 +161,7 @@ class CI_DB_oci8_forge extends CI_DB_forge {
 					$key = array($this->db->_protect_identifiers($key));
 				}
 
-				$sql .= ",\n\tUNIQUE COLUMNS (" . implode(', ', $key) . ")";
+				$sql .= ",\n\tFOREIGN KEY (" . implode(', ', $key) . ")";
 			}
 		}
 
@@ -168,6 +180,11 @@ class CI_DB_oci8_forge extends CI_DB_forge {
 	 */
 	function _drop_table($table)
 	{
+		// Not a supported PDO feature
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
 		return FALSE;
 	}
 
@@ -224,6 +241,7 @@ class CI_DB_oci8_forge extends CI_DB_forge {
 
 	}
 
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -245,5 +263,5 @@ class CI_DB_oci8_forge extends CI_DB_forge {
 
 }
 
-/* End of file oci8_forge.php */
-/* Location: ./system/database/drivers/oci8/oci8_forge.php */
+/* End of file pdo_forge.php */
+/* Location: ./system/database/drivers/pdo/pdo_forge.php */

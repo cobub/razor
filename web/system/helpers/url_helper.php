@@ -5,8 +5,9 @@
  * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @author		EllisLab Dev Team
+ * @copyright		Copyright (c) 2008 - 2014, EllisLab, Inc.
+ * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -21,7 +22,7 @@
  * @package		CodeIgniter
  * @subpackage	Helpers
  * @category	Helpers
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/url_helper.html
  */
 
@@ -466,39 +467,35 @@ if ( ! function_exists('prep_url'))
  * Create URL Title
  *
  * Takes a "title" string as input and creates a
- * human-friendly URL string with either a dash
- * or an underscore as the word separator.
+ * human-friendly URL string with a "separator" string 
+ * as the word separator.
  *
  * @access	public
  * @param	string	the string
- * @param	string	the separator: dash, or underscore
+ * @param	string	the separator
  * @return	string
  */
 if ( ! function_exists('url_title'))
 {
-	function url_title($str, $separator = 'dash', $lowercase = FALSE)
+	function url_title($str, $separator = '-', $lowercase = FALSE)
 	{
-		if ($separator == 'dash')
+		if ($separator == 'dash') 
 		{
-			$search		= '_';
-			$replace	= '-';
+		    $separator = '-';
 		}
-		else
+		else if ($separator == 'underscore')
 		{
-			$search		= '-';
-			$replace	= '_';
+		    $separator = '_';
 		}
+		
+		$q_separator = preg_quote($separator);
 
 		$trans = array(
-						'&\#\d+?;'				=> '',
-						'&\S+?;'				=> '',
-						'\s+'					=> $replace,
-						'[^a-z0-9\-\._]'		=> '',
-						$replace.'+'			=> $replace,
-						$replace.'$'			=> $replace,
-						'^'.$replace			=> $replace,
-						'\.+$'					=> ''
-					);
+			'&.+?;'                 => '',
+			'[^a-z0-9 _-]'          => '',
+			'\s+'                   => $separator,
+			'('.$q_separator.')+'   => $separator
+		);
 
 		$str = strip_tags($str);
 
@@ -512,7 +509,7 @@ if ( ! function_exists('url_title'))
 			$str = strtolower($str);
 		}
 
-		return trim(stripslashes($str));
+		return trim($str, $separator);
 	}
 }
 
