@@ -1,0 +1,42 @@
+1:
+    cp_id: 1
+    description: "android"
+    updateurl: ""
+    entrypoint: ""
+    location: ""
+    version: ""
+    date: "2013-05-01 21:45:22"
+    productkey: "49d0b54ea086922f0dd5459269d338ce"
+    man: 0
+    user_id: 1 
+    product_id: 1 
+    channel_id: 1
+
+2:
+    cp_id: 
+    description: 
+    updateurl: 
+    entrypoint: 
+    location: 
+    version: 
+    date: 
+    productkey: 
+    man: 
+    user_id: 
+    product_id: 
+    channel_id: 
+
+3:
+    cp_id: 
+    description: 
+    updateurl: 
+    entrypoint: 
+    location: 
+    version: 
+    date: 
+    productkey: 
+    man: 
+    user_id: 
+    product_id: 
+    channel_id: 
+

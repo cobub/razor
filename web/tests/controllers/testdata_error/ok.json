@@ -1,0 +1,10 @@
+content={
+    "appkey": "49d0b54ea086922f0dd5459269d338ce",
+    "time": "2014-05-22 17:49:19",
+    "stacktrace": "java.lang.ArithmeticException: divide by zero\n\tat com.wbtech.test_sample.MainActivity$2.onClick(MainActivity.java:148)\n\tat android.view.View.performClick(View.java)\n\tjava.lang.ArithmeticException: divide by zero\n\tat com.wbtech.test_sample.MainActivity$2.onClick(MainActivity.java:148)\n\tat android.view.View.performClick(View.java)\n\tat android.view.View$PerformClick.run(View.java)\n\tat android.os.Handler.handleCallback(Handler.java)\n\tat android.os.Handler.dispatchMessage(Handler.java)\n\tat android.os.Looper.loop(Looper.java)\n\tat android.app.ActivityThread.main(ActivityThread.java)\n\tat java.lang.reflect.Method.invokeNative(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:511)\n\tat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java)\n\tat dalvik.system.NativeStart.main(Native Method)\n",
+    "activity": ".MainActivity",
+    "deviceid": "HTC myTouch 4G",
+    "os_version": "4.2.2",
+    "version": "1.0" 
+}
+

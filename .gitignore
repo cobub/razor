@@ -2,7 +2,6 @@ web/application/logs/log*
 ##################
 ## Eclipse
 #################
-config/
 *.pydevproject
 .project
 .metadata

@@ -1,0 +1,54 @@
+1:
+    dataid: 
+    product_sk: 
+    deviceos_sk: 
+    deviceresolution_sk: 
+    devicelanguage_sk: 
+    devicebrand_sk: 
+    devicesupplier_sk: 
+    location_sk: 
+    date_sk: 
+    deviceidentifier: 
+    clientdataid: 
+    network_sk: 
+    hour_sk: 
+    isnew: 
+    isnew_channel: 
+    useridentifier: 
+
+2:
+    dataid: 
+    product_sk: 
+    deviceos_sk: 
+    deviceresolution_sk: 
+    devicelanguage_sk: 
+    devicebrand_sk: 
+    devicesupplier_sk: 
+    location_sk: 
+    date_sk: 
+    deviceidentifier: 
+    clientdataid: 
+    network_sk: 
+    hour_sk: 
+    isnew: 
+    isnew_channel: 
+    useridentifier: 
+
+3:
+    dataid: 
+    product_sk: 
+    deviceos_sk: 
+    deviceresolution_sk: 
+    devicelanguage_sk: 
+    devicebrand_sk: 
+    devicesupplier_sk: 
+    location_sk: 
+    date_sk: 
+    deviceidentifier: 
+    clientdataid: 
+    network_sk: 
+    hour_sk: 
+    isnew: 
+    isnew_channel: 
+    useridentifier: 
+

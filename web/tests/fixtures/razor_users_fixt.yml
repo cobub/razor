@@ -1,0 +1,54 @@
+1:
+    id: 1
+    username: admin
+    password: 21232f297a57a5a743894a0e4a801fc3
+    email: admin@admin.com
+    activated: 1
+    banned: 0
+    ban_reason: 
+    new_password_key: 
+    new_password_requested: 
+    new_email: 
+    new_email_key: 
+    last_ip: 106.37.168.2
+    last_login: 2013-11-13 09:08:37
+    created: 2013-08-21 21:44:19
+    modified: 2013-11-13 09:08:37
+    sessionkey: 
+
+2:
+    id: 
+    username: 
+    password: 
+    email: 
+    activated: 
+    banned: 
+    ban_reason: 
+    new_password_key: 
+    new_password_requested: 
+    new_email: 
+    new_email_key: 
+    last_ip: 
+    last_login: 
+    created: 
+    modified: 
+    sessionkey: 
+
+3:
+    id: 
+    username: 
+    password: 
+    email: 
+    activated: 
+    banned: 
+    ban_reason: 
+    new_password_key: 
+    new_password_requested: 
+    new_email: 
+    new_email_key: 
+    last_ip: 
+    last_login: 
+    created: 
+    modified: 
+    sessionkey: 
+
