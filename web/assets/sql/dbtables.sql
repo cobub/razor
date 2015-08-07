@@ -149,7 +149,8 @@ CREATE TABLE IF NOT EXISTS `umsinstall_clientdata` (
   `isjailbroken` int(10) NOT NULL DEFAULT '0',
   `insertdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `useridentifier` varchar(256) default NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `insertdate` (`insertdate`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -168,7 +169,8 @@ CREATE TABLE IF NOT EXISTS `umsinstall_clientusinglog` (
   `appkey` varchar(500) NOT NULL,
   `version` varchar(50) NOT NULL,
   `insertdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `insertdate` (`insertdate`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -205,7 +207,8 @@ CREATE TABLE IF NOT EXISTS `umsinstall_errorlog` (
   `version` varchar(50) NOT NULL,
   `isfix` int(11) DEFAULT NULL,
   `insertdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `insertdate` (`insertdate`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -226,7 +229,8 @@ CREATE TABLE IF NOT EXISTS `umsinstall_eventdata` (
   `event_id` int(50) NOT NULL,
   `version` varchar(50) NOT NULL,
   `insertdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `insertdate` (`insertdate`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
