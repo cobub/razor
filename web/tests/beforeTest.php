@@ -239,19 +239,11 @@ class beforeTest
         if (!$ret) {
             return false;
         }
-        $ret = $this->createproducre($conn, $sqlname, $file_dir . '/dwviews.sql', 'dwviews', $replacedb, $tablehead, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#', '--'), $file_dir);
-        if (!$ret) {
-            return false;
-        }
         //create store procedure runfact
         $ret = $this->createproducre($conn, $sqlname, $file_dir . '/sp_runfact.sql', 'sp_runfact', $replacedb, $replacedw, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#', '--'), $file_dir);
         if (!$ret) {
             return false;
         }
-        $ret = $this->createproducre($conn, $sqlname, $file_dir . '/sp_resetbit.sql', 'sp_resetbit', $replacedb, $replacedw, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#', '--'), $file_dir);
-         if (!$ret) {
-             return false;
-         }
         //create store procedure runmonthly
         $ret = $this->createproducre($conn, $sqlname, $file_dir . '/sp_runmonthly.sql', 'sp_runmonthly', $replacedb, $replacedw, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#', '--'), $file_dir);
         if (!$ret) {
@@ -268,17 +260,7 @@ class beforeTest
             return false;
         }
 
-        //create store procedure runweekly
-        $ret = $this->createproducre($conn, $sqlname, $file_dir . '/func_defined_condition.sql', 'defined_condition', $replacedb, $replacedw, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#', '--'), $file_dir);
-        if (!$ret) {
-            return false;
-        }
-
-        //create store procedure runweekly
-        $ret = $this->createproducre($conn, $sqlname, $file_dir . '/func_defined_value.sql', 'defined_value', $replacedb, $replacedw, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#', '--'), $file_dir);
-        if (!$ret) {
-            return false;
-        }
+       
 
     }
 
