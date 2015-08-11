@@ -27,7 +27,9 @@ public class UsinglogManager {
 
     private Context context;
     private final String tag = "UsinglogManager";
-    private final String USINGLOG_URL = "/ums/usinglog.php";
+//    private final String USINGLOG_URL = "/ums/usinglog.php";
+    private final String USINGLOG_URL = "/ums/postActivityLog";
+    
     private String session_id;
 //    private String activities;
 //    private String start_millis = null;

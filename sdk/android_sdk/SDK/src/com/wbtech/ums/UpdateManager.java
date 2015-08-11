@@ -55,7 +55,9 @@ class UpdateManager {
     private static boolean interceptFlag = false;
     
     private final String tag = "UpdateManager";
-    private final String UPDATE_URL = "/ums/update.php";
+//    private final String UPDATE_URL = "/ums/update.php";
+    private final String UPDATE_URL = "/ums/getApplicationUpdate";
+   
     private Context context;
     
     public UpdateManager(Context context) {

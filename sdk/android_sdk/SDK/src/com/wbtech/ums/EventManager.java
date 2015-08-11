@@ -27,7 +27,8 @@ class EventManager {
     private String label;
     private int acc;
     private final String tag = "EventManager";
-    private final String EVENT_URL = "/ums/event.php";
+//    private final String EVENT_URL = "/ums/event.php";
+    private final String EVENT_URL = "/ums/postEvent";
 
     public EventManager(Context context, String eventid, String label, int acc) {
         this.context = context;

@@ -24,7 +24,8 @@ class ClientdataManager {
     private Context context;
     private final String tag = "ClientdataManager";
     private final String PLATFORM = "android";
-    private final String CLIENTDATA_URL = "/ums/clientdata.php";
+//    private final String CLIENTDATA_URL = "/ums/clientdata.php";
+    private final String CLIENTDATA_URL = "/ums/postClientData";
 
     public ClientdataManager(Context context) {
         this.context = context;

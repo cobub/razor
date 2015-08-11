@@ -21,7 +21,9 @@ import android.content.Context;
 
 class UploadHistoryLog extends Thread {
     public Context context;
-    private static final String UPLOAD_URL = "/ums/uploadlog.php";
+//    private static final String UPLOAD_URL = "/ums/uploadlog.php";
+    private static final String UPLOAD_URL = "/ums/uploadLog";
+    
     private final String tag = "UploadHistoryLog";
     
     public UploadHistoryLog(Context context) {

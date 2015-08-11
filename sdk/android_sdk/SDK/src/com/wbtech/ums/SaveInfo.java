@@ -122,6 +122,7 @@ class SaveInfo extends Thread {
                     fileOutputStream.write(jsonObject.toString().getBytes());
                     fileOutputStream.flush();
                     fileOutputStream.close();
+                    CobubLog.i(tag,"seve info finshed");
 //                }
             }
         } catch (IOException e) {

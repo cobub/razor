@@ -23,7 +23,8 @@ import org.json.JSONObject;
 class ErrorManager {
     private Context context;
     private final String tag = "ErrorManager";
-    public static final String ERROR_URL = "/ums/error.php";
+//    public static final String ERROR_URL = "/ums/error.php";
+    public static final String ERROR_URL = "/ums/postErrorLog";
 
     public ErrorManager(Context context) {
         this.context = context;

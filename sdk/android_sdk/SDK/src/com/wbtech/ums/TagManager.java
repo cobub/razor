@@ -25,7 +25,8 @@ class TagManager {
     private Context context;
     private String tags;
     private final String tag = "TagManager";
-    private final String TAG_URL = "/ums/tag.php";
+//    private final String TAG_URL = "/ums/tag.php";
+    private final String TAG_URL = "/ums/posttag";
 
     public TagManager(Context context, String tags) {
         this.context = context;

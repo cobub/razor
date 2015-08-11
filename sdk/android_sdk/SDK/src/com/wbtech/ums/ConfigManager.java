@@ -23,7 +23,8 @@ import org.json.JSONObject;
 public class ConfigManager {
     private Context context;
     private final String tag = "ConfigManager";
-    private final String CONFIG_URL = "/ums/onlineconfig.php";
+//    private final String CONFIG_URL = "/ums/onlineconfig.php";
+    private final String CONFIG_URL = "/ums/getOnlineConfiguration";
 
     public ConfigManager(Context context) {
         this.context = context;

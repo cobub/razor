@@ -54,6 +54,7 @@ class CommonUtil {
 			jsonObject.put(type, newdata);
 			Thread t = new SaveInfo(context, jsonObject);
 			t.run();
+			
 		} catch (Exception e) {
 			CobubLog.e(tag, e);
 		}

@@ -88,29 +88,32 @@ class MyCrashHandler implements UncaughtExceptionHandler {
                 os_version = DeviceInfo.getOsVersion();
                 JSONObject errorInfo = getErrorInfoJSONString(context);
                 CobubLog.i(tag, errorinfo.toString());
-                if (CommonUtil.getReportPolicyMode(context) == SendPolicy.REALTIME
-                        && CommonUtil.isNetworkAvailable(context)) {
-                    if (!stacktrace.equals("")) {
-                        String result = NetworkUtil.Post(
-                                UmsConstants.urlPrefix + ErrorManager.ERROR_URL,
-                                errorInfo.toString());
-                        MyMessage message = NetworkUtil.parse(result);
-                        if (message == null) {
-                            CommonUtil.saveInfoToFile("errorInfo", errorInfo, context);
-                            return;
-                        }
-                        if (message.getFlag() < 0) {
-                            CobubLog.e(tag, "Error Code=" + message.getFlag() + ",Message="
-                                    + message.getMsg());
-                            if (message.getFlag() == -4)
-                                CommonUtil.saveInfoToFile("errorInfo", errorInfo, context);
-                        }
-                    }
-                } else {
+//                if (CommonUtil.getReportPolicyMode(context) == SendPolicy.REALTIME
+//                        && CommonUtil.isNetworkAvailable(context)) {
+//                    if (!stacktrace.equals("")) {
+//                        String result = NetworkUtil.Post(
+//                                UmsConstants.urlPrefix + ErrorManager.ERROR_URL,
+//                                errorInfo.toString());
+//                        MyMessage message = NetworkUtil.parse(result);
+//                        if (message == null) {
+//                            CommonUtil.saveInfoToFile("errorInfo", errorInfo, context);
+//                            return;
+//                        }
+//                        if (message.getFlag() < 0) {
+//                            CobubLog.e(tag, "Error Code=" + message.getFlag() + ",Message="
+//                                    + message.getMsg());
+//                            if (message.getFlag() == -4)
+//                                CommonUtil.saveInfoToFile("errorInfo", errorInfo, context);
+//                        }
+//                    }
+//                } else {
+                    
+//                }
                     CommonUtil.saveInfoToFile("errorInfo", errorInfo, context);
-                }
-                android.os.Process.killProcess(android.os.Process.myPid());
-                Looper.loop();
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                        
+                    
+                    Looper.loop();
             }
 
         }.start();
