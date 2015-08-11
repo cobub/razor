@@ -22,6 +22,8 @@
     NSString *duration;
     NSString *activity;
     NSString *version;
+	NSString *userid;
+	NSString *deviceid;
 }
 
 @property (nonatomic,strong) NSString *sessionMils;
@@ -30,5 +32,7 @@
 @property (nonatomic,strong) NSString *duration;
 @property (nonatomic,strong) NSString *activity;
 @property (nonatomic,strong) NSString *version;
+@property (nonatomic,strong) NSString *userid;
+@property (nonatomic,strong) NSString *deviceid;
 
 @end

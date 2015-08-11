@@ -17,13 +17,14 @@
 #include "network.h"
 #import "NSDictionary_JSONExtensions.h"
 #import "ClientData.h"
+#import "UMSAgent.h"
 
 @implementation PostClientDataDao
 
 +(CommonReturn *) postClient:(NSString *) appkey deviceInfo:(ClientData *) deviceInfo
 {
     @autoreleasepool {
-    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postClientData"];
+    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/clientdata.php"];
     CommonReturn *ret = [[CommonReturn alloc] init];
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
     [requestDictionary setObject:deviceInfo.platform forKey:@"platform"];
@@ -64,16 +65,18 @@
 {
     NSLog(@"version %@",version);
     @autoreleasepool {
-        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postActivityLog"];
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/usinglog.php"];
         CommonReturn *ret = [[CommonReturn alloc] init];
         NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
         [requestDictionary setObject:sessionMills forKey:@"session_id"];
         [requestDictionary setObject:startMils forKey:@"start_millis"];
         [requestDictionary setObject:endMils forKey:@"end_millis"];
+        [requestDictionary setObject:[UMSAgent getUMSUDID] forKey:@"deviceid"];
         [requestDictionary setObject:duration forKey:@"duration"];
         [requestDictionary setObject:activity forKey:@"activities"];
         [requestDictionary setObject:appkey forKey:@"appkey"];
         [requestDictionary setObject:version forKey:@"version"];
+        [requestDictionary setObject:[UMSAgent getUserId] forKey:@"userid"];
         NSString *retString = [network SendData:url data:requestDictionary];
         NSError *error = nil;
         NSDictionary *retDictionary = [NSDictionary dictionaryWithJSONString:retString error:&error];
@@ -89,7 +92,7 @@
 +(CommonReturn *) postArchiveLogs:(NSMutableDictionary *) archiveLogs
 {
     @autoreleasepool {
-        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/uploadLog"];
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/uploadlog.php"];
         CommonReturn *ret = [[CommonReturn alloc] init];
         NSString *retString = [network SendData:url data:archiveLogs];        
         NSError *error = nil;
@@ -106,7 +109,7 @@
 +(CommonReturn *) postErrorLog:(NSString *) appkey errorLog:(ErrorLog *) errorLog
 {
     @autoreleasepool {
-        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postErrorLog"];
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/error.php"];
         CommonReturn *ret = [[CommonReturn alloc] init];
         NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
         [requestDictionary setObject:errorLog.time forKey:@"time"];

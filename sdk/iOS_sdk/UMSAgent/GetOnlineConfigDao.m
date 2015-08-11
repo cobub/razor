@@ -20,7 +20,7 @@
 @implementation GetOnlineConfigDao
 +(ConfigPreference *) getOnlineConfig:(NSString *)appkey
 {
-    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/getOnlineConfiguration"];
+    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/onlineconfig.php"];
     
     ConfigPreference *ret = [[ConfigPreference alloc] init];
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];

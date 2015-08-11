@@ -16,12 +16,13 @@
 #import "Global.h"
 #import "NSDictionary_JSONExtensions.h"
 #import "network.h"
+#import "UMSAgent.h"
 
 @implementation postEventDao
 
 +(CommonReturn *)postEvent:(NSString *)appkey event:(Event *)mEvent
 {
-    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postEvent"];
+    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/event.php"];
     
     CommonReturn *ret = [[CommonReturn alloc] init];
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
@@ -29,7 +30,10 @@
     [requestDictionary setObject:mEvent.time forKey:@"time"];
     [requestDictionary setObject:mEvent.activity forKey:@"activity"];
     [requestDictionary setObject:mEvent.label forKey:@"label"];
+    [requestDictionary setObject:mEvent.json forKey:@"attachment"];
     [requestDictionary setObject:mEvent.version forKey:@"version"];
+    [requestDictionary setObject:mEvent.userid forKey:@"userid"];
+    [requestDictionary setObject:mEvent.deviceid forKey:@"deviceid"];
     [requestDictionary setObject:[NSNumber numberWithInt:mEvent.acc] forKey:@"acc"];
     [requestDictionary setObject:appkey forKey:@"appkey"];
     
@@ -42,8 +46,6 @@
         ret.msg = [retDictionary objectForKey:@"msg"];
     }
     return ret;
-
-
 }
 
 @end

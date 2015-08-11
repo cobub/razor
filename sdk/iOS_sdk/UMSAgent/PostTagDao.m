@@ -20,6 +20,8 @@
     [requestDictionary setObject:tag.deviceid forKey:@"deviceid"];
     [requestDictionary setObject:tag.tags forKey:@"tags"];
     [requestDictionary setObject:tag.productkey forKey:@"productkey"];
+	[requestDictionary setObject:tag.userid forKey:@"userid"];
+	[requestDictionary setObject:tag.version forKey:@"version"];
     
     
     NSString *retString = [network SendData:url data:requestDictionary];

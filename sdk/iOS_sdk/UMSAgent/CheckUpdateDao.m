@@ -22,7 +22,7 @@
 
 +(CheckUpdateReturn *)checkUpdate:(NSString *)appkey version:(NSString *)version_code
 {
-    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/getApplicationUpdate"];
+    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/update.php"];
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
     [requestDictionary setObject:@"1.0" forKey:@"version_code"];
     [requestDictionary setObject:appkey forKey:@"appkey"];

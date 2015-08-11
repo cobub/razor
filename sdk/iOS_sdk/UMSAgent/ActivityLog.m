@@ -21,6 +21,8 @@
 @synthesize duration;
 @synthesize activity;
 @synthesize version;
+@synthesize userid;
+@synthesize deviceid;
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -31,6 +33,8 @@
         self.duration = [aDecoder decodeObjectForKey:@"duration"];
         self.activity = [aDecoder decodeObjectForKey:@"activity"];
         self.version = [aDecoder decodeObjectForKey:@"version"];
+		self.deviceid = [aDecoder decodeObjectForKey:@"deviceid"];
+		self.userid = [aDecoder decodeObjectForKey:@"userid"];
     }
     return self;
 }
@@ -43,7 +47,8 @@
     [aCoder encodeObject:duration forKey:@"duration"];
     [aCoder encodeObject:activity forKey:@"activity"];
     [aCoder encodeObject:version forKey:@"version"];
+	[aCoder encodeObject:userid forKey:@"userid"];
+	[aCoder encodeObject:deviceid forKey:@"deviceid"];
 }
-
 
 @end

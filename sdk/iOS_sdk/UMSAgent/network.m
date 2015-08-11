@@ -36,6 +36,7 @@
             return @"{\"flag\":-10,\"msg\":\"Json serializaion error.\"}";
         }
         NSString *requestStr = [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding];
+		NSLog(@"%@",requestStr);
         requestStr = [NSString stringWithFormat:@"content=%@",requestStr];
         requestData = [requestStr dataUsingEncoding:NSUTF8StringEncoding];
         
