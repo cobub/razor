@@ -20,7 +20,7 @@
     
 }
 
--(IBAction) login;
+-(IBAction) crash;
 -(IBAction) register;
 -(IBAction) goToSecondView;
 -(IBAction) tag;

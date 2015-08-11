@@ -14,13 +14,28 @@
 
 #import <UIKit/UIKit.h>
 #import "UMSAgent.h"
+//#import "GexinSdk.h"
 
 @class ViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+{
+    NSString *_deviceToken;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) ViewController *viewController;
+
+//Getui
+//@property (strong, nonatomic) GexinSdk *gexinPusher;
+@property (retain, nonatomic) NSString *appKey;
+@property (retain, nonatomic) NSString *appSecret;
+@property (retain, nonatomic) NSString *appID;
+@property (retain, nonatomic) NSString *clientId;
+
+//- (void)startSdkWith:(NSString *)appID appKey:(NSString *)appKey appSecret:(NSString *)appSecret;
+//- (void)setDeviceToken:(NSString *)aToken;
+
 
 @end

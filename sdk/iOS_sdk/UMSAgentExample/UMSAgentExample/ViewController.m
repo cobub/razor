@@ -23,7 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [UMSAgent checkUpdate];
+//    [UMSAgent checkUpdate];
 }
 
 - (void)throwNSException
@@ -32,15 +32,15 @@
     @throw e;
 } 
 
--(IBAction) login
+-(IBAction) crash
 {
-    [UMSAgent postEvent:@"login" label:@"Login" acc:666];
     [self throwNSException];
 }
 
 -(IBAction) register
 {
-    [UMSAgent postEvent:@"register" label:@"Login" acc:888];
+    [UMSAgent postEvent:@"ios_click_exit"  acc:888];
+	[UMSAgent postEvent:@"ios_click" acc:666];
 }
 
 
@@ -52,17 +52,17 @@
 
 -(IBAction) tag
 {
-    [UMSAgent postTag:@"ios tag"];
+//    [UMSAgent postTag:@"ios tag"];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [UMSAgent startTracPage:@"LoginActivity"];
+    [UMSAgent tracePage:@"Login"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [UMSAgent endTracPage:@"LoginActivity"];
+//    [UMSAgent endTracPage:@"LoginActivity"];
 }
 
 - (void)viewDidUnload	
