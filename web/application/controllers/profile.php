@@ -63,7 +63,7 @@ class Profile extends CI_Controller {
         if (empty($qq)) {
             return true;
         }
-        if (!preg_match('/^[1-9]{5,10}$/', $qq)) {
+        if (!preg_match('/^[1-9][0-9]{4,9}$/', $qq)) {
             $this -> form_validation -> set_message('check_qq', lang('m_pr_modifyQQ'));
             return false;
         }
