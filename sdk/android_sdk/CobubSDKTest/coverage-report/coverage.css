@@ -1,0 +1,132 @@
+body {
+   font-size: medium;
+   line-height: 1.12em; font-family: "Helvetica", "Arial", sans-serif;
+}
+h1 { font-size: 150%; }
+table { border-spacing: 1px; }
+table table { width: 100%; border-spacing: 0; }
+caption {
+   background-color: #483d8b; color: white;
+   font-size: larger;
+   padding: 4px;
+   text-shadow: 2px 2px 2px black;
+   border-radius: 4px;
+}
+caption div { text-shadow: 0 0 0; }
+
+img { border: none; vertical-align: middle; }
+
+th { background-color: #6495ed; color: white; }
+td { padding: 0; font-size: 0.95em; }
+table table td { border-right: 1px solid white; }
+
+ol {
+   background-color: #e0ffff;
+   margin: 1ex 2em 1ex 4em;
+   font-size: 0.8em;
+}
+
+td.comment { white-space: pre; color: gray; font-family: monospace; }
+td.comment div, .imports div { display: none; }
+pre.comment { margin: 0; color: gray; }
+td.comment, .imports { cursor: row-resize; }
+
+.line, .count {
+   text-align: right;
+   padding-right: 2px;
+   font-size: 0.8em;
+}
+.line {
+   background-color: #e0e0e0;
+   width: 2.3em;
+   padding-left: 1px;
+   border-right: #a0a0a0 solid 1px;
+}
+.count {
+   background-color: yellow;
+   width: 1.6em;
+   padding-left: 2px;
+   border-right: #aaaa00 solid 1px;
+}
+
+.covered { background-color: #90ee90; }
+.uncovered { background-color: #f08080; }
+
+.instance { font-weight: bold; }
+.static { font-weight: bold; font-style: italic; }
+
+td.package, td.file {
+   background-color: #e0e0e0; padding: 2px; border-bottom: white solid 1px;
+}
+.click { cursor: row-resize; }
+td.file { font-family: monospace; white-space: pre; }
+
+td.package, td.class, td.abstractClass, td.exception, td.interface, td.annotation, td.enum {
+   padding-left: 18px;
+   background-position: left center;
+   background-repeat: no-repeat;
+}
+td.package { background-image: url(package.png); }
+td.class { background-image: url(class.png); }
+td.abstractClass { background-image: url(abstractClass.png); }
+td.exception { background-image: url(exception.png); }
+td.interface { background-image: url(interface.png); }
+td.annotation { background-image: url(annotation.png); }
+td.enum { background-image: url(enum.png); }
+
+td.pt, table#packages table td {
+   font-size: 0.95em; width: 2.875em; text-align: right;
+   border-bottom: white solid 1px; padding-right: 2px;
+}
+
+tr.total td {
+   text-align: right; font-weight: bold; background-color: #e0e0e0;
+   padding-right: 2px; border-bottom: none;
+}
+
+td.nocode { background-color: #999999; text-align: center; border-bottom: white solid 1px; }
+table#packages table td.nocode { text-align: center; }
+
+pre.jmp { background-color: #f8ebb8; }
+pre.jmp span { display: table-cell; }
+
+.cp { cursor: pointer; }
+
+td.paths {
+   padding-left: 1px; padding-bottom: 2px;
+   font-family: sans-serif; font-size: small;
+}
+.paths span {
+   outline: blue solid 1px;
+   padding-left: 2px; padding-right: 2px;
+   cursor: help;
+}
+
+.str { color: #080 }
+.kwd { color: #008 }
+.com { color: #800 }
+.typ { color: #606 }
+.lit { color: #066 }
+.pun { color: #660 }
+.pln { color: #000 }
+.tag { color: #008 }
+.atn { color: #606 }
+.atv { color: #080 }
+.dec { color: #606 }
+
+pre.prettyprint {
+   margin: 0; padding: 1px;
+}
+
+@media print {
+   .str { color: #060 }
+   .kwd { color: #006; font-weight: bold }
+   .com { color: #600; font-style: italic }
+   .typ { color: #404; font-weight: bold }
+   .lit { color: #044 }
+   .pun { color: #440 }
+   .pln { color: #000 }
+   .tag { color: #006; font-weight: bold }
+   .atn { color: #404 }
+   .atv { color: #060 }
+}

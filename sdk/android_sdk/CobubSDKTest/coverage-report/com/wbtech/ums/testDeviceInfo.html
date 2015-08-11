@@ -1,0 +1,2570 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JMockit Coverage Report - testDeviceInfo.java</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+  <link rel='stylesheet' type='text/css' href='../../../coverage.css'/>
+  <link rel='shortcut icon' type='image/png' href='../../../logo.png'/>
+  <script type='text/javascript' src='../../../coverage.js'></script>
+  <script type='text/javascript' src='../../../prettify.js'></script>
+</head>
+<body onload='prettyPrint()'>
+  <table cellpadding='0' cellspacing='1'>
+    <caption>CobubSDKTest/src/com/wbtech/ums/testDeviceInfo.java</caption>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>2</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>package com.wbtech.ums;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td><pre class='imports prettyprint' onclick='showHideLines(this)'><div>import static org.junit.Assert.*;
+
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Build;
+import android.telephony.CellLocation;
+import android.telephony.TelephonyManager;
+
+import mockit.*;
+import mockit.integration.junit4.JMockit;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+</div><span>import ...</span></pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>32</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>@RunWith(JMockit.class)</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>34</td><td class='count'>15</td>
+      <td><pre class='prettyprint covered' id='l34s0'>public class testDeviceInfo {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>36</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>37</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testLanguage() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>38</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l38s0'>        final Locale l = Locale.getDefault();</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>40</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l40s0'>        new NonStrictExpectations(Locale.class) {{ </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>41</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l41s0'>            Locale.getDefault(); result = l;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>42</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l42s0'>            l.getLanguage(); result = "en";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>43</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>44</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l44s0'>        assertEquals("en", DeviceInfo.getLanguage());  </pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>46</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l46s0'>        new NonStrictExpectations(Locale.class) {{ </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>47</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l47s0'>            l.getLanguage(); result = "";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>48</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }}; </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>49</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l49s0'>       assertEquals("", DeviceInfo.getLanguage());  </pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>51</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l51s0'>       new NonStrictExpectations(Locale.class) {{ </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>52</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l52s0'>           l.getLanguage(); result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>53</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        }}; </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>54</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l54s0'>      assertEquals("", DeviceInfo.getLanguage());  </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>55</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l55s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>57</td><td>&nbsp;</td>
+      <td><pre class='comment'>//    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>58</td><td>&nbsp;</td>
+      <td><pre class='comment'>//    public void testResolution() throws Exception {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>59</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        Context context = mock(Context.class);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>60</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>61</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        WindowManager wm = mock(WindowManager.class);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>62</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        when(context.getSystemService(Context.WINDOW_SERVICE)).thenReturn(wm);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>63</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        final DisplayMetrics dis = mock(DisplayMetrics.class);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>64</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        Display display = mock(Display.class);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>65</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>66</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        when(wm.getDefaultDisplay()).thenReturn(display);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>67</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>68</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        PowerMockito.whenNew(DisplayMetrics.class).withNoArguments().thenReturn(dis);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>69</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>70</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        Whitebox.setInternalState(dis,"widthPixels",1024);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>71</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        Whitebox.setInternalState(dis,"heightPixels",800);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>72</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        assertEquals("1024x800", DeviceInfo.getResolution());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>73</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>74</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        Whitebox.setInternalState(dis,"widthPixels",0);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>75</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        Whitebox.setInternalState(dis,"heightPixels",0);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>76</td><td>&nbsp;</td>
+      <td><pre class='comment'>////        assertEquals("0x0", DeviceInfo.getResolution());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>77</td><td>&nbsp;</td>
+      <td><pre class='comment'>//        </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>78</td><td>&nbsp;</td>
+      <td><pre class='comment'>//    }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>79</td><td>&nbsp;</td>
+      <td><pre class='comment'>//</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>80</td><td>&nbsp;</td>
+      <td><pre class='comment'>// </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>81</td><td>&nbsp;</td>
+      <td><pre class='comment'>//    </pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>83</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>84</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testDeviceProduct() throws Exception {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>85</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l85s0'>        Deencapsulation.setField(Build.class,"PRODUCT","Samsung 9001");</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>87</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l87s0'>        assertEquals("Samsung 9001", DeviceInfo.getDeviceProduct());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>89</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l89s0'>        Deencapsulation.setField(Build.class,"PRODUCT","");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>90</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l90s0'>        assertEquals("", DeviceInfo.getDeviceProduct());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>92</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l92s0'>        Deencapsulation.setField(Build.class,"PRODUCT",null);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>93</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l93s0'>        assertEquals("", DeviceInfo.getDeviceProduct());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>94</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l94s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>96</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Mocked Context context;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>97</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>98</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testBluetoothAvailable(@Mocked final BluetoothAdapter b) throws Exception {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>100</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l100s0'>        new NonStrictExpectations(BluetoothAdapter.class) {{ </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>101</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l101s0'>            BluetoothAdapter.getDefaultAdapter(); result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>102</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>104</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l104s0'>         DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>105</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l105s0'>        assertEquals(false, DeviceInfo.getBluetoothAvailable());  </pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>109</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l109s0'>        new Expectations(BluetoothAdapter.class) {{ </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>110</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l110s0'>            BluetoothAdapter.getDefaultAdapter(); result = b;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>111</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>113</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l113s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>114</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l114s0'>        assertEquals(true, DeviceInfo.getBluetoothAvailable());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>116</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l116s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>118</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>119</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testOSVersion() {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>121</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l121s0'>        Deencapsulation.setField(Build.VERSION.class,"RELEASE","1.0");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>122</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l122s0'>        assertEquals("1.0", DeviceInfo.getOsVersion());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>124</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l124s0'>        Deencapsulation.setField(Build.VERSION.class,"RELEASE","");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>125</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l125s0'>        assertEquals("", DeviceInfo.getOsVersion());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>127</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l127s0'>        Deencapsulation.setField(Build.VERSION.class,"RELEASE",null);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>128</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l128s0'>        assertEquals("", DeviceInfo.getOsVersion());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>129</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l129s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>131</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>132</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testGetDeviceIMSI(@Mocked final TelephonyManager t) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>133</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l133s0'>        new NonStrictExpectations(CommonUtil.class) {{</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>135</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l135s0'>            CommonUtil.checkPermissions(context, Manifest.permission.READ_PHONE_STATE); result = false;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>136</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>137</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l137s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>138</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l138s0'>        assertEquals("", DeviceInfo.getIMSI());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>140</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l140s0'>        new NonStrictExpectations(CommonUtil.class) {{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>141</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l141s0'>            context.getSystemService(Context.TELEPHONY_SERVICE);result = t;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>142</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l142s0'>            t.getSubscriberId();result = "";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>143</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l143s0'>            CommonUtil.checkPermissions(context, Manifest.permission.READ_PHONE_STATE); result = true;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>144</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>145</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l145s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>146</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l146s0'>        assertEquals("", DeviceInfo.getIMSI());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>148</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l148s0'>        new NonStrictExpectations(CommonUtil.class) {{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>149</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l149s0'>            context.getSystemService(Context.TELEPHONY_SERVICE);result = t;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>150</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l150s0'>            t.getSubscriberId();result = "abcdefg";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>151</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l151s0'>            CommonUtil.checkPermissions(context, Manifest.permission.READ_PHONE_STATE); result = true;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>152</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>153</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l153s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>154</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l154s0'>        assertEquals("abcdefg", DeviceInfo.getIMSI());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>157</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l157s0'>        new NonStrictExpectations(CommonUtil.class) {{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>158</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l158s0'>            context.getSystemService(Context.TELEPHONY_SERVICE);result = t;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>159</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l159s0'>            t.getSubscriberId();result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>160</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l160s0'>            CommonUtil.checkPermissions(context, Manifest.permission.READ_PHONE_STATE); result = true;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>161</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>162</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l162s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>163</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l163s0'>        assertEquals("", DeviceInfo.getIMSI());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>165</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l165s0'>        new NonStrictExpectations(CommonUtil.class) {{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>166</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l166s0'>            context.getSystemService(Context.TELEPHONY_SERVICE);result = null;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>168</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l168s0'>            CommonUtil.checkPermissions(context, Manifest.permission.READ_PHONE_STATE); result = true;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>169</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>170</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l170s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>171</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l171s0'>        assertEquals("", DeviceInfo.getIMSI());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>173</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l173s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>175</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>176</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testGetPhoneType(@Mocked final TelephonyManager t) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>177</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l177s0'>        new NonStrictExpectations() {{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>178</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l178s0'>            context.getSystemService(Context.TELEPHONY_SERVICE);result = t;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>179</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l179s0'>            t.getPhoneType();result = 1;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>181</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>182</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l182s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>183</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l183s0'>        assertEquals(1, DeviceInfo.getPhoneType());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>185</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l185s0'>        new NonStrictExpectations() {{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>186</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l186s0'>            context.getSystemService(Context.TELEPHONY_SERVICE);result = null;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>189</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>190</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l190s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>191</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l191s0'>        assertEquals(-1, DeviceInfo.getPhoneType());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>192</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l192s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>194</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>195</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testGetGravityAvailable(@Mocked final SensorManager s) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>196</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l196s0'>        new MockUp&lt;DeviceInfo>(){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>197</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock boolean isSimulator() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>198</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l198s0'>                return true;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>199</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>200</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>201</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l201s0'>        new NonStrictExpectations() {{</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>203</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l203s0'>            context.getSystemService(Context.SENSOR_SERVICE);result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>204</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>205</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l205s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>206</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l206s0'>        assertEquals(false, DeviceInfo.getGravityAvailable());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>208</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l208s0'>        new MockUp&lt;DeviceInfo>(){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>209</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock boolean isSimulator() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>210</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l210s0'>                return false;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>211</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>212</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>213</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l213s0'>        new NonStrictExpectations() {{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>214</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l214s0'>            context.getSystemService(Context.SENSOR_SERVICE);result = s;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>215</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>216</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l216s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>217</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l217s0'>        assertEquals(true, DeviceInfo.getGravityAvailable());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>219</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l219s0'>        new NonStrictExpectations() {{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>220</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l220s0'>            context.getSystemService(Context.SENSOR_SERVICE);result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>221</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>         }};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>222</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l222s0'>         DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>223</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l223s0'>         assertEquals(false, DeviceInfo.getGravityAvailable());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>224</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l224s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>226</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>227</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testGetDeviceName() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>228</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l228s0'>        Deencapsulation.setField(Build.class,"MANUFACTURER","");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>229</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l229s0'>        Deencapsulation.setField(Build.class,"MODEL","");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>230</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l230s0'>        assertEquals("", DeviceInfo.getDeviceName());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>232</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l232s0'>        Deencapsulation.setField(Build.class,"MANUFACTURER",null);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>233</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l233s0'>        Deencapsulation.setField(Build.class,"MODEL",null);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>234</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l234s0'>        assertEquals("", DeviceInfo.getDeviceName());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>236</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l236s0'>        Deencapsulation.setField(Build.class,"MANUFACTURER","");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>237</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l237s0'>        Deencapsulation.setField(Build.class,"MODEL",null);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>238</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l238s0'>        assertEquals("", DeviceInfo.getDeviceName());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>240</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l240s0'>        Deencapsulation.setField(Build.class,"MANUFACTURER",null);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>241</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l241s0'>        Deencapsulation.setField(Build.class,"MODEL","");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>242</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l242s0'>        assertEquals("", DeviceInfo.getDeviceName());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>244</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l244s0'>        Deencapsulation.setField(Build.class,"MANUFACTURER","Samsang");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>245</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l245s0'>        Deencapsulation.setField(Build.class,"MODEL",null);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>246</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l246s0'>        assertEquals("Samsang", DeviceInfo.getDeviceName());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>248</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l248s0'>        Deencapsulation.setField(Build.class,"MANUFACTURER","samsang");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>249</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l249s0'>        Deencapsulation.setField(Build.class,"MODEL","9001");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>250</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l250s0'>        assertEquals("Samsang 9001", DeviceInfo.getDeviceName());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>252</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l252s0'>        Deencapsulation.setField(Build.class,"MANUFACTURER","Samsang");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>253</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l253s0'>        Deencapsulation.setField(Build.class,"MODEL","Samsang 9001");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>254</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l254s0'>        assertEquals("Samsang 9001", DeviceInfo.getDeviceName());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>256</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l256s0'>        Deencapsulation.setField(Build.class,"MANUFACTURER","Samsang");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>257</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l257s0'>        Deencapsulation.setField(Build.class,"MODEL","Samsang 9001");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>258</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l258s0'>        assertEquals("Samsang 9001", DeviceInfo.getDeviceName());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>260</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l260s0'>        Deencapsulation.setField(Build.class,"MANUFACTURER","samsang");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>261</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l261s0'>        Deencapsulation.setField(Build.class,"MODEL","samsang 9001");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>262</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l262s0'>        assertEquals("Samsang 9001", DeviceInfo.getDeviceName());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>265</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l265s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>267</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>268</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testGetWifiMac(@Mocked final WifiManager w,@Mocked final WifiInfo wi) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>269</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l269s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>270</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>271</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l271s0'>                context.getSystemService(Context.WIFI_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>272</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l272s0'>                result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>273</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>274</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>275</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l275s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>276</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l276s0'>        assertEquals("", DeviceInfo.getWifiMac());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>278</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l278s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>279</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>280</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l280s0'>                context.getSystemService(Context.WIFI_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>281</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l281s0'>                result = w;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>282</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l282s0'>                w.getConnectionInfo();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>283</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l283s0'>                result = wi;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>284</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l284s0'>                wi.getMacAddress();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>285</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l285s0'>                result = "11:11:11:11";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>286</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>287</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>288</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l288s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>289</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l289s0'>        assertEquals("11:11:11:11", DeviceInfo.getWifiMac());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>291</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l291s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>292</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>293</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l293s0'>                wi.getMacAddress();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>294</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l294s0'>                result = "";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>295</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>296</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>297</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l297s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>298</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l298s0'>        assertEquals("", DeviceInfo.getWifiMac());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>300</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l300s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>301</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>302</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l302s0'>                wi.getMacAddress();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>303</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l303s0'>                result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>304</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>305</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>306</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l306s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>307</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l307s0'>        assertEquals("", DeviceInfo.getWifiMac());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>309</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l309s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>310</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>311</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l311s0'>                context.getSystemService(Context.WIFI_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>312</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l312s0'>                result = w;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>313</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l313s0'>                w.getConnectionInfo();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>314</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l314s0'>                result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>315</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>316</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>317</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l317s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>318</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l318s0'>        assertEquals("", DeviceInfo.getWifiMac());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>319</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l319s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>321</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>322</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testGetNetworktype(@Mocked final ConnectivityManager cm,@Mocked final NetworkInfo ni) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>323</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l323s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>324</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>325</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l325s0'>                context.getSystemService(Context.CONNECTIVITY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>326</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l326s0'>                result = cm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>327</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l327s0'>                cm.getActiveNetworkInfo();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>328</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l328s0'>                result = ni;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>329</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l329s0'>                ni.getTypeName();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>330</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l330s0'>                result = "wifi";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>331</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>332</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>333</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l333s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>334</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l334s0'>        assertEquals("wifi", DeviceInfo.getNetworkTypeWIFI2G3G());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>336</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l336s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>337</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>338</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l338s0'>                ni.getTypeName();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>339</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l339s0'>                result = "Wifi";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>340</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>341</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>342</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l342s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>343</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l343s0'>        assertEquals("wifi", DeviceInfo.getNetworkTypeWIFI2G3G());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>345</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l345s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>346</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>347</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l347s0'>                context.getSystemService(Context.CONNECTIVITY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>348</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l348s0'>                result = cm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>349</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l349s0'>                cm.getActiveNetworkInfo();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>350</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l350s0'>                result = ni;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>351</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l351s0'>                ni.getTypeName();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>352</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l352s0'>                result = "GPRS";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>353</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l353s0'>                cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>354</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l354s0'>                result = ni;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>355</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l355s0'>                ni.getExtraInfo();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>356</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l356s0'>                result = "GPRS";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>357</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>358</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>359</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l359s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>360</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l360s0'>        assertEquals("GPRS", DeviceInfo.getNetworkTypeWIFI2G3G());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>362</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l362s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>363</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>364</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l364s0'>                context.getSystemService(Context.CONNECTIVITY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>365</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l365s0'>                result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>366</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>367</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>368</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l368s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>369</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l369s0'>        assertEquals("", DeviceInfo.getNetworkTypeWIFI2G3G());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>371</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l371s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>373</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>374</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testgetLongitude(</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>375</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final Context context,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>376</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final TelephonyManager tm,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>377</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final LocationManager lm, @Mocked final Location l) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>378</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l378s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>379</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>380</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l380s0'>                context.getSystemService(Context.TELEPHONY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>381</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l381s0'>                result = tm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>382</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l382s0'>                context.getSystemService(Context.LOCATION_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>383</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l383s0'>                result = lm;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>385</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l385s0'>                List&lt;String> matchingProviders = new ArrayList&lt;String>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>386</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l386s0'>                matchingProviders.add("test");</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>388</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l388s0'>                lm.getAllProviders();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>389</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l389s0'>                result = matchingProviders;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>390</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l390s0'>                lm.getLastKnownLocation("test");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>391</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l391s0'>                result = l;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>392</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>393</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>395</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l395s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>396</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l396s0'>        assertEquals("0.0", DeviceInfo.getLongitude());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>398</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l398s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>399</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>400</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l400s0'>                context.getSystemService(Context.TELEPHONY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>401</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l401s0'>                result = tm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>402</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l402s0'>                context.getSystemService(Context.LOCATION_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>403</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l403s0'>                result = lm;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>405</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l405s0'>                List&lt;String> matchingProviders = new ArrayList&lt;String>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>406</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l406s0'>                matchingProviders.add("test");</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>408</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l408s0'>                lm.getAllProviders();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>409</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l409s0'>                result = matchingProviders;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>410</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l410s0'>                lm.getLastKnownLocation("test");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>411</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l411s0'>                result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>412</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>413</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>415</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l415s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>416</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l416s0'>        assertEquals("", DeviceInfo.getLongitude());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>418</td><td>&nbsp;</td>
+      <td><pre class='comment'>//        </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>419</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l419s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>420</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>421</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l421s0'>                context.getSystemService(Context.TELEPHONY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>422</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l422s0'>                result = tm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>423</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l423s0'>                context.getSystemService(Context.LOCATION_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>424</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l424s0'>                result = lm;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>426</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l426s0'>                List&lt;String> matchingProviders = new ArrayList&lt;String>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>427</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l427s0'>                matchingProviders.add("test");</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>429</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l429s0'>                lm.getAllProviders();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>430</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l430s0'>                result = matchingProviders;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>431</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l431s0'>                lm.getLastKnownLocation("test");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>432</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l432s0'>                result = l;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>433</td><td>&nbsp;</td>
+      <td><pre class='comment'>//                Deencapsulation.setField(DeviceInfo.class,"location",l);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>434</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l434s0'>                l.getLongitude();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>435</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l435s0'>                result = 12.89;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>436</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>437</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>438</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l438s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>439</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l439s0'>        assertEquals("12.89", DeviceInfo.getLongitude());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>440</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l440s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>442</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>443</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testgetLatitude(</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>444</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final Context context,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>445</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final TelephonyManager tm,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>446</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final LocationManager locationManager,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>447</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final Location l) {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>450</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l450s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>451</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>452</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l452s0'>                context.getSystemService(Context.TELEPHONY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>453</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l453s0'>                result = tm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>454</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l454s0'>                context.getSystemService(Context.LOCATION_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>455</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l455s0'>                result = locationManager;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>457</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l457s0'>                List&lt;String> matchingProviders = new ArrayList&lt;String>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>458</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l458s0'>                matchingProviders.add("test");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>459</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l459s0'>                locationManager.getAllProviders();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>460</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l460s0'>                result = matchingProviders;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>461</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l461s0'>                locationManager.getLastKnownLocation("test");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>462</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l462s0'>                result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>463</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>464</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>465</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l465s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>466</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l466s0'>        assertEquals("", DeviceInfo.getLatitude());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>469</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l469s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>470</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>471</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l471s0'>                context.getSystemService(Context.TELEPHONY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>472</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l472s0'>                result = tm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>473</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l473s0'>                context.getSystemService(Context.LOCATION_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>474</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l474s0'>                result = locationManager;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>476</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l476s0'>                List&lt;String> matchingProviders = new ArrayList&lt;String>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>477</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l477s0'>                matchingProviders.add("test");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>478</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l478s0'>                locationManager.getAllProviders();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>479</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l479s0'>                result = matchingProviders;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>480</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l480s0'>                locationManager.getLastKnownLocation("test");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>481</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l481s0'>                result = l;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>482</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l482s0'>                l.getLatitude();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>483</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l483s0'>                result = 12.89;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>484</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>485</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>486</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l486s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>487</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l487s0'>        assertEquals("12.89", DeviceInfo.getLatitude());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>488</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l488s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>490</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>491</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testGetDeviceID(</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>492</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final Context context,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>493</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final TelephonyManager tm,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>494</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final LocationManager lm,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>495</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final SharedPreferences preferences,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>496</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final Editor editor</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>498</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            ) {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>500</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l500s0'>        new MockUp&lt;DeviceInfo>(){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>501</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String getDeviceIMEI() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>502</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l502s0'>                return "imei";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>503</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>505</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String getWifiMac() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>506</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l506s0'>                return "mac";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>507</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>509</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String getSSN() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>510</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l510s0'>                return "ssn";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>511</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>513</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>515</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l515s0'>        new Expectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>516</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>517</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l517s0'>                context.getSystemService(Context.TELEPHONY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>518</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l518s0'>                result = tm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>519</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l519s0'>                context.getSystemService(Context.LOCATION_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>520</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l520s0'>                result = lm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>521</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l521s0'>                context.getSharedPreferences("CobubRazor_SharedPref",Context.MODE_PRIVATE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>522</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l522s0'>                result = preferences;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>523</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l523s0'>                preferences.getString("uniqueuid", "");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>524</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l524s0'>                result = "abcdefg";</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>526</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>527</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>528</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l528s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>529</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l529s0'>        assertEquals("abcdefg", DeviceInfo.getDeviceId());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>532</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l532s0'>        new Expectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>533</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>534</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l534s0'>                context.getSystemService(Context.TELEPHONY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>535</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l535s0'>                result = tm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>536</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l536s0'>                context.getSystemService(Context.LOCATION_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>537</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l537s0'>                result = lm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>538</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l538s0'>                context.getSharedPreferences("CobubRazor_SharedPref",Context.MODE_PRIVATE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>539</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l539s0'>                result = preferences;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>540</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l540s0'>                preferences.getString("uniqueuid", "");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>541</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l541s0'>                result = "";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>542</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l542s0'>                preferences.edit();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>543</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l543s0'>                result = editor;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>544</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l544s0'>                editor.putString("uniqueuid", "6afdc7ad1ec7df1bf1debafbc0295227");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>545</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l545s0'>                result = editor;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>546</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l546s0'>                editor.commit();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>547</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l547s0'>                result = true;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>549</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>550</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>551</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l551s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>552</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l552s0'>        assertEquals("6afdc7ad1ec7df1bf1debafbc0295227", DeviceInfo.getDeviceId());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>554</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l554s0'>        new MockUp&lt;DeviceInfo>(){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>555</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String getDeviceIMEI() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>556</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l556s0'>                return null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>557</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>559</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String getWifiMac() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>560</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l560s0'>                return null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>561</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>563</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String getSSN() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>564</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l564s0'>                return null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>565</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>567</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>568</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l568s0'>        new MockUp&lt;CommonUtil>(){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>569</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String md5Appkey(String a) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>570</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l570s0'>                return "dcc3e0ab085917fd00596a24d20e8cdb";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>571</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>572</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>573</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l573s0'>        new Expectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>574</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>575</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l575s0'>                context.getSystemService(Context.TELEPHONY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>576</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l576s0'>                result = tm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>577</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l577s0'>                context.getSystemService(Context.LOCATION_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>578</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l578s0'>                result = lm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>579</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l579s0'>                context.getSharedPreferences("CobubRazor_SharedPref",Context.MODE_PRIVATE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>580</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l580s0'>                result = preferences;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>581</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l581s0'>                preferences.getString("uniqueuid", "");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>582</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l582s0'>                result = "";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>583</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l583s0'>                preferences.edit();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>584</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l584s0'>                result = editor;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>585</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l585s0'>                editor.putString("uniqueuid", "dcc3e0ab085917fd00596a24d20e8cdb");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>586</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l586s0'>                result = editor;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>587</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l587s0'>                editor.commit();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>588</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l588s0'>                result = true;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>590</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>591</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>592</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l592s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>593</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l593s0'>        assertEquals("dcc3e0ab085917fd00596a24d20e8cdb", DeviceInfo.getDeviceId());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>595</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l595s0'>        new MockUp&lt;DeviceInfo>(){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>596</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String getDeviceIMEI() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>597</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l597s0'>                return null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>598</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>600</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String getWifiMac() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>601</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l601s0'>                return "1";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>602</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>604</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String getSSN() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>605</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l605s0'>                return "";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>606</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>608</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>609</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l609s0'>        new Expectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>610</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>611</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l611s0'>                context.getSystemService(Context.TELEPHONY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>612</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l612s0'>                result = tm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>613</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l613s0'>                context.getSystemService(Context.LOCATION_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>614</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l614s0'>                result = lm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>615</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l615s0'>                context.getSharedPreferences("CobubRazor_SharedPref",Context.MODE_PRIVATE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>616</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l616s0'>                result = preferences;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>617</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l617s0'>                preferences.getString("uniqueuid", "");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>618</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l618s0'>                result = "";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>619</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l619s0'>                preferences.edit();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>620</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l620s0'>                result = editor;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>621</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l621s0'>                editor.putString("uniqueuid", "dcc3e0ab085917fd00596a24d20e8cdb");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>622</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l622s0'>                result = editor;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>623</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l623s0'>                editor.commit();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>624</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l624s0'>                result = true;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>626</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>627</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>628</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l628s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>629</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l629s0'>        assertEquals("dcc3e0ab085917fd00596a24d20e8cdb", DeviceInfo.getDeviceId());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>631</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l631s0'>        new MockUp&lt;DeviceInfo>(){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>632</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String getDeviceIMEI() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>633</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l633s0'>                return null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>634</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>636</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String getWifiMac() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>637</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l637s0'>                return null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>638</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>640</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mock String getSSN() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>641</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l641s0'>                return "2";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>642</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>644</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>645</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l645s0'>        new Expectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>646</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>647</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l647s0'>                context.getSystemService(Context.TELEPHONY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>648</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l648s0'>                result = tm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>649</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l649s0'>                context.getSystemService(Context.LOCATION_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>650</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l650s0'>                result = lm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>651</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l651s0'>                context.getSharedPreferences("UMS_sessionID",Context.MODE_PRIVATE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>652</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l652s0'>                result = preferences;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>653</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l653s0'>                preferences.getString("uniqueuid", "");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>654</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l654s0'>                result = "";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>655</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l655s0'>                preferences.edit();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>656</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l656s0'>                result = editor;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>657</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l657s0'>                editor.putString("uniqueuid", "dcc3e0ab085917fd00596a24d20e8cdb");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>658</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l658s0'>                result = editor;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>659</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l659s0'>                editor.commit();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>660</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l660s0'>                result = true;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>662</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>663</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>664</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l664s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>665</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l665s0'>        assertEquals("dcc3e0ab085917fd00596a24d20e8cdb", DeviceInfo.getDeviceId());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>667</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l667s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>669</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>670</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testGetGPSAvailable( </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>671</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final Context context,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>672</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final TelephonyManager tm,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>673</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final LocationManager locationManager,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>674</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final Location location) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>675</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l675s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>676</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>677</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l677s0'>                context.getSystemService(Context.TELEPHONY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>678</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l678s0'>                result = tm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>679</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l679s0'>                context.getSystemService(Context.LOCATION_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>680</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l680s0'>                result = locationManager;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>682</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l682s0'>                List&lt;String> matchingProviders = new ArrayList&lt;String>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>683</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l683s0'>                matchingProviders.add("test");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>684</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l684s0'>                locationManager.getAllProviders();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>685</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l685s0'>                result = matchingProviders;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>686</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l686s0'>                locationManager.getLastKnownLocation("test");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>687</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l687s0'>                result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>688</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>689</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>690</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l690s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>691</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l691s0'>        assertEquals("false", DeviceInfo.getGPSAvailable());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>693</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l693s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>694</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>695</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l695s0'>                locationManager.getLastKnownLocation("test");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>696</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l696s0'>                result = location;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>697</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>698</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>699</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l699s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>700</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l700s0'>        assertEquals("true", DeviceInfo.getGPSAvailable());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>702</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l702s0'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>704</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    @Test</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>705</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    public void testCellID( @Mocked final Context context,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>706</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final TelephonyManager tm,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>707</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final LocationManager locationManager,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>708</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final Location location,</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>709</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            @Mocked final CellLocation cellLocation) {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>711</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l711s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>712</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>713</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l713s0'>                context.getSystemService(Context.TELEPHONY_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>714</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l714s0'>                result = tm;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>715</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l715s0'>                context.getSystemService(Context.LOCATION_SERVICE);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>716</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l716s0'>                result = locationManager;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>718</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l718s0'>                List&lt;String> matchingProviders = new ArrayList&lt;String>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>719</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l719s0'>                matchingProviders.add("test");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>720</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l720s0'>                locationManager.getAllProviders();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>721</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l721s0'>                result = matchingProviders;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>722</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l722s0'>                locationManager.getLastKnownLocation("test");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>723</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l723s0'>                result = location;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>724</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l724s0'>                tm.getCellLocation();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>725</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l725s0'>                result = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>726</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>727</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>728</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l728s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>730</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l730s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>731</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>732</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l732s0'>                tm.getCellLocation();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>733</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l733s0'>                result = cellLocation;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>734</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>735</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>736</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l736s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>737</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l737s0'>        assertEquals("", DeviceInfo.getMCCMNC());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>739</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l739s0'>        new NonStrictExpectations() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>740</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>741</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l741s0'>                tm.getNetworkOperator();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>742</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l742s0'>                result = "46001";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>743</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>744</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        };</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>745</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l745s0'>        DeviceInfo.init(context);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>746</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l746s0'>        assertEquals("46001", DeviceInfo.getMCCMNC());</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>748</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l748s0'>    }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>749</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>}</pre></td>
+    </tr>
+  </table>
+</body>
+</html>

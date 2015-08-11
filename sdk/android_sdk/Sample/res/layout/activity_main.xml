@@ -4,20 +4,48 @@
     android:layout_height="match_parent" >
 
     <Button
+        android:id="@+id/button_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="@string/event"
-        android:id="@+id/button_event"
-        />
+        android:text="@string/event" />
 
-      <Button
-          android:id="@+id/button_error"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignBaseline="@+id/button_event"
-          android:layout_alignBottom="@+id/button_event"
-          android:layout_alignParentRight="true"
-          android:text="@string/error" />
+    <Button
+        android:id="@+id/button_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_event"
+        android:layout_alignBottom="@+id/button_event"
+        android:layout_alignParentRight="true"
+        android:text="@string/error" />
+
+    <Button
+        android:id="@+id/button_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_error"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:text="@string/activity" />
+
+
+    <TextView
+        android:id="@+id/txtURL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/activity"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/padding_small" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtURL"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp"
+        android:src="@drawable/icon" />
 
 </RelativeLayout>
