@@ -1,4 +1,4 @@
-<?php
+<?php 
  /**
   * Cobub Razor
   *
@@ -462,36 +462,12 @@ class Installation extends CI_Controller
         if (!$ret) {
             return false;
         }
-        //create store procedure rundim
-        $ret = $this -> createproducre($depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, 'assets/sql/sp_rundim.sql', 'sp_rundim', $replacedatabase, null, $depottablehead);
+        //create all producre 
+        $ret = $this->createallproducre($depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, 'assets/sql/', $replacedatabase, $depottablehead);
         if (!$ret) {
             return false;
         }
-        //create store procedure runfact
-        $ret = $this -> createproducre($depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, 'assets/sql/sp_runfact.sql', 'sp_runfact', $replacedatabase, null, $depottablehead);
-        if (!$ret) {
-            return false;
-        }
-        //create store procedure runsum
-        $ret = $this -> createproducre($depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, 'assets/sql/sp_runsum.sql', 'sp_runsum', $replacedatabase, null, $depottablehead);
-        if (!$ret) {
-            return false;
-        }
-        //create store procedure rundaily
-        $ret = $this -> createproducre($depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, 'assets/sql/sp_rundaily.sql', 'sp_rundaily', $replacedatabase, null, $depottablehead);
-        if (!$ret) {
-            return false;
-        }
-        //create store procedure runweekly
-        $ret = $this -> createproducre($depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, 'assets/sql/sp_runweekly.sql', 'sp_runweekly', $replacedatabase, null, $depottablehead);
-        if (!$ret) {
-            return false;
-        }
-        //create store procedure runmonthly
-        $ret = $this -> createproducre($depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, 'assets/sql/sp_runmonthly.sql', 'sp_runmonthly', $replacedatabase, null, $depottablehead);
-        if (!$ret) {
-            return false;
-        }
+        
         return true;
 
     }
@@ -601,12 +577,10 @@ class Installation extends CI_Controller
         //Determine if a file exists.
         if (!file_exists($sqlPath))
             return false;
-
         $handle = fopen($sqlPath, 'rb');
         $sqlStr = fread($handle, filesize($sqlPath));
         //Sql syntax statement separator preg_split
         $segment = explode(";", trim($sqlStr));
-
         //Remove comments and extra blank line
         $newSegment = array();
         foreach ($segment as $statement) {
@@ -631,6 +605,7 @@ class Installation extends CI_Controller
             $statement = $newStatement;
             array_push($newSegment, $statement);
         }
+        
         //add table name prefix
         $prefixsegment = array();
         if ('' != $prefix) {
@@ -657,7 +632,6 @@ class Installation extends CI_Controller
             }
 
         }
-
         $combiansegment = array();
         //Combination of sql statement
         foreach ($prefixsegment as $statement) {
@@ -671,6 +645,53 @@ class Installation extends CI_Controller
         }
         $this -> runsqlfile($servname, $dbuser, $dbpwd, $sqlname, $combiansegment, $prefix);
 
+        return true;
+    }
+
+    /**
+     * Createallproducre
+     * @param  string $servname        servname
+     * @param  string $dbuser          dbuser
+     * @param  string $dbpwd           dbpwd
+     * @param  string $sqlname         sqlname
+     * @param  string $sqlPath         sqlpath
+     * @param  string $replacedatabase replacedatabase
+     * @param  string $prefix          prefix=''
+     * @return bool
+     */
+    function createallproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $replacedatabase, $prefix) 
+    {
+         //create store procedure rundim
+        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_rundim.sql', 'sp_rundim', $replacedatabase, null, $prefix);
+        if (!$ret) {
+            return false;
+        }
+        //create store procedure runfact
+        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runfact.sql', 'sp_runfact', $replacedatabase, null, $prefix);
+        if (!$ret) {
+            return false;
+        }
+        //create store procedure runsum
+        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runsum.sql', 'sp_runsum', $replacedatabase, null, $prefix);
+        if (!$ret) {
+            return false;
+        }
+        //create store procedure rundaily
+        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_rundaily.sql', 'sp_rundaily', $replacedatabase, null, $prefix);
+        if (!$ret) {
+            return false;
+        }
+        //create store procedure runweekly
+        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runweekly.sql', 'sp_runweekly', $replacedatabase, null, $prefix);
+        if (!$ret) {
+            return false;
+        }
+        //create store procedure runmonthly
+        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runmonthly.sql', 'sp_runmonthly', $replacedatabase, null, $prefix);
+        if (!$ret) {
+            return false;
+        }
+        
         return true;
     }
 
@@ -704,12 +725,14 @@ class Installation extends CI_Controller
 
         }
         fclose($handle);
-        $datadeal = fopen('assets/sql/' . $storename . '.sql', "w");
+        
+        $producrepath = dirname(__FILE__) . "/../../../assets/sql/".$storename.'.sql';
+        $datadeal = fopen($producrepath, "w");
         //open file by write way
         fwrite($datadeal, $sqlStr);
         fclose($datadeal);
 
-        $lasthandle = fopen('assets/sql/' . $storename . '.sql', 'rb');
+        $lasthandle = fopen($producrepath, 'rb');
         if ($lasthandle) {
             $lastsqlStr = '';
             while (!feof($lasthandle)) {
@@ -719,11 +742,11 @@ class Installation extends CI_Controller
 
         }
         fclose($lasthandle);
-        $lastdatadeal = fopen('assets/sql/' . $storename . '.sql', "w");
+        $lastdatadeal = fopen($producrepath, "w");
         //write new files with real prefix
         fwrite($lastdatadeal, $lastsqlStr);
         fclose($lastdatadeal);
-        $filepath = "assets/sql/" . $storename . ".sql";
+        $filepath = $producrepath;
 
         $handle = fopen($filepath, 'rb');
         $sqlStr = fread($handle, filesize($filepath));
