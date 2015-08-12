@@ -662,32 +662,32 @@ class Installation extends CI_Controller
     function createallproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $replacedatabase, $prefix) 
     {
          //create store procedure rundim
-        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_rundim.sql', 'sp_rundim', $replacedatabase, null, $prefix);
+        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_rundim.sql', 'tmp_sp_rundim', $replacedatabase, null, $prefix);
         if (!$ret) {
             return false;
         }
         //create store procedure runfact
-        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runfact.sql', 'sp_runfact', $replacedatabase, null, $prefix);
+        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runfact.sql', 'tmp_sp_runfact', $replacedatabase, null, $prefix);
         if (!$ret) {
             return false;
         }
         //create store procedure runsum
-        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runsum.sql', 'sp_runsum', $replacedatabase, null, $prefix);
+        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runsum.sql', 'tmp_sp_runsum', $replacedatabase, null, $prefix);
         if (!$ret) {
             return false;
         }
         //create store procedure rundaily
-        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_rundaily.sql', 'sp_rundaily', $replacedatabase, null, $prefix);
+        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_rundaily.sql', 'tmp_sp_rundaily', $replacedatabase, null, $prefix);
         if (!$ret) {
             return false;
         }
         //create store procedure runweekly
-        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runweekly.sql', 'sp_runweekly', $replacedatabase, null, $prefix);
+        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runweekly.sql', 'tmp_sp_runweekly', $replacedatabase, null, $prefix);
         if (!$ret) {
             return false;
         }
         //create store procedure runmonthly
-        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runmonthly.sql', 'sp_runmonthly', $replacedatabase, null, $prefix);
+        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runmonthly.sql', 'tmp_sp_runmonthly', $replacedatabase, null, $prefix);
         if (!$ret) {
             return false;
         }
