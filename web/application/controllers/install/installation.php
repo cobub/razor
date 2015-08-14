@@ -1,28 +1,29 @@
-<?php 
- /**
-  * Cobub Razor
-  *
-  * An open source mobile analytics system
-  *
-  * PHP versions 5
-  *
-  * @category  MobileAnalytics
-  * @package   CobubRazor
-  * @author    Cobub Team <open.cobub@gmail.com>
-  * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
-  * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
-  * @link      http://www.cobub.com
-  * @since     Version 0.1
-  */
+<?php
+/**
+ * Cobub Razor
+ *
+ * An open source mobile analytics system
+ *
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
+ */
+
 
 /**
  * Hint Message
  */
-if (!defined('BASEPATH'))
+if (! defined('BASEPATH'))
     exit('No direct script access allowed');
 
 /**
- * Installation
+ * Installation Model
  *
  * @category PHP
  * @package  Model
@@ -32,36 +33,40 @@ if (!defined('BASEPATH'))
  */
 class Installation extends CI_Controller
 {
-      
+
     /**
      * __construct function
-     * 
+     *
      * @return void
      */
-    function __construct() 
+    function __construct ()
     {
         parent::__construct();
-        $this -> load -> helper(array('form', 'url'));
-        $this -> load -> library('form_validation');
-        $this -> load -> model('datamanage');
-        $this -> load -> config('tank_auth', true);
-        $this -> load -> helper('file');
+        $this->load->helper(array('form','url'));
+        $this->load->library('form_validation');
+        $this->load->model('datamanage');
+        $this->load->config('tank_auth', true);
+        $this->load->helper('file');
     }
 
     /**
+     * Filemodeinfo function
+     * 
      * Check the directory read and write permissions
-     * @param  string $file_path file_path
-     * @return int    $mark      mark
+     * 
+     * @param string $file_path file_path
+     * 
+     * @return int $mark mark
      */
-    function filemodeinfo($file_path) 
+    function filemodeinfo ($file_path)
     {
         /* judgment if a file exists. */
-        if (!file_exists($file_path)) {
+        if (! file_exists($file_path)) {
             return false;
         }
         $mark = 0;
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            /* test file  */
+            /* test file */
             $test_file = $file_path . '/cf_test.txt';
             /* directory */
             if (is_dir($file_path)) {
@@ -69,22 +74,22 @@ class Installation extends CI_Controller
                 $dir = @is_readable($file_path);
                 if ($dir === false) {
                     return $mark;
-                    //If unreadable returns can not be modified directly, unreadable unwritable
+                    // If unreadable returns can not be modified directly,unreadable unwritable
                 }
                 if (@readdir($dir) !== false) {
-                    $mark^=1;
-                    //readable 001,unreadable 000
+                    $mark ^= 1;
+                    // readable 001,unreadable 000
                 }
                 @closedir($dir);
                 /* check writable */
                 $fp = @fopen($test_file, 'wb');
                 if ($fp === false) {
                     return $mark;
-                    //If the file is created in the directory fails, the return is not writable.
+                    // If the file is created in the directory fails, the return is not writable.
                 }
                 if (@fwrite($fp, 'directory access testing.') !== false) {
-                    $mark^=2;
-                    //The directories can write readable 011,the directories can write unreadable 010
+                    $mark ^= 2;
+                    // The directories can write readable 011,the directories can write unreadable 010
                 }
                 @fclose($fp);
                 @unlink($test_file);
@@ -94,157 +99,175 @@ class Installation extends CI_Controller
                     return $mark;
                 }
                 if (@fwrite($fp, "modify test.\r\n") !== false) {
-                    $mark^=4;
+                    $mark ^= 4;
                 }
                 @fclose($fp);
-                /* Check whether the directory a rename () function permissions */
+                /*
+                 * Check whether the directory a rename () function permissions
+                 */
                 if (@rename($test_file, $test_file) !== false) {
-                    $mark^=8;
+                    $mark ^= 8;
                 }
                 @unlink($test_file);
             }
-
         } else {
             if (@is_readable($file_path)) {
-                $mark^=1;
+                $mark ^= 1;
             }
             if (@is_writable($file_path)) {
-                $mark^=14;
+                $mark ^= 14;
             }
         }
         return $mark;
     }
 
     /**
+     * Index function
+     * 
      * Load select language view
+     * 
      * @return void
      */
-    function index() 
+    function index ()
     {
         $languanginfo = array();
         $filepath = dir("./application/language");
-
-        //$directory=$filepath->read();   //if do not read current directory(just like.)，read one time
-        //$directory=$filepath-> read();   //if do not read parent directory(just like..)，read two times
-
-        while ($directory = $filepath -> read()) {
+        
+        // $directory=$filepath->read(); if do not read current directory(just like.)，read one time
+        // $directory=$filepath-> read(); if do not read parent directory(just like..)，read two times
+        
+        while ($directory = $filepath->read()) {
             if ($directory != ".." && $directory != ".svn" && $directory != ".") {
                 array_push($languanginfo, $directory);
             }
         }
-        $filepath -> close();
-        $this -> data['languageinfo'] = $languanginfo;
-        $this -> data['newurl'] = $this -> datamanage -> createurl();
-        $this -> load -> view('install/installselectlanguage', $this -> data);
+        $filepath->close();
+        $this->data['languageinfo'] = $languanginfo;
+        $this->data['newurl'] = $this->datamanage->createurl();
+        $this->load->view('install/installselectlanguage', $this->data);
     }
 
     /**
-     * Deal with  select language
+     * Selectlanguage function
+     * 
+     * Deal with select language
+     * 
      * @return void
      */
-    function selectlanguage() 
+    function selectlanguage ()
     {
         $newurl = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
-        $language = $this -> input -> post('weblanguage');
-        $this -> load -> helper('language');
-        $this -> lang -> load('installview', $language);
-        $this -> welcome($language);
+        $language = $this->input->post('weblanguage');
+        $this->load->helper('language');
+        $this->lang->load('installview', $language);
+        $this->welcome($language);
     }
 
     /**
+     * Welcome function
+     * 
      * Load welcome view
-     * @param  string $language language
+     * 
+     * @param string $language language
+     * 
      * @return void
      */
-    function welcome($language) 
+    function welcome ($language)
     {
-        $this -> load -> helper('language');
-        $this -> lang -> load('installview', $language);
-        $this -> data['language'] = $language;
-        $this -> load -> helper('language');
-        $this -> data['newurl'] = $this -> datamanage -> createurl();
-        $this -> load -> view('install/installwelcome', $this -> data);
+        $this->load->helper('language');
+        $this->lang->load('installview', $language);
+        $this->data['language'] = $language;
+        $this->load->helper('language');
+        $this->data['newurl'] = $this->datamanage->createurl();
+        $this->load->view('install/installwelcome', $this->data);
     }
 
     /**
+     * Systemcheck function
+     * 
      * Load systemcheck view
-     * @param  string $language language
+     * 
+     * @param string $language language
+     * 
      * @return bool
      */
-    function systemcheck($language) 
+    function systemcheck ($language)
     {
-        $this -> load -> helper('language');
-        $this -> lang -> load('installview', $language);
-        $this -> data['language'] = $language;
+        $this->load->helper('language');
+        $this->lang->load('installview', $language);
+        $this->data['language'] = $language;
         if (version_compare(PHP_VERSION, '5.2.6', '>=')) {
             $phpversion = true;
         } else {
             $phpversion = false;
-            $this -> data['versionerror'] = lang('installview_versionerror');
+            $this->data['versionerror'] = lang('installview_versionerror');
         }
         if (function_exists('mysqli_close')) {
             $mysqli = true;
         } else {
             $mysqli = false;
-            $this -> data['mysqlierror'] = lang('installview_mysqlierror');
+            $this->data['mysqlierror'] = lang('installview_mysqlierror');
         }
-
+        
         $configpath = realpath('./application/config');
         $assetspath = realpath('./assets/android');
         $captchapath = realpath('./captcha');
         $sqlpath = realpath('./assets/sql');
-        $this -> data['phpversion'] = $phpversion;
-        $this -> data['mysqli'] = $mysqli;
-
-        $configwrite = $this -> isdirwritable($configpath);
-        $this -> data['configwrite'] = $configwrite;
-        $this -> data['configpath'] = $configpath;
-
-        $captchwrite = $this -> isdirwritable($captchapath);
-        $this -> data['captchwrite'] = $captchwrite;
-        $this -> data['captchapath'] = $captchapath;
-
-        $assetswrite = $this -> isdirwritable($assetspath);
-        $this -> data['assetswrite'] = $assetswrite;
-        $this -> data['assetspath'] = $assetspath;
-
-        $sqlwrite = $this -> isdirwritable($sqlpath);
-        $this -> data['sqlwrite'] = $sqlwrite;
-        $this -> data['sqlpath'] = $sqlpath;
-
-        if ($configwrite == "true" && $captchwrite == "true" && $assetswrite != 0 && $sqlwrite == "true") {
+        $this->data['phpversion'] = $phpversion;
+        $this->data['mysqli'] = $mysqli;
+        
+        $configwrite = $this->isdirwritable($configpath);
+        $this->data['configwrite'] = $configwrite;
+        $this->data['configpath'] = $configpath;
+        
+        $captchwrite = $this->isdirwritable($captchapath);
+        $this->data['captchwrite'] = $captchwrite;
+        $this->data['captchapath'] = $captchapath;
+        
+        $assetswrite = $this->isdirwritable($assetspath);
+        $this->data['assetswrite'] = $assetswrite;
+        $this->data['assetspath'] = $assetspath;
+        
+        $sqlwrite = $this->isdirwritable($sqlpath);
+        $this->data['sqlwrite'] = $sqlwrite;
+        $this->data['sqlpath'] = $sqlpath;
+        
+        if ($configwrite == "true" && $captchwrite == "true" && $assetswrite != 0 &&$sqlwrite == "true") {
             $writetrue = true;
-            $this -> data['writetrue'] = $writetrue;
-
+            $this->data['writetrue'] = $writetrue;
         } else {
             $writetrue = false;
-            $this -> data['writetrue'] = $writetrue;
-            $this -> data['writeerror'] = lang('installview_writeerror');
+            $this->data['writetrue'] = $writetrue;
+            $this->data['writeerror'] = lang('installview_writeerror');
         }
-
-        $this -> data['newurl'] = $this -> datamanage -> createurl();
-        $this -> load -> view('install/installcheckview', $this -> data);
+        
+        $this->data['newurl'] = $this->datamanage->createurl();
+        $this->load->view('install/installcheckview', $this->data);
     }
 
     /**
+     * Isdirwritable function 
+     * 
      * Check isdirwritable(): Check if directory and files in it is writable
-     * @param  string $path Path to directory
+     * 
+     * @param string $path Path to directory
+     * 
      * @return bool
      * @author Jianghe.Cao
      */
-    function isdirwritable($path) 
+    function isdirwritable ($path)
     {
         if (strncasecmp(PHP_OS, 'WIN', 3) != 0) {
-            if (!is_executable($path)) {
+            if (! is_executable($path)) {
                 return false;
             }
         }
-
+        
         if (is_writable($path) && is_readable($path)) {
             $writable = true;
             $fileinfo = get_dir_file_info($path);
             foreach ($fileinfo as $row) {
-                if (!(isset($row['readable']) && isset($row['writable']) && $row['readable'] == 1 && $row['writable'] == 1)) {
+                if (! (isset($row['readable']) && isset($row['writable']) &&$row['readable'] == 1 && $row['writable'] == 1)) {
                     $writable = false;
                     break;
                 }
@@ -252,19 +275,23 @@ class Installation extends CI_Controller
         } else {
             $writable = false;
         }
-
+        
         return $writable;
     }
 
     /**
+     * Databaseinfo function
+     * 
      * Load creata database view
-     * @param  string $language language
+     * 
+     * @param string $language language
+     * 
      * @return void
      */
-    function databaseinfo($language) 
+    function databaseinfo ($language)
     {
-        $configlanguage = $this -> config -> item('language');
-        //modify config file---config file;
+        $configlanguage = $this->config->item('language');
+        // modify config file---config file;
         $dir = "./application/config/config.php";
         $fh = fopen($dir, 'r+');
         $data = fread($fh, filesize($dir));
@@ -273,8 +300,8 @@ class Installation extends CI_Controller
         $handle = fopen($dir, "w");
         fwrite($handle, $data);
         fclose($handle);
-
-        //modify config file---autoload file;
+        
+        // modify config file---autoload file;
         $dir = "./application/config/autoload.php";
         $fh = fopen($dir, 'r+');
         $data = fread($fh, filesize($dir));
@@ -288,89 +315,91 @@ class Installation extends CI_Controller
         $handle = fopen($dir, "w");
         fwrite($handle, $data);
         fclose($handle);
-
+        
         $ip = "localhost";
-        $this -> data['ip'] = $ip;
-        $this -> load -> helper('language');
-        $this -> lang -> load('installview', $language);
-        $this -> data['language'] = $language;
-        $this -> data['newurl'] = $this -> datamanage -> createurl();
-        $this -> load -> view('install/installdatabaseview', $this -> data);
+        $this->data['ip'] = $ip;
+        $this->load->helper('language');
+        $this->lang->load('installview', $language);
+        $this->data['language'] = $language;
+        $this->data['newurl'] = $this->datamanage->createurl();
+        $this->load->view('install/installdatabaseview', $this->data);
     }
 
     /**
+     * Createdatabase function
+     * 
      * Deal with database info
+     * 
      * @return void
      */
-    function createdatabase() 
+    function createdatabase ()
     {
-        $language = $this -> config -> item('language');
+        $language = $this->config->item('language');
         $ip = "localhost";
-        //deal with database and dataware
-
-        //database data set rule
-        $this -> form_validation -> set_rules('ip', lang('installview_verficationip'), 'trim|required|xss_clean');
-        $this -> form_validation -> set_rules('dbname', lang('installview_verficationdbname'), 'trim|required|xss_clean');
-        $this -> form_validation -> set_rules('username', lang('installview_verficationusername'), 'trim|required|xss_clean');
-        $this -> form_validation -> set_rules('password', lang('installview_verficationpassword'), 'trim|required|xss_clean');
-        $this -> form_validation -> set_rules('tablehead', lang('installview_verficationtablehead'), 'trim|required|xss_clean|alpha_dash');
-        //dataware data set rule
-        $this -> form_validation -> set_rules('depotip', lang('installview_verficationdepotip'), 'trim|required|xss_clean');
-        $this -> form_validation -> set_rules('depotdbname', lang('installview_verficationdepotdbname'), 'trim|required|xss_clean');
-        $this -> form_validation -> set_rules('depotusername', lang('installview_verficationdepotusername'), 'trim|required|xss_clean');
-        $this -> form_validation -> set_rules('depotpassword', lang('installview_verficationdepotpassword'), 'trim|required|xss_clean');
-        $this -> form_validation -> set_rules('depottablehead', lang('installview_verficationdepottablehead'), 'trim|required|xss_clean|alpha_dash');
-        if ($this -> form_validation -> run() == false) {
-
-            $this -> data['ip'] = $ip;
-            $this -> data['newurl'] = $this -> datamanage -> createurl();
-            $this -> data['language'] = $this -> config -> item('language');
-            $this -> load -> view('install/installdatabaseview', $this -> data);
-
+        // deal with database and dataware
+        
+        // database data set rule
+        $this->form_validation->set_rules('ip', lang('installview_verficationip'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('dbname', lang('installview_verficationdbname'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('username', lang('installview_verficationusername'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('password', lang('installview_verficationpassword'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('tablehead', lang('installview_verficationtablehead'), 'trim|required|xss_clean|alpha_dash');
+        // dataware data set rule
+        $this->form_validation->set_rules('depotip', lang('installview_verficationdepotip'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('depotdbname', lang('installview_verficationdepotdbname'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('depotusername', lang('installview_verficationdepotusername'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('depotpassword', lang('installview_verficationdepotpassword'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('depottablehead', lang('installview_verficationdepottablehead'), 'trim|required|xss_clean|alpha_dash');
+        if ($this->form_validation->run() == false) {
+            
+            $this->data['ip'] = $ip;
+            $this->data['newurl'] = $this->datamanage->createurl();
+            $this->data['language'] = $this->config->item('language');
+            $this->load->view('install/installdatabaseview', $this->data);
         } else {
-            //database data
-            $servname = $this -> input -> post('ip');
-            $dbuser = $this -> input -> post('username');
-            $dbpwd = $this -> input -> post('password');
-            $sqlname = $this -> input -> post('dbname');
-            $tablehead = $this -> input -> post('tablehead');
-            //dataware data
-            $depotservname = $this -> input -> post('depotip');
-            $depotdbuser = $this -> input -> post('depotusername');
-            $depotdbpwd = $this -> input -> post('depotpassword');
-            $depotsqlname = $this -> input -> post('depotdbname');
-            $depottablehead = $this -> input -> post('depottablehead');
+            // database data
+            $servname = $this->input->post('ip');
+            $dbuser = $this->input->post('username');
+            $dbpwd = $this->input->post('password');
+            $sqlname = $this->input->post('dbname');
+            $tablehead = $this->input->post('tablehead');
+            // dataware data
+            $depotservname = $this->input->post('depotip');
+            $depotdbuser = $this->input->post('depotusername');
+            $depotdbpwd = $this->input->post('depotpassword');
+            $depotsqlname = $this->input->post('depotdbname');
+            $depottablehead = $this->input->post('depottablehead');
             $conn = mysqli_connect($servname, $dbuser, $dbpwd);
             $depotconn = mysqli_connect($depotservname, $depotdbuser, $depotdbpwd);
-            if (!$conn || !$depotconn) {
-                $this -> data['ip'] = $ip;
-                if (!$conn) {
-                    $this -> data['error'] = lang('installview_verficationconnecterror') . mysqli_errno();
+            if (! $conn || ! $depotconn) {
+                $this->data['ip'] = $ip;
+                if (! $conn) {
+                    $this->data['error'] = lang('installview_verficationconnecterror') .mysqli_errno();
                 }
-                if (!$depotconn) {
-                    $this -> data['errord'] = lang('installview_verficationdepotconnecterror') . mysqli_error();
+                if (! $depotconn) {
+                    $this->data['errord'] = lang('installview_verficationdepotconnecterror') .mysqli_error();
                 }
-                $this -> data['language'] = $this -> config -> item('language');
-                $this -> data['newurl'] = $this -> datamanage -> createurl();
-                $this -> load -> view('install/installdatabaseview', $this -> data);
+                $this->data['language'] = $this->config->item('language');
+                $this->data['newurl'] = $this->datamanage->createurl();
+                $this->load->view('install/installdatabaseview', $this->data);
             } else {
-                //check if exist database info
-                $exitdatabase = $this -> checkexistdatabase($servname, $dbuser, $dbpwd, $sqlname);
-                $exitdatabasedw = $this -> checkexistdatabase($depotservname, $depotdbuser, $depotdbpwd, $depotsqlname);
+                // check if exist database info
+                $exitdatabase = $this->checkexistdatabase($servname, $dbuser, $dbpwd, $sqlname);
+                $exitdatabasedw = $this->checkexistdatabase($depotservname, $depotdbuser, $depotdbpwd, $depotsqlname);
                 if ($exitdatabase && $exitdatabasedw) {
-                    // check  innodb info
-                    $datainfo = $this -> checkinnodb($servname, $dbuser, $dbpwd);
-                    $depotdatainfo = $this -> checkinnodb($depotservname, $depotdbuser, $depotdbpwd);
+                    // check innodb info
+                    $datainfo = $this->checkinnodb($servname, $dbuser, $dbpwd);
+                    $depotdatainfo = $this->checkinnodb($depotservname, $depotdbuser, $depotdbpwd);
                     if ($datainfo == "true" && $depotdatainfo == "true") {
                         // deal with database and dataware
-                        $runsql = $this -> dealwitndatainfo($servname, $dbuser, $dbpwd, $sqlname, $tablehead, $depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, $depottablehead);
+                        $runsql = $this->dealwitndatainfo($servname, $dbuser, $dbpwd, $sqlname, $tablehead, $depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, $depottablehead);
                         if ($runsql) {
-                            $this -> userinfo();
-                            //modify config file---database file
+                            $this->userinfo();
+                            // modify config file---database file
                             $dir = "./application/config/database.php";
                             $fh = fopen($dir, 'r+');
                             $data = fread($fh, filesize($dir));
-                            //read file
+                            // read file
                             $data = str_replace('DWDBPREFIX', $depottablehead, $data);
                             $data = str_replace('DWDATABASE', $depotsqlname, $data);
                             $data = str_replace('DWPASSWORD', $depotdbpwd, $data);
@@ -384,103 +413,106 @@ class Installation extends CI_Controller
                             fclose($fh);
                             $handle = fopen($dir, "w");
                             fwrite($handle, $data);
-                            //to write file
+                            // to write file
                             fclose($handle);
                         } else {
-                            $this -> data['error'] = lang('installview_verficationcreatefailed');
-                            $this -> data['language'] = $this -> config -> item('language');
-                            $this -> data['newurl'] = $this -> datamanage -> createurl();
-                            $this -> load -> view('install/installdatabaseview', $this -> data);
+                            $this->data['error'] = lang('installview_verficationcreatefailed');
+                            $this->data['language'] = $this->config->item('language');
+                            $this->data['newurl'] = $this->datamanage->createurl();
+                            $this->load->view('install/installdatabaseview', $this->data);
                         }
-
                     } else {
                         if ($datainfo == 'false') {
-                            $this -> data['inerror'] = lang('installview_innodberror');
+                            $this->data['inerror'] = lang('installview_innodberror');
                         }
                         if ($datainfo == 'can') {
-                            $this -> data['inerror'] = lang('installview_innodbclose');
+                            $this->data['inerror'] = lang('installview_innodbclose');
                         }
                         if ($depotdatainfo == 'false') {
-                            $this -> data['inerrordw'] = lang('installview_innodberrordw');
+                            $this->data['inerrordw'] = lang('installview_innodberrordw');
                         }
                         if ($depotdatainfo == 'can') {
-                            $this -> data['inerrordw'] = lang('installview_innodbclosedw');
+                            $this->data['inerrordw'] = lang('installview_innodbclosedw');
                         }
-
-                        $this -> data['language'] = $this -> config -> item('language');
-                        $this -> data['newurl'] = $this -> datamanage -> createurl();
-                        $this -> load -> view('install/installdatabaseview', $this -> data);
+                        
+                        $this->data['language'] = $this->config->item('language');
+                        $this->data['newurl'] = $this->datamanage->createurl();
+                        $this->load->view('install/installdatabaseview', $this->data);
                     }
                 } else {
-                    if (!$exitdatabase) {
-                        $this -> data['error'] = lang('installview_noexistdata');
+                    if (! $exitdatabase) {
+                        $this->data['error'] = lang('installview_noexistdata');
                     }
-                    if (!$exitdatabasedw) {
-                        $this -> data['errord'] = lang('installview_noexistdatadw');
+                    if (! $exitdatabasedw) {
+                        $this->data['errord'] = lang('installview_noexistdatadw');
                     }
-                    $this -> data['language'] = $this -> config -> item('language');
-                    $this -> data['newurl'] = $this -> datamanage -> createurl();
-                    $this -> load -> view('install/installdatabaseview', $this -> data);
+                    $this->data['language'] = $this->config->item('language');
+                    $this->data['newurl'] = $this->datamanage->createurl();
+                    $this->load->view('install/installdatabaseview', $this->data);
                 }
-
             }
-
         }
-
     }
 
     /**
+     * Dealwitndatainfo function
+     * 
      * Dealwitndatainfo
-     * @param  string $servname       servname
-     * @param  string $dbuser         dbuser
-     * @param  string $dbpwd          dbpwd
-     * @param  string $sqlname        sqlname
-     * @param  string $tablehead      tablehead
-     * @param  string $depotservname  depotservname
-     * @param  string $depotdbuser    depotdbuser
-     * @param  string $depotdbpwd     depotdbpwd
-     * @param  string $depotsqlname   depotsqlname
-     * @param  string $depottablehead depottablehead
+     * 
+     * @param string $servname       servname
+     * @param string $dbuser         dbuser
+     * @param string $dbpwd          dbpwd
+     * @param string $sqlname        sqlname
+     * @param string $tablehead      tablehead
+     * @param string $depotservname  depotservname
+     * @param string $depotdbuser    depotdbuser
+     * @param string $depotdbpwd     depotdbpwd
+     * @param string $depotsqlname   depotsqlname
+     * @param string $depottablehead depottablehead
+     * 
      * @return bool
      */
-    function dealwitndatainfo($servname, $dbuser, $dbpwd, $sqlname, $tablehead, $depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, $depottablehead) 
+    function dealwitndatainfo ($servname, $dbuser, $dbpwd, $sqlname, $tablehead, $depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, $depottablehead)
     {
-        $language = $this -> config -> item('language');
-        //deal with database and dataware
+        $language = $this->config->item('language');
+        // deal with database and dataware
         $replacedatabase = $sqlname . "." . $tablehead;
-
-        //change innner strings to multi-languages
-        $this -> changesqlinfobylanguage($language);
-
-        //create database tables;
-        $ret = $this -> createdatabasesql($servname, $dbuser, $dbpwd, $sqlname, 'assets/sql/dbtables.sql', null, $tablehead);
-        if (!$ret) {
+        
+        // change innner strings to multi-languages
+        $this->changesqlinfobylanguage($language);
+        
+        // create database tables;
+        $ret = $this->createdatabasesql($servname, $dbuser, $dbpwd, $sqlname, 'assets/sql/dbtables.sql', null, $tablehead);
+        if (! $ret) {
             return false;
         }
-        //create datawarehouse tables
-        $ret = $this -> createdatabasesql($depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, 'assets/sql/dwtables.sql', null, $depottablehead);
-        if (!$ret) {
+        // create datawarehouse tables
+        $ret = $this->createdatabasesql($depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, 'assets/sql/dwtables.sql', null, $depottablehead);
+        if (! $ret) {
             return false;
         }
-        //create all producre 
+        // create all producre
         $ret = $this->createallproducre($depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, 'assets/sql/', $replacedatabase, $depottablehead);
-        if (!$ret) {
+        if (! $ret) {
             return false;
         }
         
         return true;
-
     }
 
     /**
+     * Checkexistdatabase function
+     * 
      * Check mysql if exist database
-     * @param  string $servname servname
-     * @param  string $dbuser   dbuser
-     * @param  string $dbpwd    dbpwd
-     * @param  string $sqlname  sqlname
+     * 
+     * @param string $servname servname
+     * @param string $dbuser   dbuser
+     * @param string $dbpwd    dbpwd
+     * @param string $sqlname  sqlname
+     * 
      * @return bool
      */
-    function checkexistdatabase($servname, $dbuser, $dbpwd, $sqlname) 
+    function checkexistdatabase ($servname, $dbuser, $dbpwd, $sqlname)
     {
         $conn = mysqli_connect($servname, $dbuser, $dbpwd);
         $db = mysqli_select_db($conn, $sqlname);
@@ -493,13 +525,17 @@ class Installation extends CI_Controller
     }
 
     /**
+     * Checkinnodb function
+     * 
      * Check mysql if can support innodb
-     * @param  string $servname servname
-     * @param  string $dbuser   dbuser
-     * @param  string $dbpwd    dbpwd
-     * @return bool   $iscanuse iscanuse
+     * 
+     * @param string $servname servname
+     * @param string $dbuser   dbuser
+     * @param string $dbpwd    dbpwd
+     * 
+     * @return bool $iscanuse iscanuse
      */
-    function checkinnodb($servname, $dbuser, $dbpwd) 
+    function checkinnodb ($servname, $dbuser, $dbpwd)
     {
         $iscanuse = "false";
         $con = mysqli_connect($servname, $dbuser, $dbpwd);
@@ -507,7 +543,7 @@ class Installation extends CI_Controller
         // $sql = mysqli_real_escape_string($con, $sql);
         $result = mysqli_query($con, $sql);
         while ($row = mysqli_fetch_row($result)) {
-            for ($i = 0; $i < count($row); $i++) {
+            for ($i = 0; $i < count($row); $i ++) {
                 if ($row[$i] == "InnoDB") {
                     $property = $row[$i + 1];
                     if ($property == "YES") {
@@ -524,7 +560,6 @@ class Installation extends CI_Controller
                     }
                     break;
                 }
-
             }
         }
         /* free result set */
@@ -535,17 +570,20 @@ class Installation extends CI_Controller
     }
 
     /**
+     * Realserverip function
+     * 
      * Check real server ip info
+     * 
      * @return string serverip
      */
-    function realserverip() 
+    function realserverip ()
     {
         static $serverip = null;
-
+        
         if ($serverip !== null) {
             return $serverip;
         }
-
+        
         if (isset($_SERVER)) {
             if (isset($_SERVER['SERVER_ADDR'])) {
                 $serverip = $_SERVER['SERVER_ADDR'];
@@ -555,42 +593,46 @@ class Installation extends CI_Controller
         } else {
             $serverip = getenv('SERVER_ADDR');
         }
-
+        
         return $serverip;
     }
 
     /**
-     * Modify  table  .sql file
-     * @param  string $servname  servname
-     * @param  string $dbuser    dbuser
-     * @param  string $dbpwd     dbpwd
-     * @param  string $sqlname   sqlname
-     * @param  string $sqlPath   sqlPath
-     * @param  string $delimiter delimiter,
-     * @param  string $prefix    prefix
-     * @param  array  $commenter commenter=array('#','--')
+     * Createdatabasesql function
+     * 
+     * Modify table .sql file
+     * 
+     * @param string $servname  servname
+     * @param string $dbuser    dbuser
+     * @param string $dbpwd     dbpwd
+     * @param string $sqlname   sqlname
+     * @param string $sqlPath   sqlPath
+     * @param string $delimiter delimiter,
+     * @param string $prefix    prefix
+     * @param array  $commenter commenter=array('#','--')
+     * 
      * @return bool
      */
-    function createdatabasesql($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#','--')) 
+    function createdatabasesql ($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#','--'))
     {
         echo "<Meta http-equiv='Content-Type' Content='text/html; Charset=utf8'>";
-        //Determine if a file exists.
-        if (!file_exists($sqlPath))
+        // Determine if a file exists.
+        if (! file_exists($sqlPath))
             return false;
         $handle = fopen($sqlPath, 'rb');
         $sqlStr = fread($handle, filesize($sqlPath));
-        //Sql syntax statement separator preg_split
+        // Sql syntax statement separator preg_split
         $segment = explode(";", trim($sqlStr));
-        //Remove comments and extra blank line
+        // Remove comments and extra blank line
         $newSegment = array();
         foreach ($segment as $statement) {
             $sentence = explode("\n", $statement);
-
+            
             $newStatement = array();
-
+            
             foreach ($sentence as $subSentence) {
                 if ('' != trim($subSentence)) {
-                    //To judge whether a comment
+                    // To judge whether a comment
                     $isComment = false;
                     foreach ($commenter as $comer) {
                         if (preg_match("/^(" . $comer . ")/", trim($subSentence))) {
@@ -598,7 +640,7 @@ class Installation extends CI_Controller
                             break;
                         }
                     }
-                    if (!$isComment)
+                    if (! $isComment)
                         $newStatement[] = $subSentence;
                 }
             }
@@ -606,89 +648,108 @@ class Installation extends CI_Controller
             array_push($newSegment, $statement);
         }
         
-        //add table name prefix
+        // add table name prefix
         $prefixsegment = array();
         if ('' != $prefix) {
             $regxTable = "^[\`\'\"]{0,1}[\_a-zA-Z]+[\_a-zA-Z0-9]*[\`\'\"]{0,1}$";
             $regxLeftWall = "^[\`\'\"]{1}";
-
-            $sqlFlagTree = array("CREATE" => array("TABLE" => array("IF" => array("NOT" => array("EXISTS" => array("$regxTable" => 0))))), "INSERT" => array("INTO" => array("$regxTable" => 0)));
+            
+            $sqlFlagTree = array(
+                    "CREATE" => array(
+                            "TABLE" => array(
+                                    "IF" => array(
+                                            "NOT" => array(
+                                                    "EXISTS" => array(
+                                                            "$regxTable" => 0
+                                                    )
+                                            )
+                                    )
+                            )
+                    ),
+                    "INSERT" => array(
+                            "INTO" => array(
+                                    "$regxTable" => 0
+                            )
+                    )
+            );
             foreach ($newSegment as $statement) {
                 $tokens = explode(" ", @$statement[0]);
                 $tableName = array();
-                $tableName = $this -> gettablename($sqlFlagTree, $tokens, 0, $tableName);
-
+                $tableName = $this->gettablename($sqlFlagTree, $tokens, 0, $tableName);
+                
                 if (empty($tableName['leftWall'])) {
-                    //Add the prefix
+                    // Add the prefix
                     $newTableName = $prefix . $tableName['name'];
-
                 } else {
-                    //Add the prefix
-                    $newTableName = $tableName['leftWall'] . $prefix . substr($tableName['name'], 1);
+                    // Add the prefix
+                    $newTableName = $tableName['leftWall'] . $prefix .substr($tableName['name'], 1);
                 }
-
+                
                 $statement[0] = str_replace("umsinstall_", $prefix, @$statement[0]);
                 array_push($prefixsegment, $statement);
             }
-
         }
         $combiansegment = array();
-        //Combination of sql statement
+        // Combination of sql statement
         foreach ($prefixsegment as $statement) {
             $newStmt = '';
             foreach ($statement as $sentence) {
-
+                
                 $newStmt = $newStmt . trim($sentence) . "\n";
             }
             $statement = $newStmt;
             array_push($combiansegment, $statement);
         }
-        $this -> runsqlfile($servname, $dbuser, $dbpwd, $sqlname, $combiansegment, $prefix);
-
+        $this->runsqlfile($servname, $dbuser, $dbpwd, $sqlname, $combiansegment, $prefix);
+        
         return true;
     }
 
     /**
+     * Createallproducre function
+     * 
      * Createallproducre
-     * @param  string $servname        servname
-     * @param  string $dbuser          dbuser
-     * @param  string $dbpwd           dbpwd
-     * @param  string $sqlname         sqlname
-     * @param  string $sqlPath         sqlpath
-     * @param  string $replacedatabase replacedatabase
-     * @param  string $prefix          prefix=''
+     * 
+     * @param string $servname        servname
+     * @param string $dbuser          dbuser
+     * @param string $dbpwd           dbpwd
+     * @param string $sqlname         sqlname
+     * @param string $sqlPath         sqlpath
+     * @param string $replacedatabase replacedatabase
+     * @param string $prefix          prefix=''
+     * 
      * @return bool
      */
-    function createallproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $replacedatabase, $prefix) 
+    function createallproducre ($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $replacedatabase, $prefix)
     {
-         //create store procedure rundim
-        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_rundim.sql', 'tmp_sp_rundim', $replacedatabase, null, $prefix);
-        if (!$ret) {
+        // create store procedure rundim
+        $ret = $this->createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath . 'sp_rundim.sql', 'tmp_sp_rundim', $replacedatabase, null, $prefix);
+        if (! $ret) {
             return false;
         }
-        //create store procedure runfact
-        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runfact.sql', 'tmp_sp_runfact', $replacedatabase, null, $prefix);
-        if (!$ret) {
+        // create store procedure runfact
+        $ret = $this->createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath . 'sp_runfact.sql', 'tmp_sp_runfact', $replacedatabase, null, $prefix);
+        if (! $ret) {
             return false;
         }
-        //create store procedure runsum
-        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runsum.sql', 'tmp_sp_runsum', $replacedatabase, null, $prefix);
-        if (!$ret) {
+        // create store procedure runsum
+        $ret = $this->createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath . 'sp_runsum.sql', 'tmp_sp_runsum', $replacedatabase, null, $prefix);
+        if (! $ret) {
             return false;
         }
-        //create store procedure rundaily
-        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_rundaily.sql', 'tmp_sp_rundaily', $replacedatabase, null, $prefix);
-        if (!$ret) {
+        // create store procedure rundaily
+        $ret = $this->createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath . 'sp_rundaily.sql', 'tmp_sp_rundaily', $replacedatabase, null, $prefix);
+        if (! $ret) {
             return false;
         }
-        //create store procedure runweekly
-        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runweekly.sql', 'tmp_sp_runweekly', $replacedatabase, null, $prefix);
-        if (!$ret) {
+        // create store procedure runweekly
+        $ret = $this->createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath . 'sp_runweekly.sql', 'tmp_sp_runweekly', $replacedatabase, null, $prefix);
+        if (! $ret) {
             return false;
         }
-        //create store procedure runmonthly
-        $ret = $this -> createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath.'sp_runmonthly.sql', 'tmp_sp_runmonthly', $replacedatabase, null, $prefix);
-        if (!$ret) {
+        // create store procedure runmonthly
+        $ret = $this->createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath . 'sp_runmonthly.sql', 'tmp_sp_runmonthly', $replacedatabase, null, $prefix);
+        if (! $ret) {
             return false;
         }
         
@@ -696,77 +757,83 @@ class Installation extends CI_Controller
     }
 
     /**
-     * Modify  procedure  .sql file
-     * @param  string $servname        servname
-     * @param  string $dbuser          dbuser
-     * @param  string $dbpwd           dbpwd
-     * @param  string $sqlname         sqlname
-     * @param  string $sqlPath         sqlpath
-     * @param  string $storename       storename
-     * @param  string $replacedatabase replacedatabase
-     * @param  string $delimiter       delimiter
-     * @param  string $prefix          prefix=''
-     * @param  array  $commenter       commenter=array('#','--')
+     * Createproducre function
+     * 
+     * Modify procedure .sql file
+     * 
+     * @param string $servname        servname
+     * @param string $dbuser          dbuser
+     * @param string $dbpwd           dbpwd
+     * @param string $sqlname         sqlname
+     * @param string $sqlPath         sqlpath
+     * @param string $storename       storename
+     * @param string $replacedatabase replacedatabase
+     * @param string $delimiter       delimiter
+     * @param string $prefix          prefix=''
+     * @param array  $commenter       commenter=array('#','--')
+     * 
      * @return bool
      */
-    function createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $storename, $replacedatabase, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#','--')) 
+    function createproducre ($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $storename, $replacedatabase, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#','--'))
     {
         echo "<Meta http-equiv='Content-Type' Content='text/html; Charset=utf8'>";
-        //judge if exist file
-        if (!file_exists($sqlPath))
+        // judge if exist file
+        if (! file_exists($sqlPath))
             return false;
         $handle = fopen($sqlPath, 'rb');
         if ($handle) {
             $sqlStr = '';
-            while (!feof($handle)) {
+            while (! feof($handle)) {
                 $sqlStrtemp = fgets($handle);
-                $sqlStr = $sqlStr . str_replace("databaseprefix.umsdatainstall_", $replacedatabase, @$sqlStrtemp);
+                $sqlStr = $sqlStr .str_replace("databaseprefix.umsdatainstall_", $replacedatabase, @$sqlStrtemp);
             }
-
         }
         fclose($handle);
         
-        $producrepath = dirname(__FILE__) . "/../../../assets/sql/".$storename.'.sql';
+        $producrepath = dirname(__FILE__) . "/../../../assets/sql/" . $storename .'.sql';
         $datadeal = fopen($producrepath, "w");
-        //open file by write way
+        // open file by write way
         fwrite($datadeal, $sqlStr);
         fclose($datadeal);
-
+        
         $lasthandle = fopen($producrepath, 'rb');
         if ($lasthandle) {
             $lastsqlStr = '';
-            while (!feof($lasthandle)) {
+            while (! feof($lasthandle)) {
                 $sqlStrtemp = fgets($lasthandle);
-                $lastsqlStr = $lastsqlStr . str_replace("umsinstall_", $prefix, @$sqlStrtemp);
+                $lastsqlStr = $lastsqlStr .str_replace("umsinstall_", $prefix, @$sqlStrtemp);
             }
-
         }
         fclose($lasthandle);
         $lastdatadeal = fopen($producrepath, "w");
-        //write new files with real prefix
+        // write new files with real prefix
         fwrite($lastdatadeal, $lastsqlStr);
         fclose($lastdatadeal);
         $filepath = $producrepath;
-
+        
         $handle = fopen($filepath, 'rb');
         $sqlStr = fread($handle, filesize($filepath));
         $segment = explode("--$$", trim($sqlStr));
-        $this -> runsqlfile($servname, $dbuser, $dbpwd, $sqlname, $segment, $prefix);
+        $this->runsqlfile($servname, $dbuser, $dbpwd, $sqlname, $segment, $prefix);
         return true;
     }
 
     /**
-     * Modify sql info  by language
-     * @param  string $language language
+     * Changesqlinfobylanguage function
+     * 
+     * Modify sql info by language
+     * 
+     * @param string $language language
+     * 
      * @return void
      */
-    function changesqlinfobylanguage($language) 
+    function changesqlinfobylanguage ($language)
     {
         $dir = "./assets/sql/dbtables.sql";
         $fh = fopen($dir, 'r+');
         $data = fread($fh, filesize($dir));
-        //read file
-
+        // read file
+        
         $data = str_replace('UMSINSTALL_NEWSPAPER', lang('UMSINSTALL_NEWSPAPER'), $data);
         $data = str_replace('UMSINSTALL_SOCIAL', lang('UMSINSTALL_SOCIAL'), $data);
         $data = str_replace('UMSINSTALL_BUSINESS', lang('UMSINSTALL_BUSINESS'), $data);
@@ -788,7 +855,7 @@ class Installation extends CI_Controller
         $data = str_replace('UMSINSTALL_MEDICAL', lang('UMSINSTALL_MEDICAL'), $data);
         $data = str_replace('UMSINSTALL_ENTERTAINMENT', lang('UMSINSTALL_ENTERTAINMENT'), $data);
         $data = str_replace('UMSINSTALL_GAME', lang('UMSINSTALL_GAME'), $data);
-
+        
         $data = str_replace('UMSINSTALLC_SYSMANAGER', lang('UMSINSTALLC_SYSMANAGER'), $data);
         $data = str_replace('UMSINSTALLC_MYAPPS', lang('UMSINSTALLC_MYAPPS'), $data);
         $data = str_replace('UMSINSTALLC_ERRORDEVICE', lang('UMSINSTALLC_ERRORDEVICE'), $data);
@@ -816,139 +883,146 @@ class Installation extends CI_Controller
         $data = str_replace('UMSINSTALLC_PAGEVIEWSANALY', lang('UMSINSTALLC_PAGEVIEWSANALY'), $data);
         $data = str_replace('UMSINSTALLC_NETWORKINGSTATISTIC', lang('UMSINSTALLC_NETWORKINGSTATISTIC'), $data);
         $data = str_replace('UMSINSTALLC_FUNNELMODEL', lang('UMSINSTALLC_FUNNELMODEL'), $data);
-
+        
         fclose($fh);
         $handle = fopen($dir, "w");
         fwrite($handle, $data);
-        //to write file
+        // to write file
         fclose($handle);
     }
 
     /**
+     * Runsqlfile function 
+     * 
      * Run sql file
-     * @param  string $servname  servname
-     * @param  string $dbuser    dbuser
-     * @param  string $dbpwd     dbpwd
-     * @param  string $sqlname   sqlname
-     * @param  string $sqlArray  sqlarray
-     * @param  string $tablehead tablehead
+     * 
+     * @param string $servname  servname
+     * @param string $dbuser    dbuser
+     * @param string $dbpwd     dbpwd
+     * @param string $sqlname   sqlname
+     * @param string $sqlArray  sqlarray
+     * @param string $tablehead tablehead
+     * 
      * @return void
      */
-    function runsqlfile($servname, $dbuser, $dbpwd, $sqlname, $sqlArray, $tablehead) 
+    function runsqlfile ($servname, $dbuser, $dbpwd, $sqlname, $sqlArray, $tablehead)
     {
         $conn = mysqli_connect($servname, $dbuser, $dbpwd);
         mysqli_select_db($conn, $sqlname);
         foreach ($sqlArray as $sql) {
-            //$sql = mysqli_real_escape_string($conn, $sql);
+            // $sql = mysqli_real_escape_string($conn, $sql);
             mysqli_query($conn, $sql);
         }
         mysqli_close($conn);
     }
 
     /**
+     * Gettablename function
+     * 
      * Get table name from sql file
-     * @param  string $sqlFlagTree sqlFlagTree
-     * @param  string $tokens      tokens
-     * @param  int    $tokensKey   tokensKey=0
-     * @param  array  $tableName   tableName=array()
+     * 
+     * @param string $sqlFlagTree sqlFlagTree
+     * @param string $tokens      tokens
+     * @param int    $tokensKey   tokensKey=0
+     * @param array  $tableName   tableName=array()
+     * 
      * @return bool
      */
-    function gettablename($sqlFlagTree, $tokens, $tokensKey = 0, $tableName = array()) 
+    function gettablename ($sqlFlagTree, $tokens, $tokensKey = 0, $tableName = array())
     {
         $regxLeftWall = "^[\`\'\"]{1}";
-
+        
         if (count($tokens) <= $tokensKey)
             return false;
-
+        
         if ('' == trim($tokens[$tokensKey])) {
-            $this -> gettablename($sqlFlagTree, $tokens, $tokensKey + 1, $tableName);
+            $this->gettablename($sqlFlagTree, $tokens, $tokensKey + 1, $tableName);
         } else {
             foreach ($sqlFlagTree as $flag => $v) {
                 if (preg_match("/" . $flag . "/", $tokens[$tokensKey])) {
                     if (0 == $v) {
                         $tableName['name'] = $tokens[$tokensKey];
-
+                        
                         if (preg_match("/" . $regxLeftWall . "/", $tableName['name'])) {
                             $tableName['leftWall'] = $tableName['name']{0};
-
                         }
-
+                        
                         return $tableName;
                     } else {
-                        return $this -> gettablename($v, $tokens, $tokensKey + 1, $tableName);
+                        return $this->gettablename($v, $tokens, $tokensKey + 1, $tableName);
                     }
                 }
             }
         }
-
+        
         return false;
     }
 
     /**
-     * Load  superuser and deploy site view
+     * Userinfo function
+     * 
+     * Load superuser and deploy site view
+     * 
      * @return void
      */
-    function userinfo() 
+    function userinfo ()
     {
-        $this -> data['language'] = $this -> config -> item('language');
-        $this -> data['newurl'] = $this -> datamanage -> createurl();
-        $this -> data['webtimezones'] = 'UTC';
-        $this -> load -> view('install/installuserview', $this -> data);
+        $this->data['language'] = $this->config->item('language');
+        $this->data['newurl'] = $this->datamanage->createurl();
+        $this->load->view('install/installuserview', $this->data);
     }
 
     /**
+     * Createuserinfo function
+     * 
      * Create superuser and deploy site info
+     *
      * @return void
      */
-    function createuserinfo() 
+    function createuserinfo ()
     {
-        $this -> form_validation -> set_rules('siteurl', lang('installview_verficationsiteurl'), 'trim|required|xss_clean|valid_url');
-        $this -> form_validation -> set_rules('superuser', lang('installview_verficationsuperuser'), 'trim|required|xss_clean|min_length[' . $this -> config -> item('username_min_length', 'tank_auth') . ']|max_length[' . $this -> config -> item('username_max_length', 'tank_auth') . ']|alpha_dash');
-        $this -> form_validation -> set_rules('pwd', lang('installview_verficationpwd'), 'trim|required|xss_cleanmin_length[' . $this -> config -> item('password_min_length', 'tank_auth') . ']|max_length[' . $this -> config -> item('password_max_length', 'tank_auth') . ']|alpha_dash');
-        $this -> form_validation -> set_rules('verifypassword', lang('installview_verficationverifypwd'), 'trim|required|xss_clean|matches[pwd]|alpha_dash');
-        $this -> form_validation -> set_rules('email', lang('installview_verficationemail'), 'trim|required|xss_clean|valid_email');
-
-        if ($this -> form_validation -> run() == false) {
-
-            $this -> data['language'] = $this -> config -> item('language');
-            $this -> data['newurl'] = $this -> datamanage -> createurl();
-            $this -> data['webtimezones'] = $this -> input -> post('webtimezones');
-            $this -> load -> view('install/installuserview', $this -> data);
-
+        $this->form_validation->set_rules('siteurl', lang('installview_verficationsiteurl'), 'trim|required|xss_clean|valid_url');
+        $this->form_validation->set_rules('superuser', lang('installview_verficationsuperuser'), 'trim|required|xss_clean|min_length[' .$this->config->item('username_min_length', 'tank_auth') .']|max_length[' .$this->config->item('username_max_length', 'tank_auth') .']|alpha_dash');
+        $this->form_validation->set_rules('pwd', lang('installview_verficationpwd'), 'trim|required|xss_cleanmin_length[' .$this->config->item('password_min_length', 'tank_auth') .']|max_length[' .$this->config->item('password_max_length', 'tank_auth') .']|alpha_dash');
+        $this->form_validation->set_rules('verifypassword', lang('installview_verficationverifypwd'), 'trim|required|xss_clean|matches[pwd]|alpha_dash');
+        $this->form_validation->set_rules('email', lang('installview_verficationemail'), 'trim|required|xss_clean|valid_email');
+        
+        if ($this->form_validation->run() == false) {
+            
+            $this->data['language'] = $this->config->item('language');
+            $this->data['newurl'] = $this->datamanage->createurl();
+            $this->load->view('install/installuserview', $this->data);
         } else {
-            $timezones = $this -> input -> post('webtimezones');
-            $currentimezones = $this -> config -> item('timezones');
-            $siteurl = $this -> input -> post('siteurl');
-            $currenturl = $this -> config -> item('base_url');
-            //$currentfiledir = dirname(__FILE__);
-            //$dir =  str_replace("controllers","",$currentfiledir)."config/database.php";
-            $username = $this -> input -> post('superuser');
-            $password = $this -> input -> post('pwd');
-            $verifypwd = $this -> input -> post('verifypassword');
-            $email = $this -> input -> post('email');
-            $email_activation = $this -> config -> item('email_activation', 'tank_auth');
-            $data = $this -> datamanage -> createuser($username, $email, $password, $email_activation);
+            $siteurl = $this->input->post('siteurl');
+            $currenturl = $this->config->item('base_url');
+            // $currentfiledir = dirname(__FILE__);
+            // $dir = str_replace("controllers","",$currentfiledir)."config/database.php";
+            $username = $this->input->post('superuser');
+            $password = $this->input->post('pwd');
+            $verifypwd = $this->input->post('verifypassword');
+            $email = $this->input->post('email');
+            $email_activation = $this->config->item('email_activation', 'tank_auth');
+            $data = $this->datamanage->createuser($username, $email, $password, $email_activation);
             $userid = $data['user_id'];
             $new_email_key = $data['new_email_key'];
-            $this -> datamanage -> insertrole($email);
-            if ($this -> datamanage -> activateuser($userid, $new_email_key)) {
-                $this -> data['newurl'] = $this -> datamanage -> createurl();
-                $this -> data['siteurl'] = $siteurl;
-                $this -> data['language'] = $this -> config -> item('language');
-                $this -> load -> view('install/installfinshview', $this -> data);
-
-                //modify config file---config file;
+            $this->datamanage->insertrole($email);
+            if ($this->datamanage->activateuser($userid, $new_email_key)) {
+                $this->data['newurl'] = $this->datamanage->createurl();
+                $this->data['siteurl'] = $siteurl;
+                $this->data['language'] = $this->config->item('language');
+                $this->load->view('install/installfinshview', $this->data);
+                
+                // modify config file---config file;
                 $dir = "./application/config/config.php";
                 $fh = fopen($dir, 'r+');
                 $data = fread($fh, filesize($dir));
                 $data = str_replace($currenturl, $siteurl, $data);
-                $data = str_replace($currentimezones, $timezones, $data);
                 fclose($fh);
                 $handle = fopen($dir, "w");
                 fwrite($handle, $data);
                 fclose($handle);
-
-                //modify config file---autoload file;
+                
+                // modify config file---autoload file;
                 $dir = "./application/config/autoload.php";
                 $fh = fopen($dir, 'r+');
                 $data = fread($fh, filesize($dir));
@@ -957,12 +1031,12 @@ class Installation extends CI_Controller
                 $handle = fopen($dir, "w");
                 fwrite($handle, $data);
                 fclose($handle);
-
-                //modify config file---routes file;
+                
+                // modify config file---routes file;
                 $dir = "./application/config/routes.php";
                 $fh = fopen($dir, 'r+');
                 $data = fread($fh, filesize($dir));
-                //read
+                // read
                 $data = str_replace('install/installation', 'report/home', $data);
                 fclose($fh);
                 $handle = fopen($dir, "w");
