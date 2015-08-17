@@ -39,7 +39,7 @@ class Installation extends CI_Controller
      *
      * @return void
      */
-    function __construct ()
+    function __construct()
     {
         parent::__construct();
         $this->load->helper(array('form','url'));
@@ -58,7 +58,7 @@ class Installation extends CI_Controller
      * 
      * @return int $mark mark
      */
-    function filemodeinfo ($file_path)
+    function filemodeinfo($file_path)
     {
         /* judgment if a file exists. */
         if (! file_exists($file_path)) {
@@ -128,7 +128,7 @@ class Installation extends CI_Controller
      * 
      * @return void
      */
-    function index ()
+    function index()
     {
         $languanginfo = array();
         $filepath = dir("./application/language");
@@ -154,7 +154,7 @@ class Installation extends CI_Controller
      * 
      * @return void
      */
-    function selectlanguage ()
+    function selectlanguage()
     {
         $newurl = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
         $language = $this->input->post('weblanguage');
@@ -172,7 +172,7 @@ class Installation extends CI_Controller
      * 
      * @return void
      */
-    function welcome ($language)
+    function welcome($language)
     {
         $this->load->helper('language');
         $this->lang->load('installview', $language);
@@ -191,7 +191,7 @@ class Installation extends CI_Controller
      * 
      * @return bool
      */
-    function systemcheck ($language)
+    function systemcheck($language)
     {
         $this->load->helper('language');
         $this->lang->load('installview', $language);
@@ -255,7 +255,7 @@ class Installation extends CI_Controller
      * @return bool
      * @author Jianghe.Cao
      */
-    function isdirwritable ($path)
+    function isdirwritable($path)
     {
         if (strncasecmp(PHP_OS, 'WIN', 3) != 0) {
             if (! is_executable($path)) {
@@ -288,7 +288,7 @@ class Installation extends CI_Controller
      * 
      * @return void
      */
-    function databaseinfo ($language)
+    function databaseinfo($language)
     {
         $configlanguage = $this->config->item('language');
         // modify config file---config file;
@@ -332,7 +332,7 @@ class Installation extends CI_Controller
      * 
      * @return void
      */
-    function createdatabase ()
+    function createdatabase()
     {
         $language = $this->config->item('language');
         $ip = "localhost";
@@ -472,7 +472,7 @@ class Installation extends CI_Controller
      * 
      * @return bool
      */
-    function dealwitndatainfo ($servname, $dbuser, $dbpwd, $sqlname, $tablehead, $depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, $depottablehead)
+    function dealwitndatainfo($servname, $dbuser, $dbpwd, $sqlname, $tablehead, $depotservname, $depotdbuser, $depotdbpwd, $depotsqlname, $depottablehead)
     {
         $language = $this->config->item('language');
         // deal with database and dataware
@@ -512,7 +512,7 @@ class Installation extends CI_Controller
      * 
      * @return bool
      */
-    function checkexistdatabase ($servname, $dbuser, $dbpwd, $sqlname)
+    function checkexistdatabase($servname, $dbuser, $dbpwd, $sqlname)
     {
         $conn = mysqli_connect($servname, $dbuser, $dbpwd);
         $db = mysqli_select_db($conn, $sqlname);
@@ -535,7 +535,7 @@ class Installation extends CI_Controller
      * 
      * @return bool $iscanuse iscanuse
      */
-    function checkinnodb ($servname, $dbuser, $dbpwd)
+    function checkinnodb($servname, $dbuser, $dbpwd)
     {
         $iscanuse = "false";
         $con = mysqli_connect($servname, $dbuser, $dbpwd);
@@ -576,7 +576,7 @@ class Installation extends CI_Controller
      * 
      * @return string serverip
      */
-    function realserverip ()
+    function realserverip()
     {
         static $serverip = null;
         
@@ -613,9 +613,9 @@ class Installation extends CI_Controller
      * 
      * @return bool
      */
-    function createdatabasesql ($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#','--'))
+    function createdatabasesql($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#','--'))
     {
-        echo "<Meta http-equiv='Content-Type' Content='text/html; Charset=utf8'>";
+        //echo "<Meta http-equiv='Content-Type' Content='text/html; Charset=utf8'>";
         // Determine if a file exists.
         if (! file_exists($sqlPath))
             return false;
@@ -720,7 +720,7 @@ class Installation extends CI_Controller
      * 
      * @return bool
      */
-    function createallproducre ($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $replacedatabase, $prefix)
+    function createallproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $replacedatabase, $prefix)
     {
         // create store procedure rundim
         $ret = $this->createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath . 'sp_rundim.sql', 'tmp_sp_rundim', $replacedatabase, null, $prefix);
@@ -774,9 +774,9 @@ class Installation extends CI_Controller
      * 
      * @return bool
      */
-    function createproducre ($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $storename, $replacedatabase, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#','--'))
+    function createproducre($servname, $dbuser, $dbpwd, $sqlname, $sqlPath, $storename, $replacedatabase, $delimiter = '(;\n)|((;\r\n))|(;\r)', $prefix = '', $commenter = array('#','--'))
     {
-        echo "<Meta http-equiv='Content-Type' Content='text/html; Charset=utf8'>";
+        //echo "<Meta http-equiv='Content-Type' Content='text/html; Charset=utf8'>";
         // judge if exist file
         if (! file_exists($sqlPath))
             return false;
@@ -827,7 +827,7 @@ class Installation extends CI_Controller
      * 
      * @return void
      */
-    function changesqlinfobylanguage ($language)
+    function changesqlinfobylanguage($language)
     {
         $dir = "./assets/sql/dbtables.sql";
         $fh = fopen($dir, 'r+');
@@ -905,7 +905,7 @@ class Installation extends CI_Controller
      * 
      * @return void
      */
-    function runsqlfile ($servname, $dbuser, $dbpwd, $sqlname, $sqlArray, $tablehead)
+    function runsqlfile($servname, $dbuser, $dbpwd, $sqlname, $sqlArray, $tablehead)
     {
         $conn = mysqli_connect($servname, $dbuser, $dbpwd);
         mysqli_select_db($conn, $sqlname);
@@ -928,7 +928,7 @@ class Installation extends CI_Controller
      * 
      * @return bool
      */
-    function gettablename ($sqlFlagTree, $tokens, $tokensKey = 0, $tableName = array())
+    function gettablename($sqlFlagTree, $tokens, $tokensKey = 0, $tableName = array())
     {
         $regxLeftWall = "^[\`\'\"]{1}";
         
@@ -965,7 +965,7 @@ class Installation extends CI_Controller
      * 
      * @return void
      */
-    function userinfo ()
+    function userinfo()
     {
         $this->data['language'] = $this->config->item('language');
         $this->data['newurl'] = $this->datamanage->createurl();
@@ -979,7 +979,7 @@ class Installation extends CI_Controller
      *
      * @return void
      */
-    function createuserinfo ()
+    function createuserinfo()
     {
         $this->form_validation->set_rules('siteurl', lang('installview_verficationsiteurl'), 'trim|required|xss_clean|valid_url');
         $this->form_validation->set_rules('superuser', lang('installview_verficationsuperuser'), 'trim|required|xss_clean|min_length[' .$this->config->item('username_min_length', 'tank_auth') .']|max_length[' .$this->config->item('username_max_length', 'tank_auth') .']|alpha_dash');
