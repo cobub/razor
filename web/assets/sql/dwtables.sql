@@ -605,6 +605,15 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_product_version` (
 
 -- --------------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_event` (
+  `eid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `product_sk` int(11) NOT NULL,
+  `date_sk` int(11) NOT NULL,
+  `event_sk` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  PRIMARY KEY (`eid`), 
+  UNIQUE KEY `product_sk` (`product_sk`,`date_sk`,`event_sk`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 --
 -- Default value for table `mccmnc`
 --

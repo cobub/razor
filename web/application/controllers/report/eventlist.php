@@ -15,7 +15,7 @@ class Eventlist extends CI_Controller {
     }
 
     function index() {
-        $this -> common -> loadHeader();
+        $this -> common -> loadHeaderWithDateControl();
         $productId = $this -> common -> getCurrentProduct();
         $productId = $productId -> id;
         $this -> data['versions'] = $this -> event -> getProductVersions($productId);
@@ -25,7 +25,9 @@ class Eventlist extends CI_Controller {
     function getEventListData($version = '') {
         $productId = $this -> common -> getCurrentProduct();
         $productId = $productId -> id;
-        $result['event'] = $this -> event -> getEventListInfo($productId, $version);
+        $fromTime = $this -> common -> getFromTime();
+        $toTime = $this -> common -> getToTime();
+        $result['event'] = $this -> event -> getEventListInfo($productId, $version, $fromTime, $toTime);
         echo json_encode($result);
     }
 
