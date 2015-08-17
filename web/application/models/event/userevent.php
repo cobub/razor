@@ -45,58 +45,30 @@ class UserEvent extends CI_Model
      *
      * @return query result
      */
-    function getEventListInfo($productId, $version)
+    function getEventListInfo($productId, $version, $fromTime, $toTime)
     {
         $identifierarray = array();
         $eventlistarray = array();
         $eventresult = array();
         $count = 0;
         $eventsk = 0;
-        $eventidentifier
-            = $this->getEventIdentifierinfo($productId, $version);
-        $evetlist
-            = $this->getEventListByProductIdAndProductVersion($productId, $version);
-        if ($eventidentifier != null && $eventidentifier->num_rows() > 0) {
-            foreach ($eventidentifier->result() as $identifier) {
-                $identifierobj
-                    = array('eventidentifier'
-                => $identifier->event_identifier,
-                    'eventname' => $identifier->event_name);
-                array_push($identifierarray, $identifierobj);
-            }
-        }
-        if ($evetlist != null && $evetlist->num_rows() > 0) {
-            foreach ($evetlist->result() as $rowlist) {
-                $eventlistobj
-                    = array('event_sk' => $rowlist->event_sk,
-                    'eventidentifier' => $rowlist->eventidentifier,
-                    'eventname' => $rowlist->eventname, 'count' => $rowlist->count);
+        $eventidentifier = $this->getEventIdentifierinfo($productId, $version);
+        $eventlist = $this->getEventListByProductIdAndProductVersion(
+            $productId, $version, $fromTime, $toTime
+        );
+        
+        if ($eventlist != null && $eventlist -> num_rows() > 0) {
+            foreach ($eventlist->result() as $rowlist) {
+                $eventlistobj = array(
+                    'event_sk' => $rowlist -> event_sk, 
+                    'eventidentifier' => $rowlist -> eventidentifier, 
+                    'eventname' => $rowlist -> eventname, 
+                    'count' => $rowlist -> count);
                 array_push($eventlistarray, $eventlistobj);
             }
 
         }
-        if (count($identifierarray) != 0) {
-            for ($i = 0; $i < count($identifierarray); $i++) {
-                if (count($eventlistarray) != 0) {
-                    for ($j = 0; $j < count($eventlistarray); $j++) {
-                        if ($identifierarray[$i]['eventidentifier'] == $eventlistarray[$j]['eventidentifier']
-                        ) {
-                            $count = $eventlistarray[$j]['count'];
-                            $eventsk = $eventlistarray[$j]['event_sk'];
-                            break;
-                        }
-                    }
-                }
-                $eventobj = array('event_sk' => $eventsk,
-                    'eventidentifier' => $identifierarray[$i]['eventidentifier'],
-                    'eventname' => $identifierarray[$i]['eventname'],
-                    'count' => $count);
-                $count = 0;
-                $eventsk = 0;
-                array_push($eventresult, $eventobj);
-            }
-        }
-        return $eventresult;
+        return $eventlistarray;
     }
 
     /**
@@ -125,14 +97,14 @@ class UserEvent extends CI_Model
                 select
                      distinct e.version,d.
                      *
-			    from
+                from
                      " . $this->db->dbprefix('event_defination') . "
                      d ," . $this->db->dbprefix('eventdata') . " e
-			    where
-			         d.event_id=e.event_id and
+                where
+                     d.event_id=e.event_id and
                      d.product_id=$productId and
-			         e.version='$version' and
-			         d.active=1 order by
+                     e.version='$version' and
+                     d.active=1 order by
                      d.event_id desc";
 
             $query = $this->db->query($sql);
@@ -143,14 +115,16 @@ class UserEvent extends CI_Model
 
     /**
      * getEventListByProductIdAndProductVersion function
-     * get all event list information by productid and version
+     * get all event list information by productid,version,fromtime and totime
      *
      * @param int    $productId product id
      * @param string $version   version
+     * @param string $fromTime  start time
+     * @param string $toTime    end time
      *
      * @return query result
      */
-    function getEventListByProductIdAndProductVersion($productId, $version)
+    function getEventListByProductIdAndProductVersion($productId, $version,$fromTime, $toTime)
     {
         $dwdb = $this->load->database('dw', true);
         if ($version == 'unknown') {
@@ -159,51 +133,61 @@ class UserEvent extends CI_Model
         if ($version == 'all') {
 
             $sql = "
-                select
-                    e.event_sk,
-                    e.eventidentifier,
-                    e.eventname,
-                    count(f.eventid) count
-                from
-                    " . $dwdb->dbprefix('dim_product') . "   p,
-                    " . $dwdb->dbprefix('fact_event') . "  f,
-                    " . $dwdb->dbprefix('dim_event') . "  e
-                where
-                    p.product_id=$productId and
-                    p.product_active=1 and
-                    p.channel_active=1 and
-                    p.version_active=1 and
-                    f.product_sk = p.product_sk and
-                    f.event_sk = e.event_sk group by
-                    e.event_sk,e.eventidentifier,
-	                e.eventname oder by
-                    e.event_sk desc";
+                select 
+                e.event_sk,
+                e.eventidentifier,
+                e.eventname,
+                sum(f.total) count
+            from 
+                " . $dwdb -> dbprefix('dim_product') . "   p, 
+                " . $dwdb -> dbprefix('sum_event') . "  f,
+                " . $dwdb -> dbprefix('dim_date') . " d,
+                " . $dwdb -> dbprefix('dim_event') . "  e  
+            where  
+                p.product_id=$productId and 
+                p.product_active=1 and 
+                p.channel_active=1 and 
+                p.version_active=1 and 
+                f.product_sk = p.product_sk and 
+                f.event_sk = e.event_sk and 
+                f.date_sk = d.date_sk and
+                d.datevalue between '$fromTime' and '$toTime' 
+            group by 
+                e.event_sk,
+                e.eventidentifier,
+                e.eventname 
+            order by 
+                e.createtime desc";
         } else {
-            if ($version == 'unknown') {
-                $version = '';
-                $sql = "
-                select
-                    p.version_name,
-                    e.event_sk,
-                    e.eventidentifier,
-                    e.eventname,
-                count(f.eventid) count
-                from
-                    " . $dwdb->dbprefix('dim_product') . "   p,
-                    " . $dwdb->dbprefix('fact_event') . "  f,
-                    " . $dwdb->dbprefix('dim_event') . "   e
-                where
-                    p.product_id=$productId and
-                    p.product_active=1 and
-                    p.channel_active=1 and
-                    p.version_active=1 and
-                    f.product_sk = p.product_sk and
-                    f.event_sk = e.event_sk and
-                    p.version_name='$version' order by
-                    p.version_name, e.event_sk,
-                    e.eventidentifier,e.eventname order by
-                    e.event_sk desc";
-            }
+            $sql = "
+                select 
+                p.version_name,
+                e.event_sk,
+                e.eventidentifier,
+                e.eventname,
+                sum(f.total) count
+            from  
+                " . $dwdb -> dbprefix('dim_product') . "   p, 
+                " . $dwdb -> dbprefix('sum_event') . "  f,
+                " . $dwdb -> dbprefix('dim_date') . " d,
+                " . $dwdb -> dbprefix('dim_event') . "   e
+            where  
+                p.product_id=$productId and 
+                p.product_active=1 and 
+                p.channel_active=1 and 
+                p.version_active=1 and 
+                f.product_sk = p.product_sk and 
+                f.event_sk = e.event_sk and 
+                p.version_name='$version' and 
+                f.date_sk = d.date_sk and
+                d.datevalue between '$fromTime' and '$toTime' 
+            group by 
+                p.version_name, 
+                e.event_sk,
+                e.eventidentifier,
+                e.eventname 
+            order by 
+                e.createtime desc";
         }
 
         $query = $dwdb->query($sql);
@@ -225,13 +209,14 @@ class UserEvent extends CI_Model
                 select
                     distinct version_name
                 from
-                   " . $dwdb->dbprefix('dim_product') . "
+                    " . $dwdb->dbprefix('dim_product') . "
                 where
-	               product_active=1 and
-	               channel_active=1 and
-                   version_active=1 and
-	               product_id=$productid order by
-	               version_name desc";
+	                product_active=1 and
+	                channel_active=1 and
+                    version_active=1 and
+	                product_id=$productid 
+	            order by
+	                version_name desc";
 
         $query = $dwdb->query($sql);
         return $query;
