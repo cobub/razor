@@ -727,7 +727,23 @@ class ProductModel extends CI_Model
         }
         return false;
     }
-
+    
+    /**
+     * Is checkUserPermissionToProduct
+     *
+     *@param string $productId productId
+     * 
+     * @return FALSE
+     */
+    function checkUserPermissionToProduct($productId)
+    {
+        $userid = $this -> tank_auth -> get_user_id();
+        $role = $this -> getUserRoleById($userid);
+        if ($role == 3) {
+            return true;
+        }
+        return $this -> isUserHasProductPermission($userid, $productId);
+    }
     /**
      * Ger user role through id    
      *
@@ -737,17 +753,19 @@ class ProductModel extends CI_Model
      */
     function getUserRoleById($id) 
     {
-        if ($id == '')
+        if ($id == '') {
             return '2';
+        }
+            
         $this -> db -> select('roleid');
         $this -> db -> where('userid', $id);
         $query = $this -> db -> get('user2role');
         $row = $query -> first_row();
         if ($query -> num_rows > 0) {
-            return $row -> roleid;
+                return $row -> roleid;
         } 
-        else
-            return '2';
+        
+        return '2';
     }
 
     /**
@@ -835,23 +853,40 @@ class ProductModel extends CI_Model
      */
     function getAllProducts($userId) 
     {
-        $sql = "
-            select
-                p.id,
-                p.name,
-                f.name platform 
-            from 
-                " . $this -> db -> dbprefix('product') . "  p,  
-                " . $this -> db -> dbprefix('platform') . "  f         
-            where 
-                p.product_platform = f.id and 
-                p.user_id=$userId and 
-                p.active = 1 
-            order by p.id desc;";
+        $sql = "";
+        if ($this->isAdmin($userId)) {
+            $sql = "select 
+                    p.id,
+                    p.name,
+                    f.name platform 
+                from 
+                    " . $this->db->dbprefix('product') . "  p,
+                    " . $this->db->dbprefix('platform') . "  f
+                where 
+                    p.product_platform = f.id and 
+                    p.active = 1 
+                    order by p.id desc;";
+        } else {
+            $sql = "select 
+                        p.id,
+                        p.name,
+                        f.name platform 
+                    from 
+                        " . $this -> db -> dbprefix('product') . "  p,  
+                        " . $this -> db -> dbprefix('platform') . "  f , 
+                        " . $this -> db -> dbprefix('user2product') . "  up  
+                    where 
+                        p.active = 1 and 
+                        p.product_platform = f.id and          
+                        p.id=up.product_id and 
+                        up.user_id=$userId 
+                        order by p.id desc;";
+        }
+        
         $query = $this -> db -> query($sql);
         return $query;
     }
-
+    
     /**
      * Get report start date
      *
