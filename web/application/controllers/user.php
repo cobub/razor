@@ -1,21 +1,46 @@
 <?php
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
-class User extends CI_Controller {
-    function __construct() {
+ 
+/**
+ * Hint Message
+ */
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+/**
+ * User Controller
+ *
+ * @category PHP
+ * @package  Controller
+ * @author   Cobub Team <open.cobub@gmail.com>
+ * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link     http://www.cobub.com
+ */
+
+class User extends CI_Controller
+{
+    
+    /**
+     * Construct funciton, to pre-load database configuration
+     *
+     * @return void
+     */
+    function __construct()
+    {
         parent::__construct();
         $this -> ci = &get_instance();
 
@@ -33,8 +58,14 @@ class User extends CI_Controller {
         $this -> canRead = $this -> common -> canRead($this -> router -> fetch_class());
         $this -> common -> requireLogin();
     }
-
-    function index() {
+    
+    /**
+     * Index
+     * 
+     * @return void
+     */
+    function index()
+    {
 
         if ($this -> canRead) {
             $query = $this -> user -> getUserList();
@@ -42,6 +73,7 @@ class User extends CI_Controller {
             $r = $this -> user -> getRoles();
             $data['roleslist'] = $r;
             $data['currentuserid'] = $this -> common -> getUserId();
+            $data['guest_roleid'] = $this -> common -> getUserRoleById($data['currentuserid']);
             $this -> common -> loadHeader(lang('m_userManagement'));
             $this -> load -> view('user/user', $data);
         } else {
@@ -50,14 +82,20 @@ class User extends CI_Controller {
         }
 
     }
-
-    function createNewUser() {
+    
+    /**
+     * CreateNewUser
+     * 
+     * @return void
+     */
+    function createNewUser()
+    {
         if ($this -> canRead) {
             $r = $this -> user -> getRoles();
             $data['roleslist'] = $r;
             $data['currentuserid'] = $this -> common -> getUserId();
-            $data['use_username'] = TRUE;
-            $data['captcha_registration'] = FALSE;
+            $data['use_username'] = true;
+            $data['captcha_registration'] = false;
             $this -> form_validation -> set_rules('username', lang('l_username'), 'required|xss_clean|is_user_unique[users.username]');
             $this -> form_validation -> set_rules('email', lang('l_re_email'), 'trim|required|xss_clean|valid_email|is_user_unique[users.email]');
             $this -> form_validation -> set_rules('password', lang('l_password'), 'trim|required|xss_clean|min_length[' . $this -> config -> item('password_min_length', 'tank_auth') . ']|max_length[' . $this -> config -> item('password_max_length', 'tank_auth') . ']|alpha_dash');
@@ -94,14 +132,22 @@ class User extends CI_Controller {
             $this -> load -> view('forbidden');
         }
     }
-
-    function newUser() {
+    
+    /**
+     * NewUser
+     * 
+     * @return void
+     */
+    function newUser()
+    {
         if ($this -> canRead) {
             $data['use_username'] = true;
             $data['captcha_registration'] = false;
             $r = $this -> user -> getRoles();
             $data['roleslist'] = $r;
             $data['currentuserid'] = $this -> common -> getUserId();
+            $userid = $this -> common -> getUserId();
+            $data['guest_roleid'] = $this -> common -> getUserRoleById($userid);
             $this -> common -> loadHeader(lang('m_userManagement'));
             $this -> load -> view('user/newuser', $data);
         } else {
@@ -109,11 +155,20 @@ class User extends CI_Controller {
             $this -> load -> view('forbidden');
         }
     }
-
-    function assignProducts($userId) {
+    
+    /**
+     * AssignProducts
+     * 
+     * @param string $userId userId
+     * 
+     * @return void
+     */
+    function assignProducts($userId)
+    {
         if ($this -> canRead) {
             $data['userid'] = $userId;
             $data["products"] = $this -> user -> getUserProducts($userId);
+            $data['guest_roleid'] = $this -> common -> getUserRoleById($userId);
             $this -> common -> loadHeader(lang('m_userManagement'));
             $this -> load -> view('user/assignproducts', $data);
         } else {
@@ -121,8 +176,14 @@ class User extends CI_Controller {
             $this -> load -> view('forbidden');
         }
     }
-
-    function doAssignProducts() {
+    
+    /**
+     * DoAssignProducts
+     * 
+     * @return void
+     */
+    function doAssignProducts()
+    {
         if ($this -> canRead) {
             $userId = $this -> input -> post('userid');
             $selectedProduct = $this -> input -> post('product');
@@ -138,13 +199,21 @@ class User extends CI_Controller {
             $this -> load -> view('forbidden');
         }
     }
-
-    function roleManage() {
+    
+    /**
+     * RoleManage
+     * 
+     * @return void
+     */
+    function roleManage()
+    {
         if ($this -> canRead) {
             $query = $this -> ums_user -> getRoles();
             $data['rolelist'] = $query;
             $resource = $this -> ums_user -> getResources();
             $data['resourcelist'] = $resource;
+            $userid = $this -> common -> getUserId();
+            $data['guest_roleid'] = $this -> common -> getUserRoleById($userid);
             $this -> common -> loadHeader(lang('m_roleManagement'));
             $this -> load -> view('user/roles', $data);
 
@@ -153,8 +222,18 @@ class User extends CI_Controller {
             $this -> load -> view('forbidden');
         }
     }
-
-    function roleManageDetail($roleid, $rolename) {
+    
+    /**
+     * RoleManageDetail
+     * 
+     * @param string $roleid   roleid
+     * 
+     * @param string $rolename rolename
+     * 
+     * @return void
+     */
+    function roleManageDetail($roleid, $rolename)
+    {
         if ($this -> canRead) {
             // $query = $this->ums_user->getRoles ();
             // $data ['rolelist'] = $query;
@@ -163,6 +242,8 @@ class User extends CI_Controller {
             $data['roleid'] = $roleid;
             $data['resourcelist'] = $resource;
             $data['rolename'] = $rolename;
+            $userid = $this -> common -> getUserId();
+            $data['guest_roleid'] = $this -> common -> getUserRoleById($userid);
             $this -> common -> loadHeader(lang('v_user_rolem_setResourceP'));
             $this -> load -> view('user/roledetail', $data);
 
@@ -171,8 +252,14 @@ class User extends CI_Controller {
             $this -> load -> view('forbidden');
         }
     }
-
-    function resourceManage() {
+    
+    /**
+     * ResourceManage
+     * 
+     * @return void
+     */
+    function resourceManage()
+    {
         if ($this -> canRead) {
             $query = $this -> ums_user -> getResources();
             $data['resourcelist'] = $query;
@@ -184,8 +271,14 @@ class User extends CI_Controller {
             $this -> load -> view('forbidden');
         }
     }
-
-    function modifyRoleCapability() {
+    
+    /**
+     * ModifyRoleCapability
+     * 
+     * @return void
+     */
+    function modifyRoleCapability()
+    {
         if ($this -> canRead) {
             $role = $_POST['role'];
             $resource = $_POST['resource'];
@@ -198,8 +291,16 @@ class User extends CI_Controller {
         }
 
     }
-
-    function editResource($id) {
+    
+    /**
+     * EditResource
+     * 
+     * @param string $id id
+     * 
+     * @return void
+     */
+    function editResource($id)
+    {
         if ($this -> canRead) {
             $data['resourceinfo'] = $this -> ums_user -> geteditresources($id);
             $this -> common -> loadHeader(lang('v_user_resm_editResource'));
@@ -210,8 +311,14 @@ class User extends CI_Controller {
         }
 
     }
-
-    function modifyresource() {
+    
+    /**
+     * Modifyresource
+     * 
+     * @return void
+     */
+    function modifyresource()
+    {
         if ($this -> canRead) {
             $id = $_POST['id'];
             $name = $_POST['name'];
@@ -230,8 +337,14 @@ class User extends CI_Controller {
         }
 
     }
-
-    function addRole() {
+    
+    /**
+     * AddRole
+     * 
+     * @return bool
+     */
+    function addRole()
+    {
 
         if ($this -> canRead) {
             $role = $_POST['role'];
@@ -248,8 +361,14 @@ class User extends CI_Controller {
             }
         }
     }
-
-    function addResource() {
+    
+    /**
+     * AddResource
+     * 
+     * @return bool
+     */
+    function addResource()
+    {
 
         if ($this -> canRead) {
             $resourceName = $_POST['resourceName'];
@@ -259,15 +378,21 @@ class User extends CI_Controller {
             if (!empty($result)) {
                 echo false;
             } else {
-                if ($resourceName != '' && $description != '')
-
+                if ($resourceName != '' && $description != '') {
                     $this -> ums_user -> addResource($resourceName, $description);
+                }
                 echo true;
             }
         }
     }
-
-    function userRoleManage() {
+    
+    /**
+     * UserRoleManage
+     * 
+     * @return void
+     */
+    function userRoleManage()
+    {
         if ($this -> canRead) {
             $id = $_GET['id'];
             $data['userinfo'] = $this -> ums_user -> getUserInfoById($id);
@@ -278,8 +403,14 @@ class User extends CI_Controller {
             $this -> load -> view('forbidden');
         }
     }
-
-    function modifyUserRole() {
+    
+    /**
+     * ModifyUserRole
+     * 
+     * @return void
+     */
+    function modifyUserRole()
+    {
         if ($this -> canRead) {
             $id = $_POST['id'];
             $rolename = $_POST['rolename'];
@@ -291,11 +422,19 @@ class User extends CI_Controller {
             $this -> load -> view('forbidden');
         }
     }
-
-    function applicationManagement() {
+    
+    /**
+     * ApplicationManagement
+     * 
+     * @return void
+     */
+    function applicationManagement()
+    {
         if ($this -> canRead) {
             $query = $this -> ums_user -> getproductCategories();
             $data['productcategorylist'] = $query;
+            $userid = $this -> common -> getUserId();
+            $data['guest_roleid'] = $this -> common -> getUserRoleById($userid);
             $this -> common -> loadHeader(lang('m_appType'));
             $this -> load -> view('user/productCategory', $data);
 
@@ -304,8 +443,14 @@ class User extends CI_Controller {
             $this -> load -> view('forbidden');
         }
     }
-
-    function addtypeOfapplication() {
+    
+    /**
+     * AddtypeOfapplication
+     * 
+     * @return bool
+     */
+    function addtypeOfapplication()
+    {
 
         if ($this -> canRead) {
             $type_applicationName = $_POST['type_applicationName'];
@@ -321,21 +466,36 @@ class User extends CI_Controller {
             }
         }
     }
-
-    // edit app type
-    function edittypeOfapplication($typeOfapplicationid) {
+    
+    /**
+     * EdittypeOfapplication edit app type
+     * 
+     * @param string $typeOfapplicationid typeOfapplicationid
+     * 
+     * @return bool
+     */
+    function edittypeOfapplication($typeOfapplicationid)
+    {
         if ($this -> canRead) {
-            $this -> data['catagory'] = $this -> ums_user -> getcategoryname($typeOfapplicationid);
+            $data['catagory'] = $this -> ums_user -> getcategoryname($typeOfapplicationid);
+            $userid = $this -> common -> getUserId();
+            $data['guest_roleid'] = $this -> common -> getUserRoleById($userid);
             $this -> common -> loadHeader(lang('v_user_appM_editAppT'));
-            $this -> load -> view('user/typeOfapplicaedit', $this -> data);
+            $this -> load -> view('user/typeOfapplicaedit', $data);
         } else {
             $this -> common -> loadHeader();
             $this -> load -> view('forbidden');
         }
 
     }
-
-    function modifytypeOfapplica() {
+    
+    /**
+     * ModifytypeOfapplica
+     * 
+     * @return bool
+     */
+    function modifytypeOfapplica()
+    {
         $id = $_POST['type_applicathead_id'];
         $name = $_POST['type_applicathead_name'];
         $tablename = $this -> common -> getdbprefixtable('product_category');
@@ -349,9 +509,16 @@ class User extends CI_Controller {
             }
         }
     }
-
-    // delete app type
-    function deletetypeOfapplication($id) {
+    
+    /**
+     * DeletetypeOfapplication delete app type
+     * 
+     * @param string $id id
+     * 
+     * @return bool
+     */
+    function deletetypeOfapplication($id)
+    {
         $this -> ums_user -> deletetypeOfapplica($id);
         $this -> applicationManagement();
     }

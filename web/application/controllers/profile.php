@@ -2,19 +2,39 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
-class Profile extends CI_Controller {
-    private $data = array();
-    function __construct() {
+
+/**
+ * Auth Controller
+ *
+ * @category PHP
+ * @package  Controller
+ * @author   Cobub Team <open.cobub@gmail.com>
+ * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link     http://www.cobub.com
+ */
+class Profile extends CI_Controller
+{
+    
+    private $_data = array();
+    /**
+     * Construct funciton, to pre-load database configuration
+     *
+     * @return void
+     */
+    function __construct()
+    {
         parent::__construct();
 
         $this -> load -> helper(array('form', 'url'));
@@ -25,16 +45,29 @@ class Profile extends CI_Controller {
         $this -> canRead = $this -> common -> canRead($this -> router -> fetch_class());
         $this -> common -> requireLogin();
     }
-
-    function modify() {
+    
+    /**
+     * Modify
+     *
+     * @return void
+     */
+    function modify()
+    {
         $userid = $this -> common -> getUserId();
         $profile = $this -> profile -> getUserPorfile($userid);
-        $this -> data['profile'] = $profile;
+        $data['profile'] = $profile;
+        $data['guest_roleid'] = $this -> common -> getUserRoleById($userid);
         $this -> common -> loadHeader(lang('m_pr_editProfile'));
-        $this -> load -> view('user/userprofile', $this -> data);
+        $this -> load -> view('user/userprofile', $data);
     }
-
-    function saveprofile() {
+    
+    /**
+     * Saveprofile
+     *
+     * @return void
+     */
+    function saveprofile()
+    {
         $this -> form_validation -> set_rules('email', lang('l_re_email'), 'trim');
         $this -> form_validation -> set_rules('username', lang('l_username'), 'trim');
         $this -> form_validation -> set_rules('contact', lang('m_pr_contact'), 'trim');
@@ -58,8 +91,16 @@ class Profile extends CI_Controller {
             $this -> load -> view('user/userprofile');
         }
     }
-
-    function check_qq($qq) {
+    
+    /**
+     * Check_qq
+     *
+     * @param string $qq qq
+     * 
+     * @return bool
+     */
+    function check_qq($qq)
+    {
         if (empty($qq)) {
             return true;
         }
@@ -69,8 +110,16 @@ class Profile extends CI_Controller {
         }
         return true;
     }
-
-    function check_telephone($phone) {
+    
+    /**
+     * Check_telephone
+     *
+     * @param string $phone phone
+     * 
+     * @return bool
+     */
+    function check_telephone($phone)
+    {
         if (empty($phone)) {
             return true;
         }

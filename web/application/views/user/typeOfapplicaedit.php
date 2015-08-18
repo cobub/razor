@@ -11,7 +11,8 @@
 	<label><?php echo lang('v_user_appM_typeName') ?></label>
 	<input type="text" id='type_applicationthead_name' value="<?php if(isset($catagory)) echo $catagory->name;?>">
 </fieldset>
-<input type="button" value="<?php echo lang('v_user_rolem_modifyTypeN') ?>" class="alt_btn" onClick="edittype_applica('<?php if(isset($catagory)) echo $catagory->id; ?>')">
+<input <?php if(isset($guest_roleid) && $guest_roleid==2):echo 'disabled="disabled"'; endif;?> 
+ type="button" value="<?php echo lang('v_user_rolem_modifyTypeN') ?>" class="alt_btn" onClick="edittype_applica('<?php if(isset($catagory)) echo $catagory->id; ?>')">
 </div>
 <!-- end of #tab1 -->
 <!-- end of .tab_container -->

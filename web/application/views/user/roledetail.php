@@ -32,7 +32,9 @@
 				<tr>
 			<td><?php echo $row->name;?></td>
 			<td><?php echo $row->description;?></td>
-			<td><input type="checkbox" name='check_<?php echo $row->id?>'
+			<td><input 
+			    <?php if(isset($guest_roleid) && $guest_roleid==2){echo 'disabled="disabled"'; }?> 
+			     type="checkbox" name='check_<?php echo $row->id?>'
 				id='check_<?php echo $row->id?>'
 				onClick='check(<?php echo $roleid?>,<?php echo $row->id?> )'
 				<?php if ($row->read) {

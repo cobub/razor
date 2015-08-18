@@ -26,8 +26,14 @@
                     ?>
                      <?php if($products&&count($products)>0) {?>
                     <tr>
-                        <td><?php echo form_submit('user/doAssignProducts', lang('v_assign_products'));
-                        ?></td>
+                        <td>
+                        <?php if(isset($guest_roleid) && $guest_roleid==2) 
+                        { echo form_submit('user/doAssignProducts', lang('v_assign_products'),'disabled');}
+                        else {
+                              echo form_submit('user/doAssignProducts', lang('v_assign_products'));
+                        }
+                        ?>
+                        </td>
                     </tr>
                     <?php }
                     ?>

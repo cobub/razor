@@ -29,7 +29,8 @@
 						  
   </select>
 </fieldset>
-<input type="button" value="<?php echo lang('v_man_pr_changeChannel') ?>" class="alt_btn" onClick="editchannel('<?php if(isset($edit)) echo $edit['channel_id'] ; ?>')">
+<input <?php if(isset($guest_roleid) && $guest_roleid==2):echo 'disabled="disabled"'; endif;?> 
+type="button" value="<?php echo lang('v_man_pr_changeChannel') ?>" class="alt_btn" onClick="editchannel('<?php if(isset($edit)) echo $edit['channel_id'] ; ?>')">
 </div>
 <!-- end of #tab1 -->
 <!-- end of .tab_container -->

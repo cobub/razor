@@ -117,7 +117,13 @@ $captcha = array(
    					<td></td> 
    					<td></td>
     				<td></td> 
-    				<td><?php echo form_submit('user/ccreateNewUser', lang('g_create')); ?></td> 
+    				<td>
+    				    <?php if(isset($guest_roleid) && $guest_roleid==2) { echo form_submit('user/ccreateNewUser', lang('g_create'),'disabled');} 
+                        else {
+                            echo form_submit('user/ccreateNewUser', lang('g_create'));
+                        }
+    				    ?>
+    				    </td> 
     				<td></td>
 				</tr> 
 				

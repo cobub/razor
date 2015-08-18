@@ -108,7 +108,14 @@ $language = $this->config->item('language');
     				
     				<td>
     				<?php echo anchor('/report/productbasic/view/'.$row['id'],lang('v_viewReport'));?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    				<a href="javascript:if(confirm('<?php echo  lang('v_deleteAppPrompt')?>'))location='<?php echo site_url();?>/manage/product/delete/<?php echo $row['id'] ;?>'"><?php echo  lang('g_delete')?></a>
+    				<?php if(isset($guest_roleid) && $guest_roleid==2):?>
+    				    <a style="color:gray;">
+                        <?php echo  lang('g_delete')?></a>
+    				<?php else: ?>
+                        <a  href="javascript:if(confirm('<?php echo  lang('v_deleteAppPrompt')?>'))location='<?php echo site_url();?>/manage/product/delete/<?php echo $row['id'] ;?>'">
+                        <?php echo lang('g_delete')?></a>
+                    <?php endif; ?>
+    				    
 				</tr> 
 			<?php } endif;?>
 			</tbody> 
