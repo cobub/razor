@@ -55,7 +55,8 @@
 							<label><?php echo  lang('v_user_rolem_roleDescription')?></label>
 							<input type="text" id='description'>
 						</fieldset>
-						<input id="addRoleBtn" type="button" value="<?php echo  lang('v_user_rolem_addRole')?>" class="alt_btn" onClick='addRole()'>
+						<input <?php if(isset($guest_roleid) && $guest_roleid==2){echo 'disabled="disabled"'; }?> 
+						 id="addRoleBtn" type="button" value="<?php echo  lang('v_user_rolem_addRole')?>" class="alt_btn" onClick='addRole()'>
 				</div>
 			
 				

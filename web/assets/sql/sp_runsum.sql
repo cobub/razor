@@ -492,6 +492,229 @@ insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration)
     values('runsum','umsinstall_fact_launch_daily',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
 
+set s = now();
+
+insert into umsinstall_sum_location(product_id,date_sk,location_sk,sessions)
+select p.product_id,d.date_sk,l.location_sk, count(*)
+from     umsinstall_fact_clientdata f,
+         umsinstall_dim_product p,
+         umsinstall_dim_date d,
+         umsinstall_dim_location l
+where    f.date_sk = d.date_sk
+         and d.datevalue = today 
+         and f.location_sk = l.location_sk 
+         and f.product_sk = p.product_sk
+group by p.product_id,d.date_sk,l.location_sk
+on duplicate key update sessions = values(sessions);
+
+
+insert into umsinstall_sum_location(product_id,date_sk,location_sk,newusers)
+select p.product_id,d.date_sk,l.location_sk, count(distinct f.deviceidentifier)
+from     umsinstall_fact_clientdata f,
+         umsinstall_dim_product p,
+         umsinstall_dim_date d,
+         umsinstall_dim_location l
+where    f.date_sk = d.date_sk
+         and d.datevalue = today 
+         and f.location_sk = l.location_sk 
+         and f.product_sk = p.product_sk
+         and f.isnew = 1
+group by p.product_id,d.date_sk,l.location_sk
+on duplicate key update newusers = values(newusers);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runsum','umsinstall_sum_location',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
+
+
+set s = now();
+
+insert into umsinstall_sum_devicebrand(product_id,date_sk,devicebrand_sk,sessions)
+select p.product_id,d.date_sk,b.devicebrand_sk, count(*)
+from     umsinstall_fact_clientdata f,
+         umsinstall_dim_product p,
+         umsinstall_dim_date d,
+         umsinstall_dim_devicebrand b
+where    f.date_sk = d.date_sk
+         and d.datevalue = today 
+         and f.devicebrand_sk = b.devicebrand_sk 
+         and f.product_sk = p.product_sk
+group by p.product_id,d.date_sk,b.devicebrand_sk
+on duplicate key update sessions = values(sessions);
+
+
+insert into umsinstall_sum_devicebrand(product_id,date_sk,devicebrand_sk,newusers)
+select p.product_id,d.date_sk,b.devicebrand_sk, count(distinct f.deviceidentifier)
+from     umsinstall_fact_clientdata f,
+         umsinstall_dim_product p,
+         umsinstall_dim_date d,
+         umsinstall_dim_devicebrand b
+where    f.date_sk = d.date_sk
+         and d.datevalue = today 
+         and f.devicebrand_sk = b.devicebrand_sk 
+         and f.product_sk = p.product_sk
+         and f.isnew = 1
+group by p.product_id,d.date_sk,b.devicebrand_sk
+on duplicate key update newusers = values(newusers);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runsum','umsinstall_sum_devicebrand',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+    
+
+set s = now();
+
+insert into umsinstall_sum_deviceos(product_id,date_sk,deviceos_sk,sessions)
+select p.product_id,d.date_sk,o.deviceos_sk, count(*)
+from     umsinstall_fact_clientdata f,
+         umsinstall_dim_product p,
+         umsinstall_dim_date d,
+         umsinstall_dim_deviceos o
+where    f.date_sk = d.date_sk
+         and d.datevalue = today 
+         and f.deviceos_sk = o.deviceos_sk 
+         and f.product_sk = p.product_sk
+group by p.product_id,d.date_sk,o.deviceos_sk
+on duplicate key update sessions = values(sessions);
+
+
+insert into umsinstall_sum_deviceos(product_id,date_sk,deviceos_sk,newusers)
+select p.product_id,d.date_sk,o.deviceos_sk, count(distinct f.deviceidentifier)
+from     umsinstall_fact_clientdata f,
+         umsinstall_dim_product p,
+         umsinstall_dim_date d,
+         umsinstall_dim_deviceos o
+where    f.date_sk = d.date_sk
+         and d.datevalue = today 
+         and f.deviceos_sk = o.deviceos_sk 
+         and f.product_sk = p.product_sk
+         and f.isnew = 1
+group by p.product_id,d.date_sk,o.deviceos_sk
+on duplicate key update newusers = values(newusers);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runsum','umsinstall_sum_deviceos',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+    
+
+set s = now();
+
+insert into umsinstall_sum_deviceresolution(product_id,date_sk,deviceresolution_sk,sessions)
+select p.product_id,d.date_sk,r.deviceresolution_sk, count(*)
+from     umsinstall_fact_clientdata f,
+         umsinstall_dim_product p,
+         umsinstall_dim_date d,
+         umsinstall_dim_deviceresolution r
+where    f.date_sk = d.date_sk
+         and d.datevalue = today 
+         and f.deviceresolution_sk = r.deviceresolution_sk 
+         and f.product_sk = p.product_sk
+group by p.product_id,d.date_sk,r.deviceresolution_sk
+on duplicate key update sessions = values(sessions);
+
+
+insert into umsinstall_sum_deviceresolution(product_id,date_sk,deviceresolution_sk,newusers)
+select p.product_id,d.date_sk,r.deviceresolution_sk, count(distinct f.deviceidentifier)
+from     umsinstall_fact_clientdata f,
+         umsinstall_dim_product p,
+         umsinstall_dim_date d,
+         umsinstall_dim_deviceresolution r
+where    f.date_sk = d.date_sk
+         and d.datevalue = today 
+         and f.deviceresolution_sk = r.deviceresolution_sk 
+         and f.product_sk = p.product_sk
+         and f.isnew = 1
+group by p.product_id,d.date_sk,r.deviceresolution_sk
+on duplicate key update newusers = values(newusers);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runsum','umsinstall_sum_deviceresolution',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
+
+set s = now();
+
+insert into umsinstall_sum_devicesupplier(product_id,date_sk,devicesupplier_sk,sessions)
+select p.product_id,d.date_sk,s.devicesupplier_sk, count(*)
+from     umsinstall_fact_clientdata f,
+         umsinstall_dim_product p,
+         umsinstall_dim_date d,
+         umsinstall_dim_devicesupplier s
+where    f.date_sk = d.date_sk
+         and d.datevalue = today 
+         and f.devicesupplier_sk = s.devicesupplier_sk 
+         and f.product_sk = p.product_sk
+group by p.product_id,d.date_sk,s.devicesupplier_sk
+on duplicate key update sessions = values(sessions);
+
+
+insert into umsinstall_sum_devicesupplier(product_id,date_sk,devicesupplier_sk,newusers)
+select p.product_id,d.date_sk,s.devicesupplier_sk, count(distinct f.deviceidentifier)
+from     umsinstall_fact_clientdata f,
+         umsinstall_dim_product p,
+         umsinstall_dim_date d,
+         umsinstall_dim_devicesupplier s
+where    f.date_sk = d.date_sk
+         and d.datevalue = today 
+         and f.devicesupplier_sk = s.devicesupplier_sk 
+         and f.product_sk = p.product_sk
+         and f.isnew = 1
+group by p.product_id,d.date_sk,s.devicesupplier_sk
+on duplicate key update newusers = values(newusers);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runsum','umsinstall_sum_devicesupplier',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
+
+set s = now();
+
+insert into umsinstall_sum_devicenetwork(product_id,date_sk,devicenetwork_sk,sessions)
+select p.product_id,d.date_sk,n.network_sk, count(*)
+from     umsinstall_fact_clientdata f,
+         umsinstall_dim_product p,
+         umsinstall_dim_date d,
+         umsinstall_dim_network n
+where    f.date_sk = d.date_sk
+         and d.datevalue = today 
+         and f.network_sk = n.network_sk 
+         and f.product_sk = p.product_sk
+group by p.product_id,d.date_sk,n.network_sk
+on duplicate key update sessions = values(sessions);
+
+
+insert into umsinstall_sum_devicenetwork(product_id,date_sk,devicenetwork_sk,newusers)
+select p.product_id,d.date_sk,n.network_sk, count(distinct f.deviceidentifier)
+from     umsinstall_fact_clientdata f,
+         umsinstall_dim_product p,
+         umsinstall_dim_date d,
+         umsinstall_dim_network n
+where    f.date_sk = d.date_sk
+         and d.datevalue = today 
+         and f.network_sk = n.network_sk 
+         and f.product_sk = p.product_sk
+         and f.isnew = 1
+group by p.product_id,d.date_sk,n.network_sk
+on duplicate key update newusers = values(newusers);
+
+set e = now();
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runsum','umsinstall_sum_devicenetwork',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
+
+set s = now();
+insert into umsinstall_sum_event(product_sk,date_sk,event_sk, total)
+SELECT product_sk,f.date_sk,event_sk,sum(number) FROM `umsinstall_fact_event` f,
+         umsinstall_dim_date d
+where f.date_sk = d.date_sk  and d.datevalue = today 
+group by product_sk,f.date_sk,event_sk
+on duplicate key update total=values(total);
+
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runsum','umsinstall_sum_event',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
+
 insert into umsinstall_log(op_type,op_name,op_starttime) 
     values('runsum','-----finish runsum-----',now());
     

@@ -1,9 +1,43 @@
 <?php
+/**
+ * Cobub Razor
+ *
+ * An open source mobile analytics system
+ *
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
+ */
 
-class productbasic extends CI_Controller {
-    private $data = array();
-
-    function __construct() {
+/**
+ * Productbasic Controller
+ *
+ * @category PHP
+ * @package  Model
+ * @author   Cobub Team <open.cobub@gmail.com>
+ * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link     http://www.cobub.com
+ */
+class Productbasic extends CI_Controller
+{
+     /**
+     * Data array $data
+     */
+    private $_data = array();
+    
+    /**
+     * Construct funciton, to pre-load database configuration
+     *
+     * @return void
+     */
+    function __construct() 
+    {
         parent::__construct();
         $this -> load -> helper(array('form', 'url'));
         $this -> load -> library('form_validation');
@@ -19,8 +53,16 @@ class productbasic extends CI_Controller {
         $this -> load -> library('export');
         $this -> common -> checkCompareProduct();
     }
-
-    function view($productId = 0) {
+    
+    /**
+     * View
+     *
+     * @param int $productId productId
+     * 
+     * @return void
+     */
+    function view($productId = 0) 
+    {
         //if compare then load compare page
         if (isset($_GET['type']) && 'compare' == $_GET['type']) {
             $products = $this -> common -> getCompareProducts();
@@ -29,12 +71,17 @@ class productbasic extends CI_Controller {
             return;
         }
         $this -> common -> setCompareProducts(null);
+        
+        if ($this -> product ->checkUserPermissionToProduct($productId)==false) {
+            redirect(site_url());
+        }
+        
         $currentProduct = $this -> common -> getCurrentProduct();
         if ($currentProduct != null) {
             if (!empty($productId)) {
                 $this -> common -> cleanCurrentProduct();
                 $this -> common -> setCurrentProduct($productId);
-                $this -> data['productId'] = $currentProduct -> id;
+                $this -> _data['productId'] = $currentProduct -> id;
             } else {
                 $this -> common -> requireProduct();
             }
@@ -42,7 +89,7 @@ class productbasic extends CI_Controller {
             if (empty($productId)) {
                 $this -> common -> requireProduct();
             } else {
-                $this -> data['productId'] = $productId;
+                $this -> _data['productId'] = $productId;
                 $this -> common -> setCurrentProduct($productId);
                 $currentProduct = $this -> common -> getCurrentProduct();
             }
@@ -51,18 +98,28 @@ class productbasic extends CI_Controller {
         $this -> common -> loadHeaderWithDateControl();
         $toTime = date('Y-m-d', time());
         $yestodayTime = date("Y-m-d", strtotime("-1 day"));
-        $this -> data['today1'] = $this -> productanalyze -> getTodayInfo($productId, $toTime);
-        $this -> data['yestoday'] = $this -> productanalyze -> getTodayInfo($productId, $yestodayTime);
-        $this -> data['overall'] = $this -> productanalyze -> getOverallInfo($productId);
+        $this -> _data['today1'] = $this -> productanalyze -> getTodayInfo($productId, $toTime);
+        $this -> _data['yestoday'] = $this -> productanalyze -> getTodayInfo($productId, $yestodayTime);
+        $this -> _data['overall'] = $this -> productanalyze -> getOverallInfo($productId);
         $fromTime = $this -> common -> getFromTime();
         $toreTime = $this -> common -> getToTime();
-        $this -> data['dashboardDetailData'] = $this -> newusermodel -> getDetailUserDataByDay($fromTime, $toTime);
+        $this -> _data['dashboardDetailData'] = $this -> newusermodel -> getDetailUserDataByDay($fromTime, $toTime);
         $this -> loadaddreport($productId);
-        $this -> load -> view('overview/productview', $this -> data);
+        $this -> load -> view('overview/productview', $this -> _data);
 
     }
-
-    function getTypeAnalyzeData($timePhase, $fromDate = '', $toDate = '') {
+    
+    /**
+     * GetTypeAnalyzeData
+     * 
+     * @param string $timePhase timePhase
+     * @param string $fromDate  fromDate
+     * @param string $toDate    toDate
+     * 
+     * @return json
+     */
+    function getTypeAnalyzeData($timePhase, $fromDate = '', $toDate = '') 
+    {
         $currentProduct = $this -> common -> getCurrentProduct();
         $toTime = date('Y-m-d', time());
         if ($timePhase == "today") {
@@ -108,16 +165,23 @@ class productbasic extends CI_Controller {
         $ret["timeTick"] = $this -> common -> getTimeTick($toTime - $fromTime);
         echo json_encode($ret);
     }
-
-    /*load phaseusetime report*/
-    function addphaseusetimereport($delete = null, $type = null) {
+    /**
+     * Addphaseusetimereport
+     * 
+     * @param string $delete delete
+     * @param string $type   type
+     * 
+     * @return void
+     */
+    function addphaseusetimereport($delete = null, $type = null) 
+    {
         $productId = $this -> common -> getCurrentProduct();
         if (!empty($productId)) {
             if ($delete == null) {
-                $this -> data['add'] = "add";
+                $this -> _data['add'] = "add";
             }
             if ($delete == "del") {
-                $this -> data['delete'] = "delete";
+                $this -> _data['delete'] = "delete";
             }
         } else {
             $products = $this -> common -> getCompareProducts();
@@ -126,15 +190,20 @@ class productbasic extends CI_Controller {
             }
         }
         if ($type != null) {
-            $this -> data['type'] = $type;
+            $this -> _data['type'] = $type;
         }
         $this -> load -> view('layout/reportheader');
-        $this -> load -> view('widgets/phaseusetime', $this -> data);
+        $this -> load -> view('widgets/phaseusetime', $this -> _data);
     }
-
-    function phaseusetime() {
+    
+    /**
+     * Phaseusetime
+     * @return void
+     */
+    function phaseusetime() 
+    {
         if (isset($_GET['type']) && $_GET['type'] == 'compare') {
-            $this -> common -> loadCompareHeader(lang('m_rpt_timeTrendOfUsers'), FALSE);
+            $this -> common -> loadCompareHeader(lang('m_rpt_timeTrendOfUsers'), false);
             $data = array();
             $data['type'] = 'compare';
             $this -> load -> view('usage/phaseusetimeview', $data);
@@ -144,32 +213,49 @@ class productbasic extends CI_Controller {
             $this -> load -> view('usage/phaseusetimeview');
         }
     }
-
-    /*load user behavor  report*/
-    function adduserbehavorviewreport() {
+    
+    /**
+     * Adduserbehavorviewreport
+     * 
+     * @return void
+     */
+    function adduserbehavorviewreport() 
+    {
         $fromTime = $this -> common -> getFromTime();
         $toreTime = $this -> common -> getToTime();
-        $this -> data['reportTitle'] = array('timePase' => getTimePhaseStr($fromTime, $toreTime), 'newUser' => lang("t_newUserSta"), 'totalUser' => lang("t_accumulatedUserSta"), 'activeUser' => lang("t_activeUserSta"), 'sessionNum' => lang("t_sessionsSta"), 'avgUsage' => lang("t_averageUsageDuration"));
+        $this -> _data['reportTitle'] = array('timePase' => getTimePhaseStr($fromTime, $toreTime), 'newUser' => lang("t_newUserSta"), 'totalUser' => lang("t_accumulatedUserSta"), 'activeUser' => lang("t_activeUserSta"), 'sessionNum' => lang("t_sessionsSta"), 'avgUsage' => lang("t_averageUsageDuration"));
         /***/
         if (isset($_GET['type']) && 'compare' == $_GET['type']) {
-            $this -> data['common'] = array('show_thrend' => 0, 'show_markevent' => 0);
+            $this -> _data['common'] = array('show_thrend' => 0, 'show_markevent' => 0);
         }
         /**/
-
         $this -> load -> view('layout/reportheader');
-        $this -> load -> view('widgets/userbehavorview', $this -> data);
+        $this -> load -> view('widgets/userbehavorview', $this -> _data);
     }
-
-    function loadaddreport($productid) {
+    
+    /**
+     * GetUsersDataByTime
+     * 
+     * @param string $productid productid
+     * 
+     * @return void
+     */
+    function loadaddreport($productid) 
+    {
         $userid = $this -> common -> getUserId();
         $addreport = $this -> dashboard -> getaddreport($productid, $userid);
         if ($addreport) {
-            $this -> data['addreport'] = $addreport;
+            $this -> _data['addreport'] = $addreport;
         }
     }
-
-    //All of the data to obtain a basic overview of user behavior
-    function getUsersDataByTime() {
+    
+    /**
+     * GetUsersDataByTime
+     * 
+     * @return void
+     */
+    function getUsersDataByTime() 
+    {
         $currentProduct = $this -> common -> getCurrentProduct();
         $fromTime = $this -> common -> getFromTime();
         $toTime = $this -> common -> getToTime();
@@ -205,11 +291,13 @@ class productbasic extends CI_Controller {
         echo json_encode($ret);
 
     }
-
-    /*
-     * Export data to CSV by time phase
+    /**
+     * Exportdetaildata
+     * 
+     * @return void
      */
-    function exportdetaildata() {
+    function exportdetaildata() 
+    {
         $fromTime = $this -> common -> getFromTime();
         $toTime = $this -> common -> getToTime();
         $currentProduct = $this -> common -> getCurrentProduct();
@@ -235,8 +323,14 @@ class productbasic extends CI_Controller {
             $this -> load -> view("usage/nodataview");
         }
     }
-
-    function exportComparedata() {
+    
+    /**
+     * ExportComparedata
+     * 
+     * @return void
+     */
+    function exportComparedata() 
+    {
         $fromTime = $this -> common -> getFromTime();
         $toTime = $this -> common -> getToTime();
         $products = $this -> common -> getCompareProducts();
@@ -277,8 +371,20 @@ class productbasic extends CI_Controller {
         $export -> export();
         die();
     }
-
-    function getExportRowData($export, $length, $userData, $products, $label) {
+    
+    /**
+     * GetExportRowData
+     * 
+     * @param string $export   export
+     * @param string $length   length
+     * @param string $userData userData
+     * @param string $products products
+     * @param string $label    label
+     * 
+     * @return void
+     */
+    function getExportRowData($export, $length, $userData, $products, $label) 
+    {
         $k = 0;
         for ($i = 0; $i < $length; $i++) {
             $result[$k++] = ' ';
@@ -301,9 +407,18 @@ class productbasic extends CI_Controller {
             $k = 0;
         }
     }
-
-    //export one product db
-    function timephaseexport($timePhase, $fromDate = '', $toDate = '') {
+    
+    /**
+     * Timephaseexport
+     * 
+     * @param string $timePhase timePhase
+     * @param string $fromDate  fromDate
+     * @param string $toDate    toDate
+     * 
+     * @return void
+     */
+    function timephaseexport($timePhase, $fromDate = '', $toDate = '') 
+    {
         $currentProduct = $this -> common -> getCurrentProduct();
         $time = $this -> changeDate($timePhase, $fromDate, $toDate);
         $fromTime = $time['fromTime'];
@@ -332,8 +447,18 @@ class productbasic extends CI_Controller {
             $this -> load -> view("usage/nodataview");
         }
     }
-
-    function exportComparePhaseusetime($timePhase, $fromDate = '', $toDate = '') {
+    
+    /**
+     * ExportComparePhaseusetime
+     * 
+     * @param string $timePhase timePhase
+     * @param string $fromDate  fromDate
+     * @param string $toDate    toDate
+     * 
+     * @return void
+     */
+    function exportComparePhaseusetime($timePhase, $fromDate = '', $toDate = '') 
+    {
         $time = $this -> changeDate($timePhase, $fromDate, $toDate);
         $fromTime = $time['fromTime'];
         $toTime = $time['toTime'];
@@ -379,9 +504,18 @@ class productbasic extends CI_Controller {
         $export -> export();
         die();
     }
-
-    //
-    function changeDate($timePhase, $fromDate = '', $toDate = '') {
+    
+    /**
+     * ChangeDate
+     * 
+     * @param string $timePhase timePhase
+     * @param string $fromDate  fromDate
+     * @param string $toDate    toDate
+     * 
+     * @return array
+     */
+    function changeDate($timePhase, $fromDate = '', $toDate = '') 
+    {
         $toTime = date('Y-m-d', time());
         if ($timePhase == "today") {
             $fromTime = date('Y-m-d', time());

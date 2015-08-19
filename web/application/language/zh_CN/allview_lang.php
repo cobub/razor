@@ -2,15 +2,17 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
 //public begin//
 
@@ -925,11 +927,11 @@ $lang['plg_description']=' 描述 ';
 $lang['plg_use_instruct']='集成指南';
 $lang['plg_plugin_manage']='插件管理';
 $lang['plg_get_keysecret_home']='您尚未在Cobub用户中心进行账户授权。请免费注册Cobub用户中心方可使用插件功能。
-<a href="http://dev.cobub.com/zh/userkey/" target="_blank">如何进行账户授权？</a>';
+<a href="http://www.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>';
 
 $lang['plg_get_keysecret']='您尚未在Cobub用户中心进行账户授权。
 免费注册Cobub用户中心并获取授权码后即可完成账户授权，授权后即可获得Cobub用户中心提供的丰富功能。
-<a href="http://dev.cobub.com/zh/userkey/" target="_blank">如何进行账户授权？</a>如果您已经获得授权码,请点击';
+<a href="http://www.cobub.com/users/index.php?/help/userkey" target="_blank">如何进行账户授权？</a>如果您已经获得授权码,请点击';
 $lang['plg_get_account']='账户授权。';
 /******************************view report plug**************************************/
 $lang['v_cobub_user_center']='Cobub用户中心';

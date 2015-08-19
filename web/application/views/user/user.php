@@ -33,6 +33,7 @@
     				<td>
 							
 							<select style="width:92%;" <?php if(isset($currentuserid)&&($currentuserid==$row->id)){ echo "disabled=true";} ?> 
+							     <?php if(isset($guest_roleid)&&($guest_roleid==2)){ echo "disabled=true";} ?>
 							onchange="changeForm(this.value,<?php echo $row->id?>)" id='select_'<?php echo $row->id?> >
 							<?php foreach ($roleslist->result() as $row2)
 							{

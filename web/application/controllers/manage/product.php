@@ -2,20 +2,42 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
-class Product extends CI_Controller {
-    private $data = array();
 
-    function __construct() {
+/**
+ * Product Controller
+ *
+ * @category PHP
+ * @package  Model
+ * @author   Cobub Team <open.cobub@gmail.com>
+ * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link     http://www.cobub.com
+ */
+class Product extends CI_Controller 
+{
+    /**
+     * Data array $data
+     */
+    private $_data = array();
+    
+    /**
+     * Construct funciton, to pre-load database configuration
+     *
+     * @return void
+     */
+    function __construct() 
+    {
         parent::__construct();
         $this -> load -> helper(array('form', 'url'));
         $this -> load -> library('form_validation');
@@ -28,38 +50,63 @@ class Product extends CI_Controller {
         $this -> common -> requireLogin();
 
     }
-
-    function changeProduct($productId) {
+    
+    /**
+     * ChangeProduct
+     *
+     * @param string $productId productId
+     * 
+     * @return json
+     */
+    function changeProduct($productId) 
+    {
         $this -> common -> cleanCurrentProduct();
         $this -> common -> setCurrentProduct($productId);
         $ret = array();
         $ret["msg"] = "ok";
         echo json_encode($ret);
     }
-
-    //create product
-    function create() {
+    
+    /**
+     * Create product
+     *
+     * @return void
+     */
+    function create() 
+    {
         $this -> canRead = $this -> common -> canRead($this -> router -> fetch_class());
         if ($this -> canRead) {
             $this -> common -> loadHeader(lang('m_new_app'));
-            $this -> data['platform'] = $this -> channel -> getplatform();
-            $this -> data['category'] = $this -> ums_user -> getproductCategories();
-            $this -> load -> view('manage/createproduct', $this -> data);
+            $this -> _data['platform'] = $this -> channel -> getplatform();
+            $this -> _data['category'] = $this -> ums_user -> getproductCategories();
+            $this -> _data['guest_roleid'] = $this -> common -> getUserRoleById($this -> common -> getUserId());
+            $this -> load -> view('manage/createproduct', $this -> _data);
         } else {
             $this -> common -> loadHeader();
             $this -> load -> view('forbidden');
         }
     }
-
-    function uploadchannel() {
+    
+    /**
+     * Uploadchannel
+     *
+     * @return json
+     */
+    function uploadchannel() 
+    {
         $platform = $_POST['platform'];
         $channel = $this -> channel -> getchanbyplat($platform);
         echo json_encode($channel);
 
     }
-
-    //save product
-    function saveApp() {
+    
+    /**
+     * SaveApp
+     *
+     * @return json
+     */
+    function saveApp() 
+    {
         $this -> common -> loadHeader();
         $tablename = $this -> common -> getdbprefixtable('product');
         $this -> form_validation -> set_rules('appname', lang('v_man_au_appName'), 'trim|required|xss_clean|is_unique[' . $tablename . '.name' . ']');
@@ -67,8 +114,8 @@ class Product extends CI_Controller {
         $this -> form_validation -> set_rules('platform', lang('v_platform'), 'trim|required|xss_clean');
         $this -> form_validation -> set_rules('channel', lang('v_man_ch_name'), 'trim|required|xss_clean');
         $this -> form_validation -> set_rules('category', lang('m_appType'), 'trim|required|xss_clean');
+        $userId = $this -> common -> getUserId();
         if ($this -> form_validation -> run()) {
-            $userId = $this -> common -> getUserId();
             $appname = $this -> input -> post('appname');
             $channel = $this -> input -> post('channel');
             $platform = $this -> input -> post('platform');
@@ -76,34 +123,46 @@ class Product extends CI_Controller {
             $description = $this -> input -> post('description');
             $key = $this -> product -> addProduct($userId, $appname, $channel, $platform, $category, $description);
             $this -> common -> show_message(lang('v_man_au_addSuccess') . ",AppKey:$key," . anchor('/report/console', lang('v_man_pr_submitSuccessReturn')));
-            
         } else {
-            $this -> data['platform'] = $this -> channel -> getplatform();
-            $this -> data['category'] = $this -> product -> getProductCategory();
-            $this -> data['selectplatform'] = $this -> input -> post('platform');
-            $this -> data['selectchannel'] = $this -> input -> post('channel');
-            $this -> data['selectcategory'] = $this -> input -> post('category');
-            $this -> data['description'] = $this -> input -> post('description');
-            $this -> load -> view('manage/createproduct', $this -> data); 
+            $this -> _data['guest_roleid'] = $this -> common -> getUserRoleById($userId);
+            $this -> _data['platform'] = $this -> channel -> getplatform();
+            $this -> _data['category'] = $this -> product -> getProductCategory();
+            $this -> _data['selectplatform'] = $this -> input -> post('platform');
+            $this -> _data['selectchannel'] = $this -> input -> post('channel');
+            $this -> _data['selectcategory'] = $this -> input -> post('category');
+            $this -> _data['description'] = $this -> input -> post('description');
+            $this -> load -> view('manage/createproduct', $this -> _data); 
         }
     }
-
-    //edit product
-    function editproduct() {
+    
+    /**
+     * Editproduct edit product
+     *
+     * @return void
+     */
+    function editproduct() 
+    {
         $this -> common -> loadHeader(lang('v_man_pr_editApp'));
         $product = $this -> common -> getCurrentProduct();
         if (!empty($product)) {
-            $this -> data['product'] = $this -> product -> getproductinfo($product -> id);
-            $this -> data['category'] = $this -> product -> getProductCategory();
+            $this -> _data['product'] = $this -> product -> getproductinfo($product -> id);
+            $this -> _data['category'] = $this -> product -> getProductCategory();
 
-            $this -> load -> view('manage/editproduct', $this -> data);
+            $this -> load -> view('manage/editproduct', $this -> _data);
         } else {
             redirect('/auth/login/');
         }
     }
-
-    //save edit
-    function saveedit($product_id) {
+    
+    /**
+     * Saveedit save edit
+     *
+     * @param string $product_id product_id
+     * 
+     * @return void
+     */
+    function saveedit($product_id) 
+    {
         $this -> common -> loadHeader();
         $tablename = $this -> common -> getdbprefixtable('product');
         $product = $this -> common -> getCurrentProduct();
@@ -124,24 +183,32 @@ class Product extends CI_Controller {
                 $this -> product -> updateproduct($appname, $category, $description, $product_id, $productkey);
                 $this -> common -> show_message(lang('v_man_au_editSuccess') . anchor('/report/console', lang('v_man_pr_submitSuccessReturn')));
             } else {
-                $this -> data['product'] = $this -> product -> getproductinfo($product_id);
-                $this -> data['selectcategory'] = $this -> input -> post('category');
-                $this -> data['category'] = $this -> product -> getProductCategory();
-                $this -> load -> view('manage/editproduct', $this -> data);
+                $this -> _data['product'] = $this -> product -> getproductinfo($product_id);
+                $this -> _data['selectcategory'] = $this -> input -> post('category');
+                $this -> _data['category'] = $this -> product -> getProductCategory();
+                $this -> load -> view('manage/editproduct', $this -> _data);
             }
         } else {
             redirect('/auth/login/');
         }
     }
-
-    function delete($productId) {
+    
+    /**
+     * Delete 
+     *
+     * @param string $productId productId
+     * 
+     * @return void
+     */
+    function delete($productId) 
+    {
         $userId = $this -> common -> getUserId();
-        $data['productId'] = $productId;
+        $_data['productId'] = $productId;
         $flag = $this -> product -> deleteProduct($productId, $userId);
         if ($flag > 0) {
-            $this -> data["message"] = lang('v_man_au_failDelete');
+            $this -> _data["message"] = lang('v_man_au_failDelete');
         } else {
-            $this -> data["message"] = lang('v_man_au_failDelete');
+            $this -> _data["message"] = lang('v_man_au_failDelete');
         }
         redirect('/report/console');
     }
