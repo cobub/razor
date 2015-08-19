@@ -605,6 +605,74 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_basic_product_version` (
 
 -- --------------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_location` (
+  `lid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `date_sk` int(11) NOT NULL,
+  `location_sk` int(11) NOT NULL,
+  `sessions` int(11) NOT NULL DEFAULT '0',
+  `newusers` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`lid`),
+  UNIQUE KEY `index_location` (`product_id`,`date_sk`,`location_sk`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_devicebrand` (
+  `did` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `date_sk` int(11) NOT NULL,
+  `devicebrand_sk` int(11) NOT NULL,
+  `sessions` int(11) NOT NULL DEFAULT '0',
+  `newusers` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`did`),
+  UNIQUE KEY `index_devicebrand` (`product_id`,`date_sk`,`devicebrand_sk`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_deviceos` (
+  `did` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `date_sk` int(11) NOT NULL,
+  `deviceos_sk` int(11) NOT NULL,
+  `sessions` int(11) NOT NULL DEFAULT '0',
+  `newusers` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`did`),
+  UNIQUE KEY `index_deviceos` (`product_id`,`date_sk`,`deviceos_sk`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_deviceresolution` (
+  `did` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `date_sk` int(11) NOT NULL,
+  `deviceresolution_sk` int(11) NOT NULL,
+  `sessions` int(11) NOT NULL DEFAULT '0',
+  `newusers` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`did`),
+  UNIQUE KEY `index_deviceresolution` (`product_id`,`date_sk`,`deviceresolution_sk`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_devicesupplier` (
+  `did` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `date_sk` int(11) NOT NULL,
+  `devicesupplier_sk` int(11) NOT NULL,
+  `sessions` int(11) NOT NULL DEFAULT '0',
+  `newusers` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`did`),
+  UNIQUE KEY `index_devicesupplier` (`product_id`,`date_sk`,`devicesupplier_sk`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `umsinstall_sum_devicenetwork` (
+  `did` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `date_sk` int(11) NOT NULL,
+  `devicenetwork_sk` int(11) NOT NULL,
+  `sessions` int(11) NOT NULL DEFAULT '0',
+  `newusers` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`did`),
+  UNIQUE KEY `index_devicenetwork` (`product_id`,`date_sk`,`devicenetwork_sk`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `umsinstall_sum_event` (
   `eid` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `product_sk` int(11) NOT NULL,
