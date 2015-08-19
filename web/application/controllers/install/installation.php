@@ -479,7 +479,7 @@ class Installation extends CI_Controller
         $replacedatabase = $sqlname . "." . $tablehead;
         
         // change innner strings to multi-languages
-        $this->changesqlinfobylanguage($language);
+        //$this->changesqlinfobylanguage($language);
         
         // create database tables;
         $ret = $this->createdatabasesql($servname, $dbuser, $dbpwd, $sqlname, 'assets/sql/dbtables.sql', null, $tablehead);
@@ -621,6 +621,61 @@ class Installation extends CI_Controller
             return false;
         $handle = fopen($sqlPath, 'rb');
         $sqlStr = fread($handle, filesize($sqlPath));
+        
+        if (strstr($sqlPath, "dbtables")) {
+            $language = $this->config->item('language');
+            $sqlStr = str_replace('UMSINSTALL_NEWSPAPER', lang('UMSINSTALL_NEWSPAPER'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_SOCIAL', lang('UMSINSTALL_SOCIAL'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_BUSINESS', lang('UMSINSTALL_BUSINESS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_FINANCIALBUSINESS', lang('UMSINSTALL_FINANCIALBUSINESS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_REFERENCE', lang('UMSINSTALL_REFERENCE'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_NAVIGATION', lang('UMSINSTALL_NAVIGATION'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_INSTRUMENT', lang('UMSINSTALL_INSTRUMENT'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_HEALTHFITNESS', lang('UMSINSTALL_HEALTHFITNESS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_EDUCATION', lang('UMSINSTALL_EDUCATION'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_TRAVEL', lang('UMSINSTALL_TRAVEL'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_PHOTOVIDEO', lang('UMSINSTALL_PHOTOVIDEO'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_LIFE', lang('UMSINSTALL_LIFE'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_SPORTS', lang('UMSINSTALL_SPORTS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_WEATHER', lang('UMSINSTALL_WEATHER'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_BOOKS', lang('UMSINSTALL_BOOKS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_EFFICIENCY', lang('UMSINSTALL_EFFICIENCY'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_NEWS', lang('UMSINSTALL_NEWS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_MUSIC', lang('UMSINSTALL_MUSIC'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_MEDICAL', lang('UMSINSTALL_MEDICAL'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_ENTERTAINMENT', lang('UMSINSTALL_ENTERTAINMENT'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALL_GAME', lang('UMSINSTALL_GAME'), $sqlStr);
+        
+            $sqlStr = str_replace('UMSINSTALLC_SYSMANAGER', lang('UMSINSTALLC_SYSMANAGER'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_MYAPPS', lang('UMSINSTALLC_MYAPPS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_ERRORDEVICE', lang('UMSINSTALLC_ERRORDEVICE'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_DASHBOARD', lang('UMSINSTALLC_DASHBOARD'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_USERS', lang('UMSINSTALLC_USERS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_AUTOUPDATE', lang('UMSINSTALLC_AUTOUPDATE'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_CHANNEL', lang('UMSINSTALLC_CHANNEL'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_DEVICE', lang('UMSINSTALLC_DEVICE'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_EVENTMANAGEMENT', lang('UMSINSTALLC_EVENTMANAGEMENT'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_SENDPOLICY', lang('UMSINSTALLC_SENDPOLICY'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_OPERATORSTATISTICS', lang('UMSINSTALLC_OPERATORSTATISTICS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_OSSTATISTICS', lang('UMSINSTALLC_OSSTATISTICS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_PROFILE', lang('UMSINSTALLC_PROFILE'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_RESOLUTIONSTATISTICS', lang('UMSINSTALLC_RESOLUTIONSTATISTICS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_REEQUENCYSTATISTICS', lang('UMSINSTALLC_REEQUENCYSTATISTICS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_USAGEDURATION', lang('UMSINSTALLC_USAGEDURATION'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_ERRORLOG', lang('UMSINSTALLC_ERRORLOG'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_EVENTLIST', lang('UMSINSTALLC_EVENTLIST'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_CHANNELSTATISTICS', lang('UMSINSTALLC_CHANNELSTATISTICS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_GEOGRAPHYSTATICS', lang('UMSINSTALLC_GEOGRAPHYSTATICS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_ERRORONOS', lang('UMSINSTALLC_ERRORONOS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_VERSIONSTATISTICS', lang('UMSINSTALLC_VERSIONSTATISTICS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_APPS', lang('UMSINSTALLC_APPS'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_RETENTION', lang('UMSINSTALLC_RETENTION'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_PAGEVIEWSANALY', lang('UMSINSTALLC_PAGEVIEWSANALY'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_NETWORKINGSTATISTIC', lang('UMSINSTALLC_NETWORKINGSTATISTIC'), $sqlStr);
+            $sqlStr = str_replace('UMSINSTALLC_FUNNELMODEL', lang('UMSINSTALLC_FUNNELMODEL'), $sqlStr);
+            
+        }
+        
         // Sql syntax statement separator preg_split
         $segment = explode(";", trim($sqlStr));
         // Remove comments and extra blank line
