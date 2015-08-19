@@ -329,7 +329,8 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_event` (
   `attachment` varchar(50) DEFAULT NULL,
   `clientdate` datetime NOT NULL,
   `number` int(11) NOT NULL,
-  PRIMARY KEY (`eventid`)
+  PRIMARY KEY (`eventid`),
+  UNIQUE KEY `date_sk` (`date_sk`,`product_sk`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
