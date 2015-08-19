@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final String event_name = "btn_click";
+        final String event_name = "click";
         Button button_event = (Button) findViewById(R.id.button_event);
         Button button_error = (Button) findViewById(R.id.button_error);
         Button button_activity = (Button) findViewById(R.id.button_activity);
@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
         // UmsAgent.setBaseURL("http://192.168.1.55/razor/web/index.php?");
         
 //        String urlPrefix = "http://www.cobub.com/razor/index.php?";
-        String urlPrefix = "http://42.123.76.99/21cn";
+        String urlPrefix = "http://192.168.1.105/razorgit/opencobub/web/index.php?";
         txtURL.setText("Server URL:"+urlPrefix);
         
         UmsAgent.init(this, urlPrefix);
@@ -78,6 +78,7 @@ public class MainActivity extends Activity {
 
         UmsAgent.update(this);
         UmsAgent.updateOnlineConfig(this);
+        UmsAgent.postTags(this,"test tags");
 
         /**
          * SDK could help you catch exit exception during App usage and send
@@ -111,7 +112,8 @@ public class MainActivity extends Activity {
          * Activity. Parameter is context of current context. Then, client data
          * could be posted to Cobub Razor system.
          */
-        
+        UmsAgent.postCID(this, "cid");
+        UmsAgent.postUserIdentifier(this, "user id");
 
         button_event.setOnClickListener(new OnClickListener() {
 

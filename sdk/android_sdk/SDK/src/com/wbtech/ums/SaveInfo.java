@@ -32,14 +32,14 @@ import android.content.Context;
  * @author duzhou.xu
  */
 class SaveInfo extends Thread {
-    public Context context;
     public JSONObject object;
     private final String tag = "SaveInfo";
+    private String path = "";
 
-    public SaveInfo(Context context, JSONObject object) {
+    public SaveInfo( JSONObject object,String path) {
         super();
         this.object = object;
-        this.context = context;
+        this.path = path;
     }
 
     @Override
@@ -47,14 +47,14 @@ class SaveInfo extends Thread {
         super.run();
         File file;
 
-        String cacheFile = context.getCacheDir()+"/cobub.cache";
-        CobubLog.d(tag,"Save cache file "+cacheFile);
+       
+        CobubLog.d(tag,"Save cache file "+path);
         CobubLog.d(tag,"json data "+object.toString());
 
         JSONObject existJSON = null;
         try {
 
-                file = new File(cacheFile);
+                file = new File(path);
                 if (file.exists())
                 {
                     CobubLog.i(tag, "file exist " + file.getAbsolutePath());
@@ -66,10 +66,10 @@ class SaveInfo extends Thread {
                 //
                 if (file.length() > 1024 * 1024) {
                     file.delete();
-                    file = new File(cacheFile);
+                    file = new File(path);
                     file.createNewFile();
                 }
-                FileInputStream in = new FileInputStream(cacheFile);
+                FileInputStream in = new FileInputStream(path);
                 StringBuffer sb = new StringBuffer();
 
                 int i = 0;
@@ -97,7 +97,7 @@ class SaveInfo extends Thread {
                         }
                     }
                     FileOutputStream fileOutputStream = new FileOutputStream(
-                            cacheFile, false);
+                    		path, false);
                     fileOutputStream.write(existJSON.toString().getBytes());
                     fileOutputStream.flush();
                     fileOutputStream.close();
@@ -115,7 +115,7 @@ class SaveInfo extends Thread {
                     jsonObject.put("appkey", AppInfo.getAppKey());
 
                     FileOutputStream fileOutputStream = new FileOutputStream(
-                            cacheFile, false);
+                    		path, false);
                     fileOutputStream.write(jsonObject.toString().getBytes());
                     fileOutputStream.flush();
                     fileOutputStream.close();

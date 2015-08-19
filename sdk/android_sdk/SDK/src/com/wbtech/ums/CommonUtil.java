@@ -52,7 +52,8 @@ class CommonUtil {
 			newdata.put(0, info);
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put(type, newdata);
-			Thread t = new SaveInfo(context, jsonObject);
+			 String cacheFile = context.getCacheDir()+"/cobub.cache";
+			Thread t = new SaveInfo( jsonObject,cacheFile);
 			t.run();
 			
 		} catch (Exception e) {
