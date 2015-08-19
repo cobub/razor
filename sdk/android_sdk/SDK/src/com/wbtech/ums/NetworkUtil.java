@@ -15,6 +15,7 @@
 package com.wbtech.ums;
 
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -37,7 +38,7 @@ class NetworkUtil {
         try {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(url);
-            StringEntity se = new StringEntity("content=" + data, HTTP.UTF_8);
+            StringEntity se = new StringEntity("content=" +URLEncoder.encode( data), HTTP.UTF_8);
             se.setContentType("application/x-www-form-urlencoded");
             httppost.setEntity(se);
 

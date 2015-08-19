@@ -53,9 +53,6 @@ class SaveInfo extends Thread {
 
         JSONObject existJSON = null;
         try {
-//            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)
-//                    && CommonUtil.checkPermissions(context,
-//                            "android.permission.WRITE_EXTERNAL_STORAGE")) {
 
                 file = new File(cacheFile);
                 if (file.exists())
