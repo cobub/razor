@@ -14,7 +14,7 @@
  * @link      http://www.cobub.com
  * @since     Version 0.1
  */
-
+ 
 /**
  * Hint Message
  */
@@ -65,7 +65,6 @@ class Pluginlist extends CI_Controller
             $this -> data['puserkey'] = $userKeys -> user_key;
             $this -> data['pusersecret'] = $userKeys -> user_secret;
             ///all use plugins
-
             $language = $this -> config -> item('language');
             $json = $this -> pluginlistmodel -> getAllPlugins($language);
             $this -> data['allplugins'] = json_decode($json);
@@ -83,7 +82,6 @@ class Pluginlist extends CI_Controller
                                 $plugin['new_version'] = $allplugin -> plugin_version;
                             }
                         }
-
                     }
                     array_push($plugins, $plugin);
                 }
@@ -96,7 +94,7 @@ class Pluginlist extends CI_Controller
         ////my plugins
         $this -> data['myPlugins'] = $plugins;
         //user role
-        $this -> data['guest_roleid'] = $this -> common -> getUserRoleById($userid);
+        $this -> data['guest_roleid'] = $this -> common -> getUserRoleById($userId);
 
         $this -> common -> loadHeader(lang('plg_plugin_manage'));
         $this -> load -> view('manage/pluginsview', $this -> data);
@@ -129,5 +127,5 @@ class Pluginlist extends CI_Controller
         $this -> pluginlistmodel -> disablePlugin($userId, $identifier);
         redirect(site_url() . "/manage/pluginlist");
     }
-
 }
+

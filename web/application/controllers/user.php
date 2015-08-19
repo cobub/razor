@@ -44,7 +44,7 @@ class User extends CI_Controller
         parent::__construct();
         $this -> ci = &get_instance();
 
-        $this -> ci -> load -> config('tank_auth', TRUE);
+        $this -> ci -> load -> config('tank_auth', true);
 
         $this -> ci -> load -> library('session');
 
@@ -168,7 +168,7 @@ class User extends CI_Controller
         if ($this -> canRead) {
             $data['userid'] = $userId;
             $data["products"] = $this -> user -> getUserProducts($userId);
-            $data['guest_roleid'] = $this -> common -> getUserRoleById($userId);
+            $data['guest_roleid'] = $this -> common -> getUserRoleById($this -> common -> getUserId());
             $this -> common -> loadHeader(lang('m_userManagement'));
             $this -> load -> view('user/assignproducts', $data);
         } else {
@@ -227,7 +227,6 @@ class User extends CI_Controller
      * RoleManageDetail
      * 
      * @param string $roleid   roleid
-     * 
      * @param string $rolename rolename
      * 
      * @return void
