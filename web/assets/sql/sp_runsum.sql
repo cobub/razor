@@ -491,6 +491,17 @@ set e = now();
 insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
     values('runsum','umsinstall_fact_launch_daily',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
 
+set s = now();
+insert into umsinstall_sum_event(product_sk,date_sk,event_sk, total)
+SELECT product_sk,f.date_sk,event_sk,sum(number) FROM `umsinstall_fact_event` f,
+         umsinstall_dim_date d
+where f.date_sk = d.date_sk  and d.datevalue = today 
+group by product_sk,f.date_sk,event_sk
+on duplicate key update total=values(total);
+
+insert into umsinstall_log(op_type,op_name,op_date,affected_rows,duration) 
+    values('runsum','umsinstall_sum_event',e,row_count(),TIMESTAMPDIFF(SECOND,s,e));
+
 
 insert into umsinstall_log(op_type,op_name,op_starttime) 
     values('runsum','-----finish runsum-----',now());
