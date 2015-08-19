@@ -41,7 +41,10 @@ $confirm_new_password = array(
 	</div>
 	<footer>
 		<div class="submit_link">
-		<?php echo form_submit('change', lang('m_cp_saveChanges')); ?> 
+		<?php if(isset($guest_roleid) && $guest_roleid==2){ echo form_submit('change', lang('m_cp_saveChanges','disabled'));} 
+                else{
+                echo form_submit('change', lang('m_cp_saveChanges'));
+            }  ?> 
 		</div>
 	</footer>
 </article>

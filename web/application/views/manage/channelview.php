@@ -38,8 +38,15 @@
     				<td><?php echo $rel['name'];?></td>    				 
     				<td><a  href="<?php echo site_url();?>/manage/channel/editchannel/<?php echo $rel['channel_id']; ?>">
     				<img src="<?php echo base_url();?>assets/images/icn_edit.png" title=<?php echo lang('v_element_edit')?> style="border:0px"/></a>
+    				<?php if(isset($guest_roleid) && $guest_roleid==2): ?>
+    				<a>
+                    <img src="<?php echo base_url();?>assets/images/icn_trash.png" title=<?php echo lang('v_element_trash')?> style="border:0px"/></a>
+                
+    				<?php else: ?>    
+    				
     				<a href="javascript:if(confirm('<?php echo lang('v_man_pr_deleteNote') ?>'))location='<?php echo site_url();?>/manage/channel/deletechannel/<?php echo $rel['channel_id']; ?>'">
     				<img src="<?php echo base_url();?>assets/images/icn_trash.png" title=<?php echo lang('v_element_trash')?> style="border:0px"/></a>
+    				<?php endif; ?>
     				</td>    				 
 				</tr> 
 			<?php } endif;?>			
@@ -66,7 +73,8 @@
 							?>						  
 						  </select>
 						</fieldset>
-						<input id="addchannelButton" type="button" value="<?php echo lang('v_man_pr_addChannel') ?>" class="alt_btn" onClick='addchannel()'>
+						<input <?php if(isset($guest_roleid) && $guest_roleid==2):echo 'disabled="disabled"'; endif;?>
+						id="addchannelButton" type="button" value="<?php echo lang('v_man_pr_addChannel') ?>" class="alt_btn" onClick='addchannel()'>
 				</div>			
 		<!-- end of post new article -->
 			</div><!-- end of #tab2 -->			
@@ -106,8 +114,15 @@
     				<td><?php echo $rel['name'];?></td>    				 
     				<td><a  href="<?php echo site_url();?>/manage/channel/editchannel/<?php echo $rel['channel_id']; ?>">
     				<img src="<?php echo base_url();?>assets/images/icn_edit.png" title=<?php echo lang('v_element_edit')?> style="border:0px;"/></a>
-    				<a href="javascript:if(confirm('<?php echo lang('v_man_pr_deleteNote') ?>'))location='<?php echo site_url();?>/manage/channel/deletechannel/<?php echo $rel['channel_id']; ?>'">
+    				
+    				<?php if(isset($guest_roleid) && $guest_roleid==2): ?>
+    				<a>
     				<img src="<?php echo base_url();?>assets/images/icn_trash.png" title=<?php echo lang('v_element_trash')?> style="border:0px"/></a>
+    				<?php else: ?>
+    				<a href="javascript:if(confirm('<?php echo lang('v_man_pr_deleteNote') ?>'))location='<?php echo site_url();?>/manage/channel/deletechannel/<?php echo $rel['channel_id']; ?>'">
+                    <img src="<?php echo base_url();?>assets/images/icn_trash.png" title=<?php echo lang('v_element_trash')?> style="border:0px"/></a>
+    				<?php endif; ?>
+    				
     				</td>    				 
 				</tr> 
 			<?php } endif;?>			
@@ -133,7 +148,8 @@
 							?>
 						  </select>
 						</fieldset>
-						<input id="addSyschannelBtn" type="button" value="<?php echo lang('v_man_pr_addChannel') ?>" class="alt_btn" onClick='addsychannel()'>
+						<input <?php if(isset($guest_roleid) && $guest_roleid==2):echo 'disabled="disabled"'; endif;?>
+						 id="addSyschannelBtn" type="button" value="<?php echo lang('v_man_pr_addChannel') ?>" class="alt_btn" onClick='addsychannel()'>
 				</div>			
 		<!-- end of post new article -->
 			</div><!-- end of #tab4 -->			

@@ -30,8 +30,13 @@
     				<td><?php echo $row->name;?></td>     				  				
     				<td><a  href="<?php echo site_url();?>/user/edittypeOfapplication/<?php echo $row->id; ?>">
     				<img src="<?php echo base_url();?>assets/images/icn_edit.png" title=<?php echo lang('v_element_edit')?> style="border:0px;"/></a>
+    				<?php if(isset($guest_roleid) && $guest_roleid==2): ?>
+    				<a>
+                    <img src="<?php echo base_url();?>assets/images/icn_trash.png" title=<?php echo lang('v_element_trash')?> style="border:0px;"/></a>
+                    <?php else: ?>
     				<a href="javascript:if(confirm('<?php echo lang('v_user_appM_deleteType') ?>'))location='<?php echo site_url();?>/user/deletetypeOfapplication/<?php echo $row->id; ?>'">
     				<img src="<?php echo base_url();?>assets/images/icn_trash.png" title=<?php echo lang('v_element_trash')?> style="border:0px;"/></a>
+    				<?php endif; ?>
     				</td>  
 				</tr> 
 			<?php } endif;?>
@@ -46,7 +51,8 @@
 							<label><?php echo  lang('v_user_appM_typeName')?></label>
 							<input type="text" id='name'>
 						</fieldset>
-						<input id="addAppBtn" type="button" value="<?php echo  lang('v_user_appM_addType')?>" class="alt_btn" onClick='addtypeOfapplica()'>
+						<input <?php if(isset($guest_roleid) && $guest_roleid==2):echo 'disabled="disabled"'; endif;?> 
+						id="addAppBtn" type="button" value="<?php echo  lang('v_user_appM_addType')?>" class="alt_btn" onClick='addtypeOfapplica()'>
 				</div>
 
 			</div><!-- end of #tab2 -->

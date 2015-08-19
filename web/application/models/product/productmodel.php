@@ -236,58 +236,114 @@ class ProductModel extends CI_Model
      */
     function getChannelActiverate($product_id, $fromTime, $toTime, $type)
     {
+     $dwdb = $this -> load -> database('dw', true);
         if ($type == 0) {
             $fromTime = "DATE_SUB('" . $fromTime . "',INTERVAL 13 DAY)";
             $toTime = "DATE_SUB('" . $toTime . "',INTERVAL 7 DAY)";
+            $sql = "
+                select 
+                    td.datevalue,
+                    tc.channel_id,
+                    tc.channel_name,
+                    ifnull(tp.percent,0) percent
+                from
+                 (
+                    select 
+                        d.datevalue
+                    from
+                        " . $dwdb -> dbprefix('dim_date') . " d
+                    where
+                        d.datevalue between $fromTime and $toTime and
+                        d.dayofweek=0 
+                )td
+                cross join
+                (
+                    select 
+                        c.channel_id,  
+                        c.channel_name
+                    from
+                        " . $dwdb -> dbprefix('dim_product') . " c
+                    where
+                        product_id=1 and 
+                        product_active=1 and
+                        channel_active=1 and
+                        version_active=1
+                    group by
+                        c.channel_id  
+                 )tc
+                left join
+                (
+                    select 
+                        p.date_sk,
+                        p.percent,
+                        d.datevalue
+                    from 
+                        " . $dwdb -> dbprefix('sum_basic_channel_activeusers') . " p,
+                        " . $dwdb -> dbprefix('dim_date') . " d
+                    where
+                        d.datevalue between $fromTime and $toTime and
+                        p.flag=0 and
+                        d.date_sk=p.date_sk
+                )tp
+                on
+                    tp.datevalue=td.datevalue
+                order
+                    by td.datevalue";
         } else {
             $fromTime = "DATE_SUB('" . $fromTime . "',INTERVAL 2 MONTH)";
             $fromTime = "DATE_SUB($fromTime,INTERVAL -1 DAY)";
             $toTime = "DATE_SUB('" . $toTime . "',INTERVAL 1 MONTH)";
-        }
-        $dwdb = $this -> load -> database('dw', true);
-        $sql = "
-            select 
-                tt.datevalue,
-                tt.channel_id,
-                tt.channel_name,
-                ifnull(percent,0) percent 
-             from (select
-                      d.date_sk,
-                      ca.channel_id,percent
-                   from 
-                      " . $dwdb -> dbprefix('sum_basic_channel_activeusers') . " ca,
-                       " . $dwdb -> dbprefix('dim_date') . " d
-                   where 
-                       d.datevalue between $fromTime and
-                       $toTime and
-                       d.date_sk=ca.date_sk and
-                       ca.flag=$type and
-                       ca.product_id= $product_id
-                   group by d.datevalue,ca.channel_id) t right join(
-                   select 
-                       *
-                   from
-                       (select
-                            channel_id,
-                            channel_name 
-                        from
-                            " . $dwdb -> dbprefix('dim_product') . " 
-                        where 
-                            product_id =$product_id and
-                            product_active=1 and
-                            channel_active=1 and
-                            version_active=1
-                            group by channel_id) dt inner join(select
-                                                                   d.datevalue,
-                                                                   a.date_sk 
-                                                                from " . $dwdb -> dbprefix('dim_date') . " d,
-                                                                     " . $dwdb -> dbprefix('sum_basic_channel_activeusers') . " a 
-                                                                   where d.datevalue between $fromTime and $toTime and
-                                                                         d.date_sk=a.date_sk and
-                                                                         a.flag=$type
-             group by a.date_sk) f) tt on tt.channel_id = t.channel_id and tt.date_sk=t.date_sk    
-             order by tt.date_sk asc";
-        $query = $dwdb -> query($sql);
+            $sql = "
+                select
+                    td.datevalue,
+                    tc.channel_id,
+                    tc.channel_name,
+                    ifnull(tp.percent,0) percent
+                from
+                (
+                    select
+                        d.datevalue
+                    from
+                        " . $dwdb -> dbprefix('dim_date') . " d
+                    where
+                        d.datevalue between $fromTime and $toTime and
+                        d.day=1
+                )td
+               cross join
+                (
+                    select
+                        c.channel_id,
+                        c.channel_name
+                    from
+                        " . $dwdb -> dbprefix('dim_product') . " c
+                    where
+                        product_id=1 and
+                        product_active=1 and
+                        channel_active=1 and
+                        version_active=1
+                    group by 
+                        c.channel_id
+                )tc
+               left join
+                (
+                    select
+                        p.date_sk,
+                        p.percent,
+                        d.datevalue
+                    from
+                        " . $dwdb -> dbprefix('sum_basic_channel_activeusers') . " p,
+                        " . $dwdb -> dbprefix('dim_date') . " d
+                    where
+                        d.datevalue between $fromTime and $toTime and
+                        p.flag=1 and
+                        d.date_sk=p.date_sk
+                )tp
+               on 
+                   tp.datevalue=td.datevalue
+               order by 
+                   td.datevalue";
+        } 
+         $query = $dwdb -> query($sql);
         if ($query != null && $query -> num_rows() > 0) {
             $ret = $query -> result_array();
         } else {

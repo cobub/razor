@@ -40,7 +40,8 @@ a:hover {
 		</div>
 		<footer>
 			<div class="submit_link">
-				<input type='submit' id='submit' class='alt_btn' name="userkey/save" value=<?php echo lang('plg_save') ?>>
+				<input <?php if(isset($guest_roleid) && $guest_roleid==2):echo 'disabled="disabled"'; endif;?> 
+				 type='submit' id='submit' class='alt_btn' name="userkey/save" value=<?php echo lang('plg_save') ?>>
 			</div>
 		</footer>
 		<?php echo form_close(); ?>

@@ -66,8 +66,9 @@ $description = array (
 		</div>
 		<footer>
 			<div class="submit_link">
-				<input type='submit' id='submit' class='alt_btn'
-					name="product/saveApp"
+				<input type='submit' id='submit' class='alt_btn' 
+					name="product/saveApp" 
+					<?php if(isset($guest_roleid) && $guest_roleid==2):echo 'disabled="disabled"'; endif;?> 
 					value="<?php echo lang('v_man_pr_submit') ?>">
 			</div>
 		</footer>

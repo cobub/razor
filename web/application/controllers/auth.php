@@ -1,21 +1,43 @@
 <?php
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
-class Auth extends CI_Controller {
-    function __construct() {
+ 
+/**
+ * Hint Message
+ */
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+/**
+ * Auth Controller
+ *
+ * @category PHP
+ * @package  Controller
+ * @author   Cobub Team <open.cobub@gmail.com>
+ * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link     http://www.cobub.com
+ */
+class Auth extends CI_Controller
+{
+    /**
+     * Construct funciton, to pre-load database configuration
+     *
+     * @return void
+     */
+    function __construct()
+    {
         parent::__construct();
 
         $this -> load -> helper(array('form', 'url'));
@@ -28,8 +50,14 @@ class Auth extends CI_Controller {
         $this -> load -> config('email', true);
         $this -> load -> helper('language');
     }
-
-    function index() {
+    
+    /**
+     * Index
+     *
+     * @return void
+     */
+    function index()
+    {
         if ($message = $this -> session -> userdata('message')) {
             $this -> load -> Model('common');
             $this -> common -> loadHeader();
@@ -45,7 +73,8 @@ class Auth extends CI_Controller {
      *
      * @return void
      */
-    function login() {
+    function login()
+    {
         if ($this -> tank_auth -> is_logged_in()) {// logged in
             redirect('');
 
@@ -109,8 +138,14 @@ class Auth extends CI_Controller {
             }
         }
     }
-
-    function maxlogin() {
+    
+    /**
+     * Maxlogin
+     *
+     * @return void
+     */
+    function maxlogin()
+    {
         $this -> load -> model('common');
         $this -> common -> loadHeader();
         $this -> load -> view('auth/loginmaxview');
@@ -121,7 +156,8 @@ class Auth extends CI_Controller {
      *
      * @return void
      */
-    function logout() {
+    function logout()
+    {
         $this -> tank_auth -> logout();
 
         $this -> _show_message($this -> lang -> line('auth_message_logged_out'));
@@ -132,7 +168,8 @@ class Auth extends CI_Controller {
      *
      * @return void
      */
-    function register() {
+    function register()
+    {
         $this -> load -> model('common');
         $this -> common -> loadHeader();
         if ($this -> tank_auth -> is_logged_in()) {// logged in
@@ -212,11 +249,12 @@ class Auth extends CI_Controller {
     }
 
     /**
-     * Send activation email again, to the same or new email address
+     * sendagain activation email again, to the same or new email address
      *
      * @return void
      */
-    function send_again() {
+    function send_again()
+    {
         $this -> load -> model('common');
         $this -> common -> loadHeader();
         if (!$this -> tank_auth -> is_logged_in(FALSE)) {// not logged in or activated
@@ -254,7 +292,8 @@ class Auth extends CI_Controller {
      *
      * @return void
      */
-    function activate() {
+    function activate()
+    {
         $user_id = $this -> uri -> segment(3);
         $new_email_key = $this -> uri -> segment(4);
 
@@ -273,14 +312,15 @@ class Auth extends CI_Controller {
      *
      * @return void
      */
-    function forgot_password() {
+    function forgot_password()
+    {
         $this -> load -> model('common');
         $this -> common -> loadHeader();
         if ($this -> tank_auth -> is_logged_in()) {// logged in
             redirect('');
 
         } elseif ($this -> tank_auth -> is_logged_in(FALSE)) {// logged in, not activated
-        	redirect('/auth/send_again/');
+            redirect('/auth/send_again/');
 
         } else {
             $this -> form_validation -> set_rules('login', lang('auth_login_wrong'), 'trim|required|xss_clean');
@@ -314,7 +354,8 @@ class Auth extends CI_Controller {
      *
      * @return void
      */
-    function reset_password() {
+    function reset_password()
+    {
         $this -> load -> model('common');
         $this -> common -> loadHeader();
         $user_id = $this -> uri -> segment(3);
@@ -354,7 +395,8 @@ class Auth extends CI_Controller {
      *
      * @return void
      */
-    function change_password() {
+    function change_password()
+    {
         $this -> load -> model('common');
         $this -> common -> loadHeader();
         if (!$this -> tank_auth -> is_logged_in()) {// not logged in or not activated
@@ -377,6 +419,8 @@ class Auth extends CI_Controller {
                         $data['errors'][$k] = $this -> lang -> line($v);
                 }
             }
+            $userid = $this -> common -> getUserId();
+            $data['guest_roleid'] = $this -> common -> getUserRoleById($userid);
             $this -> load -> view('auth/change_password_form', $data);
         }
     }
@@ -386,7 +430,8 @@ class Auth extends CI_Controller {
      *
      * @return void
      */
-    function change_email() {
+    function change_email()
+    {
         $this -> load -> model('common');
         $this -> common -> loadHeader();
         if (!$this -> tank_auth -> is_logged_in()) {// not logged in or not activated
@@ -425,7 +470,8 @@ class Auth extends CI_Controller {
      *
      * @return void
      */
-    function reset_email() {
+    function reset_email()
+    {
         $user_id = $this -> uri -> segment(3);
         $new_email_key = $this -> uri -> segment(4);
 
@@ -444,7 +490,8 @@ class Auth extends CI_Controller {
      *
      * @return void
      */
-    function unregister() {
+    function unregister()
+    {
         $this -> load -> model('common');
         $this -> common -> loadHeader();
         if (!$this -> tank_auth -> is_logged_in()) {// not logged in or not activated
@@ -475,7 +522,8 @@ class Auth extends CI_Controller {
      * @param	string
      * @return	void
      */
-    function _show_message($message) {
+    function _show_message($message)
+    {
         $this -> session -> set_userdata('message', $message);
         redirect('/auth/');
     }
@@ -484,11 +532,15 @@ class Auth extends CI_Controller {
      * Send email message of given type (activate, forgot_password, etc.)
      *
      * @param	string
+     * 
      * @param	string
+     * 
      * @param	array
+     * 
      * @return	void
      */
-    function _send_email($type, $email, &$data) {
+    function _send_email($type, $email, &$data)
+    {
         $this -> load -> model('common');
         $this -> common -> loadHeader();
         $this -> load -> library('email');
@@ -506,7 +558,8 @@ class Auth extends CI_Controller {
      *
      * @return	string
      */
-    function _create_captcha() {
+    function _create_captcha()
+    {
         $this -> load -> helper('captcha');
 
         $cap = create_captcha(array('img_path' => './' . $this -> config -> item('captcha_path', 'tank_auth'), 'img_url' => base_url() . $this -> config -> item('captcha_path', 'tank_auth'), 'font_path' => './' . $this -> config -> item('captcha_fonts_path', 'tank_auth'), 'font_size' => $this -> config -> item('captcha_font_size', 'tank_auth'), 'img_width' => $this -> config -> item('captcha_width', 'tank_auth'), 'img_height' => $this -> config -> item('captcha_height', 'tank_auth'), 'show_grid' => $this -> config -> item('captcha_grid', 'tank_auth'), 'expiration' => $this -> config -> item('captcha_expire', 'tank_auth'), ));
@@ -521,7 +574,8 @@ class Auth extends CI_Controller {
      * @param	string
      * @return	bool
      */
-    function _check_captcha($code) {
+    function _check_captcha($code)
+    {
         $time = $this -> session -> userdata('captcha_time');
         $word = $this -> session -> userdata('captcha_word');
 
@@ -543,7 +597,8 @@ class Auth extends CI_Controller {
      *
      * @return	string
      */
-    function _create_recaptcha() {
+    function _create_recaptcha()
+    {
         $this -> load -> helper('recaptcha');
         // Add custom theme so we can get only image
         $options = "<script>var RecaptchaOptions = {theme: 'custom', custom_theme_widget: 'recaptcha_widget'};</script>\n";
@@ -558,46 +613,46 @@ class Auth extends CI_Controller {
      *
      * @return	bool
      */
-    function _check_recaptcha() {
+    function _check_recaptcha()
+    {
         $this -> load -> helper('recaptcha');
 
         $resp = recaptcha_check_answer($this -> config -> item('recaptcha_private_key', 'tank_auth'), $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
 
         if (!$resp -> is_valid) {
             $this -> form_validation -> set_message('_check_recaptcha', $this -> lang -> line('auth_incorrect_captcha'));
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
-    
+
     /*
      * login user center key&secret
-    *
-    */
+     *
+     */
     function loginucenter()
     {
-    	////get user key&secret;
-    	$this->load->model ( 'common' );
-    	$this->load->model ( 'pluginlistmodel' );
-    	 
-    	$userId = $this->common->getUserId ();
-    	$userKeys = $this->pluginlistmodel->getUserKeys ( $userId );
-    	if ($userKeys) {
-    		$key = $userKeys->user_key;
-    		$secret = $userKeys->user_secret;
-    		////login ucenter
-    		//testcode : http://dev.cobub.com/users/en/index.php?/auth/login
-    		//redirect("http://192.168.1.104:8877/ucenter//index.php?/auth/cobubtologin/$key/$secret");
-    		redirect(SERVER_BASE_URL.lang('cobub_login_ucenter')."/cobubtologin/$key/$secret");
-    	}
-    	else {
-    		return ;
-    	}
-    	 
+        ////get user key&secret;
+        $this -> load -> model('common');
+        $this -> load -> model('pluginlistmodel');
+
+        $userId = $this -> common -> getUserId();
+        $userKeys = $this -> pluginlistmodel -> getUserKeys($userId);
+        if ($userKeys) {
+            $key = $userKeys -> user_key;
+            $secret = $userKeys -> user_secret;
+            ////login ucenter
+            //testcode : http://dev.cobub.com/users/en/index.php?/auth/login
+            //redirect("http://192.168.1.104:8877/ucenter//index.php?/auth/cobubtologin/$key/$secret");
+            redirect(SERVER_BASE_URL . lang('cobub_login_ucenter') . "/cobubtologin/$key/$secret");
+        } else {
+            return;
+        }
+
     }
-    
 
 }
 
 /* End of file auth.php */
 /* Location: ./application/controllers/auth.php */
+
