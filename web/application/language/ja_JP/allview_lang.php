@@ -2,15 +2,17 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
 // Login---main		
 $lang['l_login']	=	'ログイン';
@@ -49,13 +51,13 @@ $lang['l_emailAddress']	=	 'メールアドレス';
 $lang['l_loginNow']	=	 'すぐにログイン';
 $lang['l_confirmNewP']	=	'新パスワードの確認';
 $lang['l_oldPassword']	=	'旧パスワード';
-		
-		
+
+
 //*************************************FOOTER*************************************		
 $lang['f_version']	="	Verion:0.4 DEV.COBUB.COM ";
 $lang['f_detail']	=	"* The Cobub RazorのパッケージはHighChartsの 製品を含んでいます。HighChartsの製品はオープンソースの製品ではありませんが、<br>正しい条件下では無償で使用することができます, 次のURLを参照してください。 <a href='http://shop.highsoft.com/highcharts.html' target='_blank'>http://shop.highsoft.com/highcharts.html</a>.";
 $lang['f_copyright']	=	"&copy Copyright 2013, バージョン:%body% <a href='http://dev.cobub.com'>COBUB SOLUTION</a>";
-		
+
 //**************************************Email***************************************		
 $lang['e_clickLink']	=	 '.下記のリンクをクリックしてアクティベーションを行ってください:';
 $lang['e_completeR']	=	 '登録を完了しています...';
@@ -93,7 +95,7 @@ $lang['e_recordAndP']	=	'記録して注意深く保存しておいてくださ�
 $lang['e_yourPassword']	=	'パスワード入力';
 $lang['e_preserveP']	=	'パスワードが変更されました。記録して注意深く保存しておいてください。忘れないようお願いします。';
 $lang['e_enter']	=	'入力してください。';
-		
+
 //**************************************MENU***************************************		
 //Menu---main		
 $lang['m_cp_currentPassword']	=	'現在のパスワード';
@@ -162,7 +164,7 @@ $lang['m_rpt_customEvent']	=	'カスタムイベント';
 $lang['m_rpt_exception']	=	"インテリジェントなアラート";
 $lang['m_rpt_appChannel']	=	'アプリチャンネル';
 $lang['m_rpt_editFunnel']	=	'変換したグループ';
-		
+
 /**************************************View***************************************/		
 // view---main	
 $lang['v_user_center']='ユーザーセンター';	
@@ -183,16 +185,16 @@ $lang['v_sessoinsTrend']	=	 'セッションの傾向';
 $lang['V_Trendvalue']	=	 '傾向値';
 $lang['v_deletreport']	=	 '本当に削除してもいいですか？';
 // view----user		
-		
+
 $lang['v_user_userList']	=	'ユーザーリスト';
 $lang['v_user_userRole']	=	'ユーザー権限';
 $lang['v_user_modifyUserRole']	=	'ユーザー権限変更';
 $lang['v_user_guest']	=	'ゲスト';
 $lang['v_user_user']	=	'ユーザー';
-		
+
 //view---usage--nodata		
 $lang['v_usage_nodata']	=	 "関連するデータは有りません。適切なデータを追加してください!";
-		
+
 // view---user--rolemanage		
 $lang['v_user_rolem_roleId']	=	'役割ID';
 $lang['v_user_rolem_roleName']	=	'役割名';
@@ -218,7 +220,7 @@ $lang['v_user_rolem_editRole']	=	"ユーザーの役割の編集";
 $lang['v_user_rolem_changeRole']	=	 "ユーザーの役割の変更";
 $lang['v_user_rolem_duplicateRole']	=	 "この役割名は既に存在します!";
 $lang['v_user_rolem_errorInput']	=	'入力された役割名が不正です!';
-		
+
 //view---user--resourcemanage		
 $lang['v_user_resm_resourceM']	=	'リソース管理';
 $lang['v_user_resm_resourceN']	=	'リソース名';
@@ -234,7 +236,7 @@ $lang['v_user_resm_waitAdd']	=	 "リソースを追加中です...";
 $lang['v_user_resm_modifyResourceS']	=	 "リソースの変更が完了しました!";
 $lang['v_user_resm_waitMofify']	=	 "リソースの修正中です...";
 $lang['v_user_resm_errorInput']	=	'不正なリソース名が入力されました!';
-		
+
 //view---user---applicationManagement		
 $lang['v_user_appM_appTypeList']	=	'アプリ形式一覧';
 $lang['v_user_appM_addAppType']	=	'アプリ形式の追加';
@@ -251,7 +253,7 @@ $lang['v_user_appM_modifyAppT']	=	 "アプリ形式の変更中です...";
 $lang['v_user_appM_editAppT']	=	 "アプリ形式編集";
 $lang['v_user_appM_errorInput']	=	'不正な形式名が入力されました!';
 $lang['v_user_appM_duplicateApp']	=	 "この形式名は既に使われています!";
-		
+
 // view---report		
 //view---report----dashboard/productbasic		
 $lang['v_rpt_pb_overviewRecently']	=	'最新の概要';
@@ -272,7 +274,7 @@ $lang['v_rpt_mk_newUserStatistics']	=	'新規ユーザーの統計量';
 $lang['v_rpt_mk_activeuserS']	=	 'アクティブユーザーの統計量';
 $lang['v_rpt_mk_sessionS']	=	 'セッションの統計量';
 $lang['v_rpt_mk_channelNameE']	=	'不正なチャンネル名が入力されました!';
-		
+
 //view---report----versions		
 $lang['v_rpt_ve_tillYesterday']	=	'昨日までのバージョンデータ';
 $lang['v_rpt_ve_appVersion']	=	'アプリバージョン';
@@ -291,13 +293,13 @@ $lang['v_rpt_ve_viewYesterday']	=	 "昨日の閲覧";
 $lang['v_rpt_ve_ersionSY']	=	 "昨日の統計量のバージョン";
 $lang['v_rpt_ve_competeLoad']	=	 "データ読込みが完了しました!";
 $lang['v_rpt_ve_waitLoad']	=	 "データ読み込み中です...";
-		
+
 //view---report----frequency of use/usefrequency		
 $lang['v_rpt_uf_distribution']		='セッション配信';
 
 //view---report----usage duration		
 $lang['v_rpt_ud_distribution']	=	'利用の分布';
-		
+
 //view---report----pageviews		
 $lang['v_rpt_pv_details']	=	'ページ閲覧詳細';
 $lang['v_rpt_pv_page']	=	'ページ';
@@ -314,8 +316,8 @@ $lang['v_rpt_re_detailsOfProvince']	=	'都道府県別詳細';
 $lang['v_rpt_re_nation']	=	'国';
 $lang['v_rpt_re_province']	=	'都道府県';
 $lang['v_rpt_re_count']	=	'数量';
-		
-		
+
+
 //view---report----user retention		
 $lang['v_rpt_ur_retention']	=	'滞留';
 $lang['v_rpt_ur_firstUseDay']='使用開始日';
@@ -348,34 +350,34 @@ $lang['v_rpt_ur_seven_months']	=	'+7 ヶ月目';
 $lang['v_rpt_ur_eight_months']	=	'+8 ヶ月目';
 $lang['v_rpt_ur_payAttention']	=	 "なぜユーザーの滞留に注意するのでしょうか?";
 $lang['v_rpt_ur_details']	=	 "時々もしくは週ごとに新規ユーザーがまだアプリを後で異なる時間使用しているかに注目することです。 そのことでユーザーが最初に使用してからどのぐらい期間で簡単にアプリを使用しなくなるかが理解できます。もっともユーザーが使用しなくなるまでの期間を発見できます。アプリの戦略、アプリ使用によるインセンティブやそのほかの方法でユーザー喪失数を減らしましょう。";
-		
+
 //view---report----devices		
 $lang['v_rpt_de_top10']	=	'機器トップ10';
 $lang['v_rpt_de_details']	=	'デバイスタイプ詳細';
 $lang['v_rpt_de_type']	=	'デバイスタイプ';
-		
+
 //view---report----os		
 $lang['v_rpt_os_top10']	=	'OSバージョントップ10';
 $lang['v_rpt_os_details']	=	'OS詳細';
 $lang['v_rpt_os_version']	=	'OSバージョン';
-		
+
 //view---report----resolution		
-		
+
 $lang['v_rpt_re_top10']	=	'解像度トップ10';
 $lang['v_rpt_re_details']	=	'画面解像度詳細';
 $lang['v_rpt_re_screen']	=	'画面解像度';
-		
-		
+
+
 //view---report----carriers/operator		
 $lang['v_rpt_op_top10']	=	'通信事業者トップ10';
 $lang['v_rpt_op_details']	=	'通信事業者詳細';
 $lang['v_rpt_op_carrier']	=	'通信事業者';
-		
+
 //view---report----networking		
-		
+
 $lang['v_rpt_nw_top10']	=	'ネットワーク方式トップ10';
 $lang['v_rpt_nw_details']	=	'ネットワーク方式詳細';
-		
+
 //view---report----eventlist		
 $lang['v_rpt_el_allVersion']	=	'全バージョン';
 $lang['v_rpt_el_Version']='バージョン';
@@ -400,7 +402,7 @@ $lang['v_rpt_el_eventNum']	=	 'イベントメッセージ数';
 $lang['v_rpt_el_eventNumA']	=	 'イベントメッセージ数/アクティブユーザー数';
 $lang['v_rpt_el_eventNumS']	=	 'イベントメッセージ数/セッション数';
 $lang['v_rpt_el_eventIDExists']	=	 'このイベントIDはすでに存在します!';
-		
+
 //view---report----errorlog		
 $lang['v_rpt_err_errorTrends']	=	'エラートレンド';
 $lang['v_rpt_err_errorNums']	=	'エラー数';
@@ -425,7 +427,7 @@ $lang['v_rpt_err_urep']	=	 "未修復";
 $lang['v_rpt_err_deviceBrand']	=	 "デバイスブランド";
 $lang['v_rpt_err_versionDistribution']	=	 "バージョン配信";
 $lang['v_rpt_err_appVersionD']	=	 "アプリバージョンの配信";
-		
+
 //view---report----errorlog----track		
 $lang['v_rpt_err_notRepaired']	=	'(このエラーは修復されませんでした)';
 $lang['v_rpt_err_repaired']	=	'(このエラーは修復されました)';
@@ -437,8 +439,8 @@ $lang['v_rpt_err_OSDistribution']	=	'OS配信';
 $lang['v_rpt_err_OSDistributionComment']	=	'OSバージョンの配信';
 $lang['v_rpt_err_device']	=	'デバイス';
 $lang['v_rpt_err_view']	=	'閲覧';
-		
-		
+
+
 // view----manange----product		
 $lang['v_man_pr_createApp']	=	'アプリ作成';
 $lang['v_man_pr_description']	=	'内容';
@@ -459,7 +461,7 @@ $lang['v_man_pr_waitAddC']	=	"チャンネルを追加しています...";
 $lang['v_man_pr_editChannel']	=	 'チャンネル編集';
 $lang['v_man_pr_changeChannel']	=	 'チャンネル変更';
 $lang['v_man_pr_openApp']	=	 'アプリチャネルを開いてもいいですか?';
-		
+
 /*content is null*/		
 $lang['v_man_pr_nameFieldIfNone']	=	'アプリネームの入力が必要です!';
 $lang['v_man_pr_typeFieldIfNone']	=	'アプリタイプの入力が必要です!';
@@ -469,14 +471,14 @@ $lang['v_man_pr_selectPlatform']	=	'プラットフォームを選択してく�
 $lang['v_man_pr_selectChannel']	=	'チャンネル形式を選択してください!';
 $lang['v_man_pr_submitSuccess']	='追加成功アプリキー:';
 $lang['v_man_pr_submitSuccessReturn']	=	'アプリ一覧へ戻る';
-		
+
 $lang['v_man_pr_editApp']	=	'アプリ編集';
 $lang['v_man_pr_name']	=	'名前*';
 $lang['v_man_pr_appType']	=	'アプリ形式*';
 $lang['v_man_pr_platform']	=	'プラットフォーム*';
-		
-		
-		
+
+
+
 // view----manange----onlineconfig		
 $lang['v_man_oc_sendPC']	=	'ポリシー設定送信';
 $lang['v_man_oc_setAutoPos']	=	'自動位置設定機能を開く';
@@ -485,19 +487,19 @@ $lang['v_man_oc_sendDataOnStarted']	=	'SDKはアプリ開始時点の最終セ�
 $lang['v_man_oc_sendDataInRealTime']	=	'SDKはリアルタイムにデータ送信する。 (推奨データの遅延が最少になります)';
 $lang['v_man_oc_setIntervalTime']	=	'2つのセッションのタイムインターバル設定';
 $lang['v_man_oc_configSuccess']	=	'オンラインでの環境設定は完了しました!';
-		
+
 //view---manage---event		
 $lang['v_man_ev_productCustomEvent']	=	'アプリカスタムイベント';
 $lang['v_man_ev_productEventList']	=	'アプリイベントリスト';
 $lang['v_man_ev_editCustomEvent']	=	'カスタムイベント編集';
 $lang['v_man_ev_modifyEvent']	=	'カスタムイベント修正';
 $lang['v_man_ev_resetEventPrompt']	=	'リセット操作はこのイベントのすべてのデータを消去します。あらかじめこのイベントのすべての履歴データをエクスポートすることを推奨します! このイベントをリセットしますか?';
-		
+
 $lang['v_man_ev_addCustomEvent']	=	'カスタムイベント追加';
 $lang['v_man_ev_addEvent']	=	'イベント追加';
 $lang['v_man_ev_errorInputEI']	=	'入力されたイベントIDが不正です!';
 $lang['v_man_ev_errorInputEN']	=	'入力されたイベント名が不正です!';
-		
+
 //view---manage---exception		
 $lang['v_man_ev_productalter']	=	'スマート通知';
 $lang['v_man_ev_productAlertList']	=	'スマート通知のリスト';
@@ -514,7 +516,7 @@ $lang['v_rpt_el_noteofemail']	=	'少なくとも1つのメールアドレスを�
 $lang['v_rpt_el_noteofcondition']	=	'通知したい範囲を入力してください。';
 $lang['v_rpt_addlab']	=	'スマート通知の追加';
 $lang['v_rpt_addok']	=	'追加されました';
-		
+
 $lang['emailtext']	=	"Cobub Razorのユーザー様:<br><br>
 
 モバイルアプリケーション %sのデータ変動値は%sの期待値を超えています:<br>
@@ -536,7 +538,7 @@ $lang['t_activeUserException']	=	'アクティブユーザーデータ例外';
 $lang['t_sessionsException']	=	'開始時間データ例外';
 $lang['t_accumulatedUsersException']	=	'累計ユーザーデータ例外';
 $lang['t_averageUsageDurationException']	=	'平均変動データ例外';
-		
+
 //view---manage---channel		
 $lang['v_man_ch_appChannel']	=	'チャンネル追加';
 $lang['v_man_ch_sysChannel']	=	'システムチャンネル';
@@ -551,11 +553,11 @@ $lang['v_man_ch_opened']	=	'オープン';
 $lang['v_man_ch_closed']	=	'クローズ';
 $lang['v_man_ch_autoUpdate']	=	'自動アップデート';
 $lang['v_man_ch_name'] 	=	 "チャンネル";
-		
-		
-		
-		
-		
+
+
+
+
+
 //view---manage---autoupdate		
 $lang['v_man_au_current']	=	'現在のバージョン';
 $lang['v_man_au_latestUpdateTime']	=	'最終更新時間';
@@ -576,7 +578,7 @@ $lang['v_man_au_deleteAppS']	=	 "アプリの削除が成功しました";
 $lang['v_man_au_addSuccess']	=	 '追加に成功しました';
 $lang['v_man_au_versionError']	=	"バージョン形式が不正です";
 //view---manage---autoupdate-info		
-		
+
 $lang['v_man_au_info_autoUpdate']	=	'自動更新';
 $lang['v_man_au_info_updateApk']	=	'APK更新*';
 $lang['v_man_au_info_selectFile']	=	'ファイル選択';
@@ -588,10 +590,10 @@ $lang['v_man_au_info_deletePrompt']	=	'自動更新を削除しますか?';
 $lang['v_man_au_info_appUrl']	=	 'アプリUrl*';
 $lang['v_man_au_info_versionID']	=	 'バージョンID*';
 $lang['v_man_au_info_fillOpenURL']	='開くURLを入力してください。(http:, https:, tel:, mailto: etc. schemes)';
-		
+
 $lang['v_Nopermission']	=	 "このページにアクセスする権限がありません。管理者に連絡してください。!";
-		
-		
+
+
 //view---manage---Funnel		
 $lang ['v_rpt_re_funnelModel']	=	 "変換";
 $lang ['v_rpt_re_funnelList']	=	 "グループ変換";
@@ -625,7 +627,7 @@ $lang['v_rpt_re_eventOverview']	=	 'イベント概要';
 $lang['v_rpt_re_eventNumber']	=	 'イベント番号';
 $lang['v_rpt_re_conversionRate']	=	 '変換率';
 $lang['v_rpt_re_eventcount']	=	 'イベント統計量';
-		
+
 /******************************************Terms****************************************************/		
 // term----		
 $lang['t_error']	=	 'エラー';
@@ -699,8 +701,8 @@ $lang['t_numberOfPageViews_def']	=	'ページ閲覧(%)は現在のページの�
 $lang['t_averageDuration_def']	=	'このページの平均訪問時間(現在のページの滞留時間 / 全てのページの滞留時間の合計 )。閲覧継続時間はページに入ってきたイベントとページを去ったイベントの間の時間の長さです。平均継続時間はユーザーがこのページにどれだけの時間を費やしたかをモニターすることを可能にします。';
 $lang['t_bounceRate_def']	=	'ページ再訪率(%)はユーザーがページを訪問した時間とユーザーがページを離れていた時間の比率です。 ページ再訪率はユーザー喪失の監視と改善の助けとなります。';
 $lang['t_userRetention_def']	=	'ユーザー滞留はどれだけ多くの新規ユーザーがある一定時間経過後にまだアプリを使い続けているかの測定方法です。　対応して、ユーザー喪失の数値があります。 ユーザー滞留 + ユーザー喪失 ';
-		
-		
+
+
 /*****************************************General****************************************/	
 $lang ['g_others']	=	 "その他";
 $lang ['g_submit']	=	 "送信";
@@ -741,17 +743,17 @@ $lang['g_exportToCSV']	=	'CSVファイルへの書出し';
 $lang['g_decriptionOfData']	=	'データmetricsの内容';
 $lang['g_timeError']	=	"開始時間または終了時間のエラー";
 $lang['g_noData']	=	"データ無し";
-		
+
 $lang['g_previousPage']	=	'前のページ';
 $lang['g_nextPage']	=	'次のページ';
-		
+
 $lang['g_printChart']	=	'チャート印刷';
 $lang['g_exportChart']	=	'ラスタイメージもしくはベクターイメージへの出力';
 $lang['g_downloadPNG']	=	'PNG画像のダウンロード';
 $lang['g_downloadJPEG']	=	'JPEG画像のダウンロード';
 $lang['g_downloadPDF']	=	'PDF文書のダウンロード';
 $lang['g_downloadSVG']	=	'SVGベクター画像のダウンロード';
-		
+
 /*****************************************Controller****************************************/		
 $lang['c_user']	=	'システム管理';
 $lang['c_product']	=	'アプリ';
@@ -782,7 +784,7 @@ $lang['c_network']	=	'ネットワーク統計量';
 $lang['c_funnels']	=	'ファンネル数';
 $lang['c_erroronos']	=	'OS上のエラー数';
 $lang['c_errorondevice']	=	'デバイス上のエラー数';
-		
+
 /***************************************widget report name**********************************************/		
 $lang['w_savereport']	=	"位置情報保存の報告されました。";
 $lang['w_addreport']	=	'レポートの追加';
@@ -869,10 +871,10 @@ $lang['plg_use_instruct']='使用説明書';
 $lang['plg_plugin_manage']='プラグインマネージャー';
 $lang['plg_get_keysecret_home']='あなたは、ユーザ·センター·アカウント認証をCobubいない。
 プラグイン機能を使用する前に、Cobubユーザ·センターに署名してください。
-認可を考慮するには？';
+<a href="http://www.cobub.com/users/en/index.php?/help/userkey" target="_blank">認可を考慮するには？</a>';
 $lang['plg_get_keysecret']='あなたのアカウントはCobubユーザ·センター承認で行われていません。
 Cobubユーザ·センターに署名し、センターが提供するCobubユーザーが豊富な機能後に使用可能になっているアカウントの認証を完了する認証コードを取得する。
-認可を考慮するには？';
+<a href="http://www.cobub.com/users/en/index.php?/help/userkey" target="_blank">認可を考慮するには？</a>';
 $lang['plg_get_account']='すでに認証コードを使用している場合,アカウント認証をクリックしてください。';
 /******************************view report plug**************************************/
 $lang['v_cobub_user_center']='Cobub ユーザーセンター';

@@ -2,15 +2,17 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
 //public begin//
 
@@ -942,13 +944,13 @@ $lang['plg_use_instruct']='Instructions For Use';
 $lang['plg_plugin_manage']='Plugin Manager';
 $lang['plg_get_keysecret_home']='You have not <a href="http://dev.cobub.com/users/en/" target="_blank" >Cobub User Center</a>
 account authorization. Please Sign Cobub User Center before using plug-in functionality. 
-<a href="http://dev.cobub.com/userkey/" target="_blank">How to account authorization?</a>';
+<a href="http://www.cobub.com/users/en/index.php?/help/userkey" target="_blank">How to account authorization?</a>';
 $lang['v_cobub_user_center']='Cobub Users Center';
 
 $lang['plg_get_keysecret']='You have not Cobub User Center account authorization.
 Sign Cobub User Center and obtain an authorization code to complete the account authorization, 
 which is available after Cobub User Center provides the rich functionality. 
-<a href="http://dev.cobub.com/userkey/" target="_blank">How to account authorization?</a>If you already have an authorization code, Please click ';
+<a href="http://www.cobub.com/users/en/index.php?/help/userkey" target="_blank">How to account authorization?</a>If you already have an authorization code, Please click ';
 $lang['plg_get_account']='account authorization.';
 /******************************view report plug**************************************/
 $lang['v_plugins_account']='Account Authorization';
