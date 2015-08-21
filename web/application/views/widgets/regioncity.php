@@ -1,7 +1,8 @@
-<!-- Region country -->
-<section class="section_maeginstyle" id="highchart"
-    <?php
-    /**
+<!-- Region City -->
+<section class="section_maeginstyle" id="highchart" 
+<?php
+
+/**
  * Region
  * @category  MobileAnalytics
  * @package   CobubRazor
@@ -11,11 +12,11 @@
  * @link      http://www.cobub.com
  * @since     Version 0.1
  */
-    if (!isset($delete)) { ?>
-        style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png) repeat-y left top;"
+    if (!isset($delete)) {  ?>
+        style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png) repeat-y left top;" 
         <?php 
     } 
-        ?>>
+    ?>>
     <!-- Country -->
     <article class="module width_full">
         <header>
@@ -26,7 +27,7 @@
                         <img src="<?php echo base_url(); ?>assets/images/addreport.png"
                              title="<?php echo lang('s_suspend_title') ?>" style="border:0"/></a>
                 <?php 
-} 
+}
 if (isset($delete)) { ?>
                     <a href="#" onclick="deletereport()">
                         <img src="<?php echo base_url(); ?>assets/images/delreport.png"
@@ -36,10 +37,10 @@ if (isset($delete)) { ?>
                 ?>
             </div>
             <h3 class="h3_fontstyle">
-                <?php echo lang('v_rpt_re_top10Nations') ?></h3>
+                <?php echo lang('v_rpt_re_top10City') ?></h3>
             <ul class="tabs2">
-                <li><a ct="sessions"
-                       href="javascript:changeReportType('sessions')"><?php echo lang('t_sessions') ?></a></li>
+                <li><a ct="sessions" href="javascript:changeReportType('sessions')"><?php echo lang('t_sessions') ?></a>
+                </li>
                 <li><a ct="newuser" href="javascript:changeReportType('newuser')"><?php echo lang('t_newUsers') ?></a>
                 </li>
             </ul>
@@ -52,13 +53,13 @@ if (isset($delete)) { ?>
     var chart;
     var options;
 
-    var countryActiveUserData = [];
-    var countryActiveUserCategories = [];
-    var countryActiveUserPercentCategories = [];
+    var citySessionData = [];
+    var citySessionCategories = [];
+    var citySessionPercentCategories = [];
 
-    var countryNewUserData = [];
-    var countryNewUserCategories = [];
-    var countryNewUserPercentCategories = [];
+    var cityNewUserData = [];
+    var cityNewUserCategories = [];
+    var cityNewUserPercentCategories = [];
     options = {
         chart: {
             renderTo: 'container',
@@ -145,11 +146,11 @@ if (isset($delete)) { ?>
 
     $(document).ready(function () 
     {
-        var countryDataURL = "<?php echo site_url();?>/report/region/getCountryData";
-        renderCountryCharts(countryDataURL);
+        var cityDataURL = "<?php echo site_url();?>/report/region/getCityData";
+        renderCityCharts(cityDataURL);
     });
 
-    function renderCountryCharts(myurl) 
+    function renderCityCharts(myurl) 
     {
         var chart_canvas = $('#container');
         var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
@@ -170,23 +171,23 @@ if (isset($delete)) { ?>
 
         jQuery.getJSON(myurl, null, function (data) {
 
-            var obj = data.activeUserData;
+            var obj = data.citySessionData;
             for (i = 0; i < obj.length; i++) {
-                if (obj[i].country_name == 'unknown') {
-                    obj[i].country_name = '<?php echo lang('t_unknow')?>'
+                if (obj[i].city_name == 'unknown') {
+                    obj[i].city_name = '<?php echo lang('t_unknow')?>'
                 }
-                countryActiveUserCategories.push(obj[i].country_name);
-                countryActiveUserData.push(parseInt(obj[i].sessions));
+                citySessionCategories.push(obj[i].city_name);
+                citySessionData.push(parseInt(obj[i].sessions));
                 //countryActiveUserPercentCategories.push(Math.round(1000)/10);
             }
 
-            var objNewUserData = data.newUserData;
+            var objNewUserData = data.cityNewUserData;
             for (i = 0; i < objNewUserData.length; i++) {
-                if (objNewUserData[i].country_name == 'unknown') {
-                    objNewUserData[i].country_name = '<?php echo lang('t_unknow')?>'
+                if (objNewUserData[i].city_name == 'unknown') {
+                    objNewUserData[i].city_name = '<?php echo lang('t_unknow')?>'
                 }
-                countryNewUserCategories.push(objNewUserData[i].country_name);
-                countryNewUserData.push(parseInt(objNewUserData[i].newusers));
+                cityNewUserCategories.push(objNewUserData[i].city_name);
+                cityNewUserData.push(parseInt(objNewUserData[i].newusers));
                 //countryNewUserPercentCategories.push(Math.round(1000)/10);
             }
 
@@ -198,22 +199,22 @@ if (isset($delete)) { ?>
     {
         if (reportType == "sessions") {
             options.chart.renderTo = "container";
-            options.series[0].data = countryActiveUserData;
-            options.series[1].data = countryActiveUserData;
-            options.xAxis[0].categories = countryActiveUserCategories;
-            options.xAxis[1].categories = countryActiveUserPercentCategories;
-            options.title.text = '<?php echo $reportTitle['activeUserReport'] ?>';
+            options.series[0].data = citySessionData;
+            options.series[1].data = citySessionData;
+            options.xAxis[0].categories = citySessionCategories;
+            options.xAxis[1].categories = citySessionPercentCategories;
+            options.title.text = '<?php echo $reportTitle['citysessionsReport'] ?>';
             options.subtitle.text = '<?php echo $reportTitle['timePhase'] ?>';
             chart = new Highcharts.Chart(options);
         }
 
         if (reportType == "newuser") {
             options.chart.renderTo = "container";
-            options.series[0].data = countryNewUserData;
-            options.series[1].data = countryNewUserData;
-            options.xAxis[0].categories = countryNewUserCategories;
-            options.xAxis[1].categories = countryNewUserPercentCategories;
-            options.title.text = '<?php echo $reportTitle['newUserReport'] ?>';
+            options.series[0].data = cityNewUserData;
+            options.series[1].data = cityNewUserData;
+            options.xAxis[0].categories = cityNewUserCategories;
+            options.xAxis[1].categories = cityNewUserPercentCategories;
+            options.title.text = '<?php echo $reportTitle['citynewUserReport'] ?>';
             options.subtitle.text = '<?php echo $reportTitle['timePhase'] ?>';
             chart = new Highcharts.Chart(options);
         }

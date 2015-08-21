@@ -315,8 +315,10 @@ $lang['v_rpt_re_top10ProvincesActive']='Top 10 Aktive Benutzer der Provinzen';
 $lang['v_rpt_re_top10ProvincesNew']='Top 10 neue Benutzer der Provinzen';
 $lang['v_rpt_re_detailsOfNation']='Details von Nation';
 $lang['v_rpt_re_detailsOfProvince']='Details von Provinz';
+$lang['v_rpt_re_detailsOfCity']='Details of City';
 $lang['v_rpt_re_nation']='Nation';
 $lang['v_rpt_re_province']='Provinzen';
+$lang['v_rpt_re_city']='City';
 $lang['v_rpt_re_count']='zählen';
 
 
@@ -637,6 +639,7 @@ $lang['t_activeUsers']='Aktive Benutzer';
 $lang['t_percentOfNewUsers']='Benutzer in Prozent';
 $lang['t_newUsersP'] = "Prozent vom neuen Benutzer";
 $lang['t_sessions']='Sitzungen';
+$lang['t_sessionsP']='Benutzer in Sitzungen';
 $lang['t_averageUsageDuration']='Durchschnittliche Nutzungsdauer';
 $lang['t_accumulatedUsers']='erfasste Benutzer';
 $lang['t_accumulatedStarts']='erfasste Sitzung';

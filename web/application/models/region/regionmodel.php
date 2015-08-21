@@ -12,35 +12,38 @@
  * @since		Version 1.0
  * @filesource
  */
-class Regionmodel extends CI_Model {
-	function __construct() {
-		$this->load->database ();
-		$this->load->model ( 'common' );
-	
-	}
-	
-	/*
-	 * Get active user percent by country
-	 */
-	function getactivebycountry($fromTime, $toTime, $productid,$pageFrom=0,$count=REPORT_TOP_TEN) {
-		$dwdb = $this->load->database ( 'dw', TRUE );	
-		$sql="
+class Regionmodel extends CI_Model
+{
+    function __construct()
+    {
+        $this -> load -> database();
+        $this -> load -> model('common');
+
+    }
+
+    /*
+     * Get active user percent by country
+     */
+    function getactivebycountry($fromTime, $toTime, $productid, $pageFrom = 0, $count = REPORT_TOP_TEN)
+    {
+        $dwdb = $this -> load -> database('dw', TRUE);
+        $sql = "
         select   l.country, count(distinct f.deviceidentifier) as access,
          count(distinct f.deviceidentifier)
            / (select count(distinct ff.deviceidentifier,ll.country) percent
-              from  ".$dwdb->dbprefix('fact_clientdata')."   ff,
-                    ".$dwdb->dbprefix('dim_date')."  dd,
-                    ".$dwdb->dbprefix('dim_product')."  pp,
-                   ".$dwdb->dbprefix('dim_location')."   ll
+              from  " . $dwdb -> dbprefix('fact_clientdata') . "   ff,
+                    " . $dwdb -> dbprefix('dim_date') . "  dd,
+                    " . $dwdb -> dbprefix('dim_product') . "  pp,
+                   " . $dwdb -> dbprefix('dim_location') . "   ll
               where  ff.date_sk = dd.date_sk
                      and ff.product_sk = pp.product_sk
                      and ff.location_sk = ll.location_sk
                      and dd.datevalue between '$fromTime' and '$toTime'
                      and pp.product_id = $productid and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) percentage
-from   ".$dwdb->dbprefix('fact_clientdata')."     f,
-      ".$dwdb->dbprefix('dim_date')."     d,
-       ".$dwdb->dbprefix('dim_product')."    p,
-       ".$dwdb->dbprefix('dim_location')."    l
+from   " . $dwdb -> dbprefix('fact_clientdata') . "     f,
+      " . $dwdb -> dbprefix('dim_date') . "     d,
+       " . $dwdb -> dbprefix('dim_product') . "    p,
+       " . $dwdb -> dbprefix('dim_location') . "    l
 where    f.date_sk = d.date_sk
          and f.product_sk = p.product_sk
          and f.location_sk = l.location_sk
@@ -49,34 +52,36 @@ where    f.date_sk = d.date_sk
 group by l.country
 order by percentage desc  limit $pageFrom,$count;
 		";
-		
-		$query = $dwdb->query ( $sql );		
-		return $query;
-	
-	}
-	
-	/*
-	 * Get new user percent by country
-	 */
-	function getnewbycountry($fromTime, $toTime, $productid,$count=REPORT_TOP_TEN) {
-		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql="
+
+        $query = $dwdb -> query($sql);
+        return $query;
+
+    }
+
+    /*
+     * Get new user percent by country
+     */
+     /*
+    function getnewbycountry($fromTime, $toTime, $productid, $count = REPORT_TOP_TEN)
+    {
+        $dwdb = $this -> load -> database('dw', TRUE);
+        $sql = "
 select   l.country,count(distinct f.deviceidentifier)  as access,
          count(distinct f.deviceidentifier) 
            / (select count(distinct ff.deviceidentifier,ll.country) percent
-              from  ".$dwdb->dbprefix('fact_clientdata')."     ff,
-                   ".$dwdb->dbprefix('dim_date')."     dd,
-                   ".$dwdb->dbprefix('dim_product')."     pp,
-                   ".$dwdb->dbprefix('dim_location')."     ll
+              from  " . $dwdb -> dbprefix('fact_clientdata') . "     ff,
+                   " . $dwdb -> dbprefix('dim_date') . "     dd,
+                   " . $dwdb -> dbprefix('dim_product') . "     pp,
+                   " . $dwdb -> dbprefix('dim_location') . "     ll
               where  ff.date_sk = dd.date_sk
                      and ff.product_sk = pp.product_sk
                      and ff.location_sk = ll.location_sk
                      and dd.datevalue between '$fromTime' and '$toTime'
                      and pp.product_id = $productid and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1 and ff.isnew=1) percentage
-from    ".$dwdb->dbprefix('fact_clientdata')."     f,
-      ".$dwdb->dbprefix('dim_date')."      d,
-      ".$dwdb->dbprefix('dim_product')."      p,
-      ".$dwdb->dbprefix('dim_location')."      l
+from    " . $dwdb -> dbprefix('fact_clientdata') . "     f,
+      " . $dwdb -> dbprefix('dim_date') . "      d,
+      " . $dwdb -> dbprefix('dim_product') . "      p,
+      " . $dwdb -> dbprefix('dim_location') . "      l
 where    f.date_sk = d.date_sk
          and f.product_sk = p.product_sk
          and f.location_sk = l.location_sk
@@ -86,33 +91,35 @@ group by l.country
 order by percentage desc limit 0, $count;
 
 		";
-		$query = $dwdb->query ( $sql );
-		return $query;
-	}
-	
-	/*
-	 * Get  active users percent group by region
-	 */
-	function getactivebypro($fromTime, $toTime, $productid,$country,$pageFrom=0,$count=REPORT_TOP_TEN) {
-		$dwdb = $this->load->database ( 'dw', TRUE );	
-		$sql="
+        $query = $dwdb -> query($sql);
+        return $query;
+    }
+*/
+    /*
+     * Get  active users percent group by region
+     */
+     /*
+    function getactivebypro($fromTime, $toTime, $productid, $country, $pageFrom = 0, $count = REPORT_TOP_TEN)
+    {
+        $dwdb = $this -> load -> database('dw', TRUE);
+        $sql = "
 select   l.region,count(distinct f.deviceidentifier) as access,
          count(distinct f.deviceidentifier)
            / (select count(distinct ff.deviceidentifier,ll.region) percent
-              from   ".$dwdb->dbprefix('fact_clientdata')."    ff,
-                    ".$dwdb->dbprefix('dim_date')."    dd,
-                    ".$dwdb->dbprefix('dim_product')."    pp,
-                   ".$dwdb->dbprefix('dim_location')."     ll
+              from   " . $dwdb -> dbprefix('fact_clientdata') . "    ff,
+                    " . $dwdb -> dbprefix('dim_date') . "    dd,
+                    " . $dwdb -> dbprefix('dim_product') . "    pp,
+                   " . $dwdb -> dbprefix('dim_location') . "     ll
               where  ll.country = '$country'
                      and ff.date_sk = dd.date_sk
                      and ff.product_sk = pp.product_sk
                      and ff.location_sk = ll.location_sk
                      and dd.datevalue between '$fromTime' and '$toTime'
                      and pp.product_id = $productid and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) percentage
-from    ".$dwdb->dbprefix('fact_clientdata')."     f,
-      ".$dwdb->dbprefix('dim_date')."      d,
-      ".$dwdb->dbprefix('dim_product')."      p,
-       ".$dwdb->dbprefix('dim_location')."     l
+from    " . $dwdb -> dbprefix('fact_clientdata') . "     f,
+      " . $dwdb -> dbprefix('dim_date') . "      d,
+      " . $dwdb -> dbprefix('dim_product') . "      p,
+       " . $dwdb -> dbprefix('dim_location') . "     l
 where    l.country = '$country'
          and f.date_sk = d.date_sk
          and f.product_sk = p.product_sk
@@ -123,34 +130,35 @@ group by l.region
 order by percentage desc limit $pageFrom,$count;
 
 		";
-		//echo $sql;
-		$query = $dwdb->query ( $sql );
-		return $query;
-	}
-	
-	/*
-	 * Get new user percent group by region
-	 */
-	function getnewbypro($fromTime, $toTime, $productid,$country,$count=REPORT_TOP_TEN) {
-		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql="
+        //echo $sql;
+        $query = $dwdb -> query($sql);
+        return $query;
+    }
+*/
+    /*
+     * Get new user percent group by region
+     */
+    function getnewbypro($fromTime, $toTime, $productid, $country, $count = REPORT_TOP_TEN)
+    {
+        $dwdb = $this -> load -> database('dw', TRUE);
+        $sql = "
 select   l.region,count(distinct f.deviceidentifier) as access, 
          count(distinct f.deviceidentifier)
            / (select count(distinct ff.deviceidentifier,ll.region) percent
-              from  ".$dwdb->dbprefix('fact_clientdata')."    ff,
-                    ".$dwdb->dbprefix('dim_date')."    dd,
-                    ".$dwdb->dbprefix('dim_product')."    pp,
-                    ".$dwdb->dbprefix('dim_location')."    ll
+              from  " . $dwdb -> dbprefix('fact_clientdata') . "    ff,
+                    " . $dwdb -> dbprefix('dim_date') . "    dd,
+                    " . $dwdb -> dbprefix('dim_product') . "    pp,
+                    " . $dwdb -> dbprefix('dim_location') . "    ll
               where  ll.country = '$country'
                      and ff.date_sk = dd.date_sk
                      and ff.product_sk = pp.product_sk
                      and ff.location_sk = ll.location_sk
                      and dd.datevalue between '$fromTime' and '$toTime'
                      and pp.product_id = $productid and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1 and ff.isnew=1) percentage
-from   ".$dwdb->dbprefix('fact_clientdata')."      f,
-         ".$dwdb->dbprefix('dim_date')."   d,
-         ".$dwdb->dbprefix('dim_product')."   p,
-         ".$dwdb->dbprefix('dim_location')."   l
+from   " . $dwdb -> dbprefix('fact_clientdata') . "      f,
+         " . $dwdb -> dbprefix('dim_date') . "   d,
+         " . $dwdb -> dbprefix('dim_product') . "   p,
+         " . $dwdb -> dbprefix('dim_location') . "   l
 where    l.country = '$country'
          and f.date_sk = d.date_sk
          and f.product_sk = p.product_sk
@@ -161,106 +169,106 @@ group by l.region
 order by percentage desc  limit 0, $count;
 
 		";
-		$query = $dwdb->query ( $sql );
-		return $query;
-	}
-	
-	/*
-	 * Get country export data
-	 */
-    function getcountryexport($fromTime, $toTime, $productid) {
-		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql="
-		select   l.country,count(distinct f.deviceidentifier) as access,
-		count(distinct f.deviceidentifier)
-		/ (select count(distinct ff.deviceidentifier,ll.country) percent
-		from  ".$dwdb->dbprefix('fact_clientdata')."    ff,
-	 ".$dwdb->dbprefix('dim_date')." 	 dd,
-	 ".$dwdb->dbprefix('dim_product')." 	 pp,
-	 ".$dwdb->dbprefix('dim_location')." 	 ll
-		where  ff.date_sk = dd.date_sk
-		and ff.product_sk = pp.product_sk
-		and ff.location_sk = ll.location_sk
-		and dd.datevalue between '$fromTime' and '$toTime'
-		and pp.product_id = $productid and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) percentage
-		from  ".$dwdb->dbprefix('fact_clientdata')."      f,
-		 ".$dwdb->dbprefix('dim_date')."  d,
-		 ".$dwdb->dbprefix('dim_product')."  p,
-		 ".$dwdb->dbprefix('dim_location')."  l
-		where    f.date_sk = d.date_sk
-		and f.product_sk = p.product_sk
-		and f.location_sk = l.location_sk
-		and d.datevalue between '$fromTime' and '$toTime'
-		and p.product_id = $productid and p.product_active=1 and p.channel_active=1 and p.version_active=1
-		group by l.country
-		order by percentage desc ;
-		";
-		
-		$query = $dwdb->query ( $sql );
-		return $query;
-	
-	}
-	
-	/*
-	 * Get region export data
-	 */
-	function getproexport($fromTime, $toTime, $productid,$country){
-	$dwdb = $this->load->database ( 'dw', TRUE );
-	$sql="
-	select   l.region, count(distinct f.deviceidentifier) as access,
-	count(distinct f.deviceidentifier)
-	/ (select count(distinct ff.deviceidentifier,ll.region) percent
-	from  ".$dwdb->dbprefix('fact_clientdata')."    ff,
-	 ".$dwdb->dbprefix('dim_date')."  dd,
-	 ".$dwdb->dbprefix('dim_product')."  pp,
-	 ".$dwdb->dbprefix('dim_location')."  ll
-	where  ll.country = '$country'
-	and ff.date_sk = dd.date_sk
-	and ff.product_sk = pp.product_sk
-	and ff.location_sk = ll.location_sk
-	and dd.datevalue between '$fromTime' and '$toTime'
-	and pp.product_id = $productid and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) percentage
-	from   ".$dwdb->dbprefix('fact_clientdata')."     f,
-	 ".$dwdb->dbprefix('dim_date')."  d,
-	 ".$dwdb->dbprefix('dim_product')."  p,
-	 ".$dwdb->dbprefix('dim_location')."  l
-	where    l.country = '$country'
-	and f.date_sk = d.date_sk
-	and f.product_sk = p.product_sk
-	and f.location_sk = l.location_sk
-	and d.datevalue between '$fromTime' and '$toTime'
-	and p.product_id = $productid
-	group by l.region
-	order by percentage desc ;
-	
-	";	
-		$query = $dwdb->query ( $sql );
-		return $query;
-	}
-	
-	
-	/*
-	 * Get total users by country
-	 */
-	function gettotalacbycountry($fromTime, $toTime, $productid) {
-		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql="
+        $query = $dwdb -> query($sql);
+        return $query;
+    }
+
+    /*
+     * Get country export data
+     */
+    function getcountryexport($fromTime, $toTime, $productid)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.country country_name,sum(sessions) sessions,sum(newusers) newusers
+        from " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . "  d ,
+        " . $dwdb->dbprefix('dim_location') . "  l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productid
+        and d.date_sk = f.date_sk 
+        and f.location_sk = l.location_sk
+        and l.country <> 'unknown' 
+        and l.country <> '局域网'
+        group by l.country 
+        order by sessions desc ";
+        $query = $dwdb->query($sql);
+        return $query;
+
+    }
+
+    /*
+     * Get region export data
+     */
+    function getproexport($fromTime, $toTime, $productid, $country)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.region region_name, sum(sessions) sessions,sum(newusers) newusers
+        from " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . " d ,
+        " . $dwdb->dbprefix('dim_location') . "  l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productid
+        and d.date_sk = f.date_sk
+        and f.location_sk = l.location_sk
+        and l.country <> 'unknown'
+        and l.country <> '局域网'
+        and l.region <> 'unknown'
+        and l.region <> '局域网'
+        group by l.country,l.region
+        order by sessions desc";
+        $query = $dwdb->query($sql);
+        
+        return $query;
+    }
+
+    function getcityexport($fromTime, $toTime, $productid, $country)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.city city_name,sum(sessions) sessions,sum(newusers) newusers from
+        " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . " d ,
+        " . $dwdb->dbprefix('dim_location') . " l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productid
+        and d.date_sk = f.date_sk
+        and f.location_sk = l.location_sk
+        and l.country <> 'unknown'
+        and l.country <> '局域网'
+        and l.region <> 'unknown'
+        and l.region <> '局域网'
+        and l.city <> 'unknown'
+        and l.city <> '局域网'
+        and l.city <> ''
+        group by l.country,l.region,l.city
+        order by sessions desc";
+        $query = $dwdb->query($sql);
+        return $query;
+    }
+
+
+    /*
+     * Get total users by country
+     */
+    function gettotalacbycountry($fromTime, $toTime, $productid)
+    {
+        $dwdb = $this -> load -> database('dw', TRUE);
+        $sql = "
 		select   l.country, count(distinct f.deviceidentifier) as access,
 		count(distinct f.deviceidentifier)
 		/ (select count(distinct ff.deviceidentifier,ll.country) percent
-		from  ".$dwdb->dbprefix('fact_clientdata')."    ff,
-		 ".$dwdb->dbprefix('dim_date')."  dd,
-		 ".$dwdb->dbprefix('dim_product')."  pp,
-		 ".$dwdb->dbprefix('dim_location')."  ll
+		from  " . $dwdb -> dbprefix('fact_clientdata') . "    ff,
+		 " . $dwdb -> dbprefix('dim_date') . "  dd,
+		 " . $dwdb -> dbprefix('dim_product') . "  pp,
+		 " . $dwdb -> dbprefix('dim_location') . "  ll
 		where  ff.date_sk = dd.date_sk
 		and ff.product_sk = pp.product_sk
 		and ff.location_sk = ll.location_sk
 		and dd.datevalue between '$fromTime' and '$toTime'
 		and pp.product_id = $productid and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) percentage
-		from   ".$dwdb->dbprefix('fact_clientdata')."     f,
-		 ".$dwdb->dbprefix('dim_date')."  d,
-		 ".$dwdb->dbprefix('dim_product')."  p,
-		 ".$dwdb->dbprefix('dim_location')."  l
+		from   " . $dwdb -> dbprefix('fact_clientdata') . "     f,
+		 " . $dwdb -> dbprefix('dim_date') . "  d,
+		 " . $dwdb -> dbprefix('dim_product') . "  p,
+		 " . $dwdb -> dbprefix('dim_location') . "  l
 		where    f.date_sk = d.date_sk
 		and f.product_sk = p.product_sk
 		and f.location_sk = l.location_sk
@@ -269,40 +277,38 @@ order by percentage desc  limit 0, $count;
 		group by l.country
 		order by percentage desc ;
 		";
-	 $query = $dwdb->query ( $sql );
-	 if($query!=null && $query->num_rows()>0)
-	 {
-	 	return $query->num_rows();
-	 }
-	 else
-	 {
-	 	return 0;
-	 }
-	}
-	
-	/*
-	 * Get total users by province
-	 */
-	function gettotalactivebypro($fromTime, $toTime, $productid,$country) {
-		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql="
+        $query = $dwdb -> query($sql);
+        if ($query != null && $query -> num_rows() > 0) {
+            return $query -> num_rows();
+        } else {
+            return 0;
+        }
+    }
+
+    /*
+     * Get total users by province
+     */
+    function gettotalactivebypro($fromTime, $toTime, $productid, $country)
+    {
+        $dwdb = $this -> load -> database('dw', TRUE);
+        $sql = "
 		select   l.region,
 		count(distinct f.deviceidentifier)
 		/ (select count(distinct ff.deviceidentifier,ll.region) percent
-		from  ".$dwdb->dbprefix('fact_clientdata')."    ff,
-		 ".$dwdb->dbprefix('dim_date')."  dd,
-		 ".$dwdb->dbprefix('dim_product')."  pp,
-		 ".$dwdb->dbprefix('dim_location')."  ll
+		from  " . $dwdb -> dbprefix('fact_clientdata') . "    ff,
+		 " . $dwdb -> dbprefix('dim_date') . "  dd,
+		 " . $dwdb -> dbprefix('dim_product') . "  pp,
+		 " . $dwdb -> dbprefix('dim_location') . "  ll
 		where  ll.country = '$country'
 		and ff.date_sk = dd.date_sk
 		and ff.product_sk = pp.product_sk
 		and ff.location_sk = ll.location_sk
 		and dd.datevalue between '$fromTime' and '$toTime'
 		and pp.product_id = $productid and pp.product_active=1 and pp.channel_active=1 and pp.version_active=1) percentage
-		from   ".$dwdb->dbprefix('fact_clientdata')."     f,
-		 ".$dwdb->dbprefix('dim_date')."  d,
-	 ".$dwdb->dbprefix('dim_product')." 	 p,
-		 ".$dwdb->dbprefix('dim_location')."  l
+		from   " . $dwdb -> dbprefix('fact_clientdata') . "     f,
+		 " . $dwdb -> dbprefix('dim_date') . "  d,
+	 " . $dwdb -> dbprefix('dim_product') . " 	 p,
+		 " . $dwdb -> dbprefix('dim_location') . "  l
 		where    l.country = '$country'
 		and f.date_sk = d.date_sk
 		and f.product_sk = p.product_sk
@@ -313,31 +319,363 @@ order by percentage desc  limit 0, $count;
 		order by percentage desc ;
 		
 		";
-	 $query = $dwdb->query ( $sql );
-	 if($query!=null && $query->num_rows()>0)
-	 {
-	 	return $query->num_rows();
-	 }
-	 else
-	 {
-	 	return 0;
-	 }
-	}
-	
-	/*
-	 * Get Total users percent by country
-	 */
-	function getTotalUsersPercentByCountry($productid) {
-		$dwdb = $this->load->database ( 'dw', TRUE );
-		$sql = "select l.country, count(distinct f.deviceidentifier) total,
+        $query = $dwdb -> query($sql);
+        if ($query != null && $query -> num_rows() > 0) {
+            return $query -> num_rows();
+        } else {
+            return 0;
+        }
+    }
+
+    /*
+     * Get Total users percent by country
+     */
+    function getTotalUsersPercentByCountry($productid)
+    {
+        $dwdb = $this -> load -> database('dw', TRUE);
+        $sql = "select l.country, count(distinct f.deviceidentifier) total,
 		 count(distinct f.deviceidentifier) /( select count(distinct ff.deviceidentifier,ll.country)
-		 percent from  ".$dwdb->dbprefix('fact_activeusers_clientdata')."   ff,   ".$dwdb->dbprefix('dim_product')."  pp,  ".$dwdb->dbprefix('dim_location')."  ll
+		 percent from  " . $dwdb -> dbprefix('fact_activeusers_clientdata') . "   ff,   " . $dwdb -> dbprefix('dim_product') . "  pp,  " . $dwdb -> dbprefix('dim_location') . "  ll
 		 where ff.product_sk=pp.product_sk and ff.location_sk=ll.location_sk
-		 and pp.product_id=$productid) percentage from  ".$dwdb->dbprefix('fact_activeusers_clientdata')." 
-		  f,  ".$dwdb->dbprefix('dim_product')."   p,  ".$dwdb->dbprefix('dim_location')."  l
+		 and pp.product_id=$productid) percentage from  " . $dwdb -> dbprefix('fact_activeusers_clientdata') . " 
+		  f,  " . $dwdb -> dbprefix('dim_product') . "   p,  " . $dwdb -> dbprefix('dim_location') . "  l
 		 where f.product_sk=p.product_sk and f.location_sk = l.location_sk
 		 and p.product_id=$productid group by l.country order by count(distinct f.deviceidentifier) desc";
-		$query = $dwdb->query ( $sql );
-		return $query;
-	}
+        $query = $dwdb -> query($sql);
+        return $query;
+    }
+    
+    ////country num ,total,sessions ,newusers
+    function getcountrynum($fromTime, $toTime, $productId)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.country country_name,sum(sessions) sessions,sum(newusers) newusers
+        from " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . "  d ,
+        " . $dwdb->dbprefix('dim_location') . "  l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productId
+        and d.date_sk = f.date_sk 
+        and f.location_sk = l.location_sk
+        and l.country <> 'unknown' 
+        and l.country <> '局域网'
+        group by l.country";
+        $query = $dwdb->query($sql);
+
+        if ($query != null && $query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
+    
+    /*
+     * Get onepage sessions newusers by country
+     */
+    function gettotalbycountry($fromTime, $toTime, $productId, $pageFrom = 0, $count = REPORT_TOP_TEN)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.country country_name, sum(sessions) sessions,sum(newusers) newusers
+        from " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . "  d ,
+        " . $dwdb->dbprefix('dim_location') . "  l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productId
+        and d.date_sk = f.date_sk 
+        and f.location_sk = l.location_sk
+        and l.country <> 'unknown' 
+        and l.country <> '局域网'
+        group by l.country 
+        order by sessions desc limit $pageFrom,$count; ";
+        $query = $dwdb->query($sql);
+
+        return $query;
+    }
+    /*
+     * Get  sessions newusers group by region
+     */
+    function gettotalbypro($fromTime, $toTime, $productid, $country, $pageFrom = 0, $count = REPORT_TOP_TEN)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.region region_name, sum(sessions) sessions,sum(newusers) newusers
+        from " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . " d ,
+        " . $dwdb->dbprefix('dim_location') . "  l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productid
+        and d.date_sk = f.date_sk
+        and f.location_sk = l.location_sk
+        and l.region <> 'unknown'
+        and l.region <> '局域网'
+        group by l.country,l.region
+        order by sessions desc 
+        limit $pageFrom,$count";
+
+        $query = $dwdb->query($sql);
+        return $query;
+    }
+    
+    /*
+     * Getcitynum
+     */
+    function getcitynum($fromTime, $toTime, $productid, $country)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.city city_name,sum(sessions) sessions,sum(newusers) newusers from  
+        " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . " d ,
+        " . $dwdb->dbprefix('dim_location') . " l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productid
+        and d.date_sk = f.date_sk
+        and f.location_sk = l.location_sk
+        and l.country <> 'unknown'
+        and l.country <> '局域网'
+        and l.region <> 'unknown'
+        and l.region <> '局域网'
+        and l.city <> 'unknown'
+        and l.city <> '局域网'
+        and l.city <> ''
+        group by l.country,l.region,l.city
+        order by sessions desc";
+
+        $query = $dwdb->query($sql);
+        if ($query != null && $query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
+    
+    function gettotlebycity($fromTime, $toTime, $productid, $country, $pageFrom = 0, $count = REPORT_TOP_TEN)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.city city_name,sum(sessions) sessions,sum(newusers) newusers from  
+        " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . " d ,
+        " . $dwdb->dbprefix('dim_location') . " l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productid 
+        and d.date_sk = f.date_sk
+        and f.location_sk = l.location_sk
+        and l.country <> 'unknown'
+        and l.country <> '局域网'
+        and l.region <> 'unknown'
+        and l.region <> '局域网'
+        and l.city <> 'unknown'
+        and l.city <> '局域网'
+        and l.city <> ''
+        group by l.country,l.region,l.city
+        order by sessions desc limit $pageFrom,$count";
+        $query = $dwdb->query($sql);
+        return $query;
+    }
+    
+    /*
+     * Get new user percent by country
+     */
+    function getnewbycountry($fromTime, $toTime, $productid, $pageFrom = 0, $count = REPORT_TOP_TEN)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.country country_name, sum(newusers) newusers
+        from " . $dwdb->dbprefix('sum_location') . " f,
+        " . $dwdb->dbprefix('dim_date') . " d ,
+        " . $dwdb->dbprefix('dim_location') . " l
+        where d.datevalue between '$fromTime' and  '$toTime'
+        and f.product_id = $productid
+        and d.date_sk = f.date_sk 
+        and f.location_sk = l.location_sk 
+        and l.country <> 'unknown'
+        and l.country <> '局域网'
+        group by l.country 
+        order by newusers desc limit 10";
+        $query = $dwdb->query($sql);
+        return $query;
+    }
+    
+    /*
+     * Get  sessions newusers group by region
+     */
+    function getactivebypro($fromTime, $toTime, $productid, $country, $pageFrom = 0, $count = REPORT_TOP_TEN)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.region region_name, sum(sessions) sessions,sum(newusers) newusers
+        from " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . " d ,
+        " . $dwdb->dbprefix('dim_location') . "  l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productid
+        and d.date_sk = f.date_sk
+        and f.location_sk = l.location_sk
+        and l.region <> 'unknown'
+        and l.region <> '局域网'
+        group by l.country,l.region
+        order by sessions desc limit $pageFrom,$count";
+
+        $query = $dwdb->query($sql);
+        return $query;
+    }
+    
+    ////pro total num,sessions ,newusers
+    function getpronum($fromTime, $toTime, $productId, $country)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+
+        $sql = "select l.region region_name, sum(sessions) sessions,sum(newusers) newusers
+        from " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . " d ,
+        " . $dwdb->dbprefix('dim_location') . "  l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productId      
+        and d.date_sk = f.date_sk
+        and f.location_sk = l.location_sk
+        and l.region <> 'unknown'
+        and l.region <> '局域网'
+        group by l.country,l.region ";
+
+        $query = $dwdb->query($sql);
+        if ($query != null && $query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
+    
+     function getsessionbycitytop($fromTime, $toTime, $productId)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.city city_name,sum(sessions) sessions from  
+        " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . " d ,
+        " . $dwdb->dbprefix('dim_location') . " l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productId
+        and d.date_sk = f.date_sk
+        and f.location_sk = l.location_sk
+        and l.country <> 'unknown'
+        and l.country <> '局域网'
+        and l.region <> 'unknown'
+        and l.region <> '局域网'
+        and l.city <> 'unknown'
+        and l.city <> '局域网'
+        and l.city <> ''
+        group by l.country,l.region,l.city
+        order by sessions desc limit 10";
+        $query = $dwdb->query($sql);
+        return $query;
+    }
+
+    function getnewuserbycitytop($fromTime, $toTime, $productId)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.city city_name,sum(newusers) newusers from  
+        " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . " d ,
+        " . $dwdb->dbprefix('dim_location') . " l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productId 
+        and d.date_sk = f.date_sk
+        and f.location_sk = l.location_sk
+        and l.country <> 'unknown'
+        and l.country <> '局域网'
+        and l.region <> 'unknown'
+        and l.region <> '局域网'
+        and l.city <> 'unknown'
+        and l.city <> '局域网'
+        and l.city <> ''
+        group by l.country,l.region,l.city
+        order by newusers desc limit 10";
+        $query = $dwdb->query($sql);
+        return $query;
+    }
+    
+    /*
+     * Get new user percent by country
+     */
+    function getnewbycountrytop($fromTime, $toTime, $productid)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.country country_name, sum(newusers) newusers
+        from " . $dwdb->dbprefix('sum_location') . " f,
+        " . $dwdb->dbprefix('dim_date') . " d ,
+        " . $dwdb->dbprefix('dim_location') . " l
+        where d.datevalue between '$fromTime' and  '$toTime'
+        and f.product_id = $productid
+        and d.date_sk = f.date_sk 
+        and f.location_sk = l.location_sk 
+        and l.country <> 'unknown'
+        and l.country <> '局域网'
+        group by l.country 
+        order by newusers desc limit 10";
+        
+        $query = $dwdb->query($sql);
+        return $query;
+    }
+    
+     /*
+     * Get active user percent by country
+     */
+    function getsessionbycountrytop($fromTime, $toTime, $productid)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.country country_name, sum(sessions) sessions
+        from " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . "  d ,
+        " . $dwdb->dbprefix('dim_location') . "  l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productid
+        and d.date_sk = f.date_sk 
+        and f.location_sk = l.location_sk
+        and l.country <> 'unknown' 
+        and l.country <> '局域网'
+        group by l.country 
+        order by sessions desc limit 10";
+        
+        $query = $dwdb->query($sql);
+        return $query;
+
+    }
+    
+     function getsessionbyregiontop($fromTime, $toTime, $productid, $country)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.region region_name, sum(sessions) sessions
+        from " . $dwdb->dbprefix('sum_location') . "  f,
+        " . $dwdb->dbprefix('dim_date') . " d ,
+        " . $dwdb->dbprefix('dim_location') . "  l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productid
+        and d.date_sk = f.date_sk
+        and f.location_sk = l.location_sk
+        and l.region <> 'unknown'
+        and l.region <> '局域网'
+        group by l.country,l.region
+        order by sessions desc
+        limit 10";
+
+        $query = $dwdb->query($sql);
+        return $query;
+    }
+    
+    function getnewuserbyregiontop($fromTime, $toTime, $productid, $country)
+    {
+        $dwdb = $this->load->database('dw', TRUE);
+        $sql = "select l.region region_name, sum(newusers) newusers
+        from  " . $dwdb->dbprefix('sum_location') . " f,
+        " . $dwdb->dbprefix('dim_date') . "  d ,
+        " . $dwdb->dbprefix('dim_location') . "  l
+        where d.datevalue between '$fromTime' and '$toTime'
+        and f.product_id = $productid
+        and d.date_sk = f.date_sk
+        and f.location_sk = l.location_sk
+        and l.region <> 'unknown'
+        and l.region <> '局域网'
+        group by l.country,l.region
+        order by newusers desc
+        limit 10";
+        $query = $dwdb->query($sql);
+        return $query;
+    }
+    
+
 }

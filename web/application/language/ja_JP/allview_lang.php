@@ -313,8 +313,10 @@ $lang['v_rpt_re_top10ProvincesActive']	=	'都道府県別アクティブユー�
 $lang['v_rpt_re_top10ProvincesNew']	=	'都道府県別新規ユーザートップ10';
 $lang['v_rpt_re_detailsOfNation']	=	'国別詳細';
 $lang['v_rpt_re_detailsOfProvince']	=	'都道府県別詳細';
+$lang['v_rpt_re_detailsOfCity']='城市分布明细';
 $lang['v_rpt_re_nation']	=	'国';
 $lang['v_rpt_re_province']	=	'都道府県';
+$lang['v_rpt_re_city']='城市';
 $lang['v_rpt_re_count']	=	'数量';
 
 
@@ -639,6 +641,7 @@ $lang['t_activeUsers']	=	'アクティブユーザー';
 $lang['t_percentOfNewUsers']	=	'新規ユーザー比率';
 $lang['t_newUsersP']	=	 "新規ユーザー比率";
 $lang['t_sessions']	=	'セッション数';
+$lang['t_sessionsP']='启动次数比例';
 $lang['t_averageUsageDuration']	=	'平均利用継続時間';
 $lang['t_accumulatedUsers']	=	'累積ユーザー数';
 $lang['t_accumulatedStarts']	=	'累積セッション数';
