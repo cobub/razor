@@ -3,19 +3,42 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource  os.php
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
-class Os extends CI_Controller {
-    private $data = array();
-    function __construct() {
+
+/**
+ * Os Controller
+ *
+ * @category PHP
+ * @package  Model
+ * @author   Cobub Team <open.cobub@gmail.com>
+ * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link     http://www.cobub.com
+ */
+class Os extends CI_Controller
+{
+    /**
+     * Data array $data
+     */
+    private $_data = array();
+    
+    /**
+     * Construct funciton, to pre-load database configuration
+     *
+     * @return void
+     */
+    function __construct()
+    {
         parent::__construct();
         $this -> load -> Model('common');
         $this -> load -> model('channelmodel', 'channel');
@@ -25,52 +48,80 @@ class Os extends CI_Controller {
         $this -> common -> requireLogin();
         $this -> common -> checkCompareProduct();
     }
-
-    function index() {
+    
+    /**
+     * Index
+     *
+     * @return void
+     */
+    function index()
+    {
         $fromTime = $this -> common -> getFromTime();
         $toTime = $this -> common -> getToTime();
         if (isset($_GET['type']) && $_GET['type'] == 'compare') {
             $this -> common -> loadCompareHeader();
-            $this -> data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_activeUsers") . " " . lang("v_rpt_os_top10"), $fromTime, $toTime), 'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_os_top10"), $fromTime, $toTime), 'timePhase' => getTimePhaseStr($fromTime, $toTime));
-            $this -> load -> view('compare/osview', $this -> data);
+            $this -> _data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_os_top10"), $fromTime, $toTime), 
+            'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_os_top10"), $fromTime, $toTime), 
+            'timePhase' => getTimePhaseStr($fromTime, $toTime));
+            $this -> load -> view('compare/osview', $this -> _data);
         } else {
             $this -> common -> loadHeaderWithDateControl();
             $productId = $this -> common -> getCurrentProduct();
             $this -> common -> requireProduct();
             $productId = $productId -> id;
             // init detailed data
-            $this -> data['details'] = $this -> os -> getTotalUserPercentByOS($productId, $fromTime, $toTime);
+            $Total = $this -> os -> getOsSessionNewuserTotal($productId, $fromTime, $toTime);
+            if ($Total) {
+                $this -> _data['sessions'] = $Total -> first_row() -> sessions;
+                $this -> _data['newusers'] = $Total -> first_row() -> newusers;
+            } else {
+                $this -> _data['sessions'] = 0;
+                $this -> _data['newusers'] = 0;
+            }
 
-            $this -> load -> view('terminalandnet/osview', $this -> data);
+            $this -> _data['details'] = $this -> os -> getTotalUserPercentByOS($productId, $fromTime, $toTime);
+            $this -> load -> view('terminalandnet/osview', $this -> _data);
         }
     }
 
-    /*load os report*/
-    function addosversionreport($delete = null, $type = null) {
+    /**
+     * Addosversionreport
+     *
+     * @param string $delete delete
+     * @param string $type   type
+     * 
+     * @return void
+     */
+    function addosversionreport($delete = null, $type = null)
+    {
         $fromTime = $this -> common -> getFromTime();
         $toTime = $this -> common -> getToTime();
-        $this -> data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_activeUsers") . " " . lang("v_rpt_os_top10"), $fromTime, $toTime), 'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_os_top10"), $fromTime, $toTime), 'timePhase' => getTimePhaseStr($fromTime, $toTime));
+        $this -> _data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_os_top10"), $fromTime, $toTime), 
+        'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_os_top10"), $fromTime, $toTime), 
+        'timePhase' => getTimePhaseStr($fromTime, $toTime));
         if ($delete == null) {
-            $this -> data['add'] = "add";
+            $this -> _data['add'] = "add";
         }
         if ($delete == "del") {
-            $this -> data['delete'] = "delete";
+            $this -> _data['delete'] = "delete";
         }
         if ($type != null) {
-            $this -> data['type'] = $type;
+            $this -> _data['type'] = $type;
         }
         $this -> load -> view('layout/reportheader');
-        $this -> load -> view('widgets/osversion', $this -> data);
+        $this -> load -> view('widgets/osversion', $this -> _data);
     }
 
-    /*
-     * Get os data by time phase, called by ajax
+    /**
+     * GetOsData
+     * 
+     * @return json
      */
-    function getOsData() {
+    function getOsData()
+    {
         $productId = $this -> common -> getCurrentProduct();
         $fromTime = $this -> common -> getFromTime();
         $toTime = $this -> common -> getToTime();
-
         if (empty($productId)) {
             $products = $this -> common -> getCompareProducts();
             if (empty($products)) {
@@ -78,48 +129,62 @@ class Os extends CI_Controller {
                 return;
             }
             for ($i = 0; $i < count($products); $i++) {
-                $activedata = $this -> os -> getActiUsersPercentByOS($fromTime, $toTime, $products[$i] -> id);
-                $newdata = $this -> os -> getNewUserPercentByOS($fromTime, $toTime, $products[$i] -> id);
-                $ret["activeUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($activedata);
-                $ret["newUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($newdata);
+                $activedata = $this -> os -> getSessionsByOstop($fromTime, $toTime, $products[$i] -> id);
+                $newdata = $this -> os -> getNewusersByOstop($fromTime, $toTime, $products[$i] -> id);
+                $ret["activeUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($activedata, 1);
+                $ret["newUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($newdata, 2);
             }
         } else {
             $this -> common -> requireProduct();
-            $activeUserData = $this -> os -> getActiUsersPercentByOS($fromTime, $toTime, $productId -> id);
-            $newUserData = $this -> os -> getNewUserPercentByOS($fromTime, $toTime, $productId -> id);
-            $ret["activeUserData"] = $this -> change2StandardPrecent($activeUserData);
-            $ret["newUserData"] = $this -> change2StandardPrecent($newUserData);
+            
+            $activeUserData = $this -> os -> getSessionsByOstop($fromTime, $toTime, $productId -> id);
+            
+            $newUserData = $this -> os -> getNewusersByOstop($fromTime, $toTime, $productId -> id);
+            
+            $ret["activeUserData"] = $this -> change2StandardPrecent($activeUserData, 1);
+            $ret["newUserData"] = $this -> change2StandardPrecent($newUserData, 2);
         }
 
         echo json_encode($ret);
     }
-
-    function change2StandardPrecent($userData) {
+    
+    /**
+     * Change2StandardPrecent
+     *
+     * @param array  $userData userdata
+     * @param string $type     type
+     * 
+     * @return array
+     */
+    function change2StandardPrecent($userData, $type)
+    {
         $userDataArray = array();
         $totalPercent = 0;
-        foreach ($userData->result () as $row) {
+        foreach ($userData->result() as $row) {
             if (count($userData) > 10) {
                 break;
             }
             $userDataObj = array();
+            if (empty($row -> deviceos_name))
+                $row -> deviceos_name = "unknown";
             $userDataObj["deviceos_name"] = $row -> deviceos_name;
-            $percent = round($row -> percentage * 100, 1);
-            $totalPercent += $percent;
-            $userDataObj["percentage"] = $percent;
+            if ($type == 1)
+                $userDataObj["sessions"] = $row -> sessions / 1;
+            if ($type == 2)
+                $userDataObj["newusers"] = $row -> newusers / 1;
             array_push($userDataArray, $userDataObj);
         }
 
-        if ($totalPercent < 100.0) {
-            $remainPercent = round(100 - $totalPercent, 2);
-            $userDataObj["deviceos_name"] = lang('g_others');
-            $userDataObj["percentage"] = $remainPercent;
-            array_push($userDataArray, $userDataObj);
-        }
         return $userDataArray;
-        //	print_r($userDataArray);
     }
-
-    function exportCSV() {
+    
+    /**
+     * ExportCSV
+     * 
+     * @return array
+     */
+    function exportCSV()
+    {
         $fromTime = $this -> common -> getFromTime();
         $toTime = $this -> common -> getToTime();
         $products = $this -> common -> getCompareProducts();
@@ -151,8 +216,11 @@ class Os extends CI_Controller {
         for ($m = 0; $m < count($products); $m++) {
             $activedata = $this -> os -> getActiUsersPercentByOS($fromTime, $toTime, $products[$m] -> id);
             $newdata = $this -> os -> getNewUserPercentByOS($fromTime, $toTime, $products[$m] -> id);
-            $detailData[$m] = $this -> change2StandardPrecent($activedata);
-            $detailNewData[$m] = $this -> change2StandardPrecent($newdata);
+            
+            $detailData[$m] = $this -> change2StandardPrecent($activedata, 1);
+            
+            $detailNewData[$m] = $this -> change2StandardPrecent($newdata, 2);
+            
             if (count($detailData[$m]) > $maxlength) {
                 $maxlength = count($detailData[$m]);
             }
@@ -170,8 +238,19 @@ class Os extends CI_Controller {
         $export -> export();
         die();
     }
-
-    function getExportRowData($export, $length, $userData, $products) {
+    
+    /**
+     * GetExportRowData
+     * 
+     * @param string $export   export
+     * @param string $length   length
+     * @param string $userData userData
+     * @param string $products products
+     * 
+     * @return void
+     */
+    function getExportRowData($export, $length, $userData, $products)
+    {
         $k = 0;
         for ($i = 0; $i < $length; $i++) {
             $result[$k++] = $i + 1;
@@ -194,10 +273,13 @@ class Os extends CI_Controller {
         }
     }
 
-    /*
-     * Export to excel
+    /**
+     * Export
+     * 
+     * @return void
      */
-    function export() {
+    function export()
+    {
         $this -> load -> library('export');
         $productId = $this -> common -> getCurrentProduct();
         $this -> common -> requireProduct();
@@ -206,20 +288,41 @@ class Os extends CI_Controller {
         $fromTime = $this -> common -> getFromTime();
         $toTime = $this -> common -> getToTime();
         $data = $this -> os -> getTotalUserPercentByOS($productId, $fromTime, $toTime);
-        $export = new Export();
-        // set file name
-        $titlename = getExportReportTitle($productName, lang('v_rpt_os_version'), $fromTime, $toTime);
-        $title = iconv("UTF-8", "GBK", $titlename);
-        $export -> setFileName($title);
-        $fields = array();
-        foreach ($data->list_fields () as $field) {
-            array_push($fields, $field);
+        if ($data != null && $data -> num_rows() > 0) {
+            
+            $export=new Export();
+            // set file name
+            $titlename = getExportReportTitle($productName, lang('v_rpt_os_version'), $fromTime, $toTime);
+            $title = iconv("UTF-8", "GBK", $titlename);
+            $export -> setFileName($title);
+            // set title name
+            $excel_title = array(iconv("UTF-8", "GBK", lang("v_rpt_os_version")), iconv("UTF-8", "GBK", lang("t_sessions")), iconv("UTF-8", "GBK", lang("t_sessionsP")), iconv("UTF-8", "GBK", lang("t_newUsers")), iconv("UTF-8", "GBK", lang("t_newUsersP")));
+            $export -> setTitle($excel_title);
+            ////
+            $Total = $this -> os -> getOsSessionNewuserTotal($productId, $fromTime, $toTime);
+            if ($Total) {
+                $sessions = $Total -> first_row() -> sessions;
+                $newusers = $Total -> first_row() -> newusers;
+            } else {
+                $sessions = 0;
+                $newusers = 0;
+            }
+            foreach ($data->result() as $row) {
+                if (!$row -> deviceos_name)
+                    $row -> deviceos_name = 'unknown';
+                $rowadd['deviceos_name'] = $row -> deviceos_name;
+                $rowadd['sessions'] = $row -> sessions;
+                $rowadd['sessions_p'] = ($sessions > 0) ? round(100 * $row -> sessions / $sessions, 1) . '%' : '0%';
+                $rowadd['newusers'] = $row -> newusers;
+                $rowadd['newusers_p'] = ($newusers > 0) ? round(100 * $row -> newusers / $newusers, 1) . '%' : '0%';
+                $export -> addRow($rowadd);
+            }
+
+            $export -> export();
+            die();
+        } else {
+            $this -> load -> view("usage/nodataview");
         }
-        $export -> setTitle($fields);
-        foreach ($data->result () as $row)
-            $export -> addRow($row);
-        $export -> export();
-        die();
     }
 
 }

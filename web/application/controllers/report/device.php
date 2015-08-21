@@ -16,7 +16,7 @@
  */
 
 /**
- * Productbasic Controller
+ * Device Controller
  *
  * @category PHP
  * @package  Model
@@ -59,10 +59,10 @@ class Device extends CI_Controller
         $toTime = $this -> common -> getToTime();
         if (isset($_GET['type']) && $_GET['type'] == 'compare') {
             $this -> common -> loadCompareHeader();
-            $this -> data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_de_top10"), $fromTime, $toTime), 
+            $this -> _data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_de_top10"), $fromTime, $toTime), 
             'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_de_top10"), $fromTime, $toTime), 
             'timePhase' => getTimePhaseStr($fromTime, $toTime));
-            $this -> load -> view('compare/devicetype', $this -> data);
+            $this -> load -> view('compare/devicetype', $this -> _data);
         } else {
             $this->common->loadHeaderWithDateControl();
             $productId = $this->common->getCurrentProduct();
@@ -137,8 +137,8 @@ class Device extends CI_Controller
             for ($i = 0; $i < count($products); $i++) {
                 $activedata = $this->device->getSessionByDevicetop($fromTime, $toTime, $products[$i]->id);
                 $newdata = $this->device->getNewuserByDevicetop($fromTime, $toTime, $products[$i]->id);
-                $ret["activeUserData" . $products[$i]->name] = $this->change2StandardPrecent($activedata,1);
-                $ret["newUserData" . $products[$i]->name] = $this->change2StandardPrecent($newdata,2);
+                $ret["activeUserData" . $products[$i]->name] = $this->change2StandardPrecent($activedata, 1);
+                $ret["newUserData" . $products[$i]->name] = $this->change2StandardPrecent($newdata, 2);
             }
         } else {
             $this->common->requireProduct();
@@ -153,7 +153,8 @@ class Device extends CI_Controller
     /**
      * Change2StandardPrecent
      *
-     * @param array $userData userData
+     * @param array $userData userdata
+     * @param int   $type     type
      * 
      * @return array
      */
@@ -217,8 +218,8 @@ class Device extends CI_Controller
         for ($m = 0; $m < count($products); $m++) {
             $activedata = $this -> device -> getActiveUsersPercentByDevice($fromTime, $toTime, $products[$m] -> id);
             $newdata = $this -> device -> getNewUserPercentByDevice($fromTime, $toTime, $products[$m] -> id);
-            $detailData[$m] = $this -> change2StandardPrecent($activedata,1);
-            $detailNewData[$m] = $this -> change2StandardPrecent($newdata,2);
+            $detailData[$m] = $this -> change2StandardPrecent($activedata, 1);
+            $detailNewData[$m] = $this -> change2StandardPrecent($newdata, 2);
             if (count($detailData[$m]) > $maxlength) {
                 $maxlength = count($detailData[$m]);
             }
@@ -287,7 +288,8 @@ class Device extends CI_Controller
         $data = $this->device->getDeviceTypeDetail($productId, $fromTime, $toTime);
         if ($data != null && $data->num_rows() > 0) {
             $this->load->library('export');
-            $export = new Export ();
+            
+            $export = new Export();
             // set file name
             $titlename = getExportReportTitle($productName, lang("v_rpt_de_details"), $fromTime, $toTime);
             $title = iconv("UTF-8", "GBK", $titlename);
