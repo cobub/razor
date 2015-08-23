@@ -135,7 +135,7 @@ class Utility extends CI_Model {
 
 	function getOnlineIP($format = 0) {
 		$result = '';
-
+        $onlineip = 'unknown';
 		//if (empty ( $_SGLOBAL ['onlineip'] )) {
 		if (getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
 			$onlineip = getenv('HTTP_CLIENT_IP');
@@ -147,7 +147,7 @@ class Utility extends CI_Model {
 			$onlineip = $_SERVER['REMOTE_ADDR'];
 		}
 		preg_match('/[\d\.]{7,15}/', $onlineip, $onlineipmatches);
-		$result = $onlineipmatches[0] ? $onlineipmatches[0] : 'unknown';
+		$result = isset($onlineipmatches[0]) ? $onlineipmatches[0] : 'unknown';
 		//}
 		if ($format) {
 			$ips = explode('.', $result);

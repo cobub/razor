@@ -94,10 +94,10 @@ class Clientdata extends CI_Model {
             }
         }
         if ($choose == 1) {
-            require ("geoip.inc");
-            require ("geoipcity.inc");
-            require ("geoipregionvars.php");
-            $gi = geoip_open("GeoLiteCity.dat", GEOIP_STANDARD);
+            require (dirname(__FILE__)."/../../../geoip.inc");
+            require (dirname(__FILE__)."/../../../geoipcity.inc");
+            require (dirname(__FILE__)."/../../../geoipregionvars.php");
+            $gi = geoip_open(dirname(__FILE__)."/../../../GeoLiteCity.dat", GEOIP_STANDARD);
             $record = geoip_record_by_addr($gi, $ip);
             if (!empty($record)) {
 
