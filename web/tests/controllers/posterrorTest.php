@@ -4,7 +4,7 @@
  Test case of ums controller
  ========================================*/
 
-class postclientdataTest extends CIUnit_TestCase {
+class posterrorTest extends CIUnit_TestCase {
     public function __construct($name = NULL, array $data = array(), $dataName = '') {
         parent::__construct($name, $data, $dataName);
     }
@@ -25,10 +25,10 @@ class postclientdataTest extends CIUnit_TestCase {
 
         $this->dbfixt_unload($tables);
     }
-    public function testPostClientdata() {
-        $this->CI->input = dirname(__FILE__) . '/testjson/clientdata_ok.json';
+    public function testPostError() {
+        $this->CI->input = dirname(__FILE__) . '/testjson/error_ok.json';
         ob_start();
-        $this->CI->postClientdata();
+        $this->CI->postErrorLog();
         $output = ob_get_clean();
         $this -> assertEquals(
             '{"flag":1,"msg":"ok"}', 
@@ -36,10 +36,10 @@ class postclientdataTest extends CIUnit_TestCase {
         );
     }
 
-    public function testPostClientdata1() {
+    public function testPostError1() {
         $this->CI->input = dirname(__FILE__) . '/testjson/empty.json';
         ob_start();
-        $this->CI->postClientdata();
+        $this->CI->postErrorLog();
         $output = ob_get_clean();
         $this -> assertEquals(
             '{"flag":-3,"msg":"Invalid content from php:\/\/input."}', 
@@ -47,10 +47,10 @@ class postclientdataTest extends CIUnit_TestCase {
         );
     }
     
-    public function testPostClientdata2() {
+    public function testPostError2() {
         $this->CI->input = dirname(__FILE__) . '/testjson/partly.json';
         ob_start();
-        $this->CI->postClientdata();
+        $this->CI->postErrorLog();
         $output = ob_get_clean();
         $this -> assertEquals(
             '{"flag":-4,"msg":"Parse jsondata failed. Error No. is 4"}', 
@@ -58,10 +58,10 @@ class postclientdataTest extends CIUnit_TestCase {
         );
     }
     
-    public function testPostClientdata3() {
+    public function testPostError3() {
         $this->CI->input = dirname(__FILE__) . '/testjson/noappkey.json';
         ob_start();
-        $this->CI->postClientdata();
+        $this->CI->postErrorLog();
         $output = ob_get_clean();
         $this -> assertEquals(
             '{"flag":-5,"msg":"Appkey is not set in json."}', 
@@ -69,10 +69,10 @@ class postclientdataTest extends CIUnit_TestCase {
         );
     }
     
-    public function testPostClientdata4() {
+    public function testPostError4() {
         $this->CI->input = dirname(__FILE__) . '/testjson/invalidappkey.json';
         ob_start();
-        $this->CI->postClientdata();
+        $this->CI->postErrorLog();
         $output = ob_get_clean();
         $this -> assertEquals(
             '{"flag":-1,"msg":"Invalid app key:invalid_appkey_00000"}', 

@@ -89,7 +89,7 @@ class Ums extends CI_Controller
         if ($ret == null) {
             try {
                 $this->load->model($this->_prefix . '/activitylog', 'activitylog');
-                $this->activitylog->addActivitylog($content);
+                $this->activitylog->addActivitylog($this->_jsondata);
                 $ret = array(
                     'flag' => 1,
                     'msg' => 'ok'
@@ -115,7 +115,7 @@ class Ums extends CI_Controller
         $ret = $this->_checkJsonData();
         if ($ret == null) {
             $this->load->model($this->_prefix . '/event', 'event');
-            $isgetEventid = $this->event->addEvent($content);
+            $isgetEventid = $this->event->addEvent($this->_jsondata);
             if (!$isgetEventid) {
                 $ret = array(
                     'flag' => -5,
@@ -144,7 +144,7 @@ class Ums extends CI_Controller
         if ($ret == null) {
             try {
                 $this->load->model($this->_prefix . '/userlog', 'userlog');
-                $this->userlog->addUserlog($content);
+                $this->userlog->addUserlog($this->_jsondata);
                 $ret = array(
                     'flag' => 1,
                     'msg' => 'ok'
@@ -170,7 +170,7 @@ class Ums extends CI_Controller
         if ($ret == null) {
             try {
                 $this->load->model($this->_prefix . '/uploadlog', 'uploadlog');
-                $this->uploadlog->addUploadlog($content);
+                $this->uploadlog->addUploadlog($this->_jsondata);
                 $ret = array(
                     'flag' => 1,
                     'msg' => 'ok'
@@ -196,7 +196,7 @@ class Ums extends CI_Controller
         if ($ret == null) {
             try {
                 $this->load->model($this->_prefix . '/usertag', 'usertag');
-                $this->usertag->addUserTag($content);
+                $this->usertag->addUserTag($this->_jsondata);
                 $ret = array(
                     'flag' => 1,
                     'msg' => 'ok'
