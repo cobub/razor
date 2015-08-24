@@ -306,6 +306,58 @@ class Ums extends CI_Controller
     }
 
     /**
+     * Interface to accept Push Id
+     *
+     * @return void
+     */
+    function postPushid()
+    {
+        $ret = $this->_checkJsonData();
+        if ($ret == null) {
+            try {
+                $this->load->model($this->_prefix . '/deviceidpushid', 'pushid');
+                $this->pushid->addDeviceidPushid($this->_jsondata);
+                $ret = array(
+                    'flag' => 1,
+                    'msg' => 'ok'
+                );
+            } catch ( Exception $ex ) {
+                $ret = array(
+                    'flag' => -4,
+                    'msg' => 'DB Error'
+                );
+            }
+        }
+        echo json_encode($ret);
+    }
+    
+    /**
+     * Interface to accept User Id
+     *
+     * @return void
+     */
+    function postUserid()
+    {
+        $ret = $this->_checkJsonData();
+        if ($ret == null) {
+            try {
+                $this->load->model($this->_prefix . '/deviceiduid', 'userid');
+                $this->userid->addDeviceidUid($this->_jsondata);
+                $ret = array(
+                    'flag' => 1,
+                    'msg' => 'ok'
+                );
+            } catch ( Exception $ex ) {
+                $ret = array(
+                    'flag' => -4,
+                    'msg' => 'DB Error'
+                );
+            }
+        }
+        echo json_encode($ret);
+    }
+    
+    /**
      * Check json format
      *
      * @return array

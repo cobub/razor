@@ -1,5 +1,6 @@
 web/application/logs/log*
 web/assets/sql/tmp*
+web/tests/coverage/
 ##################
 ## Eclipse
 #################

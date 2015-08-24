@@ -683,6 +683,24 @@ CREATE TABLE IF NOT EXISTS `umsinstall_sum_event` (
   PRIMARY KEY (`eid`), 
   UNIQUE KEY `product_sk` (`product_sk`,`date_sk`,`event_sk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `umsinstall_deviceid_userid` (
+`did` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `deviceid` varchar(128) NOT NULL,
+  `userid` varchar(128) NOT NULL,
+   PRIMARY KEY (`did`), 
+   UNIQUE KEY `deviceid` (`deviceid`,`userid`), 
+   KEY `userid` (`userid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `umsinstall_deviceid_pushid` (
+`did` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `deviceid` varchar(128) NOT NULL,
+  `pushid` varchar(128) NOT NULL,
+   PRIMARY KEY (`did`), 
+   UNIQUE KEY `deviceid` (`deviceid`,`pushid`), 
+   KEY `pushid` (`pushid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 --
 -- Default value for table `mccmnc`
 --
