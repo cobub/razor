@@ -5,7 +5,7 @@
     },
     "PHP Rule": {
       "type":"phpcs",
-      "exclude": "(^web/system/)"
+      "exclude": ["(^web/system/)","(^web/tests/)","(^web/application/third_party/)"]
     }
   }
 }
