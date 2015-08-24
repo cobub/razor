@@ -56,9 +56,9 @@ class clientdatapublic extends CI_Model
 
     /**
      * Load clientdata
-     * 
+     *
      * @param array $content postclientdata data
-     * 
+     *
      * @return void
      */
     function loadclientdata($content)
