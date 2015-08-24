@@ -38,7 +38,7 @@ class TagManager {
         try {
             object.put("tags", tags);
             object.put("deviceid", DeviceInfo.getDeviceId());
-            object.put("productkey", AppInfo.getAppKey());
+            object.put("appkey", AppInfo.getAppKey());
         } catch (JSONException e) {
             e.printStackTrace();
         }
