@@ -31,7 +31,7 @@ class Ums extends CI_Controller
 {
     private $_jsondata;
     private $_prefix;
-    var $input = "php://input";
+    var $rawdata = "php://input";
 
     /**
      * Ums
@@ -306,7 +306,7 @@ class Ums extends CI_Controller
      */
     private function _checkJsonData()
     {
-        $encoded_content = file_get_contents($this->input, 'r');
+        $encoded_content = file_get_contents($this->rawdata, 'r');
         if (empty($encoded_content)) {
             $ret = array(
                 'flag' => -3,

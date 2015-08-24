@@ -26,7 +26,7 @@ class posteventTest extends CIUnit_TestCase {
         $this->dbfixt_unload($tables);
     }
     public function testPostEvent() {
-        $this->CI->input = dirname(__FILE__) . '/testjson/event_ok.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testjson/event_ok.json';
         ob_start();
         $this->CI->postEvent();
         $output = ob_get_clean();
@@ -37,7 +37,7 @@ class posteventTest extends CIUnit_TestCase {
     }
 
     public function testPostEvent1() {
-        $this->CI->input = dirname(__FILE__) . '/testjson/empty.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testjson/empty.json';
         ob_start();
         $this->CI->postEvent();
         $output = ob_get_clean();
@@ -48,7 +48,7 @@ class posteventTest extends CIUnit_TestCase {
     }
     
     public function testPostEvent2() {
-        $this->CI->input = dirname(__FILE__) . '/testjson/partly.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testjson/partly.json';
         ob_start();
         $this->CI->postEvent();
         $output = ob_get_clean();
@@ -59,7 +59,7 @@ class posteventTest extends CIUnit_TestCase {
     }
     
     public function testPostEvent3() {
-        $this->CI->input = dirname(__FILE__) . '/testjson/noappkey.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testjson/noappkey.json';
         ob_start();
         $this->CI->postEvent();
         $output = ob_get_clean();
@@ -70,7 +70,7 @@ class posteventTest extends CIUnit_TestCase {
     }
     
     public function testPostEvent4() {
-        $this->CI->input = dirname(__FILE__) . '/testjson/invalidappkey.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testjson/invalidappkey.json';
         ob_start();
         $this->CI->postEvent();
         $output = ob_get_clean();
