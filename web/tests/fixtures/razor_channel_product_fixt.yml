@@ -4,7 +4,7 @@
     updateurl: ""
     entrypoint: ""
     location: ""
-    version: ""
+    version: "1"
     date: "2013-05-01 21:45:22"
     productkey: "49d0b54ea086922f0dd5459269d338ce"
     man: 0
@@ -13,18 +13,18 @@
     channel_id: 1
 
 2:
-    cp_id: 
-    description: 
-    updateurl: 
-    entrypoint: 
-    location: 
-    version: 
-    date: 
-    productkey: 
-    man: 
-    user_id: 
-    product_id: 
-    channel_id: 
+    cp_id: 2
+    description: "android" 
+    updateurl: "http://localhost"
+    entrypoint: ""
+    location: ""
+    version: "2"
+    date: "2015-8-1"
+    productkey: "54ea086922f0dd5459269d338ce"
+    man: 0
+    user_id: 1
+    product_id: 1
+    channel_id: 1
 
 3:
     cp_id: 

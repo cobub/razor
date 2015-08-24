@@ -230,11 +230,14 @@ class Ums extends CI_Controller
     function getApplicationUpdate()
     {
         $ret = $this->_checkJsonData();
-        header("Content-Type:application/json");
+
         if ($ret == null) {
             $this->load->model($this->_prefix . '/update', 'update');
-            $key = $this->_jsondata->appkey;
-            $version_code = $this->_jsondata->version_code;
+            $this->load->model('servicepublicclass/applicationupdatepublic', 'applicationupdatepublic');
+            $updateobj = new applicationupdatepublic();
+            $updateobj->loadapplicationupdate($this->_jsondata);
+            $key = $updateobj->appkey;
+            $version_code = $updateobj->version_code;
             $haveNewversion = $this->update->haveNewversion($key, $version_code);
             if (!$haveNewversion) {
                 $ret = array(
@@ -277,7 +280,10 @@ class Ums extends CI_Controller
         if ($ret == null) {
             try {
                 $this->load->model($this->_prefix . '/onlineconfig', 'onlineconfig');
-                $productid = $this->onlineconfig->getProductid($key);
+                $this->load->model('servicepublicclass/onlineconfigpublic', 'online');
+                $online = new onlineconfigpublic();
+                $online->loadonlineconfig($this->_jsondata);
+                $productid = $this->onlineconfig->getProductid($online->appkey);
                 $configmessage = $this->onlineconfig->getConfigMessage($productid);
                 if ($configmessage != null) {
                     $ret = array(
@@ -321,8 +327,7 @@ class Ums extends CI_Controller
             if ($this->_jsondata == null) {
                 $ret = array(
                     'flag' => -4,
-                    'msg' => 'Parse jsondata failed. Error No. is ' . 
-                    json_last_error()
+                    'msg' => 'Parse jsondata failed. Error No. is ' . json_last_error()
                 );
                 return $ret;
             }

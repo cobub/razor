@@ -1,0 +1,135 @@
+content={
+    "appkey": "49d0b54ea086922f0dd5459269d338ce",
+    "eventInfo": [
+        {
+            "time": "2014-05-22 18:22:22",
+            "appkey": "49d0b54ea086922f0dd5459269d338ce",
+            "userid": "",
+            "label": "",
+            "event_identifier": "btn_click",
+            "activity": ".MainActivity",
+            "acc": "1",
+            "version": "1.0",
+            "deviceid": "6935b086574a84b72bbe1ae3564d85a5" 
+        }
+    ],
+    "activityInfo": [
+        {
+            "duration": "2024",
+            "session_id": "97f30339a68e5fb0865a7ae15a1824a3",
+            "end_millis": "2014-05-22 18:22:23",
+            "start_millis": "2014-05-22 18:22:21",
+            "userid": "",
+            "appkey": "49d0b54ea086922f0dd5459269d338ce",
+            "activities": ".MainActivity",
+            "deviceid": "6935b086574a84b72bbe1ae3564d85a5",
+            "version": "1.0" 
+        },
+        {
+            "session_id": "97f30339a68e5fb0865a7ae15a1824a3",
+            "duration": "851",
+            "end_millis": "2014-05-22 18:22:24",
+            "start_millis": "2014-05-22 18:22:23",
+            "appkey": "49d0b54ea086922f0dd5459269d338ce",
+            "userid": "",
+            "activities": ".SecondActivity",
+            "version": "1.0",
+            "deviceid": "6935b086574a84b72bbe1ae3564d85a5" 
+        },
+        {
+            "duration": "2441",
+            "session_id": "97f30339a68e5fb0865a7ae15a1824a3",
+            "end_millis": "2014-05-22 18:22:26",
+            "start_millis": "2014-05-22 18:22:24",
+            "userid": "",
+            "appkey": "49d0b54ea086922f0dd5459269d338ce",
+            "activities": ".SecondActivity",
+            "deviceid": "6935b086574a84b72bbe1ae3564d85a5",
+            "version": "1.0" 
+        }
+    ],
+    "errorInfo": [
+        {
+            "appkey": "49d0b54ea086922f0dd5459269d338ce",
+            "time": "2014-05-22 18:19:57",
+            "stacktrace": "java.lang.ArithmeticException: divide by zero\n\tat com.wbtech.test_sample.MainActivity$2.onClick(MainActivity.java:148)\n\tat android.view.View.performClick(View.java)\n\tjava.lang.ArithmeticException: divide by zero\n\tat com.wbtech.test_sample.MainActivity$2.onClick(MainActivity.java:148)\n\tat android.view.View.performClick(View.java)\n\tat android.view.View$PerformClick.run(View.java)\n\tat android.os.Handler.handleCallback(Handler.java)\n\tat android.os.Handler.dispatchMessage(Handler.java)\n\tat android.os.Looper.loop(Looper.java)\n\tat android.app.ActivityThread.main(ActivityThread.java)\n\tat java.lang.reflect.Method.invokeNative(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:511)\n\tat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java)\n\tat dalvik.system.NativeStart.main(Native Method)\n",
+            "activity": ".MainActivity",
+            "deviceid": "HTC myTouch 4G",
+            "os_version": "4.2.2",
+            "version": "1.0" 
+        }
+    ],
+    "clientData": [
+        {
+            "platform": "android",
+            "ismobiledevice": true,
+            "havewifi": true,
+            "appkey": "49d0b54ea086922f0dd5459269d338ce",
+            "userid": "",
+            "resolution": "480x800",
+            "network": "wifi",
+            "deviceid": "6935b086574a84b72bbe1ae3564d85a5",
+            "os_version": "4.2.2",
+            "version": "1.0",
+            "phonetype": 1,
+            "havebt": true,
+            "modulename": "htc_glacier",
+            "havegps": "true",
+            "time": "2014-05-22 18:19:48",
+            "wifimac": "7c:61:93:3e:5e:2f",
+            "devicename": "HTC myTouch 4G",
+            "mccmnc": "",
+            "longitude": "118.818688",
+            "language": "zh",
+            "imsi": "",
+            "latitude": "32.081187",
+            "havegravity": true
+        },
+        {
+            "platform": "android",
+            "ismobiledevice": true,
+            "havewifi": false,
+            "appkey": "49d0b54ea086922f0dd5459269d338ce",
+            "userid": "",
+            "resolution": "480x800",
+            "network": "",
+            "deviceid": "6935b086574a84b72bbe1ae3564d85a5",
+            "os_version": "4.2.2",
+            "version": "1.0",
+            "phonetype": 1,
+            "havebt": true,
+            "modulename": "htc_glacier",
+            "havegps": "true",
+            "time": "2014-05-22 18:22:21",
+            "wifimac": "7c:61:93:3e:5e:2f",
+            "devicename": "HTC myTouch 4G",
+            "mccmnc": "",
+            "language": "zh",
+            "imsi": "",
+            "havegravity": true
+        },
+        {
+            "platform": "android",
+            "ismobiledevice": true,
+            "havewifi": false,
+            "userid": "",
+            "appkey": "49d0b54ea086922f0dd5459269d338ce",
+            "resolution": "480x800",
+            "network": "",
+            "version": "1.0",
+            "os_version": "4.2.2",
+            "deviceid": "6935b086574a84b72bbe1ae3564d85a5",
+            "havebt": true,
+            "phonetype": 1,
+            "havegps": "true",
+            "modulename": "htc_glacier",
+            "time": "2014-05-22 18:22:21",
+            "wifimac": "7c:61:93:3e:5e:2f",
+            "devicename": "HTC myTouch 4G",
+            "mccmnc": "",
+            "imsi": "",
+            "language": "zh",
+            "havegravity": true
+        }
+    ]
+}

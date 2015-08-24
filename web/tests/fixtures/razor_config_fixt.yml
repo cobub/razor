@@ -1,10 +1,10 @@
 1:
-    id: 
-    autogetlocation: 
-    updateonlywifi: 
-    product_id: 
-    sessionmillis: 
-    reportpolicy: 
+    id: 1
+    autogetlocation: 1 
+    updateonlywifi: 1
+    product_id: 1
+    sessionmillis: 3000
+    reportpolicy: 1
 
 2:
     id: 
