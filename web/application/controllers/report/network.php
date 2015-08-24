@@ -3,173 +3,246 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource  device.php
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
 
-class Network extends CI_Controller {
-    private $data = array();
-
-    function __construct() {
+/**
+ * Network Controller
+ *
+ * @category PHP
+ * @package  Model
+ * @author   Cobub Team <open.cobub@gmail.com>
+ * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link     http://www.cobub.com
+ */
+class Network extends CI_Controller
+{
+    /**
+     * Data array $data
+     */
+    private $_data = array();
+    
+    /**
+     * Construct funciton, to pre-load database configuration
+     *
+     * @return void
+     */
+    function __construct()
+    {
         parent::__construct();
-        $this -> load -> Model('common');
-        $this -> load -> model('product/networkmodel', 'network');
-        $this -> load -> model('product/productmodel', 'product');
-        $this -> common -> requireLogin();
-        $this -> common -> checkCompareProduct();
+        $this->load->Model('common');
+        $this->load->model('product/networkmodel', 'network');
+        $this->load->model('product/productmodel', 'product');
+        $this->common->requireLogin();
+        $this->common->checkCompareProduct();
     }
-
-    function index() {
-
-        $fromTime = $this -> common -> getFromTime();
-        $toTime = $this -> common -> getToTime();
+    
+    /**
+     * Index
+     *
+     * @return void
+     */
+    function index()
+    {
+        $fromTime = $this->common->getFromTime();
+        $toTime = $this->common->getToTime();
         if (isset($_GET['type']) && $_GET['type'] == 'compare') {
-            $this -> common -> loadCompareHeader();
-            $this -> data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_activeUsers") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime), 'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime), 'timePhase' => getTimePhaseStr($fromTime, $toTime));
-            $this -> load -> view('compare/networkview', $this -> data);
+            $this->common->loadCompareHeader();
+            $this->_data['reportTitle'] = array(
+                'activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime),
+                'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime),
+                'timePhase' => getTimePhaseStr($fromTime, $toTime));
+            $this->load->view('compare/networkview', $this->_data);
         } else {
-            $this -> common -> loadHeaderWithDateControl();
-            $productId = $this -> common -> getCurrentProduct();
-            $this -> common -> requireProduct();
-            $productId = $productId -> id;
-            $this -> data['details'] = $this -> network -> getALlNetWorkData($productId, $fromTime, $toTime);
-            $this -> load -> view('terminalandnet/networkview', $this -> data);
+            $this->common->loadHeaderWithDateControl();
+            $productId = $this->common->getCurrentProduct();
+            $this->common->requireProduct();
+            $productId = $productId->id;
+            $Total = $this->network->getSessionNewusersNumByNetwork($fromTime, $toTime, $productId);
+            if ($Total) {
+                $this->_data['sessions'] = $Total->first_row()->sessions / 1;
+                $this->_data['newusers'] = $Total->first_row()->newusers / 1;
+            } else {
+                $this->_data['sessions'] = 0;
+                $this->_data['newusers'] = 0;
+            }
+            $this->_data['details'] = $this->network->getALlNetWorkData($productId, $fromTime, $toTime);
+            $this->load->view('terminalandnet/networkview', $this->_data);
         }
     }
 
-    /*load network report*/
-    function addnetworkreport($delete = null, $type = null) {
-        $fromTime = $this -> common -> getFromTime();
-        $toTime = $this -> common -> getToTime();
-        $this -> data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_activeUsers") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime), 'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime), 'timePhase' => getTimePhaseStr($fromTime, $toTime));
+    /**
+     * Addnetworkreport
+     *
+     * @param string $delete delete
+     * @param string $type   type
+     * 
+     * @return void
+     */
+    function addnetworkreport($delete = null, $type = null)
+    {
+        $fromTime = $this->common->getFromTime();
+        $toTime = $this->common->getToTime();
+        $this->_data['reportTitle'] = array(
+            'activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime),
+            'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime),
+            'timePhase' => getTimePhaseStr($fromTime, $toTime));
         if ($delete == null) {
-            $this -> data['add'] = "add";
+            $this->_data['add'] = "add";
         }
         if ($delete == "del") {
-            $this -> data['delete'] = "delete";
+            $this->_data['delete'] = "delete";
         }
         if ($type != null) {
-            $this -> data['type'] = $type;
+            $this->_data['type'] = $type;
         }
-        $this -> load -> view('layout/reportheader');
-        $this -> load -> view('widgets/network', $this -> data);
+        $this->load->view('layout/reportheader');
+        $this->load->view('widgets/network', $this->_data);
     }
 
-    /*
-     * Get network data
+    /**
+     * getNetWorkData
+     * 
+     * @return json
      */
-    function getNetWorkData() {
-        $productId = $this -> common -> getCurrentProduct();
-        $fromTime = $this -> common -> getFromTime();
-        $toTime = $this -> common -> getToTime();
+    function getNetWorkData()
+    {
+        $productId = $this->common->getCurrentProduct();
+        $fromTime = $this->common->getFromTime();
+        $toTime = $this->common->getToTime();
 
         if (empty($productId)) {
-            $products = $this -> common -> getCompareProducts();
+            $products = $this->common->getCompareProducts();
             if (empty($products)) {
-                $this -> common -> requireProduct();
+                $this->common->requireProduct();
                 return;
             }
             for ($i = 0; $i < count($products); $i++) {
-                $activedata = $this -> network -> getActiveUserNetWorkType($fromTime, $toTime, $products[$i] -> id);
-                $newdata = $this -> network -> getNewUserNetWorkType($fromTime, $toTime, $products[$i] -> id);
+                $activedata = $this->network->getSessionNetWorkTop($fromTime, $toTime, $products[$i]->id);
+                $newdata = $this->network->getNewuserNetWorkTop($fromTime, $toTime, $products[$i]->id);
                 $ret["activeUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($activedata);
                 $ret["newUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($newdata);
             }
         } else {
-            $this -> common -> requireProduct();
-            $activeUserData = $this -> network -> getActiveUserNetWorkType($fromTime, $toTime, $productId -> id);
-            $newUserData = $this -> network -> getNewUserNetWorkType($fromTime, $toTime, $productId -> id);
-            $ret["activeUserData"] = $this -> change2StandardPrecent($activeUserData);
-            $ret["newUserData"] = $this -> change2StandardPrecent($newUserData);
+            $this->common->requireProduct();
+            $sessionData = $this->network->getSessionNetWorkTop($fromTime, $toTime, $productId->id);
+            $newUserData = $this->network->getNewuserNetWorkTop($fromTime, $toTime, $productId->id);
+            $ret["activeUserData"] = $this->change2StandardPrecent($sessionData, 1);
+            $ret["newUserData"] = $this->change2StandardPrecent($newUserData, 2);
         }
 
         echo json_encode($ret);
     }
-
-    function change2StandardPrecent($userData) {
+    
+    /**
+     * Change2StandardPrecent
+     *
+     * @param array  $userData userdata
+     * @param string $type     type
+     * 
+     * @return array
+     */
+    function change2StandardPrecent($userData, $type)
+    {
         $userDataArray = array();
         $totalPercent = 0;
-        foreach ($userData->result () as $row) {
+        foreach ($userData->result() as $row) {
             if (count($userData) > 10) {
                 break;
             }
             $userDataObj = array();
-            $userDataObj["networkname"] = $row -> networkname;
-            $percent = round($row -> percentage * 100, 1);
-            $totalPercent += $percent;
-            $userDataObj["percentage"] = $percent;
-            array_push($userDataArray, $userDataObj);
-        }
-
-        if ($totalPercent < 100.0) {
-            $remainPercent = round(100 - $totalPercent, 2);
-            $userDataObj["networkname"] = lang('g_others');
-            $userDataObj["percentage"] = $remainPercent;
+            if (empty($row->networkname))
+                $row->networkname = "unknown";
+            $userDataObj["networkname"] = $row->networkname;
+            if ($type == 1) {
+                $userDataObj["sessions"] = $row->sessions / 1;
+            }
+            if ($type == 2)
+                $userDataObj["newusers"] = $row->newusers / 1;
             array_push($userDataArray, $userDataObj);
         }
         return $userDataArray;
-        //	print_r($userDataArray);
     }
-
-    function exportCSV() {
-        $fromTime = $this -> common -> getFromTime();
-        $toTime = $this -> common -> getToTime();
-        $products = $this -> common -> getCompareProducts();
+    
+    /**
+     * ExportCSV
+     * 
+     * @return array
+     */
+    function exportCSV()
+    {
+        $fromTime = $this->common->getFromTime();
+        $toTime = $this->common->getToTime();
+        $products = $this->common->getCompareProducts();
         if (empty($products)) {
-            $this -> common -> requireProduct();
+            $this->common->requireProduct();
             return;
         }
-        $this -> load -> library('export');
+        $this->load->library('export');
         $export = new Export();
         $titlename = getExportReportTitle("Compare", lang("v_rpt_nw_top10"), $fromTime, $toTime);
         $titlename = iconv("UTF-8", "GBK", $titlename);
-        $export -> setFileName($titlename);
+        $export->setFileName($titlename);
         $j = 0;
         $mk = 0;
         $title[$j++] = iconv("UTF-8", "GBK", lang('t_activeUsers'));
         $space[$mk++] = ' ';
         for ($i = 0; $i < count($products); $i++) {
-            $title[$j++] = iconv("UTF-8", "GBK", $products[$i] -> name);
+            $title[$j++] = iconv("UTF-8", "GBK", $products[$i]->name);
             $title[$j++] = '';
             $space[$mk++] = ' ';
             $space[$mk++] = ' ';
         }
-        $export -> setTitle($title);
+        $export->setTitle($title);
         $k = 0;
         $maxlength = 0;
         $maxlength2 = 0;
         $j = 0;
         $nextlabel[$j++] = lang('t_newUsers');
         for ($m = 0; $m < count($products); $m++) {
-            $activedata = $this -> network -> getActiveUserNetWorkType($fromTime, $toTime, $products[$m] -> id);
-            $newdata = $this -> network -> getNewUserNetWorkType($fromTime, $toTime, $products[$m] -> id);
-            $detailData[$m] = $this -> change2StandardPrecent($activedata);
-            $detailNewData[$m] = $this -> change2StandardPrecent($newdata);
+            $activedata = $this->network->getSessionNetWorkTop($fromTime, $toTime, $products[$m]->id);
+            $newdata = $this->network->getNewuserNetWorkTop($fromTime, $toTime, $products[$m]->id);
+            $detailData[$m] = $this->change2StandardPrecent($activedata);
+            $detailNewData[$m] = $this->change2StandardPrecent($newdata);
             if (count($detailData[$m]) > $maxlength) {
                 $maxlength = count($detailData[$m]);
             }
             if (count($detailNewData[$m]) > $maxlength2) {
                 $maxlength2 = count($detailNewData[$m]);
             }
-            $nextlabel[$j++] = $products[$m] -> name;
+            $nextlabel[$j++] = $products[$m]->name;
             $nextlabel[$j++] = ' ';
         }
-        $this -> getExportRowData($export, $maxlength, $detailData, $products);
-        $export -> addRow($space);
-        $export -> addRow($nextlabel);
-        $this -> getExportRowData($export, $maxlength2, $detailNewData, $products);
-        $export -> export();
+        $this->getExportRowData($export, $maxlength, $detailData, $products);
+        $export->addRow($space);
+        $export->addRow($nextlabel);
+        $this->getExportRowData($export, $maxlength2, $detailNewData, $products);
+        $export->export();
         die();
     }
-
-    function getExportRowData($export, $length, $userData, $products) {
+    
+    /**
+     * GetExportRowData
+     * 
+     * @param string $export   export
+     * @param string $length   length
+     * @param string $userData userData
+     * @param string $products products
+     * 
+     * @return void
+     */
+    function getExportRowData($export, $length, $userData, $products)
+    {
         $k = 0;
         for ($i = 0; $i < $length; $i++) {
             $result[$k++] = $i + 1;
@@ -187,37 +260,59 @@ class Network extends CI_Controller {
                     $result[$k++] = $obj[$i]['percentage'] . "%";
                 }
             }
-            $export -> addRow($result);
+            $export->addRow($result);
             $k = 0;
         }
     }
 
-    /*
-     * Export to excel
+    /**
+     * Export
+     * 
+     * @return void
      */
-    function export() {
-        $this -> load -> library('export');
-        $productId = $this -> common -> getCurrentProduct();
-        $this -> common -> requireProduct();
-        $productId = $productId -> id;
-        $productName = $this -> common -> getCurrentProduct() -> name;
-        $fromTime = $this -> common -> getFromTime();
-        $toTime = $this -> common -> getToTime();
-        $data = $this -> network -> getALlNetWorkData($productId, $fromTime, $toTime);
-        $export = new Export();
-        // set file name
-        $titlename = getExportReportTitle($productName, lang('v_rpt_nw_details'), $fromTime, $toTime);
-        $title = iconv("UTF-8", "GBK", $titlename);
-        $export -> setFileName($title);
-        $fields = array();
-        foreach ($data->list_fields () as $field) {
-            array_push($fields, $field);
+    function export()
+    {
+        $this->load->library('export');
+        $productId = $this->common->getCurrentProduct();
+        $this->common->requireProduct();
+        $productId = $productId->id;
+        $productName = $this->common->getCurrentProduct()->name;
+        $fromTime = $this->common->getFromTime();
+        $toTime = $this->common->getToTime();
+        $data = $this->network->getALlNetWorkData($productId, $fromTime, $toTime);
+        if ($data != null && $data->num_rows() > 0) {
+            $export = new Export();
+            // set file name
+            $titlename = getExportReportTitle($productName, lang('v_rpt_nw_details'), $fromTime, $toTime);
+            $title = iconv("UTF-8", "GBK", $titlename);
+            $export->setFileName($title);
+            // set title name
+            $excel_title = array(iconv("UTF-8", "GBK", lang("m_rpt_networking")), iconv("UTF-8", "GBK", lang("t_sessions")), iconv("UTF-8", "GBK", lang("t_sessionsP")), iconv("UTF-8", "GBK", lang("t_newUsers")), iconv("UTF-8", "GBK", lang("t_newUsersP")));
+            $export->setTitle($excel_title);
+            ////percent
+            $Total = $this->network->getSessionNewusersNumByNetwork($fromTime, $toTime, $productId);
+            if ($Total) {
+                $sessions = $Total->first_row()->sessions;
+                $newusers = $Total->first_row()->newusers;
+            } else {
+                $sessions = 0;
+                $newusers = 0;
+            }
+            foreach ($data->result() as $row) {
+                if (!$row->networkname)
+                    $row->networkname = 'unknown';
+                $rowadd['networkname'] = $row->networkname;
+                $rowadd['sessions'] = $row->sessions;
+                $rowadd['sessions_p'] = ($sessions > 0) ? round(100 * $row->sessions / $sessions, 1) . '%' : '0%';
+                $rowadd['newusers'] = $row->newusers;
+                $rowadd['newusers_p'] = ($newusers > 0) ? round(100 * $row->newusers / $newusers, 1) . '%' : '0%';
+                $export->addRow($rowadd);
+            }
+            $export->export();
+            die();
+        } else {
+            $this->load->view("usage/nodataview");
         }
-        $export -> setTitle($fields);
-        foreach ($data->result () as $row)
-            $export -> addRow($row);
-        $export -> export();
-        die();
     }
 
 }
