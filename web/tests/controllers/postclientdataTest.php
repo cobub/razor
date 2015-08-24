@@ -79,6 +79,17 @@ class postclientdataTest extends CIUnit_TestCase {
             $output
         );
     }
+    
+    // public function testPostClientdata5() {
+        // $this->CI->rawdata = dirname(__FILE__) . '/testjson/onlyappkey.json';
+        // ob_start();
+        // $this->CI->postClientdata();
+        // $output = ob_get_clean();
+        // $this -> assertEquals(
+            // '{"flag":-1,"msg":"Invalid app key:invalid_appkey_00000"}', 
+            // $output
+        // );
+    // }
 
 }
 ?>
