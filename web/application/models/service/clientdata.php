@@ -120,7 +120,7 @@ class Clientdata extends CI_Model
             }
         }
         if ($choose == 1) {
-            require(dirname(__FILE__) . "/../../../geoip.inc");
+            include_once(dirname(__FILE__) . "/../../../geoip.inc");
             include_once (dirname(__FILE__) . "/../../../geoipcity.inc");
             include_once (dirname(__FILE__) . "/../../../geoipregionvars.php");
             $gi = geoip_open(dirname(__FILE__) . "/../../../GeoLiteCity.dat", GEOIP_STANDARD);

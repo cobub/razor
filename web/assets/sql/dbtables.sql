@@ -799,6 +799,6 @@ CREATE TABLE IF NOT EXISTS `umsinstall_device_tag` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `deviceid` varchar(256) NOT NULL,
     `tags` varchar(1024) default NULL,
-    `productkey` varchar(64) NOT NULL,
+    `appkey` varchar(64) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
