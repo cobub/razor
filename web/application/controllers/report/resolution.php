@@ -3,21 +3,43 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource  device.php
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
 
-class Resolution extends CI_Controller {
-    private $data = array();
+/**
+ * Resolution Controller
+ *
+ * @category PHP
+ * @package  Model
+ * @author   Cobub Team <open.cobub@gmail.com>
+ * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link     http://www.cobub.com
+ */
 
-    function __construct() {
+class Resolution extends CI_Controller
+{
+    /**
+     * Data array $data
+     */
+    private $_data = array();
+    
+    /**
+     * Construct funciton, to pre-load database configuration
+     *
+     * @return void
+     */
+    function __construct()
+    {
         parent::__construct();
         $this -> load -> Model('common');
         $this -> load -> model('channelmodel', 'channel');
@@ -27,13 +49,21 @@ class Resolution extends CI_Controller {
         $this -> common -> requireLogin();
         $this -> common -> checkCompareProduct();
     }
-
-    function index() {
+    
+    /**
+     * Index
+     *
+     * @return void
+     */
+    function index()
+    {
         $fromTime = $this -> common -> getFromTime();
         $toTime = $this -> common -> getToTime();
         if (isset($_GET['type']) && $_GET['type'] == 'compare') {
             $this -> common -> loadCompareHeader();
-            $this -> data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_activeUsers") . " " . lang("v_rpt_re_top10"), $fromTime, $toTime), 'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_re_top10"), $fromTime, $toTime), 'timePhase' => getTimePhaseStr($fromTime, $toTime));
+            $this -> _data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_re_top10"), $fromTime, $toTime), 
+            'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_re_top10"), $fromTime, $toTime), 
+            'timePhase' => getTimePhaseStr($fromTime, $toTime));
             $this -> load -> view('compare/resolutionview', $this -> data);
         } else {
             $this -> common -> loadHeaderWithDateControl();
@@ -42,16 +72,37 @@ class Resolution extends CI_Controller {
             $productId = $productId -> id;
             $fromTime = $this -> common -> getFromTime();
             $toTime = $this -> common -> getToTime();
-            $this -> data['details'] = $this -> orientationmodel -> getTotalUsersPercentByResolution($fromTime, $toTime, $productId);
-            $this -> load -> view('terminalandnet/resolutionview', $this -> data);
+            
+            $Total = $this->orientationmodel->getSessionNewuserByResolution($fromTime, $toTime, $productId);
+            if ($Total && $Total->num_rows()>0) {
+                $this->_data['sessions'] = $Total->first_row()->sessions;
+                $this->_data['newusers'] = $Total->first_row()->newusers;
+            } else {
+                $this->_data['sessions'] = 0;
+                $this->_data['newusers'] = 0;
+            }
+            
+            $this->_data['details'] = $this->orientationmodel->getTotalUsersPercentByResolution($fromTime, $toTime, $productId);
+            $this->load->view('terminalandnet/resolutionview', $this->_data);
+            
         }
     }
 
-    /*load resolution report*/
-    function addresolutioninforeport($delete = null, $type = null) {
+    /**
+     * Addresolutioninforeport
+     *
+     * @param string $delete delete
+     * @param string $type   type
+     * 
+     * @return void
+     */
+    function addresolutioninforeport($delete = null, $type = null)
+    {
         $fromTime = $this -> common -> getFromTime();
         $toTime = $this -> common -> getToTime();
-        $this -> data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_activeUsers") . " " . lang("v_rpt_re_top10"), $fromTime, $toTime), 'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_re_top10"), $fromTime, $toTime), 'timePhase' => getTimePhaseStr($fromTime, $toTime));
+        $this -> data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_re_top10"), $fromTime, $toTime), 
+        'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_re_top10"), $fromTime, $toTime), 
+        'timePhase' => getTimePhaseStr($fromTime, $toTime));
         if ($delete == null) {
             $this -> data['add'] = "add";
         }
@@ -65,10 +116,13 @@ class Resolution extends CI_Controller {
         $this -> load -> view('widgets/resolutioninfo', $this -> data);
     }
 
-    /*
-     * Get resolution data called by ajax
+    /**
+     * GetResolutionData
+     * 
+     * @return void
      */
-    function getResolutionData() {
+    function getResolutionData()
+    {
         $productId = $this -> common -> getCurrentProduct();
         $fromTime = $this -> common -> getFromTime();
         $toTime = $this -> common -> getToTime();
@@ -86,42 +140,56 @@ class Resolution extends CI_Controller {
                 $ret["newUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($newdata);
             }
         } else {
-            $this -> common -> requireProduct();
-            $activeUserData = $this -> orientationmodel -> getActiveUsersPercentByOrientation($fromTime, $toTime, $productId -> id);
-            $newUserData = $this -> orientationmodel -> getNewUsersPercentByOrientation($fromTime, $toTime, $productId -> id);
-            $ret["activeUserData"] = $this -> change2StandardPrecent($activeUserData);
-            $ret["newUserData"] = $this -> change2StandardPrecent($newUserData);
+            $this->common->requireProduct();
+            $activeUserData = $this->orientationmodel->getSessionByOrientiontop($fromTime, $toTime, $productId->id);
+            $newUserData = $this->orientationmodel->getNewuserByOrientiontop($fromTime, $toTime, $productId->id);
+            $ret["activeUserData"] = $this->change2StandardPrecent($activeUserData, 1);
+            $ret["newUserData"] = $this->change2StandardPrecent($newUserData, 2);
         }
 
         echo json_encode($ret);
     }
-
-    function change2StandardPrecent($userData) {
+    
+    /**
+     * Change2StandardPrecent
+     * 
+     * @param array $userData userdata
+     * @param int   $type     type
+     * 
+     * @return array
+     */
+    function change2StandardPrecent($userData,$type)
+    {
         $userDataArray = array();
         $totalPercent = 0;
-        foreach ($userData->result () as $row) {
+        foreach ($userData->result() as $row) {
             if (count($userData) > 10) {
                 break;
             }
             $userDataObj = array();
-            $userDataObj["deviceresolution_name"] = $row -> deviceresolution_name;
-            $percent = round($row -> percentage * 100, 1);
-            $totalPercent += $percent;
-            $userDataObj["percentage"] = $percent;
+            if (empty($row->deviceresolution_name)) {
+                $row->deviceresolution_name = "unknown";
+            }
+            $userDataObj["deviceresolution_name"] = $row->deviceresolution_name;
+            if ($type == 1) {
+                $userDataObj["sessions"] = $row->sessions / 1;
+            }
+            if ($type == 2) {
+                $userDataObj["newusers"] = $row->newusers / 1;
+            }
             array_push($userDataArray, $userDataObj);
         }
 
-        if ($totalPercent < 100.0) {
-            $remainPercent = round(100 - $totalPercent, 2);
-            $userDataObj["deviceresolution_name"] = lang('g_others');
-            $userDataObj["percentage"] = $remainPercent;
-            array_push($userDataArray, $userDataObj);
-        }
         return $userDataArray;
-        //	print_r($userDataArray);
     }
-
-    function exportCSV() {
+    
+    /**
+     * ExportCSV
+     * 
+     * @return void
+     */
+    function exportCSV()
+    {
         $fromTime = $this -> common -> getFromTime();
         $toTime = $this -> common -> getToTime();
         $products = $this -> common -> getCompareProducts();
@@ -153,8 +221,8 @@ class Resolution extends CI_Controller {
         for ($m = 0; $m < count($products); $m++) {
             $activedata = $this -> orientationmodel -> getActiveUsersPercentByOrientation($fromTime, $toTime, $products[$m] -> id);
             $newdata = $this -> orientationmodel -> getNewUsersPercentByOrientation($fromTime, $toTime, $products[$m] -> id);
-            $detailData[$m] = $this -> change2StandardPrecent($activedata);
-            $detailNewData[$m] = $this -> change2StandardPrecent($newdata);
+            $detailData[$m] = $this -> change2StandardPrecent($activedata, 1);
+            $detailNewData[$m] = $this -> change2StandardPrecent($newdata, 2);
             if (count($detailData[$m]) > $maxlength) {
                 $maxlength = count($detailData[$m]);
             }
@@ -171,8 +239,19 @@ class Resolution extends CI_Controller {
         $export -> export();
         die();
     }
-
-    function getExportRowData($export, $length, $userData, $products) {
+    
+    /**
+     * GetExportRowData
+     * 
+     * @param string $export   export
+     * @param string $length   length
+     * @param string $userData userdata
+     * @param string $products products
+     * 
+     * @return void
+     */
+    function getExportRowData($export, $length, $userData, $products)
+    {
         $k = 0;
         for ($i = 0; $i < $length; $i++) {
             $result[$k++] = $i + 1;
@@ -190,36 +269,68 @@ class Resolution extends CI_Controller {
                     $result[$k++] = $obj[$i]['percentage'] . "%";
                 }
             }
-            $export -> addRow($result);
+            $export->addRow($result);
             $k = 0;
         }
     }
 
-    /*
-     * Export resolution data to excel
+    /**
+     * Export
+     *  
+     * @return void
      */
-    function export() {
-        $this -> load -> library('export');
-        $fromTime = $this -> common -> getFromTime();
-        $toTime = $this -> common -> getToTime();
-        $productId = $this -> common -> getCurrentProduct();
-        $this -> common -> requireProduct();
-        $productId = $productId -> id;
-        $productName = $this -> common -> getCurrentProduct() -> name;
-        $data = $this -> orientationmodel -> getTotalUsersPercentByResolution($fromTime, $toTime, $productId);
-        $export = new Export();
-        $titlename = getExportReportTitle($productName, lang('v_rpt_re_details'), $fromTime, $toTime);
-        $title = iconv("UTF-8", "GBK", $titlename);
-        $export -> setFileName($title);
-        $fields = array();
-        foreach ($data->list_fields () as $field) {
-            array_push($fields, $field);
+    function export()
+    {
+        $this->load->library('export');
+        $fromTime = $this->common->getFromTime();
+        $toTime = $this->common->getToTime();
+        $productId = $this->common->getCurrentProduct();
+        $this->common->requireProduct();
+        $productId = $productId->id;
+        $productName = $this->common->getCurrentProduct()->name;
+        $data = $this->orientationmodel->getTotalUsersPercentByResolution($fromTime, $toTime, $productId);
+        if ($data != null && $data->num_rows() > 0) {
+            $export = new Export();
+            ////set file name
+            $titlename = getExportReportTitle($productName, lang('v_rpt_re_details'), $fromTime, $toTime);
+            $title = iconv("UTF-8", "GBK", $titlename);
+            $export->setFileName($title);
+            ////set title name
+            $excel_title = array(
+                iconv("UTF-8", "GBK", lang("v_rpt_re_screen")),
+                iconv("UTF-8", "GBK", lang("t_sessions")),
+                iconv("UTF-8", "GBK", lang("t_sessionsP")),
+                iconv("UTF-8", "GBK", lang("t_newUsers")),
+                iconv("UTF-8", "GBK", lang("t_newUsersP"))
+            );
+            $export->setTitle($excel_title);
+            ////set content
+            $Total = $this->orientationmodel->getSessionNewuserByResolution($fromTime, $toTime, $productId);
+            if ($Total) {
+                $sessions = $Total->first_row()->sessions;
+                $newusers = $Total->first_row()->newusers;
+            } else {
+                $sessions = 0;
+                $newusers = 0;
+            }
+            foreach ($data->result() as $row) {
+                if (!$row->deviceresolution_name) {
+                    $row->deviceresolution_name = 'unknown';
+                }
+                    
+                $rowadd['deviceresolution_name'] = $row->deviceresolution_name;
+                $rowadd['sessions'] = $row->sessions;
+                $rowadd['sessions_p'] = ($sessions > 0) ? round(100 * $row->sessions / $sessions, 1) . '%' : '0%';
+                $rowadd['newusers'] = $row->newusers;
+                $rowadd['newusers_p'] = ($newusers > 0) ? round(100 * $row->newusers / $newusers, 1) . '%' : '0%';
+                $export->addRow($rowadd);
+            }
+
+            $export->export();
+            die();
+        } else {
+            $this->load->view("usage/nodataview");
         }
-        $export -> setTitle($fields);
-        foreach ($data->result () as $row)
-            $export -> addRow($row);
-        $export -> export();
-        die();
     }
 
 }
