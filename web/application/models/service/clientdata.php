@@ -57,6 +57,7 @@ class Clientdata extends CI_Model
         $clientdata->loadclientdata($content);
         $ip = $this->utility->getOnlineIP();
 
+        
         $nowtime = date('Y-m-d H:i:s');
         if (isset($clientdata->time)) {
             $nowtime = $clientdata->time;
@@ -121,36 +122,11 @@ class Clientdata extends CI_Model
             }
         }
         if ($choose == 1) {
-            include_once(dirname(__FILE__) . "/../../third_party/geoip/geoip.inc");
-            include_once (dirname(__FILE__) . "/../../third_party/geoip/geoipcity.inc");
-            include_once (dirname(__FILE__) . "/../../third_party/geoip/geoipregionvars.php");
-            $gi = geoip_open(dirname(__FILE__) . "/../../third_party/geoip/GeoLiteCity.dat", GEOIP_STANDARD);
-            $record = geoip_record_by_addr($gi, $ip);
-            if (!empty($record)) {
-
-                if ($record->country_name != '') {
-                    $data["country"] = $record->country_name;
-                } else {
-                    $data["country"] = "unknown";
-                }
-                if ($record->region != '') {
-                    $data["region"] = $GEOIP_REGION_NAME[$record->country_code][$record->region];
-                } else {
-                    $data["region"] = "unknown";
-                }
-                if ($record->city != '') {
-                    $data["city"] = $record->city;
-                } else {
-                    $data["city"] = "unknown";
-                }
-                $data["region"] = mb_convert_encoding($data["region"], "UTF-8", "UTF-8");
-                $data["city"] = mb_convert_encoding($data["city"], "UTF-8", "UTF-8");
-            } else {
-                $data["country"] = "unknown";
-                $data["region"] = "unknown";
-                $data["city"] = "unknown";
-
-            }
+            require ('IP.class.php');
+            $loc = IP::find($ip);
+            $data['country'] = $loc[0];
+            $data['region']  = $loc[1];
+            $data['city']    = $loc[2];
         }
 
         $this->db->insert('clientdata', $data);
