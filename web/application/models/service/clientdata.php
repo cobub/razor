@@ -40,6 +40,7 @@ class Clientdata extends CI_Model
         $this->load->model('lbs_service/google', 'google');
         $this->load->model('lbs_service/ipinfodb', 'ipinfodb');
         $this->load->model('service/utility', 'utility');
+        
     }
 
     /**
@@ -120,10 +121,10 @@ class Clientdata extends CI_Model
             }
         }
         if ($choose == 1) {
-            include_once(dirname(__FILE__) . "/../../../geoip.inc");
-            include_once (dirname(__FILE__) . "/../../../geoipcity.inc");
-            include_once (dirname(__FILE__) . "/../../../geoipregionvars.php");
-            $gi = geoip_open(dirname(__FILE__) . "/../../../GeoLiteCity.dat", GEOIP_STANDARD);
+            include_once(dirname(__FILE__) . "/../../third_party/geoip/geoip.inc");
+            include_once (dirname(__FILE__) . "/../../third_party/geoip/geoipcity.inc");
+            include_once (dirname(__FILE__) . "/../../third_party/geoip/geoipregionvars.php");
+            $gi = geoip_open(dirname(__FILE__) . "/../../third_party/geoip/GeoLiteCity.dat", GEOIP_STANDARD);
             $record = geoip_record_by_addr($gi, $ip);
             if (!empty($record)) {
 
