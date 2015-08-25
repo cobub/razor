@@ -28,24 +28,35 @@
  */
 class IpIpLibrary implements IIPLibrary
 {
-    var $ipobj;
+    var $country;
+    var $region;
+    var $city;
     public function setIp($ip)
     {
-        $this->ipobj = $ip;
+        if (!class_exists('IP')) {
+            require(dirname(__FILE__) . "/../third_party/ipip/IP.class.php");
+        }
+        $loc = IP::find($ip);
+        if (isset($loc[0]))
+            $this->country = $loc[0];
+        if (isset($loc[1]))
+            $this->region = $loc[1];
+        if (isset($loc[2]))
+            $this->city = $loc[2];
     }
     
     public function getCountry()
     {
-        
+        return $this->country;
     }
     
     public function getRegion()
     {
-        
+        return $this->region;
     }
     
     public function getCity()
     {
-        
+        return $this->city;
     }
 }

@@ -40,7 +40,7 @@ class Clientdata extends CI_Model
         $this->load->model('lbs_service/google', 'google');
         $this->load->model('lbs_service/ipinfodb', 'ipinfodb');
         $this->load->model('service/utility', 'utility');
-        
+        $this->load->library('iplibrary');
     }
 
     /**
@@ -122,11 +122,11 @@ class Clientdata extends CI_Model
             }
         }
         if ($choose == 1) {
-            require ('IP.class.php');
-            $loc = IP::find($ip);
-            $data['country'] = $loc[0];
-            $data['region']  = $loc[1];
-            $data['city']    = $loc[2];
+            $this->iplibrary->setLibrary('IpIpLibrary',$ip);
+            
+            $data['country'] = $this->iplibrary->getCountry();
+            $data['region']  = $this->iplibrary->getRegion();
+            $data['city']    = $this->iplibrary->getCity();
         }
 
         $this->db->insert('clientdata', $data);
