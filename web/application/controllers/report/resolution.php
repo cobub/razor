@@ -64,7 +64,7 @@ class Resolution extends CI_Controller
             $this -> _data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_re_top10"), $fromTime, $toTime), 
             'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_re_top10"), $fromTime, $toTime), 
             'timePhase' => getTimePhaseStr($fromTime, $toTime));
-            $this -> load -> view('compare/resolutionview', $this -> data);
+            $this -> load -> view('compare/resolutionview', $this -> _data);
         } else {
             $this -> common -> loadHeaderWithDateControl();
             $productId = $this -> common -> getCurrentProduct();
@@ -134,10 +134,10 @@ class Resolution extends CI_Controller
                 return;
             }
             for ($i = 0; $i < count($products); $i++) {
-                $activedata = $this -> orientationmodel -> getActiveUsersPercentByOrientation($fromTime, $toTime, $products[$i] -> id);
-                $newdata = $this -> orientationmodel -> getNewUsersPercentByOrientation($fromTime, $toTime, $products[$i] -> id);
-                $ret["activeUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($activedata);
-                $ret["newUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($newdata);
+                $activedata = $this -> orientationmodel -> getSessionByOrientiontop($fromTime, $toTime, $products[$i] -> id);
+                $newdata = $this -> orientationmodel -> getNewuserByOrientiontop($fromTime, $toTime, $products[$i] -> id);
+                $ret["activeUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($activedata, 1);
+                $ret["newUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($newdata, 2);
             }
         } else {
             $this->common->requireProduct();
@@ -162,6 +162,17 @@ class Resolution extends CI_Controller
     {
         $userDataArray = array();
         $totalPercent = 0;
+        $numTotal = 0;
+        
+        foreach ( $userData->result () as $row ) {
+            if ($type == 1) {
+                $numTotal+= $row->sessions;
+            }
+            if ($type == 2) {
+                $numTotal+= $row->newusers;
+            }
+        }
+        
         foreach ($userData->result() as $row) {
             if (count($userData) > 10) {
                 break;
@@ -172,10 +183,31 @@ class Resolution extends CI_Controller
             }
             $userDataObj["deviceresolution_name"] = $row->deviceresolution_name;
             if ($type == 1) {
-                $userDataObj["sessions"] = $row->sessions / 1;
+                 $userDataObj ["sessions"] = $row->sessions / 1;
+                 $percent = round ( $row->sessions/$numTotal * 100, 1 );
+                 $totalPercent += $percent;
+                 $userDataObj ["percentage"] = $percent;
             }
             if ($type == 2) {
                 $userDataObj["newusers"] = $row->newusers / 1;
+                $percent = round ( $row->newusers/$numTotal * 100, 1 );
+                $totalPercent += $percent;
+                $userDataObj ["percentage"] = $percent;
+            }
+                
+            array_push($userDataArray, $userDataObj);
+        }
+        
+        if ($totalPercent < 100.0) {
+            $remainPercent = round ( 100 - $totalPercent, 2 );
+            $userDataObj ["deviceresolution_name"] = lang('g_others');
+            $userDataObj ["percentage"] = $remainPercent;
+            if ($type == 1) {
+                 $userDataObj ["sessions"] = 0;
+            }
+               
+            if ($type == 2) {
+                $userDataObj["newusers"] = 0;
             }
             array_push($userDataArray, $userDataObj);
         }
@@ -208,7 +240,9 @@ class Resolution extends CI_Controller
         $space[$mk++] = ' ';
         for ($i = 0; $i < count($products); $i++) {
             $title[$j++] = iconv("UTF-8", "GBK", $products[$i] -> name);
-            $title[$j++] = '';
+            $title[$j++] = iconv("UTF-8", "GBK", lang('v_rpt_re_count'));
+            $title[$j++] = iconv("UTF-8", "GBK", lang('g_percent'));
+            $space[$mk++] = ' ';
             $space[$mk++] = ' ';
             $space[$mk++] = ' ';
         }
@@ -219,8 +253,8 @@ class Resolution extends CI_Controller
         $j = 0;
         $nextlabel[$j++] = lang('t_newUsers');
         for ($m = 0; $m < count($products); $m++) {
-            $activedata = $this -> orientationmodel -> getActiveUsersPercentByOrientation($fromTime, $toTime, $products[$m] -> id);
-            $newdata = $this -> orientationmodel -> getNewUsersPercentByOrientation($fromTime, $toTime, $products[$m] -> id);
+            $activedata = $this -> orientationmodel -> getSessionByOrientiontop($fromTime, $toTime, $products[$m] -> id);
+            $newdata = $this -> orientationmodel -> getNewuserByOrientiontop($fromTime, $toTime, $products[$m] -> id);
             $detailData[$m] = $this -> change2StandardPrecent($activedata, 1);
             $detailNewData[$m] = $this -> change2StandardPrecent($newdata, 2);
             if (count($detailData[$m]) > $maxlength) {
@@ -231,11 +265,12 @@ class Resolution extends CI_Controller
             }
             $nextlabel[$j++] = $products[$m] -> name;
             $nextlabel[$j++] = ' ';
+            $nextlabel[$j++] = ' ';
         }
-        $this -> getExportRowData($export, $maxlength, $detailData, $products);
+        $this -> getExportRowData($export, $maxlength, $detailData, $products,1);
         $export -> addRow($space);
         $export -> addRow($nextlabel);
-        $this -> getExportRowData($export, $maxlength2, $detailNewData, $products);
+        $this -> getExportRowData($export, $maxlength2, $detailNewData, $products,2);
         $export -> export();
         die();
     }
@@ -247,10 +282,11 @@ class Resolution extends CI_Controller
      * @param string $length   length
      * @param string $userData userdata
      * @param string $products products
+     * @param int    $type     type
      * 
      * @return void
      */
-    function getExportRowData($export, $length, $userData, $products)
+    function getExportRowData($export, $length, $userData, $products,$type)
     {
         $k = 0;
         for ($i = 0; $i < $length; $i++) {
@@ -260,11 +296,18 @@ class Resolution extends CI_Controller
                 if ($i >= count($obj)) {
                     $result[$k++] = '';
                     $result[$k++] = '';
+                    $result[$k++] = '';
                 } else {
                     if ($obj[$i]['deviceresolution_name'] == '') {
                         $result[$k++] = 'unknow';
                     } else {
                         $result[$k++] = $obj[$i]['deviceresolution_name'];
+                    }
+                    if($type==1) {
+                        $result[$k++] = $obj[$i]['sessions'];
+                    }
+                    if($type==2) {
+                        $result[$k++] = $obj[$i]['newusers'];
                     }
                     $result[$k++] = $obj[$i]['percentage'] . "%";
                 }

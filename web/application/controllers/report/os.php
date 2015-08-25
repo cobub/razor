@@ -136,11 +136,8 @@ class Os extends CI_Controller
             }
         } else {
             $this -> common -> requireProduct();
-            
             $activeUserData = $this -> os -> getSessionsByOstop($fromTime, $toTime, $productId -> id);
-            
             $newUserData = $this -> os -> getNewusersByOstop($fromTime, $toTime, $productId -> id);
-            
             $ret["activeUserData"] = $this -> change2StandardPrecent($activeUserData, 1);
             $ret["newUserData"] = $this -> change2StandardPrecent($newUserData, 2);
         }
@@ -160,6 +157,17 @@ class Os extends CI_Controller
     {
         $userDataArray = array();
         $totalPercent = 0;
+        $numTotal = 0;
+        
+        foreach ( $userData->result () as $row ) {
+            if ($type == 1) {
+                $numTotal+= $row->sessions;
+            }
+            if ($type == 2) {
+                $numTotal+= $row->newusers;
+            }
+        }
+        
         foreach ($userData->result() as $row) {
             if (count($userData) > 10) {
                 break;
@@ -168,11 +176,35 @@ class Os extends CI_Controller
             if (empty($row -> deviceos_name))
                 $row -> deviceos_name = "unknown";
             $userDataObj["deviceos_name"] = $row -> deviceos_name;
-            if ($type == 1)
+            if ($type == 1) {
                 $userDataObj["sessions"] = $row -> sessions / 1;
-            if ($type == 2)
+                $percent = round ( $row->sessions/$numTotal * 100, 1 );
+                $totalPercent += $percent;
+                $userDataObj ["percentage"] = $percent;
+            }
+                
+            if ($type == 2) {
                 $userDataObj["newusers"] = $row -> newusers / 1;
+                $percent = round ( $row->newusers/$numTotal * 100, 1 );
+                $totalPercent += $percent;
+                $userDataObj ["percentage"] = $percent;
+            }
+                
             array_push($userDataArray, $userDataObj);
+        }
+        
+        if ($totalPercent < 100.0) {
+            $remainPercent = round ( 100 - $totalPercent, 2 );
+            $userDataObj ["deviceos_name"] = lang('g_others');
+            $userDataObj ["percentage"] = $remainPercent;
+            if ($type == 1) {
+                 $userDataObj ["sessions"] = 0;
+            }
+               
+            if ($type == 2) {
+                $userDataObj["newusers"] = 0;
+            }
+            array_push ( $userDataArray, $userDataObj );
         }
 
         return $userDataArray;
@@ -203,7 +235,9 @@ class Os extends CI_Controller
         $space[$mk++] = ' ';
         for ($i = 0; $i < count($products); $i++) {
             $title[$j++] = iconv("UTF-8", "GBK", $products[$i] -> name);
-            $title[$j++] = '';
+            $title[$j++] = iconv("UTF-8", "GBK", lang('v_rpt_re_count'));
+            $title[$j++] = iconv("UTF-8", "GBK", lang('g_percent'));
+            $space[$mk++] = ' ';
             $space[$mk++] = ' ';
             $space[$mk++] = ' ';
         }
@@ -214,11 +248,9 @@ class Os extends CI_Controller
         $j = 0;
         $nextlabel[$j++] = lang('t_newUsers');
         for ($m = 0; $m < count($products); $m++) {
-            $activedata = $this -> os -> getActiUsersPercentByOS($fromTime, $toTime, $products[$m] -> id);
-            $newdata = $this -> os -> getNewUserPercentByOS($fromTime, $toTime, $products[$m] -> id);
-            
+            $activedata = $this -> os -> getSessionsByOstop($fromTime, $toTime, $products[$m] -> id);
+            $newdata = $this -> os -> getNewusersByOstop($fromTime, $toTime, $products[$m] -> id);
             $detailData[$m] = $this -> change2StandardPrecent($activedata, 1);
-            
             $detailNewData[$m] = $this -> change2StandardPrecent($newdata, 2);
             
             if (count($detailData[$m]) > $maxlength) {
@@ -227,14 +259,15 @@ class Os extends CI_Controller
             if (count($detailNewData[$m]) > $maxlength2) {
                 $maxlength2 = count($detailNewData[$m]);
             }
-            $nextlabel[$j++] = $products[$m] -> name;
-            $nextlabel[$j++] = '';
+            $nextlabel[$j++] = iconv("UTF-8", "GBK", $products[$m] -> name);
+            $nextlabel[$j++] = ' ';
+            $nextlabel[$j++] = ' ';
         }
 
-        $this -> getExportRowData($export, $maxlength, $detailData, $products);
+        $this -> getExportRowData($export, $maxlength, $detailData, $products,1);
         $export -> addRow($space);
         $export -> addRow($nextlabel);
-        $this -> getExportRowData($export, $maxlength2, $detailNewData, $products);
+        $this -> getExportRowData($export, $maxlength2, $detailNewData, $products,2);
         $export -> export();
         die();
     }
@@ -246,10 +279,11 @@ class Os extends CI_Controller
      * @param string $length   length
      * @param string $userData userData
      * @param string $products products
+     * @param int    $type     type
      * 
      * @return void
      */
-    function getExportRowData($export, $length, $userData, $products)
+    function getExportRowData($export, $length, $userData, $products, $type)
     {
         $k = 0;
         for ($i = 0; $i < $length; $i++) {
@@ -259,11 +293,18 @@ class Os extends CI_Controller
                 if ($i >= count($obj)) {
                     $result[$k++] = '';
                     $result[$k++] = '';
+                    $result[$k++] = '';
                 } else {
                     if ($obj[$i]['deviceos_name'] == '') {
                         $result[$k++] = 'unknow';
                     } else {
                         $result[$k++] = $obj[$i]['deviceos_name'];
+                    }
+                    if($type==1) {
+                        $result[$k++] = $obj[$i]['sessions'];
+                    }
+                    if($type==2) {
+                        $result[$k++] = $obj[$i]['newusers'];
                     }
                     $result[$k++] = $obj[$i]['percentage'] . "%";
                 }

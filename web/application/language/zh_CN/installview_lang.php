@@ -2,15 +2,17 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
 $lang["installview_installheader"] = "Cobub Razor 安装向导";
 $lang["installview_logotitle"] = "开源移动应用统计分析平台";
@@ -37,6 +39,8 @@ $lang["installview_installstep"] = "安装";
 $lang["installview_acceptcontent"] = "我接受Cobub Razor所附带的软件许可证协议";
 $lang["installview_versionerror"] = "您的PHP版本太低，请先升级您的PHP版本";
 $lang["installview_mysqlierror"] = "您的mysqli没有打开";
+$lang["installview_curlerror"] = "您没有安装curl";
+$lang["installview_mbstringerror"] = "您没有安装mb_string";
 $lang["installview_writeerror"]="您的文件没有写入权限，请先添加文件的权限";
 $lang["installview_companyname"] = "DEV.COBUB.COM";
 
@@ -48,6 +52,8 @@ $lang["installview_welcomedemand"] = "请根据操作提示安装部署你的移
 $lang["installview_check"] = "系统检查";
 $lang["installview_checkversion"] = "php版本(>=5.2.6)：";
 $lang["installview_checkexpand"] = "MySqli 扩展：";
+$lang["installview_checkcurl"] = "curl 扩展：";
+$lang["installview_checkmbstring"] = "mb_string 扩展：";
 $lang["installview_checkpermission"] = "具有写入权限的目录（包括目录下的文件）：";
 //database info 
 $lang["installview_datawarn"] = "配置不同的数据库、数据仓库连接可以提高系统性能。";

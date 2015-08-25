@@ -208,13 +208,26 @@ class Installation extends CI_Controller
             $mysqli = false;
             $this->data['mysqlierror'] = lang('installview_mysqlierror');
         }
-        
+        if (function_exists('curl_init')) {
+            $curl=true;
+        } else {
+            $curl=false;
+            $this->data['curlerror'] = lang('installview_curlerror');
+        }
+        if (extension_loaded('mbstring')) {
+            $mbstring = true;
+        } else {
+            $mbstring = false;
+            $this->data['mbstringerror'] = lang('installview_mbstringerror');
+        }
         $configpath = realpath('./application/config');
         $assetspath = realpath('./assets/android');
         $captchapath = realpath('./captcha');
         $sqlpath = realpath('./assets/sql');
         $this->data['phpversion'] = $phpversion;
         $this->data['mysqli'] = $mysqli;
+        $this->data['curl'] = $curl;
+        $this->data['mbstring'] = $mbstring;
         
         $configwrite = $this->isdirwritable($configpath);
         $this->data['configwrite'] = $configwrite;

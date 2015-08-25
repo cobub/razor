@@ -1,3 +1,19 @@
+<?php 
+/**
+ * Cobub Razor
+ *
+ * An open source mobile analytics system
+ *
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
+ */?>
 <script src="<?php echo base_url();?>assets/js/jquery.easyui.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/datagrid-detailview.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/jquery.easyui.css"></link>
@@ -11,8 +27,8 @@
             singleSelect="true" fitColumns="true" border="false">
         <thead>
             <tr>
-                <th field="countryName" width="100%"><?php echo lang('v_rpt_re_nation');?></th>
-                <th field="countrySize" width="100%"><?php echo lang('v_rpt_realtime_onlineuser_size');?></th>
+                <th field="countryName" width="50%"><?php echo lang('v_rpt_re_nation');?></th>
+                <th field="countrySize" width="50%"><?php echo lang('v_rpt_realtime_onlineuser_size');?></th>
             </tr>
         </thead>
     </table>
@@ -27,6 +43,7 @@
                     $('#ddv-'+index).panel({                        
                         border:true,
                         cache:false,
+                        method:'post',
                         href:'<?php echo site_url();?>/realtime/areas/getDetailRegionsInfo/<?php echo $productId?>/'+row.countryName,
                         onLoad:function(){
                             $('#dg').datagrid('fixDetailRowHeight',index);
