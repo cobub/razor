@@ -2,15 +2,17 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
 $lang["installview_installheader"] 	=	 "Cobub Razor セットアップウィザード";
 $lang["installview_logotitle"] 	=	 "モバイルアプリケーション統計解析システム";
@@ -37,7 +39,9 @@ $lang["installview_installselectlanguage"] ="インストールを開始する";
 $lang["installview_installstep"] 	=	 "インストール";
 $lang["installview_acceptcontent"] 	=	 "Cobub Razorに付属のライセンスに同意します。";
 $lang["installview_versionerror"] 	=	 "PHPのバージョンが古すぎます。PHPのバージョンをアップグレードしてください。";
-$lang["installview_mysqlierror"] 	=	 "MySQLのバージョンが古すぎます。MySQLのバージョンをアップグレードしてください。";
+$lang["installview_mysqlierror"] 	=	 "あなたの mysqli 開けない。";
+$lang["installview_curlerror"] = "あなたの curl 開けない。";
+$lang["installview_mbstringerror"] = "あなたの mb_string 開けない";
 $lang["installview_writeerror"]	=	"このファイルは書込み権限がありません。ファイルのアクセス権限を追加してください。";
 $lang["installview_companyname"] 	=	 "DEV.COBUB.COM";
 
@@ -49,6 +53,8 @@ $lang["installview_welcomedemand"] 	=	 "次の指示に従ってあなた自身�
 $lang["installview_check"] 	=	 "システム確認";
 $lang["installview_checkversion"] 	=	 "PHPバージョン(>=5.2.6)：";
 $lang["installview_checkexpand"] 	=	 "MySqli サポート：";
+$lang["installview_checkcurl"] = "curl サポート：";
+$lang["installview_checkmbstring"] = "mb_string サポート：";
 $lang["installview_checkpermission"] 	=	 "ディレクトリへの書込権限:";
 //database info
 $lang["installview_datawarn"] 	=	 "Cobub Razorはパフォーマンスを考慮するなら2つのデータベースを作成することを強く推奨します。 1つは運用向け、もう一つはデータ保管用です。";

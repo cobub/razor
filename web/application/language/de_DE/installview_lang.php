@@ -2,15 +2,17 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
 $lang["installview_installheader"] = "Cobub Razor Setup Wizard";
 $lang["installview_logotitle"] = "Mobile Application Analytics System";
@@ -36,6 +38,8 @@ $lang["installview_installstep"] = "Install";
 $lang["installview_acceptcontent"] = "Ich akzeptiere die Lizenzvereinbarung von Cobub Razor";
 $lang["installview_versionerror"] = "Ihre PHP-Version ist zu niedrig, aktualisieren Sie bitte Ihre Version von PHP";
 $lang["installview_mysqlierror"] = "Ihre mysqli ist nicht offene";
+$lang["installview_curlerror"] = "Ihre curl ist nicht offene";
+$lang["installview_mbstringerror"] = "Ihre mb_string ist nicht offene";
 $lang["installview_writeerror"]="Ihre Dateien haben keine Schreibrechte, bitte gewähren die Dateie Schreibrechte";
 $lang["installview_companyname"] = "DEV.COBUB.COM";
 //welcome info 
@@ -46,6 +50,8 @@ $lang["installview_welcomedemand"] = "Bitte folgen Sie den Anweisungen zum Insta
 $lang["installview_check"] = "System checks";
 $lang["installview_checkversion"] = "PHP Version(>=5.2.6):";
 $lang["installview_checkexpand"] = "MySqli Support:";
+$lang["installview_checkcurl"] = "curl Support：";
+$lang["installview_checkmbstring"] = "mb_string Support：";
 $lang["installview_checkpermission"] = "Schreibrechte auf die Verzeichnisse (einschließlich Dateien in ihnen):";
 //database info 
 $lang["installview_datawarn"] = "Cobub Razor empfehlt Sie zwei Datenbanken zu benutzen für eine bessere Leistung.";
