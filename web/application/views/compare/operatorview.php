@@ -1,9 +1,21 @@
 <section id="main" class="column" style="height:1600px">
 	<article class="module width_full">
 		<header>
-			<h3 class="h3_fontstyle"><?php echo  lang('v_rpt_op_top10')?></h3>
+			<h3 class="h3_fontstyle">
+<?php
+                            /**
+ * Region
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
+ */
+                            echo lang('v_rpt_op_top10')?></h3>
 			<ul class="tabs2">
-				<li><a href="javascript:changeReportType('activeuser')"><?php echo  lang('t_activeUsers')?></a></li>
+				<li><a href="javascript:changeReportType('activeuser')"><?php echo  lang('t_sessions')?></a></li>
 				<li><a href="javascript:changeReportType('newuser')"><?php echo  lang('t_newUsers')?></a></li>
 			</ul>
 		</header>
@@ -14,7 +26,7 @@
 		<header>
 			<h3 class="tabs_involved"><?php echo lang('v_rpt_op_top10') ?></h3>
 			<ul class="tabs3">
-				<li><a href="javascript:changeDetailType('activeuser')"><?php echo  lang('t_activeUsers')?></a></li>
+				<li><a href="javascript:changeDetailType('activeuser')"><?php echo  lang('t_sessions')?></a></li>
 				<li><a href="javascript:changeDetailType('newuser')"><?php echo  lang('t_newUsers')?></a></li>
 			</ul>
 			<span class="relative r"> <a
@@ -191,7 +203,7 @@ function changeDetailType(type){
 			continue;
 		}
 		productNames.push(key);
-		detailtitlecontent=detailtitlecontent+"<th colspan='2'>"+productName+"</th>";
+		detailtitlecontent=detailtitlecontent+"<th colspan='3'>"+productName+"</th>";
 	}
 	detailtitlecontent=detailtitlecontent+"</tr>";
 	var detailcontent="";
@@ -214,6 +226,11 @@ function changeDetailType(type){
 				}else{
 					detailcontent=detailcontent+"<td>"+obj[i].devicesupplier_name+"</td>";
 				}
+				if(type=="activeuser")
+				detailcontent=detailcontent+"<td>"+obj[i].sessions+"</td>";
+				if(type=="newuser")
+				detailcontent=detailcontent+"<td>"+obj[i].newusers+"</td>";
+				
 				detailcontent = detailcontent+"<td>"+obj[i].percentage+"%</td>";
 			}
 		}
