@@ -1,14 +1,14 @@
-<section id="main" class="column" style="height:2700px">
+<section id="main" class="column" style="height:2400px">
 	<!-- Country -->
 	<article class="module width_full">
 		<header>
 			<h3 class="tabs_involved"><?php echo lang('v_rpt_re_top10Nations') ?></h3>
 			<ul class="tabs1">
-				<li><a href="javascript:changeCountryReportType('activeuser')"><?php echo lang('t_activeUsers') ?></a></li>
+				<li><a href="javascript:changeCountryReportType('activeuser')"><?php echo lang('t_sessions') ?></a></li>
 				<li><a href="javascript:changeCountryReportType('newuser')"><?php echo lang('t_newUsers') ?></a></li>
 			</ul>
 		</header>
-		<div id="country" style="height:450px">
+		<div id="country" style="height:400px">
 		</div>
 	</article>
 	<!--Region -->
@@ -16,19 +16,31 @@
 		<header>
 			<h3 class="tabs_involved"><?php echo lang('v_rpt_re_top10Provinces') ?></h3>
 			<ul class="tabs2">
-				<li><a href="javascript:changeRegionReportType('regionactiveuser')"><?php echo lang('t_activeUsers') ?></a></li>
+				<li><a href="javascript:changeRegionReportType('regionactiveuser')"><?php echo lang('t_sessions') ?></a></li>
 				<li><a href="javascript:changeRegionReportType('regionnewuser')"><?php echo lang('t_newUsers') ?></a></li>
 			</ul>
 		</header>
-		<div id="region" style="height:450px">
+		<div id="region" style="height:400px">
 		</div>
 	</article>
+	<!--City -->
+    <article class="module width_full">
+        <header>
+            <h3 class="tabs_involved"><?php echo lang('v_rpt_re_top10City') ?></h3>
+            <ul class="tabs3">
+                <li><a href="javascript:changeCityReportType('cityactiveuser')"><?php echo lang('t_sessions') ?></a></li>
+                <li><a href="javascript:changeCityReportType('citynewuser')"><?php echo lang('t_newUsers') ?></a></li>
+            </ul>
+        </header>
+        <div id="city" style="height:400px">
+        </div>
+    </article>
 	<!-- Country -->
 	<article class="module width_full">
 		<header>
 			<h3 class="tabs_involved"><?php echo lang('v_rpt_re_top10Nations') ?></h3>
-			<ul class="tabs3">
-				<li><a href="javascript:changeDetailCountryType('activeuser')"><?php echo  lang('t_activeUsers')?></a></li>
+			<ul class="tabs4">
+				<li><a href="javascript:changeDetailCountryType('activeuser')"><?php echo  lang('t_sessions')?></a></li>
 				<li><a href="javascript:changeDetailCountryType('newuser')"><?php echo  lang('t_newUsers')?></a></li>
 			</ul>
 			<span class="relative r"> <a
@@ -44,21 +56,41 @@
 	<!--Region -->
 	<article class="module width_full">
 		<header>
-			<h3 class="tabs_involved"><?php echo lang('v_rpt_re_top10Provinces') ?></h3>
-			<ul class="tabs4">
-				<li><a href="javascript:changeDetailRegionType('regionactiveuser')"><?php echo  lang('t_activeUsers')?></a></li>
-				<li><a href="javascript:changeDetailRegionType('regionnewuser')"><?php echo  lang('t_newUsers')?></a></li>
-			</ul>
-			<span class="relative r"> <a
-				href="<?php echo site_url().'/report/region/exportCSV/region'?>"
-				class="bottun4 hover"><font><?php echo lang('g_exportToCSV') ?></font></a>
-			</span>
-		</header>
-		<table id="regiontable" class="tablesorter" cellspacing="0">
-		    <thead id="regiondetaildatatitle"></thead>
-			<tbody id="regiondetaildata"></tbody>
-		</table>
+            <h3 class="tabs_involved"><?php echo lang('v_rpt_re_top10Provinces') ?></h3>
+            <ul class="tabs4">
+                <li><a href="javascript:changeDetailRegionType('regionactiveuser')"><?php echo  lang('t_sessions')?></a></li>
+                <li><a href="javascript:changeDetailRegionType('regionnewuser')"><?php echo  lang('t_newUsers')?></a></li>
+            </ul>
+            <span class="relative r"> 
+                <a
+                href="<?php echo site_url().'/report/region/exportCSV/region'?>"
+                class="bottun4 hover"><font><?php echo lang('g_exportToCSV') ?></font></a>
+            </span>
+        </header>
+        <table id="regiontable" class="tablesorter" cellspacing="0">
+            <thead id="regiondetaildatatitle"></thead>
+            <tbody id="regiondetaildata"></tbody>
+        </table>
 	</article>
+	
+	<!--City-->
+    <article class="module width_full">
+        <header>
+            <h3 class="tabs_involved"><?php echo lang('v_rpt_re_top10City') ?></h3>
+            <ul class="tabs4">
+                <li><a href="javascript:changeDetailCityType('cityactiveuser')"><?php echo  lang('t_sessions')?></a></li>
+                <li><a href="javascript:changeDetailCityType('citynewuser')"><?php echo  lang('t_newUsers')?></a></li>
+            </ul>
+            <span class="relative r"> <a
+                href="<?php echo site_url().'/report/region/exportCSV/city'?>"
+                class="bottun4 hover"><font><?php echo lang('g_exportToCSV') ?></font></a>
+            </span>
+        </header>
+        <table id="citytable" class="tablesorter" cellspacing="0">
+            <thead id="citydetaildatatitle"></thead>
+            <tbody id="citydetaildata"></tbody>
+        </table>
+    </article>
 </section>
 
 <script type="text/javascript">
@@ -84,12 +116,12 @@ $("ul.tabs2 li").click(function() {
 	return true;
 	});
 $("ul.tabs3 li").click(function() {
-	$("ul.tabs3 li").removeClass("active");
-	$(this).addClass("active");
-	var activeTab = $(this).find("a").attr("id"); //Find the href attribute value to identify the active tab + content
-	$(activeTab).fadeIn(); //Fade in the active ID content
-	return true;
-	});
+    $("ul.tabs3 li").removeClass("active");
+    $(this).addClass("active");
+    var activeTab = $(this).find("a").attr("id"); //Find the href attribute value to identify the active tab + content
+    $(activeTab).fadeIn(); //Fade in the active ID content
+    return true;
+    });
 $("ul.tabs4 li").click(function() {
 	$("ul.tabs4 li").removeClass("active");
 	$(this).addClass("active");
@@ -102,12 +134,16 @@ var chart;
 var options;
 var reportcountryType="activeuser";
 var reportregionType="regionactiveuser";
+var reportcityType="cityactiveuser";
 var detailCountryData='';
 var detailRegionData='';
+var detailCityData='';
 var newUserData = new Array(new Array(),new Array());
 var activeUserData = new Array(new Array(),new Array());
 var regionNewUserData=new Array(new Array(),new Array());
 var regionActiveUserData=new Array(new Array(),new Array());
+var cityNewUserData=new Array(new Array(),new Array());
+var cityActiveUserData=new Array(new Array(),new Array());
 
 $(document).ready(function() {
 	options = {
@@ -163,7 +199,9 @@ $(document).ready(function() {
 	var countryDataURL = "<?php echo site_url();?>/report/region/getCountryData";
 	renderCountryCharts(countryDataURL);
 	var regionDataURL = "<?php echo site_url();?>/report/region/getRegionData";
-	renderRegionCharts(regionDataURL)
+	renderRegionCharts(regionDataURL);
+	var cityDataURL = "<?php echo site_url();?>/report/region/getCityData";
+    renderCityCharts(cityDataURL);
 });
 	function renderCountryCharts(myurl)
 	{
@@ -191,11 +229,11 @@ $(document).ready(function() {
 				if(key.length<11){
 					break;
 				}
-				if(key.indexOf('a')==0){
+				if(key.indexOf('activeUserData')==0){
 					productName=key.substring(14);
 					activeUserData[productName]=[];
 				}
-				if(key.indexOf('n')==0){
+				if(key.indexOf('newUserData')==0){
 					productName=key.substring(11);
 					newUserData[productName]=[];
 				}
@@ -203,10 +241,11 @@ $(document).ready(function() {
 				for(i=0;i<obj.length;i++)
 				{
 					var pieObj = {};
-					if(obj[i].country==''){
+					if(obj[i].country_name==''){
 						pieObj.name="unknow";
 					}else{
-						pieObj.name=obj[i].country;}
+						pieObj.name=obj[i].country_name;
+					}
 					pieObj.sliced = false;
 					pieObj.y = obj[i].percentage;
 					pieObj.selected = false;
@@ -218,7 +257,7 @@ $(document).ready(function() {
 				}
 			}
 			if((j/2)>2){
-				 document.getElementById("country").style.height='780px';
+				 document.getElementById("country").style.height='700px';
 			}
 			changeDetailCountryType("activeuser");
 			changeCountryReportType(reportcountryType);
@@ -250,8 +289,8 @@ $(document).ready(function() {
 				 if(key.length<17){
 						break;
 				 }
-				 if(key.indexOf('regionActiveUserData')==0){
-					 productName=key.substring(20);
+				 if(key.indexOf('regionSessionData')==0){
+					 productName=key.substring(17);
 					 regionActiveUserData[productName]=[];
 				 }
 				 if(key.indexOf('regionNewUserData')==0){
@@ -262,10 +301,11 @@ $(document).ready(function() {
 				 for(i=0;i<obj.length;i++)
 				 {
 					 var pieObj = {};
-					 if(obj[i].region==''){
+					 if(obj[i].region_name==''){
 						 pieObj.name="unknow";
 					 }else{
-						 pieObj.name=obj[i].region;}
+						 pieObj.name=obj[i].region_name;
+					 }
 					 pieObj.sliced = false;
 					 pieObj.y = obj[i].percentage;
 					 pieObj.selected = false;
@@ -277,23 +317,87 @@ $(document).ready(function() {
 				 }
 			}
 			if((j/2)>2){
-				document.getElementById("region").style.height='780px';
+				document.getElementById("region").style.height='700px';
 			}
 			changeDetailRegionType("regionactiveuser");
 			changeRegionReportType(reportregionType);
 			chart_canvas.unblock();
 		});
 	}
+	function renderCityCharts(myurl)
+    {
+        var chart_canvas = $('#city');
+        var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
+        chart_canvas.block({
+            message: loading_img,
+            css:{
+                width:'32px',
+                border:'none',
+                background: 'none'
+                },
+            overlayCSS:{
+                backgroundColor: '#FFF',
+                opacity: 0.8
+                },
+            baseZ:997});
+        jQuery.getJSON(myurl, null, function(data) {
+            detailCityData=data;
+             var productName='';
+             var j=0;
+             for (var key in data) {
+                 j++;
+                 if(key.length<15){
+                        break;
+                 }
+                 if(key.indexOf('citySessionData')==0){
+                     productName=key.substring(15);
+                     cityActiveUserData[productName]=[];
+                 }
+                 if(key.indexOf('cityNewUserData')==0){
+                     productName=key.substring(15);
+                     cityNewUserData[productName]=[];
+                 }
+                 var obj=data[key];
+                 for(i=0;i<obj.length;i++)
+                 {
+                     var pieObj = {};
+                     if(obj[i].city_name==''){
+                         pieObj.name="unknow";
+                     }else{
+                         pieObj.name=obj[i].city_name;}
+                     pieObj.sliced = false;
+                     pieObj.y = obj[i].percentage;
+                     pieObj.selected = false;
+                     if(typeof(cityNewUserData[productName])=='undefined'){
+                         cityActiveUserData[productName].push(pieObj);
+                     }else{
+                         cityNewUserData[productName].push(pieObj);
+                     }
+                 }
+            }
+            if((j/2)>2){
+                document.getElementById("city").style.height='700px';
+            }
+            changeDetailCityType("cityactiveuser");
+            changeCityReportType(reportcityType);
+            chart_canvas.unblock();
+        });
+    }
 	function changeDetailCountryType(type){
-		var change="country";
+		var change="country_name";
 		var detailcontent='countrydetaildata';
 		changeDetailType(type,detailCountryData,detailcontent,change);
 	}
 	function changeDetailRegionType(type){
-		var change="region";
+		var change="region_name";
 		var detailcontent='regiondetaildata';
 		changeDetailType(type,detailRegionData,detailcontent,change);
 	}
+	function changeDetailCityType(type){
+        var change="city_name";
+        var detailcontent='citydetaildata';
+        changeDetailType(type,detailCityData,detailcontent,change);
+    }
 	function changeCountryReportType(type){
 		reportcountryType=type;
 		changeReportType(type,'country');
@@ -302,6 +406,10 @@ $(document).ready(function() {
 		reportregionType=type;
 		changeReportType(type,'region');
 	}
+	function changeCityReportType(type){
+        reportcityType=type;
+        changeReportType(type,'city');
+    }
 	function changeDetailType(type,userData,detailid,changeType){
 		var detailtitlecontent="<tr><th></th>";
 		var j=0;
@@ -311,19 +419,24 @@ $(document).ready(function() {
 			if(key.length<11){
 				break;
 			}
-			if(key.indexOf('a')==0&&type=="activeuser"){
+			
+			if(key.indexOf('activeUserData')==0&&type=="activeuser"){
 				productName=key.substring(14);
-			}else if(key.indexOf('n')==0&&type=="newuser"){
+			}else if(key.indexOf('newUserData')==0&&type=="newuser"){
 				productName=key.substring(11);
-			}else if(key.indexOf('regionActiveUserData')==0&&type=="regionactiveuser"){
-				productName=key.substring(20);
+			}else if(key.indexOf('regionSessionData')==0&&type=="regionactiveuser"){
+				productName=key.substring(17);
 			}else if(key.indexOf('regionNewUserData')==0&&type=="regionnewuser"){
 				productName=key.substring(17);
+			}else if(key.indexOf('citySessionData')==0&&type=="cityactiveuser"){
+                productName=key.substring(15);
+            }else if(key.indexOf('cityNewUserData')==0&&type=="citynewuser"){
+                productName=key.substring(15);
 			}else{
 				continue;
 			}
 			productNames.push(key);
-			detailtitlecontent=detailtitlecontent+"<th colspan='2'>"+productName+"</th>";
+			detailtitlecontent=detailtitlecontent+"<th colspan='3'>"+productName+"</th>";
 		}
 		detailtitlecontent=detailtitlecontent+"</tr>";
 		var detailcontent="";
@@ -340,11 +453,17 @@ $(document).ready(function() {
 				if(i>=obj.length){
 					detailcontent=detailcontent+"<td></td>";
 					detailcontent=detailcontent+"<td></td>";
+					detailcontent=detailcontent+"<td></td>";
 				}else{
 					if(obj[i][changeType]==''){
 						detailcontent=detailcontent+"<td>"+"unknow"+"</td>";
 					}else{
 						detailcontent=detailcontent+"<td>"+obj[i][changeType]+"</td>";
+					}
+					if(type=="activeuser" || type=="regionactiveuser" || type=="cityactiveuser") {
+					    detailcontent=detailcontent+"<td>"+obj[i].sessions+"</td>";
+					}else{
+					    detailcontent=detailcontent+"<td>"+obj[i].newusers+"</td>";
 					}
 					detailcontent = detailcontent+"<td>"+obj[i].percentage+"%</td>";
 				}
@@ -371,10 +490,17 @@ $(document).ready(function() {
 		}else if(reportType == "regionactiveuser"){
 			userData=regionActiveUserData;
 			options.title.text = '<?php echo $reportTitle['regionActiveUserReport'] ?>';
-		}else{
+		}else if(reportType == "regionnewuser"){
 			userData=regionNewUserData;
 			options.title.text = '<?php echo $reportTitle['regionNewUserReport'] ?>';
-		}
+		}else if(reportType == "cityactiveuser"){
+            userData=cityActiveUserData;
+            options.title.text = '<?php echo $reportTitle['citySessionReport'] ?>';
+        }else if(reportType == "citynewuser"){
+            userData=cityNewUserData;
+            options.title.text = '<?php echo $reportTitle['cityNewUserReport'] ?>';
+        }
+		
 		for(var key in userData){
 			if(userData[key]==""){
 				continue;
@@ -398,5 +524,6 @@ $(document).ready(function() {
 	window.onresize=function(){
 		changeReportType(reportcountryType,"country");
 		changeReportType(reportregionType,"region");
+		changeReportType(reportcityType,"city");
 	}
 </script>

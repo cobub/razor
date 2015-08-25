@@ -163,7 +163,7 @@ class Region extends CI_Controller
                 }
             }
             $pagecity = $this->region->gettotlebycity($fromTime, $toTime, $currentProduct->id, $country_name, 0, PAGE_NUMS);
-            $this->_data ['activepagecity'] = $pagecity;
+            $this->_data['activepagecity'] = $pagecity;
             $this->_data['city_session'] = $this->_citysession;
             $this->_data['city_newuser'] = $this->_citynewuser;
             ////city --end--
@@ -281,18 +281,16 @@ class Region extends CI_Controller
             for ($i = 0; $i < count($products); $i++) {
                 $sessiondata = $this->region->getsessionbycountrytop($fromTime, $toTime, $products[$i]->id);
                 $newdata = $this->region->getnewbycountrytop($fromTime, $toTime, $products[$i]->id);
-                $ret["activeUserData" . $products[$i]->name] = $this->change2StandardPrecent($sessiondata, "country_name", 1);
-                $ret["newUserData" . $products[$i]->name] = $this->change2StandardPrecent($newdata, "country_name", 2);
+                $ret["activeUserData" . $products[$i]->name] = $this->change2StandardPrecent($sessiondata, "country", 1);
+                $ret["newUserData" . $products[$i]->name] = $this->change2StandardPrecent($newdata, "country", 2);
             }
         } else {
             //new user National distribution
             $this->common->requireProduct();
             $newUserData = $this->region->getnewbycountrytop($fromTime, $toTime, $currentProduct->id);
             $activeUserData = $this->region->getsessionbycountrytop($fromTime, $toTime, $currentProduct->id);
-            //$ret ["activeUserData"] = $activeUserData->result_array();
-            // $ret ["newUserData"] = $newUserData->result_array();
-            $ret ["activeUserData"] = $this->change2StandardPrecent($activeUserData, "country_name", 1);
-            $ret ["newUserData"] = $this->change2StandardPrecent($newUserData, "country_name", 2);
+            $ret ["activeUserData"] = $this->change2StandardPrecent($activeUserData, "country", 1);
+            $ret ["newUserData"] = $this->change2StandardPrecent($newUserData, "country", 2);
         }
 
         echo json_encode($ret);
@@ -318,17 +316,16 @@ class Region extends CI_Controller
             for ($i = 0; $i < count($products); $i++) {
                 $activedata = $this->region->getsessionbyregiontop($fromTime, $toTime, $products[$i]->id, $country);
                 $newdata = $this->region->getnewuserbyregiontop($fromTime, $toTime, $products[$i]->id, $country);
-                $ret["regionSessionData" . $products[$i]->name] = $this->change2StandardPrecent($activedata, "region_name", 1);
-                $ret["regionNewUserData" . $products[$i]->name] = $this->change2StandardPrecent($newdata, "region_name", 2);
+                $ret["regionSessionData" . $products[$i]->name] = $this->change2StandardPrecent($activedata, "region", 1);
+                $ret["regionNewUserData" . $products[$i]->name] = $this->change2StandardPrecent($newdata, "region", 2);
             }
         } else {
             //new user National distribution
             $this->common->requireProduct();
             $sessionData = $this->region->getsessionbyregiontop($fromTime, $toTime, $currentProduct->id, $country);
             $newUserData = $this->region->getnewuserbyregiontop($fromTime, $toTime, $currentProduct->id, $country);
-
-            $ret ["regionSessionData"] = $this->change2StandardPrecent($sessionData, "region_name", 1); //$sessionData->result_array();
-            $ret ["regionNewUserData"] = $this->change2StandardPrecent($newUserData, "region_name", 2); //$newUserData->result_array();
+            $ret ["regionSessionData"] = $this->change2StandardPrecent($sessionData, "region", 1);
+            $ret ["regionNewUserData"] = $this->change2StandardPrecent($newUserData, "region", 2);
         }
         echo json_encode($ret);
     }
@@ -344,7 +341,6 @@ class Region extends CI_Controller
         $currentProduct = $this->common->getCurrentProduct();
         $fromTime = $this->common->getFromTime();
         $toTime = $this->common->getToTime();
-        $country = $this->default_country;
         if (empty($currentProduct)) {
             $products = $this->common->getCompareProducts();
             if (empty($products)) {
@@ -352,18 +348,18 @@ class Region extends CI_Controller
                 return;
             }
             for ($i = 0; $i < count($products); $i++) {
-                $activedata = $this->region->getsessionbycitytop($fromTime, $toTime, $currentProduct->id);
-                $newdata = $this->region->getnewuserbycitytop($fromTime, $toTime, $currentProduct->id);
-                $ret["citySessionData" . $products[$i]->name] = $this->change2StandardPrecent($activedata, "region", 1);
-                $ret["cityNewUserData" . $products[$i]->name] = $this->change2StandardPrecent($newdata, "region", 2);
+                $activedata = $this->region->getsessionbycitytop($fromTime, $toTime, $products[$i]->id);
+                $newdata = $this->region->getnewuserbycitytop($fromTime, $toTime, $products[$i]->id);
+                $ret["citySessionData" . $products[$i]->name] = $this->change2StandardPrecent($activedata, "city", 1);
+                $ret["cityNewUserData" . $products[$i]->name] = $this->change2StandardPrecent($newdata, "city", 2);
             }
         } else {
             //new user National distribution
             $this->common->requireProduct();
             $sessionData = $this->region->getsessionbycitytop($fromTime, $toTime, $currentProduct->id);
             $newUserData = $this->region->getnewuserbycitytop($fromTime, $toTime, $currentProduct->id);
-            $ret ["citySessionData"] = $this->change2StandardPrecent($sessionData, "city_name", 1); // $sessionData->result_array();
-            $ret ["cityNewUserData"] = $this->change2StandardPrecent($newUserData, "city_name", 2); //$newUserData->result_array();
+            $ret ["citySessionData"] = $this->change2StandardPrecent($sessionData, "city", 1); // $sessionData->result_array();
+            $ret ["cityNewUserData"] = $this->change2StandardPrecent($newUserData, "city", 2); //$newUserData->result_array();
         }
         
         echo json_encode($ret);
@@ -381,29 +377,66 @@ class Region extends CI_Controller
      function change2StandardPrecent($userData, $type, $datatype)
     {
         $userDataArray = array();
+        $userDataObj = array();
         $totalPercent = 0;
+        $numTotal = 0;
+        foreach ( $userData->result () as $row ) {
+            if ($datatype == 1)
+            $numTotal+= $row->sessions;
+            if ($datatype == 2)
+            $numTotal+= $row->newusers;
+        }
+        
         foreach ($userData->result() as $row) {
             if (count($userData) > 10) {
                 break;
             }
-            $userDataObj = array();
-            if ($type == "country_name") {
+            if ($type == "country") {
                 $userDataObj ["country_name"] = $row->country_name;
-            } else if ($type == "region_name") {
+            }
+            if ($type == "region") {
                 $userDataObj ["region_name"] = $row->region_name;
-            } else {
+            } 
+            if($type == "city") {
                 $userDataObj ["city_name"] = $row->city_name;
             }
 
             if ($datatype == 1) {
                 $userDataObj ["sessions"] = $row->sessions / 1;
+                $percent = round ( $row->sessions/$numTotal * 100, 1 );
+                $totalPercent += $percent;
+                $userDataObj ["percentage"] = $percent;
             }
                 
             if ($datatype == 2) {
                 $userDataObj ["newusers"] = $row->newusers / 1;
+                $percent = round ( $row->newusers/$numTotal * 100, 1 );
+                $totalPercent += $percent;
+                $userDataObj ["percentage"] = $percent;
             }
                 
             array_push($userDataArray, $userDataObj);
+        }
+
+        if ($totalPercent < 100.0) {
+            $remainPercent = round ( 100 - $totalPercent, 2 );
+            if ($type == "country") {
+                $userDataObj ["country_name"] = lang('g_others');
+            }
+            if ($type == "region") {
+                $userDataObj ["region_name"] = lang('g_others');
+            }
+            if($type == "city") {
+                $userDataObj ["city_name"] = lang('g_others');
+            }
+            $userDataObj ["percentage"] = $remainPercent;
+            if ($datatype == 1) {
+                 $userDataObj ["sessions"] = 0;
+            }
+            if ($datatype == 2) {
+                $userDataObj["newusers"] = 0;
+            }
+            array_push ( $userDataArray, $userDataObj );
         }
 
         return $userDataArray;
@@ -638,18 +671,25 @@ class Region extends CI_Controller
         $export = new Export ();
         if ($label == "country") {
             $titlename = getExportReportTitle("Compare", lang("v_rpt_re_top10Nations"), $fromTime, $toTime);
-        } else {
+        }
+        if($label == "region") {
             $titlename = getExportReportTitle("Compare", lang("v_rpt_re_top10Provinces"), $fromTime, $toTime);
         }
+        if($label == "city") {
+            $titlename = getExportReportTitle("Compare", lang("v_rpt_re_top10City"), $fromTime, $toTime);
+        }
+        
         $titlename = iconv("UTF-8", "GBK", $titlename);
         $export->setFileName($titlename);
         $j = 0;
         $mk = 0;
-        $title[$j++] = iconv("UTF-8", "GBK", lang('t_activeUsers'));
+        $title[$j++] = iconv("UTF-8", "GBK", lang('t_sessions'));
         $space[$mk++] = ' ';
         for ($i = 0; $i < count($products); $i++) {
             $title[$j++] = iconv("UTF-8", "GBK", $products[$i]->name);
             $title[$j++] = '';
+            $title[$j++] = '';
+            $space[$mk++] = ' ';
             $space[$mk++] = ' ';
             $space[$mk++] = ' ';
         }
@@ -661,12 +701,17 @@ class Region extends CI_Controller
         $nextlabel[$j++] = lang('t_newUsers');
         for ($m = 0; $m < count($products); $m++) {
             if ($label == "country") {
-                $activedata = $this->region->getsessionbycountry($fromTime, $toTime, $products[$m]->id);
-                $newdata = $this->region->getnewbycountry($fromTime, $toTime, $products[$m]->id);
-            } else {
+                $activedata = $this->region->getsessionbycountrytop($fromTime, $toTime, $products[$m]->id);
+                $newdata = $this->region->getnewbycountrytop($fromTime, $toTime, $products[$m]->id);
+            }
+            if ($label == "region") {
                 $country = $this->default_country;
-                $activedata = $this->region->getactivebypro($fromTime, $toTime, $products[$m]->id, $country);
-                $newdata = $this->region->getnewbypro($fromTime, $toTime, $products[$m]->id, $country);
+                $activedata = $this->region->getsessionbyregiontop($fromTime, $toTime, $products[$m]->id, $country);
+                $newdata = $this->region->getnewuserbyregiontop($fromTime, $toTime, $products[$m]->id, $country);
+            }
+            if($label == "city") {
+                $activedata = $this->region->getsessionbycitytop($fromTime, $toTime, $products[$m]->id);
+                $newdata = $this->region->getnewuserbycitytop($fromTime, $toTime, $products[$m]->id);
             }
             $detailData[$m] = $this->change2StandardPrecent($activedata, $label, 1);
             $detailNewData[$m] = $this->change2StandardPrecent($newdata, $label, 2);
@@ -679,10 +724,10 @@ class Region extends CI_Controller
             $nextlabel[$j++] = $products[$m]->name;
             $nextlabel[$j++] = ' ';
         }
-        $this->getExportRowData($export, $maxlength, $detailData, $products, $label);
+        $this->getExportRowData($export, $maxlength, $detailData, $products, $label,1);
         $export->addRow($space);
         $export->addRow($nextlabel);
-        $this->getExportRowData($export, $maxlength2, $detailNewData, $products, $label);
+        $this->getExportRowData($export, $maxlength2, $detailNewData, $products, $label,2);
         $export->export();
         die ();
     }
@@ -695,10 +740,11 @@ class Region extends CI_Controller
      * @param string $userData userData
      * @param string $products products
      * @param string $label    label
+     * @param int    $type     type
      * 
      * @return void
      */
-     function getExportRowData($export, $length, $userData, $products, $label)
+     function getExportRowData($export, $length, $userData, $products, $label, $type)
     {
         $k = 0;
         for ($i = 0; $i < $length; $i++) {
@@ -708,12 +754,20 @@ class Region extends CI_Controller
                 if ($i >= count($obj)) {
                     $result[$k++] = '';
                     $result[$k++] = '';
+                    $result[$k++] = '';
                 } else {
-                    if ($obj[$i][$label] == '') {
+                    $name = $label.'_name';
+                    if ($obj[$i][$name] == '') {
                         $result[$k++] = 'unknow';
                     } else {
-                        $result[$k++] = $obj[$i][$label];
+                        $result[$k++] = $obj[$i][$name];
                     }
+                    
+                    if($type==1)
+                    $result[$k++] = $obj[$i]['sessions'];
+                    if($type==2)
+                    $result[$k++] = $obj[$i]['newusers'];
+                    
                     $result[$k++] = $obj[$i]['percentage'] . "%";
                 }
             }
