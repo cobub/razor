@@ -26,9 +26,9 @@ class ipTest extends CIUnit_TestCase {
         //$a = $this->CI->load->library('geoiplibrary');
         
         $a->setIp("117.88.165.1");
-        $this -> assertEquals('China',$a->getCountry());
-        $this -> assertEquals('Jiangsu',$a->getRegion());
-        $this -> assertEquals('Nanjing',$a->getCity());
+        $this -> assertEquals('China',$a->country);
+        $this -> assertEquals('Jiangsu',$a->region);
+        $this -> assertEquals('Nanjing',$a->city);
     }
     
     public function testIPIP() {
@@ -38,9 +38,9 @@ class ipTest extends CIUnit_TestCase {
         //$a = $this->CI->load->library('geoiplibrary');
         
         $a->setIp("117.88.165.1");
-        $this -> assertEquals('中国',$a->getCountry());
-        $this -> assertEquals('江苏',$a->getRegion());
-        $this -> assertEquals('南京',$a->getCity());
+        $this -> assertEquals('中国',$a->country);
+        $this -> assertEquals('江苏',$a->region);
+        $this -> assertEquals('南京',$a->city);
     }
 
 }

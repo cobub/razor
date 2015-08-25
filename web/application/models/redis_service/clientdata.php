@@ -99,11 +99,11 @@ class Clientdata extends CI_Model {
             }
         }
         if ($choose == 1) {
-            require ('IP.class.php');
-            $loc = IP::find($ip);
-            $data['country'] = $loc[0];
-            $data['region']  = $loc[1];
-            $data['city']    = $loc[2];
+            $this->iplibrary->setLibrary('IpIpLibrary',$ip);
+            
+            $data['country'] = $this->iplibrary->getCountry();
+            $data['region']  = $this->iplibrary->getRegion();
+            $data['city']    = $this->iplibrary->getCity();
         }
         //For realtime areas
         $key = "razor_r_arc_p_" . $productId . "_c_" . $data["country"] . "_" . date('Y-m-d-H-i', time());

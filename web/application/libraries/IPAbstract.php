@@ -26,10 +26,17 @@
  * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
  * @link     http://www.cobub.com
  */
-interface IIPLibrary
+abstract class IPAbstract
 {
-    public function setIp($ip);
-    public function getCountry();
-    public function getRegion();
-    public function getCity();
+    public $country = 'unknown';
+    public $retion ='unknown';
+    public $city = 'unknown'; 
+    /**
+     * Set ip address
+     * 
+     * @param string $ip ip address
+     * 
+     * @return void
+     */
+    abstract public function setIp($ip);
 }

@@ -15,6 +15,7 @@
  * @since     Version 0.1
  */
 
+ require_once('IPAbstract.php');
 /**
  * IpIpLibrary Interface
  *
@@ -26,11 +27,15 @@
  * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
  * @link     http://www.cobub.com
  */
-class IpIpLibrary implements IIPLibrary
+class IpIpLibrary extends IPAbstract
 {
-    var $country;
-    var $region;
-    var $city;
+    /**
+     * Set Ip address
+     * 
+     * @param string $ip ipaddress
+     * 
+     * @return void
+     */
     public function setIp($ip)
     {
         if (!class_exists('IP')) {
@@ -43,20 +48,5 @@ class IpIpLibrary implements IIPLibrary
             $this->region = $loc[1];
         if (isset($loc[2]))
             $this->city = $loc[2];
-    }
-    
-    public function getCountry()
-    {
-        return $this->country;
-    }
-    
-    public function getRegion()
-    {
-        return $this->region;
-    }
-    
-    public function getCity()
-    {
-        return $this->city;
     }
 }
