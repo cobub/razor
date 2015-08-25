@@ -31,24 +31,47 @@ require_once('IpIpLibrary.php');
 class IPLibrary
 {
     var $ip;
+    /**
+     * Set library
+     * 
+     * @param class  $ipclass Ip library class name
+     * @param string $ipaddr  Ip address string
+     * 
+     * @return void
+     */
     public function setLibrary($ipclass,$ipaddr)
     {
         $this->ip = new $ipclass;
         $this->ip->setIp($ipaddr);
     }
     
+    /**
+     * Get country
+     * 
+     * @return void
+     */
     public function getCountry()
     {
-        $this->ip->getCountry();
+        $this->ip->country;
     }
 
+    /**
+     * Get region
+     * 
+     * @return void
+     */
     public function getRegion()
     {
-        $this->ip->getRegion();
+        $this->ip->region;
     }
     
+    /**
+     * Get city
+     * 
+     * @return void
+     */
     public function getCity()
     {
-        $this->ip->getCity();
+        $this->ip->city;
     }
 }

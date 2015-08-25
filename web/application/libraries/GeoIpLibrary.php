@@ -15,7 +15,7 @@
  * @since     Version 0.1
  */
 
-require_once('IIPLibrary.php');
+require_once('IPAbstract.php');
 /**
  * GeoIpLibrary Class
  *
@@ -27,17 +27,21 @@ require_once('IIPLibrary.php');
  * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
  * @link     http://www.cobub.com
  */
-class GeoIpLibrary implements IIPLibrary
+class GeoIpLibrary extends IPAbstract
 {
-    var $country = 'unknown';
-    var $region = 'unknown';
-    var $city = 'unknown';
-    
+    /**
+     * Set Ip address
+     * 
+     * @param string $ipaddr ipaddress
+     * 
+     * @return void
+     */
     public function setIp($ipaddr)
     {
         require_once (dirname(__FILE__) . "/../third_party/geoip/geoip.inc");
         require_once (dirname(__FILE__) . "/../third_party/geoip/geoipcity.inc");
-        require (dirname(__FILE__).  "/../third_party/geoip/geoipregionvars.php");
+        if (!isset($GEOIP_REGION_NAME))
+            require_once (dirname(__FILE__).  "/../third_party/geoip/geoipregionvars.php");
         $gi = geoip_open(dirname(__FILE__) . "/../third_party/geoip/GeoLiteCity.dat", GEOIP_STANDARD);
         $record = geoip_record_by_addr($gi, $ipaddr);
         if(isset($record->country_name)&&($record->country_name!='')) {
@@ -54,20 +58,4 @@ class GeoIpLibrary implements IIPLibrary
             $this->city = $record->city;
         }
     }
-    
-    public function getCountry()
-    {
-        return $this->country;
-    }
-    
-    public function getRegion()
-    {
-        return $this->region;
-    }
-    
-    public function getCity()
-    {
-        return $this->city;
-    }
-    
 }

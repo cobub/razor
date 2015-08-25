@@ -30,7 +30,7 @@ class Clientdata extends CI_Model {
     	$key = "razor_r_u_p_" . $productId . "_" . date('Y-m-d-H-i', time());
     	$this -> redis -> hset($key, array($data["deviceid"] => $productId));
     	$this -> redis -> expire($key, 30 * 60);
-    	
+
         $ip = $this -> utility -> getOnlineIP();
         $nowtime = date('Y-m-d H:i:s');
         if (isset($clientdata -> time)) {
@@ -85,7 +85,7 @@ class Clientdata extends CI_Model {
                 $regionInfo = $this -> ipinfodb -> getregioninfobyip($ip);
             }
 
-            
+
             if (!empty($regionInfo)) {
                 $data["country"] = $regionInfo['country'];
                 if ($regionInfo['country'] == null || $regionInfo['country'] == "") {
@@ -99,36 +99,11 @@ class Clientdata extends CI_Model {
             }
         }
         if ($choose == 1) {
-            require ("geoip.inc");
-            require ("geoipcity.inc");
-            require ("geoipregionvars.php");
-            $gi = geoip_open("GeoLiteCity.dat", GEOIP_STANDARD);
-            $record = geoip_record_by_addr($gi, $ip);
-            if (!empty($record)) {
-
-                if ($record -> country_name != '') {
-                    $data["country"] = $record -> country_name;
-                } else {
-                    $data["country"] = "unknown";
-                }
-                if ($record -> region != '') {
-                    $data["region"] = $GEOIP_REGION_NAME[$record -> country_code][$record -> region];
-                } else {
-                    $data["region"] = "unknown";
-                }
-                if ($record -> city != '') {
-                    $data["city"] = $record -> city;
-                } else {
-                    $data["city"] = "unknown";
-                }
-                $data["region"] = mb_convert_encoding($data["region"], "UTF-8", "UTF-8");
-                $data["city"] = mb_convert_encoding($data["city"], "UTF-8", "UTF-8");
-            } else {
-                $data["country"] = "unknown";
-                $data["region"] = "unknown";
-                $data["city"] = "unknown";
-
-            }
+            $this->iplibrary->setLibrary('IpIpLibrary',$ip);
+            
+            $data['country'] = $this->iplibrary->getCountry();
+            $data['region']  = $this->iplibrary->getRegion();
+            $data['city']    = $this->iplibrary->getCity();
         }
         //For realtime areas
         $key = "razor_r_arc_p_" . $productId . "_c_" . $data["country"] . "_" . date('Y-m-d-H-i', time());
@@ -147,7 +122,7 @@ class Clientdata extends CI_Model {
         //$timezonestime = date ( 'Y-m-d H:i:m', $timezonestimestamp );
         $this -> redis -> lpush("razor_clientdata", serialize($data));
 
-        
+
 
         $this -> processor -> process();
     }
