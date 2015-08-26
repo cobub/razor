@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Cobub Razor
  *
@@ -46,7 +45,7 @@ class SendEmail extends CI_Model
     }
 
     /**
-     * CompareValue 
+     * CompareValue function
      *
      * @param date $date ldate
      *
@@ -173,7 +172,7 @@ class SendEmail extends CI_Model
     }
 
     /**
-    * GetEmail function,
+    * GetEmail function
     * 
     * @param string $label     label
     * @param string $condition condition
