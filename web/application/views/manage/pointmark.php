@@ -1,79 +1,109 @@
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-webox.css" type="text/css" media="screen"/>
-<script
-	src="<?php echo base_url();?>assets/js/jquery-webox.js"
+<link rel="stylesheet"
+	href="<?php echo base_url();?>assets/css/jquery-webox.css"
+	type="text/css" media="screen" />
+<script src="<?php echo base_url();?>assets/js/jquery-webox.js"
 	type="text/javascript"></script>
 <section id="main" class="column">
 	<article class="module width_full">
 		<header>
 			<h3 class="tabs_involved"><?php echo lang('m_markeventlist')?></h3>
-				<span class="relative r">
-				<a href="<?php echo site_url(); ?>/report/productbasic/exportdetaildata" class="bottun4 hover" >
-				<font><?php echo  lang('g_exportToCSV');?></font></a>
-			</span>					
+			<span class="relative r"> <a
+				href="<?php echo site_url(); ?>/report/productbasic/exportdetaildata"
+				class="bottun4 hover"> <font><?php echo  lang('g_exportToCSV');?></font></a>
+			</span>
 		</header>
-		
-		<table class="tablesorter" cellspacing="0"> 
-			<thead> 
-				<tr> 
-    				<th><?php echo lang('m_title')?></th> 
-    				<th><?php echo lang('m_description')?></th> 
-    				<th><?php echo lang('m_marktime')?></th> 
-    				<th><?php echo lang('m_rights')?></th> 
-    				<th><?php echo lang('m_operate')?></th>
-				</tr> 
-			</thead> 
+
+		<table class="tablesorter" cellspacing="0">
+			<thead>
+				<tr>
+					<th><?php echo lang('m_title')?></th>
+					<th><?php echo lang('m_description')?></th>
+					<th><?php echo lang('m_marktime')?></th>
+					<th><?php echo lang('m_rights')?></th>
+					<th><?php echo lang('m_operate')?></th>
+				</tr>
+			</thead>
 			<tbody id="content">		     
 	    <?php $num = count($ponitevents);?>	    	
 			</tbody>
-		</table> 
-		
+		</table>
+
 		<footer>
-		<div id="pagination"  class="submit_link">
-		</div>
+			<div id="pagination" class="submit_link"></div>
 		</footer>
 	</article>
-<style type="text/css">
-.mainlist{
-	width:400px;
-	height:200px;
-	margin:20px 100px;
+	<style type="text/css">
+.mainlist {
+	width: 400px;
+	height: 200px;
+	margin: 20px 100px;
 }
-.tbcontent{
-width:400px;height:200px;border:1px solid #cccccc;}
- .mainlist td{
+
+.tbcontent {
+	width: 400px;
+	height: 200px;
+	border: 1px solid #cccccc;
+}
+
+.mainlist td {
 	/*border:1px solid #cccccc;padding-left:5px;*/
- }
-.title{width:180px;border:1px solid #cccccc;height:24px;line-height:24px;vertical-align:middle;}
- .des{width:180px;border:1px solid #cccccc;}
- .mktime{width:180px;border:1px solid #cccccc;height:24px;line-height:24px;vertical-align:middle;}
+	
+}
+
+.title {
+	width: 180px;
+	border: 1px solid #cccccc;
+	height: 24px;
+	line-height: 24px;
+	vertical-align: middle;
+}
+
+.des {
+	width: 180px;
+	border: 1px solid #cccccc;
+}
+
+.mktime {
+	width: 180px;
+	border: 1px solid #cccccc;
+	height: 24px;
+	line-height: 24px;
+	vertical-align: middle;
+}
 </style>
-		<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-		<div id="box" style="display:none;">
-	<div class="mainlist">
-		<table class="tbcontent">
-			<tr>
-				<td><?php echo lang('m_title')?>:</td>
-				<td><input type="text" name="title" value="" class="title"/></td>
-			</tr>
-			<tr>
-				<td><?php echo lang('m_description')?>:</td>
-				<td><textarea name="description" class="des"></textarea></td>
-			</tr>
-			<tr>
-				<td><?php echo lang('m_marktime')?>:</td>
-				<td><input type="text" name="markdate" value="" readonly="readonly" class="mktime"/></td>
-			</tr>
-			<tr>
-				<td><?php echo lang('m_rights')?>:</td>
-				<td><input type="radio" name="rights" value="1"/><?php echo lang('m_public')?>&nbsp;&nbsp;<input type="radio" name="rights" value="0" checked="checked"/><?php echo lang('m_private')?></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="button" value="<?php echo lang('m_submit')?>" name="subPoint"/><input type="button" value="<?php echo lang('m_modify')?>" name="modifyPoint" style="display:none;"/></td>
-			</tr>
-		</table>
+	<div id="container"
+		style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+	<div id="box" style="display: none;">
+		<div class="mainlist">
+			<table class="tbcontent">
+				<tr>
+					<td><?php echo lang('m_title')?>:</td>
+					<td><input type="text" name="title" value="" class="title" /></td>
+				</tr>
+				<tr>
+					<td><?php echo lang('m_description')?>:</td>
+					<td><textarea name="description" class="des"></textarea></td>
+				</tr>
+				<tr>
+					<td><?php echo lang('m_marktime')?>:</td>
+					<td><input type="text" name="markdate" value="" readonly="readonly"
+						class="mktime" /></td>
+				</tr>
+				<tr>
+					<td><?php echo lang('m_rights')?>:</td>
+					<td><input type="radio" name="rights" value="1" /><?php echo lang('m_public')?>&nbsp;&nbsp;<input
+						type="radio" name="rights" value="0" checked="checked" /><?php echo lang('m_private')?></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="button"
+						value="<?php echo lang('m_submit')?>" name="subPoint" /><input
+						type="button" value="<?php echo lang('m_modify')?>"
+						name="modifyPoint" style="display: none;" /></td>
+				</tr>
+			</table>
+		</div>
 	</div>
-</div>
-<!--end news report-->	
+	<!--end news report-->
 </section>
 <script type="text/javascript">
 $(function(){

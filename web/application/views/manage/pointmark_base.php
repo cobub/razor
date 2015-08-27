@@ -1,28 +1,36 @@
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/easydialog.css" type="text/css" media="screen"/>
+<link rel="stylesheet"
+	href="<?php echo base_url();?>assets/css/easydialog.css"
+	type="text/css" media="screen" />
 <script
 	src="<?php echo base_url();?>assets/js/easydialog/easydialog.min.js"
 	type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/highslide-full.min.js" type="text/javascript">
+<script src="<?php echo base_url();?>assets/js/highslide-full.min.js"
+	type="text/javascript">
 </script>
-<script src="<?php echo base_url();?>assets/js/highslide.config.js" type="text/javascript">
+<script src="<?php echo base_url();?>assets/js/highslide.config.js"
+	type="text/javascript">
 </script>
-<link href="<?php echo base_url();?>assets/css/highslide.css" type="text/css" rel="stylesheet"/>
+<link href="<?php echo base_url();?>assets/css/highslide.css"
+	type="text/css" rel="stylesheet" />
 <style type="text/css">
-	.title,.marktime{
-		width:150px;
-		border:1px solid #cccccc;
-		height:22px;
-		padding:0 5px;	
-	}
-	.desc{
-		width:150px;
-		height:70px;
-		border:1px solid #cccccc;
-		padding:0 5px;
-	}
+.title,.marktime {
+	width: 150px;
+	border: 1px solid #cccccc;
+	height: 22px;
+	padding: 0 5px;
+}
 
-* { margin:0;padding:0; }
-	
+.desc {
+	width: 150px;
+	height: 70px;
+	border: 1px solid #cccccc;
+	padding: 0 5px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
 </style>
 <script type="text/javascript">
 //
