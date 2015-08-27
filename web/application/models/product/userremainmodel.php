@@ -2,23 +2,59 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
-class Userremainmodel extends CI_Model {
-    function __construct() {
+
+/**
+ * Userremainmodel Model
+ *
+ * @category PHP
+ * @package  Model
+ * @author   Cobub Team <open.cobub@gmail.com>
+ * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link     http://www.cobub.com
+ */
+class Userremainmodel extends CI_Model
+{
+
+
+
+    /** 
+     * Construct load
+     * Construct function
+     * 
+     * @return void
+     */
+    function __construct()
+    {
         parent::__construct();
     }
-
-    function getUserRemainCountByWeek($version = 'all', $productId, $from, $to, $channel = 'all') {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Get user remain country 
+     * GetUserRemainCountByWeek 
+     * 
+     * @param string $version   version 
+     * @param string $productId productid 
+     * @param string $from      from 
+     * @param string $to        to 
+     * @param string $channel   channel 
+     * 
+     * @return query
+     */
+    function getUserRemainCountByWeek($version, $productId, $from, $to, $channel = 'all')
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select date(d1.datevalue) startdate,
             date(d2.datevalue) enddate,
             f.version_name,
@@ -46,9 +82,22 @@ class Userremainmodel extends CI_Model {
         $query = $dwdb -> query($sql);
         return $query;
     }
-
-    function getUserRemainCountByDay($version='all', $productId, $from, $to, $channel = 'all') {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Get user remain count day 
+     * GetUserRemainCountByDay function 
+     * 
+     * @param string $version   version 
+     * @param string $productId productid 
+     * @param string $from      from 
+     * @param string $to        to 
+     * @param string $channel   channel 
+     * 
+     * @return query 
+     */
+    function getUserRemainCountByDay($version, $productId, $from, $to, $channel = 'all')
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select date(d1.datevalue) startdate,
 			date(d2.datevalue) enddate,
 			f.version_name,
@@ -76,9 +125,22 @@ class Userremainmodel extends CI_Model {
         $query = $dwdb -> query($sql);
         return $query;
     }
-
-    function getUserRemainCountByMonth($version='all', $productId, $from, $to, $channel) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Get user remain count month 
+     * GetUserRemainCountByMonth function 
+     * 
+     * @param string $version   version 
+     * @param string $productId productid 
+     * @param string $from      from 
+     * @param string $to        to 
+     * @param string $channel   channel 
+     * 
+     * @return query 
+     */
+    function getUserRemainCountByMonth($version, $productId, $from, $to, $channel)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "	select date(d1.datevalue) startdate,
             date(d2.datevalue) enddate,
             f.version_name,

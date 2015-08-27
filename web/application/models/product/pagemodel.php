@@ -2,26 +2,56 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
-class pagemodel extends CI_Model {
-	function __construct() {
-		parent::__construct();
-		$this -> load -> model('common');
-	}
 
-	//All versions of basic data
-	function getallVersionBasicData($fromDate = '', $toDate = '', $productId) {
-		$dwdb = $this -> load -> database('dw', TRUE);
-		$sql = "select 'all' version_name,sum(accesscount) accesscount, (select sum(total) from (select ss.product_sk,sum(totaltime)/sum(accesscount) total 
+/**
+ * Pagemodel Model
+ *
+ * @category PHP
+ * @package  Model
+ * @author   Cobub Team <open.cobub@gmail.com>
+ * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link     http://www.cobub.com
+ */
+class Pagemodel extends CI_Model
+{
+
+
+    /** 
+     * Construct load
+     * Construct function
+     */
+    function __construct()
+    {
+        parent::__construct();
+        $this -> load -> model('common');
+    }
+    
+    /** 
+     * All versions of basic data
+     * getallVersionBasicData function
+     * 
+     * @param string $fromDate  fromdate
+     * @param string $toDate    todate
+     * @param string $productId productid
+     * 
+     * @return array
+     */
+    function getallVersionBasicData($fromDate, $toDate, $productId)
+    {
+        $dwdb = $this -> load -> database('dw', true);
+        $sql = "select 'all' version_name,sum(accesscount) accesscount, (select sum(total) from (select ss.product_sk,sum(totaltime)/sum(accesscount) total 
 		from " . $dwdb -> dbprefix('sum_usinglog_activity') . " ss," . $dwdb -> dbprefix('dim_product') . " pp," . $dwdb -> dbprefix('dim_date') . " dd, " . $dwdb -> dbprefix('dim_activity') . " aa where ss.product_sk = pp.product_sk and ss.date_sk = dd.date_sk and ss.activity_sk = aa.activity_sk and dd.datevalue between '$fromDate' and '$toDate' and pp.product_id=$productId 
 		group by ss.activity_sk)  ff where ff.product_sk = p.product_sk) avertime,sum(exitcount) exitcount 
 		from " . $dwdb -> dbprefix('sum_usinglog_activity') . " s," . $dwdb -> dbprefix('dim_product') . " p," . $dwdb -> dbprefix('dim_date') . " d," . $dwdb -> dbprefix('dim_activity') . " a 
@@ -32,23 +62,42 @@ class pagemodel extends CI_Model {
 		group by ss.activity_sk)  ff where ff.product_sk = p.product_sk) avertime,sum(exitcount) exitcount 
 		from " . $dwdb -> dbprefix('sum_usinglog_activity') . " s," . $dwdb -> dbprefix('dim_product') . " p," . $dwdb -> dbprefix('dim_date') . " d," . $dwdb -> dbprefix('dim_activity') . " a 
 		where s.product_sk = p.product_sk and s.date_sk=d.date_sk and s.activity_sk = a.activity_sk and d.datevalue between '$fromDate' and '$toDate' and p.product_id=$productId group by p.version_name order by version_name,accesscount desc;";
-		$query = $dwdb -> query($sql);
-		return $query;
-	}
-
-	function getVersionData($productId) {
-		$dwdb = $this -> load -> database('dw', TRUE);
-		$sql = "select version_name
+        $query = $dwdb -> query($sql);
+        return $query;
+    }
+    
+    /** 
+     * Get version info
+     * GetVersionData function
+     * 
+     * @param string $productId productid
+     * 
+     * @return array
+     */
+    function getVersionData($productId)
+    {
+        $dwdb = $this -> load -> database('dw', true);
+        $sql = "select version_name
 		from " . $dwdb -> dbprefix('dim_product') . " 
 		where product_id = $productId and product_active=1 and channel_active=1 and version_active=1 group by version_name order by product_sk desc;";
-		$query = $dwdb -> query($sql);
-		return $query;
-	}
-
-	//For the various versions of the basic data
-	function getVersionBasicData($fromTime, $toTime, $productId) {
-		$dwdb = $this -> load -> database('dw', TRUE);
-		$sql = "select 'all' version_name,a.activity_name,sum(accesscount) accesscount,
+        $query = $dwdb -> query($sql);
+        return $query;
+    }
+    
+    /** 
+     * For the various versions of the basic data
+     * GetVersionBasicData function
+     * 
+     * @param string $fromTime  fromtime
+     * @param string $toTime    totime
+     * @param string $productId productid
+     * 
+     * @return array
+     */
+    function getVersionBasicData($fromTime, $toTime, $productId)
+    {
+        $dwdb = $this -> load -> database('dw', true);
+        $sql = "select 'all' version_name,a.activity_name,sum(accesscount) accesscount,
 		sum(totaltime)/sum(accesscount) avertime,sum(exitcount) exitcount 
 		from " . $dwdb -> dbprefix('sum_usinglog_activity') . " s," . $dwdb -> dbprefix('dim_product') . " p," . $dwdb -> dbprefix('dim_date') . " d," . $dwdb -> dbprefix('dim_activity') . " a  
 		where s.product_sk = p.product_sk and s.date_sk=d.date_sk and s.activity_sk = a.activity_sk and d.datevalue between '$fromTime' and '$toTime' and p.product_id=$productId group by a.activity_name
@@ -56,69 +105,79 @@ class pagemodel extends CI_Model {
 		select p.version_name,a.activity_name,sum(accesscount) accesscount,sum(totaltime)/sum(accesscount) avertime,
 		sum(exitcount) exitcount from " . $dwdb -> dbprefix('sum_usinglog_activity') . " s," . $dwdb -> dbprefix('dim_product') . " p," . $dwdb -> dbprefix('dim_date') . " d," . $dwdb -> dbprefix('dim_activity') . " a 
 		where s.product_sk = p.product_sk and s.date_sk=d.date_sk and s.activity_sk = a.activity_sk and d.datevalue between '$fromTime' and '$toTime' and p.product_id=$productId group by p.version_name,a.activity_name order by version_name,accesscount desc;";
-		$query = $dwdb -> query($sql);
-		$ret = array();
-		$alldata = $this -> getallVersionBasicData($fromTime, $toTime, $productId) -> result_array();
-		if ($query != null && $query -> num_rows > 0) {
-			$arra = $query -> result_array();
-			$content_arr = array();
-			$flag = '';
-			for ($i = 0; $i < count($arra); $i++) {
-				$accesscount = 0;
-				$avertime = 0;
-				$exitcount = 0;
-				$row = $arra[$i];
-				$versionname = $row['version_name'];
-				$allkey = array_keys($content_arr);
-				if (!in_array($versionname, $allkey)) {
-					$content_arr[$versionname] = array();
-					$flag = '';
-				}
-				$tmp = array();
-				if ($flag == '') {
-					for ($j = 0; $j < count($alldata); $j++) {
-						$all = $alldata[$j];
-						if ($all['version_name'] != "all" && $all['version_name'] == $versionname) {
-							$accesscount = $all['accesscount'];
-							$avertime = $all['avertime'];
-							$exitcount = $all['exitcount'];
-							break;
-						} else {
-							$accesscount = $accesscount + $all['accesscount'] / 2;
-							$avertime = $avertime + $all['avertime'] / 2;
-							$exitcount = $exitcount + $all['exitcount'] / 2;
-						}
-					}
-				}
-				if ($row['accesscount'] == null) {
-					$tmp['accesscount'] = 0;
-				} else {
-					$tmp['accesscount'] = $row['accesscount'] . "(" . round($row['accesscount'] / $accesscount * 100, 1) . "%)";
-				}
-				if ($row['avertime'] == null) {
-					$tmp['avertime'] = 0;
-				} else {
-					$tmp['avertime'] = round($row['avertime'], 2) . "(" . round($row['avertime'] / $avertime * 100, 1) . "%)";
-				}
-				if ($row['exitcount'] == null) {
-					$tmp['exitcount'] = 0;
-				} else {
-					$tmp['exitcount'] = $row['exitcount'] . "(" . round($row['exitcount'] / $exitcount * 100, 1) . "%)";
-				}
-				$tmp['activity_name'] = $row['activity_name'];
-				//$tmp ['version_name'] = $row ['version_name'];
-				array_push($content_arr[$versionname], $tmp);
+        $query = $dwdb -> query($sql);
+        $ret = array();
+        $alldata = $this -> getallVersionBasicData($fromTime, $toTime, $productId) -> result_array();
+        if ($query != null && $query -> num_rows > 0) {
+            $arra = $query -> result_array();
+            $content_arr = array();
+            $flag = '';
+            for ($i = 0; $i < count($arra); $i++) {
+                $accesscount = 0;
+                $avertime = 0;
+                $exitcount = 0;
+                $row = $arra[$i];
+                $versionname = $row['version_name'];
+                $allkey = array_keys($content_arr);
+                if (!in_array($versionname, $allkey)) {
+                    $content_arr[$versionname] = array();
+                    $flag = '';
+                }
+                $tmp = array();
+                if ($flag == '') {
+                    for ($j = 0; $j < count($alldata); $j++) {
+                        $all = $alldata[$j];
+                        if ($all['version_name'] != "all" && $all['version_name'] == $versionname) {
+                            $accesscount = $all['accesscount'];
+                            $avertime = $all['avertime'];
+                            $exitcount = $all['exitcount'];
+                            break;
+                        } else {
+                            $accesscount = $accesscount + $all['accesscount'] / 2;
+                            $avertime = $avertime + $all['avertime'] / 2;
+                            $exitcount = $exitcount + $all['exitcount'] / 2;
+                        }
+                    }
+                }
+                if ($row['accesscount'] == null) {
+                    $tmp['accesscount'] = 0;
+                } else {
+                    $tmp['accesscount'] = $row['accesscount'] . "(" . round($row['accesscount'] / $accesscount * 100, 1) . "%)";
+                }
+                if ($row['avertime'] == null) {
+                    $tmp['avertime'] = 0;
+                } else {
+                    $tmp['avertime'] = round($row['avertime'], 2) . "(" . round($row['avertime'] / $avertime * 100, 1) . "%)";
+                }
+                if ($row['exitcount'] == null) {
+                    $tmp['exitcount'] = 0;
+                } else {
+                    $tmp['exitcount'] = $row['exitcount'] . "(" . round($row['exitcount'] / $exitcount * 100, 1) . "%)";
+                }
+                $tmp['activity_name'] = $row['activity_name'];
+                //$tmp ['version_name'] = $row ['version_name'];
+                array_push($content_arr[$versionname], $tmp);
 
-			}
-			$ret['content'] = $content_arr;
-		}
-		return $ret;
+            }
+            $ret['content'] = $content_arr;
+        }
+        return $ret;
 
-	}
-
-	function getTopLevelData($version, $productId) {
-		$dwdb = $this -> load -> database('dw', TRUE);
-		$sql = "select 'Entry', e0.activity_name,sum(al0.count) as count,sum(al0.count)/(select sum(sa0.count) as count
+    }
+    
+    /** 
+     * Get top level
+     * GetTopLevelData function
+     * 
+     * @param string $version   version
+     * @param string $productId productid
+     * 
+     * @return array
+     */
+    function getTopLevelData($version, $productId)
+    {
+        $dwdb = $this -> load -> database('dw', true);
+        $sql = "select 'Entry', e0.activity_name,sum(al0.count) as count,sum(al0.count)/(select sum(sa0.count) as count
 				from " . $dwdb -> dbprefix('sum_accesslevel') . " sa0,
 				 " . $dwdb -> dbprefix('dim_product') . " sp0 where sa0.product_sk = sp0.product_sk and
 				 sp0.product_id = $productId and sp0.version_name='$version'
@@ -127,12 +186,22 @@ class pagemodel extends CI_Model {
 				" . $dwdb -> dbprefix('dim_activity') . " e0 where al0.product_sk = p0.product_sk 
 				and p0.product_id = $productId and p0.version_name='$version'
 		        and al0.fromid = e0.activity_sk and al0.level = 1 group by e0.activity_name ORDER BY SUM( al0.count ) DESC LIMIT 0 , 5";
-		return $dwdb -> query($sql);
-	}
-
-	function getFlowData($version, $productId) {
-		$dwdb = $this -> load -> database('dw', TRUE);
-		$sql = "Select e1.activity_name as activity_from ,ifnull(e2.activity_name,'Exit') as activity_to,level, 
+        return $dwdb -> query($sql);
+    }
+    
+    /** 
+     * Getflow data
+     * GetFlowData function
+     * 
+     * @param string $version   version
+     * @param string $productId productid
+     * 
+     * @return array
+     */
+    function getFlowData($version, $productId)
+    {
+        $dwdb = $this -> load -> database('dw', true);
+        $sql = "Select e1.activity_name as activity_from ,ifnull(e2.activity_name,'Exit') as activity_to,level, 
 				sum(al.count) as count , sum(al.count)/(select sum(count) from " . $dwdb -> dbprefix('sum_accesslevel') . " sa,
 				" . $dwdb -> dbprefix('dim_product') . " sp 
 				where sa.product_sk = sp.product_sk and 
@@ -145,7 +214,7 @@ class pagemodel extends CI_Model {
 				left join " . $dwdb -> dbprefix('dim_activity') . " e2 on al.toid = e2.activity_sk
 				group by e1.activity_sk,e2.activity_sk,level
 				order by e1.activity_name,level asc, count desc";
-		return $dwdb -> query($sql);
-	}
+        return $dwdb -> query($sql);
+    }
 
 }
