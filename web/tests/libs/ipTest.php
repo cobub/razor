@@ -78,6 +78,15 @@ class ipTest extends CIUnit_TestCase {
         $this -> assertEquals('unknown',$a->region);
         $this -> assertEquals('unknown',$a->city);
     }
+    
+    public function testIPLibrary() {
+        require_once(dirname(__FILE__).'/../../application/libraries/Iplibrary.php');
+        $a = new IPLibrary();
+        $a->setLibrary("IpIpLibrary", "117.88.165.1");
+        $this -> assertEquals('中国',$a->getCountry());
+        $this -> assertEquals('江苏',$a->getRegion());
+        $this -> assertEquals('南京',$a->getCity());
+    }
 
 }
 ?>
