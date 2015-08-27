@@ -42,6 +42,30 @@ class ipTest extends CIUnit_TestCase {
         $this -> assertEquals('江苏',$a->region);
         $this -> assertEquals('南京',$a->city);
     }
+    
+    public function testIPIP2() {
+        
+        require_once(dirname(__FILE__).'/../../application/libraries/IpIpLibrary.php');
+        $a = new IpIpLibrary();
+        //$a = $this->CI->load->library('geoiplibrary');
+        
+        $a->setIp(null);
+        $this -> assertEquals('unknown',$a->country);
+        $this -> assertEquals('unknown',$a->region);
+        $this -> assertEquals('unknown',$a->city);
+    }
+    
+    public function testIPIP3() {
+        
+        require_once(dirname(__FILE__).'/../../application/libraries/IpIpLibrary.php');
+        $a = new IpIpLibrary();
+        //$a = $this->CI->load->library('geoiplibrary');
+        
+        $a->setIp("");
+        $this -> assertEquals('unknown',$a->country);
+        $this -> assertEquals('unknown',$a->region);
+        $this -> assertEquals('unknown',$a->city);
+    }
 
 }
 ?>

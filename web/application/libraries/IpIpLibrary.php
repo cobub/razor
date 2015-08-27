@@ -42,11 +42,11 @@ class IpIpLibrary extends IPAbstract
             require(dirname(__FILE__) . "/../third_party/ipip/IP.class.php");
         }
         $loc = IP::find($ip);
-        if (isset($loc[0]))
+        if (isset($loc[0])&&$loc[0]!='N')
             $this->country = $loc[0];
-        if (isset($loc[1]))
+        if (isset($loc[1])&&$loc[1]!='/')
             $this->region = $loc[1];
-        if (isset($loc[2]))
+        if (isset($loc[2])&&$loc[2]!='A')
             $this->city = $loc[2];
     }
 }

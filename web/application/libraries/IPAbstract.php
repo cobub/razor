@@ -29,7 +29,7 @@
 abstract class IPAbstract
 {
     public $country = 'unknown';
-    public $retion ='unknown';
+    public $region ='unknown';
     public $city = 'unknown'; 
     /**
      * Set ip address
