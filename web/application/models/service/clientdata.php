@@ -56,7 +56,6 @@ class Clientdata extends CI_Model
         $clientdata = new clientdatapublic();
         $clientdata->loadclientdata($content);
         $ip = $this->utility->getOnlineIP();
-
         
         $nowtime = date('Y-m-d H:i:s');
         if (isset($clientdata->time)) {

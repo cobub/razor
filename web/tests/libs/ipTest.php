@@ -66,6 +66,18 @@ class ipTest extends CIUnit_TestCase {
         $this -> assertEquals('unknown',$a->region);
         $this -> assertEquals('unknown',$a->city);
     }
+    
+    public function testIPIP4() {
+        
+        require_once(dirname(__FILE__).'/../../application/libraries/IpIpLibrary.php');
+        $a = new IpIpLibrary();
+        //$a = $this->CI->load->library('geoiplibrary');
+        
+        $a->setIp("unknown");
+        $this -> assertEquals('unknown',$a->country);
+        $this -> assertEquals('unknown',$a->region);
+        $this -> assertEquals('unknown',$a->city);
+    }
 
 }
 ?>

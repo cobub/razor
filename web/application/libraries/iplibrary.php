@@ -42,7 +42,8 @@ class IPLibrary
     public function setLibrary($ipclass,$ipaddr)
     {
         $this->ip = new $ipclass;
-        $this->ip->setIp($ipaddr);
+        if (!empty($ipaddr))
+            $this->ip->setIp($ipaddr);
     }
     
     /**
