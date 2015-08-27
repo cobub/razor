@@ -53,7 +53,7 @@ class IPLibrary
      */
     public function getCountry()
     {
-        $this->ip->country;
+        return $this->ip->country;
     }
 
     /**
@@ -63,7 +63,7 @@ class IPLibrary
      */
     public function getRegion()
     {
-        $this->ip->region;
+        return $this->ip->region;
     }
     
     /**
@@ -73,6 +73,6 @@ class IPLibrary
      */
     public function getCity()
     {
-        $this->ip->city;
+        return $this->ip->city;
     }
 }
