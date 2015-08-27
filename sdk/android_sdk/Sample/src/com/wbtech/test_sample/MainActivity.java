@@ -112,8 +112,8 @@ public class MainActivity extends Activity {
          * Activity. Parameter is context of current context. Then, client data
          * could be posted to Cobub Razor system.
          */
-        UmsAgent.postCID(this, "cid");
-        UmsAgent.postUserIdentifier(this, "user id");
+        UmsAgent.postPushID(this, "cid");
+        UmsAgent.postUserId(this, "user id");
 
         button_event.setOnClickListener(new OnClickListener() {
 
