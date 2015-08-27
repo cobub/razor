@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Cobub Razor
  *
@@ -20,18 +19,19 @@
  * Network Controller
  *
  * @category PHP
- * @package  Model
+ * @package  Controller
  * @author   Cobub Team <open.cobub@gmail.com>
  * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
  * @link     http://www.cobub.com
  */
 class Network extends CI_Controller
 {
+
     /**
      * Data array $data
      */
     private $_data = array();
-    
+
     /**
      * Construct funciton, to pre-load database configuration
      *
@@ -46,7 +46,7 @@ class Network extends CI_Controller
         $this->common->requireLogin();
         $this->common->checkCompareProduct();
     }
-    
+
     /**
      * Index
      *
@@ -58,10 +58,7 @@ class Network extends CI_Controller
         $toTime = $this->common->getToTime();
         if (isset($_GET['type']) && $_GET['type'] == 'compare') {
             $this->common->loadCompareHeader();
-            $this->_data['reportTitle'] = array(
-                'activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime),
-                'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime),
-                'timePhase' => getTimePhaseStr($fromTime, $toTime));
+            $this->_data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime),'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime),'timePhase' => getTimePhaseStr($fromTime, $toTime));
             $this->load->view('compare/networkview', $this->_data);
         } else {
             $this->common->loadHeaderWithDateControl();
@@ -86,17 +83,14 @@ class Network extends CI_Controller
      *
      * @param string $delete delete
      * @param string $type   type
-     * 
+     *            
      * @return void
      */
     function addnetworkreport($delete = null, $type = null)
     {
         $fromTime = $this->common->getFromTime();
         $toTime = $this->common->getToTime();
-        $this->_data['reportTitle'] = array(
-            'activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime),
-            'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime),
-            'timePhase' => getTimePhaseStr($fromTime, $toTime));
+        $this->_data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime),'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_nw_top10"), $fromTime, $toTime),'timePhase' => getTimePhaseStr($fromTime, $toTime));
         if ($delete == null) {
             $this->_data['add'] = "add";
         }
@@ -112,7 +106,7 @@ class Network extends CI_Controller
 
     /**
      * getNetWorkData
-     * 
+     *
      * @return json
      */
     function getNetWorkData()
@@ -120,18 +114,18 @@ class Network extends CI_Controller
         $productId = $this->common->getCurrentProduct();
         $fromTime = $this->common->getFromTime();
         $toTime = $this->common->getToTime();
-
+        
         if (empty($productId)) {
             $products = $this->common->getCompareProducts();
             if (empty($products)) {
                 $this->common->requireProduct();
                 return;
             }
-            for ($i = 0; $i < count($products); $i++) {
+            for ($i = 0; $i < count($products); $i ++) {
                 $activedata = $this->network->getSessionNetWorkTop($fromTime, $toTime, $products[$i]->id);
                 $newdata = $this->network->getNewuserNetWorkTop($fromTime, $toTime, $products[$i]->id);
-                $ret["activeUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($activedata, 1);
-                $ret["newUserData" . $products[$i] -> name] = $this -> change2StandardPrecent($newdata, 2);
+                $ret["activeUserData" . $products[$i]->name] = $this->change2StandardPrecent($activedata, 1);
+                $ret["newUserData" . $products[$i]->name] = $this->change2StandardPrecent($newdata, 2);
             }
         } else {
             $this->common->requireProduct();
@@ -140,16 +134,16 @@ class Network extends CI_Controller
             $ret["activeUserData"] = $this->change2StandardPrecent($sessionData, 1);
             $ret["newUserData"] = $this->change2StandardPrecent($newUserData, 2);
         }
-
+        
         echo json_encode($ret);
     }
-    
+
     /**
      * Change2StandardPrecent
      *
      * @param array $userData userdata
      * @param int   $type     type
-     * 
+     *            
      * @return array
      */
     function change2StandardPrecent($userData, $type)
@@ -158,12 +152,12 @@ class Network extends CI_Controller
         $totalPercent = 0;
         $numTotal = 0;
         
-        foreach ( $userData->result () as $row ) {
+        foreach ($userData->result() as $row) {
             if ($type == 1) {
-                $numTotal+= $row->sessions;
+                $numTotal += $row->sessions;
             }
             if ($type == 2) {
-                $numTotal+= $row->newusers;
+                $numTotal += $row->newusers;
             }
         }
         
@@ -176,42 +170,42 @@ class Network extends CI_Controller
                 $row->networkname = "unknown";
             $userDataObj["networkname"] = $row->networkname;
             if ($type == 1) {
-                 $userDataObj ["sessions"] = $row->sessions / 1;
-                 $percent = round ( $row->sessions/$numTotal * 100, 1 );
-                 $totalPercent += $percent;
-                 $userDataObj ["percentage"] = $percent;
+                $userDataObj["sessions"] = $row->sessions / 1;
+                $percent = round($row->sessions / $numTotal * 100, 1);
+                $totalPercent += $percent;
+                $userDataObj["percentage"] = $percent;
             }
-               
+            
             if ($type == 2) {
                 $userDataObj["newusers"] = $row->newusers / 1;
-                $percent = round ( $row->newusers/$numTotal * 100, 1 );
+                $percent = round($row->newusers / $numTotal * 100, 1);
                 $totalPercent += $percent;
-                $userDataObj ["percentage"] = $percent;
+                $userDataObj["percentage"] = $percent;
             }
-                
+            
             array_push($userDataArray, $userDataObj);
         }
         
         if ($totalPercent < 100.0) {
-            $remainPercent = round ( 100 - $totalPercent, 2 );
-            $userDataObj ["networkname"] = lang('g_others');
-            $userDataObj ["percentage"] = $remainPercent;
+            $remainPercent = round(100 - $totalPercent, 2);
+            $userDataObj["networkname"] = lang('g_others');
+            $userDataObj["percentage"] = $remainPercent;
             if ($type == 1) {
-                 $userDataObj ["sessions"] = 0;
+                $userDataObj["sessions"] = 0;
             }
-               
+            
             if ($type == 2) {
                 $userDataObj["newusers"] = 0;
             }
-            array_push ( $userDataArray, $userDataObj );
+            array_push($userDataArray, $userDataObj);
         }
-
+        
         return $userDataArray;
     }
-    
+
     /**
      * ExportCSV
-     * 
+     *
      * @return array
      */
     function exportCSV()
@@ -230,23 +224,23 @@ class Network extends CI_Controller
         $export->setFileName($titlename);
         $j = 0;
         $mk = 0;
-        $title[$j++] = iconv("UTF-8", "GBK", lang('t_sessions'));
-        $space[$mk++] = ' ';
-        for ($i = 0; $i < count($products); $i++) {
-            $title[$j++] = iconv("UTF-8", "GBK", $products[$i] -> name);
-            $title[$j++] = iconv("UTF-8", "GBK", lang('v_rpt_re_count'));
-            $title[$j++] = iconv("UTF-8", "GBK", lang('g_percent'));
-            $space[$mk++] = ' ';
-            $space[$mk++] = ' ';
-            $space[$mk++] = ' ';
+        $title[$j ++] = iconv("UTF-8", "GBK", lang('t_sessions'));
+        $space[$mk ++] = ' ';
+        for ($i = 0; $i < count($products); $i ++) {
+            $title[$j ++] = iconv("UTF-8", "GBK", $products[$i]->name);
+            $title[$j ++] = iconv("UTF-8", "GBK", lang('v_rpt_re_count'));
+            $title[$j ++] = iconv("UTF-8", "GBK", lang('g_percent'));
+            $space[$mk ++] = ' ';
+            $space[$mk ++] = ' ';
+            $space[$mk ++] = ' ';
         }
         $export->setTitle($title);
         $k = 0;
         $maxlength = 0;
         $maxlength2 = 0;
         $j = 0;
-        $nextlabel[$j++] = lang('t_newUsers');
-        for ($m = 0; $m < count($products); $m++) {
+        $nextlabel[$j ++] = lang('t_newUsers');
+        for ($m = 0; $m < count($products); $m ++) {
             $activedata = $this->network->getSessionNetWorkTop($fromTime, $toTime, $products[$m]->id);
             $newdata = $this->network->getNewuserNetWorkTop($fromTime, $toTime, $products[$m]->id);
             $detailData[$m] = $this->change2StandardPrecent($activedata, 1);
@@ -257,9 +251,9 @@ class Network extends CI_Controller
             if (count($detailNewData[$m]) > $maxlength2) {
                 $maxlength2 = count($detailNewData[$m]);
             }
-            $nextlabel[$j++] = $products[$m]->name;
-            $nextlabel[$j++] = ' ';
-            $nextlabel[$j++] = ' ';
+            $nextlabel[$j ++] = $products[$m]->name;
+            $nextlabel[$j ++] = ' ';
+            $nextlabel[$j ++] = ' ';
         }
         $this->getExportRowData($export, $maxlength, $detailData, $products, 1);
         $export->addRow($space);
@@ -268,41 +262,41 @@ class Network extends CI_Controller
         $export->export();
         die();
     }
-    
+
     /**
      * GetExportRowData
-     * 
+     *
      * @param string $export   export
      * @param string $length   length
      * @param string $userData userData
      * @param string $products products
      * @param int    $type     type
-     * 
+     *            
      * @return void
      */
     function getExportRowData($export, $length, $userData, $products, $type)
     {
         $k = 0;
-        for ($i = 0; $i < $length; $i++) {
-            $result[$k++] = $i + 1;
-            for ($j = 0; $j < count($products); $j++) {
+        for ($i = 0; $i < $length; $i ++) {
+            $result[$k ++] = $i + 1;
+            for ($j = 0; $j < count($products); $j ++) {
                 $obj = $userData[$j];
                 if ($i >= count($obj)) {
-                    $result[$k++] = '';
-                    $result[$k++] = '';
+                    $result[$k ++] = '';
+                    $result[$k ++] = '';
                 } else {
                     if ($obj[$i]['networkname'] == '') {
-                        $result[$k++] = 'unknow';
+                        $result[$k ++] = 'unknow';
                     } else {
-                        $result[$k++] = $obj[$i]['networkname'];
+                        $result[$k ++] = $obj[$i]['networkname'];
                     }
-                    if($type==1) {
-                        $result[$k++] = $obj[$i]['sessions'];
+                    if ($type == 1) {
+                        $result[$k ++] = $obj[$i]['sessions'];
                     }
-                    if($type==2) {
-                        $result[$k++] = $obj[$i]['newusers'];
+                    if ($type == 2) {
+                        $result[$k ++] = $obj[$i]['newusers'];
                     }
-                    $result[$k++] = $obj[$i]['percentage'] . "%";
+                    $result[$k ++] = $obj[$i]['percentage'] . "%";
                 }
             }
             $export->addRow($result);
@@ -312,7 +306,7 @@ class Network extends CI_Controller
 
     /**
      * Export
-     * 
+     *
      * @return void
      */
     function export()
@@ -332,9 +326,9 @@ class Network extends CI_Controller
             $title = iconv("UTF-8", "GBK", $titlename);
             $export->setFileName($title);
             // set title name
-            $excel_title = array(iconv("UTF-8", "GBK", lang("m_rpt_networking")), iconv("UTF-8", "GBK", lang("t_sessions")), iconv("UTF-8", "GBK", lang("t_sessionsP")), iconv("UTF-8", "GBK", lang("t_newUsers")), iconv("UTF-8", "GBK", lang("t_newUsersP")));
+            $excel_title = array(iconv("UTF-8", "GBK", lang("m_rpt_networking")),iconv("UTF-8", "GBK", lang("t_sessions")),iconv("UTF-8", "GBK", lang("t_sessionsP")),iconv("UTF-8", "GBK", lang("t_newUsers")),iconv("UTF-8", "GBK", lang("t_newUsersP")));
             $export->setTitle($excel_title);
-            ////percent
+            // //percent
             $Total = $this->network->getSessionNewusersNumByNetwork($fromTime, $toTime, $productId);
             if ($Total) {
                 $sessions = $Total->first_row()->sessions;
@@ -344,7 +338,7 @@ class Network extends CI_Controller
                 $newusers = 0;
             }
             foreach ($data->result() as $row) {
-                if (!$row->networkname)
+                if (! $row->networkname)
                     $row->networkname = 'unknown';
                 $rowadd['networkname'] = $row->networkname;
                 $rowadd['sessions'] = $row->sessions;
@@ -359,5 +353,4 @@ class Network extends CI_Controller
             $this->load->view("usage/nodataview");
         }
     }
-
 }
