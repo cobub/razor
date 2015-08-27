@@ -39,7 +39,7 @@ class Archive extends CI_Controller
     }
 
     /**
-     * archiveHourly function
+     * ArchiveHourly function
      * Schedule hourly task to do the etl from production databse to data warehouse
      *
      * @return void
@@ -72,7 +72,7 @@ class Archive extends CI_Controller
     }
 
     /**
-     * archiveWeekly function
+     * ArchiveWeekly function
      * Schedule weekly task to do the statics,Caculate from sunday to sataday,Must scheduled at sunday.
      *
      * @return void
@@ -92,7 +92,7 @@ class Archive extends CI_Controller
     }
 
     /**
-     * archiveMonthly function
+     * ArchiveMonthly function
      * Schedule monthly task to do the statics
      *
      * @return void
@@ -113,7 +113,7 @@ class Archive extends CI_Controller
     }
 
     /**
-     * archiveLaterData function
+     * ArchiveLaterData function
      * Schedule task for later data, from last 7days to yestoday
      *
      * @return void
@@ -138,7 +138,7 @@ class Archive extends CI_Controller
     }
 
     /**
-     * archiveUsingLog function
+     * ArchiveUsingLog function
      * Schedule daily task for using log page views, yestoday
      *
      * @return void
@@ -158,7 +158,7 @@ class Archive extends CI_Controller
     }
 
     /**
-     * archiveCompareValue function
+     * ArchiveCompareValue function
      * Schedule compare value
      *
      * @param int $date date
