@@ -342,7 +342,7 @@ public class UmsAgent {
         CobubLog.i(tag, "setDefaultReportPolicy = " + String.valueOf(sendPolicy));
     }
     
-   public static void postUserIdentifier(final Context context, final String userid){
+   public static void postUserId(final Context context, final String userid){
         final Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -355,7 +355,7 @@ public class UmsAgent {
         handler.post(thread);
     }
     
-   public static void postCID(final Context context, final String cid){
+   public static void postPushID(final Context context, final String cid){
         final Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

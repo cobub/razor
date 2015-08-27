@@ -34,7 +34,7 @@
 
         <meta-data
             android:name="UMS_APPKEY"
-            android:value="fa21d3716499a7a6747b63cad6a83778" />
+            android:value="b874b9604ac626895dd55c3841f6175a" />
 
         <activity
             android:name="com.wbtech.test_sample.SecondActivity"

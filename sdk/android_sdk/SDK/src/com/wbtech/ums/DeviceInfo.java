@@ -301,7 +301,6 @@ class DeviceInfo {
                 String imsi = getIMSI();
                 String salt = CommonUtil.getSALT(context);
                
-               
                 result = CommonUtil.md5Appkey(imei + imsi + salt);
 
         } catch (Exception e) {

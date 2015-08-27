@@ -128,6 +128,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_clientdata` (
   `modulename` varchar(50) DEFAULT NULL,
   `imei` varchar(50) DEFAULT NULL,
   `imsi` varchar(50) DEFAULT NULL,
+  `salt` varchar(64) DEFAULT NULL,
   `havegps` varchar(50) DEFAULT NULL,
   `havebt` varchar(50) DEFAULT NULL,
   `havewifi` varchar(50) DEFAULT NULL,

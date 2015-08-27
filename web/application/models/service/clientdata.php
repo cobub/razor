@@ -79,6 +79,7 @@ class Clientdata extends CI_Model
             'modulename' => isset($clientdata->modulename) ? $clientdata->modulename : '',
             'imei' => isset($clientdata->imei) ? $clientdata->imei : '',
             'imsi' => isset($clientdata->imsi) ? $clientdata->imsi : '',
+            'salt' => isset($clientdata->salt) ? $clientdata->salt : '',
             'havegps' => isset($clientdata->havegps) ? $clientdata->havegps : '',
             'havebt' => isset($clientdata->havebt) ? $clientdata->havebt : '',
             'havewifi' => isset($clientdata->havewifi) ? $clientdata->havewifi : '',

@@ -11,11 +11,9 @@ public class OtherManager {
     private Context context;
     private String cid;
     private final String tag = "OtherManager";
-//    private final String USERID_URL = "/ums/deviceiduid.php";
-//    private final String CID_URL = "/ums/deviceidcid.php";
     
-    private final String USERID_URL = "/ums/deviceiduid";
-    private final String CID_URL = "/ums/deviceidcid";
+    private final String USERID_URL = "/ums/postUserid";
+    private final String CID_URL = "/ums/postPushid";
     
 
     public OtherManager(Context context) {

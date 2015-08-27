@@ -40,6 +40,7 @@ class clientdatapublic extends CI_Model
     var $modulename;
     var $imei;
     var $imsi;
+    var $salt;
     var $havegps;
     var $havebt;
     var $havewifi;
@@ -77,6 +78,7 @@ class clientdatapublic extends CI_Model
         $this->modulename = isset($content->modulename) ? $content->modulename : '';
         $this->imei = isset($content->imei) ? $content->imei : '';
         $this->imsi = isset($content->imsi) ? $content->imsi : '';
+        $this->salt = isset($content->salt) ? $content->salt : '';
         $this->havegps = isset($content->havegps) ? $content->havegps : '';
         $this->havebt = isset($content->havebt) ? $content->havebt : '';
         $this->havewifi = isset($content->havewifi) ? $content->havewifi : '';
