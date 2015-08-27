@@ -2,26 +2,57 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
-class errormodel extends CI_Model {
-    function __construct() {
+
+/**
+ * ModelsOnlineconfig Model
+ *
+ * @category PHP
+ * @package  Model
+ * @author   Cobub Team <open.cobub@gmail.com>
+ * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link     http://www.cobub.com
+ */
+class Errormodel extends CI_Model
+{
+
+    /** 
+     * Construct load 
+     * Construct function
+     * 
+     * @return void
+     */
+    function __construct()
+    {
         parent::__construct();
         $this -> load -> database();
         $this -> load -> Model('common');
     }
-
-    //get error count and count/sessions data by version
-    function geterroralldata($productId, $fromTime, $toTime) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Get all error
+     * Geterroralldata function
+     * 
+     * @param string $productId productid
+     * @param string $fromTime  fromtime
+     * @param string $toTime    totime
+     * 
+     * @return array
+     */
+    function geterroralldata($productId, $fromTime, $toTime)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select p.version_name,
               ifnull(count(f.id),0) errorcount,
               ifnull(count(f.id)/(select sum(sessions)
@@ -63,9 +94,20 @@ class errormodel extends CI_Model {
             $ret['content'] = "";
         return $ret;
     }
-
-    function getCompareErrorData($productId, $fromTime, $toTime) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Get compare error data
+     * GetCompareErrorData function
+     *  
+     * @param string $productId productid
+     * @param string $fromTime  fromtime
+     * @param string $toTime    totime
+     * 
+     * @return array
+     */
+    function getCompareErrorData($productId, $fromTime, $toTime)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select c.datevalue, 
                 ifnull( s.errorcount, 0 ) errorcounts ,
                 ifnull( s.percentage, 0 ) percent
@@ -113,10 +155,20 @@ class errormodel extends CI_Model {
         return $ret;
 
     }
-
-    //get error count and count/sessions data by os
-    function getErrorAllDataOnOs($productId, $fromTime, $toTime) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Get error count and count sessions data by os
+     * GetErrorAllDataOnOs function
+     * 
+     * @param string $productId productId
+     * @param string $fromTime  fromtime
+     * @param string $toTime    totime
+     * 
+     * @return array
+     */
+    function getErrorAllDataOnOs($productId, $fromTime, $toTime)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select
               o.deviceos_name,
               ifnull(count(f.id),0) errorcount,      
@@ -162,10 +214,20 @@ class errormodel extends CI_Model {
             $ret['content'] = "";
         return $ret;
     }
-
-    //get error count and count/sessions data by device
-    function getErrorAllDataOnDevice($productId, $fromTime, $toTime) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Get error count and count sessions data by device
+     * GetErrorAllDataOnDevice function
+     * 
+     * @param string $productId productid
+     * @param string $fromTime  fromtime
+     * @param string $toTime    totime
+     * 
+     * @return array
+     */
+    function getErrorAllDataOnDevice($productId, $fromTime, $toTime)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "Select
         o.devicebrand_name,
        ifnull(count(f.id),0) errorcount,
@@ -212,10 +274,20 @@ class errormodel extends CI_Model {
             $ret['content'] = "";
         return $ret;
     }
-
-    //Error message list  of version*****************
-    function geterrorlist($productid, $from, $to) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Error message list  of version
+     * Geterrorlist function
+     * 
+     * @param string $productid productid
+     * @param string $from      from
+     * @param string $to        to
+     * 
+     * @return array
+     */
+    function geterrorlist($productid, $from, $to)
+    {
+        $dwdb = $this -> load -> database('dw', true);
 
         $sql = "select   f.title,
          f.title_sk,et.isfix,
@@ -236,10 +308,20 @@ class errormodel extends CI_Model {
         $query = $dwdb -> query($sql);
         return $query;
     }
-
-    //Error message list  on os*****************
-    function getErrorlistOnOs($productid, $from, $to) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Error message list  on os
+     * GetErrorlistOnOs function
+     * 
+     * @param string $productid productid
+     * @param string $from      from
+     * @param string $to        to
+     * 
+     * @return array
+     */
+    function getErrorlistOnOs($productid, $from, $to)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select   f.title,
          f.title_sk,et.isfix,
          count(f.stacktrace) errorcount,
@@ -254,10 +336,20 @@ group by o.deviceos_sk,f.title_sk order by o.deviceos_name desc,f.time desc;";
         $query = $dwdb -> query($sql);
         return $query;
     }
-
-    //Error message list  on device*****************
-    function getErrorlistOnDevice($productid, $from, $to) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Error message list on device
+     * GetErrorlistOnDevice function
+     *  
+     * @param string $productid productid
+     * @param string $from      from
+     * @param string $to        to
+     * 
+     * @return array
+     */
+    function getErrorlistOnDevice($productid, $from, $to)
+    {
+        $dwdb = $this -> load -> database('dw', true);
 
         $sql = "select   f.title,
          f.title_sk, et.isfix,
@@ -275,10 +367,22 @@ group by o.devicebrand_sk,f.title_sk order by count(f.stacktrace) desc,f.time de
         $query = $dwdb -> query($sql);
         return $query;
     }
-
-    //error Detail of version
-    function geterrordetail($title_sk, $version_name, $product_id, $from, $to) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Error detail of version
+     * Geterrordetail function
+     *  
+     * @param string $title_sk     title_sk
+     * @param string $version_name version_name
+     * @param string $product_id   product_id
+     * @param string $from         from
+     * @param string $to           to
+     * 
+     * @return array
+     */
+    function geterrordetail($title_sk, $version_name, $product_id, $from, $to)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select   f.time, et.isfix,
          o.deviceos_name,
          b.devicebrand_name,
@@ -303,10 +407,22 @@ group by o.devicebrand_sk,f.title_sk order by count(f.stacktrace) desc,f.time de
         return $query;
 
     }
-
-    //error Detail on os
-    function getErrorDetailOnOs($title_sk, $deviceos_sk, $product_id, $from, $to) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Error detail on os
+     * getErrorDetailOnOs function
+     *  
+     * @param string $title_sk    titlesk
+     * @param string $deviceos_sk deviceossk
+     * @param string $product_id  productid
+     * @param string $from        from
+     * @param string $to          to
+     * 
+     * @return array
+     */
+    function getErrorDetailOnOs($title_sk, $deviceos_sk, $product_id, $from, $to)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select  f.time,et.isfix,
          b.devicebrand_name,
          p.version_name,
@@ -329,10 +445,22 @@ group by o.devicebrand_sk,f.title_sk order by count(f.stacktrace) desc,f.time de
         return $query;
 
     }
-
-    //error Detail on device
-    function getErrorDetailOnDevice($title_sk, $devicebrand_sk, $product_id, $from, $to) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Error detail on device
+     * Geterrordetailondevice function
+     * 
+     * @param string $title_sk       titlesk
+     * @param string $devicebrand_sk devicebrandsk
+     * @param string $product_id     productid
+     * @param string $from           from
+     * @param string $to             to
+     * 
+     * @return array
+     */
+    function getErrorDetailOnDevice($title_sk, $devicebrand_sk, $product_id, $from, $to)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select   f.time,et.isfix,
          o.deviceos_name,
          p.version_name,
@@ -358,10 +486,22 @@ ORDER BY f.time desc
         return $query;
 
     }
-
-    //device distribution of version
-    function getDeviceInfoOfVersion($titlesk, $productid, $version_name, $from, $to) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Device distribution of version
+     * Getdeviceinfoofversion function
+     * 
+     * @param string $titlesk      titlesk
+     * @param string $productid    productid
+     * @param string $version_name versionname
+     * @param string $from         from
+     * @param string $to           to
+     * 
+     * @return array
+     */
+    function getDeviceInfoOfVersion($titlesk, $productid, $version_name, $from, $to)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select   o.devicebrand_name,
          count(* ) count,
          count(f.deviceidentifier)
@@ -394,10 +534,22 @@ ORDER BY f.time desc
         $ret = $query -> result_array();
         return $ret;
     }
-
-    //device distribution on os
-    function getDeviceInfoOnOs($titlesk, $productid, $deviceos_sk, $from, $to) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Device distribution on os
+     * Getdeviceinfoonos function
+     * 
+     * @param string $titlesk     titlesk
+     * @param string $productid   productid
+     * @param string $deviceos_sk deviceossk
+     * @param string $from        from
+     * @param string $to          to
+     * 
+     * @return array
+     */
+    function getDeviceInfoOnOs($titlesk, $productid, $deviceos_sk, $from, $to)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select   o.devicebrand_name,
          count(* ) count,
          count(f.deviceidentifier)
@@ -433,10 +585,22 @@ order by count desc;
         $ret = $query -> result_array();
         return $ret;
     }
-
-    //app version distribution on device
-    function getVersionInfoOnDevice($titlesk, $productid, $devicebrand_sk, $from, $to) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * App version distribution on device
+     * GetVersionInfoOnDevice function
+     * 
+     * @param string $titlesk        titlesk
+     * @param string $productid      productid
+     * @param string $devicebrand_sk devicebrandsk
+     * @param string $from           from
+     * @param string $to             to
+     * 
+     * @return array
+     */
+    function getVersionInfoOnDevice($titlesk, $productid, $devicebrand_sk, $from, $to)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select   p.version_name,
          count(* ) count,
          count(*)
@@ -466,10 +630,22 @@ order by count desc;";
         $ret = $query -> result_array();
         return $ret;
     }
-
-    //Os distribution of version
-    function getOsOfVersion($titlesk, $productid, $version_name, $from, $to) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Os distribution of version
+     * GetOsOfVersion function
+     * 
+     * @param string $titlesk      titlesk
+     * @param string $productid    productid
+     * @param string $version_name versionname
+     * @param string $from         from
+     * @param string $to           to
+     * 
+     * @return array
+     */
+    function getOsOfVersion($titlesk, $productid, $version_name, $from, $to)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select   o.deviceos_name,
          count(* ) count,
          count(f.osversion_sk)
@@ -504,10 +680,22 @@ order by count desc;
         return $ret;
 
     }
-
-    //Operating system distribution on Os
-    function getAppVersionOnOs($titlesk, $productid, $deviceos_sk, $from, $to) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Operating system distribution on os
+     * GetAppVersionOnOs function
+     * 
+     * @param string $titlesk     titlesk
+     * @param string $productid   productid
+     * @param string $deviceos_sk deviceossk
+     * @param string $from        from
+     * @param string $to          to
+     * 
+     * @return array
+     */
+    function getAppVersionOnOs($titlesk, $productid, $deviceos_sk, $from, $to)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select   p.version_name,
          count(* ) count,
          count(f.deviceidentifier)
@@ -538,10 +726,22 @@ order by count desc;
         return $ret;
 
     }
-
-    //Operating system distribution on Device
-    function getOsInfoOnDevice($titlesk, $productid, $devicebrand_sk, $from, $to) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /** 
+     * Operating system distribution on device
+     * GetOsInfoOnDevice function
+     * 
+     * @param string $titlesk        titlesk
+     * @param string $productid      productid
+     * @param string $devicebrand_sk devicebrandsk
+     * @param string $from           from
+     * @param string $to             to
+     * 
+     * @return array
+     */
+    function getOsInfoOnDevice($titlesk, $productid, $devicebrand_sk, $from, $to)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "select   o.deviceos_name,
          count(* ) count,
          count(f.osversion_sk)
@@ -576,10 +776,19 @@ order by count desc;
         return $ret;
 
     }
-
-    //Mark all error messages according appkey
-    function changeErrorStatus($title_sk, $fix) {
-        $dwdb = $this -> load -> database('dw', TRUE);
+    
+    /**
+     * Mark all error messages according appkey
+     * ChangeErrorStatus function
+     * 
+     * @param string $title_sk titlesk
+     * @param string $fix      fix
+     * 
+     * @return void
+     */
+    function changeErrorStatus($title_sk, $fix)
+    {
+        $dwdb = $this -> load -> database('dw', true);
         $sql = "update " . $dwdb -> dbprefix('dim_errortitle') . "
                 set isfix = $fix
                 where title_sk = $title_sk;
