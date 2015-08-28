@@ -15,7 +15,7 @@
  * @since     Version 0.1
  */
 
- require_once('IPAbstract.php');
+ require_once 'IPAbstract.php';
 /**
  * IpIpLibrary Interface
  *
@@ -39,9 +39,12 @@ class IpIpLibrary extends IPAbstract
     public function setIp($ip)
     {
         if (!class_exists('IP')) {
-            require(dirname(__FILE__) . "/../third_party/ipip/IP.class.php");
+            include dirname(__FILE__) . "/../third_party/ipip/IP.class.php";
         }
         $loc = IP::find($ip);
+        if ($loc == 'N/A') {
+            return;
+        }
         if (isset($loc[0])&&$loc[0]!='N')
             $this->country = $loc[0];
         if (isset($loc[1])&&$loc[1]!='/')
