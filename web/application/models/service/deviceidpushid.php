@@ -48,11 +48,22 @@ class DeviceidPushid extends CI_Model
      */
     function addDeviceidPushid($content)
     {
+        $dw = $this->load->database('dw', true);
         $data = array(
             'deviceid' => isset($content->deviceid)?$content->deviceid:'',
             'clientid' => isset($content->clientid)?$content->clientid:''
         );
-        $dw = $this->load->database('dw', true);
+        
+        $dw->from($dw->dbprefix("pushdevice"));
+        
+        $dw->where($data);
+        $query = $dw->get();
+
+        if ($query && $query->num_rows() > 0) { //Dupplicate row
+             return;
+        }
+        
+        
         $dw->insert('deviceid_pushid', $data);
     }
 

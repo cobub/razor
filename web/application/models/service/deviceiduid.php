@@ -47,11 +47,22 @@ class DeviceidUid extends CI_Model
      */
     function addDeviceidUid($content)
     {
+        $dw = $this->load->database('dw', true);
         $data = array(
             'deviceid' => isset($content->deviceid)?$content->deviceid:'',
             'userid' => isset($content->userid)?$content->userid:''
         );
-        $dw = $this->load->database('dw', true);
+        
+        $dw->from($dw->dbprefix("deviceid_userid"));
+        
+        $dw->where($data);
+        $query = $dw->get();
+
+        if ($query && $query->num_rows() > 0) { //Dupplicate row
+             return;
+        }
+            
+        
         $dw->insert('deviceid_userid', $data);
     }
 
