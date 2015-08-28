@@ -4,10 +4,6 @@ package com.wbtech.test_sample;
 import com.wbtech.ums.UmsAgent;
 import com.wbtech.ums.UmsAgent.SendPolicy;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -33,7 +28,7 @@ import android.widget.TextView;
  * android:name="android.permission.ACCESS_NETWORK_STATE"/> <uses-permission
  * android:name="android.permission.INSTALL_PACKAGES"/>
  */
-public class MainActivity extends Activity {
+public class CobubSampleActivity extends Activity {
 
     Thread t ;
     @Override
@@ -113,7 +108,7 @@ public class MainActivity extends Activity {
          * could be posted to Cobub Razor system.
          */
         UmsAgent.postPushID(this, "cid");
-        UmsAgent.postUserId(this, "user id");
+        UmsAgent.bindUserid(this, "user id");
 
         button_event.setOnClickListener(new OnClickListener() {
 
@@ -131,7 +126,7 @@ public class MainActivity extends Activity {
                  * will observe that the "Number of Messages" has changed
                  * according to the Event ID of "ad_click" in server.
                  */
-                UmsAgent.onEvent(MainActivity.this, event_name);
+                UmsAgent.onEvent(CobubSampleActivity.this, event_name);
                 //UmsAgent.postTags(MainActivity.this, "男,43,南京");
                 
             }
@@ -158,7 +153,7 @@ public class MainActivity extends Activity {
             
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+                Intent intent = new Intent(CobubSampleActivity.this,SecondActivity.class);
                 startActivity(intent);
                 
             }

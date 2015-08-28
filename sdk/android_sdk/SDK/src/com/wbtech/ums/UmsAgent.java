@@ -130,10 +130,11 @@ public class UmsAgent {
      * 
      * @param identifier
      */
-    public static void bindUserIdentifier(final Context context, final String identifier) {
+    public static void bindUserid(final Context context, final String identifier) {
         CobubLog.i(tag, "Bind user identifier");
         SharedPrefUtil sp = new SharedPrefUtil(context);
         sp.setValue("identifier", identifier);
+        UmsAgent.postUserId(context, identifier);
     }
 
     /**
@@ -342,11 +343,10 @@ public class UmsAgent {
         CobubLog.i(tag, "setDefaultReportPolicy = " + String.valueOf(sendPolicy));
     }
     
-   public static void postUserId(final Context context, final String userid){
+    static void postUserId(final Context context, final String userid){
         final Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                UmsAgent.bindUserIdentifier(context,userid);
                 CobubLog.i(tag, "Call postUserIdentifier");
                 OtherManager om = new OtherManager(context);
                 om.postUserId();
