@@ -54,7 +54,7 @@ class DeviceidPushid extends CI_Model
             'clientid' => isset($content->clientid)?$content->clientid:''
         );
         
-        $dw->from($dw->dbprefix("pushdevice"));
+        $dw->from($dw->dbprefix("deviceid_pushid"));
         
         $dw->where($data);
         $query = $dw->get();
