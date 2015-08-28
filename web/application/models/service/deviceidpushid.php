@@ -53,7 +53,7 @@ class DeviceidPushid extends CI_Model
             'clientid' => isset($content->clientid)?$content->clientid:''
         );
         $dw = $this->load->database('dw', true);
-        $dw->insert('deviceid_clientid', $data);
+        $dw->insert('deviceid_pushid', $data);
     }
 
 }
