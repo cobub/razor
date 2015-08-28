@@ -51,7 +51,7 @@ class DeviceidPushid extends CI_Model
         $dw = $this->load->database('dw', true);
         $data = array(
             'deviceid' => isset($content->deviceid)?$content->deviceid:'',
-            'clientid' => isset($content->clientid)?$content->clientid:''
+            'pushid' => isset($content->clientid)?$content->clientid:''
         );
         
         $dw->from($dw->dbprefix("deviceid_pushid"));
