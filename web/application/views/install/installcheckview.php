@@ -1,3 +1,20 @@
+<?php
+/**
+ * Cobub Razor
+ *
+ * An open source mobile analytics system
+ *
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
+ */
+?>
 <!doctype html>
 <html lang="en">
 
@@ -79,7 +96,7 @@ if ($language=="zh_CN") {
             <h3><font color="#9d9d9d"><?php echo lang('installview_finshstep');?></font></h3>        
             </div>
         
-            <div style="height:350px;position:absolute;top:730px;left:420px;">
+            <div style="height:350px;position:absolute;top:800px;left:420px;">
             <font color="red">
             <p><?php if(isset($versionerror)) echo $versionerror;?></p>
             <p><?php if(isset($mysqlierror)) echo $mysqlierror;?></p>
@@ -172,7 +189,7 @@ if ($language=="zh_CN") {
              </div>
              
             <div class="clear"></div>    
-        <div  style="height:400px;"></div>
+        <div  style="height:560px;"></div>
         <footer>
         <ul  class="tabs">
         <div>        
@@ -190,7 +207,7 @@ if ($language=="zh_CN") {
         <div class="spacer"></div>
     </section>
 
-<div style="position:absolute;top:850px; left:500px">
+<div style="position:absolute;top:910px; left:500px">
 <p align="center"> &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
 
  <a href=" <?php if ($language=="zh_CN") {
