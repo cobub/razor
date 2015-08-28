@@ -2,18 +2,42 @@
 /**
  * Cobub Razor
  *
- * An open source analytics for mobile applications
+ * An open source mobile analytics system
  *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2012, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 1.0
- * @filesource
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
  */
-class Clientdata extends CI_Model {
-    function Clientdata() {
+
+/**
+ * Clientdata Model
+ *
+ * @category PHP
+ * @package  Model
+ * @author   Cobub Team <open.cobub@gmail.com>
+ * @license  http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link     http://www.cobub.com
+ */
+class Clientdata extends CI_Model
+{
+
+
+
+
+    /** 
+     * Clientdata load 
+     * Clientdata function 
+     * 
+     * @return void 
+     */
+    function Clientdata()
+    {
         parent::__construct();
         $this -> load -> model('utility');
         $this -> load -> database();
@@ -23,13 +47,22 @@ class Clientdata extends CI_Model {
         $this -> load -> model('lbs_service/ipinfodb', 'ipinfodb');
         $this -> load -> model('redis_service/utility', 'utility');
     }
-
-    function addClientdata($clientdata) {
-    	$productId = $this -> utility -> getProductIdByKey($clientdata -> appkey);
-    	//For realtime User sessions
-    	$key = "razor_r_u_p_" . $productId . "_" . date('Y-m-d-H-i', time());
-    	$this -> redis -> hset($key, array($data["deviceid"] => $productId));
-    	$this -> redis -> expire($key, 30 * 60);
+    
+    /** 
+     * Add client data 
+     * AddClientdata function 
+     * 
+     * @param string $clientdata clientdata 
+     * 
+     * @return void 
+     */
+    function addClientdata($clientdata)
+    {
+        $productId = $this -> utility -> getProductIdByKey($clientdata -> appkey);
+        //For realtime User sessions
+        $key = "razor_r_u_p_" . $productId . "_" . date('Y-m-d-H-i', time());
+        $this -> redis -> hset($key, array($data["deviceid"] => $productId));
+        $this -> redis -> expire($key, 30 * 60);
 
         $ip = $this -> utility -> getOnlineIP();
         $nowtime = date('Y-m-d H:i:s');
@@ -39,35 +72,7 @@ class Clientdata extends CI_Model {
                 $nowtime = date('Y-m-d H:i:s');
             }
         }
-        $data = array(
-            'productkey' => $clientdata -> appkey,
-            'platform' => $clientdata -> platform,
-            'osversion' => $clientdata -> os_version,
-            'language' => $clientdata -> language,
-            'deviceid' => $clientdata -> deviceid,
-            'resolution' => $clientdata -> resolution,
-            'ismobiledevice' => isset($clientdata -> ismobiledevice) ? $clientdata -> ismobiledevice : '',
-            'devicename' => isset($clientdata -> devicename) ? $clientdata -> devicename : 'unknown',
-            'defaultbrowser' => isset($clientdata -> defaultbrowser) ? $clientdata -> defaultbrowser : '',
-            'javasupport' => isset($clientdata -> javasupport) ? $clientdata -> javasupport : '',
-            'flashversion' => isset($clientdata -> flashversion) ? $clientdata -> flashversion : '',
-            'modulename' => isset($clientdata -> modulename) ? $clientdata -> modulename : '',
-            'imei' => isset($clientdata -> imei) ? $clientdata -> imei : '',
-            'imsi' => isset($clientdata -> imsi) ? $clientdata -> imsi : '',
-            'havegps' => isset($clientdata -> havegps) ? $clientdata -> havegps : '',
-            'havebt' => isset($clientdata -> havebt) ? $clientdata -> havebt : '',
-            'havewifi' => isset($clientdata -> havewifi) ? $clientdata -> havewifi : '',
-            'havegravity' => isset($clientdata -> havegravity) ? $clientdata -> havegravity : '',
-            'wifimac' => isset($clientdata -> wifimac) ? $clientdata -> wifimac : '',
-            'version' => isset($clientdata -> version) ? $clientdata -> version : '',
-            'network' => isset($clientdata -> network) ? $clientdata -> network : '',
-            'latitude' => isset($clientdata -> latitude) ? $clientdata -> latitude : '',
-            'longitude' => isset($clientdata -> longitude) ? $clientdata -> longitude : '',
-            'isjailbroken' => isset($clientdata -> isjailbroken) ? $clientdata -> isjailbroken : 0,
-            'date' => $nowtime,
-            'service_supplier' => isset($clientdata -> mccmnc) ? $clientdata -> mccmnc : '0',
-            'clientip' => $ip
-        );
+        $data = array('productkey' => $clientdata -> appkey, 'platform' => $clientdata -> platform, 'osversion' => $clientdata -> os_version, 'language' => $clientdata -> language, 'deviceid' => $clientdata -> deviceid, 'resolution' => $clientdata -> resolution, 'ismobiledevice' => isset($clientdata -> ismobiledevice) ? $clientdata -> ismobiledevice : '', 'devicename' => isset($clientdata -> devicename) ? $clientdata -> devicename : 'unknown', 'defaultbrowser' => isset($clientdata -> defaultbrowser) ? $clientdata -> defaultbrowser : '', 'javasupport' => isset($clientdata -> javasupport) ? $clientdata -> javasupport : '', 'flashversion' => isset($clientdata -> flashversion) ? $clientdata -> flashversion : '', 'modulename' => isset($clientdata -> modulename) ? $clientdata -> modulename : '', 'imei' => isset($clientdata -> imei) ? $clientdata -> imei : '', 'imsi' => isset($clientdata -> imsi) ? $clientdata -> imsi : '', 'havegps' => isset($clientdata -> havegps) ? $clientdata -> havegps : '', 'havebt' => isset($clientdata -> havebt) ? $clientdata -> havebt : '', 'havewifi' => isset($clientdata -> havewifi) ? $clientdata -> havewifi : '', 'havegravity' => isset($clientdata -> havegravity) ? $clientdata -> havegravity : '', 'wifimac' => isset($clientdata -> wifimac) ? $clientdata -> wifimac : '', 'version' => isset($clientdata -> version) ? $clientdata -> version : '', 'network' => isset($clientdata -> network) ? $clientdata -> network : '', 'latitude' => isset($clientdata -> latitude) ? $clientdata -> latitude : '', 'longitude' => isset($clientdata -> longitude) ? $clientdata -> longitude : '', 'isjailbroken' => isset($clientdata -> isjailbroken) ? $clientdata -> isjailbroken : 0, 'date' => $nowtime, 'service_supplier' => isset($clientdata -> mccmnc) ? $clientdata -> mccmnc : '0', 'clientip' => $ip);
         $latitude = isset($clientdata -> latitude) ? $clientdata -> latitude : '';
         $choose = $this -> config -> item('get_geographical');
         $data["country"] = 'unknown';
@@ -85,7 +90,6 @@ class Clientdata extends CI_Model {
                 $regionInfo = $this -> ipinfodb -> getregioninfobyip($ip);
             }
 
-
             if (!empty($regionInfo)) {
                 $data["country"] = $regionInfo['country'];
                 if ($regionInfo['country'] == null || $regionInfo['country'] == "") {
@@ -99,11 +103,11 @@ class Clientdata extends CI_Model {
             }
         }
         if ($choose == 1) {
-            $this->iplibrary->setLibrary('IpIpLibrary',$ip);
-            
-            $data['country'] = $this->iplibrary->getCountry();
-            $data['region']  = $this->iplibrary->getRegion();
-            $data['city']    = $this->iplibrary->getCity();
+            $this -> iplibrary -> setLibrary('IpIpLibrary', $ip);
+
+            $data['country'] = $this -> iplibrary -> getCountry();
+            $data['region'] = $this -> iplibrary -> getRegion();
+            $data['city'] = $this -> iplibrary -> getCity();
         }
         //For realtime areas
         $key = "razor_r_arc_p_" . $productId . "_c_" . $data["country"] . "_" . date('Y-m-d-H-i', time());
@@ -121,8 +125,6 @@ class Clientdata extends CI_Model {
         //$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
         //$timezonestime = date ( 'Y-m-d H:i:m', $timezonestimestamp );
         $this -> redis -> lpush("razor_clientdata", serialize($data));
-
-
 
         $this -> processor -> process();
     }
