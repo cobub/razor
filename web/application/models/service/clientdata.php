@@ -56,7 +56,7 @@ class Clientdata extends CI_Model
         $clientdata = new clientdatapublic();
         $clientdata->loadclientdata($content);
         $ip = $this->utility->getOnlineIP();
-        
+
         $nowtime = date('Y-m-d H:i:s');
         if (isset($clientdata->time)) {
             $nowtime = $clientdata->time;
@@ -104,29 +104,18 @@ class Clientdata extends CI_Model
         $data["streetno"] = '';
         $data["postcode"] = '';
         if ($choose == 2) {
-            if ($latitude != '') {
-                $latitude = $clientdata->latitude;
-                $longitude = $clientdata->longitude;
-                $regionInfo = $this->google->getregioninfo($latitude, $longitude);
-            } else {
-                $regionInfo = $this->ipinfodb->getregioninfobyip($ip);
-            }
+            $this->iplibrary->setLibrary('GeoIpLibrary', $ip);
 
-            if (!empty($regionInfo)) {
-                $data["country"] = $regionInfo['country'];
-                $data["region"] = $regionInfo['region'];
-                $data["city"] = $regionInfo['city'];
-                $data["street"] = $regionInfo['street'];
-                $data["streetno"] = $regionInfo['street_number'];
-                $data["postcode"] = $regionInfo['postal_code'];
-            }
+            $data['country'] = $this->iplibrary->getCountry();
+            $data['region'] = $this->iplibrary->getRegion();
+            $data['city'] = $this->iplibrary->getCity();
         }
         if ($choose == 1) {
-            $this->iplibrary->setLibrary('IpIpLibrary',$ip);
-            
+            $this->iplibrary->setLibrary('IpIpLibrary', $ip);
+
             $data['country'] = $this->iplibrary->getCountry();
-            $data['region']  = $this->iplibrary->getRegion();
-            $data['city']    = $this->iplibrary->getCity();
+            $data['region'] = $this->iplibrary->getRegion();
+            $data['city'] = $this->iplibrary->getCity();
         }
 
         $this->db->insert('clientdata', $data);
