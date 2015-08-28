@@ -50,6 +50,7 @@ class Userlog extends CI_Model
 			'time' => $nowtime,
 			'device' => $userlog->deviceid,
 			'activity'=>$userlog->activity,
+			'isfix' => 0,
 		    'version'=>isset($userlog->version)?$userlog->version:''
 		
 		);
