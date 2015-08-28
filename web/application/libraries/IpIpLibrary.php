@@ -45,11 +45,11 @@ class IpIpLibrary extends IPAbstract
         if ($loc == 'N/A') {
             return;
         }
-        if (isset($loc[0])&&$loc[0]!='N')
+        if (isset($loc[0])&&$loc[0]!='')
             $this->country = $loc[0];
-        if (isset($loc[1])&&$loc[1]!='/')
+        if (isset($loc[1])&&$loc[1]!='')
             $this->region = $loc[1];
-        if (isset($loc[2])&&$loc[2]!='A')
+        if (isset($loc[2])&&$loc[2]!='')
             $this->city = $loc[2];
     }
 }
