@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1878CADA1B93107900CA89C1 /* libUMSAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1878CAD71B93094900CA89C1 /* libUMSAgent.a */; };
 		2230AC381955681B00B8BB7E /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 2230AC371955681B00B8BB7E /* test.html */; };
 		22622586195E5BD20052D57C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22622585195E5BD10052D57C /* libz.dylib */; };
 		22622588195E5BDA0052D57C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22622587195E5BDA0052D57C /* libsqlite3.dylib */; };
@@ -40,10 +41,23 @@
 		36B3015D162AF22D0098FEF5 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B3015B162AF22D0098FEF5 /* SecondViewController.m */; };
 		36B3015E162AF22D0098FEF5 /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36B3015C162AF22D0098FEF5 /* SecondViewController.xib */; };
 		36B8E537151C51B5004C3C1F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B8E536151C51B5004C3C1F /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		E0F68CDE1AF77682009F448E /* libUMSAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0F68CDD1AF77682009F448E /* libUMSAgent.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1878CAD61B93094900CA89C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1878CAD21B93094800CA89C1 /* UMSAgent.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3630005815131A1600E84C2D;
+			remoteInfo = UMSAgent;
+		};
+		1878CAD81B93106A00CA89C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1878CAD21B93094800CA89C1 /* UMSAgent.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 3630005715131A1600E84C2D;
+			remoteInfo = UMSAgent;
+		};
 		3609A5CF15180C7300BEDA05 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3609A5A015180C7300BEDA05 /* Project object */;
@@ -54,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1878CAD21B93094800CA89C1 /* UMSAgent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UMSAgent.xcodeproj; path = ../UMSAgent/UMSAgent.xcodeproj; sourceTree = "<group>"; };
 		2230AC371955681B00B8BB7E /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		22622585195E5BD10052D57C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		22622587195E5BDA0052D57C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -95,8 +110,6 @@
 		36B3015B162AF22D0098FEF5 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		36B3015C162AF22D0098FEF5 /* SecondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondViewController.xib; sourceTree = "<group>"; };
 		36B8E536151C51B5004C3C1F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		E0F68CDD1AF77682009F448E /* libUMSAgent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUMSAgent.a; path = "../../Build/Products/Debug-iphoneos/libUMSAgent.a"; sourceTree = "<group>"; };
-		E0F68CDF1AF77697009F448E /* UMSAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UMSAgent.h; path = "../../Build/Products/Debug-iphoneos/usr/local/include/UMSAgent.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1878CADA1B93107900CA89C1 /* libUMSAgent.a in Frameworks */,
 				2262258C195E5BF10052D57C /* CFNetwork.framework in Frameworks */,
 				2262258A195E5BE80052D57C /* SystemConfiguration.framework in Frameworks */,
 				22622588195E5BDA0052D57C /* libsqlite3.dylib in Frameworks */,
@@ -112,7 +126,6 @@
 				36B8E537151C51B5004C3C1F /* CoreTelephony.framework in Frameworks */,
 				3609A5AE15180C7300BEDA05 /* UIKit.framework in Frameworks */,
 				3609A5B015180C7300BEDA05 /* Foundation.framework in Frameworks */,
-				E0F68CDE1AF77682009F448E /* libUMSAgent.a in Frameworks */,
 				3609A5B215180C7300BEDA05 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,6 +143,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1878CAD31B93094800CA89C1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1878CAD71B93094900CA89C1 /* libUMSAgent.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2230AC361955681B00B8BB7E /* assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +181,7 @@
 		3609A5AC15180C7300BEDA05 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1878CAD21B93094800CA89C1 /* UMSAgent.xcodeproj */,
 				2262258B195E5BF10052D57C /* CFNetwork.framework */,
 				22622589195E5BE80052D57C /* SystemConfiguration.framework */,
 				22622587195E5BDA0052D57C /* libsqlite3.dylib */,
@@ -178,8 +200,6 @@
 		3609A5B315180C7300BEDA05 /* UMSAgentExample */ = {
 			isa = PBXGroup;
 			children = (
-				E0F68CDF1AF77697009F448E /* UMSAgent.h */,
-				E0F68CDD1AF77682009F448E /* libUMSAgent.a */,
 				2230AC361955681B00B8BB7E /* assets */,
 				3609A5BC15180C7300BEDA05 /* AppDelegate.h */,
 				3609A5BD15180C7300BEDA05 /* AppDelegate.m */,
@@ -249,6 +269,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				1878CAD91B93106A00CA89C1 /* PBXTargetDependency */,
 			);
 			name = UMSAgentExample;
 			productName = UMSAgentExample;
@@ -297,6 +318,12 @@
 			mainGroup = 3609A59E15180C7300BEDA05;
 			productRefGroup = 3609A5AA15180C7300BEDA05 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1878CAD31B93094800CA89C1 /* Products */;
+					ProjectRef = 1878CAD21B93094800CA89C1 /* UMSAgent.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3609A5A815180C7300BEDA05 /* UMSAgentExample */,
@@ -304,6 +331,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1878CAD71B93094900CA89C1 /* libUMSAgent.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libUMSAgent.a;
+			remoteRef = 1878CAD61B93094900CA89C1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3609A5A715180C7300BEDA05 /* Resources */ = {
@@ -377,6 +414,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1878CAD91B93106A00CA89C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = UMSAgent;
+			targetProxy = 1878CAD81B93106A00CA89C1 /* PBXContainerItemProxy */;
+		};
 		3609A5D015180C7300BEDA05 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3609A5A815180C7300BEDA05 /* UMSAgentExample */;
@@ -475,27 +517,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UMSAgentExample/UMSAgentExample-Prefix.pch";
 				GCC_USE_STANDARD_INCLUDE_SEARCHING = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)/**";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)/**",
+					"../UMSAgent/**",
+				);
 				INFOPLIST_FILE = "UMSAgentExample/UMSAgentExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\\\"$(SRCROOT)/UMSAgentExample/ums\\\"",
-					"\\\"$(SRCROOT)/UMSAgentExample\\\"",
-					"\\\"$(SRCROOT)/../UMSAgent/build/Debug-iphoneos\\\"",
-					"/Users/wb/Projects/razor/sdk/iOS_sdk/UMSAgent/build/Release-iphoneos",
-					"/Users/wb/Projects/razor/sdk/iOS_sdk/UMSAgent/build/Debug-iphoneos",
-					"\"$(SRCROOT)/UMSAgentExample\"",
-					"\"$(SRCROOT)/UMSAgentExample/ums\"",
-					"$(PROJECT_DIR)/UMSAgentExample/getui",
-					"$(PROJECT_DIR)/UMSAgentExample",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/UMSAgent-dtwjbxprpqnswfbrkxdfkobsbaas/Build/Products/Debug-iphonesimulator",
-					"$(PROJECT_DIR)",
-					/Users/feiyue/Documents/Commercial,
-					"iOS/Build/Products/Debug-iphonesimulator",
-					/Users/feiyue/Documents/wbTech/projects/Commercial,
-					"iOS/Build/Products/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -514,27 +542,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UMSAgentExample/UMSAgentExample-Prefix.pch";
 				GCC_USE_STANDARD_INCLUDE_SEARCHING = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)/**";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)/**",
+					"../UMSAgent/**",
+				);
 				INFOPLIST_FILE = "UMSAgentExample/UMSAgentExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\\\"$(SRCROOT)/UMSAgentExample/ums\\\"",
-					"\\\"$(SRCROOT)/UMSAgentExample\\\"",
-					"\\\"$(SRCROOT)/../UMSAgent/build/Debug-iphoneos\\\"",
-					"/Users/wb/Projects/razor/sdk/iOS_sdk/UMSAgent/build/Release-iphoneos",
-					"/Users/wb/Projects/razor/sdk/iOS_sdk/UMSAgent/build/Debug-iphoneos",
-					"\"$(SRCROOT)/UMSAgentExample\"",
-					"\"$(SRCROOT)/UMSAgentExample/ums\"",
-					"$(PROJECT_DIR)/UMSAgentExample/getui",
-					"$(PROJECT_DIR)/UMSAgentExample",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/UMSAgent-dtwjbxprpqnswfbrkxdfkobsbaas/Build/Products/Debug-iphonesimulator",
-					"$(PROJECT_DIR)",
-					/Users/feiyue/Documents/Commercial,
-					"iOS/Build/Products/Debug-iphonesimulator",
-					/Users/feiyue/Documents/wbTech/projects/Commercial,
-					"iOS/Build/Products/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

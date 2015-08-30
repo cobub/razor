@@ -24,7 +24,7 @@
 +(CommonReturn *) postClient:(NSString *) appkey deviceInfo:(ClientData *) deviceInfo
 {
     @autoreleasepool {
-    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/clientdata.php"];
+    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postClientData"];
     CommonReturn *ret = [[CommonReturn alloc] init];
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
     [requestDictionary setObject:deviceInfo.platform forKey:@"platform"];
@@ -65,7 +65,7 @@
 {
     NSLog(@"version %@",version);
     @autoreleasepool {
-        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/usinglog.php"];
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postActivityLog"];
         CommonReturn *ret = [[CommonReturn alloc] init];
         NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
         [requestDictionary setObject:sessionMills forKey:@"session_id"];
@@ -92,7 +92,7 @@
 +(CommonReturn *) postArchiveLogs:(NSMutableDictionary *) archiveLogs
 {
     @autoreleasepool {
-        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/uploadlog.php"];
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/uploadlog"];
         CommonReturn *ret = [[CommonReturn alloc] init];
         NSString *retString = [network SendData:url data:archiveLogs];        
         NSError *error = nil;
@@ -109,7 +109,7 @@
 +(CommonReturn *) postErrorLog:(NSString *) appkey errorLog:(ErrorLog *) errorLog
 {
     @autoreleasepool {
-        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/error.php"];
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postErrorLog.php"];
         CommonReturn *ret = [[CommonReturn alloc] init];
         NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
         [requestDictionary setObject:errorLog.time forKey:@"time"];

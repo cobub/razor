@@ -25,9 +25,9 @@
 {
     [UMSAgent bindUserIdentifier:@"wbtech"];
 
-    [UMSAgent startWithAppKey:@"6271424db97f19112e51642341723c8a"
+    [UMSAgent startWithAppKey:@"5cbb64b9b0e01088f84cac0b04c3a2b1"
                  ReportPolicy:BATCH
-                    ServerURL:@"http://192.168.1.117/commer/commercial_razor"];
+                    ServerURL:@"http://192.168.1.112/opencobub/web/index.php?"];
 
     [UMSAgent setIsLogEnabled:YES];
     
