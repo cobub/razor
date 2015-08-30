@@ -49,7 +49,7 @@ public class CobubSampleActivity extends Activity {
         // UmsAgent.setBaseURL("http://192.168.1.55/razor/web/index.php?");
         
 //        String urlPrefix = "http://www.cobub.com/razor/index.php?";
-        String urlPrefix = "http://192.168.1.55/opencobub/web/index.php?";
+        String urlPrefix = "http://192.168.1.112/opencobub/web/index.php?";
         txtURL.setText("Server URL:"+urlPrefix);
         
         UmsAgent.init(this, urlPrefix);

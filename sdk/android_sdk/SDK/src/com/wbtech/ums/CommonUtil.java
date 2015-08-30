@@ -60,6 +60,21 @@ class CommonUtil {
 			CobubLog.e(tag, e);
 		}
 	}
+	
+	public static void saveInfoToFileinMain(String type, JSONObject info,
+           Context context) {
+       JSONArray newdata = new JSONArray();
+       try {
+           newdata.put(0, info);
+           JSONObject jsonObject = new JSONObject();
+           jsonObject.put(type, newdata);
+            String cacheFile = context.getCacheDir()+"/cobub.cache";
+            SaveInfo.saveData(jsonObject, cacheFile);
+           
+       } catch (Exception e) {
+           CobubLog.e(tag, e);
+       }
+   }
 
 	/**
 	 * checkPermissions

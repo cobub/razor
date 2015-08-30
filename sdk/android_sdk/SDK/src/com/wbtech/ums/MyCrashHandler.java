@@ -109,7 +109,7 @@ class MyCrashHandler implements UncaughtExceptionHandler {
 //                } else {
                     
 //                }
-                    CommonUtil.saveInfoToFile("errorInfo", errorInfo, context);
+                    CommonUtil.saveInfoToFileinMain("errorInfo", errorInfo, context);
                     android.os.Process.killProcess(android.os.Process.myPid());
                         
                     
