@@ -14,10 +14,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * Before you run App,you need check: 1.Import appkey (generated in server ) to
+ * Before you run App,you need check: 
+ * 1.Import appkey (generated in server ) to
  * AndroidManifest.xml such as <meta-data android:name="UMS_APPKEY"
- * android:value="bb08202a625c2b5cae5e2632f604352f "/> 2.Permissions in
- * AndroidManifest.xml <uses-permission
+ * android:value="bb08202a625c2b5cae5e2632f604352f "/> 
+ * 
+ * 2.Permissions in AndroidManifest.xml 
+ * <uses-permission
  * android:name="android.permission.INTERNET"/> <uses-permission
  * android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <uses-permission
  * android:name="android.permission.READ_PHONE_STATE"/> <uses-permission
