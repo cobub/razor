@@ -84,8 +84,7 @@
      * Callback function for the AJAX content loader.
      */
     function initPagination() {
-        var num_entries =
-        <?php if(isset($num)) echo $num; ?>/<?php echo PAGE_NUMS;?>;
+        var num_entries = <?php if(isset($num)) echo $num; ?>/<?php echo PAGE_NUMS;?>;
         // Create pagination element
         $("#pagination").pagination(num_entries, {
             num_edge_entries: 2,

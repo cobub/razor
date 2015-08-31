@@ -91,7 +91,7 @@ class Operator extends CI_Controller
     {
         $fromTime = $this->common->getFromTime();
         $toTime = $this->common->getToTime();
-        $this->data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_op_top10"), $fromTime, $toTime),'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_op_top10"), $fromTime, $toTime),'timePhase' => getTimePhaseStr($fromTime, $toTime));
+        $this->_data['reportTitle'] = array('activeUserReport' => getReportTitle(lang("t_sessions") . " " . lang("v_rpt_op_top10"), $fromTime, $toTime),'newUserReport' => getReportTitle(lang("t_newUsers") . " " . lang("v_rpt_op_top10"), $fromTime, $toTime),'timePhase' => getTimePhaseStr($fromTime, $toTime));
         if ($delete == null) {
             $this->_data['add'] = "add";
         }
