@@ -1,7 +1,12 @@
 <section class="section_maeginstyle" id="highchart"
     <?php
-    /**
- * Region
+/**
+ * Cobub Razor
+ *
+ * An open source mobile analytics system
+ *
+ * PHP versions 5
+ *
  * @category  MobileAnalytics
  * @package   CobubRazor
  * @author    Cobub Team <open.cobub@gmail.com>
@@ -10,27 +15,31 @@
  * @link      http://www.cobub.com
  * @since     Version 0.1
  */
-    if (!isset($delete)) { ?>
+if (! isset($delete)) {
+        ?>
         style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png) repeat-y left top;"
-        <?php 
-    } 
+        <?php
+}
     ?>>
     <article class="module width_full">
         <header>
-            <div style="float:left;margin-left:2%;margin-top: 7px;">
-                <?php   if (isset($add)) {
+            <div style="float: left; margin-left: 2%; margin-top: 7px;">
+                <?php
+                
+if (isset($add)) {
                     ?>
-                    <a href="#" onclick="addreport()">
-                        <img src="<?php echo base_url(); ?>assets/images/addreport.png"
-                             title="<?php echo lang('s_suspend_title') ?>" style="border:0"/></a>
-                <?php 
+                    <a href="#" onclick="addreport()"> <img
+                    src="<?php echo base_url(); ?>assets/images/addreport.png"
+                    title="<?php echo lang('s_suspend_title') ?>" style="border: 0" /></a>
+                <?php
 }
-if (isset($delete)) { ?>
-                    <a href="#" onclick="deletereport()">
-                        <img src="<?php echo base_url(); ?>assets/images/delreport.png"
-                             title="<?php echo lang('s_suspend_deltitle') ?>" style="border:0"/></a>
-                <?php 
-} 
+if (isset($delete)) {
+                    ?>
+                    <a href="#" onclick="deletereport()"> <img
+                    src="<?php echo base_url(); ?>assets/images/delreport.png"
+                    title="<?php echo lang('s_suspend_deltitle') ?>" style="border: 0" /></a>
+                <?php
+}
                 ?>
             </div>
             <h3 class="h3_fontstyle">

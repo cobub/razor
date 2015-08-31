@@ -1,27 +1,41 @@
 <meta charset="utf-8">
-
-
+<?php
+/**
+ * Cobub Razor
+ *
+ * An open source mobile analytics system
+ *
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
+ */
+?>
 <h1>Coffee Flavour Wheel</h1>
-<script src="<?php echo base_url();?>/assets/js/flow/d3.v2.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>/assets/js/flow/d3.v2.min.js"
+	type="text/javascript"></script>
 
 <style>
 path {
-  stroke: #000;
-  stroke-width: 1.5;
-  cursor: pointer;
+	stroke: #000;
+	stroke-width: 1.5;
+	cursor: pointer;
 }
 
 text {
-  font: 11px sans-serif;
-  cursor: pointer;
+	font: 11px sans-serif;
+	cursor: pointer;
 }
-
-
 </style>
 
-  <body>
-    <div id="chart"></div>
-    <script type="text/javascript">
+<body>
+	<div id="chart"></div>
+	<script type="text/javascript">
     // Coffee Flavour Wheel by Jason Davies,
     // http://www.jasondavies.com/coffee-wheel/
     // License: http://www.jasondavies.com/coffee-wheel/LICENSE.txt

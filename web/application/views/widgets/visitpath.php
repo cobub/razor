@@ -1,86 +1,120 @@
-<script src="<?php echo base_url();?>/assets/js/flow/d3.v2.min.js" type="text/javascript"></script>
+<?php
+/**
+ * Cobub Razor
+ *
+ * An open source mobile analytics system
+ *
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
+ */
+?>
+<script src="<?php echo base_url();?>/assets/js/flow/d3.v2.min.js"
+    type="text/javascript"></script>
 <style>
 .chart {
-  display: block;
-  margin: auto;
-  font-size: 11px;
+    display: block;
+    margin: auto;
+    font-size: 11px;
 }
 
 rect {
-  stroke: #eee;
-  fill-opacity: .8;
+    stroke: #eee;
+    fill-opacity: .8;
 }
 
 rect.parent {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 text {
-  pointer-events: none;
+    pointer-events: none;
 }
 </style>
 <section class="section_maeginstyle" id="highchart"
-<?php if(!isset($delete)) {?>
-style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png) repeat-y left top;"<?php }?>>
-	<article class="module width_full" style="height:500px;background:lightgrey;" >
-		<header>
-  <div style="float:left;margin-left:2%;margin-top: 7px;">
-	<?php   if(isset($add))
-  {?>
-  <a href="#" onclick="addreport()">
-	<img src="<?php echo base_url();?>assets/images/addreport.png" title="<?php echo lang('s_suspend_title')?>" style="border:0"/></a>
-<?php }if(isset($delete)){?>
- <a href="#" onclick="deletereport()">
-	<img src="<?php echo base_url();?>assets/images/delreport.png" title="<?php echo lang('s_suspend_deltitle')?>" style="border:0"/></a>
-	<?php }?>
+<?php if (!isset($delete)) {
+    ?>
+    style="background: url(<?php echo base_url(); ?>assets/images/sidebar_shadow.png) repeat-y left top;"<?php
+}?>>
+    <article class="module width_full"
+        style="height: 500px; background: lightgrey;">
+        <header>
+            <div style="float: left; margin-left: 2%; margin-top: 7px;">
+    <?php
+
+if (isset($add)) {
+    ?>
+    <a href="#" onclick="addreport()"> <img
+                    src="<?php echo base_url();?>assets/images/addreport.png"
+                    title="<?php echo lang('s_suspend_title')?>" style="border: 0" /></a>
+    <?php
+} if (isset($delete)) {
+    ?>
+    <a href="#" onclick="deletereport()"> <img
+                    src="<?php echo base_url();?>assets/images/delreport.png"
+                    title="<?php echo lang('s_suspend_deltitle')?>" style="border: 0" /></a>
+    <?php
+}?>
   </div>
-<h3  class="h3_fontstyle">
+            <h3 class="h3_fontstyle">
    <?php  echo lang('v_rpt_pv_visitpath') ?></h3>
-   <div class="submit_link">
-				<select id='selectversion'
-					onchange="onSelectVersionChanged(this.options[this.selectedIndex].value)">
-				  	<?php
-						if (isset ( $version )&&!empty($version)){
-							foreach ( $version->result () as $row ) {
-									?>
-				    <option <?php if($row->version_name==$newversion){?> <?php echo 'selected';}?> value=<?php echo $row->version_name; ?>><?php echo $row->version_name;?></option>
-				    <?php }}else{?>
-				    <option selected value='noversion'><?php echo lang('v_rpt_el_Version');?></option>
-				    <?php }?>
-	  			</select>
-			</div>		
-		</header>		
-		<div id="chart"></div>
-	</article>
-</section>	
+            <div class="submit_link">
+                <select id='selectversion'
+                    onchange="onSelectVersionChanged(this.options[this.selectedIndex].value)">
+                      <?php
+if (isset($version) && ! empty($version)) {
+    foreach ($version->result() as $row) {
+        ?><option<?php if ($row->version_name==$newversion) {
+                    ?>
+                        <?php echo 'selected';
+        }?> value=<?php echo $row->version_name; ?>><?php echo $row->version_name;?></option>
+                    <?php
+    }
+} else {
+    ?>
+                    <option selected value='noversion'><?php echo lang('v_rpt_el_Version');?></option>
+                    <?php
+}?>
+                  </select>
+            </div>
+        </header>
+        <div id="chart"></div>
+    </article>
+</section>
 <script type="text/javascript">
-									
+                                    
 var version="<?php echo $newversion;?>";
 
 function onSelectVersionChanged(value)
 {
-	version = value;
-	if(version == '<?php echo lang('t_unknow') ?>')
-	{
-		version = "NULL";
-	}
-	clearSel(document.getElementById("chart"));
-	showDetailPath();
-	
+    version = value;
+    if(version == '<?php echo lang('t_unknow') ?>')
+    {
+        version = "NULL";
+    }
+    clearSel(document.getElementById("chart"));
+    showDetailPath();
+    
 }
 
 function clearSel(selectname){
      while(selectname.childNodes.length>0){
-		  selectname.removeChild(selectname.childNodes[0]);
+          selectname.removeChild(selectname.childNodes[0]);
       }
 }
 
 $(document).ready(function(){ 
-	showDetailPath();
+    showDetailPath();
 }); 
 
 function showDetailPath(){
-	var chart_canvas = $("#chart");
+    var chart_canvas = $("#chart");
     var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
     chart_canvas.block({
         message: loading_img
@@ -96,8 +130,8 @@ function showDetailPath(){
         },
         baseZ:997
     });
-	var w = $("#chart").width();
-	var h = 450,
+    var w = $("#chart").width();
+    var h = 450,
     x = d3.scale.linear().range([0, w]),
     y = d3.scale.linear().range([0, h]);
 
@@ -112,9 +146,9 @@ var vis = d3.select("#chart").append("div")
     .attr("height", h);
     
 function comparator(a, b) {
-	  return b.value - a.value;
-	}
-	
+      return b.value - a.value;
+    }
+    
 var partition = d3.layout.partition()
     .value(function(d) { return d.percentage; });
     
@@ -132,14 +166,14 @@ d3.json("<?php echo site_url();?>/report/pagevisit/getFlowChart/"+version, funct
       .attr("width", root.dy * kx)
       .attr("height", function(d) { return d.dx * ky; })
       .attr("fill", function(d) 
-    	      { 
-	      		if(d.name.indexOf("Exit")>-1)
-	      		{	      		
-		      		return "#FF0000";
-	      		}
-	      		return color((d.children ? d : d.parent).name);
-	      	  }
-  	  );
+              { 
+                  if(d.name.indexOf("Exit")>-1)
+                  {                  
+                      return "#FF0000";
+                  }
+                  return color((d.children ? d : d.parent).name);
+                }
+        );
       //      .attr("class", function(d) { return d.children ? "parent" : "child"; });
 
   g.append("svg:text")
@@ -179,57 +213,57 @@ d3.json("<?php echo site_url();?>/report/pagevisit/getFlowChart/"+version, funct
   }
 });
 chart_canvas.unblock();
-	
+    
 }
 </script>
 <script type="text/javascript">
 function addreport()
-{	
-	if(confirm( "<?php echo  lang('w_isaddreport')?>"))
-	{
-		var reportname="visitpath";
-	    var reportcontroller="pagevisit";
-	    var data={ 
-	    		 reportname:reportname,
-  		  	     controller:reportcontroller,
-	  		  	 height    :520,
-	  		  	 type      :1,
-	  		  	 position  :0
-		  	     };
-		jQuery.ajax({
-						type :  "post",
-						url  :  "<?php echo site_url()?>/report/dashboard/addshowreport",	
-						data :  data,			
-						success : function(msg) {
-							if(msg=="")
-							{
-								alert("<?php echo lang('w_addreportrepeat') ?>");
-							}
-							else if(msg>=8)
-							{
-								alert("<?php echo  lang('w_overmaxnum');?>");
-							}
-							else
-							{
-								 alert("<?php echo lang('w_addreportsuccess') ?>");									 
-							}
-									 
-							},
-							error : function(XmlHttpRequest, textStatus, errorThrown) {
-								alert(<?php echo lang('t_error') 	; ?>);
-							}
-					});
-		
-	}
+{    
+    if(confirm( "<?php echo  lang('w_isaddreport')?>"))
+    {
+        var reportname="visitpath";
+        var reportcontroller="pagevisit";
+        var data={ 
+                 reportname:reportname,
+                     controller:reportcontroller,
+                     height    :520,
+                     type      :1,
+                     position  :0
+                   };
+        jQuery.ajax({
+                        type :  "post",
+                        url  :  "<?php echo site_url()?>/report/dashboard/addshowreport",    
+                        data :  data,            
+                        success : function(msg) {
+                            if(msg=="")
+                            {
+                                alert("<?php echo lang('w_addreportrepeat') ?>");
+                            }
+                            else if(msg>=8)
+                            {
+                                alert("<?php echo  lang('w_overmaxnum');?>");
+                            }
+                            else
+                            {
+                                 alert("<?php echo lang('w_addreportsuccess') ?>");                                     
+                            }
+                                     
+                            },
+                            error : function(XmlHttpRequest, textStatus, errorThrown) {
+                                alert(<?php echo lang('t_error'); ?>);
+                            }
+                    });
+        
+    }
 }
 
 function deletereport()
 { 
-	if(confirm( "<?php echo  lang('v_deletreport')?>"))
-	{
-		window.parent.deletereport("visitpath");	 	 	  
-	}
-	return false;
-	
+    if(confirm( "<?php echo  lang('v_deletreport')?>"))
+    {
+        window.parent.deletereport("visitpath");                
+    }
+    return false;
+    
 }
 </script>
