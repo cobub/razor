@@ -208,7 +208,7 @@ class Errorlog extends CI_Controller
     }
 
     /**
-     * C funciton
+     * GetDeviceInfoOfVersion funciton
      * Device distriution pie report of version
      *
      * @param int    $titlesk      title_sk
@@ -216,7 +216,7 @@ class Errorlog extends CI_Controller
      *
      * @return void
      */
-    function C($titlesk, $version_name)
+    function getDeviceInfoOfVersion($titlesk, $version_name)
     {
         $this->common->requireProduct();
         $from = $this->common->getFromTime();
