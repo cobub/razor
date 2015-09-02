@@ -215,7 +215,7 @@ class Funnels extends CI_Controller
     }
 
     /**
-     * addFunnel function
+     * AddFunnel function
      * Add funnel
      *
      * @return $result
@@ -328,7 +328,9 @@ class Funnels extends CI_Controller
         $this->common->loadHeader();
         $user_id = $this->common->getUserId();
         $product_id = $this->common->getCurrentProduct()->id;
-        $data['eventlist'] = $this->event->getEventListByProductIdAndProductVersion($product_id, 'all');
+        $fromTime = $this->common->getFromTime();
+        $toTime = $this->common->getToTime();
+        $data['eventlist'] = $this->event->getEventListByProductIdAndProductVersion($product_id, 'all', $fromTime, $toTime);
         $data['steplist'] = $this->conversion->getFunnelByTargetid($targetid);
         $this->load->view('conversionrate/modify', $data);
     }
