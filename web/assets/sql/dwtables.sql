@@ -330,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_event` (
   `clientdate` datetime NOT NULL,
   `number` int(11) NOT NULL,
   PRIMARY KEY (`eventid`),
-  UNIQUE KEY `date_sk` (`date_sk`,`product_sk`)
+  KEY `date_sk` (`date_sk`,`product_sk`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
