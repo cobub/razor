@@ -468,6 +468,7 @@ $lang['v_rpt_ol_eventNumA'] = '金额/活跃用户';
 $lang['v_rpt_el_eventNumS'] = '事件消息数量/启动次数';
 $lang['v_rpt_ol_eventNumS'] = '金额/启动次数';
 $lang['v_rpt_el_eventIDExists'] = '事件ID已经存在！';
+$lang['v_rpt_el_eventIDNameExists'] = '事件ID或名称已经存在！';
 
 //view---report----errorlog
 $lang['v_rpt_err_errorTrends']='错误趋势';

@@ -91,7 +91,7 @@ $(document).ready(function() {
 		                type: 'spline'
 		            },
 		            title: {
-		                text: ''
+		                text: "<?php echo $reportTitle['newUser'] ?>"
 		            },
 		            subtitle: {
 		                text: '<?php echo $reportTitle['timePase']; ?>'
@@ -215,31 +215,24 @@ $(document).ready(function() {
           		}
           		for(var j=0;j<data_array.length;j++)
           	    {    
-         			     		
           			var reportData=[];    
-          			var reportTitle;      			
           		    var marketData = data_array[j];          		   
           		    var eachmarketdata = data.dataList.content[marketData];            		            		   
           		    var categories = [];
           		    for(var i=0;i<eachmarketdata.length;i++)
           		    {
-          		    	       
               		           var eachdata = eachmarketdata[i];                 		    
                 		    	 if(type=='newuser')
                    		    	{
-                		    		 reportData.push(parseFloat(eachdata.newusers,10)); 
-                		    		 reportTitle="<?php echo $reportTitle['newUser'] ?>";     
+                		    		 reportData.push(parseFloat(eachdata.newusers,10));    
                    		    	}
-
                    		    	if(type=='activeuser')
                    		    	{
                       		    	 reportData.push(parseFloat(eachdata.activeusers,10));
-                       		    	 reportTitle="<?php echo $reportTitle['activeUser'] ?>";       
                    		    	}
                    		    	if(type=='sessionnum')
                    		    	{
                       		    	 reportData.push(parseFloat(eachdata.sessions,10));  
-                       		    	reportTitle="<?php echo $reportTitle['Session'] ?>";
                    		    	}
                    		    	if(type=='avgusage')
                    		    	{
@@ -253,25 +246,17 @@ $(document).ready(function() {
                  						average = (eachdata.usingtime*1.0/eachdata.sessions)/1000;
                                 	}
                             		reportData.push(parseFloat(parseFloat(average,10).toFixed(2)));
-                            		reportTitle="<?php echo $reportTitle['avgUsageDuration'] ?>";
                    		    	}
-
                    		    	if(type=='weekrate')                       		    	
                    		    	{  
                        		    	weekrealuser = eachdata.percent*100;                    		          
                     				reportData.push(parseFloat(parseFloat(weekrealuser,10).toFixed(1)));                       			
-                   		    		reportTitle="<?php echo $reportTitle['activeWeekly'] ?>";
-                   		    		
                    		    	} 
-
                        		 	if(type=='monthrate')                       		    	
                    		    	{                           		 	
                 		       		monthrealuser =  eachdata.percent*100;                		          
-                				    reportData.push(parseFloat(parseFloat(monthrealuser,10).toFixed(1)));    
-                              	    reportTitle="<?php echo $reportTitle['activeMonthly'] ?>";
-                                	
+                				    reportData.push(parseFloat(parseFloat(monthrealuser,10).toFixed(1)));    	
                    		    	}                    		    	
-                   			
                    		    categories.push(eachdata.datevalue.substr(0,10));  
           		    }
             		category=categories;            		
@@ -295,11 +280,9 @@ $(document).ready(function() {
        				 	 tooltipdata[j]= reportData;	 
        				 	 tooltipname[j]= options.series[j].name;
            				 options.series[j].data = reportData;
-           				 options.title.text = reportTitle;
             			 options.xAxis.labels.step = parseInt(categories.length/10);
                   		 options.xAxis.categories = categories;
                    		 optionsLength=(j+1); 
-                   		     			   		         			  		   
           	    }
         		 //content markevent
          		 var marklist=data.marklist;
@@ -347,10 +330,34 @@ $(document).ready(function() {
 
     function chooseType(typename)
     {     
-        type=typename;    	
-    	myurl="<?php echo site_url();?>/report/market/getMarketData/"+type;    	
-    	renderCharts(myurl);
-    	 
+        type=typename;
+        if(type=='newuser')
+    	{
+		 options.title.text="<?php echo $reportTitle['newUser'] ?>";     
+    	}
+    	if(type=='activeuser')
+    	{
+	    	 options.title.text="<?php echo $reportTitle['activeUser'] ?>";       
+    	}
+    	if(type=='sessionnum')
+    	{
+	    	 options.title.text="<?php echo $reportTitle['Session'] ?>";
+    	}
+    	if(type=='avgusage')
+    	{
+    		options.title.text="<?php echo $reportTitle['avgUsageDuration'] ?>";
+    	}
+    	if(type=='weekrate')                       		    	
+    	{                        			
+			options.title.text="<?php echo $reportTitle['activeWeekly'] ?>";
+    	} 
+	 	if(type=='monthrate')                       		    	
+    	{                           		 	  
+	 		options.title.text="<?php echo $reportTitle['activeMonthly'] ?>";
+     	
+    	}
+    	myurl="<?php echo site_url();?>/report/market/getMarketData/"+type;
+    	renderCharts(myurl); 
     }
 </script>
 <script type="text/javascript">

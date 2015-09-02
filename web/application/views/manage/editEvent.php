@@ -100,7 +100,7 @@ function modifyevent(id) {
 					data : data,
 					success : function(msg) {
 						if(!msg){
-							document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_rpt_el_eventIDExists') ?></font>";
+							document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('v_rpt_el_eventIDNameExists') ?></font>";
 							document.getElementById('msg').style.display="block";
 						}else{
 						document.getElementById('msg').innerHTML = "<?php echo lang('v_rpt_el_modifyEventS') ?>";	
