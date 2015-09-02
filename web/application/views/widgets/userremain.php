@@ -453,7 +453,7 @@ function renderUserData(myurl)
         }
 
         if(dayobj.length>1&&typeof(dayobj[0].data)!='undefined'){
-        $('#tab2 th:eq(0)').after('<th><?php echo lang('v_app')?></th>');
+        $('#tab0 th:eq(0)').after('<th><?php echo lang('v_app')?></th>');
     dayMaxlength=d_timepart.length;
     CompareDayData();
     //monthtr=CompareMonthData(m_timepart,productNames,monthtr,monthobj);
@@ -513,7 +513,7 @@ function renderUserData(myurl)
      $.each(d_timepart,function(index,item){
             var sameCount=0;
             if(index>=dayStart&&index<dayStart+pagesize){
-                daytr+='<tr><td rowspan='+(productNames.length)+'>'+(item.startdate+'~'+item.enddate)+'</td>';
+                daytr+='<tr><td rowspan='+(productNames.length)+'>'+item.startdate+'</td>';
                 $.each(dayobj,function(i,o){                                        
                     daytr+='<td style="background:'+color[i]+'">'+o.name+'</td>';
                     if(o.data.length==0){
