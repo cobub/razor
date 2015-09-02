@@ -124,6 +124,19 @@ class Event extends CI_Controller
                 return;
             }
         }
+        
+        $isUniqueName = $this->event->isUniqueName($productId, $eventName);
+        if (!empty($isUniqueName)) {
+            foreach ($isUniqueName as $row) {
+                $currentid = $row->event_id;
+            }
+            if ($currentid != $id) {
+                
+                echo false;
+                return;
+            }
+        }
+        
         $this->event->modifyEvent($id, $eventId, $eventName);
         echo true;
     }

@@ -33,13 +33,13 @@ class UserEvent extends CI_Model
      *
      * @return void
      */
-    function __construct ()
+    function __construct()
     {
         $this->load->database();
     }
 
     /**
-     * getEventListInfo function
+     * GetEventListInfo function
      * Get event list information by productid and version
      *
      * @param int    $productId product id
@@ -49,7 +49,7 @@ class UserEvent extends CI_Model
      *            
      * @return query result
      */
-    function getEventListInfo ($productId, $version, $fromTime, $toTime)
+    function getEventListInfo($productId, $version, $fromTime, $toTime)
     {
         $identifierarray = array();
         $eventlistarray = array();
@@ -73,7 +73,7 @@ class UserEvent extends CI_Model
     }
 
     /**
-     * getEventIdentifierinfo function
+     * GetEventIdentifierinfo function
      * get all event identifier information by productid and version
      *
      * @param int    $productId product id
@@ -81,7 +81,7 @@ class UserEvent extends CI_Model
      *            
      * @return query result
      */
-    function getEventIdentifierinfo ($productId, $version)
+    function getEventIdentifierinfo($productId, $version)
     {
         if ($version == 'unknown') {
             $version = '';
@@ -114,7 +114,7 @@ class UserEvent extends CI_Model
     }
 
     /**
-     * getEventListByProductIdAndProductVersion function
+     * GetEventListByProductIdAndProductVersion function
      * get all event list information by productid,version,fromtime and totime
      *
      * @param int    $productId product id
@@ -124,7 +124,7 @@ class UserEvent extends CI_Model
      *            
      * @return query result
      */
-    function getEventListByProductIdAndProductVersion ($productId, $version, $fromTime, $toTime)
+    function getEventListByProductIdAndProductVersion($productId, $version, $fromTime, $toTime)
     {
         $dwdb = $this->load->database('dw', true);
         if ($version == 'unknown') {
@@ -195,14 +195,14 @@ class UserEvent extends CI_Model
     }
 
     /**
-     * getProductVersions function
+     * GetProductVersions function
      * get product versions information by productid
      *
      * @param int $productid product id
      *
      * @return query result
      */
-    function getProductVersions ($productid)
+    function getProductVersions($productid)
     {
         $dwdb = $this->load->database('dw', true);
         $sql = "
@@ -223,7 +223,7 @@ class UserEvent extends CI_Model
     }
 
     /**
-     * getAllEventChartData function
+     * GetAllEventChartData function
      * get all chart data information by productid,version,from,and to
      *
      * @param int    $productid product id
@@ -234,7 +234,7 @@ class UserEvent extends CI_Model
      *
      * @return query result
      */
-    function getAllEventChartData ($productid, $event_sk, $version, $from, $to)
+    function getAllEventChartData($productid, $event_sk, $version, $from, $to)
     {
         $dwdb = $this->load->database('dw', true);
         if ($version == 'all') {
@@ -337,14 +337,14 @@ class UserEvent extends CI_Model
     }
 
     /**
-     * getProductEventByProuctId function
+     * GetProductEventByProuctId function
      * Get product event list information by productid
      *
      * @param int $productId product id
      *
      * @return query result
      */
-    function getProductEventByProuctId ($productId)
+    function getProductEventByProuctId($productId)
     {
         $sql = "
           select
@@ -363,7 +363,7 @@ class UserEvent extends CI_Model
     }
 
     /**
-     * isUnique function
+     * IsUnique function
      * Get unique information by productid and eventid
      *
      * @param int $productId product id
@@ -371,7 +371,7 @@ class UserEvent extends CI_Model
      *
      * @return query result
      */
-    function isUnique ($productId, $event_id)
+    function isUnique($productId, $event_id)
     {
         $this->db->from('event_defination');
         $this->db->where('product_id', $productId);
@@ -379,9 +379,27 @@ class UserEvent extends CI_Model
         $r = $this->db->get();
         return $r->result();
     }
+    
+    /**
+     * IsUniqueName function
+     * Get unique information by productid and eventid
+     *
+     * @param int $productId  product id
+     * @param int $event_name event name
+     *
+     * @return query result
+     */
+    function isUniqueName($productId, $event_name)
+    {
+        $this->db->from('event_defination');
+        $this->db->where('product_id', $productId);
+        $this->db->where('event_name', $event_name);
+        $r = $this->db->get();
+        return $r->result();
+    }
 
     /**
-     * isUniqueData function
+     * IsUniqueData function
      * Get uniquedata information by productid ,eventid and eventname
      *
      * @param int    $productId  product id
@@ -390,7 +408,7 @@ class UserEvent extends CI_Model
      *
      * @return query result
      */
-    function isUniqueData ($productId, $event_id, $event_name)
+    function isUniqueData($productId, $event_id, $event_name)
     {
         $this->db->from('event_defination');
         $this->db->where('product_id', $productId);
@@ -401,7 +419,7 @@ class UserEvent extends CI_Model
     }
 
     /**
-     * addEvent function
+     * AddEvent function
      * add event by eventid and eventname
      *
      * @param int    $event_id   event id
@@ -409,7 +427,7 @@ class UserEvent extends CI_Model
      *
      * @return void
      */
-    function addEvent ($event_id, $event_name)
+    function addEvent($event_id, $event_name)
     {
         $userId = $this->common->getUserId();
         $product = $this->common->getCurrentProduct();
@@ -425,14 +443,14 @@ class UserEvent extends CI_Model
     }
 
     /**
-     * geteventbyid function
+     * Geteventbyid function
      * Get event information by eventid
      *
      * @param int $eventid event id
      *
      * @return query result
      */
-    function geteventbyid ($eventid)
+    function geteventbyid($eventid)
     {
         $sql = "
             select
@@ -450,7 +468,7 @@ class UserEvent extends CI_Model
     }
 
     /**
-     * modifyEvent function
+     * ModifyEvent function
      * modify event by id ,eventid and eventname
      *
      * @param int    $id        id
@@ -459,7 +477,7 @@ class UserEvent extends CI_Model
      *
      * @return void
      */
-    function modifyEvent ($id, $eventId, $eventName)
+    function modifyEvent($id, $eventId, $eventName)
     {
         $data = array(
                 'event_identifier' => $eventId,
@@ -470,14 +488,14 @@ class UserEvent extends CI_Model
     }
 
     /**
-     * stopEvent function
+     * StopEvent function
      * stop event by id
      *
      * @param int $id id
      *
      * @return void
      */
-    function stopEvent ($id)
+    function stopEvent($id)
     {
         $this->db->where('event_id', $id);
         $data = array(
@@ -487,14 +505,14 @@ class UserEvent extends CI_Model
     }
 
     /**
-     * startEvent function
+     * StartEvent function
      * start event by id
      *
      * @param int $id id
      *
      * @return void
      */
-    function startEvent ($id)
+    function startEvent($id)
     {
         $this->db->where('event_id', $id);
         $data = array(
@@ -504,14 +522,14 @@ class UserEvent extends CI_Model
     }
 
     /**
-     * resetEvent function
+     * ResetEvent function
      * reset event by id
      *
      * @param int $id id
      *
      * @return void
      */
-    function resetEvent ($id)
+    function resetEvent($id)
     {
         $sql = "
             delete from

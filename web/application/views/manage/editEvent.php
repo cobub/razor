@@ -2,7 +2,23 @@
 	<h4 class="alert_info" id="msg" style="display: none;"></h4>
 	<article class="module width_full">
 		<header>
-			<h3 class="tabs_involved"><?php echo lang('v_man_ev_modifyEvent') ?></h3>
+			<h3 class="tabs_involved"><?php 
+                                        /**
+ * Cobub Razor
+ *
+ * An open source mobile analytics system
+ *
+ * PHP versions 5
+ *
+ * @category  MobileAnalytics
+ * @package   CobubRazor
+ * @author    Cobub Team <open.cobub@gmail.com>
+ * @copyright 2011-2016 NanJing Western Bridge Co.,Ltd.
+ * @license   http://www.cobub.com/docs/en:razor:license GPL Version 3
+ * @link      http://www.cobub.com
+ * @since     Version 0.1
+ */
+                                        echo lang('v_man_ev_modifyEvent') ?></h3>
 
 		</header>
 
@@ -91,6 +107,8 @@ function modifyevent(id) {
 						document.getElementById('msg').style.display="block";}			 
 					},
 					error : function(XmlHttpRequest, textStatus, errorThrown) {
+					    document.getElementById('msg').innerHTML = " ";
+                        document.getElementById("msg").style.display="none";
 						alert("<?php echo lang('t_error') ?>");
 					},
 					beforeSend : function() {

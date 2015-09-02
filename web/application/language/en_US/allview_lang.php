@@ -459,6 +459,7 @@ $lang['v_rpt_ol_eventNumA'] = 'Sum/Active Users';
 $lang['v_rpt_el_eventNumS'] = 'The number of event messages/Sessions';
 $lang['v_rpt_ol_eventNumS'] = 'Sum/Sessions';
 $lang['v_rpt_el_eventIDExists'] = 'Event ID already exists!';
+$lang['v_rpt_el_eventIDNameExists'] = 'Event ID or Name existiert bereits!';
 
 //view---report----errorlog
 $lang['v_rpt_err_errorTrends']='Error Trends';
