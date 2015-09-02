@@ -404,6 +404,7 @@ $lang['v_rpt_el_eventNum']	=	 'イベントメッセージ数';
 $lang['v_rpt_el_eventNumA']	=	 'イベントメッセージ数/アクティブユーザー数';
 $lang['v_rpt_el_eventNumS']	=	 'イベントメッセージ数/セッション数';
 $lang['v_rpt_el_eventIDExists']	=	 'このイベントIDはすでに存在します!';
+$lang['v_rpt_el_eventIDNameExists'] = 'Event ID or Name existiert bereits!';
 
 //view---report----errorlog		
 $lang['v_rpt_err_errorTrends']	=	'エラートレンド';
