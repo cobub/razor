@@ -31,11 +31,13 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillDisappear:YES];
     [UMSAgent tracePage:@"Second"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:YES];
 //    [UMSAgent endTracPage:@"SecondPage"];
 }
 
@@ -129,7 +131,7 @@
 
 -(IBAction)back:(id)sender
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

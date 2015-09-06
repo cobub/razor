@@ -42,7 +42,7 @@
     [aCoder encodeObject:activity forKey:@"activity"];
     [aCoder encodeObject:version forKey:@"version"];
     [aCoder encodeObject:json forKey:@"json"];
-    [aCoder encodeInt:acc forKey:@"acc"];
+    [aCoder encodeInteger:acc forKey:@"acc"];
 	[aCoder encodeObject:userid forKey:@"userid"];
 	[aCoder encodeObject:deviceid forKey:@"deviceid"];
 }

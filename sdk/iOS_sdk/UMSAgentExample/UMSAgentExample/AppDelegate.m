@@ -25,9 +25,9 @@
 {
     [UMSAgent bindUserIdentifier:@"wbtech"];
 
-    [UMSAgent startWithAppKey:@"5cbb64b9b0e01088f84cac0b04c3a2b1"
+    [UMSAgent startWithAppKey:@"de9f51133c6a6ec79d7b65e914fffa94"
                  ReportPolicy:BATCH
-                    ServerURL:@"http://192.168.1.112/opencobub/web/index.php?"];
+                    ServerURL:@"http://192.168.1.109/razor/opencobub/web/index.php?"];
 
     [UMSAgent setIsLogEnabled:YES];
     
@@ -48,15 +48,15 @@
 //}
 
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
-{
-    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-//	NSString *devToken = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-//    NSLog(@"deviceToken:%@", _deviceToken);
-    
-
-//    }
-}
+//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+//{
+//    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+////	NSString *devToken = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+////    NSLog(@"deviceToken:%@", _deviceToken);
+//    
+//
+////    }
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

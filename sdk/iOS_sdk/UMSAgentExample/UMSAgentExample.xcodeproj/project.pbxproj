@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1878CADA1B93107900CA89C1 /* libUMSAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1878CAD71B93094900CA89C1 /* libUMSAgent.a */; };
+		18E32F541B9C2114005569A0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E32F531B9C2114005569A0 /* Default-568h@2x.png */; };
 		2230AC381955681B00B8BB7E /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 2230AC371955681B00B8BB7E /* test.html */; };
 		22622586195E5BD20052D57C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22622585195E5BD10052D57C /* libz.dylib */; };
 		22622588195E5BDA0052D57C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22622587195E5BDA0052D57C /* libsqlite3.dylib */; };
@@ -69,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		1878CAD21B93094800CA89C1 /* UMSAgent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UMSAgent.xcodeproj; path = ../UMSAgent/UMSAgent.xcodeproj; sourceTree = "<group>"; };
+		18E32F531B9C2114005569A0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2230AC371955681B00B8BB7E /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		22622585195E5BD10052D57C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		22622587195E5BDA0052D57C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -162,6 +164,7 @@
 		3609A59E15180C7300BEDA05 = {
 			isa = PBXGroup;
 			children = (
+				18E32F531B9C2114005569A0 /* Default-568h@2x.png */,
 				3609A5B315180C7300BEDA05 /* UMSAgentExample */,
 				3609A5D115180C7300BEDA05 /* UMSAgentExampleTests */,
 				3609A5AC15180C7300BEDA05 /* Frameworks */,
@@ -360,6 +363,7 @@
 				3609A5C415180C7300BEDA05 /* ViewController.xib in Resources */,
 				22622598195E9F0C0052D57C /* Default.png in Resources */,
 				22622597195E9F0C0052D57C /* Default-568h.png in Resources */,
+				18E32F541B9C2114005569A0 /* Default-568h@2x.png in Resources */,
 				226225A6195E9F400052D57C /* Icon.png in Resources */,
 				36B3015E162AF22D0098FEF5 /* SecondViewController.xib in Resources */,
 			);
@@ -512,8 +516,8 @@
 		3609A5DD15180C7300BEDA05 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nan Li (6A685Z7GX5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nan Li (6A685Z7GX5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UMSAgentExample/UMSAgentExample-Prefix.pch";
 				GCC_USE_STANDARD_INCLUDE_SEARCHING = YES;
@@ -527,8 +531,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "eb8a0a94-049c-42fd-b753-c933230de326";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "eb8a0a94-049c-42fd-b753-c933230de326";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -537,8 +541,8 @@
 		3609A5DE15180C7300BEDA05 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nan Li (6A685Z7GX5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nan Li (6A685Z7GX5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UMSAgentExample/UMSAgentExample-Prefix.pch";
 				GCC_USE_STANDARD_INCLUDE_SEARCHING = YES;
@@ -552,8 +556,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "eb8a0a94-049c-42fd-b753-c933230de326";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "eb8a0a94-049c-42fd-b753-c933230de326";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

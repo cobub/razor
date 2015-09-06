@@ -47,7 +47,8 @@
 -(IBAction) goToSecondView
 {
     SecondViewController *secondViewController = [[SecondViewController alloc] init];
-    [self presentModalViewController:secondViewController animated:YES];
+
+    [self presentViewController:secondViewController animated:YES completion:nil];
 }
 
 -(IBAction) tag
@@ -57,11 +58,13 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
     [UMSAgent tracePage:@"Login"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:YES];
 //    [UMSAgent endTracPage:@"LoginActivity"];
 }
 

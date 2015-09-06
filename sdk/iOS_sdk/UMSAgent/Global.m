@@ -32,7 +32,7 @@ static NSString *BASEURL;
 +(void)setBaseURL:(NSString *)baseURL
 {
     BASEURL = [[NSString alloc] initWithString:baseURL];
-    NSLog(baseURL);
+    NSLog(@"%@",baseURL);
 }
 
 +(NSString *)getBaseURL

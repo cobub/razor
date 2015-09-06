@@ -514,7 +514,7 @@
 			[requestDictionary setObject:mEvent.time forKey:@"time"];
 			[requestDictionary setObject:mEvent.activity forKey:@"activity"];
 			[requestDictionary setObject:mEvent.label forKey:@"label"];
-			[requestDictionary setObject:[NSNumber numberWithInt:mEvent.acc] forKey:@"acc"];
+			[requestDictionary setObject:[NSNumber numberWithInteger:mEvent.acc] forKey:@"acc"];
 			[requestDictionary setObject:appKey forKey:@"appkey"];
 			[requestDictionary setObject:mEvent.version forKey:@"version"];
 			[requestDictionary setObject:mEvent.userid forKey:@"userid"];
@@ -628,7 +628,7 @@
 		[mTagArray addObject:tag];
 		if(isLogEnabled)
 		{
-			NSLog(@"Archived tag count = %d",[mTagArray count]);
+			NSLog(@"Archived tag count = %@",@([mTagArray count]));
 		}
 		NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mTagArray];
 		//        [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"tagArray"];
