@@ -1373,7 +1373,9 @@ uncaughtExceptionHandler(NSException *exception) {
 	{
 		NSLog(@"Begin get application update");
 	}
-	retWrapper = [CheckUpdateDao checkUpdate:appKey version:@"1.0"];
+    
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey];
+	retWrapper = [CheckUpdateDao checkUpdate:appKey version:version];
 	if (retWrapper.flag>0)
 	{
 		updateRet = retWrapper;
