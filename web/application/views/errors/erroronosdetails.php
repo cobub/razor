@@ -22,16 +22,22 @@
 
 <font color="#FF9224">
 <label id='fix_status'>
-<?php if($isfix==0){echo lang('v_rpt_err_unrepaired');}
-      else{ echo lang('v_rpt_err_repairedE');} ?>
+<?php 
+if($isfix==0) 
+echo lang('v_rpt_err_unrepaired'); 
+else 
+echo lang('v_rpt_err_repairedE'); 
+?>
 </label>
 </font>
 
 <a onclick="javascript:changefix();">
 <label id='fix_label'>
 <?php 
-if($isfix==0){echo lang('v_rpt_err_markR');}
-else { echo lang('v_rpt_err_markUR'); }
+if($isfix==0) 
+echo lang('v_rpt_err_markR');
+else 
+echo lang('v_rpt_err_markUR'); 
 if(isset($errordetail))
 $error_num = $errordetail->num_rows();
 else 
@@ -67,12 +73,12 @@ $error_num = 0;
 
 
 <div id="tab3" class="tab_content">
- <div id="container"  class="module_content " style="height:500px;width: 73%">
+ <div id="container"  class="module_content " style="height:500px;width:900px;">
 </div>	
 </div>
 
 <div id="tab4" class="tab_content">
-<div id="container1"  class="module_content" style="height:500px;width: 73%">
+<div id="container1"  class="module_content" style="height:500px;width:900px;">
 </div>	
 </div>
 
@@ -284,8 +290,7 @@ function changefix()
 	                   };
 					 jQuery.ajax({
 							type : "post",
-							url : "<?php
-							echo site_url ()?>/report/errorlog/changeErrorStatus",
+							url : "<?php echo site_url()?>/report/errorlog/changeErrorStatus",
 							data : data,
 							success : function(msg) {								
 								if(isfix=='1')

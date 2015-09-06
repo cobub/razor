@@ -38,8 +38,10 @@ $status = $isfix =="0"?lang('v_rpt_err_unrepaired'):lang('v_rpt_err_repairedE');
 <a onclick="javascript:changefix();">
 <label id='fix_label'>
 <?php 
-if($isfix==0){echo lang('v_rpt_err_markR');}
-else { echo lang('v_rpt_err_markUR'); }
+if($isfix==0)
+echo lang('v_rpt_err_markR');
+else 
+echo lang('v_rpt_err_markUR'); 
 if(isset($errordetail))
 $error_num = $errordetail->num_rows();
 else 
@@ -76,12 +78,12 @@ $error_num = 0;
 
 
 <div id="tab3" class="tab_content">
- <div id="container"  class="module_content " style="height:500px;width: 73%">
+ <div id="container"  class="module_content " style="height:500px;width:900px;">
 </div>	
 </div>
 
 <div id="tab4" class="tab_content">
-<div id="container1"  class="module_content" style="height:500px;width: 73%">
+<div id="container1"  class="module_content" style="height:500px;width:900px;">
 </div>	
 </div>
 

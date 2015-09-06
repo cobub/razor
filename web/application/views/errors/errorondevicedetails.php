@@ -30,8 +30,14 @@
 <a onclick="javascript:changefix();">
 <label id='fix_label'>
 <?php 
-if($isfix==0){echo lang('v_rpt_err_markR');}
-else { echo lang('v_rpt_err_markUR'); }
+if($isfix==0)
+{
+    echo lang('v_rpt_err_markR');
+}
+else 
+{
+    echo lang('v_rpt_err_markUR'); 
+}
 if(isset($errordetail))
 $error_num = $errordetail->num_rows();
 else 
@@ -43,7 +49,12 @@ $error_num = 0;
 <ul class="tabs">
 	<li><a id="stackTrace" href="#tab1"><?php echo lang('v_rpt_err_stackTrace') ?></a></li>
 	<li><a id="errorDetail"
-		href="#tab2"><?php echo lang('v_rpt_err_errorDetails') ?>(<?php if(isset($num)&&($num!="")){echo $num;}else{echo "0";} ?>)</a></li>
+		href="#tab2"><?php echo lang('v_rpt_err_errorDetails') ?>(<?php if(isset($num)&&($num!=""))
+		{
+		    echo $num;
+        }else{
+            echo "0";
+        } ?>)</a></li>
 	<li><a id="deviDceistribution"
 		href="#tab3"><?php echo lang('v_rpt_err_versionDistribution') ?></a></li>
 	<li><a id="OSDistribution"
@@ -67,12 +78,12 @@ $error_num = 0;
 
 
 <div id="tab3" class="tab_content">
- <div id="container"  class="module_content " style="height:500px;width: 73%">
+ <div id="container"  class="module_content " style="height:500px;width:900px;">
 </div>	
 </div>
 
 <div id="tab4" class="tab_content">
-<div id="container1"  class="module_content" style="height:500px;width: 73%">
+<div id="container1"  class="module_content" style="height:500px;width:900px;">
 </div>	
 </div>
 
@@ -284,8 +295,7 @@ function changefix()
 	                   };
 					 jQuery.ajax({
 							type : "post",
-							url : "<?php
-							echo site_url ()?>/report/errorlog/changeErrorStatus",
+							url : "<?php echo site_url()?>/report/errorlog/changeErrorStatus",
 							data : data,
 							success : function(msg) {								
 								if(isfix=='1')
