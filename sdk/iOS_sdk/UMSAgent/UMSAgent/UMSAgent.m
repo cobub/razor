@@ -1084,7 +1084,8 @@
 
 -(void) postDataInBackGround
 {
-    CheckUpdateReturn *returnData = [CheckUpdateDao checkUpdate:appKey version:@"1.0"];
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey];
+    CheckUpdateReturn *returnData = [CheckUpdateDao checkUpdate:appKey version:version];
     [self performSelectorOnMainThread:@selector(end_postdataThread:) withObject:returnData waitUntilDone:NO];
 }
 
