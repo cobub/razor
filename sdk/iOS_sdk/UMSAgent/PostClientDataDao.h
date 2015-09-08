@@ -28,8 +28,8 @@
 
 +(CommonReturn *) postErrorLog:(NSString *) appkey errorLog:(ErrorLog *) errorLog;
 
-//+(CommonReturn *) postCID:(NSString *) appkey cid:(NSString *) clientID;
-//
-//+(CommonReturn *) postUserIdentifier:(NSString *) appkey userId:(NSString *) userId;
++(CommonReturn *) postCID:(NSString *) appkey cid:(NSString *)clientID;
+
++(CommonReturn *) postUserIdentifier:(NSString *) appkey userId:(NSString *) userId;
 
 @end

@@ -24,7 +24,7 @@
 {
     NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/getApplicationUpdate"];
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
-    [requestDictionary setObject:version_code forKey:@"version_code"];
+    [requestDictionary setObject:@"1.0" forKey:@"version_code"];
     [requestDictionary setObject:appkey forKey:@"appkey"];
     NSString *ret = [network SendData:url data:requestDictionary];
     CheckUpdateReturn *result = [[CheckUpdateReturn alloc] init];

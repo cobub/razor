@@ -39,8 +39,9 @@
 
 -(IBAction) register
 {
-    [UMSAgent postEvent:@"ios_click_exit"  acc:888];
-	[UMSAgent postEvent:@"ios_click" acc:666];
+    [UMSAgent postEvent:@"login"  acc:1];
+	[UMSAgent postEvent:@"click" acc:1];
+    [UMSAgent postEvent:@"quit" acc:1];
 }
 
 

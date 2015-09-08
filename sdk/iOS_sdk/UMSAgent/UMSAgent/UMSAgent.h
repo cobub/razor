@@ -27,7 +27,7 @@ typedef enum {
 
 +(void)checkUpdate;
 
-+(void)startWithAppKey:(NSString*)appKey ServerURL:(NSString *)serverURL;
++(void)startWithAppKey:(NSString*)appKey serverURL:(NSString *)serverURL;
 
 +(void)startWithAppKey:(NSString*)appKey ReportPolicy:(ReportPolicy)policy ServerURL:(NSString*)serverURL
 ;
@@ -41,7 +41,7 @@ typedef enum {
 
 //+(void)postEventJSON:(NSString*)event_id json:(NSString*)jsonStr;
 
-//+(void)postTag:(NSString *)tag;
++(void)postTag:(NSString *)tag;
 
 +(void)bindUserIdentifier:(NSString *)userid;
 
@@ -51,9 +51,9 @@ typedef enum {
 
 +(void)tracePage:(NSString*)page_name;
 
-//+(void)postCID:(NSString*)clientID;
++(void)postCID:(NSString*)clientID;
 
-//+(void)postUserIdentifier:(NSString*)userId;
++(void)postUserIdentifier:(NSString*)userId;
 
 // Check if the device jail broken
 + (BOOL)isJailbroken;
@@ -61,6 +61,5 @@ typedef enum {
 + (void)setIsLogEnabled:(BOOL)isLogEnabled;
 + (NSString*)getUMSUDID;
 +(NSString*)getUserId;
-- (NSString *)getFilePath:(NSString *)fileName;
-- (long long) fileSizeAtPath:(NSString*) filePath;
+
 @end

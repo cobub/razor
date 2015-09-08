@@ -15,7 +15,7 @@
 #import "Event.h"
 
 @implementation Event
-@synthesize event_id,time,acc,activity,label,version,json,userid,deviceid;
+@synthesize event_id,time,acc,activity,label,version,json;
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -27,8 +27,6 @@
         self.acc = [aDecoder decodeInt32ForKey:@"acc"];
         self.version = [aDecoder decodeObjectForKey:@"version"];
         self.json = [aDecoder decodeObjectForKey:@"json"];
-		self.deviceid = [aDecoder decodeObjectForKey:@"deviceid"];
-		self.userid = [aDecoder decodeObjectForKey:@"userid"];
     }
     return self;
 }
@@ -42,9 +40,7 @@
     [aCoder encodeObject:activity forKey:@"activity"];
     [aCoder encodeObject:version forKey:@"version"];
     [aCoder encodeObject:json forKey:@"json"];
-    [aCoder encodeInteger:acc forKey:@"acc"];
-	[aCoder encodeObject:userid forKey:@"userid"];
-	[aCoder encodeObject:deviceid forKey:@"deviceid"];
+    [aCoder encodeInt:acc forKey:@"acc"];
 }
 
 

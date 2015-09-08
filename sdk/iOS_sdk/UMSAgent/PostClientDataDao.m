@@ -92,7 +92,7 @@
 +(CommonReturn *) postArchiveLogs:(NSMutableDictionary *) archiveLogs
 {
     @autoreleasepool {
-        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/uploadlog"];
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/uploadLog"];
         CommonReturn *ret = [[CommonReturn alloc] init];
         NSString *retString = [network SendData:url data:archiveLogs];        
         NSError *error = nil;
@@ -109,7 +109,7 @@
 +(CommonReturn *) postErrorLog:(NSString *) appkey errorLog:(ErrorLog *) errorLog
 {
     @autoreleasepool {
-        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postErrorLog.php"];
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postErrorLog"];
         CommonReturn *ret = [[CommonReturn alloc] init];
         NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
         [requestDictionary setObject:errorLog.time forKey:@"time"];
@@ -129,6 +129,49 @@
         }
         return ret;
     }
+}
+
+-(CommonReturn *) postCID:(NSString *) appkey cid:(NSString *) clientID
+{
+    @autoreleasepool {
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postPushid"];
+        CommonReturn *ret = [[CommonReturn alloc] init];
+        NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
+        [requestDictionary setObject:clientID forKey:@"clientid"];
+        [requestDictionary setObject:[UMSAgent getUMSUDID] forKey:@"deviceid"];
+        [requestDictionary setObject:appkey forKey:@"appkey"];
+        NSString *retString = [network SendData:url data:requestDictionary];
+        NSError *error = nil;
+        NSDictionary *retDictionary = [NSDictionary dictionaryWithJSONString:retString error:&error];
+        if(!error)
+        {
+            ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
+            ret.msg = [retDictionary objectForKey:@"msg"];
+        }
+        return ret;
+    }
+}
+
++(CommonReturn *) postUserIdentifier:(NSString *) appkey userId:(NSString *) userId
+{
+    @autoreleasepool {
+        NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postUserid"];
+        CommonReturn *ret = [[CommonReturn alloc] init];
+        NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
+        [requestDictionary setObject:userId forKey:@"userid"];
+        [requestDictionary setObject:[UMSAgent getUMSUDID] forKey:@"deviceid"];
+        [requestDictionary setObject:appkey forKey:@"appkey"];
+        NSString *retString = [network SendData:url data:requestDictionary];
+        NSError *error = nil;
+        NSDictionary *retDictionary = [NSDictionary dictionaryWithJSONString:retString error:&error];
+        if(!error)
+        {
+            ret.flag = [[retDictionary objectForKey:@"flag" ] intValue];
+            ret.msg = [retDictionary objectForKey:@"msg"];
+        }
+        return ret;
+    }
+
 }
 
 @end

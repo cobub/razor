@@ -22,7 +22,6 @@
 @synthesize version;
 @synthesize osVersion;
 @synthesize deviceID;
-@synthesize userid;
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -34,7 +33,6 @@
         self.version = [aDecoder decodeObjectForKey:@"version"];
         self.osVersion = [aDecoder decodeObjectForKey:@"osVersion"];
         self.deviceID = [aDecoder decodeObjectForKey:@"deviceID"];
-		self.userid = [aDecoder decodeObjectForKey:@"userid"];
     }
     return self;
 }
@@ -48,7 +46,6 @@
     [aCoder encodeObject:version forKey:@"version"];
     [aCoder encodeObject:osVersion forKey:@"osVersion"];
     [aCoder encodeObject:deviceID forKey:@"deviceID"];
-	[aCoder encodeObject:userid forKey:@"userid"];
 }
 
 @end

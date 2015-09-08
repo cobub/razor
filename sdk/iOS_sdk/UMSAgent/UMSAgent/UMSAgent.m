@@ -86,14 +86,6 @@
 @synthesize pageName;
 @synthesize sessionStopDate;
 
-#define kClientDataArray	@"clientDataArray"
-#define kEventArray			@"eventArray"
-#define kTagArray			@"tagArray"
-#define kActivityLog		@"activityLog"
-#define kErrorLog			@"errorLog"
-#define kThreshold			1024*1024*0.5
-
-#pragma mark - singleton
 +(UMSAgent*)getInstance
 {
     static UMSAgent *instance = nil;
@@ -108,8 +100,6 @@
     }
     return instance;
 }
-
-#pragma mark - configuration
 
 +(void)startWithAppKey:(NSString*)appKey ServerURL:(NSString *)serverURL
 {
@@ -146,6 +136,22 @@
                     selector:@selector(becomeActive:)
                         name:UIApplicationWillEnterForegroundNotification
                       object:nil];
+    //    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    //    {
+    //        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings
+    //                                                                             settingsForTypes:(UIRemoteNotificationTypeBadge | UIUserNotificationTypeAlert | UIRemoteNotificationTypeSound)
+    //                                                                             categories:nil]];
+    //
+    //
+    //        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    //    } else {
+    //        [[UIApplication sharedApplication]registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge |
+    //         UIRemoteNotificationTypeAlert |
+    //         UIRemoteNotificationTypeSound];
+    
+    //    }
+    
+    
     
     self.startDate = [[NSDate date] copy];
     NSString *currentTime = [[NSString alloc] initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
@@ -160,932 +166,350 @@
     [self performSelectorInBackground:@selector(archiveClientData) withObject:nil];
 }
 
-#pragma mark - clientData
--(void)archiveClientData
-{
-	ClientData *clientData = [self getDeviceInfo];
-	NSMutableArray *mClientDataArray;
-	if (self.policy == BATCH) {
-		//        NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"clientDataArray"] ;
-		NSData *oldData = [self getArchivedLogFromFile:kClientDataArray];
-		if (oldData!=nil)
-		{
-			mClientDataArray = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
-		}
-		else
-		{
-			mClientDataArray = [[NSMutableArray alloc] init];
-		}
-		if(isLogEnabled)
-		{
-			NSLog(@"archive client data because of BATCH mode");
-		}
-		[mClientDataArray addObject:clientData];
-		if(isLogEnabled)
-		{
-			NSLog(@"Archived client data = %lu",(unsigned long)[mClientDataArray count]);
-		}
-		NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mClientDataArray];
-		//        [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"clientDataArray"];
-		//        [[NSUserDefaults standardUserDefaults] synchronize];
-		[self checkSizeAndSaveObject:newData ToFile:kClientDataArray];
-	}
-	else
-	{
+//For JS call
 
-		[self processClientData:clientData];
-	}
-
-	//Process archived logs after post ClientData
-	[self performSelector:@selector(processArchivedLogs)];
-
-}
-
--(void)processClientData:(ClientData *)clientData
-{
-	[self performSelector:@selector(postClientDataInBackground:) withObject:clientData];
-}
-
--(void)postClientDataInBackground:(ClientData *)clientData
-{
-	@autoreleasepool {
-		//[self isWiFiAvailable];
-		CommonReturn *ret ;
-		ret = [PostClientDataDao postClient:self.appKey deviceInfo:clientData];
-
-		if(ret.flag >0)
-		{
-			if(isLogEnabled)
-			{
-				NSLog(@"Post Client Data OK: Flag = %d, Msg = %@",ret.flag,ret.msg);
-			}
-		}
-		else
-		{
-			if(isLogEnabled)
-			{
-				NSLog(@"Post Client Data Error: So save to archive. Flag = %d, Msg = %@",ret.flag,ret.msg);
-			}
-			NSMutableArray *mClientDataArray;
-			//            NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"clientDataArray"] ;
-			NSData *oldData = [self getArchivedLogFromFile:kClientDataArray];
-			if (oldData!=nil)
-			{
-				mClientDataArray = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
-				if ([mClientDataArray count]>10)
-				{
-					NSRange range;
-					range.location = 0;
-					range.length = [mClientDataArray count]-10;
-					[mClientDataArray removeObjectsInRange:range];
-				}
-			}
-			else
-			{
-				mClientDataArray = [[NSMutableArray alloc] init];
-			}
-			if(isLogEnabled)
-			{
-				NSLog(@"archive client data because of BATCH mode");
-			}
-			[mClientDataArray addObject:clientData];
-			if(isLogEnabled)
-			{
-				NSLog(@"Archived client data = %lu",(unsigned long)[mClientDataArray count] );
-			}
-			NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mClientDataArray];
-			//            [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"clientDataArray"];
-			//            [[NSUserDefaults standardUserDefaults] synchronize];
-			[self checkSizeAndSaveObject:newData ToFile:kClientDataArray];
-		}
-	}
-}
-
-
--(NSMutableArray *)getArchiveClientData
-{
-	//    NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"clientDataArray"] ;
-	NSData *oldData = [self getArchivedLogFromFile:kClientDataArray];
-	NSMutableArray * array = nil;
-	if (oldData!=nil)
-	{
-		array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
-		if(isLogEnabled)
-		{
-			NSLog(@"Have client data num = %lu",(unsigned long)[array count]);
-		}
-	}
-	NSMutableArray *clientDataArray = [[NSMutableArray alloc] init];
-	if ([array count]>0)
-	{
-		for(ClientData *clientData in array)
-		{
-			NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
-			[requestDictionary setObject:clientData.platform forKey:@"platform"];
-			[requestDictionary setObject:clientData.os_version forKey:@"os_version"];
-			[requestDictionary setObject:clientData.language forKey:@"language"];
-			[requestDictionary setObject:clientData.resolution forKey:@"resolution"];
-			[requestDictionary setObject:clientData.deviceid forKey:@"deviceid"];
-			if (clientData.userid!=nil) {
-				[requestDictionary setObject:clientData.userid forKey:@"userid"];
-			}
-			else
-			{
-				[requestDictionary setObject:@"" forKey:@"userid"];
-			}
-
-			if(clientData.mccmnc!=nil)
-			{
-				[requestDictionary setObject:clientData.mccmnc forKey:@"mccmnc"];
-			}
-			else
-			{
-				[requestDictionary setObject:@"" forKey:@"mccmnc"];
-
-			}
-			[requestDictionary setObject:clientData.version forKey:@"version"];
-			[requestDictionary setObject:clientData.network forKey:@"network"];
-			[requestDictionary setObject:clientData.devicename forKey:@"devicename"];
-			[requestDictionary setObject:clientData.modulename forKey:@"modulename"];
-			[requestDictionary setObject:clientData.time forKey:@"time"];
-			[requestDictionary setObject:appKey forKey:@"appkey"];
-			[requestDictionary setObject:clientData.isjailbroken forKey:@"isjailbroken"];
-			[clientDataArray addObject:requestDictionary];
-		}
-	}
-	return clientDataArray;
-}
-
-#pragma mark - event
-+(void)postEvent:(NSString *)event_id
-{
-	Event *event =[[Event alloc] init];
-	event.event_id = event_id;
-	event.activity = [[NSBundle mainBundle] bundleIdentifier];
-	event.label = @"";
-	event.time = [[UMSAgent getInstance] getCurrentTime];
-	event.version = [[UMSAgent getInstance] getVersion];
-	event.acc = 1;
-	event.json = @"";
-	event.deviceid = [[UMSAgent getInstance] getDeviceInfo].deviceid;
-	event.userid = [self getUserId];
-	[[UMSAgent getInstance] archiveEvent:event];
-}
-
-+(void)postEventJSON:(NSString*)event_id json:(NSString*)jsonStr
-{
-	Event *event =[[Event alloc] init];
-	event.event_id = event_id;
-	event.activity = [[NSBundle mainBundle] bundleIdentifier];
-	event.label = @"";
-	event.time = [[UMSAgent getInstance] getCurrentTime];
-	event.version = [[UMSAgent getInstance] getVersion];
-	event.deviceid = [[UMSAgent getInstance] getDeviceInfo].deviceid;
-	event.userid = [self getUserId];
-
-	NSString *jsonN = [jsonStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSLog(@"EVNT=%@",jsonN);
-
-	event.json = jsonN;
-	event.acc = 1;
-	[[UMSAgent getInstance] archiveEvent:event];
-}
-
-+(void)postEvent:(NSString *)event_id label:(NSString *)label
-{
-	Event *event = [[Event alloc] init];
-	event.event_id = event_id;
-	event.time = [[UMSAgent getInstance] getCurrentTime];
-	event.acc = 1;
-	event.version = [[UMSAgent getInstance] getVersion];
-	event.activity = [[NSBundle mainBundle] bundleIdentifier];
-	event.json = @"";
-	event.label = label;
-	event.deviceid = [[UMSAgent getInstance] getDeviceInfo].deviceid;
-	event.userid = [self getUserId];
-	[[UMSAgent getInstance] archiveEvent:event];
-
-}
-
-+(void)postEvent:(NSString *)event_id acc:(NSInteger)acc
-{
-	Event *event = [[Event alloc] init];
-	event.event_id = event_id;
-	event.time = [[UMSAgent getInstance] getCurrentTime];
-	event.acc = acc;
-	event.json = @"";
-	event.version = [[UMSAgent getInstance] getVersion];
-	event.activity =[[NSBundle mainBundle] bundleIdentifier];
-	event.label = @"";
-	event.deviceid = [[UMSAgent getInstance] getDeviceInfo].deviceid;
-	event.userid = [self getUserId];
-	[[UMSAgent getInstance] archiveEvent:event];
-
-}
-
-+(void)postEvent:(NSString *)event_id label:(NSString *)label acc:(NSInteger)acc
-{
-	Event *event = [[Event alloc] init];
-	event.event_id = event_id;
-	event.time = [[UMSAgent getInstance] getCurrentTime];
-	event.acc = acc;
-	event.json = @"";
-	event.activity = [[NSBundle mainBundle] bundleIdentifier];
-	event.version = [[UMSAgent getInstance] getVersion];
-	event.label = label;
-	event.deviceid = [[UMSAgent getInstance] getDeviceInfo].deviceid;
-	event.userid = [self getUserId];
-	[[UMSAgent getInstance] archiveEvent:event];
-}
-
--(void)postEventInBackGround:(Event *)event
-{
-	@autoreleasepool {
-		CommonReturn *ret ;
-		ret = [postEventDao postEvent:self.appKey event:event];
-		if (ret.flag<0)
-		{
-			//            NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"eventArray"] ;
-			NSData *oldData = [self getArchivedLogFromFile:kEventArray];
-			NSMutableArray * array = [[NSMutableArray alloc] init];
-
-			if (oldData!=nil)
-			{
-				array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
-			}
-			[array addObject:event];
-			NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:array];
-			//            [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"eventArray"];
-			//            [[NSUserDefaults standardUserDefaults] synchronize];
-			[self checkSizeAndSaveObject:newData ToFile:kEventArray];
-		}
-	}
-}
-
--(void)postOldEventDataInBackGround:(NSMutableArray *)array
-{
-	@autoreleasepool {
-		for (int i =0; i<[array count]; i++)
-		{
-			Event *event = [array objectAtIndex:i];
-
-			CommonReturn *ret ;
-			ret = [postEventDao postEvent:appKey event:event];
-			if (ret.flag>0)
-			{
-				[array removeObjectAtIndex:i];
-
-			}
-
-			NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:array];
-			[self checkSizeAndSaveObject:newData ToFile:kEventArray];
-			//            [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"eventArray"];
-			//            [[NSUserDefaults standardUserDefaults] synchronize];
-		}
-	}
-}
-
-
--(void) processEvent:(Event *)event
-{
-	[self performSelectorInBackground:@selector(postEventInBackGround:) withObject:event];
-}
-
--(void)archiveEvent:(Event *)event
-{
-	if(self.pageName!=nil && ![self.pageName isEqualToString:@""])
-	{
-		event.activity = self.pageName;
-	}
-
-	NSMutableArray *mEventArray;
-	if (self.policy == BATCH) {
-		//        NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"eventArray"] ;
-		NSData *oldData = [self getArchivedLogFromFile:kEventArray];
-		if (oldData!=nil)
-		{
-			mEventArray = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
-		}
-		else
-		{
-			mEventArray = [[NSMutableArray alloc] init];
-		}
-		if(isLogEnabled)
-		{
-			NSLog(@"archive event because of BATCH mode");
-		}
-		[mEventArray addObject:event];
-		if(isLogEnabled)
-		{
-			NSLog(@"Archived event count = %lu",(unsigned long)[mEventArray count]);
-		}
-		NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mEventArray];
-		//        [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"eventArray"];
-		//        [[NSUserDefaults standardUserDefaults] synchronize];
-		[self checkSizeAndSaveObject:newData ToFile:kEventArray];
-	}
-	else
-	{
-		[self processEvent:event];
-	}
-}
-
--(NSMutableArray *)getArchiveEvent
-{
-	//    NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"eventArray"] ;
-	NSData *oldData = [self getArchivedLogFromFile:kEventArray];
-	NSMutableArray * array = nil;
-
-	if (oldData!=nil)
-	{
-		array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
-		if(isLogEnabled)
-		{
-			NSLog(@"old event data num = %lu",(unsigned long)[array count]);
-		}
-	}
-	NSMutableArray *eventArray = [[NSMutableArray alloc] init];
-	if ([array count]>0)
-	{
-		for(Event *mEvent in array)
-		{
-			NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
-			[requestDictionary setObject:mEvent.event_id forKey:@"event_identifier"];
-			[requestDictionary setObject:mEvent.time forKey:@"time"];
-			[requestDictionary setObject:mEvent.activity forKey:@"activity"];
-			[requestDictionary setObject:mEvent.label forKey:@"label"];
-			[requestDictionary setObject:[NSNumber numberWithInteger:mEvent.acc] forKey:@"acc"];
-			[requestDictionary setObject:appKey forKey:@"appkey"];
-			[requestDictionary setObject:mEvent.version forKey:@"version"];
-			[requestDictionary setObject:mEvent.userid forKey:@"userid"];
-			[requestDictionary setObject:mEvent.deviceid forKey:@"deviceid"];
-			[eventArray addObject:requestDictionary];
-		}
-	}
-	return eventArray;
-}
-
-
-
-#pragma mark - errorLog
-- (void)saveErrorLog:(NSString*)stackTrace
-{
-	@autoreleasepool {
-		if(isLogEnabled)
-		{
-			NSLog(@"save error log");
-		}
-		ErrorLog *errorLog = [[ErrorLog alloc] init];
-		errorLog.stackTrace = stackTrace;
-		errorLog.appkey = self.appKey;
-		errorLog.version = [self getVersion];
-		errorLog.time = [self getCurrentTime];
-		errorLog.activity = [[NSBundle mainBundle] bundleIdentifier];
-		errorLog.osVersion = [[UIDevice currentDevice] systemVersion];
-		errorLog.deviceID = [self machineName];
-		errorLog.userid = [UMSAgent getUserId];
-		NSLog(@"Error Log");
-		//        NSData *errorLogData = [[NSUserDefaults standardUserDefaults] objectForKey:@"errorLog"] ;
-		NSData *errorLogData = [self getArchivedLogFromFile:kErrorLog];
-		NSMutableArray * errorLogArray = [[NSMutableArray alloc] init ];
-		if (errorLogData!=nil)
-		{
-			errorLogArray = [NSKeyedUnarchiver unarchiveObjectWithData:errorLogData];
-		}
-		else {
-			errorLogArray = [[NSMutableArray alloc] init ];
-		}
-		[errorLogArray addObject:errorLog];
-		if(isLogEnabled)
-		{
-			NSLog(@"Error Log array size = %lu",(unsigned long)[errorLogArray count]);
-		}
-		NSData *newErrorData = [NSKeyedArchiver archivedDataWithRootObject:errorLogArray];
-		//        [[NSUserDefaults standardUserDefaults] setObject:newErrorData forKey:@"errorLog"];
-		//        [[NSUserDefaults standardUserDefaults] synchronize];
-		[self checkSizeAndSaveObject:newErrorData ToFile:kErrorLog];
-	}
-}
-
--(NSMutableArray *)getArchiveErrorLog
-{
-	//    NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"errorLog"] ;
-	NSData *oldData = [self getArchivedLogFromFile:kErrorLog];
-	NSMutableArray * array = nil;
-	if (oldData!=nil)
-	{
-		array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
-		if(isLogEnabled)
-		{
-			NSLog(@"Have error data num = %lu",(unsigned long)[array count]);
-		}
-	}
-	NSMutableArray *errorLogArray = [[NSMutableArray alloc] init];
-	if ([array count]>0)
-	{
-		for(ErrorLog *errorLog in array)
-		{
-			NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
-			[requestDictionary setObject:errorLog.time forKey:@"time"];
-			[requestDictionary setObject:errorLog.stackTrace forKey:@"stacktrace"];
-			[requestDictionary setObject:errorLog.version forKey:@"version"];
-			[requestDictionary setObject:errorLog.osVersion forKey:@"os_version"];
-			[requestDictionary setObject:errorLog.deviceID forKey:@"deviceid"];
-			[requestDictionary setObject:errorLog.appkey forKey:@"appkey"];
-			[requestDictionary setObject:errorLog.activity forKey:@"activity"];
-			[requestDictionary setObject:[UMSAgent getUserId] forKey:@"userid"];
-			[errorLogArray addObject:requestDictionary];
-		}
-	}
-	return errorLogArray;
-}
-
-
-#pragma mark - tag
--(void) processTag:(Tag *)tag
-{
-	[self performSelectorInBackground:@selector(postTagInBackGround:) withObject:tag];
-}
-
--(void)archiveTag:(Tag *)tag
-{
-	NSMutableArray *mTagArray;
-	if (self.policy == BATCH) {
-		//        NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"tagArray"] ;
-		NSData *oldData = [self getArchivedLogFromFile:kTagArray];
-		if (oldData!=nil)
-		{
-			mTagArray = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
-		}
-		else
-		{
-			mTagArray = [[NSMutableArray alloc] init];
-		}
-		if(isLogEnabled)
-		{
-			NSLog(@"archive tag because of BATCH mode");
-		}
-		[mTagArray addObject:tag];
-		if(isLogEnabled)
-		{
-			NSLog(@"Archived tag count = %@",@([mTagArray count]));
-		}
-		NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mTagArray];
-		//        [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"tagArray"];
-		//        [[NSUserDefaults standardUserDefaults] synchronize];
-		[self checkSizeAndSaveObject:newData ToFile:kTagArray];
-	}
-	else
-	{
-		[self processTag:tag];
-	}
-}
-
--(NSMutableArray *)getArchiveTag
-{
-	//    NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"tagArray"] ;
-	NSData *oldData = [self getArchivedLogFromFile:kTagArray];
-	NSMutableArray * array = nil;
-
-	if (oldData!=nil)
-	{
-		array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
-		if(isLogEnabled)
-		{
-			NSLog(@"old tag data num = %lu",(unsigned long)[array count]);
-		}
-
-	}
-	NSMutableArray *tagArray = [[NSMutableArray alloc] init];
-	if ([array count]>0)
-	{
-		for(Tag *mTag in array)
-		{
-			NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
-			[requestDictionary setObject:mTag.deviceid forKey:@"deviceid"];
-			[requestDictionary setObject:mTag.tags forKey:@"tags"];
-			[requestDictionary setObject:mTag.productkey forKey:@"productkey"];
-			[requestDictionary setObject:mTag.userid forKey:@"userid"];
-			[requestDictionary setObject:mTag.version forKey:@"version"];
-			[tagArray addObject:requestDictionary];
-		}
-	}
-	return tagArray;
-}
-
--(void)postTagInBackGround:(Tag *)tag
-{
-	@autoreleasepool {
-		CommonReturn *ret ;
-		ret = [PostTagDao postTag:self.appKey tag:tag];
-		if (ret.flag<0)
-		{
-			//            NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"tagArray"] ;
-			NSData *oldData = [self getArchivedLogFromFile:kTagArray];
-			NSMutableArray * array = [[NSMutableArray alloc] init];
-
-			if (oldData!=nil)
-			{
-				array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
-			}
-			[array addObject:tag];
-			NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:array];
-			//            [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"tagArray"];
-			//            [[NSUserDefaults standardUserDefaults] synchronize];
-			[self checkSizeAndSaveObject:newData ToFile:kTagArray];
-		}
-	}
-}
-
-#pragma mark - process logs
--(void) processArchivedLogs
-{
-	@autoreleasepool {
-		NSMutableArray *eventArray = [self getArchiveEvent];
-		NSMutableArray *activityLogArray = [self getArchiveActivityLog];
-		NSMutableArray *errorLogArray = [self getArchiveErrorLog];
-		NSMutableArray *clientDataArray = [self getArchiveClientData];
-		NSMutableArray *tagArray = [self getArchiveTag];
-		if([eventArray count]>0 || [activityLogArray count]>0 || [errorLogArray count]>0 || [clientDataArray count]>0 || [tagArray count]>0)
-		{
-			NSMutableDictionary *requestDic = [[NSMutableDictionary alloc] init];
-			[requestDic setObject:appKey forKey:@"appkey"];
-			if([eventArray count]>0)
-			{
-				[requestDic setObject:eventArray forKey:@"eventInfo"];
-			}
-
-			if([tagArray count]>0)
-			{
-				[requestDic setObject:tagArray forKey:@"tagInfo"];
-			}
-
-			if([activityLogArray count] >0)
-			{
-				[requestDic setObject:activityLogArray forKey:@"activityInfo"];
-			}
-
-			if([errorLogArray count]>0)
-			{
-				[requestDic setObject:errorLogArray forKey:@"errorInfo"];
-			}
-
-			if([clientDataArray count]>0)
-			{
-				[requestDic setObject:clientDataArray forKey:@"clientData"];
-			}
-
-			if(isLogEnabled)
-			{
-				NSLog(@"Post Archive Logs");
-			}
-			CommonReturn *ret = [PostClientDataDao postArchiveLogs:requestDic];
-			if(ret.flag>0)
-			{
-				if (isLogEnabled)
-				{
-					NSLog(@"Archived log upload success, so remove archived logs in cache");
-				}
-				//                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"eventArray"];
-				//                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tagArray"];
-				//                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"activityLog"];
-				//                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"errorLog"];
-				//                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"clientDataArray"];
-				[[NSFileManager defaultManager] removeItemAtPath:[self getFilePath:kEventArray] error:nil];
-				[[NSFileManager defaultManager] removeItemAtPath:[self getFilePath:kTagArray] error:nil];
-				[[NSFileManager defaultManager] removeItemAtPath:[self getFilePath:kActivityLog] error:nil];
-				[[NSFileManager defaultManager] removeItemAtPath:[self getFilePath:kErrorLog] error:nil];
-				[[NSFileManager defaultManager] removeItemAtPath:[self getFilePath:kClientDataArray] error:nil];
-			}
-		}
-	}
-}
-
-#pragma mark - activity log
 +(void)tracePage:(NSString*)page_name
 {
-	@synchronized(self)
-	{
-		[[UMSAgent getInstance] performSelectorInBackground:@selector(processPage:) withObject:page_name];
-	}
+    @synchronized(self)
+    {
+        [[UMSAgent getInstance] performSelectorInBackground:@selector(processPage:) withObject:page_name];
+    }
 }
 
 -(void)processPage:(NSString*) page_name
 {
-	@autoreleasepool {
-		NSString *newPageName = [[NSString alloc] initWithString:page_name];
-		if(self.pageName!=nil && ![self.pageName isEqualToString:@""])
-		{
-			if([self.pageName isEqualToString:newPageName])
-			{
-				//Same page refresh.
-				return;
-			}
-			else
-			{
-				if([UMSAgent getInstance].policy == REALTIME)
-				{
-					[self commitUsingTime:self.pageName];
-				}
-				else
-				{
-					[self saveActivityUsingTime:self.pageName];
-				}
-			}
-		}
-
-		self.pageName = newPageName;
-		NSDate *pageStartDate = [[NSDate date] copy];
-		[[NSUserDefaults standardUserDefaults] setObject:pageStartDate forKey:page_name];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-	}
+    @autoreleasepool {
+        NSString *newPageName = [[NSString alloc] initWithString:page_name];
+        if(self.pageName!=nil && ![self.pageName isEqualToString:@""])
+        {
+            if([self.pageName isEqualToString:newPageName])
+            {
+                //Same page refresh.
+                return;
+            }
+            else
+            {
+                if([UMSAgent getInstance].policy == REALTIME)
+                {
+                    [self commitUsingTime:self.pageName];
+                }
+                else
+                {
+                    [self saveActivityUsingTime:self.pageName];
+                }
+            }
+        }
+        
+        self.pageName = newPageName;
+        NSDate *pageStartDate = [[NSDate date] copy];
+        [[NSUserDefaults standardUserDefaults] setObject:pageStartDate forKey:page_name];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 
 +(void)startTracPage:(NSString*)page_name
 {
-	[[UMSAgent getInstance] performSelectorInBackground:@selector(recordStartTime:) withObject:page_name];
+    [[UMSAgent getInstance] performSelectorInBackground:@selector(recordStartTime:) withObject:page_name];
 }
 
 -(void)recordStartTime:(NSString*) page_name
 {
-	@autoreleasepool {
-		self.pageName = [[NSString alloc] initWithString:page_name];
-		NSDate *pageStartDate = [[NSDate date] copy];
-		[[NSUserDefaults standardUserDefaults] setObject:pageStartDate forKey:page_name];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-	}
+    @autoreleasepool {
+        self.pageName = [[NSString alloc] initWithString:page_name];
+        NSDate *pageStartDate = [[NSDate date] copy];
+        [[NSUserDefaults standardUserDefaults] setObject:pageStartDate forKey:page_name];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 +(void)endTracPage:(NSString*)page_name
 {
-	if([UMSAgent getInstance].policy == REALTIME)
-	{
-		[[UMSAgent getInstance] performSelectorInBackground:@selector(commitUsingTime:) withObject:page_name];
-	}
-	else
-	{
-		[[UMSAgent getInstance] performSelectorInBackground:@selector(saveActivityUsingTime:) withObject:page_name];
-	}
+    if([UMSAgent getInstance].policy == REALTIME)
+    {
+        //        if([UMSAgent getInstance].isLogEnabled)
+        //        {
+        //            NSLog(@"Commit using Time of page %@",page_name);
+        //        }
+        [[UMSAgent getInstance] performSelectorInBackground:@selector(commitUsingTime:) withObject:page_name];
+    }
+    else
+    {
+        //        if([UMSAgent getInstance].isLogEnabled)
+        //        {
+        //            NSLog(@"Save Activity using time to cache of %@",page_name);
+        //        }
+        [[UMSAgent getInstance] performSelectorInBackground:@selector(saveActivityUsingTime:) withObject:page_name];
+    }
+    
+}
 
+- (void)resignActive:(NSNotification *)notification
+{
+    if(self.pageName!=nil)
+    {
+        if([UMSAgent getInstance].policy == REALTIME)
+        {
+            [self commitUsingTime:self.pageName];
+        }
+        else
+        {
+            [self saveActivityUsingTime:self.pageName];
+        }
+    }
+    
+    sessionStopDate = [NSDate date];
+    if(isLogEnabled)
+    {
+        NSLog(@"Resign Active: click home button or lose focus. End Trace Page and save session stop date.");
+    }
+    //Since We use viewWillAppear and viewWillDisappear to record, So just remove from here
+    //    NSString *page_name = [[NSBundle mainBundle] bundleIdentifier];
+    //    if(policy == REALTIME)
+    //    {
+    //        if(isLogEnabled)
+    //        {
+    //            NSLog(@"Commit using Time");
+    //        }
+    //        [self performSelectorInBackground:@selector(commitUsingTime:) withObject:page_name];
+    //    }
+    //    else
+    //    {
+    //        if(isLogEnabled)
+    //        {
+    //            NSLog(@"Save Activity using time to cache");
+    //        }
+    //        [self performSelectorInBackground:@selector(saveActivityUsingTime:) withObject:page_name];
+    //    }
+}
+
+- (void)becomeActive:(NSNotification *)notification
+{
+    if(isLogEnabled)
+    {
+        NSLog(@"Application become active");
+    }
+    //    if(self.pageName!=nil)
+    //    {
+    //        [UMSAgent startTracPage:self.pageName];
+    //        NSString *page_name = [[NSBundle mainBundle] bundleIdentifier];
+    //        NSDate *pageStartDate = [[NSDate date] copy];
+    //        [[NSUserDefaults standardUserDefaults] setObject:pageStartDate forKey:page_name];
+    //        [[NSUserDefaults standardUserDefaults] synchronize];
+    //    }
+    NSString *currentTime = [[NSString alloc] initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
+    if(sessionStopDate!=nil)
+    {
+        NSTimeInterval sessionStopInterval = -[sessionStopDate timeIntervalSinceNow];
+        if(sessionStopInterval + 0.0000001 > 30)
+        {
+            self.sessionId = [self md5:currentTime];
+            [self performSelectorInBackground:@selector(archiveClientData) withObject:nil];
+            if(self.pageName)
+            {
+                NSString *resumePrePageName = self.pageName;
+                pageName = nil;
+                [UMSAgent tracePage:resumePrePageName];
+            }
+            if(isLogEnabled)
+            {
+                NSLog(@"Stop session more than 30 seconds, so consider as new session id.");
+            }
+        }
+        else
+        {
+            if(isLogEnabled)
+            {
+                NSLog(@"Stop session less than 30 seconds, so consider as old session.");
+            }
+        }
+    }
+    else
+    {
+        self.sessionId = [self md5:currentTime];
+    }
+    if(isLogEnabled)
+    {
+        NSLog(@"Current session ID = %@",sessionId);
+    }
+    
+    [self performSelectorInBackground:@selector(archiveClientData) withObject:nil];
+    
+    if(isLogEnabled)
+    {
+        NSLog(@"Application Resign Active");
+    }
+    
 }
 
 -(void)commitUsingTime:(NSString*)currentPageName
 {
-	@autoreleasepool
-	{
-		NSString *session_mills = self.sessionId;
-		NSString *end_mils = [self getCurrentTime];
-		NSDate *pageStartDate = [[NSUserDefaults standardUserDefaults] objectForKey:currentPageName];
-		if(pageStartDate!=nil)
-		{
-			NSString *start_mils = [self getDateStr:pageStartDate];
-			NSTimeInterval duration = (-[pageStartDate timeIntervalSinceNow])*1000;
-			NSString *durationStr = [[NSString alloc] initWithFormat:@"%f",duration];
-			NSString *activities = currentPageName;
-			NSString *appVersion = [self getVersion];
-			CommonReturn *ret = [PostClientDataDao postUsingTime:appKey sessionMills:session_mills startMils:start_mils endMils:end_mils duration:durationStr activity:activities version:appVersion];
-			if (ret.flag < 0) {
-				ActivityLog *ac = [[ActivityLog alloc] init];
-				ac.sessionMils = session_mills;
-				ac.startMils = start_mils;
-				ac.endMils = end_mils;
-				ac.duration = durationStr;
-				ac.activity = activities;
-				ac.version = appVersion;
-				ac.userid = [UMSAgent getUserId];
-				ac.deviceid = [self machineName];
+    @autoreleasepool
+    {
+        NSString *session_mills = self.sessionId;
+        NSString *end_mils = [self getCurrentTime];
+        NSDate *pageStartDate = [[NSUserDefaults standardUserDefaults] objectForKey:currentPageName];
+        if(pageStartDate!=nil)
+        {
+            NSString *start_mils = [self getDateStr:pageStartDate];
+            NSTimeInterval duration = (-[pageStartDate timeIntervalSinceNow])*1000;
+            NSString *durationStr = [[NSString alloc] initWithFormat:@"%f",duration];
+            NSString *activities = currentPageName;
+            NSString *appVersion = [self getVersion];
+            [PostClientDataDao postUsingTime:appKey sessionMills:session_mills startMils:start_mils endMils:end_mils duration:durationStr activity:activities version:appVersion];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:currentPageName];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        else
+        {
+            if(isLogEnabled)
+            {
+                NSLog(@"Page Start time not found. in commitUsingTime pagename = %@",currentPageName);
+            }
+        }
+    }
+}
 
-				NSData *activityLogData = [self getArchivedLogFromFile:kActivityLog];
-				NSMutableArray * activityLogArray = [[NSMutableArray alloc] init ];
-				if (activityLogData!=nil)
-				{
-					activityLogArray = [NSKeyedUnarchiver unarchiveObjectWithData:activityLogData];
-				}
-				else {
-					activityLogArray = [[NSMutableArray alloc] init ];
-				}
-				[activityLogArray addObject:ac];
-				if(isLogEnabled)
-				{
-					NSLog(@"Activity Log array size = %lu",(unsigned long)[activityLogArray count]);
-				}
-				NSData *newActivityData = [NSKeyedArchiver archivedDataWithRootObject:activityLogArray];
-				//        [[NSUserDefaults standardUserDefaults] setObject:newActivityData forKey:@"activityLog"];
-				//        [[NSUserDefaults standardUserDefaults] synchronize];
-				[self checkSizeAndSaveObject:newActivityData ToFile:kActivityLog];
-
-			}
-			[[NSUserDefaults standardUserDefaults] removeObjectForKey:currentPageName];
-			[[NSUserDefaults standardUserDefaults] synchronize];
-		}
-		else
-		{
-			if(isLogEnabled)
-			{
-				NSLog(@"Page Start time not found. in commitUsingTime pagename = %@",currentPageName);
-			}
-		}
-	}
+- (void)saveErrorLog:(NSString*)stackTrace
+{
+    @autoreleasepool {
+        if(isLogEnabled)
+        {
+            NSLog(@"save error log");
+        }
+        ErrorLog *errorLog = [[ErrorLog alloc] init];
+        errorLog.stackTrace = stackTrace;
+        errorLog.appkey = self.appKey;
+        errorLog.version = [self getVersion];
+        errorLog.time = [self getCurrentTime];
+        errorLog.activity = [[NSBundle mainBundle] bundleIdentifier];
+        errorLog.osVersion = [[UIDevice currentDevice] systemVersion];
+        errorLog.deviceID = [self machineName];
+        NSLog(@"Error Log");
+        NSData *errorLogData = [[NSUserDefaults standardUserDefaults] objectForKey:@"errorLog"] ;
+        NSMutableArray * errorLogArray = [[NSMutableArray alloc] init ];
+        if (errorLogData!=nil)
+        {
+            errorLogArray = [NSKeyedUnarchiver unarchiveObjectWithData:errorLogData];
+        }
+        else {
+            errorLogArray = [[NSMutableArray alloc] init ];
+        }
+        [errorLogArray addObject:errorLog];
+        if(isLogEnabled)
+        {
+            NSLog(@"Error Log array size = %d",[errorLogArray count]);
+        }
+        NSData *newErrorData = [NSKeyedArchiver archivedDataWithRootObject:errorLogArray];
+        [[NSUserDefaults standardUserDefaults] setObject:newErrorData forKey:@"errorLog"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    }
 }
 
 - (void)saveActivityUsingTime:(NSString*)currentPageName
 {
-	@autoreleasepool
-	{
-		ActivityLog *acLog = [[ActivityLog alloc] init];
-		acLog.sessionMils = self.sessionId;
-		NSDate *pageStartDate = [[NSUserDefaults standardUserDefaults] objectForKey:currentPageName];
-		if(pageStartDate!=nil)
-		{
-			NSString *start_mils = [self getDateStr:pageStartDate];
-			acLog.startMils = start_mils;
-			[[NSUserDefaults standardUserDefaults] removeObjectForKey:currentPageName];
-			[[NSUserDefaults standardUserDefaults] synchronize];
-		}
-		else
-		{
-			if(isLogEnabled)
-			{
-				NSLog(@"Page Start time not found. in saveActivityUsingTime pagename = %@",currentPageName);
-			}
-			return;
-		}
-		acLog.endMils = [self getCurrentTime];
-		NSTimeInterval duration = (-[pageStartDate timeIntervalSinceNow])*1000;
-		acLog.duration = [[NSString alloc] initWithFormat:@"%f",duration];
-		acLog.activity = currentPageName;
-		acLog.version = [self getVersion];
-		acLog.userid = [UMSAgent getUserId];
-		acLog.deviceid = [self machineName];
-
-		if(acLog)
-		{
-			NSLog(@"acLog sessionMils = %@",acLog.sessionMils);
-		}
-		//        NSData *activityLogData = [[NSUserDefaults standardUserDefaults] objectForKey:@"activityLog"] ;
-		NSData *activityLogData = [self getArchivedLogFromFile:kActivityLog];
-		NSMutableArray * activityLogArray = [[NSMutableArray alloc] init ];
-		if (activityLogData!=nil)
-		{
-			activityLogArray = [NSKeyedUnarchiver unarchiveObjectWithData:activityLogData];
-		}
-		else {
-			activityLogArray = [[NSMutableArray alloc] init ];
-		}
-		[activityLogArray addObject:acLog];
-		if(isLogEnabled)
-		{
-			NSLog(@"Activity Log array size = %lu",(unsigned long)[activityLogArray count]);
-		}
-		NSData *newActivityData = [NSKeyedArchiver archivedDataWithRootObject:activityLogArray];
-		//        [[NSUserDefaults standardUserDefaults] setObject:newActivityData forKey:@"activityLog"];
-		//        [[NSUserDefaults standardUserDefaults] synchronize];
-		[self checkSizeAndSaveObject:newActivityData ToFile:kActivityLog];
-	}
+    @autoreleasepool
+    {
+        ActivityLog *acLog = [[ActivityLog alloc] init];
+        acLog.sessionMils = self.sessionId;
+        NSDate *pageStartDate = [[NSUserDefaults standardUserDefaults] objectForKey:currentPageName];
+        if(pageStartDate!=nil)
+        {
+            NSString *start_mils = [self getDateStr:pageStartDate];
+            acLog.startMils = start_mils;
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:currentPageName];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        else
+        {
+            if(isLogEnabled)
+            {
+                NSLog(@"Page Start time not found. in saveActivityUsingTime pagename = %@",currentPageName);
+            }
+            return;
+        }
+        acLog.endMils = [self getCurrentTime];
+        NSTimeInterval duration = (-[pageStartDate timeIntervalSinceNow])*1000;
+        acLog.duration = [[NSString alloc] initWithFormat:@"%f",duration];
+        acLog.activity = currentPageName;
+        acLog.version = [self getVersion];
+        if(acLog)
+        {
+            NSLog(@"acLog sessionMils = %@",acLog.sessionMils);
+        }
+        NSData *activityLogData = [[NSUserDefaults standardUserDefaults] objectForKey:@"activityLog"] ;
+        NSMutableArray * activityLogArray = [[NSMutableArray alloc] init ];
+        if (activityLogData!=nil)
+        {
+            activityLogArray = [NSKeyedUnarchiver unarchiveObjectWithData:activityLogData];
+        }
+        else {
+            activityLogArray = [[NSMutableArray alloc] init ];
+        }
+        [activityLogArray addObject:acLog];
+        if(isLogEnabled)
+        {
+            NSLog(@"Activity Log array size = %d",[activityLogArray count]);
+        }
+        NSData *newActivityData = [NSKeyedArchiver archivedDataWithRootObject:activityLogArray];
+        [[NSUserDefaults standardUserDefaults] setObject:newActivityData forKey:@"activityLog"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
--(NSMutableArray *)getArchiveActivityLog
-{
-	//    NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"activityLog"] ;
-
-	NSData *oldData = [self getArchivedLogFromFile:kActivityLog];
-	NSMutableArray * array = nil;
-	if (oldData!=nil)
-	{
-		array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
-		if(isLogEnabled)
-		{
-			NSLog(@"Have activity data num = %lu",(unsigned long)[array count]);
-		}
-	}
-	NSMutableArray *activityLogArray = [[NSMutableArray alloc] init];
-	if ([array count]>0)
-	{
-		for(ActivityLog *mLog in array)
-		{
-			NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
-			@try {
-				[requestDictionary setObject:mLog.sessionMils forKey:@"session_id"];
-				[requestDictionary setObject:mLog.startMils forKey:@"start_millis"];
-				[requestDictionary setObject:mLog.endMils forKey:@"end_millis"];
-				[requestDictionary setObject:mLog.duration forKey:@"duration"];
-				[requestDictionary setObject:mLog.activity forKey:@"activities"];
-				[requestDictionary setObject:appKey forKey:@"appkey"];
-				[requestDictionary setObject:mLog.version forKey:@"version"];
-				[requestDictionary setObject:mLog.deviceid forKey:@"deviceid"]; //////////////////
-				[requestDictionary setObject:mLog.userid forKey:@"userid"];///////////
-				[activityLogArray addObject:requestDictionary];
-			}
-			@catch (NSException *exception) {
-
-			}
-			@finally {
-
-			}
-
-		}
-	}
-	return activityLogArray;
+-(NSString *)md5:(NSString *)str {
+    const char *cStr = [str UTF8String];
+    unsigned char result[32];
+    CC_MD5( cStr, strlen(cStr), result );
+    return [NSString stringWithFormat:
+            @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
 }
 
-
-#pragma mark - enter & back from Background
-- (void)resignActive:(NSNotification *)notification
++(void)checkUpdate
 {
-	if(self.pageName!=nil)
-	{
-		if([UMSAgent getInstance].policy == REALTIME)
-		{
-			[self commitUsingTime:self.pageName];
-		}
-		else
-		{
-			[self saveActivityUsingTime:self.pageName];
-		}
-	}
-
-	sessionStopDate = [NSDate date];
-	if(isLogEnabled)
-	{
-		NSLog(@"Resign Active: click home button or lose focus. End Trace Page and save session stop date.");
-	}
+    if ([UMSAgent getInstance].updateOnlyWifi)
+    {
+        [[UMSAgent getInstance] getApplicationUpdate];
+    }
 }
 
-
-- (void)becomeActive:(NSNotification *)notification
+-(void) getApplicationUpdate
 {
-	if(isLogEnabled)
-	{
-		NSLog(@"Application become active");
-	}
-
-	NSString *currentTime = [[NSString alloc] initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
-	if(sessionStopDate!=nil)
-	{
-		NSTimeInterval sessionStopInterval = -[sessionStopDate timeIntervalSinceNow];
-		if(sessionStopInterval + 0.0000001 > 30)
-		{
-			self.sessionId = [self md5:currentTime];
-			[self performSelectorInBackground:@selector(archiveClientData) withObject:nil];
-			if(self.pageName)
-			{
-				NSString *resumePrePageName = self.pageName;
-				pageName = nil;
-				[UMSAgent tracePage:resumePrePageName];
-			}
-			if(isLogEnabled)
-			{
-				NSLog(@"Stop session more than 30 seconds, so consider as new session id.");
-			}
-		}
-		else
-		{
-			if(isLogEnabled)
-			{
-				NSLog(@"Stop session less than 30 seconds, so consider as old session.");
-			}
-		}
-	}
-	else
-	{
-		self.sessionId = [self md5:currentTime];
-	}
-	if(isLogEnabled)
-	{
-		NSLog(@"Current session ID = %@",sessionId);
-	}
-
-	[self performSelectorInBackground:@selector(archiveClientData) withObject:nil];
-
-	if(isLogEnabled)
-	{
-		NSLog(@"Application Resign Active");
-	}
-
-}
-
-#pragma mark - collect info & general function
-+(void)bindUserIdentifier:(NSString *)userid
-{
-	[[NSUserDefaults standardUserDefaults] setObject:userid forKey:@"userid"];
-	[[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-+(NSString*)getUserId
-{
-	NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userid"];
-	if(userId!=nil)
-	{
-		return userId;
-	}
-	return @"";
+    CheckUpdateReturn *retWrapper;
+    if(isLogEnabled)
+    {
+        NSLog(@"Begin get application update");
+    }
+    retWrapper = [CheckUpdateDao checkUpdate:appKey version:@"1.0"];
+    if (retWrapper.flag>0)
+    {
+        updateRet = retWrapper;
+        NSString *version = [[NSString alloc] initWithFormat:@"New Update %@",retWrapper.version];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: version
+                                                        message: retWrapper.description
+                                                       delegate: self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"Confirm", nil];
+        [alert show];
+    }
+    else
+    {
+        if(isLogEnabled)
+        {
+            NSLog(@"Update Return: Flag = %d, Msg = %@",retWrapper.flag,retWrapper.msg);
+        }
+    }
 }
 
 -(void) postDataInBackGround
 {
-    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey];
-    CheckUpdateReturn *returnData = [CheckUpdateDao checkUpdate:appKey version:version];
+    CheckUpdateReturn *returnData = [CheckUpdateDao checkUpdate:appKey version:@"1.0"];
     [self performSelectorOnMainThread:@selector(end_postdataThread:) withObject:returnData waitUntilDone:NO];
 }
 
@@ -1095,6 +519,550 @@
     CheckUpdateReturn *retObj  =ret;
     if (retObj.flag>0) {
         
+    }
+}
+
++(void)postEvent:(NSString *)event_id
+{
+    Event *event =[[Event alloc] init];
+    event.event_id = event_id;
+    event.activity = [[NSBundle mainBundle] bundleIdentifier];
+    event.label = @"";
+    event.time = [[UMSAgent getInstance] getCurrentTime];
+    event.version = [[UMSAgent getInstance] getVersion];
+    event.acc = 1;
+    event.json = @"";
+    [[UMSAgent getInstance] archiveEvent:event];
+}
+
++(void)postEventJSON:(NSString*)event_id json:(NSString*)jsonStr
+{
+    Event *event =[[Event alloc] init];
+    event.event_id = event_id;
+    event.activity = [[NSBundle mainBundle] bundleIdentifier];
+    event.label = @"";
+    event.time = [[UMSAgent getInstance] getCurrentTime];
+    event.version = [[UMSAgent getInstance] getVersion];
+    NSString *jsonN = [jsonStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"EVNT=%@",jsonN);
+    
+    event.json = jsonN;
+    event.acc = 1;
+    [[UMSAgent getInstance] archiveEvent:event];
+}
+
++(void)postEvent:(NSString *)event_id label:(NSString *)label
+{
+    Event *event = [[Event alloc] init];
+    event.event_id = event_id;
+    event.time = [[UMSAgent getInstance] getCurrentTime];
+    event.acc = 1;
+    event.version = [[UMSAgent getInstance] getVersion];
+    event.activity = [[NSBundle mainBundle] bundleIdentifier];
+    event.json = @"";
+    event.label = label;
+    [[UMSAgent getInstance] archiveEvent:event];
+    
+}
+
++(void)postEvent:(NSString *)event_id acc:(NSInteger)acc
+{
+    Event *event = [[Event alloc] init];
+    event.event_id = event_id;
+    event.time = [[UMSAgent getInstance] getCurrentTime];
+    event.acc = acc;
+    event.json = @"";
+    event.version = [[UMSAgent getInstance] getVersion];
+    event.activity =[[NSBundle mainBundle] bundleIdentifier];
+    event.label = @"";
+    [[UMSAgent getInstance] archiveEvent:event];
+    
+}
+
++(void)postEvent:(NSString *)event_id label:(NSString *)label acc:(NSInteger)acc
+{
+    Event *event = [[Event alloc] init];
+    event.event_id = event_id;
+    event.time = [[UMSAgent getInstance] getCurrentTime];
+    event.acc = acc;
+    event.json = @"";
+    event.activity = [[NSBundle mainBundle] bundleIdentifier];
+    event.version = [[UMSAgent getInstance] getVersion];
+    event.label = label;
+    [[UMSAgent getInstance] archiveEvent:event];
+}
+
++(void)postTag:(NSString *)tag
+{
+    Tag *tags = [[Tag alloc] init];
+    tags.tags = tag;
+    tags.productkey = [[UMSAgent getInstance] appKey];
+    tags.deviceid = [UMS_OpenUDID value];
+
+
+    [[UMSAgent getInstance] archiveTag:tags];
+}
+
++(void)bindUserIdentifier:(NSString *)userid
+{
+    [[NSUserDefaults standardUserDefaults] setObject:userid forKey:@"userid"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(NSString*)getUserId
+{
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userid"];
+    if(userId!=nil)
+    {
+        return userId;
+    }
+    return @"";
+}
+
+-(void) processEvent:(Event *)event
+{
+    [self performSelectorInBackground:@selector(postEventInBackGround:) withObject:event];
+}
+
+-(void) processTag:(Tag *)tag
+{
+    [self performSelectorInBackground:@selector(postTagInBackGround:) withObject:tag];
+}
+
+-(void) processArchivedLogs
+{
+    @autoreleasepool {
+        NSMutableArray *eventArray = [self getArchiveEvent];
+        NSMutableArray *activityLogArray = [self getArchiveActivityLog];
+        NSMutableArray *errorLogArray = [self getArchiveErrorLog];
+        NSMutableArray *clientDataArray = [self getArchiveClientData];
+        NSMutableArray *tagArray = [self getArchiveTag];
+        if([eventArray count]>0 || [activityLogArray count]>0 || [errorLogArray count]>0 || [clientDataArray count]>0 || [tagArray count]>0)
+        {
+            NSMutableDictionary *requestDic = [[NSMutableDictionary alloc] init];
+            [requestDic setObject:appKey forKey:@"appkey"];
+            if([eventArray count]>0)
+            {
+                [requestDic setObject:eventArray forKey:@"eventInfo"];
+            }
+            
+            if([tagArray count]>0)
+            {
+                [requestDic setObject:tagArray forKey:@"tagInfo"];
+            }
+            
+            if([activityLogArray count] >0)
+            {
+                [requestDic setObject:activityLogArray forKey:@"activityInfo"];
+            }
+            
+            if([errorLogArray count]>0)
+            {
+                [requestDic setObject:errorLogArray forKey:@"errorInfo"];
+            }
+            
+            if([clientDataArray count]>0)
+            {
+                [requestDic setObject:clientDataArray forKey:@"clientData"];
+            }
+            
+            if(isLogEnabled)
+            {
+                NSLog(@"Post Archive Logs");
+            }
+            CommonReturn *ret = [PostClientDataDao postArchiveLogs:requestDic];
+            if(ret.flag>0)
+            {
+                if (isLogEnabled)
+                {
+                    NSLog(@"Arcived log upload success, so remove archived logs in cache");
+                }
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"eventArray"];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tagArray"];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"activityLog"];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"errorLog"];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"clientDataArray"];
+            }
+        }
+    }
+}
+
+-(NSMutableArray *)getArchiveEvent
+{
+    NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"eventArray"] ;
+    NSMutableArray * array = nil;
+    if(isLogEnabled)
+    {
+        NSLog(@"old  data num = %d",[array count]);
+    }
+    
+    if (oldData!=nil)
+    {
+        array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+    }
+    NSMutableArray *eventArray = [[NSMutableArray alloc] init];
+    if ([array count]>0)
+    {
+        for(Event *mEvent in array)
+        {
+            NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
+            [requestDictionary setObject:mEvent.event_id forKey:@"event_identifier"];
+            [requestDictionary setObject:mEvent.time forKey:@"time"];
+            [requestDictionary setObject:mEvent.activity forKey:@"activity"];
+            [requestDictionary setObject:mEvent.label forKey:@"label"];
+            [requestDictionary setObject:[NSNumber numberWithInt:mEvent.acc] forKey:@"acc"];
+            [requestDictionary setObject:appKey forKey:@"appkey"];
+            [requestDictionary setObject:mEvent.version forKey:@"version"];
+            [eventArray addObject:requestDictionary];
+        }
+    }
+    return eventArray;
+}
+
+-(NSMutableArray *)getArchiveTag
+{
+    NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"tagArray"] ;
+    NSMutableArray * array = nil;
+    if(isLogEnabled)
+    {
+        NSLog(@"old  data num = %d",[array count]);
+    }
+    
+    if (oldData!=nil)
+    {
+        array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+    }
+    NSMutableArray *tagArray = [[NSMutableArray alloc] init];
+    if ([array count]>0)
+    {
+        for(Tag *mTag in array)
+        {
+            NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
+            [requestDictionary setObject:mTag.deviceid forKey:@"deviceid"];
+            [requestDictionary setObject:mTag.tags forKey:@"tags"];
+            [requestDictionary setObject:mTag.productkey forKey:@"productkey"];
+            [tagArray addObject:requestDictionary];
+        }
+    }
+    return tagArray;
+}
+
+
+-(NSMutableArray *)getArchiveActivityLog
+{
+    NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"activityLog"] ;
+    NSMutableArray * array = nil;
+    if (oldData!=nil)
+    {
+        array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+        if(isLogEnabled)
+        {
+            NSLog(@"Have activity data num = %d",[array count]);
+        }
+    }
+    NSMutableArray *activityLogArray = [[NSMutableArray alloc] init];
+    if ([array count]>0)
+    {
+        for(ActivityLog *mLog in array)
+        {
+            NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
+            @try {
+                [requestDictionary setObject:mLog.sessionMils forKey:@"session_id"];
+                [requestDictionary setObject:mLog.startMils forKey:@"start_millis"];
+                [requestDictionary setObject:mLog.endMils forKey:@"end_millis"];
+                [requestDictionary setObject:mLog.duration forKey:@"duration"];
+                [requestDictionary setObject:mLog.activity forKey:@"activities"];
+                [requestDictionary setObject:appKey forKey:@"appkey"];
+                [requestDictionary setObject:mLog.version forKey:@"version"];
+                [activityLogArray addObject:requestDictionary];
+            }
+            @catch (NSException *exception) {
+                
+            }
+            @finally {
+                
+            }
+            
+        }
+    }
+    return activityLogArray;
+}
+
+-(NSMutableArray *)getArchiveErrorLog
+{
+    NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"errorLog"] ;
+    NSMutableArray * array = nil;
+    if (oldData!=nil)
+    {
+        array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+        if(isLogEnabled)
+        {
+            NSLog(@"Have error data num = %d",[array count]);
+        }
+    }
+    NSMutableArray *errorLogArray = [[NSMutableArray alloc] init];
+    if ([array count]>0)
+    {
+        for(ErrorLog *errorLog in array)
+        {
+            NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
+            [requestDictionary setObject:errorLog.time forKey:@"time"];
+            [requestDictionary setObject:errorLog.stackTrace forKey:@"stacktrace"];
+            [requestDictionary setObject:errorLog.version forKey:@"version"];
+            [requestDictionary setObject:errorLog.osVersion forKey:@"os_version"];
+            [requestDictionary setObject:errorLog.deviceID forKey:@"deviceid"];
+            [requestDictionary setObject:errorLog.appkey forKey:@"appkey"];
+            [requestDictionary setObject:errorLog.activity forKey:@"activity"];
+            [errorLogArray addObject:requestDictionary];
+        }
+    }
+    return errorLogArray;
+}
+
+
+-(void)postEventInBackGround:(Event *)event
+{
+    @autoreleasepool {
+        CommonReturn *ret ;
+        ret = [postEventDao postEvent:self.appKey event:event];
+        if (ret.flag<0)
+        {
+            NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"eventArray"] ;
+            NSMutableArray * array = [[NSMutableArray alloc] init];
+            
+            if (oldData!=nil)
+            {
+                array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+            }
+            [array addObject:event];
+            NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:array];
+            [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"eventArray"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+}
+
+-(void)postTagInBackGround:(Tag *)tag
+{
+    @autoreleasepool {
+        CommonReturn *ret ;
+        ret = [PostTagDao postTag:self.appKey tag:tag];
+        if (ret.flag<0)
+        {
+            NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"tagArray"] ;
+            NSMutableArray * array = [[NSMutableArray alloc] init];
+            
+            if (oldData!=nil)
+            {
+                array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+            }
+            [array addObject:tag];
+            NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:array];
+            [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"tagArray"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+}
+
+
+
+-(void)postOldEventDataInBackGround:(NSMutableArray *)array
+{
+    @autoreleasepool {
+        for (int i =0; i<[array count]; i++)
+        {
+            Event *event = [array objectAtIndex:i];
+            
+            CommonReturn *ret ;
+            ret = [postEventDao postEvent:appKey event:event];
+            if (ret.flag>0)
+            {
+                [array removeObjectAtIndex:i];
+                
+            }
+            
+            NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:array];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"eventArray"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+}
+
+-(void)archiveClientData
+{
+    ClientData *clientData = [self getDeviceInfo];
+    NSMutableArray *mClientDataArray;
+    if (self.policy == BATCH) {
+        NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"clientDataArray"] ;
+        if (oldData!=nil)
+        {
+            mClientDataArray = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+        }
+        else
+        {
+            mClientDataArray = [[NSMutableArray alloc] init];
+        }
+        if(isLogEnabled)
+        {
+            NSLog(@"archive client data because of BATCH mode");
+        }
+        [mClientDataArray addObject:clientData];
+        if(isLogEnabled)
+        {
+            NSLog(@"Archived client data = %d",[mClientDataArray count]);
+        }
+        NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mClientDataArray];
+        [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"clientDataArray"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    else
+    {
+        
+        [self processClientData:clientData];
+    }
+    
+    //Process archived logs after post ClientData
+    [self performSelector:@selector(processArchivedLogs)];
+    
+}
+
+-(void)processClientData:(ClientData *)clientData
+{
+    [self performSelector:@selector(postClientDataInBackground:) withObject:clientData];
+}
+
++(void)postCID:(NSString*)clientID
+{
+    [self performSelector:@selector(postCIDInBackground:) withObject:clientID];
+}
+
++(void)postUserIdentifier:(NSString*)userId
+{
+    [self performSelector:@selector(postUserIdentifierInBackground:) withObject:userId];
+}
+
+-(NSMutableArray *)getArchiveClientData
+{
+    NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"clientDataArray"] ;
+    NSMutableArray * array = nil;
+    if (oldData!=nil)
+    {
+        array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+        if(isLogEnabled)
+        {
+            NSLog(@"Have error data num = %d",[array count]);
+        }
+    }
+    NSMutableArray *clientDataArray = [[NSMutableArray alloc] init];
+    if ([array count]>0)
+    {
+        for(ClientData *clientData in array)
+        {
+            NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
+            [requestDictionary setObject:clientData.platform forKey:@"platform"];
+            [requestDictionary setObject:clientData.os_version forKey:@"os_version"];
+            [requestDictionary setObject:clientData.language forKey:@"language"];
+            [requestDictionary setObject:clientData.resolution forKey:@"resolution"];
+            [requestDictionary setObject:clientData.deviceid forKey:@"deviceid"];
+            if (clientData.userid!=nil) {
+                [requestDictionary setObject:clientData.userid forKey:@"userid"];
+            }
+            else
+            {
+                [requestDictionary setObject:@"" forKey:@"userid"];
+            }
+            
+            if(clientData.mccmnc!=nil)
+            {
+                [requestDictionary setObject:clientData.mccmnc forKey:@"mccmnc"];
+            }
+            else
+            {
+                [requestDictionary setObject:@"" forKey:@"mccmnc"];
+                
+            }
+            [requestDictionary setObject:clientData.version forKey:@"version"];
+            [requestDictionary setObject:clientData.network forKey:@"network"];
+            [requestDictionary setObject:clientData.devicename forKey:@"devicename"];
+            [requestDictionary setObject:clientData.modulename forKey:@"modulename"];
+            [requestDictionary setObject:clientData.time forKey:@"time"];
+            [requestDictionary setObject:appKey forKey:@"appkey"];
+            [requestDictionary setObject:clientData.isjailbroken forKey:@"isjailbroken"];
+            [clientDataArray addObject:requestDictionary];
+        }
+    }
+    return clientDataArray;
+}
+
+
+
+-(void)archiveEvent:(Event *)event
+{
+    if(self.pageName!=nil && ![self.pageName isEqualToString:@""])
+    {
+        event.activity = self.pageName;
+    }
+    
+    NSMutableArray *mEventArray;
+    if (self.policy == BATCH) {
+        NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"eventArray"] ;
+        if (oldData!=nil)
+        {
+            mEventArray = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+        }
+        else
+        {
+            mEventArray = [[NSMutableArray alloc] init];
+        }
+        if(isLogEnabled)
+        {
+            NSLog(@"archive event because of BATCH mode");
+        }
+        [mEventArray addObject:event];
+        if(isLogEnabled)
+        {
+            NSLog(@"Archived event count = %d",[mEventArray count]);
+        }
+        NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mEventArray];
+        [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"eventArray"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    else
+    {
+        [self processEvent:event];
+    }
+}
+
+-(void)archiveTag:(Tag *)tag
+{
+    NSMutableArray *mTagArray;
+    if (self.policy == BATCH) {
+        NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"tagArray"] ;
+        if (oldData!=nil)
+        {
+            mTagArray = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+        }
+        else
+        {
+            mTagArray = [[NSMutableArray alloc] init];
+        }
+        if(isLogEnabled)
+        {
+            NSLog(@"archive tag because of BATCH mode");
+        }
+        [mTagArray addObject:tag];
+        if(isLogEnabled)
+        {
+            NSLog(@"Archived tag count = %d",[mTagArray count]);
+        }
+        NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mTagArray];
+        [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"tagArray"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    else
+    {
+        [self processTag:tag];
     }
 }
 
@@ -1178,6 +1146,105 @@
     
 }
 
+-(void)postCIDInBackground:(NSString*)clientID
+{
+     @autoreleasepool {
+         CommonReturn *ret ;
+         ret = [PostClientDataDao postCID:self.appKey cid:clientID];
+
+         if(ret.flag >0)
+         {
+             if(isLogEnabled)
+             {
+                 NSLog(@"Post CID Data OK: Flag = %d, Msg = %@",ret.flag,ret.msg);
+             }
+         }
+         else
+         {
+             if(isLogEnabled)
+             {
+                 NSLog(@"Post CID Error: Flag = %d, Msg = %@",ret.flag,ret.msg);
+             }
+         }
+     }
+}
+
+-(void)postUserIdentifierInBackground:(NSString*)userId
+{
+    @autoreleasepool {
+        [UMSAgent bindUserIdentifier:userId];
+        CommonReturn *ret ;
+        ret = [PostClientDataDao postUserIdentifier:self.appKey userId:userId];
+
+        if(ret.flag >0)
+        {
+            if(isLogEnabled)
+            {
+                NSLog(@"Post User Identifier Data OK: Flag = %d, Msg = %@",ret.flag,ret.msg);
+            }
+        }
+        else
+        {
+            if(isLogEnabled)
+            {
+                NSLog(@"Post User Identifier ERROR: Flag = %d, Msg = %@",ret.flag,ret.msg);
+            }
+        }
+    }
+}
+
+-(void)postClientDataInBackground:(ClientData *)clientData
+{
+    @autoreleasepool {
+        //[self isWiFiAvailable];
+        CommonReturn *ret ;
+        ret = [PostClientDataDao postClient:self.appKey deviceInfo:clientData];
+        
+        if(ret.flag >0)
+        {
+            if(isLogEnabled)
+            {
+                NSLog(@"Post Client Data OK: Flag = %d, Msg = %@",ret.flag,ret.msg);
+            }
+        }
+        else
+        {
+            if(isLogEnabled)
+            {
+                NSLog(@"Post Client Data Error: So save to archive. Flag = %d, Msg = %@",ret.flag,ret.msg);
+            }
+            NSMutableArray *mClientDataArray;
+            NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"clientDataArray"] ;
+            if (oldData!=nil)
+            {
+                mClientDataArray = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+                if ([mClientDataArray count]>10)
+                {
+                    NSRange range;
+                    range.location = 0;
+                    range.length = [mClientDataArray count]-10;
+                    [mClientDataArray removeObjectsInRange:range];
+                }
+            }
+            else
+            {
+                mClientDataArray = [[NSMutableArray alloc] init];
+            }
+            if(isLogEnabled)
+            {
+                NSLog(@"archive client data because of BATCH mode");
+            }
+            [mClientDataArray addObject:clientData];
+            if(isLogEnabled)
+            {
+                NSLog(@"Archived client data = %d",[mClientDataArray count] );
+            }
+            NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mClientDataArray];
+            [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"clientDataArray"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+}
 
 
 +(ConfigPreference *)updateOnlineConfig
@@ -1339,6 +1406,14 @@ uncaughtExceptionHandler(NSException *exception) {
     }
     else
     {
+        //        NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+        //        if(idfa && ![idfa isEqualToString:@""])
+        //        {
+        //            [SFHFKeychainUtils storeUsername:@"UMSAgentUDID" andPassword:idfa forServiceName:@"UMSAgent" updateExisting:NO error:nil];
+        //            return idfa;
+        //        }
+        //        else
+        //        {
         NSString *openUDID = [UMS_OpenUDID value];
         [SFHFKeychainUtils storeUsername:@"UMSAgentUDID" andPassword:openUDID forServiceName:@"UMSAgent" updateExisting:NO error:nil];
         return openUDID;
@@ -1346,116 +1421,4 @@ uncaughtExceptionHandler(NSException *exception) {
     }
 }
 
--(NSString *)md5:(NSString *)str {
-	const char *cStr = [str UTF8String];
-	unsigned char result[32];
-	CC_MD5( cStr, strlen(cStr), result );
-	return [NSString stringWithFormat:
-			@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-			result[0], result[1], result[2], result[3],
-			result[4], result[5], result[6], result[7],
-			result[8], result[9], result[10], result[11],
-			result[12], result[13], result[14], result[15]
-			];
-}
-
-+(void)checkUpdate
-{
-	if ([UMSAgent getInstance].updateOnlyWifi)
-	{
-		[[UMSAgent getInstance] getApplicationUpdate];
-	}
-}
-
--(void) getApplicationUpdate
-{
-	CheckUpdateReturn *retWrapper;
-	if(isLogEnabled)
-	{
-		NSLog(@"Begin get application update");
-	}
-    
-    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey];
-	retWrapper = [CheckUpdateDao checkUpdate:appKey version:version];
-	if (retWrapper.flag>0)
-	{
-		updateRet = retWrapper;
-		NSString *version = [[NSString alloc] initWithFormat:@"New Update %@",retWrapper.version];
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: version
-														message: retWrapper.description
-													   delegate: self
-											  cancelButtonTitle:@"Cancel"
-											  otherButtonTitles:@"Confirm", nil];
-		[alert show];
-	}
-	else
-	{
-		if(isLogEnabled)
-		{
-			NSLog(@"Update Return: Flag = %d, Msg = %@",retWrapper.flag,retWrapper.msg);
-		}
-	}
-}
-
-#pragma mark - File Util
-- (NSString *)getFilePath:(NSString *)fileName
-{
-	NSArray *array = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-//	NSString *result = [[array objectAtIndex:0] stringByAppendingPathComponent:fileName];
-	NSString *path = [[array objectAtIndex:0] stringByAppendingPathComponent:@"mobileAnalysisLog"];
-	NSString *result = [path stringByAppendingPathComponent:fileName];
-
-	NSFileManager *fm = [NSFileManager defaultManager];
-	if (![fm fileExistsAtPath:path]) {
-		[fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
-	}
-	return result;
-}
-
--  (long long) fileSizeAtPath:(NSString*) filePath
-{
-	NSFileManager *fm = [NSFileManager defaultManager];
-	if ([fm fileExistsAtPath:filePath]) {
-		long long size = [[fm attributesOfItemAtPath:filePath error:nil] fileSize];
-		NSLog(@"File exitst at path: %@ with size: %lld", filePath, size);
-		return size;
-	}
-	return 0;
-}
-
-- (void) checkSizeAndSaveObject:(id)object ToFile:(NSString*)fileName
-{
-	NSString *path = [self getFilePath:fileName];
-	BOOL result = [NSKeyedArchiver archiveRootObject:object toFile:path];
-	if (result) {
-		NSLog(@"Archiving OK");
-	} else {
-		NSLog(@"Archving Failed");
-	}
-
-	[self fileTooLargeNeedRemoval:fileName];
-}
-
--(BOOL) fileTooLargeNeedRemoval: (NSString*)fileName {
-	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *path = [self getFilePath:fileName];
-	BOOL tooLarge = NO;
-	if ([self fileSizeAtPath:path] > kThreshold) {
-		NSLog(@"Old file too large has to be removed.");
-		tooLarge = YES;
-		BOOL isSuccess = [fm removeItemAtPath:path error:nil];
-		if (isSuccess) {
-			NSLog(@"Old file deleted.");
-		}
-	}
-	return tooLarge;
-}
-
--(NSData*) getArchivedLogFromFile: (NSString*)fileName {
-	NSData *logData = nil;
-	if (![self fileTooLargeNeedRemoval:fileName]) {
-		logData = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getFilePath:fileName]];
-	}
-	return logData;
-}
 @end

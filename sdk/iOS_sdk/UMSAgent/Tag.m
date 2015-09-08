@@ -12,17 +12,12 @@
 @synthesize deviceid;
 @synthesize productkey;
 @synthesize tags;
-@synthesize userid;
-@synthesize version;
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     if (self =[super init]) {
         self.deviceid = [aDecoder decodeObjectForKey:@"deviceid"];
         self.productkey = [aDecoder decodeObjectForKey:@"productkey"];
-        self.tags = [aDecoder decodeObjectForKey:@"tags"];
-		self.userid = [aDecoder decodeObjectForKey:@"userid"];
-		self.version = [aDecoder decodeObjectForKey:@"version"];
-	}
+        self.tags = [aDecoder decodeObjectForKey:@"tags"];    }
     return self;
 }
 
@@ -31,8 +26,6 @@
     [aCoder encodeObject:deviceid forKey:@"deviceid"];    
     [aCoder encodeObject:productkey forKey:@"productkey"];
     [aCoder encodeObject:tags forKey:@"tags"];
-	[aCoder encodeObject:version forKey:@"version"];
-	[aCoder encodeObject:userid forKey:@"userid"];
 }
 
 @end

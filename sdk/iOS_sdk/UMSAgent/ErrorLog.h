@@ -22,7 +22,6 @@
     NSString *osVersion;
     NSString *deviceID;
     NSString *version;
-	NSString *userid;
 }
 
 @property (nonatomic,strong) NSString *stackTrace;
@@ -32,6 +31,6 @@
 @property (nonatomic,strong) NSString *osVersion;
 @property (nonatomic,strong) NSString *deviceID;
 @property (nonatomic,strong) NSString *version;
-@property (nonatomic,strong) NSString *userid;
+
 
 @end

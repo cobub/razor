@@ -26,8 +26,6 @@
     NSInteger acc;
     NSString *version;
     NSString *json;
-	NSString *userid;
-	NSString *deviceid;
 }
 
 @property (nonatomic,strong) NSString *event_id;
@@ -37,6 +35,5 @@
 @property (nonatomic) NSInteger acc;
 @property (nonatomic,strong) NSString *version;
 @property (nonatomic,strong) NSString *json;
-@property (nonatomic,strong) NSString *userid;
-@property (nonatomic,strong) NSString *deviceid;
+
 @end
