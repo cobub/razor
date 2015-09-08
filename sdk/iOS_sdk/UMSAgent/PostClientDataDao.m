@@ -131,7 +131,7 @@
     }
 }
 
--(CommonReturn *) postCID:(NSString *) appkey cid:(NSString *) clientID
++(CommonReturn *) postCID:(NSString *) appkey cid:(NSString *) clientID
 {
     @autoreleasepool {
         NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/postPushid"];
