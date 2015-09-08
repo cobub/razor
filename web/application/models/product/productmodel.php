@@ -236,7 +236,7 @@ class ProductModel extends CI_Model
      */
     function getChannelActiverate($product_id, $fromTime, $toTime, $type)
     {
-     $dwdb = $this -> load -> database('dw', true);
+        $dwdb = $this -> load -> database('dw', true);
         if ($type == 0) {
             $fromTime = "DATE_SUB('" . $fromTime . "',INTERVAL 13 DAY)";
             $toTime = "DATE_SUB('" . $toTime . "',INTERVAL 7 DAY)";
@@ -1027,10 +1027,13 @@ class ProductModel extends CI_Model
     function addProduct($userId, $appname, $channel, $platform, $category, $description) 
     {
         $appKey = md5($appname . $platform . $category . time());
-        $data = array('name' => $appname, 'description' => $description, 'date' => date('Y-m-d H:i:s'), 'user_id' => $userId, 'channel_count' => 1, 'product_key' => md5($appname . $platform . $category . time()), 'product_platform' => $platform, 'category' => $category);
+        $datetime = date('Y-m-d H:i:s');
+        $data = array('name' => $appname, 'description' => $description, 'date' => $datetime, 'user_id' => $userId, 'channel_count' => 1, 
+        'product_key' => $appKey, 'product_platform' => $platform, 'category' => $category);
         $this -> db -> insert('product', $data);
         $product_id = $this -> db -> insert_id();
-        $chanprod = array('product_id' => $product_id, 'description' => $description, 'date' => date('Y-m-d H:i:s'), 'user_id' => $userId, 'productkey' => md5($appname . $platform . $category . time()), 'channel_id' => $channel);
+        $chanprod = array('product_id' => $product_id, 'description' => $description, 'date' => $datetime, 'user_id' => $userId, 
+        'productkey' => $appKey, 'channel_id' => $channel);
         $this -> db -> insert('channel_product', $chanprod);
         $confi = array('product_id' => $product_id);
         $this -> db -> insert('config', $confi);

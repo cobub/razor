@@ -153,8 +153,14 @@ function resetExceptionlab(id) {
 					url : "<?php echo site_url()?>/manage/alert/resetalertlab",
 					data : data,
 					success : function(msg) {
-						document.getElementById('msg').innerHTML = "<?php echo lang('m_modifysuccess') ?>";
+					    if(!msg){
+							document.getElementById('msg').innerHTML = "<font color=red><?php echo lang('t_error') ?></font>";
+							document.getElementById('msg').style.display="block";
+						}else{
+						document.getElementById('msg').innerHTML = "<?php echo lang('m_modifysuccess') ?>";	
 						document.getElementById('msg').style.display="block";
+						window.location.href="<?php echo site_url()?>/manage/alert/";
+						}	
 					},
 					error : function(XmlHttpRequest, textStatus, errorThrown) {
 						document.getElementById('msg').innerHTML = errorThrown;	
