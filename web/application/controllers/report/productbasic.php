@@ -138,8 +138,13 @@ class Productbasic extends CI_Controller
             $fromTime = date("Y-m-d", strtotime("-31 day"));
         }
         if ($timePhase == "any") {
-            $fromTime = $fromDate;
-            $toTime = $toDate;
+            if ($fromDate>$toDate) {
+                $fromTime = $toDate;
+                $toTime = $fromDate;
+            } else { 
+                $fromTime = $fromDate;
+                $toTime = $toDate;
+            }
         }
         $ret = array();
         //load compare data
@@ -313,6 +318,10 @@ class Productbasic extends CI_Controller
             $this -> export -> setTitle($excel_title);
             //output content
             for ($i = 0; $i < count($data); $i++) {
+                if($data[$i]['start'])
+                $data[$i]['aver'] = round(($data[$i]['aver']/$data[$i]['start'])/1000,2);
+                
+                $data[$i]['aver'] = $data[$i]['aver'].lang('g_s');
                 $row = $data[$i];
                 $this -> export -> addRow($row);
             }
