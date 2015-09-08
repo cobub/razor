@@ -139,7 +139,12 @@ class Alert extends CI_Controller
         $exceptionlab = $_POST['exceptionlab'];
         $condition = $_POST['condition'];
         $emails = $_POST['emailstr'];
-        $this->alert->resetalert($Id, $exceptionlab, $condition, $emails);
-        // $this->index();
+        $isUnique = $this->alert->isUnique($exceptionlab, $condition, $emails);
+        if (count($isUnique->result_array()) >= 1) {
+            echo false;
+        } else {
+            $this->alert->resetalert($Id, $exceptionlab, $condition, $emails);
+            echo true;
+        }
     }
 }
