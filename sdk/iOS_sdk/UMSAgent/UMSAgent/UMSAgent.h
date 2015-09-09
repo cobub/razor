@@ -27,7 +27,7 @@ typedef enum {
 
 +(void)checkUpdate;
 
-+(void)startWithAppKey:(NSString*)appKey serverURL:(NSString *)serverURL;
++(void)startWithAppKey:(NSString*)appKey ServerURL:(NSString *)serverURL;
 
 +(void)startWithAppKey:(NSString*)appKey ReportPolicy:(ReportPolicy)policy ServerURL:(NSString*)serverURL
 ;
