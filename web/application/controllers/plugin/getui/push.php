@@ -198,7 +198,7 @@ class push extends CI_Controller
                             $i=$i+1;
             }
         }
-        $resu= json_decode($result);
+        $resu = json_decode($result,true);
         if ($resu['result']=='ok') {
             $res = array('flag' => 1, 'msg' => 'ok');
             $uid =$this->common->getUserId();
