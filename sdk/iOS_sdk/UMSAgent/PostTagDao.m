@@ -19,7 +19,7 @@
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
     [requestDictionary setObject:tag.deviceid forKey:@"deviceid"];
     [requestDictionary setObject:tag.tags forKey:@"tags"];
-    [requestDictionary setObject:tag.productkey forKey:@"productkey"];
+    [requestDictionary setObject:tag.appkey forKey:@"appkey"];
     
     
     NSString *retString = [network SendData:url data:requestDictionary];

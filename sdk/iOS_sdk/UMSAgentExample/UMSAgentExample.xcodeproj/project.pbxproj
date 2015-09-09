@@ -33,7 +33,6 @@
 		3609A5BE15180C7300BEDA05 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5BD15180C7300BEDA05 /* AppDelegate.m */; };
 		3609A5C115180C7300BEDA05 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609A5C015180C7300BEDA05 /* ViewController.m */; };
 		3609A5C415180C7300BEDA05 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3609A5C215180C7300BEDA05 /* ViewController.xib */; };
-		3609A5CC15180C7300BEDA05 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3609A5CB15180C7300BEDA05 /* SenTestingKit.framework */; };
 		3609A5CD15180C7300BEDA05 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3609A5AD15180C7300BEDA05 /* UIKit.framework */; };
 		3609A5CE15180C7300BEDA05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3609A5AF15180C7300BEDA05 /* Foundation.framework */; };
 		3609A5D615180C7300BEDA05 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3609A5D415180C7300BEDA05 /* InfoPlist.strings */; };
@@ -58,6 +57,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 3630005715131A1600E84C2D;
 			remoteInfo = UMSAgent;
+		};
+		18B7C76B1B9FFEB100E9F62C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1878CAD21B93094800CA89C1 /* UMSAgent.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3630006815131A1600E84C2D;
+			remoteInfo = UMSAgentTests;
 		};
 		3609A5CF15180C7300BEDA05 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -100,8 +106,7 @@
 		3609A5BF15180C7300BEDA05 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		3609A5C015180C7300BEDA05 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3609A5C315180C7300BEDA05 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
-		3609A5CA15180C7300BEDA05 /* UMSAgentExampleTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UMSAgentExampleTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3609A5CB15180C7300BEDA05 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		3609A5CA15180C7300BEDA05 /* UMSAgentExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UMSAgentExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3609A5D315180C7300BEDA05 /* UMSAgentExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UMSAgentExampleTests-Info.plist"; sourceTree = "<group>"; };
 		3609A5D515180C7300BEDA05 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3609A5D715180C7300BEDA05 /* UMSAgentExampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSAgentExampleTests.h; sourceTree = "<group>"; };
@@ -136,7 +141,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3609A5CC15180C7300BEDA05 /* SenTestingKit.framework in Frameworks */,
 				3609A5CD15180C7300BEDA05 /* UIKit.framework in Frameworks */,
 				3609A5CE15180C7300BEDA05 /* Foundation.framework in Frameworks */,
 			);
@@ -149,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				1878CAD71B93094900CA89C1 /* libUMSAgent.a */,
+				18B7C76C1B9FFEB100E9F62C /* UMSAgentTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,7 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				3609A5A915180C7300BEDA05 /* UMSAgentExample.app */,
-				3609A5CA15180C7300BEDA05 /* UMSAgentExampleTests.octest */,
+				3609A5CA15180C7300BEDA05 /* UMSAgentExampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,7 +200,6 @@
 				3609A5AD15180C7300BEDA05 /* UIKit.framework */,
 				3609A5AF15180C7300BEDA05 /* Foundation.framework */,
 				3609A5B115180C7300BEDA05 /* CoreGraphics.framework */,
-				3609A5CB15180C7300BEDA05 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -295,8 +299,8 @@
 			);
 			name = UMSAgentExampleTests;
 			productName = UMSAgentExampleTests;
-			productReference = 3609A5CA15180C7300BEDA05 /* UMSAgentExampleTests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+			productReference = 3609A5CA15180C7300BEDA05 /* UMSAgentExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -341,6 +345,13 @@
 			fileType = archive.ar;
 			path = libUMSAgent.a;
 			remoteRef = 1878CAD61B93094900CA89C1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		18B7C76C1B9FFEB100E9F62C /* UMSAgentTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UMSAgentTests.octest;
+			remoteRef = 18B7C76B1B9FFEB100E9F62C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -569,14 +580,13 @@
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/UMSAgentExample.app/UMSAgentExample";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UMSAgentExample/UMSAgentExample-Prefix.pch";
 				INFOPLIST_FILE = "UMSAgentExampleTests/UMSAgentExampleTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -586,14 +596,13 @@
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/UMSAgentExample.app/UMSAgentExample";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UMSAgentExample/UMSAgentExample-Prefix.pch";
 				INFOPLIST_FILE = "UMSAgentExampleTests/UMSAgentExampleTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

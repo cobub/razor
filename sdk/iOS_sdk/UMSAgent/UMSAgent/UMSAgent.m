@@ -398,7 +398,7 @@
         [errorLogArray addObject:errorLog];
         if(isLogEnabled)
         {
-            NSLog(@"Error Log array size = %d",[errorLogArray count]);
+            NSLog(@"Error Log array size = %lu",(unsigned long)[errorLogArray count]);
         }
         NSData *newErrorData = [NSKeyedArchiver archivedDataWithRootObject:errorLogArray];
         [[NSUserDefaults standardUserDefaults] setObject:newErrorData forKey:@"errorLog"];
@@ -450,7 +450,7 @@
         [activityLogArray addObject:acLog];
         if(isLogEnabled)
         {
-            NSLog(@"Activity Log array size = %d",[activityLogArray count]);
+            NSLog(@"Activity Log array size = %@",@([activityLogArray count]));
         }
         NSData *newActivityData = [NSKeyedArchiver archivedDataWithRootObject:activityLogArray];
         [[NSUserDefaults standardUserDefaults] setObject:newActivityData forKey:@"activityLog"];
@@ -596,7 +596,7 @@
 {
     Tag *tags = [[Tag alloc] init];
     tags.tags = tag;
-    tags.productkey = [[UMSAgent getInstance] appKey];
+    tags.appkey = [[UMSAgent getInstance] appKey];
     tags.deviceid = [UMS_OpenUDID value];
 
 
@@ -693,7 +693,7 @@
     NSMutableArray * array = nil;
     if(isLogEnabled)
     {
-        NSLog(@"old  data num = %d",[array count]);
+        NSLog(@"old  data num = %lu",(unsigned long)[array count]);
     }
     
     if (oldData!=nil)
@@ -710,7 +710,7 @@
             [requestDictionary setObject:mEvent.time forKey:@"time"];
             [requestDictionary setObject:mEvent.activity forKey:@"activity"];
             [requestDictionary setObject:mEvent.label forKey:@"label"];
-            [requestDictionary setObject:[NSNumber numberWithInt:mEvent.acc] forKey:@"acc"];
+            [requestDictionary setObject:[NSNumber numberWithInteger:mEvent.acc] forKey:@"acc"];
             [requestDictionary setObject:appKey forKey:@"appkey"];
             [requestDictionary setObject:mEvent.version forKey:@"version"];
             [eventArray addObject:requestDictionary];
@@ -725,7 +725,7 @@
     NSMutableArray * array = nil;
     if(isLogEnabled)
     {
-        NSLog(@"old  data num = %d",[array count]);
+        NSLog(@"old  data num = %lu",(unsigned long)[array count]);
     }
     
     if (oldData!=nil)
@@ -740,7 +740,7 @@
             NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
             [requestDictionary setObject:mTag.deviceid forKey:@"deviceid"];
             [requestDictionary setObject:mTag.tags forKey:@"tags"];
-            [requestDictionary setObject:mTag.productkey forKey:@"productkey"];
+            [requestDictionary setObject:mTag.appkey forKey:@"appkey"];
             [tagArray addObject:requestDictionary];
         }
     }
@@ -757,7 +757,7 @@
         array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
         if(isLogEnabled)
         {
-            NSLog(@"Have activity data num = %d",[array count]);
+            NSLog(@"Have activity data num = %lu",(unsigned long)[array count]);
         }
     }
     NSMutableArray *activityLogArray = [[NSMutableArray alloc] init];
@@ -797,7 +797,7 @@
         array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
         if(isLogEnabled)
         {
-            NSLog(@"Have error data num = %d",[array count]);
+            NSLog(@"Have error data num = %lu",(unsigned long)[array count]);
         }
     }
     NSMutableArray *errorLogArray = [[NSMutableArray alloc] init];
@@ -910,7 +910,7 @@
         [mClientDataArray addObject:clientData];
         if(isLogEnabled)
         {
-            NSLog(@"Archived client data = %d",[mClientDataArray count]);
+            NSLog(@"Archived client data = %lu",(unsigned long)[mClientDataArray count]);
         }
         NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mClientDataArray];
         [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"clientDataArray"];
@@ -951,7 +951,7 @@
         array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
         if(isLogEnabled)
         {
-            NSLog(@"Have error data num = %d",[array count]);
+            NSLog(@"Have error data num = %lu",(unsigned long)[array count]);
         }
     }
     NSMutableArray *clientDataArray = [[NSMutableArray alloc] init];
@@ -1022,7 +1022,7 @@
         [mEventArray addObject:event];
         if(isLogEnabled)
         {
-            NSLog(@"Archived event count = %d",[mEventArray count]);
+            NSLog(@"Archived event count = %lu",(unsigned long)[mEventArray count]);
         }
         NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mEventArray];
         [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"eventArray"];
@@ -1054,7 +1054,7 @@
         [mTagArray addObject:tag];
         if(isLogEnabled)
         {
-            NSLog(@"Archived tag count = %d",[mTagArray count]);
+            NSLog(@"Archived tag count = %@",@([mTagArray count]));
         }
         NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mTagArray];
         [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"tagArray"];
@@ -1237,7 +1237,7 @@
             [mClientDataArray addObject:clientData];
             if(isLogEnabled)
             {
-                NSLog(@"Archived client data = %d",[mClientDataArray count] );
+                NSLog(@"Archived client data = %@",@([mClientDataArray count]));
             }
             NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mClientDataArray];
             [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"clientDataArray"];

@@ -12,9 +12,9 @@
 {
     NSString *tags;
     NSString *deviceid;
-    NSString *productkey;
+    NSString *appkey;
 }
 @property (nonatomic,strong) NSString *tags;
 @property (nonatomic,strong) NSString *deviceid;
-@property (nonatomic,strong) NSString *productkey;
+@property (nonatomic,strong) NSString *appkey;
 @end

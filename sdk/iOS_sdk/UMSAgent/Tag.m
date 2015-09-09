@@ -10,13 +10,13 @@
 
 @implementation Tag
 @synthesize deviceid;
-@synthesize productkey;
+@synthesize appkey;
 @synthesize tags;
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     if (self =[super init]) {
         self.deviceid = [aDecoder decodeObjectForKey:@"deviceid"];
-        self.productkey = [aDecoder decodeObjectForKey:@"productkey"];
+        self.appkey = [aDecoder decodeObjectForKey:@"appkey"];
         self.tags = [aDecoder decodeObjectForKey:@"tags"];    }
     return self;
 }
@@ -24,7 +24,7 @@
 -(void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:deviceid forKey:@"deviceid"];    
-    [aCoder encodeObject:productkey forKey:@"productkey"];
+    [aCoder encodeObject:appkey forKey:@"appkey"];
     [aCoder encodeObject:tags forKey:@"tags"];
 }
 

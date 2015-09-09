@@ -32,7 +32,7 @@
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in UMSAgentExampleTests");
+    XCTFail(@"Unit tests are not implemented yet in UMSAgentExampleTests");
 }
 
 @end
