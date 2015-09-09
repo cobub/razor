@@ -524,40 +524,17 @@
 
 +(void)postEvent:(NSString *)event_id
 {
-    Event *event =[[Event alloc] init];
-    event.event_id = event_id;
-    event.activity = [[NSBundle mainBundle] bundleIdentifier];
-    event.label = @"";
-    event.time = [[UMSAgent getInstance] getCurrentTime];
-    event.version = [[UMSAgent getInstance] getVersion];
-    event.acc = 1;
-    [[UMSAgent getInstance] archiveEvent:event];
+    [UMSAgent postEvent:event_id label:@"" acc:1];
 }
 
 +(void)postEvent:(NSString *)event_id label:(NSString *)label
 {
-    Event *event = [[Event alloc] init];
-    event.event_id = event_id;
-    event.time = [[UMSAgent getInstance] getCurrentTime];
-    event.acc = 1;
-    event.version = [[UMSAgent getInstance] getVersion];
-    event.activity = [[NSBundle mainBundle] bundleIdentifier];
-    event.label = label;
-    [[UMSAgent getInstance] archiveEvent:event];
-    
+    [UMSAgent postEvent:event_id label:label acc:1];
 }
 
 +(void)postEvent:(NSString *)event_id acc:(NSInteger)acc
 {
-    Event *event = [[Event alloc] init];
-    event.event_id = event_id;
-    event.time = [[UMSAgent getInstance] getCurrentTime];
-    event.acc = acc;
-    event.version = [[UMSAgent getInstance] getVersion];
-    event.activity =[[NSBundle mainBundle] bundleIdentifier];
-    event.label = @"";
-    [[UMSAgent getInstance] archiveEvent:event];
-    
+    [UMSAgent postEvent:event_id label:@"" acc:acc];
 }
 
 +(void)postEvent:(NSString *)event_id label:(NSString *)label acc:(NSInteger)acc
@@ -583,10 +560,11 @@
     [[UMSAgent getInstance] archiveTag:tags];
 }
 
-+(void)bindUserIdentifier:(NSString *)userid
++(void)bindUserid:(NSString *)userid
 {
     [[NSUserDefaults standardUserDefaults] setObject:userid forKey:@"userid"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [[UMSAgent getInstance] postUserIdentifier:userid];
 }
 
 +(NSString*)getUserId
@@ -912,14 +890,14 @@
     [self performSelector:@selector(postClientDataInBackground:) withObject:clientData];
 }
 
-+(void)postCID:(NSString*)clientID
++(void)postPushid:(NSString*)pushid
 {
-    [self performSelector:@selector(postCIDInBackground:) withObject:clientID];
+    [[UMSAgent getInstance] performSelector:@selector(postPushidInBackground:) withObject:pushid];
 }
 
-+(void)postUserIdentifier:(NSString*)userId
+-(void)postUserIdentifier:(NSString*)userId
 {
-    [self performSelector:@selector(postUserIdentifierInBackground:) withObject:userId];
+    [[UMSAgent getInstance] performSelector:@selector(postUserIdentifierInBackground:) withObject:userId];
 }
 
 -(NSMutableArray *)getArchiveClientData
@@ -1060,7 +1038,7 @@
     info.modulename = [[UIDevice currentDevice] model];
     info.os_version = [[UIDevice currentDevice] systemVersion];
     info.time = [self getCurrentTime];
-    if([UMSAgent isJailbroken])
+    if([self isJailbroken])
     {
         info.isjailbroken = @"1";
     }
@@ -1126,7 +1104,7 @@
     
 }
 
--(void)postCIDInBackground:(NSString*)clientID
+-(void)postPushidInBackground:(NSString*)clientID
 {
      @autoreleasepool {
          CommonReturn *ret ;
@@ -1152,7 +1130,7 @@
 -(void)postUserIdentifierInBackground:(NSString*)userId
 {
     @autoreleasepool {
-        [UMSAgent bindUserIdentifier:userId];
+        //[UMSAgent bindUserIdentifier:userId];
         CommonReturn *ret ;
         ret = [PostClientDataDao postUserIdentifier:self.appKey userId:userId];
 
@@ -1300,7 +1278,7 @@ uncaughtExceptionHandler(NSException *exception) {
     aslresponse_free(r);
 }
 
-+(BOOL)isJailbroken
+-(BOOL)isJailbroken
 {
     BOOL jailbroken = NO;
     NSString *cydiaPath = @"/Applications/Cydia.app";

@@ -23,7 +23,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [UMSAgent checkUpdate];
+    [UMSAgent postTag:@"tag"];
+    [UMSAgent postPushid:@"pushid"];
 }
 
 - (void)throwNSException
@@ -40,6 +41,10 @@
 -(IBAction) register
 {
     [UMSAgent postEvent:@"login"  acc:1];
+    [UMSAgent postEvent:@"login" label:@"label1" acc:10];
+    [UMSAgent postEvent:@"login" label:@"lable2"];
+    [UMSAgent postEvent:@"click" acc:99];
+    [UMSAgent postEvent:@"quit"];
 	[UMSAgent postEvent:@"click" acc:1];
     [UMSAgent postEvent:@"quit" acc:1];
 }
