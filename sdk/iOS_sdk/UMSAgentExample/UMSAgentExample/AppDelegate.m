@@ -28,7 +28,7 @@
     [UMSAgent startWithAppKey:@"0d48b7f9372f551150c36e524421ac9b"
                  ReportPolicy:REALTIME
                     ServerURL:@"http://192.168.199.211/opencobub/web/index.php?"];
-
+    [UMSAgent checkUpdate];
     [UMSAgent setIsLogEnabled:YES];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

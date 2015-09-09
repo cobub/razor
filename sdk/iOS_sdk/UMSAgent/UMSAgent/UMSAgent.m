@@ -531,23 +531,6 @@
     event.time = [[UMSAgent getInstance] getCurrentTime];
     event.version = [[UMSAgent getInstance] getVersion];
     event.acc = 1;
-    event.json = @"";
-    [[UMSAgent getInstance] archiveEvent:event];
-}
-
-+(void)postEventJSON:(NSString*)event_id json:(NSString*)jsonStr
-{
-    Event *event =[[Event alloc] init];
-    event.event_id = event_id;
-    event.activity = [[NSBundle mainBundle] bundleIdentifier];
-    event.label = @"";
-    event.time = [[UMSAgent getInstance] getCurrentTime];
-    event.version = [[UMSAgent getInstance] getVersion];
-    NSString *jsonN = [jsonStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSLog(@"EVNT=%@",jsonN);
-    
-    event.json = jsonN;
-    event.acc = 1;
     [[UMSAgent getInstance] archiveEvent:event];
 }
 
@@ -559,7 +542,6 @@
     event.acc = 1;
     event.version = [[UMSAgent getInstance] getVersion];
     event.activity = [[NSBundle mainBundle] bundleIdentifier];
-    event.json = @"";
     event.label = label;
     [[UMSAgent getInstance] archiveEvent:event];
     
@@ -571,7 +553,6 @@
     event.event_id = event_id;
     event.time = [[UMSAgent getInstance] getCurrentTime];
     event.acc = acc;
-    event.json = @"";
     event.version = [[UMSAgent getInstance] getVersion];
     event.activity =[[NSBundle mainBundle] bundleIdentifier];
     event.label = @"";
@@ -585,7 +566,6 @@
     event.event_id = event_id;
     event.time = [[UMSAgent getInstance] getCurrentTime];
     event.acc = acc;
-    event.json = @"";
     event.activity = [[NSBundle mainBundle] bundleIdentifier];
     event.version = [[UMSAgent getInstance] getVersion];
     event.label = label;

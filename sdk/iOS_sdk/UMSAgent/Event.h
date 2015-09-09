@@ -25,7 +25,6 @@
     NSString *label;
     NSInteger acc;
     NSString *version;
-    NSString *json;
 }
 
 @property (nonatomic,strong) NSString *event_id;
@@ -34,6 +33,5 @@
 @property (nonatomic,strong) NSString *label;
 @property (nonatomic) NSInteger acc;
 @property (nonatomic,strong) NSString *version;
-@property (nonatomic,strong) NSString *json;
 
 @end

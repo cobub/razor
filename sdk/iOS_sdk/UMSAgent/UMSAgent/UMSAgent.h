@@ -39,8 +39,6 @@ typedef enum {
 
 //+(void)postEvent:(NSString *)event_id label:(NSString *)label acc:(NSInteger)acc;
 
-//+(void)postEventJSON:(NSString*)event_id json:(NSString*)jsonStr;
-
 +(void)postTag:(NSString *)tag;
 
 +(void)bindUserIdentifier:(NSString *)userid;
