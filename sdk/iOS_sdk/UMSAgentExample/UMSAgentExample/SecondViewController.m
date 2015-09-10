@@ -58,6 +58,12 @@
 {
     //call native sdk function
     NSString *urlString = [[request URL] absoluteString];
+    
+    //remove personal random path value to avoid Page dimension explosion
+    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+    NSRange range = [urlString rangeOfString:[NSString stringWithFormat:@"%@.app",appName]];
+    urlString = [urlString substringFromIndex:NSMaxRange(range)];
+    
     NSArray *urlComps = [urlString componentsSeparatedByString:@":$"];
     if([urlComps count] && [[urlComps objectAtIndex:0] isEqualToString:@"ums"])
         
