@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1878CADA1B93107900CA89C1 /* libUMSAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1878CAD71B93094900CA89C1 /* libUMSAgent.a */; };
+		18B7C76E1BA1188800E9F62C /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B7C76D1BA1188800E9F62C /* icon.png */; };
 		18E32F541B9C2114005569A0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E32F531B9C2114005569A0 /* Default-568h@2x.png */; };
 		2230AC381955681B00B8BB7E /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 2230AC371955681B00B8BB7E /* test.html */; };
 		22622586195E5BD20052D57C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22622585195E5BD10052D57C /* libz.dylib */; };
@@ -22,7 +23,6 @@
 		226225A3195E9F400052D57C /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 2262259C195E9F400052D57C /* Icon-76.png */; };
 		226225A4195E9F400052D57C /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 2262259D195E9F400052D57C /* Icon-120.png */; };
 		226225A5195E9F400052D57C /* Icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = 2262259E195E9F400052D57C /* Icon-152.png */; };
-		226225A6195E9F400052D57C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2262259F195E9F400052D57C /* Icon.png */; };
 		226225A7195E9F400052D57C /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 226225A0195E9F400052D57C /* Icon@2x.png */; };
 		226225A9195EA6880052D57C /* test1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 226225A8195EA6880052D57C /* test1.wav */; };
 		3609A5AE15180C7300BEDA05 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3609A5AD15180C7300BEDA05 /* UIKit.framework */; };
@@ -76,6 +76,7 @@
 
 /* Begin PBXFileReference section */
 		1878CAD21B93094800CA89C1 /* UMSAgent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UMSAgent.xcodeproj; path = ../UMSAgent/UMSAgent.xcodeproj; sourceTree = "<group>"; };
+		18B7C76D1BA1188800E9F62C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		18E32F531B9C2114005569A0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2230AC371955681B00B8BB7E /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		22622585195E5BD10052D57C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -90,7 +91,6 @@
 		2262259C195E9F400052D57C /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76.png"; sourceTree = "<group>"; };
 		2262259D195E9F400052D57C /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
 		2262259E195E9F400052D57C /* Icon-152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-152.png"; sourceTree = "<group>"; };
-		2262259F195E9F400052D57C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		226225A0195E9F400052D57C /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		226225A8195EA6880052D57C /* test1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test1.wav; sourceTree = "<group>"; };
 		3609A5A915180C7300BEDA05 /* UMSAgentExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UMSAgentExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,13 +224,13 @@
 		3609A5B415180C7300BEDA05 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				18B7C76D1BA1188800E9F62C /* icon.png */,
 				226225A8195EA6880052D57C /* test1.wav */,
 				2262259A195E9F400052D57C /* Icon-72.png */,
 				2262259B195E9F400052D57C /* Icon-72@2x.png */,
 				2262259C195E9F400052D57C /* Icon-76.png */,
 				2262259D195E9F400052D57C /* Icon-120.png */,
 				2262259E195E9F400052D57C /* Icon-152.png */,
-				2262259F195E9F400052D57C /* Icon.png */,
 				226225A0195E9F400052D57C /* Icon@2x.png */,
 				22622594195E9F0C0052D57C /* Default-568h.png */,
 				22622595195E9F0C0052D57C /* Default.png */,
@@ -365,6 +365,7 @@
 				226225A5195E9F400052D57C /* Icon-152.png in Resources */,
 				226225A2195E9F400052D57C /* Icon-72@2x.png in Resources */,
 				226225A7195E9F400052D57C /* Icon@2x.png in Resources */,
+				18B7C76E1BA1188800E9F62C /* icon.png in Resources */,
 				226225A1195E9F400052D57C /* Icon-72.png in Resources */,
 				226225A9195EA6880052D57C /* test1.wav in Resources */,
 				226225A4195E9F400052D57C /* Icon-120.png in Resources */,
@@ -375,7 +376,6 @@
 				22622598195E9F0C0052D57C /* Default.png in Resources */,
 				22622597195E9F0C0052D57C /* Default-568h.png in Resources */,
 				18E32F541B9C2114005569A0 /* Default-568h@2x.png in Resources */,
-				226225A6195E9F400052D57C /* Icon.png in Resources */,
 				36B3015E162AF22D0098FEF5 /* SecondViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
