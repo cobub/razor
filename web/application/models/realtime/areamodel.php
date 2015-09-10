@@ -51,7 +51,7 @@ class Areamodel extends CI_Model
      */
     function getAreasData($productId)
     {
-        $timezonestimestamp = gmt_to_local(local_to_gmt(), $this -> config -> item('timezones'));
+        $timezonestimestamp = time();
         $timezonestime = date('Y-m-d H:i:m', $timezonestimestamp);
         $ret = array();
         $allCountryKeys = $this -> redis -> keys("razor_r_arc_p_" . $productId . "_c_*");
@@ -126,7 +126,7 @@ class Areamodel extends CI_Model
      */
     function getAreaDataForGrid($productId)
     {
-        $timezonestimestamp = gmt_to_local(local_to_gmt(), $this -> config -> item('timezones'));
+        $timezonestimestamp = time();
         $timezonestime = date('Y-m-d H:i:m', $timezonestimestamp);
         $ret = array();
         $allCountryKeys = $this -> redis -> keys("razor_r_arc_p_" . $productId . "_c_*");
@@ -208,7 +208,7 @@ class Areamodel extends CI_Model
         if ($nameArray && count($nameArray) > 0) {
             $countryName = $nameArray[0];
         }
-        $timezonestimestamp = gmt_to_local(local_to_gmt(), $this -> config -> item('timezones'));
+        $timezonestimestamp = time();
         $timezonestime = date('Y-m-d H:i:m', $timezonestimestamp);
         $regRegion = "razor_r_arrd_p_" . $productId . "_c_" . $countryName . "_r_*";
         $allRegionKeys = $this -> redis -> keys($regRegion);
@@ -261,7 +261,7 @@ class Areamodel extends CI_Model
      */
     function getBubbleAreasData($productId)
     {
-        $timezonestimestamp = gmt_to_local(local_to_gmt(), $this -> config -> item('timezones'));
+        $timezonestimestamp = time();
         $timezonestime = date('Y-m-d H:i:m', $timezonestimestamp);
         $ret = array("name" => "All Countries");
         $allCountryKeys = $this -> redis -> keys("razor_r_arc_p_" . $productId . "_c_*");

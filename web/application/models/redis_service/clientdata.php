@@ -28,8 +28,6 @@ class Clientdata extends CI_Model
 {
 
 
-
-
     /** 
      * Clientdata load 
      * Clientdata function 
@@ -46,6 +44,7 @@ class Clientdata extends CI_Model
         $this -> load -> model('lbs_service/google', 'google');
         $this -> load -> model('lbs_service/ipinfodb', 'ipinfodb');
         $this -> load -> model('redis_service/utility', 'utility');
+        $this -> load -> library('iplibrary');
     }
     
     /** 
@@ -82,32 +81,17 @@ class Clientdata extends CI_Model
         $data["streetno"] = '';
         $data["postcode"] = '';
         if ($choose == 2) {
-            if ($latitude != '') {
-                $latitude = $clientdata -> latitude;
-                $longitude = $clientdata -> longitude;
-                $regionInfo = $this -> google -> getregioninfo($latitude, $longitude);
-            } else {
-                $regionInfo = $this -> ipinfodb -> getregioninfobyip($ip);
-            }
-
-            if (!empty($regionInfo)) {
-                $data["country"] = $regionInfo['country'];
-                if ($regionInfo['country'] == null || $regionInfo['country'] == "") {
-                    $data["country"] = "Unknown";
-                }
-                $data["region"] = $regionInfo['region'];
-                $data["city"] = $regionInfo['city'];
-                $data["street"] = $regionInfo['street'];
-                $data["streetno"] = $regionInfo['street_number'];
-                $data["postcode"] = $regionInfo['postal_code'];
-            }
+            $this->iplibrary->setLibrary('GeoIpLibrary', $ip);
+            $data['country'] = $this->iplibrary->getCountry();
+            $data['region'] = $this->iplibrary->getRegion();
+            $data['city'] = $this->iplibrary->getCity();
         }
         if ($choose == 1) {
-            $this -> iplibrary -> setLibrary('IpIpLibrary', $ip);
+            $this->iplibrary->setLibrary('IpIpLibrary', $ip);
 
-            $data['country'] = $this -> iplibrary -> getCountry();
-            $data['region'] = $this -> iplibrary -> getRegion();
-            $data['city'] = $this -> iplibrary -> getCity();
+            $data['country'] = $this->iplibrary->getCountry();
+            $data['region'] = $this->iplibrary->getRegion();
+            $data['city'] = $this->iplibrary->getCity();
         }
         //For realtime areas
         $key = "razor_r_arc_p_" . $productId . "_c_" . $data["country"] . "_" . date('Y-m-d-H-i', time());

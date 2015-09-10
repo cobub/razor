@@ -53,7 +53,7 @@ class Pageviewmodel extends CI_Model
      */
     function getActivities($productId)
     {
-        $timezonestimestamp = gmt_to_local(local_to_gmt(), $this -> config -> item('timezones'));
+        $timezonestimestamp = time();
         $timezonestime = date('Y-m-d H:i:m', $timezonestimestamp);
         $allKeys = $this -> redis -> keys("razor_r_ac_p_" . $productId . "*");
         $ret = array();
@@ -98,7 +98,7 @@ class Pageviewmodel extends CI_Model
      */
     function getActivityByMinutes($productId)
     {
-        $timezonestimestamp = gmt_to_local(local_to_gmt(), $this -> config -> item('timezones'));
+        $timezonestimestamp = time();
         $timezonestime = date('Y-m-d H:i:m', $timezonestimestamp);
         $all_ret = array();
         $version = "all";

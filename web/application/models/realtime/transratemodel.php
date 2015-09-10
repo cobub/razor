@@ -59,8 +59,9 @@ class TransRateModel extends CI_Model
             $transEvents = $this -> getTransEventsIdByTargetId($row -> tid);
             $event_from = $transEvents["from"];
             $event_to = $transEvents["to"];
-            $timezonestimestamp = gmt_to_local(local_to_gmt(), $this -> config -> item('timezones'));
-            $timezonestime = date('Y-m-d H:i:m', $timezonestimestamp);
+           
+            $timezonestimestamp = time();
+            $timezonestime = date('Y-m-d H:i:s', $timezonestimestamp);
             $from_count = 0;
             $to_count = 0;
             for ($i = 30; $i >= 0; $i--) {
@@ -103,10 +104,10 @@ class TransRateModel extends CI_Model
         $nret = array();
         foreach ($r->result() as $row) {
             $transEvents = $this -> getTransEventsIdByTargetId($row -> tid);
-            $event_from = $transEvents["from"];
+            $event_from =  $transEvents["from"];
             $event_to = $transEvents["to"];
-            $timezonestimestamp = gmt_to_local(local_to_gmt(), $this -> config -> item('timezones'));
-            $timezonestime = date('Y-m-d H:i:m', $timezonestimestamp);
+            $timezonestimestamp = time();
+            $timezonestime = date('Y-m-d H:i:s', $timezonestimestamp);
             $from_count = 0;
             $to_count = 0;
             for ($i = 29; $i >= 0; $i--) {
@@ -122,7 +123,13 @@ class TransRateModel extends CI_Model
                     $rate = $to_count / $from_count;
 
             }
-            $r = array('name' => $row -> targetname, 'time' => '-' . $i . lang("v_rpt_realtime_minutes"), 'from_count' => $from_count, 'to_count' => $to_count, 'rate' => $rate, 'event_to' => $event_to);
+            $event_toName = $this->getEventnameByEventIdent($event_to);
+            $r = array('name' => $row -> targetname,
+             'time' => '-' . $i . lang("v_rpt_realtime_minutes"),
+             'from_count' => $from_count, 
+             'to_count' => $to_count, 
+             'rate' => $rate, 
+             'event_to' => $event_toName);
             if ($to_count == 0) {
                 continue;
             }
@@ -156,16 +163,39 @@ class TransRateModel extends CI_Model
      */
     function getTransEventsIdByTargetId($targetId)
     {
-        $sql = 'select * from ' . $this -> db -> dbprefix('targetevent') . ' where targetid=' . $targetId;
+        $sql = 'select t.*,e.event_identifier from ' .
+         $this -> db -> dbprefix('targetevent') . ' t, '.
+         $this -> db -> dbprefix('event_defination') .
+         ' e where t.eventid=e.event_id and t.targetid=' . $targetId;
 
         $r = $this -> db -> query($sql);
         $num = $r -> num_rows();
         $tmp = array();
         foreach ($r->result() as $row) {
-            array_push($tmp, $row -> eventalias);
+            array_push($tmp, $row -> event_identifier);
         }
         $ret = array("from" => $tmp[0], "to" => $tmp[$num - 1]);
         return $ret;
+    }
+    
+    /** 
+     * Get event name 
+     * GetTransEventsIdByTargetId function 
+     * 
+     * @param string $targetId targetid 
+     * 
+     * @return string 
+     */
+    function getEventnameByEventIdent($eventIdentifier)
+    {
+        $sql = "select event_name from " .
+         $this -> db -> dbprefix('event_defination') .
+         " where event_identifier='$eventIdentifier' ";
+
+        $r = $this -> db -> query($sql);
+        if($r && $r->num_rows()==1) {
+            return $r->first_row()->event_name;
+        }
     }
 
 }

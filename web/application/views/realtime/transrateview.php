@@ -20,8 +20,8 @@
             singleSelect="true" fitColumns="true" border="false">
         <thead  >
             <tr >
-                <th field="event_to" width="100%"><?php echo lang('v_rpt_realtime_event_title');?></th>
-                <th field="to_count" width="100%"><?php echo lang('v_rpt_re_funneleventC');?></th>
+                <th field="event_to" width="50%"><?php echo lang('v_rpt_realtime_event_title');?></th>
+                <th field="to_count" width="52%"><?php echo lang('v_rpt_re_funneleventC');?></th>
             </tr>
         </thead>
     </table>

@@ -52,7 +52,7 @@ class EventModel extends CI_Model
      */
     function getEventNumByTime($productId)
     {
-        $timezonestimestamp = gmt_to_local(local_to_gmt(), $this -> config -> item('timezones'));
+        $timezonestimestamp = time();
         $timezonestime = date('Y-m-d H:i:m', $timezonestimestamp);
         $all_ret = array();
         $version = "all";
@@ -86,7 +86,7 @@ class EventModel extends CI_Model
      */
     function getEventNumByEvent($productId)
     {
-        $timezonestimestamp = gmt_to_local(local_to_gmt(), $this -> config -> item('timezones'));
+        $timezonestimestamp = time();
         $timezonestime = date('Y-m-d H:i:m', $timezonestimestamp);
         $all_ret = array();
         $version = "all";
