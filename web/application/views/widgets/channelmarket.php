@@ -330,6 +330,102 @@ $(document).ready(function() {
 
     function chooseType(typename)
     {     
+        options = {
+	            chart: {
+	                renderTo: 'container',
+	                type: 'spline'
+	            },
+	            title: {
+	                text: ""
+	            },
+	            subtitle: {
+	                text: '<?php echo $reportTitle['timePase']; ?>'
+	            },
+	            xAxis: {
+	                labels:{rotation:300,y:40,x:0}
+	            },
+	            yAxis: {
+	                title: {
+	                    text: ''
+	                },
+	                min:0,
+	                labels: {
+	                    formatter: function() {
+	                        return Highcharts.numberFormat(this.value, 0);
+	                    }
+	                }
+	            },
+		        credits:{
+					enabled:false
+			        },
+			    tooltip: {
+			        crosshairs: true,
+			        shared:false,
+			        formatter: function() {
+				        var content=this.x+'<br>';
+				        var m=0;					       
+				        for(var i=0;i<category.length;i++){
+					        if(category[i]==this.x){
+						        m=i;
+						        break;
+					        }
+					    }
+				        if(this.series.name=='<?php echo lang('m_dateevents');?>'){
+	                           content=tooltipmarkevent[m];
+	                    }else{
+		                    for(var j=0;j<tooltipname.length;j++){
+			                    content=content+'<span style="color:'+colors[j]+'">'+tooltipname[j]+'</span>:'+tooltipdata[j][m]+'<br>';
+			                }
+	                    }
+				        return content;
+			        }
+			    },
+	            plotOptions: {
+		            column: {
+                    showInLegend:false
+                	},
+	                spline: {
+	                    marker: {
+	                        radius: 1,
+	                        lineColor: '#666666',
+	                        lineWidth: 1
+	                    }
+	                },series:{
+	                	cursor:'pointer',
+	                	events:{
+	        				click:function(e){
+	        					if(!markEventIndex.content(e.point.series.index)){
+	        						sendBack(e);
+	        						return;
+	        						}
+	    						var rights=e.point.rights==1?'<?php echo lang('m_public')?>':'<?php echo lang('m_private')?>';
+	        					var content='<div><?php echo lang('m_marktime')?>:'+e.point.date+'</div>';
+	        					content+='<div><?php echo lang('m_user')?>:'+e.point.username+'</div>';
+	        					content+='<div><?php echo lang('m_title')?>:'+e.point.title+'</div>';
+	        					content+='<div><?php echo lang('m_description')?>:'+e.point.description+'</div>';
+	        					content+='<div><?php echo lang('m_rights')?>:'+rights+'</div>';
+	        					 hs.htmlExpand(null, {
+	                                 pageOrigin: {
+	                                     x: e.pageX,
+	                                     y: e.pageY
+	                                 },
+	                                 headingText: '<?php echo lang('m_eventsDetail')?>',
+	                                 maincontentText:content,
+	                                 width: 200
+	                             });	
+	        					}
+	                        }
+		                }
+	            },
+	            legend:{
+	                labelFormatter: function() {
+	                	return this.name
+	                }
+	             },
+	            series: [
+	        
+	            ]
+	        };
         type=typename;
         if(type=='newuser')
     	{
