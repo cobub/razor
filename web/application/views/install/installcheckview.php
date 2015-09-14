@@ -17,7 +17,6 @@
 ?>
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8"/>
     <title><?php echo lang('installview_installheader');?></title>
@@ -27,7 +26,7 @@
     <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <script src="<?php echo base_url();?>assets/js/tag/jquery-1.9.1.js"
+    <script src="<?php echo $newurl ?>/assets/js/tag/jquery-1.9.1.js"
     type="text/javascript"></script>
 
     <script src="<?php echo $newurl ?>/assets/js/hideshow.js" type="text/javascript"></script>
