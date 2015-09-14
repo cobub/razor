@@ -82,10 +82,32 @@ namespace UMSAgent.Model
         public Tag getTagData(string tags)
         {
             Tag tag = new Tag();
-            tag.productkey = UmsManager.appkey;
+            
+            tag.appkey = UmsManager.appkey;
             tag.tags = HttpUtility.UrlEncode(tags);
             tag.deviceid = Utility.getDeviceId();
             return tag;
+        }
+
+        //get Userid data
+        public Userid getUseridData(string userid)
+        {
+           
+            Userid userids = new Userid();
+            userids.appkey = UmsManager.appkey;
+            userids.userid = userid;
+            userids.deviceid = Utility.getDeviceId();
+            return userids;
+        }
+
+        //get Pushid data
+        public Pushid getPushidData(string pushid)
+        {
+            Pushid pushids = new Pushid();
+            pushids.appkey = UmsManager.appkey;
+            pushids.clientid = pushid;
+            pushids.deviceid = Utility.getDeviceId();
+            return pushids;
         }
       
         //get client data
@@ -159,6 +181,12 @@ namespace UMSAgent.Model
                     break;
                 case 7://tag data
                     url = Constants.BASEURL + Constants.postTag;
+                    break;
+                case 8://post userid
+                    url = Constants.BASEURL + Constants.postUserid;
+                    break;
+                case 9://post pushid
+                    url = Constants.BASEURL + Constants.postPushid;
                     break;
 
                 default:

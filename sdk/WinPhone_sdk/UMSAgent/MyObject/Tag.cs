@@ -17,7 +17,7 @@ namespace UMSAgent.MyObject
         private string tag;
         private string device_id;
 
-        public string productkey
+        public string appkey
         {
             get { return product_key; }
             set { product_key = value; }
