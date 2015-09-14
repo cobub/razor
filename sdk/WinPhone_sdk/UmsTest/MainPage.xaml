@@ -34,7 +34,8 @@
             <Button Content="lable event" Height="72" HorizontalAlignment="Left" Margin="109,101,0,0" Name="button4" VerticalAlignment="Top" Width="210" Click="button4_Click" />
             <Button Content="Acc event" Height="72" HorizontalAlignment="Left" Margin="109,179,0,0" Name="button5" VerticalAlignment="Top" Width="210" Click="button5_Click" />
             <Button Content="Null Crash" Height="72" HorizontalAlignment="Left" Margin="227,418,0,0" Name="button6" VerticalAlignment="Top" Width="210" BorderBrush="#FFA34B4B" Background="#FF46893A" Click="button6_Click"></Button>
-            <Button Content="Tag" Height="72" HorizontalAlignment="Left" Margin="139,257,0,0" Name="button7" VerticalAlignment="Top" Width="160" Click="button7_Click" />
+            <Button Content="Set User Tag" Height="72" HorizontalAlignment="Left" Margin="109,340,0,0" Name="button7" VerticalAlignment="Top" Width="215" Click="button7_Click" />
+            <Button Content="Label Acc event" Height="72" HorizontalAlignment="Left" Margin="69,257,0,0" Name="button8" VerticalAlignment="Top" Width="276" Click="button8_Click" />
         </Grid>
     </Grid>
  

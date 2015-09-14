@@ -82,6 +82,8 @@ namespace UMSAgent
             settings.Add("UserIdentifier", userid);
             
             settings.Save();
+            //post userid
+            postUserid(userid);
         }
 
         //post clientdata and all data
@@ -243,7 +245,7 @@ namespace UMSAgent
             manager.tagDataProceed(tag);
         }
         //post userid
-        public static void postUserid(string userid)
+        private static void postUserid(string userid)
         {
             manager.useridDataProceed(userid);
         }

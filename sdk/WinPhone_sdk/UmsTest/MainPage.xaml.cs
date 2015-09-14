@@ -52,7 +52,7 @@ namespace UmsTest
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            UMSAgent.UMSApi.onEvent("mycontact", "中文测试");
+            UMSAgent.UMSApi.onEvent("mycontact", "Mainpage");
            
         }
 
@@ -72,12 +72,13 @@ namespace UmsTest
 
         private void button4_Click(object sender, RoutedEventArgs e)
         {
-            UMSAgent.UMSApi.onEvent("mycontact", "MainPage", "some lable");
+            UMSAgent.UMSApi.onEvent("mycontact", "MainPage", "my lable");
         }
 
         private void button5_Click(object sender, RoutedEventArgs e)
         {
-            UMSAgent.UMSApi.onEvent("mycontact", "MainPage", "acc label", 10);
+            UMSAgent.UMSApi.onEvent("mycontact", "MainPage", 10);
+           
         }
 
         private void button6_Click(object sender, RoutedEventArgs e)
@@ -99,6 +100,11 @@ namespace UmsTest
         private void button7_Click(object sender, RoutedEventArgs e)
         {
             UMSAgent.UMSApi.postTag("购物达人");
+        }
+
+        private void button8_Click(object sender, RoutedEventArgs e)
+        {
+            UMSAgent.UMSApi.onEvent("mycontact", "MainPage", "acc label", 7);
         }
 
 
