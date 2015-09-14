@@ -32,5 +32,8 @@ namespace UMSAgent.Common
         internal static string errorDataUrl = "?/ums/postErrorLog";
         internal static string postActivityLog = "?/ums/postActivityLog";
         internal static string postTag = "?/ums/postTag";
+        internal static string postUserid = "?/ums/postUserid";
+        internal static string postPushid = "?/ums/postPushid";
+   
     }
 }

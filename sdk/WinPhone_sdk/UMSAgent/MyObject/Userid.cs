@@ -11,10 +11,10 @@ using System.Windows.Shapes;
 
 namespace UMSAgent.MyObject
 {
-    public class Tag
+    public class Userid
     {
-        private string product_key;
-        private string tag;
+         private string product_key;
+        private string user_id;
         private string device_id;
 
         public string appkey
@@ -23,10 +23,10 @@ namespace UMSAgent.MyObject
             set { product_key = value; }
         }
 
-        public string tags
+        public string userid
         {
-            get { return tag; }
-            set { tag = value; }
+            get { return user_id; }
+            set { user_id = value; }
         }
 
         public string deviceid
@@ -35,4 +35,5 @@ namespace UMSAgent.MyObject
             set { device_id = value; }
         }
     }
+   
 }

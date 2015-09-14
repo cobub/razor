@@ -71,6 +71,14 @@ namespace UMSAgent.Common
                     Tag tag = (Tag)obj;
                     ret = tag2jsonstr(tag);
                     break;
+                case 8://userid data
+                    Userid userids = (Userid)obj;
+                    ret = userids2jsonstr(userids);
+                    break;
+                case 9://pushid data
+                    Pushid pushids = (Pushid)obj;
+                    ret = pushids2jsonstr(pushids);
+                    break;
 
                 default:
                     break;
@@ -80,6 +88,18 @@ namespace UMSAgent.Common
 
         }
         private string tag2jsonstr(Tag d)
+        {
+            string ret = "";
+            ret = UmsJson.Serialize(d);
+            return ret;
+        }
+        private string userids2jsonstr(Userid d)
+        {
+            string ret = "";
+            ret = UmsJson.Serialize(d);
+            return ret;
+        }
+        private string pushids2jsonstr(Pushid d)
         {
             string ret = "";
             ret = UmsJson.Serialize(d);

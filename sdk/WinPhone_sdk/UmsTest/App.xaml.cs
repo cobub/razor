@@ -82,8 +82,10 @@ namespace UmsTest
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
             UMSAgent.UMSApi.setDebugMode(true);
-            UMSAgent.UMSApi.onAppStart("5ef319f926726cdca01d381f6c80a03d", "http://192.168.1.4/webtest/index.php");
-            UMSAgent.UMSApi.bindUserIdentifier("woyear");
+            UMSAgent.UMSApi.onAppStart("dd4b27baf1c0be6ef316dd573ea41fd0", "http://192.168.1.2/opencobub/web/index.php");
+            //UMSAgent.UMSApi.bindUserIdentifier("user id");
+            UMSAgent.UMSApi.postUserid("user id");
+            UMSAgent.UMSApi.postPushid("push id");
             UMSAgent.UMSApi.postClientdata();
             UMSAgent.UMSApi.updateOnlineConfig();
             UMSAgent.UMSApi.getNewVersion();
