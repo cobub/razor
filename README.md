@@ -30,13 +30,13 @@ Compare to other analytics systems, Cobub Razor has following advantages:
 Cobub Razor Installation
 -------
 
-Installation Requirements:  http://www.cobub.com/docs/cobub-razor/install-requirements/
+Installation Requirements:  http://www.cobub.com/docs/en:razor:install-requirements
 
-How to install Cobub Razor: http://www.cobub.com/docs/cobub-razor/installation-guide/
+How to install Cobub Razor: http://www.cobub.com/docs/en:razor:installation-guide
 
-DO NOT forget to configure the schedule tasks: http://www.cobub.com/docs/cobub-razor/auto-archiving/
+DO NOT forget to configure the schedule tasks: http://www.cobub.com/docs/en:razor:auto-archiving
 
-More details, please visit http://www.cobub.com/docs/cobub-razor/
+More details, please visit http://www.cobub.com/docs/en:start
 
 
 Cobub Razor Issues
