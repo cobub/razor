@@ -1,14 +1,11 @@
+
 Cobub Razor - Open Source Mobile Analytics
 =============
-[![Cobub Razor](http://dev.cobub.com/wp-content/uploads/2012/07/cobub-logo1.png)](http://dev.cobub.com)
+[![Cobub Razor](http://www.cobub.com/docs/lib/tpl/dokuwiki/images/logo.png)](http://www.cobub.com)
 
 Firstly, welcome to access the DEMO website to have a try:   
   
-- [**Cobub Razor Demo - English Version**](http://demo.cobub.com/razor/en)  
-- [**Cobub Razor Demo - Chinese Version**](http://demo.cobub.com/razor)
-- [**Cobub Razor Demo - Japanese Version**](http://demo.cobub.com/razor/ja)  
-- [**Cobub Razor Demo - Geman Version**](http://demo.cobub.com/razor/de)
-***
+[![**Cobub Razor Demo - English Version**](http://demo.cobub.com/index/english.png)](http://demo.cobub.com/razor/en) &nbsp;&nbsp;&nbsp;[![**Cobub Razor Demo - Chinese Version**](http://demo.cobub.com/index/china.png)](http://demo.cobub.com/razor)&nbsp;&nbsp;&nbsp;[![**Cobub Razor Demo - Japanese Version**](http://demo.cobub.com/index/japan.png)](http://demo.cobub.com/razor/ja) &nbsp;&nbsp;&nbsp;[![**Cobub Razor Demo - Geman Version**](http://demo.cobub.com/index/german.png)](http://demo.cobub.com/razor/de)
 
 Cobub Razor is a powerful, open source mobile analytics system. It enables user to monitor the statistics of their mobile Apps and app users' behaviors through providing detailed, multi-dimensions reports on mobile application users.  At this moment, it supports iOS, Android and Windows Phone OS platform.
 
@@ -33,13 +30,13 @@ Compare to other analytics systems, Cobub Razor has following advantages:
 Cobub Razor Installation
 -------
 
-Installation Requirements:  http://dev.cobub.com/docs/cobub-razor/install-requirements/
+Installation Requirements:  http://www.cobub.com/docs/cobub-razor/install-requirements/
 
-How to install Cobub Razor: http://dev.cobub.com/docs/cobub-razor/installation-guide/
+How to install Cobub Razor: http://www.cobub.com/docs/cobub-razor/installation-guide/
 
-DO NOT forget to configure the schedule tasks: http://dev.cobub.com/docs/cobub-razor/auto-archiving/
+DO NOT forget to configure the schedule tasks: http://www.cobub.com/docs/cobub-razor/auto-archiving/
 
-More details, please visit http://dev.cobub.com/docs/cobub-razor/
+More details, please visit http://www.cobub.com/docs/cobub-razor/
 
 
 Cobub Razor Issues
