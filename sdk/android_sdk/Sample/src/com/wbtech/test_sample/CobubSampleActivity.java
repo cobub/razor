@@ -38,7 +38,6 @@ public class CobubSampleActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final String event_name = "click";
         Button button_event = (Button) findViewById(R.id.button_event);
         Button button_error = (Button) findViewById(R.id.button_error);
         Button button_activity = (Button) findViewById(R.id.button_activity);
@@ -46,17 +45,15 @@ public class CobubSampleActivity extends Activity {
         
         
         /**
-         * Call UmsAgent.setBaseURL(String url) before all other APIs. url:
+         * Call UmsAgent.init(String url) before all other APIs. url:
          * CobubRazor web server
-         */
-        // UmsAgent.setBaseURL("http://192.168.1.55/razor/web/index.php?");
-        
-//        String urlPrefix = "http://www.cobub.com/razor/index.php?";
-        String urlPrefix = "http://192.168.1.112/opencobub/web/index.php?";
+         */        
+
+        String urlPrefix = "http://demo.cobub.com/razor/index.php?";
         txtURL.setText("Server URL:"+urlPrefix);
         
         UmsAgent.init(this, urlPrefix);
-        
+        UmsAgent.onEvent(CobubSampleActivity.this, "login");
         UmsAgent.setDebugEnabled(true);
         
         UmsAgent.setDebugLevel(UmsAgent.LogLevel.Verbose);
@@ -129,8 +126,7 @@ public class CobubSampleActivity extends Activity {
                  * will observe that the "Number of Messages" has changed
                  * according to the Event ID of "ad_click" in server.
                  */
-                UmsAgent.onEvent(CobubSampleActivity.this, event_name);
-                //UmsAgent.postTags(MainActivity.this, "男,43,南京");
+                UmsAgent.onEvent(CobubSampleActivity.this, "click");
                 
             }
         });
@@ -184,7 +180,7 @@ public class CobubSampleActivity extends Activity {
     protected void onPause() {
 
         super.onPause();
-
+        UmsAgent.onEvent(CobubSampleActivity.this, "quit");
         /**
          * Call UmsAgent.onPause(Context) in onPause method of every Activity.
          * Parameter is current context. We recommend you Calling this method in
