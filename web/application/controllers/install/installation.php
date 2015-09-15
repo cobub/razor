@@ -174,6 +174,13 @@ class Installation extends CI_Controller
      */
     function welcome($language)
     {
+        if (function_exists('apc_clear_cache')) {
+             apc_clear_cache();
+        }
+        if (function_exists('opcache_reset')) {
+              opcache_reset();
+        }
+
         $this->load->helper('language');
         $this->lang->load('installview', $language);
         $this->data['language'] = $language;
@@ -303,6 +310,14 @@ class Installation extends CI_Controller
      */
     function databaseinfo($language)
     {
+
+         if (function_exists('apc_clear_cache')) {
+            apc_clear_cache();
+         }
+         if (function_exists('opcache_reset')) {
+             opcache_reset();
+         }
+
         $configlanguage = $this->config->item('language');
         // modify config file---config file;
         $dir = "./application/config/config.php";
@@ -347,14 +362,16 @@ class Installation extends CI_Controller
      */
     function createdatabase()
     {
-        if (extension_loaded('apc')) {
+        if (function_exists('apc_clear_cache')) {
             apc_clear_cache();
         }
-        if (extension_loaded('opcache')) {
+        if (function_exists('opcache_reset')) {
             opcache_reset();
         }
         
         $language = $this->config->item('language');
+        $this->load->helper('language');
+        $this->lang->load('installview', $language);
         $ip = "localhost";
         // deal with database and dataware
         
@@ -1114,11 +1131,11 @@ class Installation extends CI_Controller
                 fwrite($handle, $data);
                 fclose($handle);
                 
-                if (extension_loaded('apc')) {
+                if (function_exists('apc_clear_cache')) {
                     apc_clear_cache();
                 }
                 
-                if (extension_loaded('opcache')) {
+                if (function_exists('opcache_reset')) {
                     opcache_reset();
                 }
                 $this->data['newurl'] = $this->datamanage->createurl();
