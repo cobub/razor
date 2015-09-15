@@ -347,6 +347,13 @@ class Installation extends CI_Controller
      */
     function createdatabase()
     {
+        if (extension_loaded('apc')) {
+            apc_clear_cache();
+        }
+        if (extension_loaded('opcache')) {
+            opcache_reset();
+        }
+        
         $language = $this->config->item('language');
         $ip = "localhost";
         // deal with database and dataware
@@ -1075,10 +1082,6 @@ class Installation extends CI_Controller
             $new_email_key = $data['new_email_key'];
             $this->datamanage->insertrole($email);
             if ($this->datamanage->activateuser($userid, $new_email_key)) {
-                $this->data['newurl'] = $this->datamanage->createurl();
-                $this->data['siteurl'] = $siteurl;
-                $this->data['language'] = $this->config->item('language');
-                $this->load->view('install/installfinshview', $this->data);
                 
                 // modify config file---config file;
                 $dir = "./application/config/config.php";
@@ -1110,6 +1113,19 @@ class Installation extends CI_Controller
                 $handle = fopen($dir, "w");
                 fwrite($handle, $data);
                 fclose($handle);
+                
+                if (extension_loaded('apc')) {
+                    apc_clear_cache();
+                }
+                
+                if (extension_loaded('opcache')) {
+                    opcache_reset();
+                }
+                $this->data['newurl'] = $this->datamanage->createurl();
+                $this->data['siteurl'] = $siteurl;
+                $this->data['language'] = $this->config->item('language');
+                $this->load->view('install/installfinshview', $this->data);
+                
             }
         }
     }
