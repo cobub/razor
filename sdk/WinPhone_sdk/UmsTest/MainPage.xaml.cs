@@ -52,7 +52,7 @@ namespace UmsTest
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            UMSAgent.UMSApi.onEvent("mycontact", "Mainpage");
+            UMSAgent.UMSApi.onEvent("click", "Mainpage");
            
         }
 
@@ -72,12 +72,12 @@ namespace UmsTest
 
         private void button4_Click(object sender, RoutedEventArgs e)
         {
-            UMSAgent.UMSApi.onEvent("mycontact", "MainPage", "my lable");
+            UMSAgent.UMSApi.onEvent("click", "MainPage", "my lable");
         }
 
         private void button5_Click(object sender, RoutedEventArgs e)
         {
-            UMSAgent.UMSApi.onEvent("mycontact", "MainPage", 10);
+            UMSAgent.UMSApi.onEvent("click", "MainPage", 10);
            
         }
 
@@ -104,7 +104,7 @@ namespace UmsTest
 
         private void button8_Click(object sender, RoutedEventArgs e)
         {
-            UMSAgent.UMSApi.onEvent("mycontact", "MainPage", "acc label", 7);
+            UMSAgent.UMSApi.onEvent("click", "MainPage", "acc label", 7);
         }
 
 

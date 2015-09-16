@@ -112,7 +112,7 @@ namespace UMSAgent.CallBcak
         //callback of page visit
         public static void call_back_process_pageinfodata(string msg, object obj)
         {
-           // DebugTool.Log("call back of page info data------" + msg);
+            DebugTool.Log("call back of page info data------" + msg);
             CommonRet o = (CommonRet)getJsonObj(msg);
             if (o == null || !o.flag.Equals("1"))
             {

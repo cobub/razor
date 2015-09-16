@@ -157,10 +157,19 @@ namespace UMSAgent.Common
 
             if (settings["repolicy"].Equals("1") && Utility.isNetWorkConnected())
             {
-                Post post = new Post((int)UMSAgent.UMSApi.DataType.PAGEINFODATA, obj);
-                post.stateChanged += new Post.stateChangedHandler(this.getData);
-                
-                post.sendData(model.getUrl((int)UMSAgent.UMSApi.DataType.PAGEINFODATA));
+                try
+                {
+                    Post post = new Post((int)UMSAgent.UMSApi.DataType.PAGEINFODATA, obj);
+                    post.stateChanged += new Post.stateChangedHandler(this.getData);
+
+                    post.sendData(model.getUrl((int)UMSAgent.UMSApi.DataType.PAGEINFODATA));
+
+                }
+                catch (Exception e)
+                { 
+                 
+                }
+               
             }
             else
             {

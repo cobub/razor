@@ -57,11 +57,7 @@ namespace UmsTest
         {
             
             UMSAgent.UMSApi.getNewVersion();
-            //UMSAgent.UMSApi.UpdateEvent += new UMSAgent.UMSApi.UpdateEventHandler(showMsg);
            
-            ////this.progressBar1.Visibility = Visibility.Visible;
-            ////this.button2.Content = "checking...";
-            
         }
 
        

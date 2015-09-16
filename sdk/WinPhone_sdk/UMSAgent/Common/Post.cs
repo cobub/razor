@@ -56,17 +56,24 @@ namespace UMSAgent.Common
             var request = HttpWebRequest.Create(url);
             var result = (IAsyncResult)request.BeginGetResponse(ResponseCallback, request);
              */
-            HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(url);
-            myRequest.Method = "POST";
-            myRequest.ContentType = "application/x-www-form-urlencoded";
-            myRequest.BeginGetRequestStream(new AsyncCallback(GetRequestStreamCallback), myRequest);
+            try
+            {
+                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(url);
+                myRequest.Method = "POST";
+                myRequest.ContentType = "application/x-www-form-urlencoded";
+                myRequest.BeginGetRequestStream(new AsyncCallback(GetRequestStreamCallback), myRequest);
+            }
+            catch(Exception e)
+            {
+
+            }
             
         }
        
 
         private  void GetRequestStreamCallback(IAsyncResult asynchronousResult)
         {
-
+            
             HttpWebRequest request = (HttpWebRequest)asynchronousResult.AsyncState;
            
 
@@ -92,7 +99,7 @@ namespace UMSAgent.Common
             }
             catch (Exception e)
             {
-                DebugTool.Log(e.InnerException.Message);
+
             }
 
 
