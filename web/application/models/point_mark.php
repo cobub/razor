@@ -145,17 +145,28 @@ class Point_Mark extends CI_Model
      */
     public function managePointmarkpagelist ($userid, $productid, $fromTime, $toreTime)
     {
-        $sql = 'select m.id,u.username,m.userid,m.title,m.description,m.marktime,m.private from ' .
-                 $this->db->dbprefix('markevent') . ' m
-                left join ' .
-                 $this->db->dbprefix('users') . ' u on m.userid=u.id
-                 LEFT JOIN ' .
-                 $this->db->dbprefix('product') .
-                 ' p on p.id=m.productid
-                 where p.id=' .
-                 $productid . ' and m.userid=' . $userid .
-                 ' and m.marktime BETWEEN \'' . $fromTime . '\' and \'' .
-                 $toreTime . '\'';
+        $sql = '
+        select 
+            m.id,
+            u.username,
+            m.userid,
+            m.title,
+            m.description,
+            m.marktime,
+            m.private 
+        from ' .
+            $this->db->dbprefix('markevent') . ' m
+        left join 
+            ' .$this->db->dbprefix('users') . ' u 
+        on 
+            m.userid=u.id
+        LEFT JOIN 
+            ' .$this->db->dbprefix('product') .' p 
+        on 
+            p.id=m.productid
+        where 
+            p.id=' .$productid . ' and 
+            m.marktime BETWEEN \'' . $fromTime . '\' and \'' .$toreTime . '\'';
         return $this->db->query($sql);
     }
     
