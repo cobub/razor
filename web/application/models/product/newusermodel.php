@@ -120,7 +120,7 @@ class newusermodel extends CI_Model
                                     p.product_id=pinf.id and 
                                     pinf.active = 1 
                                     group by p.product_id,d.datevalue) ff
-                                group by ff.datevalue) fff on fff.date=ds.datevalue
+                                group by ff.datevalue) fff on fff.date=ds.datevalue order by ds.datevalue
                         ";
         } else {
             $sql = "
@@ -163,7 +163,7 @@ class newusermodel extends CI_Model
                                     pinf.active = 1 and 
                                     up.user_id=$userId 
                                     group by p.product_id,d.datevalue) ff
-                                group by ff.datevalue) fff on fff.date=ds.datevalue
+                                group by ff.datevalue) fff on fff.date=ds.datevalue order by ds.datevalue
                     ";
         }
 
