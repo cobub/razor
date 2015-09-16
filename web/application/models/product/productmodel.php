@@ -890,7 +890,7 @@ class ProductModel extends CI_Model
                           " . $dwdb -> dbprefix('dim_date') . " d
                       where
                           d.datevalue='$postDay' and 
-                          d.date_sk=pp.date_sk and p.userid=$userId and
+                          d.date_sk=pp.date_sk and
                           product_active=1 and channel_active=1 and 
                           version_active=1 and 
                           p.product_id=pp.product_id

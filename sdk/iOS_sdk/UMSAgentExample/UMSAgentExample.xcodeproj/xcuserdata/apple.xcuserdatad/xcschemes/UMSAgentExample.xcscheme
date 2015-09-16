@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3609A5C915180C7300BEDA05"
-               BuildableName = "UMSAgentExampleTests.octest"
+               BuildableName = "UMSAgentExampleTests.xctest"
                BlueprintName = "UMSAgentExampleTests"
                ReferencedContainer = "container:UMSAgentExample.xcodeproj">
             </BuildableReference>

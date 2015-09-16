@@ -38,7 +38,7 @@ class ChannelModel extends CI_Model
     }
 
     /**
-     * getdechannel function
+     * Getdechannel function
      * through username get self-built channels
      *
      * @param int $userid user id
@@ -55,7 +55,7 @@ class ChannelModel extends CI_Model
                return null; 
     }
     /**
-     * getsychannel function
+     * Getsychannel function
      * get System channels
      *
      * @param int    $user_id    user id
@@ -66,7 +66,23 @@ class ChannelModel extends CI_Model
      */
     function getsychannel($user_id, $product_id, $platform)
     {
-        $sql = "select channel_name,channel_id from  ".$this->db->dbprefix('channel')."   where channel_id not in (select channel_id from  ".$this->db->dbprefix('channel_product')."  where product_id=$product_id and user_id=$user_id )and type='system' and platform=$platform and active=1 ";
+        $sql = "
+        select 
+            channel_name,
+            channel_id 
+        from  
+            ".$this->db->dbprefix('channel')." 
+        where 
+            channel_id not in (
+                select 
+                    channel_id 
+                from  
+                    ".$this->db->dbprefix('channel_product')." 
+                where 
+                    product_id=$product_id ) and 
+            type='system' and 
+            platform=$platform and 
+            active=1 ";
           $query = $this->db->query($sql);
         if ($query!=null&&$query->num_rows()>0) {
                       return $query->result_array();
@@ -74,7 +90,7 @@ class ChannelModel extends CI_Model
                return null; 
     }
     /**
-     * getallsychannel function
+     * Getallsychannel function
      * get System channels
      *
      * @return query result
@@ -90,8 +106,8 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * getChannelType function
-     * get channel type
+     * GetChannelType function
+     * Get channel type
      *
      *@param int $channel_id channel id
      *
@@ -109,7 +125,7 @@ class ChannelModel extends CI_Model
     }
 
     /**
-     * getChannelName function 
+     * GetChannelName function 
      * Get channel name by id
      * 
      * @param int $channel_id channel id
@@ -129,7 +145,7 @@ class ChannelModel extends CI_Model
     }
 
     /**
-     * getChannelList function 
+     * GetChannelList function 
      * Get channel list by id
      * 
      * @param int $product_id product id
@@ -147,7 +163,7 @@ class ChannelModel extends CI_Model
     }
 
     /**
-     * isUniqueChannel function
+     * IsUniqueChannel function
      * is unique chanel
      *
      * @param int    $userid      user id
@@ -166,7 +182,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * isUniqueSystemchannel function
+     * IsUniqueSystemchannel function
      * is unique system chanel
      *
      * @param string $channelname channel name
@@ -184,7 +200,7 @@ class ChannelModel extends CI_Model
     }
 
     /**
-     * getproductkey function
+     * Getproductkey function
      * get the appkey of system channels
      *
      * @param int    $user_id    user id
@@ -195,7 +211,23 @@ class ChannelModel extends CI_Model
      */
     function getproductkey($user_id,$product_id,$platform)
     {
-        $sql="select cp.cp_id, c.channel_name ,cp.productkey,c.channel_id from  ".$this->db->dbprefix('channel')."   c  inner join  ".$this->db->dbprefix('channel_product')."  cp  on c.channel_id = cp.channel_id where c.type='system' and c.active=1 and cp.product_id=$product_id and cp.user_id=$user_id and c.platform=$platform";            
+        $sql="
+        select 
+            cp.cp_id, 
+            c.channel_name,
+            cp.productkey,
+            c.channel_id 
+        from  
+            ".$this->db->dbprefix('channel')." c  
+        inner join  
+            ".$this->db->dbprefix('channel_product')."  cp  
+        on 
+            c.channel_id = cp.channel_id 
+        where 
+            c.type='system' and 
+            c.active=1 and 
+            cp.product_id=$product_id and 
+            c.platform=$platform";
         $query = $this->db->query($sql);
         if ($query!=null&&$query->num_rows()>0) {
             return $query->result_array();
@@ -204,7 +236,7 @@ class ChannelModel extends CI_Model
     }
 
     /**
-     * getdefinechannel function
+     * Getdefinechannel function
      * get self-built channels
      *
      * @param int    $user_id    user id
@@ -224,7 +256,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * getdefineproductkey function
+     * Getdefineproductkey function
      * get the appkey of self-built channels
      *
      * @param int    $user_id    user id
@@ -244,7 +276,7 @@ class ChannelModel extends CI_Model
     }
 
      /**
-      * getdechannelnum function
+      * Getdechannelnum function
       * get the num of self-built channels
       *
       * @param int $userid user id
@@ -259,7 +291,7 @@ class ChannelModel extends CI_Model
     }
 
     /**
-     * getplatform function
+     * Getplatform function
      * get platform
      *
      * @return query result_array
@@ -275,7 +307,7 @@ class ChannelModel extends CI_Model
     }
 
     /**
-     * addchannel function
+     * Addchannel function
      * add self-built channel
      *
      * @param string $channel_name channel name
@@ -297,7 +329,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * addsychannel function
+     * Addsychannel function
      * add self-built system channel
      *
      * @param string $channel_name channel name
@@ -320,7 +352,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * getdechaninfo function
+     * Getdechaninfo function
      * get self-built channel information
      *
      * @param int $userid     user id
@@ -340,7 +372,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * updatechannel function
+     * Updatechannel function
      * the information of updating channel
      *
      * @param string $channel_name channel name
@@ -362,7 +394,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * deletechannel function
+     * Deletechannel function
      * detele channel
      *
      * @param int $channel_id channel id
@@ -379,7 +411,7 @@ class ChannelModel extends CI_Model
     }
 
     /**
-     * getchanbyplat function
+     * Getchanbyplat function
      * through platform get channel
      *
      * @param string $platform platform
@@ -399,7 +431,7 @@ class ChannelModel extends CI_Model
     }
 
     /**
-     * updateapk function
+     * Updateapk function
      * insert android apk url
      *
      * @param int    $userid      user id
@@ -459,7 +491,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * updateapp function
+     * Updateapp function
      * insert iphone apk url
      *
      * @param int    $userid      user id
@@ -515,7 +547,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * judgeupdate function
+     * Judgeupdate function
      * To determine whether the automatic updates
      *
      * @param int $cp_id cp id
@@ -537,7 +569,7 @@ class ChannelModel extends CI_Model
     }
 
     /**
-     * getupdatehistory function
+     * Getupdatehistory function
      * Get automatically update history information
      *
      * @param int $cp_id cp id
@@ -557,7 +589,7 @@ class ChannelModel extends CI_Model
     }
 
     /**
-     * getuapkplatform function
+     * Getuapkplatform function
      * Get platform information
      *
      * @param int $channel_id channel id
@@ -575,7 +607,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * getakpinfo function
+     * Getakpinfo function
      * Get updated apk with the app information
      *
      * @param int $userid user id
@@ -595,7 +627,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * getversionid function
+     * Getversionid function
      * Get automatically update the version number information
      *
      * @param int    $cp_id     cp id
@@ -619,12 +651,12 @@ class ChannelModel extends CI_Model
         } else {
                   $sql="select  distinct version from  ".$this->db->dbprefix('product_version')."   where product_channel_id=$cp_id and updatetime <='$time'  and active=1";
         }
-            $query = $this->db->query($sql);
+        $query = $this->db->query($sql);
         if ($query!=null&&$query->num_rows()>0) {
                   $dataversion= $query->result_array();
             foreach ($dataversion as $data) {
                       $result=strcmp($data['version'], $versionid);
-                if ( $channelcount==1 && $upinfo==0) {
+                if ($channelcount==1 && $upinfo==0) {
                           $comversion=true;
                 } else {
                     if ($result>=0) {
@@ -635,7 +667,7 @@ class ChannelModel extends CI_Model
                     }
                 }
             }
-            return $comversion;        
+            return $comversion;
         } else {
             if ($sql!=""&& $upinfo==1) {
                 return true;
@@ -648,7 +680,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * getchannelversioncount function
+     * Getchannelversioncount function
      * get channel version count from product_version
      *
      * @param int $cp_id cp id
@@ -673,7 +705,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * getupdatelistinfo function
+     * Getupdatelistinfo function
      * Get updated automatically update the list of history
      *
      * @param int $vp_id vp id
@@ -691,7 +723,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * getnewlistinfo function
+     * Getnewlistinfo function
      * Get automatic updates of the information in the new list
      *
      * @param int $cp_id cp id
@@ -709,7 +741,7 @@ class ChannelModel extends CI_Model
     }
     
     /**
-     * deleteupdate function
+     * Deleteupdate function
      * Delete automatically update in the history list
      *
      * @param int $vp_id vp id
