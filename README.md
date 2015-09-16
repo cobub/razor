@@ -50,6 +50,10 @@ Mailing Lists
 Subscribe:  cobubrazor-subscribe@yahoogroups.com
 Post Message:  cobubrazor@yahoogroups.com
 
+QQ Group
+-------
+
+QQ group:194022996
 
 License
 -------
