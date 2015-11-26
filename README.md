@@ -53,6 +53,7 @@ Post Message:  cobubrazor@yahoogroups.com
 QQ Group
 -------
 
+[![QQ Group](http://www.cobub.com/wp-content/uploads/2015/11/cobub-qq-%E4%BA%8C%E7%BB%B4%E7%A0%81-270.jpeg)](http://www.cobub.com)
 QQ group:194022996
 
 License
