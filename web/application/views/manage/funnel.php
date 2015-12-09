@@ -53,18 +53,39 @@ if (isset($result) && ! empty($result)) {
             }
         }
                             ?>%</td>
-        <td><a
-								href="<?php echo site_url()?>/report/funnels/editFunnel/<?php echo $result['tid'][$i]?>">
+        <td>
+             <?php if(isset($guest_roleid) && $guest_roleid==2): ?>
+            <a>
 									<img style="border: 0px"
 									title=<?php echo lang('v_element_edit')?>
 									src="<?php echo base_url()?>/assets/images/icn_edit.png">
-        </a> <a
-								href="javascript:if(confirm('<?php echo lang('v_rpt_re_funnelmsgIsdelete');?>')){location.href='<?php echo site_url()?>/manage/funnels/deleteFunnel/<?php echo $result['tid'][$i]?>'}">
+        </a> 
+         <?php else: ?>   
+              <a
+                                href="<?php echo site_url()?>/report/funnels/editFunnel/<?php echo $result['tid'][$i]?>">
+                                    <img style="border: 0px"
+                                    title=<?php echo lang('v_element_edit')?>
+                                    src="<?php echo base_url()?>/assets/images/icn_edit.png">
+        </a> 
+              <?php endif; ?>
+              
+              <?php if(isset($guest_roleid) && $guest_roleid==2): ?>
+        <a>
 									<img style="border: 0px"
 									title=<?php echo lang('v_element_trash')?>
 									src="<?php echo base_url()?>/assets/images/icn_trash.png"
 									style="border:0;">
-        </a></td>
+        </a>
+        <?php else: ?> 
+        <a
+                                href="javascript:if(confirm('<?php echo lang('v_rpt_re_funnelmsgIsdelete');?>')){location.href='<?php echo site_url()?>/manage/funnels/deleteFunnel/<?php echo $result['tid'][$i]?>'}">
+                                    <img style="border: 0px"
+                                    title=<?php echo lang('v_element_trash')?>
+                                    src="<?php echo base_url()?>/assets/images/icn_trash.png"
+                                    style="border:0;">
+        </a>
+        <?php endif; ?>
+        </td>
         </tr>
                         <?php
     }
@@ -113,7 +134,9 @@ if (isset($eventlist)) {
 						</fieldset>
 						<input type="button" onclick="addstep()" class="alt_btn"
 							id="mark_id" value="<?php echo lang('v_rpt_re_funnelStepadd');?>" />
-						<input type="button" onclick="addfunnel()" class="alt_btn"
+						<input
+						  <?php if(isset($guest_roleid) && $guest_roleid==2):echo 'disabled="disabled"'; endif;?> 
+						 type="button" onclick="addfunnel()" class="alt_btn"
 							value="<?php echo lang('g_submit');?>">
 						<fieldset class="fieldset" id="msg" style="display: none;"></fieldset>
 					</div>

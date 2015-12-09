@@ -65,7 +65,9 @@ $description = array(
         </div>
         <footer>
             <div class="submit_link">
-                <input type='submit' id='submit' class='alt_btn'
+                <input 
+                <?php if(isset($guest_roleid) && $guest_roleid==2):echo 'disabled="disabled"'; endif;?> 
+                type='submit' id='submit' class='alt_btn'
                     name="product/saveedit" value="<?php echo lang('g_update') ?>">
             </div>
         </footer>

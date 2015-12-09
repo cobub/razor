@@ -59,6 +59,7 @@ class Funnels extends CI_Controller
         $eventdata = $data['eventdata'];
         $data['eventlist'] = $this->event->getProductEventByProuctId($product_id);
         $data['result'] = $this->prepareConversionData($targetdata, $eventdata);
+        $data['guest_roleid'] = $this -> common -> getUserRoleById($user_id);
         $this->load->view('manage/funnel', $data);
     }
     /**

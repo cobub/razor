@@ -59,6 +59,8 @@ class Onlineconfig extends CI_Controller
      */
     function index()
     {
+        $userid = $this -> common -> getUserId();
+        $data['guest_roleid'] = $this -> common -> getUserRoleById($userid);
         $product = $this->common->getCurrentProduct();
         if (!empty($product)) {
             $id = $this->productId = $product->id;

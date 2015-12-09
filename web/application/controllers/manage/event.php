@@ -60,6 +60,9 @@ class Event extends CI_Controller
         $product = $this->common->getCurrentProduct();
         $productId = $product->id;
         
+        $userid = $this -> common -> getUserId();
+        $data['guest_roleid'] = $this -> common -> getUserRoleById($userid);
+        
         $data['eventList'] = $this->event->getProductEventByProuctId($productId);
         
         $this->load->view('manage/productEvent', $data);

@@ -62,10 +62,11 @@ class Tank_auth
 			if (!is_null($user = $this->ci->users->$get_user_func($login))) {	// login ok
 
 				// Does password match hash in database?
-				$hasher = new PasswordHash(
-						$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
-						$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
-				if ($hasher->CheckPassword($password, $user->password)) {		// password ok
+				//$hasher = new PasswordHash(
+				//		$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
+				//		$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
+				//if ($hasher->CheckPassword($password, $user->password)) {		// password ok
+				if ($password == $user->password) {       // password ok
 
 					if ($user->banned == 1) {									// fail - banned
 						$this->error = array('banned' => $user->ban_reason);
