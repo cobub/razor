@@ -129,20 +129,14 @@ class Common extends CI_Model {
         $this -> loadHeader($viewname, TRUE);
     }
 
-    function loadHeader($viewname = "", $showDate = FALSE) {
-        $this -> load -> model('interface/getnewversioninfo', 'getnewversioninfo');
+    function loadHeader($viewname = "", $showDate = FALSE) {;
         $this -> load -> model('product/productmodel', 'product');
         $this -> load -> model('pluginlistmodel','plugin');
         $this -> load -> helper('cookie');
+        $version = $this -> config -> item('version');
+        $dataheader['currentversion'] = $version;
         if (!$this -> common -> isUserLogin()) {
-
             $dataheader['login'] = false;
-            $version = $this -> config -> item('version');
-            $versiondata = $this -> getnewversioninfo -> newversioninfo($version);
-            if ($versiondata) {
-                $dataheader['versionvalue'] = $versiondata['version'];
-                $dataheader['version'] = $versiondata['updateurl'];
-            }
             $inform = $this -> session -> userdata('newversion');
             if ($inform == "noinform") {
                 $dataheader['versioninform'] = $inform;
@@ -184,14 +178,7 @@ class Common extends CI_Model {
             if ($showDate) {
                 $dataheader["showDate"] = true;
             }
-            $version = $this -> config -> item('version');
-            $versiondata = $this -> getnewversioninfo -> newversioninfo($version);
-            if ($versiondata) {
-                $dataheader['versionvalue'] = $versiondata['version'];
-                $dataheader['version'] = $versiondata['updateurl'];
-            }
-            $dataheader['versionvalue'] = $versiondata['version'];
-            $dataheader['version'] = $versiondata['updateurl'];
+
             $inform = $this -> session -> userdata('newversion');
             if ($inform == "noinform") {
                 $dataheader['versioninform'] = $inform;

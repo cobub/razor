@@ -167,6 +167,45 @@ type="text/javascript"></script>
                 <?php  endif;?></h3>
             </hgroup>
         </header>
+        
+         <div id="newversioninform" style="text-align:center;background-color:#E6DB55;font-size: 12px;padding:8px 0;display: none;" >
+         </div>
+         
+        <script type="text/javascript">
+        
+        var info = "<?php  echo (isset($versioninform))?0:1; ?>";
+        if(info == 1) {
+            var posturl = "http://news.cobub.com/index.php?/news/getUpdateUrl";
+            var currentversion = "<?php echo $currentversion; ?>"
+            var data = {
+                version:currentversion
+            };
+             jQuery.ajax({
+                    type : "post",
+                    data : data,
+                    url : posturl,
+                    success : function(msg) {
+                        var arr=eval('('+msg+')');
+                        if(arr.flag == 1){
+                            document.getElementById('newversioninform').innerHTML = "<font ><?php echo lang('l_versioninform') ?>"+arr.msg.version+"<?php echo lang('l_vinformtogo');?><a href=' "+arr.msg.updateurl+" ' target=\"_blank\"> "+arr.msg.updateurl+"</a><a href='javascript:void()' onclick='closeinform()' style='float:right;margin-right:2%;' ><img src='<?php  echo base_url();?>/assets/images/erroryell.png' /></a></font>";    
+                            document.getElementById('newversioninform').style.display="block";
+                        }
+                    },
+                    error : function(XmlHttpRequest, textStatus, errorThrown) {
+                        
+                    },
+                    beforeSend : function() {
+                     
+                    },
+                    complete : function() {
+                    }
+                });
+
+        }
+       
+</script>
+
+       <!--
         <?php
 if(! isset ($versioninform)&& isset ($versionvalue))
 {
@@ -180,6 +219,7 @@ if(isset($username)):
         <?php  endif;
             }
         ?>
+       -->
         <!-- end of header bar -->
         <?php if(isset($login) && $login):
         ?>
