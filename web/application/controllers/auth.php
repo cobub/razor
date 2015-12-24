@@ -388,7 +388,7 @@ class Auth extends CI_Controller
             redirect('/auth/login/');
         } else {
             $this->form_validation->set_rules('old_password', lang('l_oldPassword'), 'trim|required|xss_clean');
-            $this->form_validation->set_rules('new_password', lang('m_cp_newPassword'), 'trim|required|xss_clean|min_length[' .$this->config->item('password_min_length', 'tank_auth') . ']|max_length[' .$this->config->item('password_max_length', 'tank_auth') . ']|alpha_dash');
+            $this->form_validation->set_rules('new_password', lang('m_cp_newPassword'), 'regex_match[/^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).{8,}$/]');
             $this->form_validation->set_rules('confirm_new_password', lang('l_confirmNewP'), 'trim|required|xss_clean|matches[new_password]');
             
             $data['errors'] = array();
