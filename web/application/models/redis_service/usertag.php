@@ -39,6 +39,7 @@ class UserTag extends CI_Model
     {
         parent::__construct();
         $this -> load -> library('redis');
+        $this -> load -> model("redis_service/processor");
     }
     
     /** 
@@ -54,7 +55,9 @@ class UserTag extends CI_Model
         $this -> load -> model('servicepublicclass/posttagpublic', 'posttagpublic');
         $posttag = new posttagpublic();
         $posttag -> loadtag($content);
-        $data = array('deviceid' => $posttag -> deviceid, 'tags' => $posttag -> tags, 'productkey' => $posttag -> productkey);
+        $data = array('deviceid' => $posttag -> deviceid, 
+        'tags' => $posttag -> tags, 
+        'appkey' => $posttag -> appkey);
         $this -> redis -> lpush('razor_usertag', serialize($data));
         $this -> processor -> process();
     }

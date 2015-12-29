@@ -60,7 +60,7 @@ class Processor extends CI_Model
                 $this -> processItems("razor_errors", "errorlog", "appkey");
                 $this -> processItems("razor_clientdata", "clientdata", "productkey");
                 $this -> processItems("razor_clientusinglogs", "clientusinglog", "appkey");
-                $this -> processItems("razor_usertag", "device_tag", "productkey");
+                $this -> processItems("razor_usertag", "device_tag", "appkey");
             }
         } else {
             $timestamp = date('Y-m-d H:i:s', time());

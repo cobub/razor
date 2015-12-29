@@ -39,6 +39,7 @@ class Userlog extends CI_Model
     {
         parent::__construct();
         $this -> load -> database();
+        $this -> load -> model("redis_service/processor");
         $this -> load -> library('redis');
     }
     
