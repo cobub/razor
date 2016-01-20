@@ -147,7 +147,7 @@ public class UmsAgent {
                 CobubLog.i(tag, "Call onResume()");
                 if (usinglogManager == null)
                     usinglogManager = new UsinglogManager(context);
-                usinglogManager.onResume();
+                usinglogManager.onResume(context);
             }
         });
         handler.post(thread);

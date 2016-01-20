@@ -67,7 +67,8 @@ public class UsinglogManager {
         return jsonUsinglog;
     }
 
-    public void onResume() {
+    public void onResume(final Context context) {
+    	this.context = context;
         CobubLog.i(tag, "Call onResume()");
         try {
             if (CommonUtil.isNewSession(context)) {
@@ -90,6 +91,7 @@ public class UsinglogManager {
         }
         CommonUtil.saveSessionTime(context);
         CommonUtil.savePageName(context, CommonUtil.getActivityName(context));
+        
 //        activities = CommonUtil.getActivityName(context);
 
 //        start_millis = DeviceInfo.getDeviceTime();
@@ -102,6 +104,7 @@ public class UsinglogManager {
         SharedPrefUtil sp = new SharedPrefUtil(context);
         
         String pageName = sp.getValue("CurrentPage", "");
+        System.out.println("  onpause--- "+pageName);
         
         long start = sp.getValue("session_save_time", System.currentTimeMillis());
         String start_millis = CommonUtil.getFormatTime(start);
