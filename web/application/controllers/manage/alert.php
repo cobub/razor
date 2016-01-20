@@ -59,6 +59,8 @@ class Alert extends CI_Controller
         $this->common->loadHeader();
         $product = $this->common->getCurrentProduct();
         $productId = $product->id;
+        $userid = $this -> common -> getUserId();
+        $data['guest_roleid'] = $this -> common -> getUserRoleById($userid);
         $data['alertList'] = $this->alert->getProductAlertByProuctId($productId);
         $this->load->view('manage/productAlert', $data);
     }

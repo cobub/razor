@@ -32,15 +32,22 @@ foreach ($alertList->result() as $row) {
 				<tr>
 							<td><?php echo lang($row->label);?></td>
 							<td>+/-<?php echo $row->condition;?>%</td>
-
 							<td>
-    					<?php echo anchor('/manage/alert/editAlert/'.$row->id.'/'.$row->condition, lang('g_edit'));?>
+    					<?php 
+    					if(isset($guest_roleid) && $guest_roleid!=2)
+    					    echo anchor('/manage/alert/editAlert/'.$row->id.'/'.$row->condition, lang('g_edit'));
+    					else
+                            echo lang('g_edit');
+    					?>
+    					
     					<?php
-            
-    if ($row->active == 1) {
-                echo anchor('/manage/alert/delAlert/' . $row->id . '/' . $row->condition, lang('m_delete'));
-    }
-            ?>
+                            if ($row->active == 1) {
+                                if(isset($guest_roleid) && $guest_roleid!=2)
+                                    echo anchor('/manage/alert/delAlert/' . $row->id . '/' . $row->condition, lang('m_delete'));
+                                else 
+                                    echo lang('m_delete');
+                            }
+                        ?>
     				</td>
 							</td>
 						</tr> 
@@ -81,7 +88,9 @@ foreach ($alertList->result() as $row) {
 						<label style="width: 35%; margin-left: 5 px"><?php echo    ucfirst(lang('v_rpt_el_note'));?></label>
 					</fieldset>
 
-					<input id="addButton" type="button"
+					<input 
+					 <?php if(isset($guest_roleid) && $guest_roleid==2):echo 'disabled="disabled"'; endif;?>
+					id="addButton" type="button"
 						value="<?php echo lang('v_rpt_el_add') ?>" class="alt_btn"
 						onClick='addEvent()'>
 				</div>

@@ -147,6 +147,8 @@ class Product extends CI_Controller
      */
     function editproduct()
     {
+        $userid = $this -> common -> getUserId();
+        $this->_data['guest_roleid'] = $this -> common -> getUserRoleById($userid);
         $this->common->loadHeader(lang('v_man_pr_editApp'));
         $product = $this->common->getCurrentProduct();
         if (! empty($product)) {

@@ -51,18 +51,29 @@ foreach ($eventList->result() as $row) {
                             <td><?php echo $row->eventName;?></td>
 
                             <td>
-                        <?php echo anchor('/manage/event/editEvent/'.$row->eventid, lang('g_edit'));?>
+                        <?php if(isset($guest_roleid) && $guest_roleid==2) echo lang('g_edit');else echo anchor('/manage/event/editEvent/'.$row->eventid, lang('g_edit'));?>
                         <?php
             
     if ($row->active == 1) {
+        if(isset($guest_roleid) && $guest_roleid==2) echo lang('g_stop');else
                 echo anchor('/manage/event/stopEvent/' . $row->eventid, lang('g_stop'));
     } else {
+        if(isset($guest_roleid) && $guest_roleid==2) echo lang('g_start');else
                 echo anchor('/manage/event/startEvent/' . $row->eventid, lang('g_start'));
     }
             ?>
-                        <a
-                                href="javascript:if(confirm('<?php echo lang('v_man_ev_resetEventPrompt') ?>'))location='<?php echo site_url();?>/manage/event/resetEvent/<?php echo $row->eventid?>'"><?php echo lang('g_reset') ?></a>
-                            </td>
+            <?php if(isset($guest_roleid) && $guest_roleid!=2): ?>
+                        <a href="javascript:if(confirm('<?php echo lang('v_man_ev_resetEventPrompt') ?>'))location='<?php echo site_url();?>/manage/event/resetEvent/<?php echo $row->eventid?>'">
+                  <?php echo lang('g_reset') ?>
+                            </a>
+                 <?php ; endif;?>   
+                 
+                  <?php if(isset($guest_roleid) && $guest_roleid==2): ?>
+                        <a>
+                  <?php echo lang('g_reset') ?>
+                            </a>
+                 <?php ; endif;?>              
+                           
                             </td>
                         </tr> 
             <?php 
@@ -81,7 +92,9 @@ foreach ($eventList->result() as $row) {
                         <label><?php echo lang('v_rpt_el_eventName') ?></label> <input
                             type="text" id='eventname'>
                     </fieldset>
-                    <input id="addButton" type="button"
+                    <input 
+                    <?php if(isset($guest_roleid) && $guest_roleid==2):echo 'disabled="disabled"'; endif;?>
+                    id="addButton" type="button"
                         value="<?php echo lang('v_man_ev_addEvent') ?>" class="alt_btn"
                         onClick='addEvent()'>
                 </div>

@@ -29,11 +29,20 @@ foreach ($sychannel as $ret) {
                 <tr>
                             <td><?php echo $ret['channel_id'];?></td>
                             <td><?php echo $ret['channel_name'];?></td>
-                            <td><a
+                            <td>
+                                <?php if(isset($guest_roleid) && $guest_roleid==2): ?>
+                                <a>
+                                    <img src="<?php echo base_url();?>assets/images/turnon.png"
+                                    title="Edit" style="border: 0px;">
+                            </a>
+                            <?php else: ?>    
+                                <a
                                 href="javascript:if(confirm('<?php echo lang('v_man_pr_openApp') ?>'))location='<?php echo site_url();?>/manage/channel/openchannel/<?php echo $ret['channel_id']; ?>'">
                                     <img src="<?php echo base_url();?>assets/images/turnon.png"
                                     title="Edit" style="border: 0px;">
-                            </a></td>
+                            </a>
+                            <?php endif; ?>
+                            </td>
                         </tr> 
             <?php
 } endif;?>                

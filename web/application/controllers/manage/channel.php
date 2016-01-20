@@ -194,10 +194,12 @@ class Channel extends CI_Controller
             $product_id = $product->id;
             $platform = $this->common->getCurrentProduct()->product_platform;
             // echo $platform;
+            $this->data['guest_roleid'] = $this -> common -> getUserRoleById($user_id);
             $this->data['productkey'] = $this->channel->getproductkey($user_id, $product_id, $platform);
             $this->data['deproductkey'] = $this->channel->getdefineproductkey($user_id, $product_id, $platform);
             $this->data['channel'] = $this->channel->getdefinechannel($user_id, $product_id, $platform);
             $this->data['sychannel'] = $this->channel->getsychannel($user_id, $product_id, $platform);
+            
             $this->common->loadHeader(lang('m_rpt_appChannel'));
             $this->load->view('manage/appchannel', $this->data);
         } else {

@@ -91,7 +91,13 @@ if (! empty($onlineconfigList)) {
     </div>
     <footer>
       <div class="submit_link">
-        <td><?php echo form_submit('submit', lang('g_save')); ?></td>
+        <td>
+             <?php if(isset($guest_roleid) && $guest_roleid==2) { echo form_submit('submit', lang('g_save'),'disabled');} 
+                        else {
+                            echo form_submit('submit', lang('g_save'));
+                        }
+             ?>
+            </td>
       </div>
     </footer>
   </article>

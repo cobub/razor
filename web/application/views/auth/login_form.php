@@ -31,6 +31,16 @@ $captcha = array(
   'maxlength'	=> 8,
 );
 ?>
+
+<script src="<?php echo base_url();?>assets/js/hashmd.js"
+    type="text/javascript"></script>
+<script type="text/javascript">
+function onPwd(){
+    var pwd = document.getElementById('password').value;
+    document.getElementById('password').value = hex_md5(pwd);
+}
+</script>
+
 <?php echo form_open($this->uri->uri_string()); ?>
 
 <section id="main" class="column" style="width: 100%">
@@ -73,7 +83,7 @@ $captcha = array(
 						<tr>
 							<td></td>
 							<td></td>
-							<td><?php echo form_submit('submit', lang('l_login')); ?></td>
+							<td><?php echo form_submit('submit', lang('l_login'),'onclick="onPwd()"'); ?></td>
                             
 							</td>
 							<td></td>
