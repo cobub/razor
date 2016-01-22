@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+
 /**
  * @author apple
  */
@@ -296,15 +297,19 @@ class DeviceInfo {
 
     public static String getDeviceId() {
         String result = null;
-        try {
+        SharedPrefUtil sp = new SharedPrefUtil(context);
+        result = sp.getValue("uniqueuid", "");
+        if(result.equals("")){
+        	try {
                 String imei = getDeviceIMEI();
                 String imsi = getIMSI();
                 String salt = CommonUtil.getSALT(context);
                
                 result = CommonUtil.md5Appkey(imei + imsi + salt);
-
-        } catch (Exception e) {
-            CobubLog.e(tag, e);
+                sp.setValue("uniqueuid", result);
+	        } catch (Exception e) {
+	            CobubLog.e(tag, e);
+	        }
         }
         return result;
     }
