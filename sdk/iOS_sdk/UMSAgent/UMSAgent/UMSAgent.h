@@ -24,6 +24,7 @@ typedef enum {
 {
 
 }
++(void)postErrorLog:(NSString*)stackTrace;
 
 +(void)checkUpdate;
 

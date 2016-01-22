@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "458"
             endingLineNumber = "458"
-            landmarkName = "+postEvent:"
+            landmarkName = "-saveActivityUsingTime:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "496"
             endingLineNumber = "496"
-            landmarkName = "+postEvent:label:acc:"
+            landmarkName = "-getApplicationUpdate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "705"
             endingLineNumber = "705"
-            landmarkName = "-postOldEventDataInBackGround:"
+            landmarkName = "-getArchiveTag"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "745"
             endingLineNumber = "745"
-            landmarkName = "-archiveClientData"
+            landmarkName = "-getArchiveActivityLog"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -111,7 +111,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "165"
             endingLineNumber = "165"
-            landmarkName = "-recordStartTime:"
+            landmarkName = "-initWithAppKey:reportPolicy:serverURL:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -207,8 +207,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "150"
             endingLineNumber = "150"
-            landmarkName = "@implementation UMSAgent"
-            landmarkType = "3">
+            landmarkName = "-initWithAppKey:reportPolicy:serverURL:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -223,7 +223,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "861"
             endingLineNumber = "861"
-            landmarkName = "-getDeviceInfo"
+            landmarkName = "-archiveClientData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -239,8 +239,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "503"
             endingLineNumber = "503"
-            landmarkName = "@implementation UMSAgent"
-            landmarkType = "3">
+            landmarkName = "-getApplicationUpdate"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -255,7 +255,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "862"
             endingLineNumber = "862"
-            landmarkName = "-getDeviceInfo"
+            landmarkName = "-archiveClientData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -271,7 +271,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "664"
             endingLineNumber = "664"
-            landmarkName = "-postEventInBackGround:"
+            landmarkName = "-getArchiveEvent"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -287,7 +287,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "485"
             endingLineNumber = "485"
-            landmarkName = "+postEvent:acc:"
+            landmarkName = "-getApplicationUpdate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -303,7 +303,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "486"
             endingLineNumber = "486"
-            landmarkName = "+postEvent:acc:"
+            landmarkName = "-getApplicationUpdate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -431,7 +431,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "619"
             endingLineNumber = "619"
-            landmarkName = "-getArchiveActivityLog"
+            landmarkName = "-processArchivedLogs"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -447,7 +447,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "620"
             endingLineNumber = "620"
-            landmarkName = "-getArchiveActivityLog"
+            landmarkName = "-processArchivedLogs"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -488,6 +488,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "+[CheckUpdateDao checkUpdate:version:]"
                   moduleName = "UMSAgentExample"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file://localhost/Users/wb/Projects/razor/sdk/iOS_sdk/UMSAgent/CheckUpdateDao.m"
                   timestampString = "401599847.238956"
                   startingColumnNumber = "9223372036854775807"
@@ -502,6 +503,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "+[CheckUpdateDao checkUpdate:version:]"
                   moduleName = "UMSAgentExample"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file://localhost/Users/wb/Projects/razor/sdk/iOS_sdk/UMSAgent/CheckUpdateDao.m"
                   timestampString = "401599847.239181"
                   startingColumnNumber = "9223372036854775807"
@@ -516,6 +518,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "+[CheckUpdateDao checkUpdate:version:]"
                   moduleName = "UMSAgentExample"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file://localhost/Users/wb/Projects/razor/sdk/iOS_sdk/UMSAgent/CheckUpdateDao.m"
                   timestampString = "401599847.239436"
                   startingColumnNumber = "9223372036854775807"
@@ -572,22 +575,6 @@
             startingLineNumber = "66"
             endingLineNumber = "66"
             landmarkName = "+SendData:data:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UMSAgent/UMSAgent/UMSAgent.m"
-            timestampString = "401946667.027765"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1114"
-            endingLineNumber = "1114"
-            landmarkName = "+getUMSUDID"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

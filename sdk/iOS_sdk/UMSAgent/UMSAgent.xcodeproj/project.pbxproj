@@ -14,7 +14,6 @@
 		362FE8A1152D7BB50036B178 /* ActivityLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 362FE89F152D7BB50036B178 /* ActivityLog.h */; };
 		362FE8A2152D7BB50036B178 /* ActivityLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 362FE8A0152D7BB50036B178 /* ActivityLog.m */; };
 		3630005C15131A1600E84C2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3630005B15131A1600E84C2D /* Foundation.framework */; };
-		3630006215131A1600E84C2D /* UMSAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3630006115131A1600E84C2D /* UMSAgent.m */; };
 		3630006A15131A1600E84C2D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3630006915131A1600E84C2D /* SenTestingKit.framework */; };
 		3630006D15131A1600E84C2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3630005B15131A1600E84C2D /* Foundation.framework */; };
 		3630007015131A1600E84C2D /* libUMSAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3630005815131A1600E84C2D /* libUMSAgent.a */; };
@@ -36,6 +35,7 @@
 		36B6B3A21563AA1E00AEB577 /* ErrorLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B6B3A01563AA1E00AEB577 /* ErrorLog.m */; };
 		36B8E535151C4F8A004C3C1F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B8E534151C4F8A004C3C1F /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		36C95BB91522E74100725BBA /* UMSAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 3630006015131A1600E84C2D /* UMSAgent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		36E044851C52259600055F6F /* UMSAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E044841C52259600055F6F /* UMSAgent.m */; };
 		36FA717C1526D9D90049AF2C /* OpenUDID.h in Headers */ = {isa = PBXBuildFile; fileRef = 36FA717A1526D9D90049AF2C /* OpenUDID.h */; };
 		36FA717D1526D9D90049AF2C /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 36FA717B1526D9D90049AF2C /* OpenUDID.m */; };
 		8447F4C015186D3300D14FD9 /* CheckUpdateReturn.h in Headers */ = {isa = PBXBuildFile; fileRef = 8447F4BE15186D3300D14FD9 /* CheckUpdateReturn.h */; };
@@ -94,7 +94,6 @@
 		3630005B15131A1600E84C2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3630005F15131A1600E84C2D /* UMSAgent-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UMSAgent-Prefix.pch"; sourceTree = "<group>"; };
 		3630006015131A1600E84C2D /* UMSAgent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSAgent.h; sourceTree = "<group>"; };
-		3630006115131A1600E84C2D /* UMSAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSAgent.m; sourceTree = "<group>"; };
 		3630006815131A1600E84C2D /* UMSAgentTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UMSAgentTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3630006915131A1600E84C2D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		3630007315131A1600E84C2D /* UMSAgentTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UMSAgentTests-Info.plist"; sourceTree = "<group>"; };
@@ -116,6 +115,7 @@
 		36B6B39F1563AA1E00AEB577 /* ErrorLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorLog.h; sourceTree = "<group>"; };
 		36B6B3A01563AA1E00AEB577 /* ErrorLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorLog.m; sourceTree = "<group>"; };
 		36B8E534151C4F8A004C3C1F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		36E044841C52259600055F6F /* UMSAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSAgent.m; sourceTree = "<group>"; };
 		36FA717A1526D9D90049AF2C /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
 		36FA717B1526D9D90049AF2C /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
 		8447F4BE15186D3300D14FD9 /* CheckUpdateReturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckUpdateReturn.h; sourceTree = "<group>"; };
@@ -211,7 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				3630006015131A1600E84C2D /* UMSAgent.h */,
-				3630006115131A1600E84C2D /* UMSAgent.m */,
+				36E044841C52259600055F6F /* UMSAgent.m */,
 				3630005E15131A1600E84C2D /* Supporting Files */,
 			);
 			path = UMSAgent;
@@ -451,7 +451,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3630006215131A1600E84C2D /* UMSAgent.m in Sources */,
 				847BB17C15172E2C00933648 /* network.m in Sources */,
 				84C33FC81517684E008B0EC0 /* CommonReturn.m in Sources */,
 				369DFBEF17EEA53900A8D1E7 /* NSDictionary_JSONExtensions.m in Sources */,
@@ -470,6 +469,7 @@
 				362FE8A2152D7BB50036B178 /* ActivityLog.m in Sources */,
 				36B6B3A21563AA1E00AEB577 /* ErrorLog.m in Sources */,
 				36B30158162AD1BD0098FEF5 /* ClientData.m in Sources */,
+				36E044851C52259600055F6F /* UMSAgent.m in Sources */,
 				1839C72D1808133300585130 /* PostTagDao.m in Sources */,
 				1839C72F1808133300585130 /* Tag.m in Sources */,
 			);

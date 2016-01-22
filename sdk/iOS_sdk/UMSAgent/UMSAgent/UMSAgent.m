@@ -370,21 +370,21 @@
     }
 }
 
-- (void)saveErrorLog:(NSString*)stackTrace
++ (void)saveErrorLog:(NSString*)stackTrace
 {
     @autoreleasepool {
-        if(isLogEnabled)
+        if([UMSAgent getInstance].isLogEnabled)
         {
             NSLog(@"save error log");
         }
         ErrorLog *errorLog = [[ErrorLog alloc] init];
         errorLog.stackTrace = stackTrace;
-        errorLog.appkey = self.appKey;
-        errorLog.version = [self getVersion];
-        errorLog.time = [self getCurrentTime];
+        errorLog.appkey = [UMSAgent getInstance].appKey;
+        errorLog.version = [[UMSAgent getInstance] getVersion];
+        errorLog.time = [[UMSAgent getInstance] getCurrentTime];
         errorLog.activity = [[NSBundle mainBundle] bundleIdentifier];
         errorLog.osVersion = [[UIDevice currentDevice] systemVersion];
-        errorLog.deviceID = [self machineName];
+        errorLog.deviceID = [[UMSAgent getInstance] machineName];
         NSLog(@"Error Log");
         NSData *errorLogData = [[NSUserDefaults standardUserDefaults] objectForKey:@"errorLog"] ;
         NSMutableArray * errorLogArray = [[NSMutableArray alloc] init ];
@@ -396,9 +396,10 @@
             errorLogArray = [[NSMutableArray alloc] init ];
         }
         [errorLogArray addObject:errorLog];
-        if(isLogEnabled)
+        if([UMSAgent getInstance].isLogEnabled)
         {
             NSLog(@"Error Log array size = %lu",(unsigned long)[errorLogArray count]);
+            
         }
         NSData *newErrorData = [NSKeyedArchiver archivedDataWithRootObject:errorLogArray];
         [[NSUserDefaults standardUserDefaults] setObject:newErrorData forKey:@"errorLog"];
@@ -1219,37 +1220,88 @@ uncaughtExceptionHandler(NSException *exception) {
     NSLog(@"CRASH: %@", exception);
     NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
     NSString *stackTrace = [[NSString alloc] initWithFormat:@"%@\n%@",exception,[exception callStackSymbols]];
-    [[UMSAgent getInstance] saveErrorLog:stackTrace];
+    [UMSAgent saveErrorLog:stackTrace];
     
 }
 
--(void)postErrorLog:(NSString*)stackTrace
++(void)postErrorLog:(NSString*)stackTrace
 {
-    @autoreleasepool {
-        if(isLogEnabled)
-        {
-            NSLog(@"Post error log realtime");
-        }
+   
         ErrorLog *errorLog = [[ErrorLog alloc] init];
         errorLog.stackTrace = stackTrace;
-        errorLog.appkey = self.appKey;
-        errorLog.version = [self getVersion];
-        errorLog.time = [self getCurrentTime];
+        errorLog.appkey = [UMSAgent getInstance].appKey;
+        errorLog.version = [[UMSAgent getInstance] getVersion];
+        errorLog.time = [[UMSAgent getInstance] getCurrentTime];
         NSString *activityName = [[NSBundle mainBundle] bundleIdentifier];
-        if(self.pageName!=nil && ![self.pageName isEqualToString:@""])
+        if([UMSAgent getInstance].pageName!=nil && ![[UMSAgent getInstance].pageName isEqualToString:@""])
         {
-            activityName = self.pageName;
+            activityName = [UMSAgent getInstance].pageName;
         }
         errorLog.activity = activityName;
         errorLog.osVersion = [[UIDevice currentDevice] systemVersion];
-        errorLog.deviceID = [self machineName];
-        CommonReturn *ret = [PostClientDataDao postErrorLog:self.appKey errorLog:errorLog];
-        if(ret.flag<0)
-        {
-            [self saveErrorLog:stackTrace];
-        }
-    }
+        errorLog.deviceID = [[UMSAgent getInstance] machineName];
+    
+      [[UMSAgent getInstance] archiveError:errorLog];
+    
 }
+
+-(void)archiveError:(ErrorLog *)error{
+    
+    NSMutableArray *mErrorArray;
+    if (self.policy == BATCH) {
+        NSData *oldData = [[NSUserDefaults standardUserDefaults]objectForKey:@"errorLog"];
+        if (oldData != nil)
+        {
+            mErrorArray = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+        }
+        else
+        {
+            mErrorArray = [[NSMutableArray alloc]init];
+        }
+        if (isLogEnabled)
+        {
+            NSLog(@"archive error data because of BATCH mode");
+        }
+        [mErrorArray addObject:error];
+        
+        if (isLogEnabled) {
+            NSLog(@"Archived error count = @lu",(unsigned long)[mErrorArray count]);
+        }
+        NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:mErrorArray];
+        [[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"errorLog"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
+    }else{
+        [self processError:error];
+    }
+    
+    
+}
+
+-(void)processError:(ErrorLog *)error{
+    [self performSelector:@selector(postErrorInbackground:) withObject:error];
+}
+
+-(void)postErrorInbackground:(ErrorLog *)error{
+    @autoreleasepool {
+        CommonReturn *ret = [PostClientDataDao postErrorLog:[UMSAgent getInstance].appKey errorLog:error];
+        if (ret.flag <0) {
+            NSData *oldData = [[NSUserDefaults standardUserDefaults]objectForKey:@"errorLog"];
+            NSMutableArray *array = [[NSMutableArray alloc]init];
+            if (oldData != nil) {
+                array = [NSKeyedUnarchiver unarchiveObjectWithData:oldData];
+            }
+            [array addObject:error];
+            NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:array];
+            [[NSUserDefaults standardUserDefaults]setObject:newData forKey:@"errorLog"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+        }
+  
+    }
+  
+}
+
+
 
 -(void)getSystemLog
 {
