@@ -48,6 +48,7 @@ class Utility extends CI_Model
      */
     function isKeyAvailale($key)
     {
+        $key = addslashes($key);
         $query = $this->db->query("select * from " . $this->db->dbprefix('channel_product') . " where productkey = '$key'");
         if ($query != null && $query->num_rows() > 0) {
             return true;

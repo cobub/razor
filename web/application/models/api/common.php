@@ -97,6 +97,17 @@ class Common extends CI_Model
                             return $ret;
                 }
             }
+            //appkey
+            if($array[$i] == "appkey") {
+                preg_match("[^A-Za-z0-9]", $content->$array[$i],$pregs);
+                if(isset($pregs) && count($pregs)) {
+                     $ret = array(
+                                    'flag' => - 8,
+                                    'msg' => $array[$i] . ' is invalid'
+                            );
+                            return $ret;
+                }
+            }
         }
         $ret = array(
                 'flag' => 1,
