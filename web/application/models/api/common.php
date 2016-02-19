@@ -99,7 +99,7 @@ class Common extends CI_Model
             }
             //appkey
             if($array[$i] == "appkey") {
-                preg_match("[^A-Za-z0-9]", $content->$array[$i],$pregs);
+                preg_match("/[^A-Za-z0-9]/", $content->$array[$i],$pregs);
                 if(isset($pregs) && count($pregs)) {
                      $ret = array(
                                     'flag' => - 8,
