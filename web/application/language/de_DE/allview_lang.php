@@ -876,3 +876,7 @@ $lang['plg_get_keysecret']='Sie haben nicht auf Cobub konto Benutzer ermächtigt
 Benutzer kostenlos registrieren Cobub und zugangscode werden kann, nach dem abschluss der konten zu ermächtigen, können die Benutzer eine fülle von funktionen Cobub Zentrum.
 <a href="http://www.cobub.com/users/en/index.php?/help/userkey" target="_blank">Wie der account genehmigung?</a>Wenn sie bereits eine genehmigungscode bitte klicken';
 
+//// datezone
+$lang['diffdatezone'] = "Time zone difference";
+$lang['diffdatezone_hour'] = "hour.Please reconfigure the time zone, and restart the server.";
+

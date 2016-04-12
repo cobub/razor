@@ -141,6 +141,10 @@ class Common extends CI_Model {
             if ($inform == "noinform") {
                 $dataheader['versioninform'] = $inform;
             }
+			$diffdatezone = $this->getDiffdate();
+			if($diffdatezone){
+				$dataheader['diffdatezone'] = $diffdatezone;
+			}
             $this -> load -> view('layout/header', $dataheader);
         } else {
 
@@ -183,6 +187,10 @@ class Common extends CI_Model {
             if ($inform == "noinform") {
                 $dataheader['versioninform'] = $inform;
             }
+			$diffdatezone = $this->getDiffdate();
+			if($diffdatezone){
+				$dataheader['diffdatezone'] = $diffdatezone;
+			}
            
             
             $this->load->model ( 'pluginlistmodel' );
@@ -467,5 +475,25 @@ class Common extends CI_Model {
     		return false;
     	}
     }
+	
+	/*
+	 * php.ini mysql diffdatezone
+	 * 
+	 */
+	function getDiffdate() {
+		$phpDate = date("Y-m-d H:i:s",time());
+		$sql = "select CURRENT_TIMESTAMP;";
+        $query = $this -> db->query($sql);
+		if($query){
+			$mysqlDate = $query -> first_row()->CURRENT_TIMESTAMP;
+			$diffDate = strtotime($mysqlDate)-strtotime($phpDate);
+			if($diffDate>0)
+			 	return $diffDate/3600;
+			else {
+				return abs($diffDate)/3600;
+			}
+		}
+		return 0;
+	}
 
 }

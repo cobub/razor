@@ -168,6 +168,12 @@ type="text/javascript"></script>
             </hgroup>
         </header>
         
+		<?php if(isset($diffdatezone)):?>
+        <div id="diffdatezone" style="text-align:center;background-color:#E6DB55;font-size: 12px;padding:8px 0;" >
+         <p><?php echo lang('diffdatezone').$diffdatezone.lang('diffdatezone_hour') ?></p>
+        </div>
+        <?php endif; ?>
+		
          <div id="newversioninform" style="text-align:center;background-color:#E6DB55;font-size: 12px;padding:8px 0;display: none;" >
          </div>
          

@@ -1011,3 +1011,6 @@ $lang["v_rpt_realtime_event_in30minute"]="事件(30分钟)";
 $lang['cobub_login_ucenter']='/index.php?/auth';
 $lang['user_center_url']='http://dev.cobub.com/users/';
 
+//// datezone
+$lang['diffdatezone'] = "时区相差";
+$lang['diffdatezone_hour'] = "小时。请重新配置时区并重启服务器。";

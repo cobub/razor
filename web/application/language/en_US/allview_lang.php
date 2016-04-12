@@ -1002,4 +1002,7 @@ $lang['time_chose_error']='Time is not more than a month';
 $lang['cobub_login_ucenter']='/en/index.php?/auth';
 $lang['user_center_url']='http://dev.cobub.com/users/en/';
 
+//// datezone
+$lang['diffdatezone'] = "Time zone difference";
+$lang['diffdatezone_hour'] = "hour.Please reconfigure the time zone, and restart the server.";
 
