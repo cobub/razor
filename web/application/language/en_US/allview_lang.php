@@ -485,6 +485,7 @@ $lang['v_rpt_err_urep'] = "unrepaired";
 $lang['v_rpt_err_deviceBrand'] = "Device Brand";
 $lang['v_rpt_err_versionDistribution'] = "Version Distribution";
 $lang['v_rpt_err_appVersionD'] = "Distribution of App Version";
+$lang['v_rpt_el_eventIDName']='Event ID/Name';
 
 //view---report----errorlog----track
 $lang['v_rpt_err_notRepaired']='(This Error Has Not Been Repaired)';

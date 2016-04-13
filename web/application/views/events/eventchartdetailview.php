@@ -12,12 +12,13 @@
 var event_sk = "<?php echo $event_sk?>";
 var version = "<?php echo $event_version?>";
 var event_name = "<?php echo $event_name?>";
+var event_identifier = "<?php echo $event_identifier?>";
 </script>
 
 <section id="main" class="column">
 <article class="module width_full">
 <header>
-<h3 class="tabs_involved"><font color="#787878"><?php echo $event_name." "?></font><?php echo  lang('v_rpt_el_eventStatistics')?></h3>
+<h3 class="tabs_involved"><?php echo $event_name." "?><font color="#787878"><?php echo "(".$event_identifier.") "?></font><?php echo  lang('v_rpt_el_eventStatistics')?></h3>
 <ul class="tabs2">
    	<li><a id='eventnum' href="javascript:changeChartData('<?php echo  lang('v_rpt_el_eventMsgs')?>')"><?php echo  lang('v_rpt_el_eventMsgs')?></a></li>
 	<li><a id='eventnumperactiveuser' href="javascript:changeChartData('<?php echo  lang('v_rpt_el_MsgsInActive')?>')"><?php echo  lang('v_rpt_el_MsgsInActive')?></a></li>

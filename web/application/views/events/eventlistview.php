@@ -22,6 +22,12 @@
 	<?php }}?>
 	<option value='all' selected><?php echo  lang('v_rpt_el_allVersion')?></option>
 </select>
+
+<label><?php echo lang('v_rpt_el_eventIDName') ?></label>
+<input type="text" id='eventname' >
+<input type="button" id='searchbtn' value="<?php echo  lang('g_search')?>" class="alt_btn" onclick="searchEvent()">
+<input type="button" id='exportbtn' value="<?php echo  lang('g_exportToCSV')?>" class="alt_btn" onclick="exportEvent()">
+ 
 </div>
 </header>
 
@@ -123,7 +129,7 @@ var version="all";
 		msg = msg + (eventdata[i+index].count?eventdata[i+index].count:'0');
 		msg = msg + "</td><td>";
 		msg = msg + "<a href='<?php echo site_url()?>/report/eventlist/getEventDeatil/"
-		+eventdata[i+index].event_sk+"/"+version+"/"+
+		+eventdata[i+index].event_sk+"/"+version+"/"+eventdata[i+index].eventname+"/"+
 		eventdata[i+index].eventidentifier+"'><?php echo  lang('v_rpt_el_eventStatistics')?></a>";
 		msg = msg + "</td></tr>";
    	}
@@ -162,8 +168,29 @@ $("ul.tabs3 li").click(function() {
 function selectChange(value)
 {
     version = value;
+    document.getElementById('eventname').value = '';
     myurl= "<?php echo site_url().'/report/eventlist/getEventListData/'?>"+version;
     rederUserData(myurl);
            
+}
+function searchEvent()
+{
+    eventname = trim(document.getElementById('eventname').value);
+    value = document.getElementById('select').value;
+    myurl= "<?php echo site_url().'/report/eventlist/getSearchEventData/'?>"+value+'/'+eventname;
+    rederUserData(myurl);
+           
+}
+
+function exportEvent()
+{
+    eventname = trim(document.getElementById('eventname').value);
+    value = document.getElementById('select').value;
+    window.location.href = "<?php echo site_url().'/report/eventlist/exportEvent/'?>"+value+'/'+eventname;;
+}
+
+
+function trim(str) {
+        return  (str.replace(/(^\s*)|(\s*$)/g, ''));
 }
 </script>

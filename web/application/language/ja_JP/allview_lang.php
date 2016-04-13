@@ -479,7 +479,7 @@ $lang['v_man_pr_editApp']	=	'アプリ編集';
 $lang['v_man_pr_name']	=	'名前*';
 $lang['v_man_pr_appType']	=	'アプリ形式*';
 $lang['v_man_pr_platform']	=	'プラットフォーム*';
-
+$lang['v_rpt_el_eventIDName']='Event ID/Name';
 
 
 // view----manange----onlineconfig		

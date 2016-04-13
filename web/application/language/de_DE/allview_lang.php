@@ -480,7 +480,7 @@ $lang['v_man_pr_editApp']='App Bearbeiten';
 $lang['v_man_pr_name']='Name*';
 $lang['v_man_pr_appType']='App Typ*';
 $lang['v_man_pr_platform']='Plattform*';
-
+$lang['v_rpt_el_eventIDName']='Event ID/Name';
 
 
 // view----manange----onlineconfig
