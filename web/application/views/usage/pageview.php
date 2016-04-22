@@ -18,6 +18,12 @@
 				    <option value=<?php echo $row->version_name; ?>><?php echo $row->version_name;?></option>
 				    <?php }} endif;?>
 	  			</select>
+	  			
+	  			&nbsp;&nbsp;<label><?php echo lang('v_rpt_pv_page') ?></label>
+<input type="text" id='weburl' >
+<input type="button" id='searchpagebtn' value="<?php echo  lang('g_search')?>" class="alt_btn" onclick="searchPage()">
+<input type="button" id='exportpagebtn' value="<?php echo  lang('g_exportToCSV')?>" class="alt_btn" onclick="exportPage()">
+ 
 			</div>			
 		</header>
 		<div id="pageinfo" class="tab_content">
@@ -44,6 +50,7 @@
 <script type="text/javascript">
 //Here must first load
 var version="all";
+var weburl = '';
 var data;
 var version_array=[]; 
 var verDetaildata;
@@ -79,7 +86,7 @@ function onSelectVersionChanged(value)
 			
 		}
 		
-		function pageselectCallback(page_index, jq){
+		function pageselectCallback(url){
 			/** Load splats */
 			var chart_canvas = $("#pageinfo");
     	    var loading_img = $("<img src='<?php echo base_url();?>/assets/images/loader.gif'/>");
@@ -98,9 +105,17 @@ function onSelectVersionChanged(value)
     	        baseZ:997
     	    });
     	    
-			var myurl="<?php echo site_url()?>/report/pagevisit/getPageInfo/"+version+"/"+page_index;
+    	    var data = {
+            		weburl: weburl,
+            		version: version
+        		};
+        		
+			myurl = url;
+
+			
 				jQuery.ajax({
 					type : "post",
+					data : data,
 					url : myurl,
 					success : function(msg) {    
 						if( eval( "(" + msg + ")" )==""){
@@ -204,7 +219,9 @@ function onSelectVersionChanged(value)
              }
      
             $(document).ready(function(){ 
-            	pageselectCallback(0,0); 
+            	document.getElementById('weburl').value = '';
+            	var myurl = "<?php echo site_url()?>/report/pagevisit/getPageInfo/" + version ;
+            	pageselectCallback(myurl); 
             });    
 
 
@@ -212,5 +229,29 @@ function onSelectVersionChanged(value)
           	  var temp = tbody.ownerDocument.createElement('div');
           	  temp.innerHTML = '<table><tbody id=\"content\">' + html + '</tbody></table>';
           	  tbody.parentNode.replaceChild(temp.firstChild.firstChild, tbody);
-          	}       
+          	} 
+          	
+          	function searchPage()
+			{
+    			weburl = trim(document.getElementById('weburl').value);
+        		version = document.getElementById('selectversion').value;
+        		if (version == '<?php echo lang('t_unknow') ?>') {
+            		version = "NULL";
+        		}
+       			var myurl="<?php echo site_url()?>/report/pagevisit/searchPageInfo/";
+       			pageselectCallback(myurl);
+           
+			}
+
+			function exportPage()
+			{
+    			weburl = trim(document.getElementById('weburl').value);
+    			value = document.getElementById('selectversion').value;
+    			window.location.href = "<?php echo site_url().'/report/pagevisit/exportPage/'?>"+value+'/'+weburl;;
+			}
+			
+			function trim(str) {
+        		return  (str.replace(/(^\s*)|(\s*$)/g, ''));
+			}
+      
 </script>

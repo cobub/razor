@@ -231,7 +231,7 @@ class Pagevisit extends CI_Controller
      *
      * @return encode json
      */
-    function getPageInfo($version = "all", $pageIndex = 0, $fromDate = '', $toDate = '')
+    function getPageInfo($version = "all", $fromDate = '', $toDate = '')
     {
         $currentProduct = $this->common->getCurrentProduct();
         $fromTime = $this->common->getFromTime();
@@ -239,4 +239,72 @@ class Pagevisit extends CI_Controller
         $rowArray = $this->page->getVersionBasicData($fromTime, $toTime, $currentProduct->id);
         echo json_encode($rowArray);
     }
+	
+	/**
+     * SearchPageInfo fucntion
+     *
+     * @param string $version   version
+     * @param int    $pageIndex page index
+     * @param string $fromDate  from date
+     * @param string $toDate    to date
+     *
+     * @return encode json
+     */
+	function searchPageInfo()
+	{
+		$version = $_POST['version'];
+        $weburl = $_POST['weburl'];
+		
+		$currentProduct = $this->common->getCurrentProduct();
+        $fromTime = $this->common->getFromTime();
+        $toTime = $this->common->getToTime();
+        $rowArray = $this->page->searchPageInfo($fromTime, $toTime, $currentProduct->id,$weburl);
+        echo json_encode($rowArray);
+	}
+	
+	/*
+    * Export page data to excel
+    */
+	function exportPage($version,$name='') {
+		$this -> load -> library('export');
+		
+		$productId = $this -> common -> getCurrentProduct();
+        $productId = $productId -> id;
+		$productName = $this -> common -> getCurrentProduct() -> name;
+        $fromTime = $this -> common -> getFromTime();
+        $toTime = $this -> common -> getToTime();
+        //$name = urldecode($name);
+		
+        $data = $this->page->exportPageInfo($fromTime, $toTime,$productId,$version,$name);
+		
+        if($data != null && count($data) > 0 )
+        {
+            $export = new Export();
+            ////set file name
+            $titlename = getExportReportTitle($productName, lang('v_rpt_pv_page'), $fromTime, $toTime);
+            $title = iconv("UTF-8", "GBK", $titlename);
+            $export -> setFileName($title);
+            ////set title name
+            $excel_title = array (iconv("UTF-8", "GBK", lang("v_rpt_pv_page")),
+            iconv("UTF-8", "GBK", lang("t_numberOfPageViews")),
+            iconv("UTF-8", "GBK", lang("t_averageRetentionTime")),
+            iconv("UTF-8", "GBK", lang("t_bounceRate"))
+             );
+            $export->setTitle ($excel_title );
+            ////set content
+
+            foreach ($data as $row){
+            	$rowadd['activity_name'] = $row['activity_name'];
+                $rowadd['accesscount'] = $row['accesscount'];
+				$rowadd['avertime'] = round(floatval($row['avertime']/1000),2);
+				$rowadd['exitcount'] = $row['exitcount'];
+                $export->addRow ( $rowadd );
+            }
+            $export -> export();
+            die();
+        }
+        else{
+            $this->load->view("usage/nodataview");
+        }
+	}
 }
