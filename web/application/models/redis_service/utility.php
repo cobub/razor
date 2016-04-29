@@ -58,7 +58,10 @@ class Utility extends CI_Model
             log_message('debug', "key already in redis");
             return true;
         }
-
+		
+		////check
+		$key = addslashes($key);
+		
         $query = $this -> db -> query("select * from " . $this -> db -> dbprefix('channel_product') . " where productkey = '$key'");
         if ($query != null && $query -> num_rows() > 0) {
             $this -> redis -> hset('razor_appkeys_hash', array("$key" => $query -> first_row() -> product_id));
