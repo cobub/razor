@@ -1370,6 +1370,8 @@ class ProductModel extends CI_Model
      */
     function getMarketNameById($makertId)
     {
+    	if($makertId == null)
+		 	return "";
     
         $sql= "
             select

@@ -287,7 +287,7 @@ class Pagevisit extends CI_Controller
             ////set title name
             $excel_title = array (iconv("UTF-8", "GBK", lang("v_rpt_pv_page")),
             iconv("UTF-8", "GBK", lang("t_numberOfPageViews")),
-            iconv("UTF-8", "GBK", lang("t_averageRetentionTime")),
+            iconv("UTF-8", "GBK", lang("t_averageRetentionTime")."(".lang("g_s").")"),
             iconv("UTF-8", "GBK", lang("t_bounceRate"))
              );
             $export->setTitle ($excel_title );
