@@ -209,12 +209,16 @@ $(document).ready(function() {
       	 	jQuery.getJSON(myurl, null, function(data) { 
           	 	      		
           		var data_array =[];
-          		for(var key in data.dataList.content)
-              	{
-              		data_array.push(key);              		
+          		if(data.dataList.content != null) {
+          			for(var key in data.dataList.content)
+              		{
+              			data_array.push(key);             		
+          			}
           		}
+          		
           		for(var j=0;j<data_array.length;j++)
-          	    {    
+          	    {   
+          	    	 
           			var reportData=[];    
           		    var marketData = data_array[j];          		   
           		    var eachmarketdata = data.dataList.content[marketData];            		            		   
