@@ -49,10 +49,14 @@ class Usertag extends CI_Model
         $this->load->model('servicepublicclass/posttagpublic', 'posttagpublic');
         $posttag = new posttagpublic();
         $posttag->loadtag($content);
+	$insertdate = date('Y-m-d H:i:s');
         $data = array(
-            'deviceid' => $posttag->deviceid,
-            'tags' => $posttag->tags,
-            'appkey' => $posttag->appkey
+            'deviceid' => $content->deviceid,
+            'tags' => $content->tag,
+            'appkey' => $content->appkey,
+            'useridentifier' => $content->useridentifier,
+            'lib_version' => $content->lib_version,
+            'insertdate' => $insertdate
         );
         $this->db->insert('device_tag', $data);
     }

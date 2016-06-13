@@ -108,22 +108,56 @@ class Event extends CI_Model
         $event_identifier = $event->event_identifier;
         $getEventid = $this->isEventidAvailale($product_id, $event_identifier);
         $active = $this->getActivebyEventid($getEventid, $product_id);
-        if ($active == 0 || $getEventid == null) {
+        if ($active == 0 && $getEventid != null) {
             return null;
-        } else {
-            $nowtime = date('Y-m-d H:i:s');
-            if (isset($event->time)) {
-                $nowtime = $event->time;
-                if (strtotime($nowtime) < strtotime('1970-01-01 00:00:00') || strtotime($nowtime) == '') {
-                    $nowtime = date('Y-m-d H:i:s');
-                }
+        }
+		
+		if( $getEventid == null) {
+        	$eventdata = array(
+                'event_identifier' => $event_identifier, 
+                'productkey' => $key, 
+                'event_name' => $event_identifier, 
+                'channel_id' => 1, 
+                'product_id' => $product_id, 
+                'user_id' => 1 );
+				
+			if($this->db->insert('event_defination', $eventdata)){
+				$getEventid = $this->db->insert_id();
+			}
+            
+			////check
+			if($getEventid == null || $getEventid < 1) {
+        		return null;
+			}
+    	} 
+		
+        $nowtime = date('Y-m-d H:i:s');
+        if (isset($event->time)) {
+            $nowtime = $event->time;
+            if (strtotime($nowtime) < strtotime('1970-01-01 00:00:00') || strtotime($nowtime) == '') {
+                $nowtime = date('Y-m-d H:i:s');
             }
-            $data = array('productkey' => $event->appkey,'event_id' => $getEventid,'label' => isset($event->label) ? $event->label : '','clientdate' => $nowtime,'num' => isset($event->acc) ? $event->acc : 1,'event' => $event->activity,'version' => isset($event->version) ? $event->version : ''
+        }
+		
+		$insertdate = date('Y-m-d H:i:s');
+        $data = array(
+            'productkey' => $event->appkey,
+            'event_id' => $getEventid,
+            'label' => $event->label,
+            'clientdate' => $nowtime,
+            'num' => $event->acc,
+            'event' => $event->activity,
+            'version' => $event->version,
+            'attachment' => $event->attachment,
+            'deviceid' => $event->deviceid,
+            'useridentifier' => $event->useridentifier,
+            'session_id' => $event->session_id,
+            'lib_version' => $event->lib_version,
+            'insertdate' => $insertdate
             );
             
-            $this->db->insert('eventdata', $data);
-            return $getEventid;
-        }
+        $this->db->insert('eventdata', $data);
+        return $getEventid;
     }
 }
 ?>

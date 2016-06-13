@@ -65,8 +65,18 @@ class Activitylog extends CI_Model
                 $nowtime2 = date('Y-m-d H:i:s');
             }
         }
-        $data = array('appkey' => $activitylog->appkey,'session_id' => $activitylog->session_id,'start_millis' => $nowtime,'end_millis' => $nowtime2,'activities' => $activitylog->activities,'duration' => $activitylog->duration,'version' => isset($activitylog->version) ? $activitylog->version : ''
-        );
+        $insertdate = date('Y-m-d H:i:s');
+        $data = array('appkey' => $activitylog->appkey,
+            'session_id' => $activitylog->session_id,
+            'start_millis' => $nowtime,
+            'end_millis' => $nowtime2,
+            'activities' => $activitylog->activities,
+            'duration' => $activitylog->duration,
+            'version' => $activitylog->version,
+            'deviceid' => $activitylog->deviceid,
+            'useridentifier' => $activitylog->useridentifier,
+            'lib_version' => $activitylog->lib_version,
+            'insertdate' => $insertdate);
         
         $this->db->insert('clientusinglog', $data);
     }

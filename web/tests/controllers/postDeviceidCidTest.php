@@ -12,8 +12,8 @@ class postDeviceidCidTest extends CIUnit_TestCase {
     public function setUp() {
         parent::setUp();
         $this -> CI = set_controller('ums');
-        $this -> dbfixt('razor_channel_product');
-        $this -> dbfixt('razor_event_defination');
+        //$this -> dbfixt('razor_channel_product');
+        //$this -> dbfixt('razor_event_defination');
     }
     
     public function tearDown() {
@@ -23,8 +23,9 @@ class postDeviceidCidTest extends CIUnit_TestCase {
             'razor_event_defination'=>'razor_event_defination'
         );
 
-        $this->dbfixt_unload($tables);
+        //$this->dbfixt_unload($tables);
     }
+	/*
     public function testpostDeviceidCid() {
         $this->CI->rawdata = dirname(__FILE__) . '/testjson/deviceidcid_ok.json';
         ob_start();
@@ -90,6 +91,6 @@ class postDeviceidCidTest extends CIUnit_TestCase {
             $output
         );
     }
-
+*/
 }
 ?>

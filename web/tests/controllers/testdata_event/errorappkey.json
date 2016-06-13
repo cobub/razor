@@ -1,0 +1,14 @@
+content={"data":
+[{"time": "2016-05-23 14:03:31",
+"version": "1.0",
+"event_identifier": "menu_prev",
+"activity": "MainActivity",
+"appkey": "invalid_appkey_00000",
+"label": "label",
+"acc": "1",
+"attachment": "att",
+"useridentifier": "YuFong",
+"deviceid": "82af39a9f13c8f34b81a335306708b60",
+"session_id": "8c4163833019517822b2dc83c19dd5a0",
+"lib_version":"1.0"}]}
+

@@ -32,11 +32,14 @@ class getUpdateTest extends CIUnit_TestCase
 
     public function testUpdate()
     {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/update_ok.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_update/ok.json';
         ob_start();
         $this->CI->getApplicationUpdate();
         $output = ob_get_clean();
-        $this->assertEquals('{"flag":1,"msg":"ok","fileurl":"http:\/\/localhost","forceupdate":"0","description":"android","time":"2015-08-01 00:00:00","version":"2"}', $output);
+        $this->assertEquals(
+        '{"reply":{"flag":1,"msg":"ok","fileUrl":"http:\/\/localhost","forceupdate":"0","description":"android","time":"2016-05-01 21:45:22","versionName":"3","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}',
+        //'{"flag":1,"msg":"ok","fileurl":"http:\/\/localhost","forceupdate":"0","description":"android","time":"2015-08-01 00:00:00","version":"2"}', 
+        $output);
     }
 
     public function testUpdate_noupdate()
@@ -45,7 +48,9 @@ class getUpdateTest extends CIUnit_TestCase
         ob_start();
         $this->CI->getApplicationUpdate();
         $output = ob_get_clean();
-        $this->assertEquals('{"flag":-7,"msg":"no new version"}', $output);
+        $this->assertEquals(//'{"reply":{"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}', 
+        '{"reply":{"flag":-1,"msg":"Invalid appkey:49d0b54ea086922f0dd5459269d338ce","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}',
+        $output);
     }
 
     public function testUpdate1()
@@ -54,7 +59,9 @@ class getUpdateTest extends CIUnit_TestCase
         ob_start();
         $this->CI->getApplicationUpdate();
         $output = ob_get_clean();
-        $this->assertEquals('{"flag":-3,"msg":"Invalid content from php:\/\/input."}', $output);
+        $this->assertEquals(//'{"reply":{"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}', 
+        '{"reply":{"flag":-3,"msg":"Invalid content from php:\/\/input.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}',
+        $output);
     }
 
     public function testUpdate2()
@@ -63,16 +70,18 @@ class getUpdateTest extends CIUnit_TestCase
         ob_start();
         $this->CI->getApplicationUpdate();
         $output = ob_get_clean();
-        $this->assertEquals('{"flag":-4,"msg":"Parse jsondata failed. Error No. is 4"}', $output);
+        $this->assertEquals('{"reply":{"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}', 
+        $output);
     }
 
     public function testUpdate3()
     {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/noappkey.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_update/noappkey.json';
         ob_start();
         $this->CI->getApplicationUpdate();
         $output = ob_get_clean();
-        $this->assertEquals('{"flag":-5,"msg":"Appkey is not set in json."}', $output);
+        $this->assertEquals('{"reply":{"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}',
+         $output);
     }
 
     public function testUpdate4()
@@ -81,9 +90,10 @@ class getUpdateTest extends CIUnit_TestCase
         ob_start();
         $this->CI->getApplicationUpdate();
         $output = ob_get_clean();
-        $this->assertEquals('{"flag":-1,"msg":"Invalid app key:invalid_appkey_00000"}', $output);
+        $this->assertEquals('{"reply":{"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}', 
+        $output);
     }
-
+/*
     public function testUpdate5()
     {
         $this->CI->rawdata = dirname(__FILE__) . '/testjson/onlyappkey.json';
@@ -92,6 +102,6 @@ class getUpdateTest extends CIUnit_TestCase
         $output = ob_get_clean();
         $this->assertEquals('{"flag":-7,"msg":"no new version"}', $output);
     }
-
+*/
 }
 ?>
