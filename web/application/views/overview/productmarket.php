@@ -177,7 +177,7 @@ function onSelectVersionChanged(value)
         			htmlText = htmlText+"<td>"+eachVersionDataItem.startusers+"</td>";
         			htmlText = htmlText+"<td>"+eachVersionDataItem.sessions+"</td>";
         			if(eachVersionDataItem.sessions>0){
-        				htmlText = htmlText+"<td>"+((parseFloat(eachVersionDataItem.usingtime))/1000/eachVersionDataItem.sessions).toFixed(2)+"<?php echo lang('g_s');?></td>";
+        				htmlText = htmlText+"<td>"+((parseFloat(eachVersionDataItem.usingtime))/eachVersionDataItem.sessions).toFixed(2)+"<?php echo lang('g_s');?></td>";
         			} else{
         				htmlText = htmlText+"<td>"+0+"</td>";
         			}
