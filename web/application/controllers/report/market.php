@@ -226,7 +226,7 @@ class Market extends CI_Controller
 				$rowadd['startusers'] = $row['startusers'];
 				$rowadd['sessions'] = $row['sessions'];
 				if($row['sessions']){
-					$rowadd['usingtime'] = round(floatval($row['usingtime']*1.0/$row['sessions'])/1000,2).lang('g_s');
+					$rowadd['usingtime'] = round(floatval($row['usingtime']*1.0/$row['sessions']),2).lang('g_s');
 				}
 				else {
 					$rowadd['usingtime'] = 0;
