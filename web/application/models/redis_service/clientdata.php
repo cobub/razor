@@ -73,9 +73,6 @@ class Clientdata extends CI_Model
             }
         }
 
-        $latitude = isset($clientdata -> latitude) ? $clientdata -> latitude : '';
-        $choose = $this -> config -> item('get_geographical');
-
         $insertdate = date('Y-m-d H:i:s');
         $data = array(
             'productkey' => $clientdata->appkey,
