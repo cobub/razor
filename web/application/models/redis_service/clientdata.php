@@ -59,8 +59,7 @@ class Clientdata extends CI_Model
     function addClientdata($clientdata)
     {
         $productId = $this -> utility -> getProductIdByKey($clientdata -> appkey);
-        //For realtime User sessions
-        $key = "razor_r_u_p_" . $productId . "_" . date('Y-m-d-H-i', time());
+        
         
         $ip = $this -> utility -> getOnlineIP();
         $nowtime = date('Y-m-d H:i:s');
@@ -99,7 +98,7 @@ class Clientdata extends CI_Model
         'service_supplier' => isset($clientdata -> mccmnc) ? $clientdata -> mccmnc : '0', 
         'clientip' => $ip);
         
-         $latitude = isset($clientdata -> latitude) ? $clientdata -> latitude : '';
+        $latitude = isset($clientdata -> latitude) ? $clientdata -> latitude : '';
         $choose = $this -> config -> item('get_geographical');
         $data["country"] = 'unknown';
         $data["region"] = 'unknown';
@@ -123,7 +122,9 @@ class Clientdata extends CI_Model
         
         $this -> redis -> lpush("razor_clientdata", serialize($data));
         
-        $this -> redis -> hset($key, array($data["deviceid"] => $productId));
+		//For realtime User sessions
+        $key = "razor_r_u_p_" . $productId . "_" . date('Y-m-d-H-i', time());
+		$this -> redis -> hset($key, array($data["deviceid"] => $productId));
         $this -> redis -> expire($key, 30 * 60);
 
       
