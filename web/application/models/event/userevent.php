@@ -539,4 +539,99 @@ class UserEvent extends CI_Model
         
         $this->db->query($sql);
     }
+	
+
+    
+    //get event list info by productid and version and name
+    //for event list page
+    function getSearchEventInfo($productId, $version, $eventname, $fromTime, $toTime) {
+        $identifierarray = array();
+        $eventlistarray = array();
+        $eventresult = array();
+        $count = 0;
+        $eventsk = 0;
+
+        $evetlist = $this -> getSearchEventByIdAndVersionAndName($productId, $version, $eventname, $fromTime, $toTime);
+
+        if ($evetlist != null && $evetlist -> num_rows() > 0) {
+            foreach ($evetlist->result() as $rowlist) {
+                $eventlistobj = array('event_sk' => $rowlist -> event_sk, 'eventidentifier' => $rowlist -> eventidentifier, 'eventname' => $rowlist -> eventname, 'count' => $rowlist -> count);
+                array_push($eventlistarray, $eventlistobj);
+            }
+
+        }
+        return $eventlistarray;
+    }
+
+    function getSearchEventByIdAndVersionAndName($productId, $version, $eventname, $fromTime, $toTime) {
+        $dwdb = $this -> load -> database('dw', TRUE);
+        if ($version == 'unknown')
+            $version = '';
+        if ($version == 'all')
+            $sql = "
+            select 
+                e.event_sk,
+                e.eventidentifier,
+                e.eventname,
+                sum(f.total) count
+            from 
+                " . $dwdb -> dbprefix('dim_product') . "   p, 
+                " . $dwdb -> dbprefix('sum_event') . "  f,
+                " . $dwdb -> dbprefix('dim_date') . " d,
+                " . $dwdb -> dbprefix('dim_event') . "  e  
+            where  
+                p.product_id=$productId and 
+                p.product_active=1 and 
+                p.channel_active=1 and 
+                p.version_active=1 and 
+                f.product_sk = p.product_sk and 
+                f.event_sk = e.event_sk and 
+                ( e.eventidentifier like '%$eventname%' or 
+                e.eventname like '%$eventname%' ) and 
+                f.date_sk = d.date_sk and
+                d.datevalue between '$fromTime' and '$toTime' 
+            group by 
+                e.event_sk,
+                e.eventidentifier,
+                e.eventname 
+            order by 
+                e.createtime desc";
+        else {
+            if ($version == 'unknown')
+                $version = '';
+            $sql = "
+            select 
+                p.version_name,
+                e.event_sk,
+                e.eventidentifier,
+                e.eventname,
+                sum(f.total) count
+            from  
+                " . $dwdb -> dbprefix('dim_product') . "   p, 
+                " . $dwdb -> dbprefix('sum_event') . "  f,
+                " . $dwdb -> dbprefix('dim_date') . " d,
+                " . $dwdb -> dbprefix('dim_event') . "   e
+            where  
+                p.product_id=$productId and 
+                p.product_active=1 and 
+                p.channel_active=1 and 
+                p.version_active=1 and 
+                f.product_sk = p.product_sk and 
+                f.event_sk = e.event_sk and 
+                 ( e.eventidentifier like '%$eventname%' or 
+                e.eventname like '%$eventname%' ) and
+                p.version_name='$version' and 
+                f.date_sk = d.date_sk and
+                d.datevalue between '$fromTime' and '$toTime' 
+            group by 
+                p.version_name, 
+                e.event_sk,
+                e.eventidentifier,
+                e.eventname 
+            order by 
+                e.createtime desc";
+        }
+        $query = $dwdb -> query($sql);
+        return $query;
+    }
 }

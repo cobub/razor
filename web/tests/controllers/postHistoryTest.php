@@ -25,6 +25,7 @@ class postHistoryTest extends CIUnit_TestCase {
 
         $this->dbfixt_unload($tables);
     }
+	/*
     public function testPostHistory() {
         $this->CI->rawdata = dirname(__FILE__) . '/testjson/history_ok.json';
         ob_start();
@@ -79,6 +80,6 @@ class postHistoryTest extends CIUnit_TestCase {
             $output
         );
     }
-
+*/
 }
 ?>

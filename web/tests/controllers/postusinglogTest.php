@@ -13,27 +13,22 @@ class postusinglogTest extends CIUnit_TestCase {
         parent::setUp();
         $this -> CI = set_controller('ums');
         $this -> dbfixt('razor_channel_product');
-        $this -> dbfixt('razor_event_defination');
     }
     
     public function tearDown() {
         parent::tearDown();
         $tables = array(
-            'razor_channel_product'=>'razor_channel_product',
-            'razor_event_defination'=>'razor_event_defination'
+            'razor_channel_product'=>'razor_channel_product'
         );
 
-        $this->dbfixt_unload($tables);
+        //$this->dbfixt_unload($tables);
     }
     public function testPostUsinglog() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/usinglog_ok.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_usinglog/ok.json';
         ob_start();
         $this->CI->postActivityLog();
         $output = ob_get_clean();
-        $this -> assertEquals(
-            '{"flag":1,"msg":"ok"}', 
-            $output
-        );
+        $this -> assertEquals('{"flag":1,"msg":"ok"}', $output);
     }
 
     public function testPostUsinglog1() {
@@ -41,10 +36,7 @@ class postusinglogTest extends CIUnit_TestCase {
         ob_start();
         $this->CI->postActivityLog();
         $output = ob_get_clean();
-        $this -> assertEquals(
-            '{"flag":-3,"msg":"Invalid content from php:\/\/input."}', 
-            $output
-        );
+        $this -> assertEquals('{"flag":-3,"msg":"Invalid content from php:\/\/input."}', $output);
     }
     
     public function testPostUsinglog2() {
@@ -52,32 +44,23 @@ class postusinglogTest extends CIUnit_TestCase {
         ob_start();
         $this->CI->postActivityLog();
         $output = ob_get_clean();
-        $this -> assertEquals(
-            '{"flag":-4,"msg":"Parse jsondata failed. Error No. is 4"}', 
-            $output
-        );
+        $this -> assertEquals('{"flag":-4,"msg":"Parse json data failed."}', $output);
     }
     
     public function testPostUsinglog3() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/noappkey.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_usinglog/noappkey.json';
         ob_start();
         $this->CI->postActivityLog();
         $output = ob_get_clean();
-        $this -> assertEquals(
-            '{"flag":-5,"msg":"Appkey is not set in json."}', 
-            $output
-        );
+        $this -> assertEquals('{"flag":-5,"msg":"Appkey is not set in json."}', $output);
     }
     
     public function testPostUsinglog4() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/invalidappkey.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_usinglog/errorappkey.json';
         ob_start();
         $this->CI->postActivityLog();
         $output = ob_get_clean();
-        $this -> assertEquals(
-            '{"flag":-1,"msg":"Invalid app key:invalid_appkey_00000"}', 
-            $output
-        );
+        $this -> assertEquals('{"flag":-1,"msg":"Invalid appkey:invalid_appkey_00000"}', $output);
     }
 
 }

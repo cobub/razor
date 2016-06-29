@@ -152,7 +152,7 @@ class ProductModel extends CI_Model
         $currentProduct = $this -> common -> getCurrentProduct();
         $productId = $currentProduct -> id;
         $dwdb = $this -> load -> database('dw', true);
-        $channelname = $this -> getMarketNameById($channel_id);
+        //$channelname = $this -> getMarketNameById($channel_id);
         $sql = "
             select 
                 d.datevalue,
@@ -1370,6 +1370,8 @@ class ProductModel extends CI_Model
      */
     function getMarketNameById($makertId)
     {
+    	if($makertId == null)
+		 	return "";
     
         $sql= "
             select
@@ -1969,4 +1971,90 @@ class ProductModel extends CI_Model
         }
         return $ret;
     }
+
+
+	function getMarketDataBychannelid($channelname, $fromTime, $toTime) 
+    {
+        $currentProduct = $this -> common -> getCurrentProduct();
+        $productId = $currentProduct -> id;
+        $dwdb = $this -> load -> database('dw', true);
+        $sql = "
+            select 
+                d.datevalue,
+                p.channel_id,
+                p.channel_name,
+                ifnull(startusers,0) startusers,
+                ifnull(newusers,0) newusers,
+                (select 
+                     ifnull(max(allusers),0) 
+                 from 
+                     " . $dwdb -> dbprefix('sum_basic_channel') . " dp,
+                     " . $dwdb -> dbprefix('dim_date') . " da
+                 where 
+                     da.datevalue=d.datevalue and
+                     dp.date_sk<=da.date_sk and 
+                     dp.channel_id=p.channel_id) allusers,
+                     ifnull(sessions,0) sessions,
+                     ifnull(usingtime,0) usingtime
+            from
+                (select 
+                     date_sk,datevalue 
+                 from 
+                     " . $dwdb -> dbprefix('dim_date') . "  
+                 where
+                     datevalue between '$fromTime' and
+                     '$toTime')  d 
+                  cross join 
+                 (select
+                  pp.channel_id,
+                  pp.channel_name 
+                  from " . $dwdb -> dbprefix('dim_product') . " pp
+                  where
+                      pp.product_id = $productId and
+                      pp.product_active=1 and
+                      pp.channel_active=1 and 
+                      pp.version_active=1 
+                  group by pp.channel_id,pp.channel_name) p
+            left join 
+            (select
+                 * 
+             from 
+                 " . $dwdb -> dbprefix('sum_basic_channel') . " 
+             where 
+                 product_id=$productId) s  on d.date_sk = s.date_sk and
+                 s.channel_id = p.channel_id
+            order by p.channel_name,d.datevalue desc"; 
+
+                    
+        $query = $dwdb -> query($sql);
+		$content_arr = array();
+		
+        if ($query != null && $query -> num_rows > 0) {
+            $arr = $query -> result_array();
+
+            for ($i = 0; $i < count($arr); $i++) {
+                $row = $arr[$i];
+				
+				if($channelname!='all' && $row['channel_name'] !=$channelname)
+					continue;
+					
+                array_push($content_arr, $row);
+            }
+        }
+
+		$ret = array();
+        $ret['content'] = $content_arr;
+        return $ret;
+    }
+
+	function getChannelData($productId) {
+		$dwdb = $this -> load -> database('dw', TRUE);
+		$sql = "select channel_name
+		from " . $dwdb -> dbprefix('dim_product') . " 
+		where product_id = $productId and product_active=1 and channel_active=1 and version_active=1 group by channel_name order by channel_name desc";
+		$query = $dwdb -> query($sql);
+		return $query;
+	}
+
+
 }

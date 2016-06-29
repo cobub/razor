@@ -160,8 +160,10 @@ if (!function_exists('get_config')) {
                 }
             }
         }
+		
+		$_config[0] =& $config;
 
-        return $_config[0] =& $config;
+        return $_config[0];
     }
 }
 

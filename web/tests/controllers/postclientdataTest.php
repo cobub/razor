@@ -13,20 +13,18 @@ class postclientdataTest extends CIUnit_TestCase {
         parent::setUp();
         $this -> CI = set_controller('ums');
         $this -> dbfixt('razor_channel_product');
-        $this -> dbfixt('razor_event_defination');
     }
     
     public function tearDown() {
         parent::tearDown();
         $tables = array(
-            'razor_channel_product'=>'razor_channel_product',
-            'razor_event_defination'=>'razor_event_defination'
+            'razor_channel_product'=>'razor_channel_product'
         );
 
-        $this->dbfixt_unload($tables);
+        //$this->dbfixt_unload($tables);
     }
     public function testPostClientdata() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/clientdata_ok.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_client/ok.json';
         ob_start();
         $this->CI->postClientdata();
         $output = ob_get_clean();
@@ -46,20 +44,20 @@ class postclientdataTest extends CIUnit_TestCase {
             $output
         );
     }
-    
+ 
     public function testPostClientdata2() {
         $this->CI->rawdata = dirname(__FILE__) . '/testjson/partly.json';
         ob_start();
         $this->CI->postClientdata();
         $output = ob_get_clean();
         $this -> assertEquals(
-            '{"flag":-4,"msg":"Parse jsondata failed. Error No. is 4"}', 
+            '{"flag":-4,"msg":"Parse json data failed."}', 
             $output
         );
     }
     
     public function testPostClientdata3() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/noappkey.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_client/noappkey.json';
         ob_start();
         $this->CI->postClientdata();
         $output = ob_get_clean();
@@ -70,23 +68,12 @@ class postclientdataTest extends CIUnit_TestCase {
     }
     
     public function testPostClientdata4() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/invalidappkey.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_client/errorappkey.json';
         ob_start();
         $this->CI->postClientdata();
         $output = ob_get_clean();
         $this -> assertEquals(
-            '{"flag":-1,"msg":"Invalid app key:invalid_appkey_00000"}', 
-            $output
-        );
-    }
-    
-    public function testPostClientdata5() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/onlyappkey.json';
-        ob_start();
-        $this->CI->postClientdata();
-        $output = ob_get_clean();
-        $this -> assertEquals(
-            '{"flag":1,"msg":"ok"}', 
+            '{"flag":-1,"msg":"Invalid appkey:invalid_appkey_00000"}', 
             $output
         );
     }

@@ -480,7 +480,7 @@ $lang['v_man_pr_editApp']='App Bearbeiten';
 $lang['v_man_pr_name']='Name*';
 $lang['v_man_pr_appType']='App Typ*';
 $lang['v_man_pr_platform']='Plattform*';
-
+$lang['v_rpt_el_eventIDName']='Event ID/Name';
 
 
 // view----manange----onlineconfig
@@ -875,4 +875,8 @@ $lang['plg_get_keysecret_home']='Sie haben nicht auf Cobub kunden - center der g
 $lang['plg_get_keysecret']='Sie haben nicht auf Cobub konto Benutzer ermächtigt, Zentrum.
 Benutzer kostenlos registrieren Cobub und zugangscode werden kann, nach dem abschluss der konten zu ermächtigen, können die Benutzer eine fülle von funktionen Cobub Zentrum.
 <a href="http://www.cobub.com/users/en/index.php?/help/userkey" target="_blank">Wie der account genehmigung?</a>Wenn sie bereits eine genehmigungscode bitte klicken';
+
+//// datezone
+$lang['diffdatezone'] = "Time zone difference";
+$lang['diffdatezone_hour'] = "hour.Please reconfigure the time zone, and restart the server.";
 

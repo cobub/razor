@@ -469,7 +469,7 @@ $lang['v_rpt_el_eventNumS'] = '事件消息数量/启动次数';
 $lang['v_rpt_ol_eventNumS'] = '金额/启动次数';
 $lang['v_rpt_el_eventIDExists'] = '事件ID已经存在！';
 $lang['v_rpt_el_eventIDNameExists'] = '事件ID或名称已经存在！';
-
+$lang['v_rpt_el_eventIDName'] = '事件ID/名称';
 //view---report----errorlog
 $lang['v_rpt_err_errorTrends']='错误趋势';
 $lang['v_rpt_err_errorNums']='错误数';
@@ -1011,3 +1011,6 @@ $lang["v_rpt_realtime_event_in30minute"]="事件(30分钟)";
 $lang['cobub_login_ucenter']='/index.php?/auth';
 $lang['user_center_url']='http://dev.cobub.com/users/';
 
+//// datezone
+$lang['diffdatezone'] = "时区相差";
+$lang['diffdatezone_hour'] = "小时。请重新配置时区并重启服务器。";

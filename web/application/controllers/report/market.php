@@ -76,9 +76,19 @@ class Market extends CI_Controller
         $data['count'] = $todayData->num_rows();
         $data['todayData'] = $todayData;
         $data['yestodayData'] = $yestodayData;
+		$data['channel'] = $this->product->getChannelData($productId);
+
         $this->common->loadHeaderWithDateControl();
         $this->load->view('overview/productmarket', $data);
     }
+
+	function getchanneldata() {
+		$channel =  $_POST['channel'];
+		$fromTime = $this->common->getFromTime();
+        $toTime = $this->common->getToTime();
+		$marketdata = $this->product->getMarketDataBychannelid($channel,$fromTime, $toTime);
+		echo json_encode($marketdata);
+	}
     
     /**
      * Addchannelmarketreport function
@@ -125,15 +135,15 @@ class Market extends CI_Controller
         
         $ret = array();
         if ($markets != null && $markets->num_rows() > 0) {
-            foreach ($markets->result() as $row) {
+           // foreach ($markets->result() as $row) {
                 if ($type == "monthrate") {
                     $data = $this->product->getActiveNumbers($productId, $fromTime, $toTime, 1);
                 } else if ($type == "weekrate") {
                         $data = $this->product->getActiveNumbers($productId, $fromTime, $toTime, 0);
                 } else {
-                        $data = $this->product->getAllMarketData($row->channel_id, $fromTime, $toTime);
+                        $data = $this->product->getAllMarketData(0, $fromTime, $toTime);
                 }
-            }
+           // }
             if ($type == "monthrate" || $type == "weekrate") {
                 if ($data == null || count($data) == 0) {
                     $content_arr['VersionIsNullActiveRate'] = array();
@@ -171,6 +181,68 @@ class Market extends CI_Controller
         // end load markevents
         echo json_encode($result);
     }
+	
+		/*
+    * Export page data to excel
+    */
+	function exportPage($channel) {
+		
+		$channel = urldecode($channel);
+		$this -> load -> library('export');
+		
+		$productId = $this -> common -> getCurrentProduct();
+        $productId = $productId -> id;
+		$productName = $this -> common -> getCurrentProduct() -> name;
+        $fromTime = $this -> common -> getFromTime();
+        $toTime = $this -> common -> getToTime();
+		$productName=str_replace(" ", "_", $productName);
+
+		$alldata = $this->product->getMarketDataBychannelid($channel,$fromTime, $toTime);
+		$data = $alldata['content'];
+        if($data != null && count($data) > 0 )
+        {
+            $export = new Export();
+            ////set file name
+            $titlename = getExportReportTitle($productName, lang('v_rpt_mk_channelList'), $fromTime, $toTime);
+            $title = iconv("UTF-8", "GBK", $titlename);
+            $export -> setFileName($title);
+            ////set title name
+            $excel_title = array (
+            iconv("UTF-8", "GBK", lang("v_man_au_channelName")),
+            iconv("UTF-8", "GBK", lang("g_date")),
+            iconv("UTF-8", "GBK", lang("t_newUsers")),
+            iconv("UTF-8", "GBK", lang("t_activeUsers")),
+			iconv("UTF-8", "GBK", lang("t_sessions")),
+			iconv("UTF-8", "GBK", lang("t_averageUsageDuration")),
+			iconv("UTF-8", "GBK", lang("t_accumulatedUsers"))
+             );
+            $export->setTitle ($excel_title );
+            ////set content
+
+            foreach ($data as $row){
+            	$rowadd['channel_name'] = $row['channel_name'];
+				$rowadd['datevalue'] = $row['datevalue'];
+				$rowadd['newusers'] = $row['newusers'];
+				$rowadd['startusers'] = $row['startusers'];
+				$rowadd['sessions'] = $row['sessions'];
+				if($row['sessions']){
+					$rowadd['usingtime'] = round(floatval($row['usingtime']*1.0/$row['sessions']),2).lang('g_s');
+				}
+				else {
+					$rowadd['usingtime'] = 0;
+				}
+				$rowadd['allusers'] = $row['allusers'];
+                $export->addRow ( $rowadd );
+            }
+            $export -> export();
+            die();
+        }
+        else{
+            $this->load->view("usage/nodataview");
+        }
+	}
+
+
 }
 
 ?>

@@ -217,4 +217,198 @@ class Pagemodel extends CI_Model
         return $dwdb -> query($sql);
     }
 
+	/** 
+     * For the various versions of the basic data
+     * GetVersionBasicData function
+     * 
+     * @param string $fromTime  fromtime
+     * @param string $toTime    totime
+     * @param string $productId productid
+     * 
+     * @return array
+     */
+    function searchPageInfo($fromTime, $toTime, $productId,$page)
+    {
+        $dwdb = $this -> load -> database('dw', true);
+        $sql = "select 'all' version_name,a.activity_name,sum(accesscount) accesscount,
+		sum(totaltime)/sum(accesscount) avertime,sum(exitcount) exitcount 
+		from " . $dwdb -> dbprefix('sum_usinglog_activity') . " s," . $dwdb -> dbprefix('dim_product') . " p," . $dwdb -> dbprefix('dim_date') . " d," . $dwdb -> dbprefix('dim_activity') . " a  
+		where s.product_sk = p.product_sk and s.date_sk=d.date_sk and s.activity_sk = a.activity_sk and d.datevalue between '$fromTime' and '$toTime' and p.product_id=$productId group by a.activity_name
+		union
+		select p.version_name,a.activity_name,sum(accesscount) accesscount,sum(totaltime)/sum(accesscount) avertime,
+		sum(exitcount) exitcount from " . $dwdb -> dbprefix('sum_usinglog_activity') . " s," . $dwdb -> dbprefix('dim_product') . " p," . $dwdb -> dbprefix('dim_date') . " d," . $dwdb -> dbprefix('dim_activity') . " a 
+		where s.product_sk = p.product_sk and s.date_sk=d.date_sk and s.activity_sk = a.activity_sk and d.datevalue between '$fromTime' and '$toTime' and p.product_id=$productId group by p.version_name,a.activity_name order by version_name,accesscount desc;";
+        $query = $dwdb -> query($sql);
+        $ret = array();
+        $alldata = $this -> getallVersionBasicData($fromTime, $toTime, $productId) -> result_array();
+        if ($query != null && $query -> num_rows > 0) {
+            $arra = $query -> result_array();
+            $content_arr = array();
+            $flag = '';
+            for ($i = 0; $i < count($arra); $i++) {
+                $accesscount = 0;
+                $avertime = 0;
+                $exitcount = 0;
+                $row = $arra[$i];
+                $versionname = $row['version_name'];
+                $allkey = array_keys($content_arr);
+                if (!in_array($versionname, $allkey)) {
+                    $content_arr[$versionname] = array();
+                    $flag = '';
+                }
+                $tmp = array();
+                if ($flag == '') {
+                    for ($j = 0; $j < count($alldata); $j++) {
+                        $all = $alldata[$j];
+                        if ($all['version_name'] != "all" 
+                        && $all['version_name'] == $versionname) {
+                            $accesscount = $all['accesscount'];
+                            $avertime = $all['avertime'];
+                            $exitcount = $all['exitcount'];
+                            break;
+                        } else {
+                            $accesscount = $accesscount + $all['accesscount'] / 2;
+                            $avertime = $avertime + $all['avertime'] / 2;
+                            $exitcount = $exitcount + $all['exitcount'] / 2;
+                        }
+                    }
+                }
+                if ($row['accesscount'] == null) {
+                    $tmp['accesscount'] = 0;
+                } else {
+                    $tmp['accesscount'] = $row['accesscount'] . "(" . round($row['accesscount'] / $accesscount * 100, 1) . "%)";
+                }
+                if ($row['avertime'] == null) {
+                    $tmp['avertime'] = 0;
+                } else {
+                    $tmp['avertime'] = round($row['avertime'], 2) . "(" . round($row['avertime'] / $avertime * 100, 1) . "%)";
+                }
+                if ($row['exitcount'] == null) {
+                    $tmp['exitcount'] = 0;
+                } else {
+                    $tmp['exitcount'] = $row['exitcount'] . "(" . round($row['exitcount'] / $exitcount * 100, 1) . "%)";
+                }
+                $tmp['activity_name'] = $row['activity_name'];
+                //$tmp ['version_name'] = $row ['version_name'];
+                if($page) {
+                	$pos = strpos($tmp['activity_name'], $page); 
+					
+                	if($pos ===FALSE)
+					{
+					
+					}
+					else {
+						array_push($content_arr[$versionname], $tmp);
+					}
+                }
+				else {
+					array_push($content_arr[$versionname], $tmp);
+				}
+                
+
+            }
+
+            $ret['content'] = $content_arr;
+        }
+        return $ret;
+
+    }
+
+
+/** 
+     * For the various versions of the basic data
+     * ExportBasicData function
+     * 
+     * @param string $fromTime  fromtime
+     * @param string $toTime    totime
+     * @param string $productId productid
+     * @param string $version   version
+     * @param string $page      page
+     * 
+     * @return array
+     */
+    function exportPageInfo($fromTime, $toTime, $productId,$version,$page)
+    {
+         $dwdb = $this -> load -> database('dw', true);
+        $sql = "select 'all' version_name,a.activity_name,sum(accesscount) accesscount,
+		sum(totaltime)/sum(accesscount) avertime,sum(exitcount) exitcount 
+		from " . $dwdb -> dbprefix('sum_usinglog_activity') . " s," . $dwdb -> dbprefix('dim_product') . " p," . $dwdb -> dbprefix('dim_date') . " d," . $dwdb -> dbprefix('dim_activity') . " a  
+		where s.product_sk = p.product_sk and s.date_sk=d.date_sk and s.activity_sk = a.activity_sk and d.datevalue between '$fromTime' and '$toTime' and p.product_id=$productId group by a.activity_name
+		union
+		select p.version_name,a.activity_name,sum(accesscount) accesscount,sum(totaltime)/sum(accesscount) avertime,
+		sum(exitcount) exitcount from " . $dwdb -> dbprefix('sum_usinglog_activity') . " s," . $dwdb -> dbprefix('dim_product') . " p," . $dwdb -> dbprefix('dim_date') . " d," . $dwdb -> dbprefix('dim_activity') . " a 
+		where s.product_sk = p.product_sk and s.date_sk=d.date_sk and s.activity_sk = a.activity_sk and d.datevalue between '$fromTime' and '$toTime' and p.product_id=$productId group by p.version_name,a.activity_name order by version_name,accesscount desc;";
+        $query = $dwdb -> query($sql);
+        $ret = array();
+        $alldata = $this -> getallVersionBasicData($fromTime, $toTime, $productId) -> result_array();
+        if ($query != null && $query -> num_rows > 0) {
+            $arra = $query -> result_array();
+            $content_arr = array();
+            $flag = '';
+            for ($i = 0; $i < count($arra); $i++) {
+                $accesscount = 0;
+                $avertime = 0;
+                $exitcount = 0;
+                $row = $arra[$i];
+                $versionname = $row['version_name'];
+                $allkey = array_keys($content_arr);
+                if (!in_array($versionname, $allkey)) {
+                    $content_arr[$versionname] = array();
+                    $flag = '';
+                }
+                $tmp = array();
+                if ($flag == '') {
+                    for ($j = 0; $j < count($alldata); $j++) {
+                        $all = $alldata[$j];
+                        if ($all['version_name'] != "all" 
+                        && $all['version_name'] == $versionname) {
+                            $accesscount = $all['accesscount'];
+                            $avertime = $all['avertime'];
+                            $exitcount = $all['exitcount'];
+                            break;
+                        } else {
+                            $accesscount = $accesscount + $all['accesscount'] / 2;
+                            $avertime = $avertime + $all['avertime'] / 2;
+                            $exitcount = $exitcount + $all['exitcount'] / 2;
+                        }
+                    }
+                }
+                if ($row['accesscount'] == null) {
+                    $tmp['accesscount'] = 0;
+                } else {
+                    $tmp['accesscount'] = $row['accesscount'] . "(" . round($row['accesscount'] / $accesscount * 100, 1) . "%)";
+                }
+                if ($row['avertime'] == null) {
+                    $tmp['avertime'] = 0;
+                } else {
+                    $tmp['avertime'] = round($row['avertime'], 2) . "(" . round($row['avertime'] / $avertime * 100, 1) . "%)";
+                }
+                if ($row['exitcount'] == null) {
+                    $tmp['exitcount'] = 0;
+                } else {
+                    $tmp['exitcount'] = $row['exitcount'] . "(" . round($row['exitcount'] / $exitcount * 100, 1) . "%)";
+                }
+                $tmp['activity_name'] = $row['activity_name'];
+                //$tmp ['version_name'] = $row ['version_name'];
+                if($page) {
+                	$pos = strpos($tmp['activity_name'], $page); 
+					
+                	if($pos ===FALSE)
+					{
+					
+					}
+					else {
+						array_push($content_arr[$versionname], $tmp);
+					}
+                }
+				else {
+					array_push($content_arr[$versionname], $tmp);
+				}              
+            }
+			$ret = $content_arr[$version];
+        }
+        return $ret;
+
+    }
+
 }

@@ -25,13 +25,15 @@ class getConfigTest extends CIUnit_TestCase {
 
         $this->dbfixt_unload($tables);
     }
+	
     public function testGetConfig() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/config_ok.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_config/ok.json';
         ob_start();
         $this->CI->getOnlineConfiguration();
         $output = ob_get_clean();
         $this -> assertEquals(
-            '{"flag":1,"msg":"ok","autogetlocation":"1","updateonlywifi":"1","sessionmillis":"3000","reportpolicy":"1"}', 
+        '{"reply":{"fileSize":1,"flag":1,"msg":"ok","autoGetLocation":"1","updateOnlyWifi":"1","sessionMillis":"3000","intervalTime":5,"reportPolicy":"1","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}',
+            //'{"reply": {"returnCode": {"domain": null,"type": "S","code": "AAAAAA"},"flag": "1","description": "android sdk test","versionName": "version5","fileUrl": "http://c.cobub.com/uploadify/test.apk"}}', 
             $output
         );
     }
@@ -42,7 +44,8 @@ class getConfigTest extends CIUnit_TestCase {
         $this->CI->getOnlineConfiguration();
         $output = ob_get_clean();
         $this -> assertEquals(
-            '{"flag":-3,"msg":"Invalid content from php:\/\/input."}', 
+        '{"reply":{"fileSize":1,"flag":-3,"msg":"Invalid content from php:\/\/input.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}',
+            //'{"reply": {"returnCode": {"domain": null,"type": "S","code": "AAAAAA"},"flag": "-3","description": "android sdk test","versionName": "version5","fileUrl": "http://c.cobub.com/uploadify/test.apk"}}', 
             $output
         );
     }
@@ -53,31 +56,34 @@ class getConfigTest extends CIUnit_TestCase {
         $this->CI->getOnlineConfiguration();
         $output = ob_get_clean();
         $this -> assertEquals(
-            '{"flag":-4,"msg":"Parse jsondata failed. Error No. is 4"}', 
+        '{"reply":{"fileSize":1,"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}',
+            //'{"reply": {"returnCode": {"domain": null,"type": "S","code": "AAAAAA"},"flag": "-4","description": "android sdk test","versionName": "version5","fileUrl": "http://c.cobub.com/uploadify/test.apk"}}', 
             $output
         );
     }
     
     public function testGetConfig3() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/noappkey.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_config/noappkey.json';
         ob_start();
         $this->CI->getOnlineConfiguration();
         $output = ob_get_clean();
         $this -> assertEquals(
-            '{"flag":-5,"msg":"Appkey is not set in json."}', 
+        '{"reply":{"fileSize":1,"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}', 
             $output
         );
     }
     
     public function testGetConfig4() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/invalidappkey.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_config/errorappkey.json';
         ob_start();
         $this->CI->getOnlineConfiguration();
         $output = ob_get_clean();
         $this -> assertEquals(
-            '{"flag":-1,"msg":"Invalid app key:invalid_appkey_00000"}', 
+        '{"reply":{"fileSize":1,"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}',
+            //'{"reply": {"returnCode": {"domain": null,"type": "S","code": "AAAAAA"},"flag": "-1","description": "android sdk test","versionName": "version5","fileUrl": "http://c.cobub.com/uploadify/test.apk"}}', 
             $output
         );
     }
+	 
 }
 ?>

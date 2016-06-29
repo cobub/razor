@@ -27,7 +27,6 @@
 class Clientdata extends CI_Model
 {
 
-
     /** 
      * Clientdata load 
      * Clientdata function 
@@ -56,10 +55,18 @@ class Clientdata extends CI_Model
      * 
      * @return void 
      */
-    function addClientdata($clientdata)
+    function addClientdata($content)
     {
+    	//parse 
+        $this->load->model('servicepublicclass/clientdatapublic', 'clientdatapublic');
+        $clientdata = new clientdatapublic();
+        $clientdata->loadclientdata($content);
+		
         $productId = $this -> utility -> getProductIdByKey($clientdata -> appkey);
+<<<<<<< HEAD
         
+=======
+>>>>>>> 59acc8eacd965be063ef7e501478ab0721d956a6
         
         $ip = $this -> utility -> getOnlineIP();
         $nowtime = date('Y-m-d H:i:s');
@@ -69,6 +76,7 @@ class Clientdata extends CI_Model
                 $nowtime = date('Y-m-d H:i:s');
             }
         }
+<<<<<<< HEAD
         
         $data = array('productkey' => $clientdata -> appkey,
         'platform' => $clientdata -> platform, 
@@ -100,34 +108,75 @@ class Clientdata extends CI_Model
         
         $latitude = isset($clientdata -> latitude) ? $clientdata -> latitude : '';
         $choose = $this -> config -> item('get_geographical');
+=======
+        $insertdate = date('Y-m-d H:i:s');
+        $data = array(
+            'productkey' => $clientdata->appkey,
+            'platform' => $clientdata->platform,
+            'osversion' => $clientdata->os_version,
+            'language' => $clientdata->language,
+            'deviceid' => $clientdata->deviceid,
+            'resolution' => $clientdata->resolution,
+            'ismobiledevice' => $clientdata->ismobiledevice,
+            'devicename' => $clientdata->devicename,
+            'defaultbrowser' => $clientdata->defaultbrowser,
+            'javasupport' => $clientdata->javasupport,
+            'flashversion' => $clientdata->flashversion,
+            'modulename' => $clientdata->modulename,
+            'imei' => $clientdata->imei,
+            'imsi' => $clientdata->imsi,
+            'havegps' => $clientdata->havegps,
+            'havebt' => $clientdata->havebt,
+            'havewifi' => $clientdata->havewifi,
+            'havegravity' => $clientdata->havegravity,
+            'wifimac' => $clientdata->wifimac,
+            'version' => $clientdata->version,
+            'network' => $clientdata->network,
+            'latitude' => $clientdata->latitude,
+            'longitude' => $clientdata->longitude,
+            'isjailbroken' => $clientdata->isjailbroken,
+            'useridentifier' => $clientdata->useridentifier,
+            'date' => $nowtime,
+            'service_supplier' => $clientdata->mccmnc,
+            'clientip' => $ip,
+            'insertdate' => $insertdate,
+            'salt' => $clientdata->salt,
+            'session_id' => $clientdata->session_id,
+            'lib_version' => $clientdata->lib_version
+        );
+        $latitude = isset($clientdata->latitude) ? $clientdata->latitude : '';
+        $choose = $this->config->item('get_geographical');
+>>>>>>> 59acc8eacd965be063ef7e501478ab0721d956a6
         $data["country"] = 'unknown';
         $data["region"] = 'unknown';
         $data["city"] = 'unknown';
         $data["street"] = '';
         $data["streetno"] = '';
         $data["postcode"] = '';
+		if ($choose == 1) {
+            $this->iplibrary->setLibrary('IpIpLibrary', $ip);
+            $data['country'] = $this->iplibrary->getCountry();
+            $data['region'] = $this->iplibrary->getRegion();
+            $data['city'] = $this->iplibrary->getCity();
+        }
         if ($choose == 2) {
             $this->iplibrary->setLibrary('GeoIpLibrary', $ip);
             $data['country'] = $this->iplibrary->getCountry();
             $data['region'] = $this->iplibrary->getRegion();
             $data['city'] = $this->iplibrary->getCity();
         }
-        if ($choose == 1) {
-            $this->iplibrary->setLibrary('IpIpLibrary', $ip);
-
-            $data['country'] = $this->iplibrary->getCountry();
-            $data['region'] = $this->iplibrary->getRegion();
-            $data['city'] = $this->iplibrary->getCity();
-        }
-        
+		
         $this -> redis -> lpush("razor_clientdata", serialize($data));
         
 		//For realtime User sessions
         $key = "razor_r_u_p_" . $productId . "_" . date('Y-m-d-H-i', time());
+<<<<<<< HEAD
 		$this -> redis -> hset($key, array($data["deviceid"] => $productId));
+=======
+        $this -> redis -> hset($key, array($data["deviceid"] => $productId));
+>>>>>>> 59acc8eacd965be063ef7e501478ab0721d956a6
         $this -> redis -> expire($key, 30 * 60);
 
-      
         //For realtime areas
         $key = "razor_r_arc_p_" . $productId . "_c_" . $data["country"] . "_" . date('Y-m-d-H-i', time());
         $this -> redis -> hset($key, array($data["country"] => $productId));
@@ -143,7 +192,8 @@ class Clientdata extends CI_Model
 
         //$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
         //$timezonestime = date ( 'Y-m-d H:i:m', $timezonestimestamp );
-        
+        //$this->redis->lpush("razor_clientdata", serialize($data));
+
         $this -> processor -> process();
     }
 

@@ -53,6 +53,9 @@ class Utility extends CI_Model
      */
     function isKeyAvailale($key)
     {
+    	////check
+		$key = addslashes($key);
+		
         $isKeyAvailable = $this -> redis -> hget("razor_appkeys_hash", $key);
         if ($isKeyAvailable != null && $isKeyAvailable != "") {
             log_message('debug', "key already in redis");
@@ -77,6 +80,9 @@ class Utility extends CI_Model
      */
     function getProductIdByKey($key)
     {
+    	////check
+		$key = addslashes($key);
+    	
         $isKeyAvailable = $this -> redis -> hget("razor_appkeys_hash", $key);
         if ($isKeyAvailable != null && $isKeyAvailable != "") {
             log_message('debug', "key already in redis");
@@ -239,7 +245,7 @@ class Utility extends CI_Model
     function getOnlineIP($format = 0)
     {
         $result = '';
-
+        $onlineip = 'unknown';
         // if (empty ( $_SGLOBAL ['onlineip'] )) {
         if (getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
             $onlineip = getenv('HTTP_CLIENT_IP');

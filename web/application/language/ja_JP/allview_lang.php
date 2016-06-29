@@ -479,7 +479,7 @@ $lang['v_man_pr_editApp']	=	'アプリ編集';
 $lang['v_man_pr_name']	=	'名前*';
 $lang['v_man_pr_appType']	=	'アプリ形式*';
 $lang['v_man_pr_platform']	=	'プラットフォーム*';
-
+$lang['v_rpt_el_eventIDName']='Event ID/Name';
 
 
 // view----manange----onlineconfig		
@@ -902,4 +902,8 @@ $lang['v_element_trash']='削除';
 
 $lang['cobub_login_ucenter']='/en/index.php?/auth';
 $lang['user_center_url']='http://dev.cobub.com/users/en/';
+
+//// datezone
+$lang['diffdatezone'] = "Time zone difference";
+$lang['diffdatezone_hour'] = "hour.Please reconfigure the time zone, and restart the server.";
 
