@@ -63,10 +63,6 @@ class Clientdata extends CI_Model
         $clientdata->loadclientdata($content);
 		
         $productId = $this -> utility -> getProductIdByKey($clientdata -> appkey);
-<<<<<<< HEAD
-        
-=======
->>>>>>> 59acc8eacd965be063ef7e501478ab0721d956a6
         
         $ip = $this -> utility -> getOnlineIP();
         $nowtime = date('Y-m-d H:i:s');
@@ -76,39 +72,10 @@ class Clientdata extends CI_Model
                 $nowtime = date('Y-m-d H:i:s');
             }
         }
-<<<<<<< HEAD
-        
-        $data = array('productkey' => $clientdata -> appkey,
-        'platform' => $clientdata -> platform, 
-        'osversion' => $clientdata -> os_version, 
-        'language' => $clientdata -> language, 
-        'deviceid'=>$clientdata->deviceid, 
-        'resolution' => $clientdata -> resolution,
-        'ismobiledevice' => isset($clientdata -> ismobiledevice) ? $clientdata -> ismobiledevice : '',
-        'devicename' => isset($clientdata -> devicename) ? $clientdata -> devicename:'unknown',
-        'defaultbrowser' =>isset($clientdata -> defaultbrowser) ? $clientdata -> defaultbrowser : '', 
-        'javasupport' => isset($clientdata -> javasupport) ? $clientdata -> javasupport : '',
-        'flashversion' =>isset($clientdata -> flashversion) ? $clientdata -> flashversion : '', 
-        'modulename' => isset($clientdata -> modulename) ? $clientdata -> modulename : '', 
-        'imei' => isset($clientdata -> imei) ? $clientdata -> imei : '', 
-        'imsi' => isset($clientdata -> imsi) ? $clientdata -> imsi : '', 
-        'havegps' => isset($clientdata -> havegps) ? $clientdata -> havegps : '',
-        'havebt' =>isset($clientdata -> havebt) ? $clientdata -> havebt : '', 
-        'havewifi' => isset($clientdata -> havewifi) ? $clientdata -> havewifi : '',
-        'havegravity' =>isset($clientdata -> havegravity) ? $clientdata -> havegravity : '',
-        'wifimac' =>isset($clientdata -> wifimac) ? $clientdata -> wifimac : '', 
-        'version' => isset($clientdata -> version) ? $clientdata -> version : '', 
-        'network' => isset($clientdata -> network) ? $clientdata -> network : '', 
-        'latitude' => isset($clientdata -> latitude) ? $clientdata -> latitude : '', 
-        'longitude' => isset($clientdata -> longitude) ? $clientdata -> longitude : '', 
-        'isjailbroken' => isset($clientdata -> isjailbroken) ? $clientdata -> isjailbroken : 0, 
-        'date' => $nowtime, 
-        'service_supplier' => isset($clientdata -> mccmnc) ? $clientdata -> mccmnc : '0', 
-        'clientip' => $ip);
-        
+
         $latitude = isset($clientdata -> latitude) ? $clientdata -> latitude : '';
         $choose = $this -> config -> item('get_geographical');
-=======
+
         $insertdate = date('Y-m-d H:i:s');
         $data = array(
             'productkey' => $clientdata->appkey,
@@ -146,7 +113,7 @@ class Clientdata extends CI_Model
         );
         $latitude = isset($clientdata->latitude) ? $clientdata->latitude : '';
         $choose = $this->config->item('get_geographical');
->>>>>>> 59acc8eacd965be063ef7e501478ab0721d956a6
+
         $data["country"] = 'unknown';
         $data["region"] = 'unknown';
         $data["city"] = 'unknown';
@@ -170,11 +137,7 @@ class Clientdata extends CI_Model
         
 		//For realtime User sessions
         $key = "razor_r_u_p_" . $productId . "_" . date('Y-m-d-H-i', time());
-<<<<<<< HEAD
 		$this -> redis -> hset($key, array($data["deviceid"] => $productId));
-=======
-        $this -> redis -> hset($key, array($data["deviceid"] => $productId));
->>>>>>> 59acc8eacd965be063ef7e501478ab0721d956a6
         $this -> redis -> expire($key, 30 * 60);
 
         //For realtime areas
