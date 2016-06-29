@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_dim_devicesupplier` (
 
 CREATE TABLE IF NOT EXISTS `umsinstall_dim_errortitle` (
   `title_sk` int(11) NOT NULL AUTO_INCREMENT,
-  `title_name` varchar(512) NOT NULL,
+  `title_name` text NOT NULL,
   `isfix` int(11) NOT NULL,
   PRIMARY KEY (`title_sk`),
   KEY `title_name` (`title_name`(255))
@@ -304,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_errorlog` (
   `deviceidentifier` int(11) NOT NULL,
   `activity` varchar(512) NOT NULL,
   `time` datetime NOT NULL,
-  `title` varchar(512) NOT NULL,
+  `title` text NOT NULL,
   `stacktrace` text NOT NULL,
   `isfix` int(11) NOT NULL,
   `id` int(11) NOT NULL,
