@@ -32,7 +32,8 @@ if ($this->config->item('use_username', 'tank_auth')) {
 
 <p align="center">
   
-                                             &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?> 
+                                             &copy; Copyright 2012-2016 Cobub Razor  Version:<?php  echo $this->config->item('version')?> 
+ <br />
  <a href=" <?php if($this->config->item('language')=="zh_CN")
                        { echo 'http://dev.cobub.com/zh/docs/cobub-razor/release-note/';}
                  else{ echo 'http://dev.cobub.com/docs/cobub-razor/release-note/'; } ?>" target="_blank">

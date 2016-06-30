@@ -204,8 +204,8 @@ if ($language == "zh_CN") {
         <div class="spacer"></div>
     </section>
     <div style="position: absolute; top: 770px; left: 500px">
-        <p align="center"> &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
-
+        <p align="center"> &copy; Copyright 2012-2016 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
+<br />
  <a
                 href=" <?php
     

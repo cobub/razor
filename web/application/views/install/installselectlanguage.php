@@ -165,9 +165,8 @@ foreach ($languageinfo as $row) {
         </section>
     </form>
     <div style="position: absolute; top: 480px; left: 450px">
-        <p align="center"> &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
-
-
+        <p align="center"> &copy; Copyright 2012-2016 Cobub Razor Version:<?php  echo $this->config->item('version')?>
+<br />
 <a href="http://dev.cobub.com/docs/cobub-razor/release-note/"
                 target="_blank"><?php echo 'Release Note'; ?></a><br /> <a
                 href="http://dev.cobub.com/" target="_blank"
