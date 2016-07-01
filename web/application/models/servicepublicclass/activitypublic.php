@@ -20,7 +20,7 @@ class activitypublic extends CI_Model {
 		$this -> duration = $content -> duration;
 		$this -> version = isset($content -> version) ? $content -> version : 'unknow';
 		$this -> deviceid = $content -> deviceid;
-		$this -> userid = $content -> useridentifier;
+		$this -> useridentifier = $content -> useridentifier;
 		$this -> lib_version = isset($content -> lib_version) ? $content -> lib_version : 'unknow';
 	}
 
