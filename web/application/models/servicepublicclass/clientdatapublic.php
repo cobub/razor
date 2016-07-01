@@ -187,9 +187,9 @@ class clientdatapublic extends CI_Model
             $this->isjailbroken = 0;
         }
         if (isset($content->useridentifier) && (!empty($content->useridentifier)))
-            $this->userid = $content->useridentifier;
+            $this->useridentifier = $content->useridentifier;
         else {
-            $this->userid = '';
+            $this->useridentifier = '';
         }
         if (isset($content->time) && (!empty($content->time)))
             $this->time = $content->time;
