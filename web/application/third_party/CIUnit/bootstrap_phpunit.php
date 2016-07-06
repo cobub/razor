@@ -242,7 +242,8 @@ define('TESTSPATH', realpath($tests_folder) . '/');
 require_once CIUPATH . 'core/CodeIgniter.php';
 
 // Autoload the PHPUnit Framework
-require_once('PHPUnit/Autoload.php');
+//require_once('PHPUnit/Autoload.php');
+//require_once 'phar://phpunit.phar';
 
 // Load the CIUnit Framework
 require_once CIUPATH . 'libraries/CIUnit.php';
