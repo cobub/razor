@@ -854,7 +854,7 @@ $lang['s_suspend_deltitle']	=	'ダッシュボードから削除';
 
 /********************************************************/
 $lang['m_open_mobile_analytics']='オープンソースのモバイル解析';
-$lang['m_copyright_version']='著作権2012-2015 Cobub Razor バージョン：';
+$lang['m_copyright_version']='著作権2012-2016 Cobub Razor <br /> バージョン：';
 $lang['m_release_note']='リリースノート';
 $lang['m_link_Cobub']='http://dev.cobub.com';
 

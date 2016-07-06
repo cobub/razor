@@ -207,8 +207,8 @@ if ($language=="zh_CN") {
     </section>
 
 <div style="position:absolute;top:910px; left:500px">
-<p align="center"> &copy; Copyright 2012-2015 Cobub Razor  Version:<?php  echo $this->config->item('version')?>
-
+<p align="center"> &copy; Copyright 2012-2016 Cobub Razor Version:<?php  echo $this->config->item('version')?>
+<br />
  <a href=" <?php if ($language=="zh_CN") {
      echo 'http://dev.cobub.com/zh/docs/cobub-razor/release-note/';
 } else {

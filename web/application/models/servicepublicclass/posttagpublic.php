@@ -27,8 +27,10 @@
 class Posttagpublic extends CI_Model
 {
     var $deviceid;
-    var $tags;
+    var $tag;
     var $appkey;
+	var $useridentifier;
+	var $lib_version;
 
     /**
      * Load tag
@@ -40,7 +42,9 @@ class Posttagpublic extends CI_Model
     function loadtag($content)
     {
         $this->deviceid = isset($content->deviceid) ? $content->deviceid : '';
-        $this->tags = isset($content->tags) ? $content->tags : '';
+        $this->tag  = isset($content->tag) ? $content->tag : '';
         $this->appkey = $content->appkey;
+		$this->useridentifier = $content->useridentifier;
+		$this->lib_version = isset($content->lib_version)?$content->lib_version:'unknow';
     }
 }

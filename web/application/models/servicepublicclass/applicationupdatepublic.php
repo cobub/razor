@@ -38,8 +38,8 @@ class Applicationupdatepublic extends CI_Model
      */
     function loadapplicationupdate($content)
     {
-        $this->appkey = $content->appkey;
-        $this->version_code = isset($content->version_code) ? $content->version_code : '1';
+        $this->appkey = $content->appKey;
+        $this->version_code = isset($content->version_code) ? $content->versionCode : '1';
     }
 
 }

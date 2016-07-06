@@ -23,10 +23,10 @@ class posteventTest extends CIUnit_TestCase {
             'razor_event_defination'=>'razor_event_defination'
         );
 
-        $this->dbfixt_unload($tables);
+        //$this->dbfixt_unload($tables);
     }
     public function testPostEvent() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/event_ok.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_event/ok.json';
         ob_start();
         $this->CI->postEvent();
         $output = ob_get_clean();
@@ -53,13 +53,13 @@ class posteventTest extends CIUnit_TestCase {
         $this->CI->postEvent();
         $output = ob_get_clean();
         $this -> assertEquals(
-            '{"flag":-4,"msg":"Parse jsondata failed. Error No. is 4"}', 
+            '{"flag":-4,"msg":"Parse json data failed."}', 
             $output
         );
     }
     
     public function testPostEvent3() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/noappkey.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_event/noappkey.json';
         ob_start();
         $this->CI->postEvent();
         $output = ob_get_clean();
@@ -70,12 +70,12 @@ class posteventTest extends CIUnit_TestCase {
     }
     
     public function testPostEvent4() {
-        $this->CI->rawdata = dirname(__FILE__) . '/testjson/invalidappkey.json';
+        $this->CI->rawdata = dirname(__FILE__) . '/testdata_event/errorappkey.json';
         ob_start();
         $this->CI->postEvent();
         $output = ob_get_clean();
         $this -> assertEquals(
-            '{"flag":-1,"msg":"Invalid app key:invalid_appkey_00000"}', 
+            '{"flag":-1,"msg":"Invalid appkey:invalid_appkey_00000"}', 
             $output
         );
     }

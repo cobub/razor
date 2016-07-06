@@ -64,6 +64,8 @@ class Clientdata extends CI_Model
                 $nowtime = date('Y-m-d H:i:s');
             }
         }
+		
+        $insertdate = date('Y-m-d H:i:s');
         $data = array(
             'productkey' => $clientdata->appkey,
             'platform' => $clientdata->platform,
@@ -71,29 +73,33 @@ class Clientdata extends CI_Model
             'language' => $clientdata->language,
             'deviceid' => $clientdata->deviceid,
             'resolution' => $clientdata->resolution,
-            'ismobiledevice' => isset($clientdata->ismobiledevice) ? $clientdata->ismobiledevice : '',
-            'devicename' => isset($clientdata->devicename) ? $clientdata->devicename : 'unknown',
-            'defaultbrowser' => isset($clientdata->defaultbrowser) ? $clientdata->defaultbrowser : '',
-            'javasupport' => isset($clientdata->javasupport) ? $clientdata->javasupport : '',
-            'flashversion' => isset($clientdata->flashversion) ? $clientdata->flashversion : '',
-            'modulename' => isset($clientdata->modulename) ? $clientdata->modulename : '',
-            'imei' => isset($clientdata->imei) ? $clientdata->imei : '',
-            'imsi' => isset($clientdata->imsi) ? $clientdata->imsi : '',
+            'ismobiledevice' => $clientdata->ismobiledevice,
+            'devicename' => $clientdata->devicename,
+            'defaultbrowser' => $clientdata->defaultbrowser,
+            'javasupport' => $clientdata->javasupport,
+            'flashversion' => $clientdata->flashversion,
+            'modulename' => $clientdata->modulename,
+            'imei' => $clientdata->imei,
+            'imsi' => $clientdata->imsi,
             'salt' => isset($clientdata->salt) ? $clientdata->salt : '',
-            'havegps' => isset($clientdata->havegps) ? $clientdata->havegps : '',
-            'havebt' => isset($clientdata->havebt) ? $clientdata->havebt : '',
-            'havewifi' => isset($clientdata->havewifi) ? $clientdata->havewifi : '',
-            'havegravity' => isset($clientdata->havegravity) ? $clientdata->havegravity : '',
-            'wifimac' => isset($clientdata->wifimac) ? $clientdata->wifimac : '',
-            'version' => isset($clientdata->version) ? $clientdata->version : '',
-            'network' => isset($clientdata->network) ? $clientdata->network : '',
-            'latitude' => isset($clientdata->latitude) ? $clientdata->latitude : '',
-            'longitude' => isset($clientdata->longitude) ? $clientdata->longitude : '',
-            'isjailbroken' => isset($clientdata->isjailbroken) ? $clientdata->isjailbroken : 0,
-            'useridentifier' => isset($clientdata->userid) ? $clientdata->userid : '',
+            'havegps' => $clientdata->havegps,
+            'havebt' => $clientdata->havebt,
+            'havewifi' => $clientdata->havewifi,
+            'havegravity' => $clientdata->havegravity,
+            'wifimac' => $clientdata->wifimac,
+            'version' => $clientdata->version,
+            'network' => $clientdata->network,
+            'latitude' => $clientdata->latitude,
+            'longitude' => $clientdata->longitude,
+            'isjailbroken' => $clientdata->isjailbroken,
+            'useridentifier' => $clientdata->useridentifier,
             'date' => $nowtime,
-            'service_supplier' => isset($clientdata->mccmnc) ? $clientdata->mccmnc : '0',
-            'clientip' => $ip
+            'service_supplier' => $clientdata->mccmnc,
+            'clientip' => $ip,
+            'insertdate' => $insertdate,
+            'salt' => $clientdata->salt,
+            'session_id' => $clientdata->session_id,
+            'lib_version' => $clientdata->lib_version
         );
         $latitude = isset($clientdata->latitude) ? $clientdata->latitude : '';
         $choose = $this->config->item('get_geographical');

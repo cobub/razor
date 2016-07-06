@@ -55,9 +55,15 @@ class UserTag extends CI_Model
         $this -> load -> model('servicepublicclass/posttagpublic', 'posttagpublic');
         $posttag = new posttagpublic();
         $posttag -> loadtag($content);
-        $data = array('deviceid' => $posttag -> deviceid, 
-        'tags' => $posttag -> tags, 
-        'appkey' => $posttag -> appkey);
+        $insertdate = date('Y-m-d H:i:s');
+        $data = array(
+            'deviceid' => $posttag->deviceid,
+            'tags' => $posttag->tag,
+            'appkey' => $posttag->appkey,
+            'useridentifier' => $posttag->useridentifier,
+            'lib_version' => $posttag->lib_version,
+            'insertdate' => $insertdate
+        );
         $this -> redis -> lpush('razor_usertag', serialize($data));
         $this -> processor -> process();
     }

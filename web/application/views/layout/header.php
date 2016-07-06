@@ -662,9 +662,8 @@ if(isset($username)):
 				<strong>&copy;  <?php echo lang('m_copyright_version')?><?php  echo $this->config->item('version')?>
 				<a href="http://dev.cobub.com/docs/cobub-razor/release-note/" target="_blank"><?php echo lang('m_release_note')?></a></strong>
 			</p>
-			<p>
- <a href ="<?php echo lang('m_link_Cobub')?>" target ="_blank" title="Mobile Analytics"  alt="Cobub Razor - Open Source Mobile Analytics Solution"><?php echo lang('m_open_mobile_analytics')?></a>
-			
+			<p>&nbsp;&nbsp;
+ <a href ="<?php echo lang('m_link_Cobub')?>" target ="_blank" title="Mobile Analytics"  alt="Cobub Razor - Open Source Mobile Analytics Solution"><?php echo lang('m_open_mobile_analytics')?></a>	
 			</p>
             </footer>
         </aside>

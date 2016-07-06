@@ -1,12 +1,12 @@
 1:
     cp_id: 1
     description: "android"
-    updateurl: ""
+    updateurl: "http://localhost"
     entrypoint: ""
     location: ""
-    version: "1"
-    date: "2013-05-01 21:45:22"
-    productkey: "49d0b54ea086922f0dd5459269d338ce"
+    version: "3"
+    date: "2016-05-01 21:45:22"
+    productkey: "2c53b7f229cfb7baeeda59772696918d"
     man: 0
     user_id: 1 
     product_id: 1 
@@ -19,7 +19,7 @@
     entrypoint: ""
     location: ""
     version: "2"
-    date: "2015-8-1"
+    date: "2016-6-1"
     productkey: "54ea086922f0dd5459269d338ce"
     man: 0
     user_id: 1

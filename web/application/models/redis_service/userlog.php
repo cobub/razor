@@ -60,7 +60,24 @@ class Userlog extends CI_Model
             $title = $strArr[0];
         }
 
-        $data = array('appkey' => $userlog -> appkey, 'title' => $title, 'stacktrace' => $userlog -> stacktrace, 'os_version' => $userlog -> os_version, 'time' => $userlog -> time, 'device' => $userlog -> deviceid, 'activity' => $userlog -> activity, 'version' => isset($userlog -> version) ? $userlog -> version : '');
+		
+        $insertdate = date('Y-m-d H:i:s');
+        $data = array(
+        'appkey' => $userlog -> appkey, 
+            'device' => $userlog->devicename,
+            'os_version' => $userlog->os_version,
+            'activity' => $userlog->activity,
+            'time' => $userlog->time,
+            'title' => $title,
+            'stacktrace' => $userlog->stacktrace,
+            'version' => isset($userlog->version) ? $userlog->version : '',
+            'error_type' => isset($userlog->error_type) ? $userlog->error_type : 0,
+            'session_id' => isset($userlog->session_id) ? $userlog->session_id : '',
+            'useridentifier' => isset($userlog->useridentifier) ? $userlog->useridentifier : '',
+            'lib_version' => isset($userlog->lib_version) ? $userlog->lib_version : '',
+            'deviceid' => isset($userlog->deviceid) ? $userlog->deviceid : '',
+            'insertdate' => $insertdate
+        );
         $this -> redis -> lpush("razor_errors", serialize($data));
         $this -> processor -> process();
     }

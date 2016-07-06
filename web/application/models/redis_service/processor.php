@@ -61,6 +61,9 @@ class Processor extends CI_Model
                 $this -> processItems("razor_clientdata", "clientdata", "productkey");
                 $this -> processItems("razor_clientusinglogs", "clientusinglog", "appkey");
                 $this -> processItems("razor_usertag", "device_tag", "appkey");
+				
+				$this -> processItemsDw("razor_deviceid_userid", "deviceid_userid", "deviceid");
+				$this -> processItemsDw("razor_deviceid_pushid", "deviceid_pushid", "deviceid");
             }
         } else {
             $timestamp = date('Y-m-d H:i:s', time());
@@ -99,6 +102,42 @@ class Processor extends CI_Model
                 log_message("debug", "Processs " . count($itemsArray) . " $tableName");
 
                 $this -> db -> insert_batch($tableName, $itemsArray);
+            }
+        } catch ( Exception $ex ) {
+            log_message("error", "Batch Insert $tableName error === " . $ex);
+        }
+    }
+
+	/** 
+     * Insert items to database from Redis Server 
+     * ProcessItems function 
+     * 
+     * @param string $redisItemName redisItemName 
+     * @param string $tableName     tableName 
+     * @param string $keyName       keyName 
+     * 
+     * @return void 
+     */
+    function processItemsDw($redisItemName, $tableName, $keyName)
+    {
+    	$dw = $this->load->database('dw', true);
+        log_message("debug", "Batch Process $tableName");
+        try {
+            $size = $this -> redis -> llen($redisItemName);
+            log_message("debug", "$tableName Size = $size");
+            $itemsArray = array();
+            for ($i = 0; $i < $size; $i++) {
+                $popdata = $this -> redis -> lpop($redisItemName);
+                if (isset($popdata)) {
+                    $postArray = unserialize($popdata);
+                    if (is_array($postArray) && isset($postArray[$keyName]) && $postArray[$keyName] != null && $postArray[$keyName] != '') {
+                        array_push($itemsArray, $postArray);
+                    }
+                }
+            }
+            if ($itemsArray != null && count($itemsArray) > 0) {
+                log_message("debug", "Processs " . count($itemsArray) . " $tableName");
+                $dw -> insert_batch($tableName, $itemsArray);
             }
         } catch ( Exception $ex ) {
             log_message("error", "Batch Insert $tableName error === " . $ex);

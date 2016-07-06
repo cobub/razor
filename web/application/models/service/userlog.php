@@ -50,22 +50,40 @@ class Userlog extends CI_Model
         $this->load->model('servicepublicclass/errorlogpublic', 'errorlogpublic');
         $userlog = new errorlogpublic();
         $userlog->loaderrorlog($content);
+          $nowtime = date('Y-m-d H:i:s');
+        if (isset($userlog->time)) {
+            $nowtime = $userlog->time;
+            if (strtotime($nowtime) < strtotime('1970-01-01 00:00:00') ||
+                strtotime($nowtime) == ''
+            ) {
+                $nowtime = date('Y-m-d H:i:s');
+            }
+        }
         $strArr = explode("\n", $userlog->stacktrace);
         if (count($strArr) >= 3) {
             $title = $strArr[0] . "\n" . $strArr[1] . "\n" . $strArr[2];
         } else {
             $title = $strArr[0];
         }
-        $nowtime = date('Y-m-d H:i:s');
-        if (isset($userlog->time)) {
-            $nowtime = $userlog->time;
-            if (strtotime($nowtime) < strtotime('1970-01-01 00:00:00') || strtotime($nowtime) == '') {
-                $nowtime = date('Y-m-d H:i:s');
-            }
-        }
-        $data = array('appkey' => $userlog->appkey,'title' => $title,'stacktrace' => $userlog->stacktrace,'os_version' => $userlog->os_version,'time' => $nowtime,'device' => $userlog->deviceid,'activity' => $userlog->activity,'isfix' => 0,'version' => isset($userlog->version) ? $userlog->version : ''
-        )
-        ;
+		
+      
+        $insertdate = date('Y-m-d H:i:s');
+        $data = array(
+            'appkey' => $userlog->appkey,
+            'device' => $userlog->devicename,
+            'os_version' => $userlog->os_version,
+            'activity' => $userlog->activity,
+            'time' => $nowtime,
+            'title' => $title,
+            'stacktrace' => $userlog->stacktrace,
+            'version' => isset($userlog->version) ? $userlog->version : '',
+            'error_type' => isset($userlog->error_type) ? $userlog->error_type : 0,
+            'session_id' => isset($userlog->session_id) ? $userlog->session_id : '',
+            'useridentifier' => isset($userlog->useridentifier) ? $userlog->useridentifier : '',
+            'lib_version' => isset($userlog->lib_version) ? $userlog->lib_version : '',
+            'deviceid' => isset($userlog->deviceid) ? $userlog->deviceid : '',
+            'insertdate' => $insertdate
+        );
         $this->db->insert('errorlog', $data);
     }
 }

@@ -53,15 +53,15 @@ class Utility extends CI_Model
      */
     function isKeyAvailale($key)
     {
+    	////check
+		$key = addslashes($key);
+		
         $isKeyAvailable = $this -> redis -> hget("razor_appkeys_hash", $key);
         if ($isKeyAvailable != null && $isKeyAvailable != "") {
             log_message('debug', "key already in redis");
             return true;
         }
-		
-		////check
-		$key = addslashes($key);
-		
+
         $query = $this -> db -> query("select * from " . $this -> db -> dbprefix('channel_product') . " where productkey = '$key'");
         if ($query != null && $query -> num_rows() > 0) {
             $this -> redis -> hset('razor_appkeys_hash', array("$key" => $query -> first_row() -> product_id));
@@ -80,6 +80,9 @@ class Utility extends CI_Model
      */
     function getProductIdByKey($key)
     {
+    	////check
+		$key = addslashes($key);
+    	
         $isKeyAvailable = $this -> redis -> hget("razor_appkeys_hash", $key);
         if ($isKeyAvailable != null && $isKeyAvailable != "") {
             log_message('debug', "key already in redis");
@@ -242,7 +245,7 @@ class Utility extends CI_Model
     function getOnlineIP($format = 0)
     {
         $result = '';
-
+        $onlineip = 'unknown';
         // if (empty ( $_SGLOBAL ['onlineip'] )) {
         if (getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
             $onlineip = getenv('HTTP_CLIENT_IP');

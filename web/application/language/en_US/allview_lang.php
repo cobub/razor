@@ -975,7 +975,7 @@ $lang['v_plugins_new_version']='a new version is available.';
 
 /******************************************************************************/
 $lang['m_open_mobile_analytics']='Mobile Analytics of Open Source';
-$lang['m_copyright_version']='Copyright 2012-2015 Cobub Razor  Version:';
+$lang['m_copyright_version']='Copyright 2012-2016 Cobub Razor <br /> Version:';
 $lang['m_release_note']='Release Notes';
 $lang['m_link_Cobub']='http://dev.cobub.com';
 
