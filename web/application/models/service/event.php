@@ -47,6 +47,9 @@ class Event extends CI_Model
      */
     function getProductid($key)
     {
+    	
+		$key = addslashes($key);
+		
         $query = $this->db->query("select product_id from " . $this->db->dbprefix('channel_product') . " where productkey = '$key'");
         
         if ($query != null && $query->num_rows() > 0) {
@@ -65,6 +68,9 @@ class Event extends CI_Model
      */
     function isEventidAvailale($product_id, $event_identifier)
     {
+    	$product_id = addslashes($product_id);
+		$event_identifier = addslashes($event_identifier);
+    	
         $query = $this->db->query("select event_id from " . $this->db->dbprefix('event_defination') . " where event_identifier = '$event_identifier' and product_id = '$product_id'");
         if ($query != null && $query->num_rows() > 0) {
             return $query->first_row()->event_id;
@@ -83,6 +89,9 @@ class Event extends CI_Model
      */
     function getActivebyEventid($getEventid, $product_id)
     {
+    	$getEventid = addslashes($getEventid);
+		$product_id = addslashes($product_id);
+    	
         $query = $this->db->query("select active from " . $this->db->dbprefix('event_defination') . " where event_id = '$getEventid' and product_id = '$product_id'");
         if ($query != null && $query->num_rows() > 0) {
             return $query->first_row()->active;
@@ -121,6 +130,8 @@ class Event extends CI_Model
                 'product_id' => $product_id, 
                 'user_id' => 1 );
 				
+			$eventdata = $this->db->escape_str($eventdata);
+				
 			if($this->db->insert('event_defination', $eventdata)){
 				$getEventid = $this->db->insert_id();
 			}
@@ -155,6 +166,8 @@ class Event extends CI_Model
             'lib_version' => $event->lib_version,
             'insertdate' => $insertdate
             );
+			
+		$data = $this->db->escape_str($data);
             
         $this->db->insert('eventdata', $data);
         return $getEventid;

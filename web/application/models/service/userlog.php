@@ -84,6 +84,9 @@ class Userlog extends CI_Model
             'deviceid' => isset($userlog->deviceid) ? $userlog->deviceid : '',
             'insertdate' => $insertdate
         );
+		
+		$data = $this->db->escape_str($data);
+		
         $this->db->insert('errorlog', $data);
     }
 }

@@ -52,6 +52,8 @@ class DeviceidUid extends CI_Model
             'deviceid' => isset($content->deviceid)?$content->deviceid:'',
             'userid' => isset($content->userid)?$content->userid:''
         );
+		
+		$data = $dw->escape_str($data);
         
         $dw->from($dw->dbprefix("deviceid_userid"));
         
@@ -61,8 +63,7 @@ class DeviceidUid extends CI_Model
         if ($query && $query->num_rows() > 0) { //Dupplicate row
              return;
         }
-            
-        
+
         $dw->insert('deviceid_userid', $data);
     }
 

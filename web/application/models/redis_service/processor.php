@@ -94,13 +94,13 @@ class Processor extends CI_Model
                 if (isset($popdata)) {
                     $postArray = unserialize($popdata);
                     if (is_array($postArray) && isset($postArray[$keyName]) && $postArray[$keyName] != null && $postArray[$keyName] != '') {
+                        $postArray = $this->db->escape_str($postArray);
                         array_push($itemsArray, $postArray);
                     }
                 }
             }
             if ($itemsArray != null && count($itemsArray) > 0) {
                 log_message("debug", "Processs " . count($itemsArray) . " $tableName");
-
                 $this -> db -> insert_batch($tableName, $itemsArray);
             }
         } catch ( Exception $ex ) {
@@ -131,6 +131,7 @@ class Processor extends CI_Model
                 if (isset($popdata)) {
                     $postArray = unserialize($popdata);
                     if (is_array($postArray) && isset($postArray[$keyName]) && $postArray[$keyName] != null && $postArray[$keyName] != '') {
+                        $postArray = $dw->escape_str($postArray);
                         array_push($itemsArray, $postArray);
                     }
                 }

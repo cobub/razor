@@ -123,6 +123,9 @@ class Clientdata extends CI_Model
             $data['region'] = $this->iplibrary->getRegion();
             $data['city'] = $this->iplibrary->getCity();
         }
+		
+		$data = $this->db->escape_str($data);
+		
         $this->db->insert('clientdata', $data);
     }
 }

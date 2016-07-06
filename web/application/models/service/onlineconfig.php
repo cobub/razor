@@ -47,6 +47,8 @@ class OnlineConfig extends CI_Model
      */
     function getProductid($key)
     {
+    	$key = addslashes($key);
+		
         $query = $this->db->query("select product_id from " . $this->db->dbprefix('channel_product') . " where productkey = '$key'");
         if ($query != null && $query->num_rows() > 0) {
             $productid = $query->first_row()->product_id;
@@ -64,6 +66,8 @@ class OnlineConfig extends CI_Model
      */
     function getConfigMessage($productid)
     {
+    	$productid = addslashes($productid);
+		
         $query = $this->db->query("select * from " . $this->db->dbprefix('config') . " where product_id = '$productid'");
         if ($query != null && $query->num_rows() > 0) {
             return $query->first_row();

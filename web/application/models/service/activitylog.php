@@ -78,6 +78,8 @@ class Activitylog extends CI_Model
             'lib_version' => $activitylog->lib_version,
             'insertdate' => $insertdate);
         
+		$data = $this->db->escape_str($data);
+		
         $this->db->insert('clientusinglog', $data);
     }
 }

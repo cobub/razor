@@ -48,6 +48,9 @@ class Update extends CI_Model
      */
     function haveNewVersion($key, $version_code)
     {
+    	$key = addslashes($key);
+		$version_code = addslashes($version_code);
+    	
         $query = $this->db->query("select version from " . $this->db->dbprefix('channel_product') . " where productkey = '$key'");
         if ($query != null && $query->num_rows() > 0) {
             $version = $query->first_row()->version;
@@ -67,6 +70,8 @@ class Update extends CI_Model
      */
     function getProductUpdate($key)
     {
+    	$key = addslashes($key);
+		
         $query = $this->db->query("select * from " . $this->db->dbprefix('channel_product') . " where productkey = '$key'");
         if ($query != null && $query->num_rows() > 0) {
             return $query->first_row();

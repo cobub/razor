@@ -49,7 +49,7 @@ class Usertag extends CI_Model
         $this->load->model('servicepublicclass/posttagpublic', 'posttagpublic');
         $posttag = new posttagpublic();
         $posttag->loadtag($content);
-	$insertdate = date('Y-m-d H:i:s');
+		$insertdate = date('Y-m-d H:i:s');
         $data = array(
             'deviceid' => $content->deviceid,
             'tags' => $content->tag,
@@ -58,6 +58,7 @@ class Usertag extends CI_Model
             'lib_version' => $content->lib_version,
             'insertdate' => $insertdate
         );
+		$data = $this->db->escape_str($data);
         $this->db->insert('device_tag', $data);
     }
 
