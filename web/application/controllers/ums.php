@@ -52,11 +52,11 @@ class Ums extends CI_Controller
     }
 
     /**
-     * Interface to accept client data
+     * Interface to accept clientdata
      *
      * @return void
      */
-    function postClientData()
+    function clientdata()
     {
         $ret = $this->_checkJsonData();
 		if ($ret != null) {
@@ -92,7 +92,7 @@ class Ums extends CI_Controller
      *
      * @return void
      */
-    function postActivityLog()
+    function usinglog()
     {
         $ret = $this->_checkJsonData();
 		if ($ret != null) {
@@ -129,7 +129,7 @@ class Ums extends CI_Controller
      *
      * @return void
      */
-    function postEvent()
+    function eventlog()
     {
         $ret = $this->_checkJsonData();
 		if ($ret != null) {
@@ -162,7 +162,7 @@ class Ums extends CI_Controller
      *
      * @return void
      */
-    function postErrorLog()
+    function errorlog()
     {
         $ret = $this->_checkJsonData();
 		if ($ret != null) {
@@ -197,7 +197,7 @@ class Ums extends CI_Controller
      *
      * @return void
      */
-    function postTag()
+    function tag()
     {
         $ret = $this->_checkJsonData();
 		if($ret!=null){
@@ -234,7 +234,7 @@ class Ums extends CI_Controller
      *
      * @return void
      */
-    function getApplicationUpdate()
+    function appupdate()
     {
         $ret = $this->checkUpdateJsonFailed();
         if ($ret != null) {
@@ -293,7 +293,7 @@ class Ums extends CI_Controller
      *
      * @return void
      */
-    function getOnlineConfiguration()
+    function pushpolicyquery()
     {
 		$ret = $this->checkConfigJsonFailed();
 		if($ret!=null){
@@ -533,10 +533,12 @@ class Ums extends CI_Controller
     }
 
 	/**
-     * Interface to accept total log
+     * Interface to accept total log 
      *
      * @return void
      */
+     /*
+	  * disable
     function uploadLog()
     {
         $ret = $this->_checkJsonData();
@@ -557,7 +559,7 @@ class Ums extends CI_Controller
         }
         echo json_encode($ret);
     }
-	
+	*/
 	/**
      * Uncompress the gzipped data
      *
@@ -575,6 +577,8 @@ class Ums extends CI_Controller
      *
      * @return void
      */
+     /*
+	  * disable
     function postPushid()
     {
         $ret = $this->_checkJsonData();
@@ -595,12 +599,15 @@ class Ums extends CI_Controller
         }
         echo json_encode($ret);
     }
+	  */
 	
 	/**
      * Interface to accept User Id
      *
      * @return void
      */
+     /*
+	  * disable
     function postUserid()
     {
         $ret = $this->_checkJsonData();
@@ -621,6 +628,7 @@ class Ums extends CI_Controller
         }
         echo json_encode($ret);
     }
+	*/
 
 
 }
