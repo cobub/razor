@@ -26,7 +26,7 @@ class postclientdataTest extends CIUnit_TestCase {
     public function testPostClientdata() {
         $this->CI->rawdata = dirname(__FILE__) . '/testdata_client/ok.json';
         ob_start();
-        $this->CI->postClientdata();
+        $this->CI->clientdata();
         $output = ob_get_clean();
         $this -> assertEquals(
             '{"flag":1,"msg":"ok"}', 
@@ -37,7 +37,7 @@ class postclientdataTest extends CIUnit_TestCase {
     public function testPostClientdata1() {
         $this->CI->rawdata = dirname(__FILE__) . '/testjson/empty.json';
         ob_start();
-        $this->CI->postClientdata();
+        $this->CI->clientdata();
         $output = ob_get_clean();
         $this -> assertEquals(
             '{"flag":-3,"msg":"Invalid content from php:\/\/input."}', 
@@ -48,7 +48,7 @@ class postclientdataTest extends CIUnit_TestCase {
     public function testPostClientdata2() {
         $this->CI->rawdata = dirname(__FILE__) . '/testjson/partly.json';
         ob_start();
-        $this->CI->postClientdata();
+        $this->CI->clientdata();
         $output = ob_get_clean();
         $this -> assertEquals(
             '{"flag":-4,"msg":"Parse json data failed."}', 
@@ -59,7 +59,7 @@ class postclientdataTest extends CIUnit_TestCase {
     public function testPostClientdata3() {
         $this->CI->rawdata = dirname(__FILE__) . '/testdata_client/noappkey.json';
         ob_start();
-        $this->CI->postClientdata();
+        $this->CI->clientdata();
         $output = ob_get_clean();
         $this -> assertEquals(
             '{"flag":-5,"msg":"Appkey is not set in json."}', 
@@ -70,7 +70,7 @@ class postclientdataTest extends CIUnit_TestCase {
     public function testPostClientdata4() {
         $this->CI->rawdata = dirname(__FILE__) . '/testdata_client/errorappkey.json';
         ob_start();
-        $this->CI->postClientdata();
+        $this->CI->clientdata();
         $output = ob_get_clean();
         $this -> assertEquals(
             '{"flag":-1,"msg":"Invalid appkey:invalid_appkey_00000"}', 

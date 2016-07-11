@@ -34,7 +34,7 @@ class getUpdateTest extends CIUnit_TestCase
     {
         $this->CI->rawdata = dirname(__FILE__) . '/testdata_update/ok.json';
         ob_start();
-        $this->CI->getApplicationUpdate();
+        $this->CI->appupdate();
         $output = ob_get_clean();
         $this->assertEquals(
         '{"reply":{"flag":1,"msg":"ok","fileUrl":"http:\/\/localhost","forceupdate":"0","description":"android","time":"2016-05-01 21:45:22","versionName":"3","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}',
@@ -46,7 +46,7 @@ class getUpdateTest extends CIUnit_TestCase
     {
         $this->CI->rawdata = dirname(__FILE__) . '/testjson/update_noupdate.json';
         ob_start();
-        $this->CI->getApplicationUpdate();
+        $this->CI->appupdate();
         $output = ob_get_clean();
         $this->assertEquals(//'{"reply":{"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}', 
         '{"reply":{"flag":-1,"msg":"Invalid appkey:49d0b54ea086922f0dd5459269d338ce","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}',
@@ -57,7 +57,7 @@ class getUpdateTest extends CIUnit_TestCase
     {
         $this->CI->rawdata = dirname(__FILE__) . '/testjson/empty.json';
         ob_start();
-        $this->CI->getApplicationUpdate();
+        $this->CI->appupdate();
         $output = ob_get_clean();
         $this->assertEquals(//'{"reply":{"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}', 
         '{"reply":{"flag":-3,"msg":"Invalid content from php:\/\/input.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}',
@@ -68,7 +68,7 @@ class getUpdateTest extends CIUnit_TestCase
     {
         $this->CI->rawdata = dirname(__FILE__) . '/testjson/partly.json';
         ob_start();
-        $this->CI->getApplicationUpdate();
+        $this->CI->appupdate();
         $output = ob_get_clean();
         $this->assertEquals('{"reply":{"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}', 
         $output);
@@ -78,7 +78,7 @@ class getUpdateTest extends CIUnit_TestCase
     {
         $this->CI->rawdata = dirname(__FILE__) . '/testdata_update/noappkey.json';
         ob_start();
-        $this->CI->getApplicationUpdate();
+        $this->CI->appupdate();
         $output = ob_get_clean();
         $this->assertEquals('{"reply":{"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}',
          $output);
@@ -88,7 +88,7 @@ class getUpdateTest extends CIUnit_TestCase
     {
         $this->CI->rawdata = dirname(__FILE__) . '/testjson/invalidappkey.json';
         ob_start();
-        $this->CI->getApplicationUpdate();
+        $this->CI->appupdate();
         $output = ob_get_clean();
         $this->assertEquals('{"reply":{"flag":-5,"msg":"Appkey is not in json.","returnCode":{"domain":"","type":"S","code":"AAAAAA"}}}', 
         $output);

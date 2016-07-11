@@ -26,7 +26,7 @@ class postusinglogTest extends CIUnit_TestCase {
     public function testPostUsinglog() {
         $this->CI->rawdata = dirname(__FILE__) . '/testdata_usinglog/ok.json';
         ob_start();
-        $this->CI->postActivityLog();
+        $this->CI->usinglog();
         $output = ob_get_clean();
         $this -> assertEquals('{"flag":1,"msg":"ok"}', $output);
     }
@@ -34,7 +34,7 @@ class postusinglogTest extends CIUnit_TestCase {
     public function testPostUsinglog1() {
         $this->CI->rawdata = dirname(__FILE__) . '/testjson/empty.json';
         ob_start();
-        $this->CI->postActivityLog();
+        $this->CI->usinglog();
         $output = ob_get_clean();
         $this -> assertEquals('{"flag":-3,"msg":"Invalid content from php:\/\/input."}', $output);
     }
@@ -42,7 +42,7 @@ class postusinglogTest extends CIUnit_TestCase {
     public function testPostUsinglog2() {
         $this->CI->rawdata = dirname(__FILE__) . '/testjson/partly.json';
         ob_start();
-        $this->CI->postActivityLog();
+        $this->CI->usinglog();
         $output = ob_get_clean();
         $this -> assertEquals('{"flag":-4,"msg":"Parse json data failed."}', $output);
     }
@@ -50,7 +50,7 @@ class postusinglogTest extends CIUnit_TestCase {
     public function testPostUsinglog3() {
         $this->CI->rawdata = dirname(__FILE__) . '/testdata_usinglog/noappkey.json';
         ob_start();
-        $this->CI->postActivityLog();
+        $this->CI->usinglog();
         $output = ob_get_clean();
         $this -> assertEquals('{"flag":-5,"msg":"Appkey is not set in json."}', $output);
     }
@@ -58,7 +58,7 @@ class postusinglogTest extends CIUnit_TestCase {
     public function testPostUsinglog4() {
         $this->CI->rawdata = dirname(__FILE__) . '/testdata_usinglog/errorappkey.json';
         ob_start();
-        $this->CI->postActivityLog();
+        $this->CI->usinglog();
         $output = ob_get_clean();
         $this -> assertEquals('{"flag":-1,"msg":"Invalid appkey:invalid_appkey_00000"}', $output);
     }
