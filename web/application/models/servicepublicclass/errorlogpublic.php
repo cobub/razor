@@ -12,6 +12,9 @@ class errorlogpublic extends CI_Model {
 	var $useridentifier;
 	var $devicename;
 	var $lib_version;
+	var $dsymid;
+	var $cpt;
+	var $bim;
     function loaderrorlog($content) {
         $this -> appkey = $content -> appkey;
         $this -> stacktrace = $content -> stacktrace;
@@ -25,6 +28,9 @@ class errorlogpublic extends CI_Model {
 		$this->useridentifier = isset($content->useridentifier) ? $content->useridentifier : '';
 		$this->devicename = isset($content->devicename) ? $content->devicename : '';
 		$this->lib_version = isset($content->lib_version) ? $content->lib_version : '';
+		$this->dsymid = isset($content->dsymid)?$content->dsymid:'';
+		$this->cpt = isset($content->cpt)?$content->cpt:'';
+		$this->bim = isset($content->bim)?$content->bim:'';
     }
 
 }

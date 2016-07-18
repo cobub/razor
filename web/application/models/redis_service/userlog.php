@@ -76,6 +76,9 @@ class Userlog extends CI_Model
             'useridentifier' => isset($userlog->useridentifier) ? $userlog->useridentifier : '',
             'lib_version' => isset($userlog->lib_version) ? $userlog->lib_version : '',
             'deviceid' => isset($userlog->deviceid) ? $userlog->deviceid : '',
+            'dsymid' => isset($userlog->dsymid) ? $userlog->dsymid : '',
+            'cpt' => isset($userlog->cpt) ? $userlog->cpt : '',
+            'bim' => isset($userlog->bim) ? $userlog->bim : '',
             'insertdate' => $insertdate
         );
         $this -> redis -> lpush("razor_errors", serialize($data));

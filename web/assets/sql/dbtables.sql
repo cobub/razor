@@ -217,6 +217,9 @@ CREATE TABLE IF NOT EXISTS `umsinstall_errorlog` (
   `useridentifier` varchar(32) DEFAULT NULL,
   `lib_version` varchar(16) DEFAULT NULL,
   `deviceid` varchar(32) DEFAULT NULL,
+  `dsymid` varchar(64) DEFAULT NULL,
+  `cpt` varchar(64) DEFAULT NULL,
+  `bim` varchar(64) DEFAULT NULL,
   `insertdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `insertdate` (`insertdate`)
