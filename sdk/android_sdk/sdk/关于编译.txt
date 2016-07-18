@@ -1,0 +1,6 @@
+Android SDK会用于两个生产环境
+1，CPOS环境。为民生内部的智能POS机，必须与服务端实现双向的SSL认证后才能通信。
+使用 mvn package -f pom-cpos.xml 编译 得到 tesla-tmd-sdk-VERSION.jar
+2，一般环境。一般的移动APP使用环境。但当前服务端使用的是非标准数据证书的HTTPS，因此在发送数据时需要做一些设置。
+使用 mvn package -f pom-mobile.xml 编译得到 tesla-tmd-sdk-mb-VERSION.jar
+为降低维护成本，代码使用同一套。而使用maven的不同配置文件进行编译得到不同环境下的sdk包

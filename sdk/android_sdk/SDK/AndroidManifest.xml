@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wbtech.ums"
+    package="com.tesla.tmd"
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="9" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -15,15 +15,18 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application>
+        
         <activity
-            android:name=".MainActivity" >
+            android:name="com.wbtech.ums.MainActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="UMS_APPKEY" android:value="1898f6bbdbd39ac0d89b21ce0f9b7226"/>
+        <activity android:name="com.wbtech.ums.SecondActivity"></activity>
+         <meta-data android:name="UMS_APPKEY" android:value="2190ed406f2411e58ba3005056c00008"/>
+	
     </application>
-
+	
 </manifest>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wbtech.test_sample"
-    android:versionCode="1"
+    android:versionCode="1"  
     android:versionName="1.0" >
 
     <uses-sdk
@@ -32,13 +32,20 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="UMS_APPKEY"
-            android:value="22add6fdcc0c6788a5c0c8cc5ec5d929" />
 
         <activity
             android:name="com.wbtech.test_sample.SecondActivity"
             android:label="@string/title_activity_second" >
+        </activity>
+        
+     
+         <activity
+            android:name=".LIstActivity"
+            >
+        </activity>
+         <activity
+            android:name=".MActivity"
+            >
         </activity>
     </application>
 

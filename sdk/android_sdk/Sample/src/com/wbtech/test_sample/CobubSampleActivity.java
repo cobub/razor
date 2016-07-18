@@ -1,8 +1,23 @@
 
 package com.wbtech.test_sample;
 
-import com.wbtech.ums.UmsAgent;
+//import com.wbtech.ums.UmsAgent.SendPolicy;
+//import com.wbtech.ums.UmsAgent.SendPolicy;
+
+//import com.tesla.tmd.UmsAgent;
+//import com.tesla.tmd.UmsAgent.SendPolicy;
+
+//import com.tesla.tmd.UmsAgent;
+//import com.tesla.tmd.UmsAgent.SendPolicy;
+
+//import com.tendcloud.tenddata.TCAgent;
+import java.util.Random;
+
+import  com.wbtech.ums.UmsAgent;
 import com.wbtech.ums.UmsAgent.SendPolicy;
+
+//import com.tesla.tmd.UmsAgent;
+//import com.tesla.tmd.UmsAgent.SendPolicy;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -12,7 +27,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-
+      
 /**
  * Before you run App,you need check: 
  * 1.Import appkey (generated in server ) to
@@ -33,31 +48,29 @@ import android.widget.TextView;
  */
 public class CobubSampleActivity extends Activity {
 
-    Thread t ;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button button_event = (Button) findViewById(R.id.button_event);
-        Button button_error = (Button) findViewById(R.id.button_error);
+       
         Button button_activity = (Button) findViewById(R.id.button_activity);
-        TextView txtURL = (TextView)findViewById(R.id.txtURL);
-        
-        
+        Button button_event  = (Button)findViewById(R.id.button_event);
+        Button button_error = (Button)findViewById(R.id.button_error);
         /**
          * Call UmsAgent.init(String url) before all other APIs. url:
          * CobubRazor web server
          */        
 
-        String urlPrefix = "http://demo.cobub.com/razor/index.php?";
-        txtURL.setText("Server URL:"+urlPrefix);
         
-        UmsAgent.init(this, urlPrefix);
-        UmsAgent.onEvent(CobubSampleActivity.this, "login");
+        String appkey = "ad72835323d811e6ba1444a8420bf25c";// Demo 
+       
+        com.wbtech.ums.UmsAgent.init(this,appkey);
+       
+//      UmsAgent.onEvent(CobubSampleActivity.this, "bxfw_YH");
         UmsAgent.setDebugEnabled(true);
-        
-        UmsAgent.setDebugLevel(UmsAgent.LogLevel.Verbose);
-        
+        UmsAgent.update(this);
+       
+       // UmsAgent.setDebugLevel(UmsAgent.LogLevel.Verbose);
 
         /**
          * When we need to update App every time, we just need to modify
@@ -71,23 +84,12 @@ public class CobubSampleActivity extends Activity {
          * only under Wi-Fi
          */
 
-        UmsAgent.update(this);
         UmsAgent.updateOnlineConfig(this);
+        UmsAgent.updateCustomParameters(this);
+        
         UmsAgent.postTags(this,"test tags");
 
-        /**
-         * SDK could help you catch exit exception during App usage and send
-         * error report to server. Error report includes App version, OS
-         * version, device type and stacktrace of exception. These data will
-         * help you modify App bug. We provide two ways to report error info.
-         * One is catched automatically by system and another is passed by
-         * developers. For the former, you need to add
-         * android.permission.READ_LOGS permission in AndroidManifest.xml and
-         * call UmsAgent.onError(Context) in onCreate of Main Activity For the
-         * latter, developers need to call UmsAgent.onError(Context,String) and
-         * pass error info catched by their own to the second parameter. You can
-         * view error report in product page of Cobub Razor system.
-         */
+       
 
         /**
          * Data sending We have two modes: 1.Start sending(recommended)
@@ -100,15 +102,8 @@ public class CobubSampleActivity extends Activity {
          * UmsAgent.setDefaultReportPolicy(Context,int) to select mode of
          * sending data param: int 0:Start sending 1:Real-time Sending
          */
-        UmsAgent.setDefaultReportPolicy(this, SendPolicy.REALTIME);
+        UmsAgent.setDefaultReportPolicy(this, SendPolicy.POST_NOW);
 
-        /**
-         * Call UmsAgent.postClientData(this) in onCreate method of every
-         * Activity. Parameter is context of current context. Then, client data
-         * could be posted to Cobub Razor system.
-         */
-        UmsAgent.postPushID(this, "cid");
-        UmsAgent.bindUserid(this, "user id");
 
         button_event.setOnClickListener(new OnClickListener() {
 
@@ -125,9 +120,17 @@ public class CobubSampleActivity extends Activity {
                  * UmsAgent.onEvent(MainActivity.this,"ad_click") in App Then we
                  * will observe that the "Number of Messages" has changed
                  * according to the Event ID of "ad_click" in server.
+                 * 
                  */
-                UmsAgent.onEvent(CobubSampleActivity.this, "click");
-                
+              String errorinfo = "PasswordErrorException: \n\t错误信息 at com.wbtech.test_sample.CobubSampleActivity";
+              UmsAgent.onError(CobubSampleActivity.this, "PasswordErrorException",errorinfo);
+              System.out.println(errorinfo);
+              
+                UmsAgent.onEvent(CobubSampleActivity.this, "gywm_GD");  
+                UmsAgent.onEvent(CobubSampleActivity.this, "wdyy_YH");  
+                UmsAgent.onEvent(CobubSampleActivity.this, "jrzs_GD");  
+                UmsAgent.onEvent(CobubSampleActivity.this, "lxwm_GD");  
+                UmsAgent.onEvent(CobubSampleActivity.this, "DLYSJ_YH");  
             }
         });
 
@@ -154,41 +157,24 @@ public class CobubSampleActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(CobubSampleActivity.this,SecondActivity.class);
                 startActivity(intent);
-                
+                finish();
             }
         });
-    }
+    }  
 
     @Override
     protected void onResume() {
-
         super.onResume();
-
-        /**
-         * Call UmsAgent.onResume(Context) in onResume method of every Activity.
-         * The parameter is the current context. This method will read AppKey
-         * from AndroidManifest.xml automatically. Do not pass global
-         * application context. We recommend you Calling this method in all
-         * Activities If not,some informations of corresponding Activities will
-         * be lost,eg time
-         */
         UmsAgent.onResume(this);
-        
     }
+    
+    
 
     @Override
     protected void onPause() {
-
+       
         super.onPause();
-        UmsAgent.onEvent(CobubSampleActivity.this, "quit");
-        /**
-         * Call UmsAgent.onPause(Context) in onPause method of every Activity.
-         * Parameter is current context. We recommend you Calling this method in
-         * all Activities If not,some informations of corresponding Activities
-         * will be lost,eg time
-         */
         UmsAgent.onPause(this);
-        
     }
 
     @Override

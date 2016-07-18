@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!-- 该pom配置用于cpos生产环境 -->
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.tesla.tmd</groupId>
+	<artifactId>tesla-tmd-sdk</artifactId>
+	<version>2.0</version>
+	<packaging>jar</packaging>
+	<name>tmd-cpos-sdk</name>
+
+	<build>
+		<sourceDirectory>src/java</sourceDirectory>
+		<plugins>
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>templating-maven-plugin</artifactId>
+                <version>1.0-alpha-3</version> <!-- Be sure to use the last version. Check on the website's plugin -->
+                <executions>
+                    <execution>
+                        <id>filter-src</id>
+                        <goals>
+                            <goal>filter-sources</goal>                            
+                           </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                  <sourceDirectory>${basedir}/src/java-templates</sourceDirectory>
+                  <outputDirectory>${project.build.directory}/generated-sources/java-templates</outputDirectory>       
+                </configuration>
+            </plugin>
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>maven-android-plugin</artifactId>
+				<extensions>true</extensions>
+				<version>2.9.0-beta-4</version>
+				<configuration>
+					<sdk>
+					    <!-- use your local config here -->
+						<path>D:\eclipse\sdk</path>
+						<platform>19</platform>
+					</sdk>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>4.0.1.2</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<properties>
+        <!-- Application settings -->        
+        <service.url>https://gd.cmbc.com.cn:5491/</service.url>
+        <sdk.version>2.0</sdk.version>
+        <sdk.debug>false</sdk.debug>
+        <sdk.security.level>2</sdk.security.level>
+        <sdk.pos.name>SunPKCS11-cloudpos</sdk.pos.name>
+        <sdk.csr.alias>terminal</sdk.csr.alias>      
+        <!--  sdk.https.dn>CN=PRD_COMM_TMD, OU=CLOUDPOS, O=teslateam, C=CN</sdk.https.dn-->   
+        <sdk.https.dn>none</sdk.https.dn>
+    </properties>
+</project>
