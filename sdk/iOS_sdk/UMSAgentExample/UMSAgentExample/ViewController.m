@@ -14,17 +14,39 @@
 
 #import "ViewController.h"
 #import "SecondViewController.h"
+#import "ThirdViewController.h"
+
 @interface ViewController ()
+{
+    UITextField *textPhoneNumber;
+}
+
+@property (nonatomic,retain) IBOutlet UITextField *textPhoneNumber;
+
 
 @end
 
 @implementation ViewController
+@synthesize textPhoneNumber;
+
+-(IBAction) onBindUserIdentifierClicked:(id)sender
+{
+    if([[textPhoneNumber text] isEqualToString:@""])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"输入需要为手机号" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        [UMSAgent bindUserIdentifier:[textPhoneNumber text]];
+        [textPhoneNumber resignFirstResponder];
+    }
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [UMSAgent postTag:@"tag"];
-    [UMSAgent postPushid:@"pushid"];
+    [UMSAgent checkUpdate];
 }
 
 - (void)throwNSException
@@ -33,46 +55,47 @@
     @throw e;
 } 
 
--(IBAction) crash
+-(IBAction) login
 {
+    [UMSAgent postEvent:@"login" label:@"Login" acc:666];
     [self throwNSException];
 }
 
 -(IBAction) register
 {
-    [UMSAgent postEvent:@"login"  acc:1];
-    [UMSAgent postEvent:@"login" label:@"label1" acc:10];
-    [UMSAgent postEvent:@"login" label:@"lable2"];
-    [UMSAgent postEvent:@"click" acc:99];
-    [UMSAgent postEvent:@"quit"];
-	[UMSAgent postEvent:@"click" acc:1];
-    [UMSAgent postEvent:@"quit" acc:1];
+    [UMSAgent postEvent:@"register" label:@"Login" acc:888];
+    [UMSAgent postEventJSON:@"registerjson" json:@"{\"username\":\"sdktest\",\"telephone\":\"13815898257\"}"];
+}
+
+-(IBAction) gotToThirdView
+{
+    ThirdViewController *thirdViewController = [[ThirdViewController alloc] init];
+    [self presentViewController:thirdViewController animated:YES completion:nil];
 }
 
 
 -(IBAction) goToSecondView
 {
     SecondViewController *secondViewController = [[SecondViewController alloc] init];
-
-    [self presentViewController:secondViewController animated:YES completion:nil];
+    [self presentModalViewController:secondViewController animated:YES];
 }
 
 -(IBAction) tag
 {
-//    [UMSAgent postTag:@"ios tag"];
+    [UMSAgent postTag:@"ios tag"];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:YES];
-    [UMSAgent tracePage:@"Login"];
+    [UMSAgent startTracPage:@"第一页"];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+-(void)viewWillDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:YES];
-//    [UMSAgent endTracPage:@"LoginActivity"];
+    [UMSAgent endTracPage:@"第一页"];
 }
+
+
 
 - (void)viewDidUnload	
 {

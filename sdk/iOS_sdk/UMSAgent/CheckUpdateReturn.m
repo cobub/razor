@@ -19,5 +19,6 @@
 @synthesize fileurl;
 @synthesize forceUpdate;
 @synthesize version;
+@synthesize lib_version;
 
 @end

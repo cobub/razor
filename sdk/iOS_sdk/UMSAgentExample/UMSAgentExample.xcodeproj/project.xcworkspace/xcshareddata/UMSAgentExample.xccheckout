@@ -5,36 +5,48 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>0F49A4A8-4D55-43DC-A700-294228E37624</string>
+	<string>8C48F920-0CAE-4A79-BE37-B07B216B0B61</string>
 	<key>IDESourceControlProjectName</key>
 	<string>UMSAgentExample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C2639CB331E8BEA5339D3FB683D5345CCE857FB7</key>
-		<string>115.29.37.1:commercial_ios</string>
+		<key>2E43B30C-3F81-4116-ACE9-8C0A6685B59E</key>
+		<string>ssh://192.168.1.3/razor</string>
+		<key>CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2</key>
+		<string>115.29.37.1:razor_cmbc</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>UMSAgentExample/UMSAgentExample.xcodeproj</string>
+	<string>05_Code/iOS_sdk/UMSAgentExample/UMSAgentExample.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C2639CB331E8BEA5339D3FB683D5345CCE857FB7</key>
-		<string>../../..</string>
+		<key>2E43B30C-3F81-4116-ACE9-8C0A6685B59E</key>
+		<string>../../../../../../razor</string>
+		<key>CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2</key>
+		<string>../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>115.29.37.1:commercial_ios</string>
+	<string>115.29.37.1:razor_cmbc</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C2639CB331E8BEA5339D3FB683D5345CCE857FB7</string>
+	<string>CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C2639CB331E8BEA5339D3FB683D5345CCE857FB7</string>
+			<string>2E43B30C-3F81-4116-ACE9-8C0A6685B59E</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Commercial%20iOS</string>
+			<string>razor</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>razor_cmbc</string>
 		</dict>
 	</array>
 </dict>

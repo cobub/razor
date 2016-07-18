@@ -12,8 +12,8 @@
  * @filesource
  */
 
-#import <XCTest/XCTest.h>
+#import <SenTestingKit/SenTestingKit.h>
 
-@interface UMSAgentExampleTests : XCTestCase
+@interface UMSAgentExampleTests : SenTestCase
 
 @end

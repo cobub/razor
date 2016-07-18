@@ -27,9 +27,13 @@
 @synthesize resolution;
 @synthesize time;
 @synthesize version;
-@synthesize userid;
+@synthesize useridentifier;
+@synthesize sessionId;
+@synthesize latitude;
+@synthesize longitude;
+@synthesize lib_version;
 
--(id)initWithCoder:(NSCoder *)aDecoder
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
     if (self =[super init]) {
         self.deviceid = [aDecoder decodeObjectForKey:@"deviceid"];
@@ -44,12 +48,16 @@
         self.resolution = [aDecoder decodeObjectForKey:@"resolution"];
         self.time = [aDecoder decodeObjectForKey:@"time"];
         self.version = [aDecoder decodeObjectForKey:@"version"];
-        self.userid = [aDecoder decodeObjectForKey:@"userid"];
+        self.useridentifier = [aDecoder decodeObjectForKey:@"useridentifier"];
+        self.sessionId = [aDecoder decodeObjectForKey:@"sessionId"];
+        self.longitude = [aDecoder decodeObjectForKey:@"longitude"];
+        self.latitude = [aDecoder decodeObjectForKey:@"latitude"];
+        self.lib_version = [aDecoder decodeObjectForKey:@"lib_version"];
     }
     return self;
 }
 
--(void)encodeWithCoder:(NSCoder *)aCoder
+- (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:deviceid forKey:@"deviceid"];
     [aCoder encodeObject:devicename forKey:@"devicename"];
@@ -63,7 +71,11 @@
     [aCoder encodeObject:resolution forKey:@"resolution"];
     [aCoder encodeObject:time forKey:@"time"];
     [aCoder encodeObject:version forKey:@"version"];
-    [aCoder encodeObject:userid forKey:@"userid"];
+    [aCoder encodeObject:useridentifier forKey:@"useridentifier"];
+    [aCoder encodeObject:sessionId forKey:@"sessionId"];
+    [aCoder encodeObject:latitude forKey:@"latitude"];
+    [aCoder encodeObject:longitude forKey:@"longitude"];
+    [aCoder encodeObject:lib_version forKey:@"lib_version"];
 }
 
 

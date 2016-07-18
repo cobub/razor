@@ -46,7 +46,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3609A5C915180C7300BEDA05"
-               BuildableName = "UMSAgentExampleTests.xctest"
+               BuildableName = "UMSAgentExampleTests.octest"
                BlueprintName = "UMSAgentExampleTests"
                ReferencedContainer = "container:UMSAgentExample.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"

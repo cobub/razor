@@ -13,11 +13,13 @@
  */
 #import "Global.h"
 #import <UIKit/UIKit.h>
+#import "UMSAgent.h"
+
 @implementation Global
 
 static NSString *BASEURL;
 
-+(void)ShowAlertView:(NSString*)title message:(NSString*)message delegate:(id)delegate buttonTitle:(NSString*)buttonTitle cancelButtonTitle:(NSString*)cancelTitle
++ (void)ShowAlertView:(NSString*)title message:(NSString*)message delegate:(id)delegate buttonTitle:(NSString*)buttonTitle cancelButtonTitle:(NSString*)cancelTitle
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle: title
                                                     message: message
@@ -26,19 +28,67 @@ static NSString *BASEURL;
                                           otherButtonTitles:buttonTitle, nil];
     [alert dismissWithClickedButtonIndex:0 animated:YES];
     [alert show];
-   
+    
 }
 
-+(void)setBaseURL:(NSString *)baseURL
+
++ (void)setBaseURL:(NSString *)baseURL
 {
     BASEURL = [[NSString alloc] initWithString:baseURL];
-    NSLog(@"%@",baseURL);
 }
 
-+(NSString *)getBaseURL
++ (NSString *)getBaseURL
 {
-    //NSLog(BASEURL);
     return BASEURL;
+}
+
++ (NSString *)getConfigBaseUrl
+{
+    return BASEURL;
+}
+
+
++ (void)setConfigParams:(NSString*)value key:(NSString*)key
+{
+    [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (int)getConfigParams:(NSString*)key
+{
+    id value = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    if(value)
+    {
+        return [value intValue];
+    }
+    else
+    {
+        if([key isEqualToString:@"autoGetLocation"])
+        {
+            return 0;//Not used in IOS
+        }
+        else if([key isEqualToString:@"reportPolicy"])
+        {
+            return REALTIME;
+        }
+        else if([key isEqualToString:@"updateOnlyWifi"])
+        {
+            return DEFAULT_UPDATE_ONLY_WIFI;
+        }
+        else if([key isEqualToString:@"sessionMillis"])
+        {
+            return DEFAULT_SESSIONMILLIS;
+        }
+        else if([key isEqualToString:@"intervalTime"])
+        {
+            return DEFAULT_INTERVAL_TIME;
+        }
+        else if([key isEqualToString:@"fileSize"])
+        {
+            return DEFAULT_FILE_SIZE                    ;
+        }
+    }
+    return 0;
 }
 
 @end

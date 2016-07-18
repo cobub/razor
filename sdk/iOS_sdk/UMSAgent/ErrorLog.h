@@ -22,6 +22,9 @@
     NSString *osVersion;
     NSString *deviceID;
     NSString *version;
+    NSString *uuID;
+    NSString *cpuType;
+    NSString *lib_version;
 }
 
 @property (nonatomic,strong) NSString *stackTrace;
@@ -31,6 +34,9 @@
 @property (nonatomic,strong) NSString *osVersion;
 @property (nonatomic,strong) NSString *deviceID;
 @property (nonatomic,strong) NSString *version;
+@property (nonatomic,strong) NSString *uuID;
+@property (nonatomic,strong) NSString *cpuType;
+@property (nonatomic,strong) NSString *lib_version;
 
 
 @end

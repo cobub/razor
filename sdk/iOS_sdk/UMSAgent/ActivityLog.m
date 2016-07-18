@@ -15,34 +15,37 @@
 #import "ActivityLog.h"
 
 @implementation ActivityLog
-@synthesize sessionMils;
+@synthesize sessionID;
 @synthesize startMils;
 @synthesize endMils;
 @synthesize duration;
 @synthesize activity;
 @synthesize version;
+@synthesize lib_version;
 
--(id)initWithCoder:(NSCoder *)aDecoder
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
     if (self =[super init]) {
-        self.sessionMils = [aDecoder decodeObjectForKey:@"sessionMils"];
+        self.sessionID = [aDecoder decodeObjectForKey:@"sessionid"];
         self.startMils = [aDecoder decodeObjectForKey:@"startMils"];
         self.endMils = [aDecoder decodeObjectForKey:@"endMils"];
         self.duration = [aDecoder decodeObjectForKey:@"duration"];
         self.activity = [aDecoder decodeObjectForKey:@"activity"];
         self.version = [aDecoder decodeObjectForKey:@"version"];
+        self.lib_version = [aDecoder decodeObjectForKey:@"lib_version"];
     }
     return self;
 }
 
--(void)encodeWithCoder:(NSCoder *)aCoder
+- (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:sessionMils forKey:@"sessionMils"];
+    [aCoder encodeObject:sessionID forKey:@"sessionid"];
     [aCoder encodeObject:startMils forKey:@"startMils"];
     [aCoder encodeObject:endMils forKey:@"endMils"];
     [aCoder encodeObject:duration forKey:@"duration"];
     [aCoder encodeObject:activity forKey:@"activity"];
     [aCoder encodeObject:version forKey:@"version"];
+    [aCoder encodeObject:lib_version forKey:@"lib_version"];
 }
 
 

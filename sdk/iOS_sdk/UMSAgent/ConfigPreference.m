@@ -15,6 +15,6 @@
 #import "ConfigPreference.h"
 
 @implementation ConfigPreference
-@synthesize autogetlocation,Updateonlywifi,sessionmillis,reportpolicy;
+@synthesize autogetlocation,Updateonlywifi,sessionmillis,reportpolicy,sendInterval,maxFileSize;
 
 @end

@@ -20,8 +20,10 @@
     
 }
 
--(IBAction) crash;
+-(IBAction) login;
 -(IBAction) register;
 -(IBAction) goToSecondView;
 -(IBAction) tag;
+-(IBAction) gotToThirdView;
+-(IBAction) onBindUserIdentifierClicked:(id)sender;
 @end

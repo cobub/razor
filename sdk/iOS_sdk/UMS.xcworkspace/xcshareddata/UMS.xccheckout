@@ -5,36 +5,60 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>6726D145-27C3-49BA-B1AB-10552539BF04</string>
+	<string>C09D8271-8DD3-492E-B983-02CBF2EA2F5C</string>
 	<key>IDESourceControlProjectName</key>
 	<string>UMS</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>A6A74D020C1859AE9C204A37211F9C3F4E848317</key>
-		<string>115.29.37.1:opencobub</string>
+		<key>C2639CB331E8BEA5339D3FB683D5345CCE857FB7</key>
+		<string>115.29.37.1:commercial_ios</string>
+		<key>CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2</key>
+		<string>115.29.37.1:razor_cmbc</string>
+		<key>D2885296440547CB23891301E79B480A22EAC5F6</key>
+		<string>https://github.com/kstenerud/KSCrash.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>sdk/iOS_sdk/UMS.xcworkspace</string>
+	<string>05_Code/iOS_sdk/UMS.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>A6A74D020C1859AE9C204A37211F9C3F4E848317</key>
+		<key>C2639CB331E8BEA5339D3FB683D5345CCE857FB7</key>
+		<string>../../../..</string>
+		<key>CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2</key>
 		<string>../../..</string>
+		<key>D2885296440547CB23891301E79B480A22EAC5F6</key>
+		<string>../../../../KSCrash</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>115.29.37.1:opencobub</string>
+	<string>115.29.37.1:razor_cmbc</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>A6A74D020C1859AE9C204A37211F9C3F4E848317</string>
+	<string>CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>A6A74D020C1859AE9C204A37211F9C3F4E848317</string>
+			<string>C2639CB331E8BEA5339D3FB683D5345CCE857FB7</string>
 			<key>IDESourceControlWCCName</key>
-			<string>opencobub</string>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D2885296440547CB23891301E79B480A22EAC5F6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>KSCrash</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>razor_cmbc</string>
 		</dict>
 	</array>
 </dict>

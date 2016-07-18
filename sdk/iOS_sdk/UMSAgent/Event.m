@@ -15,9 +15,9 @@
 #import "Event.h"
 
 @implementation Event
-@synthesize event_id,time,acc,activity,label,version;
+@synthesize event_id,time,acc,activity,label,version,jsonstr,lib_version;
 
--(id)initWithCoder:(NSCoder *)aDecoder
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
     if (self =[super init]) {
         self.event_id = [aDecoder decodeObjectForKey:@"event_id"];
@@ -26,20 +26,23 @@
         self.activity = [aDecoder decodeObjectForKey:@"activity"];
         self.acc = [aDecoder decodeInt32ForKey:@"acc"];
         self.version = [aDecoder decodeObjectForKey:@"version"];
-
+        self.jsonstr = [aDecoder decodeObjectForKey:@"jsonstr"];
+        self.lib_version = [aDecoder decodeObjectForKey:@"lib_version"];
     }
     return self;
 }
 
--(void)encodeWithCoder:(NSCoder *)aCoder
+- (void)encodeWithCoder:(NSCoder *)aCoder
 {
-
+    
     [aCoder encodeObject:event_id forKey:@"event_id"];
     [aCoder encodeObject:label forKey:@"label"];
     [aCoder encodeObject:time forKey:@"time"];
     [aCoder encodeObject:activity forKey:@"activity"];
     [aCoder encodeObject:version forKey:@"version"];
-    [aCoder encodeInteger:acc forKey:@"acc"];
+    [aCoder encodeInt:acc forKey:@"acc"];
+    [aCoder encodeObject:jsonstr forKey:@"jsonstr"];
+    [aCoder encodeObject:lib_version forKey:@"lib_version"];
 }
 
 

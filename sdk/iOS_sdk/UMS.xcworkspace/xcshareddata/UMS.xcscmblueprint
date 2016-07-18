@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D2885296440547CB23891301E79B480A22EAC5F6" : 0,
+    "CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2" : 0,
+    "C2639CB331E8BEA5339D3FB683D5345CCE857FB7" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C09D8271-8DD3-492E-B983-02CBF2EA2F5C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D2885296440547CB23891301E79B480A22EAC5F6" : "KSCrash",
+    "CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2" : "razor_cmbc",
+    "C2639CB331E8BEA5339D3FB683D5345CCE857FB7" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "UMS",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "05_Code\/iOS_sdk\/UMS.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "115.29.37.1:commercial_ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C2639CB331E8BEA5339D3FB683D5345CCE857FB7"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "115.29.37.1:razor_cmbc",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kstenerud\/KSCrash.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D2885296440547CB23891301E79B480A22EAC5F6"
+    }
+  ]
+}

@@ -14,7 +14,7 @@
 
 #import "AppDelegate.h"
 
-#import "ViewController.h"
+#import "LoginViewController.h"
 
 @implementation AppDelegate
 
@@ -23,40 +23,24 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [UMSAgent startWithAppKey:@"6dacad660216970bef0301756c870a27"
-                 ReportPolicy:REALTIME
-                    ServerURL:@"http://demo.cobub.com/razor/index.php?"];
-       [UMSAgent bindUserid:@"wbtech"];
-    [UMSAgent checkUpdate];
+    [UMSAgent setOnLineConfig:YES];
+    [UMSAgent setGPSLocation:32.09888888 longitude:118.3909000];
+    [UMSAgent startWithAppKey:@"bc43df4012a411e6902344a8420bf25c" ReportPolicy:BATCH serverURL:@"http://md.cobub.com"];
     [UMSAgent setIsLogEnabled:YES];
-    
+    [UMSAgent postTag:@"屌丝"];
+    [UMSAgent postTag:@"高富帅"];
+
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    self.viewController = [[LoginViewController alloc] init];
+    NSString *showAd = [UMSAgent getConfigParam:@"showAd"];
+    NSLog(@"showAdd = %@",showAd);
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
-    
     return YES;
 }
 
-
-//- (void)registerRemoteNotification
-//{
-//	UIRemoteNotificationType apn_type = (UIRemoteNotificationType)(UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge);
-//	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:apn_type];
-//}
-
-
-//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
-//{
-//    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-////	NSString *devToken = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-////    NSLog(@"deviceToken:%@", _deviceToken);
-//    
-//
-////    }
-//}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

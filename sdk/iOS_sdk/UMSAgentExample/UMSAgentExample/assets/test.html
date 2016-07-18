@@ -1,31 +1,39 @@
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-    <meta name="msapplication-tap-highlight" content="no" />
-
-    
-
-
-
-</head>
-<body>
-    <p>This is the demo .</p>
-    </br>
-    </br>
-    <input type="button" onclick=" alert('call on event');onEvent('login');" value="on evnet"></input>
-    
-    </br>
-    </br>
-    <input type="button"  onclick=" alert('oneventacc');onEventACC('register',13);" value="on event with acc"></button>
-    </br>
-    </br>
-    <input type="button" onclick= "alert('oneventjson');postJSONEvent();" value="event with JSON"></button>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="msapplication-tap-highlight" content="no" />
         
-    <br>
-    <br>
-    <a href="http://www.baidu.com">Cobub Dev Center</a>
-</body>
+        
+        <script type="text/javascript"  src="ums.js"></script>
+        <script type="text/javascript">
+            
+            function postJSONEvent()
+            {
+                var jsonStr = '{"mykey":"myvalue"}';
+                onEventJSON("json",jsonStr);
+            }
+        
+            </script>
+        
+    </head>
+    <body>
+        <p>This is the demo .</p>
+        </br>
+        </br>
+        <input type="button" onclick=" alert('call on event');onEvent('login');" value="on evnet"></input>
+        
+        </br>
+        </br>
+        <input type="button"  onclick=" alert('oneventacc');onEventACC('register',13);" value="on event with acc"></button>
+            </br>
+            </br>
+            <input type="button" onclick= "alert('oneventjson');postJSONEvent();" value="event with JSON"></button>
+                
+                <br>
+                <br>
+                <a href="http://www.baidu.com">Cobub Dev Center</a>
+    </body>
 </html>

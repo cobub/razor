@@ -13,22 +13,24 @@
  */
 
 #import "CheckUpdateDao.h"
-#import "network.h"
+#import "NetworkUtility.h"
 #import "NSDictionary_JSONExtensions.h"
 #import "Global.h"
 #import "UMSAgent.h"
 
 @implementation CheckUpdateDao
 
-+(CheckUpdateReturn *)checkUpdate:(NSString *)appkey version:(NSString *)version_code
++ (CheckUpdateReturn *)checkUpdate:(NSString *)appkey version:(NSString *)version_code lib_version:(NSString *)lib_version_code
 {
-    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getBaseURL],@"/ums/getApplicationUpdate"];
+    NSString* url = [NSString stringWithFormat:@"%@%@",[Global getConfigBaseUrl],@"/appupdate"];
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
-    [requestDictionary setObject:@"1.0" forKey:@"version_code"];
-    [requestDictionary setObject:appkey forKey:@"appkey"];
-    NSString *ret = [network SendData:url data:requestDictionary];
+    [requestDictionary setObject:version_code forKey:@"versionCode"];
+    [requestDictionary setObject:appkey forKey:@"appKey"];
+    [requestDictionary setObject:lib_version_code forKey:@"lib_version"];
+    
+    NSString *ret = [NetworkUtility postData:url data:requestDictionary];
     CheckUpdateReturn *result = [[CheckUpdateReturn alloc] init];
-
+    
     if (ret==nil) {
         result.flag = -4;
         result.msg = [[NSString alloc] initWithFormat:@"%@",@"error"];
@@ -38,13 +40,14 @@
     NSDictionary *retDictionary = [NSDictionary dictionaryWithJSONString:ret error:&error];
     if(!error)
     {
-        result.flag = [[retDictionary objectForKey:@"flag"] intValue];
-        result.msg = [retDictionary objectForKey:@"msg"];
-        result.description = [retDictionary objectForKey:@"description"];
-        result.version = [retDictionary objectForKey:@"version"];
-        result.fileurl = [retDictionary objectForKey:@"fileurl"];
-        result.forceUpdate = [retDictionary objectForKey:@"forceupdate"];
-        result.time= [retDictionary objectForKey:@"time"];
+        NSDictionary *replyDic = [retDictionary objectForKey:@"reply"];
+        result.flag = [[replyDic objectForKey:@"flag"] intValue];
+        if(result.flag == 1)
+        {
+            result.description = [replyDic objectForKey:@"description"];
+            result.version = [replyDic objectForKey:@"versionName"];
+            result.fileurl = [replyDic objectForKey:@"fileUrl"];
+        }
     }
     return result;
     

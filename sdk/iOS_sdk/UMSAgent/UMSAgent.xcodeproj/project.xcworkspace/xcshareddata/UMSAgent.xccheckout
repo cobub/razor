@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>FEA4A3D2-B17A-4A54-B133-1B3C94469970</string>
+	<string>92400A39-8BFF-46E7-8BDC-935B76B31860</string>
 	<key>IDESourceControlProjectName</key>
 	<string>UMSAgent</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C2639CB331E8BEA5339D3FB683D5345CCE857FB7</key>
-		<string>192.168.1.3:commercial_ios</string>
+		<key>CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2</key>
+		<string>115.29.37.1:razor_cmbc</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>UMSAgent/UMSAgent.xcodeproj</string>
+	<string>05_Code/iOS_sdk/UMSAgent/UMSAgent.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C2639CB331E8BEA5339D3FB683D5345CCE857FB7</key>
-		<string>../../..</string>
+		<key>CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2</key>
+		<string>../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>192.168.1.3:commercial_ios</string>
+	<string>115.29.37.1:razor_cmbc</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C2639CB331E8BEA5339D3FB683D5345CCE857FB7</string>
+	<string>CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C2639CB331E8BEA5339D3FB683D5345CCE857FB7</string>
+			<string>CCEB929EB3DC08B3905FF079EA8CF20EA89E31C2</string>
 			<key>IDESourceControlWCCName</key>
-			<string>commercial_ios</string>
+			<string>razor_cmbc</string>
 		</dict>
 	</array>
 </dict>

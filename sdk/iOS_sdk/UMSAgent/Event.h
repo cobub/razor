@@ -23,15 +23,19 @@
     NSString *time;
     NSString *activity;
     NSString *label;
-    NSInteger acc;
+    int acc;
     NSString *version;
+    NSString *jsonstr;
+    NSString *lib_version;
 }
 
 @property (nonatomic,strong) NSString *event_id;
 @property (nonatomic,strong) NSString *time;
 @property (nonatomic,strong) NSString *activity;
 @property (nonatomic,strong) NSString *label;
-@property (nonatomic) NSInteger acc;
+@property (nonatomic) int acc;
 @property (nonatomic,strong) NSString *version;
+@property (nonatomic,strong) NSString *jsonstr;
+@property (nonatomic,strong) NSString *lib_version;
 
 @end

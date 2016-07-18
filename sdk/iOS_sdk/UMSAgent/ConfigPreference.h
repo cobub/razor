@@ -17,13 +17,17 @@
 
 @interface ConfigPreference : CommonReturn
 {
-    NSString *autogetlocation;
-    NSString *Updateonlywifi;
-    NSString *sessionmillis;
-    NSString *reportpolicy;
+    int autogetlocation;
+    int Updateonlywifi;
+    int sessionmillis;
+    int reportpolicy;
+    int sendInterval;
+    int maxFileSize;
 }
-@property(strong,nonatomic) NSString *autogetlocation;
-@property(strong,nonatomic) NSString *Updateonlywifi;
-@property(strong,nonatomic) NSString *sessionmillis;
-@property(strong,nonatomic) NSString *reportpolicy;
+@property(nonatomic) int autogetlocation;
+@property(nonatomic) int Updateonlywifi;
+@property(nonatomic) int sessionmillis;
+@property(nonatomic) int reportpolicy;
+@property(nonatomic) int sendInterval;
+@property(nonatomic) int maxFileSize;
 @end

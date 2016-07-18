@@ -10,11 +10,16 @@
 
 @interface Tag : NSObject<NSCoding>
 {
-    NSString *tags;
+    NSString *tag;
     NSString *deviceid;
-    NSString *appkey;
+    NSString *productkey;
+    NSString *lib_version;
+    NSString *useridentifier;
 }
-@property (nonatomic,strong) NSString *tags;
+@property (nonatomic,strong) NSString *tag;
 @property (nonatomic,strong) NSString *deviceid;
-@property (nonatomic,strong) NSString *appkey;
+@property (nonatomic,strong) NSString *productkey;
+@property (nonatomic,strong) NSString *lib_version;
+@property (nonatomic,strong) NSString *useridentifier;
+
 @end

@@ -27,7 +27,11 @@
     NSString *modulename;
     NSString *time;
     NSString *isjailbroken;
-    NSString *userid;
+    NSString *useridentifier;
+    NSString *sessionId;
+    NSString *longitude;
+    NSString *latitude;
+    NSString *lib_version;
 }
 
 @property (nonatomic,strong) NSString *platform;
@@ -42,6 +46,9 @@
 @property (nonatomic,strong) NSString *modulename;
 @property (nonatomic,strong) NSString *time;
 @property (nonatomic,strong) NSString *isjailbroken;
-@property (nonatomic,strong) NSString *userid;
-
+@property (nonatomic,strong) NSString *useridentifier;
+@property (nonatomic,strong) NSString *sessionId;
+@property (nonatomic,strong) NSString *longitude;
+@property (nonatomic,strong) NSString *latitude;
+@property (nonatomic,strong) NSString *lib_version;
 @end

@@ -17,8 +17,8 @@
 
 @interface CheckUpdateDao : NSObject
 {
-
+    
 }
-+(CheckUpdateReturn *)checkUpdate:(NSString *)appkey version:(NSString *)version_code;
++ (CheckUpdateReturn *)checkUpdate:(NSString *)appkey version:(NSString *)version_code lib_version:(NSString *)lib_version_code;
 
 @end

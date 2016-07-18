@@ -21,12 +21,13 @@
     NSString *fileurl;
     NSString *forceUpdate;
     NSString *version;
-    
+    NSString *lib_version;
 }
 @property(nonatomic,strong) NSString *description;
 @property(nonatomic,strong) NSString *time;
 @property(nonatomic,strong) NSString *fileurl;
 @property(nonatomic,strong) NSString *forceUpdate;
 @property(nonatomic,strong) NSString *version;
+@property(nonatomic,strong) NSString *lib_version;
 
 @end

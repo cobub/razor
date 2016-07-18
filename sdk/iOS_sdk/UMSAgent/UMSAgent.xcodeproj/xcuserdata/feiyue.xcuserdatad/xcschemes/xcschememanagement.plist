@@ -7,17 +7,17 @@
 		<key>UMSAgent.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3630005715131A1600E84C2D</key>
+		<key>229AA7571A31E6B000407CF5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3630006715131A1600E84C2D</key>
+		<key>3630005715131A1600E84C2D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

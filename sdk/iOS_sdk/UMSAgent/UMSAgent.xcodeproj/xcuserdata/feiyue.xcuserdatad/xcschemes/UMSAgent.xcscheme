@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3630006715131A1600E84C2D"
-               BuildableName = "UMSAgentTests.octest"
-               BlueprintName = "UMSAgentTests"
+               BlueprintIdentifier = "229AA7571A31E6B000407CF5"
+               BuildableName = "UMSAgent Tests.xctest"
+               BlueprintName = "UMSAgent Tests"
                ReferencedContainer = "container:UMSAgent.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +46,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3630006715131A1600E84C2D"
-               BuildableName = "UMSAgentTests.octest"
-               BlueprintName = "UMSAgentTests"
+               BlueprintIdentifier = "229AA7571A31E6B000407CF5"
+               BuildableName = "UMSAgent Tests.xctest"
+               BlueprintName = "UMSAgent Tests"
                ReferencedContainer = "container:UMSAgent.xcodeproj">
             </BuildableReference>
          </TestableReference>

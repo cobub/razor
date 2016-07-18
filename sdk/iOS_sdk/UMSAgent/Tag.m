@@ -10,22 +10,30 @@
 
 @implementation Tag
 @synthesize deviceid;
-@synthesize appkey;
-@synthesize tags;
--(id)initWithCoder:(NSCoder *)aDecoder
+@synthesize productkey;
+@synthesize tag;
+@synthesize lib_version;
+@synthesize useridentifier;
+
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
     if (self =[super init]) {
         self.deviceid = [aDecoder decodeObjectForKey:@"deviceid"];
-        self.appkey = [aDecoder decodeObjectForKey:@"appkey"];
-        self.tags = [aDecoder decodeObjectForKey:@"tags"];    }
+        self.productkey = [aDecoder decodeObjectForKey:@"productkey"];
+        self.tag = [aDecoder decodeObjectForKey:@"tag"];
+        self.lib_version = [aDecoder decodeObjectForKey:@"lib_version"];
+        self.useridentifier = [aDecoder decodeObjectForKey:@"useridentifier"];
+    }
     return self;
 }
 
--(void)encodeWithCoder:(NSCoder *)aCoder
+- (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:deviceid forKey:@"deviceid"];    
-    [aCoder encodeObject:appkey forKey:@"appkey"];
-    [aCoder encodeObject:tags forKey:@"tags"];
+    [aCoder encodeObject:deviceid forKey:@"deviceid"];
+    [aCoder encodeObject:productkey forKey:@"productkey"];
+    [aCoder encodeObject:tag forKey:@"tag"];
+    [aCoder encodeObject:lib_version forKey:@"lib_version"];
+    [aCoder encodeObject:useridentifier forKey:@"useridentifier"];
 }
 
 @end
