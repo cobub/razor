@@ -17,8 +17,8 @@
 
 typedef enum {
     BATCH = 0,          //Send Data When Start
-    REALTIME = 1,       //RealTime Send Policy
-    INTERVAL = 2
+    REALTIME = 1       //RealTime Send Policy
+    //INTERVAL = 2
 } ReportPolicy;
 
 @interface UMSAgent : NSObject<UIAlertViewDelegate>
@@ -35,6 +35,12 @@ typedef enum {
 #pragma mark ---appkey
 + (void)startWithAppKey:(NSString*)appKey serverURL:(NSString *)serverURL;
 + (void)startWithAppKey:(NSString*)appKey ReportPolicy:(ReportPolicy)policy serverURL:(NSString*)serverURL;
+/**
+ *  保存错误日志
+ *
+ *  @param stackTrace 错误栈信息
+ */
++ (void)saveErrorLog:(NSString *)stackTrace;
 /**
  *  发送错误日志
  *

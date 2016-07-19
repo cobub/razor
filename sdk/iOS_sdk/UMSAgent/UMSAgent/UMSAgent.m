@@ -202,15 +202,15 @@ static NSString *LIB_VERSION = @"1.0";
     [self postClientData];
     [self postCacheData];
     // Start timer for INTERVAL policy
-    if ([UMSAgent getInstance].policy == INTERVAL) {
-        
-        postTimer = [NSTimer
-                     scheduledTimerWithTimeInterval:[UMSAgent getInstance].sendInterval * 60
-                     target:self
-                     selector:@selector(postTimerFired:)
-                     userInfo:nil
-                     repeats:YES];
-    }
+//    if ([UMSAgent getInstance].policy == INTERVAL) {
+//        
+//        postTimer = [NSTimer
+//                     scheduledTimerWithTimeInterval:[UMSAgent getInstance].sendInterval * 60
+//                     target:self
+//                     selector:@selector(postTimerFired:)
+//                     userInfo:nil
+//                     repeats:YES];
+//    }
     postTimerFireDate = [[NSDate date] copy];
 }
 
@@ -377,11 +377,11 @@ static NSString *LIB_VERSION = @"1.0";
     }
     
     //Check if data need to be post under INTERVAL policy
-    if([UMSAgent getInstance].policy == INTERVAL)
-    {
-        [self postDataInterval];
-        [postTimer setFireDate:[NSDate distantFuture]];
-    }
+//    if([UMSAgent getInstance].policy == INTERVAL)
+//    {
+//        [self postDataInterval];
+//        [postTimer setFireDate:[NSDate distantFuture]];
+//    }
     sessionStopDate = [[NSDate date] copy];
     if(isLogEnabled)
     {
@@ -395,10 +395,10 @@ static NSString *LIB_VERSION = @"1.0";
     //[self updateCustomParams];
     //Refresh timer
     
-    if([UMSAgent getInstance].policy == INTERVAL)
-    {
-        [postTimer setFireDate:[NSDate distantPast]];
-    }
+//    if([UMSAgent getInstance].policy == INTERVAL)
+//    {
+//        [postTimer setFireDate:[NSDate distantPast]];
+//    }
     if(sessionStopDate!=nil)
     {
         NSTimeInterval intervalSinceResign = -[sessionStopDate timeIntervalSinceNow];
@@ -410,15 +410,15 @@ static NSString *LIB_VERSION = @"1.0";
             //Post clientdata since taking as new session
             [self postClientData];
             
-            if([UMSAgent getInstance].policy == INTERVAL)
-            {
-                [self postDataInterval];
-            }
-            else
-            {
+//            if([UMSAgent getInstance].policy == INTERVAL)
+//            {
+//                [self postDataInterval];
+//            }
+//            else
+//            {
                 //Realtime & Batch mode, send cache Data
                 [self postCacheData];
-            }
+//            }
             
             if(self.pageName && ![self.pageName isEqualToString:@""])
             {
@@ -529,7 +529,7 @@ static NSString *LIB_VERSION = @"1.0";
 
 - (void)archiveError:(ErrorLog *)error{
     NSMutableArray *mErrorArray;
-    if (self.policy == BATCH || self.policy == INTERVAL) {
+    if (self.policy == BATCH) { //|| self.policy == INTERVAL
         
         NSData *oldData  = [UMSAgent getArchivedLogFromFile:kErrorLog];
         if (oldData!=nil) {
@@ -678,7 +678,7 @@ static NSString *LIB_VERSION = @"1.0";
 - (void)archiveEvent:(Event *)event
 {
     NSMutableArray *mEventArray;
-    if (self.policy == BATCH || self.policy == INTERVAL) {      /////
+    if (self.policy == BATCH) { //|| self.policy == INTERVAL) {      /////
         //		NSData *oldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"eventArray"] ;
         NSData *oldData = [UMSAgent getArchivedLogFromFile:kEventArray];
         if (oldData!=nil)
