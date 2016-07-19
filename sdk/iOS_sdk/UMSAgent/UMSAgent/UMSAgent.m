@@ -46,10 +46,12 @@
 #import "AppInfo.h"
 
 #import <mach-o/dyld.h>
+#import <mach-o/arch.h>
 #import <mach-o/loader.h>
 #include <sys/types.h>
 #include <sys/sysctl.h>
 #include <mach/machine.h>
+#import "UncaughtExceptionHandler.h"
 
 @interface UMSAgent ()
 {
@@ -168,7 +170,7 @@ static NSString *LIB_VERSION = @"1.0";
         [[UMSAgent getInstance] updateOnlineConfig];
     }
     
-    // Update custom parameters
+    //Update custom parameters
     //[self updateCustomParams];
     
     // Monitor notification,resignActive will be invoked when home key clicked.
@@ -194,15 +196,14 @@ static NSString *LIB_VERSION = @"1.0";
     NSLog(@"Get Session ID = %@", sessionId);
     // }
     
-    
-    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-    
+    //NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    InstallUncaughtExceptionHandler();
     
     [self postClientData];
     [self postCacheData];
-    
     // Start timer for INTERVAL policy
     if ([UMSAgent getInstance].policy == INTERVAL) {
+        
         postTimer = [NSTimer
                      scheduledTimerWithTimeInterval:[UMSAgent getInstance].sendInterval * 60
                      target:self
@@ -473,9 +474,11 @@ static NSString *LIB_VERSION = @"1.0";
             errorLog.activity = @"";
         }
         errorLog.osVersion = [[UIDevice currentDevice] systemVersion];
-        errorLog.deviceID = [UMSAgent getUMSUDID];
-        errorLog.uuID = [ExecutableUUID() UUIDString];
-        errorLog.cpuType = getCPUType();
+        errorLog.uuID = [[UncaughtExceptionHandler ExecutableUUID] UUIDString];
+        errorLog.cpt = [UncaughtExceptionHandler getCPUType];
+        errorLog.bim = [UncaughtExceptionHandler getBinary];
+        errorLog.cpt = [UncaughtExceptionHandler getCPUType];
+        errorLog.bim = [UncaughtExceptionHandler getBinary];
         errorLog.lib_version = LIB_VERSION;
         //        NSData *errorLogData = [[NSUserDefaults standardUserDefaults] objectForKey:@"errorLog"] ;
         NSData *errorLogData = [UMSAgent getArchivedLogFromFile:kErrorLog];
@@ -514,9 +517,11 @@ static NSString *LIB_VERSION = @"1.0";
     errorLog.time = [[UMSAgent getInstance] getCurrentTime];
     errorLog.activity = [[NSBundle mainBundle] bundleIdentifier];
     errorLog.osVersion = [[UIDevice currentDevice] systemVersion];
-    errorLog.deviceID = [UMSAgent getUMSUDID];
-    errorLog.uuID = [ExecutableUUID() UUIDString];
-    errorLog.cpuType = getCPUType();
+    errorLog.uuID = [[UncaughtExceptionHandler ExecutableUUID] UUIDString];
+    errorLog.cpt = [UncaughtExceptionHandler getCPUType];
+    errorLog.bim = [UncaughtExceptionHandler getBinary];
+    errorLog.cpt = [UncaughtExceptionHandler getCPUType];
+    errorLog.bim = [UncaughtExceptionHandler getBinary];
     errorLog.lib_version = LIB_VERSION;
     [[UMSAgent getInstance ] archiveError:errorLog];
     

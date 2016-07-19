@@ -83,6 +83,20 @@
         {
             [requestDictionary setObject:errorLog.activity forKey:@"activity"];
         }
+        if(errorLog.uuID)
+        {
+            [requestDictionary setObject:errorLog.uuID forKey:@"dsymid"];
+        }
+        
+        if(errorLog.cpt)
+        {
+            [requestDictionary setObject:errorLog.cpt forKey:@"cpt"];
+        }
+        
+        if(errorLog.bim){
+            [requestDictionary setObject:errorLog.bim forKey:@"bim"];
+        }
+
         if(errorLog.lib_version){
             [requestDictionary setObject:errorLog.lib_version forKey:@"lib_version"];
         }
@@ -175,6 +189,20 @@
             {
                 [requestDictionary setObject:errorLog.activity forKey:@"activity"];
             }
+            if(errorLog.uuID)
+            {
+                [requestDictionary setObject:errorLog.uuID forKey:@"dsymid"];
+            }
+            
+            if(errorLog.cpt)
+            {
+                [requestDictionary setObject:errorLog.cpt forKey:@"cpt"];
+            }
+            
+            if(errorLog.bim){
+                [requestDictionary setObject:errorLog.bim forKey:@"bim"];
+            }
+
             if(errorLog.lib_version){
                 [requestDictionary setObject:errorLog.lib_version forKey:@"lib_version"];
             }

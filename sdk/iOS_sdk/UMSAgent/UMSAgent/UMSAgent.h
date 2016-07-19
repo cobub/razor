@@ -36,6 +36,12 @@ typedef enum {
 + (void)startWithAppKey:(NSString*)appKey serverURL:(NSString *)serverURL;
 + (void)startWithAppKey:(NSString*)appKey ReportPolicy:(ReportPolicy)policy serverURL:(NSString*)serverURL;
 /**
+ *  保存错误日志
+ *
+ *  @param stackTrace 错误栈信息
+ */
++ (void)saveErrorLog:(NSString *)stackTrace;
+/**
  *  发送错误日志
  *
  *  @param stackTrace 错误栈信息

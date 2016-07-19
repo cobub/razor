@@ -61,7 +61,7 @@
         
     {
         NSString *funcStr = [urlComps objectAtIndex:1];
-        int paramsCount = [urlComps count]-2;
+        NSInteger paramsCount = [urlComps count]-2;
         if([funcStr isEqualToString:@"onevent"])
         {
             if(paramsCount >=1)

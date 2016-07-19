@@ -23,7 +23,8 @@
     NSString *deviceID;
     NSString *version;
     NSString *uuID;
-    NSString *cpuType;
+    NSString *cpt;//cpu type
+    NSString *bim;//binary image
     NSString *lib_version;
 }
 
@@ -35,7 +36,8 @@
 @property (nonatomic,strong) NSString *deviceID;
 @property (nonatomic,strong) NSString *version;
 @property (nonatomic,strong) NSString *uuID;
-@property (nonatomic,strong) NSString *cpuType;
+@property (nonatomic,strong) NSString *cpt;
+@property (nonatomic,strong) NSString *bim;
 @property (nonatomic,strong) NSString *lib_version;
 
 

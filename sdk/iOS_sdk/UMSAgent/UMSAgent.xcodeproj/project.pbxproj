@@ -14,6 +14,8 @@
 		362FE8A1152D7BB50036B178 /* ActivityLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 362FE89F152D7BB50036B178 /* ActivityLog.h */; };
 		362FE8A2152D7BB50036B178 /* ActivityLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 362FE8A0152D7BB50036B178 /* ActivityLog.m */; };
 		3630005C15131A1600E84C2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3630005B15131A1600E84C2D /* Foundation.framework */; };
+		3648F02A1D3CC4A0005723AD /* UncaughtExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3648F0281D3CC4A0005723AD /* UncaughtExceptionHandler.h */; };
+		3648F02B1D3CC4A0005723AD /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3648F0291D3CC4A0005723AD /* UncaughtExceptionHandler.m */; };
 		3656570517F41AFA0057FA57 /* SFHFKeychainUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 3656570317F41AFA0057FA57 /* SFHFKeychainUtils.h */; };
 		3656570617F41AFA0057FA57 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3656570417F41AFA0057FA57 /* SFHFKeychainUtils.m */; };
 		3656570A17F41DF30057FA57 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3656570917F41DF30057FA57 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -90,6 +92,8 @@
 		3630005F15131A1600E84C2D /* UMSAgent-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UMSAgent-Prefix.pch"; sourceTree = "<group>"; };
 		3630006015131A1600E84C2D /* UMSAgent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSAgent.h; sourceTree = "<group>"; };
 		3630006915131A1600E84C2D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		3648F0281D3CC4A0005723AD /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
+		3648F0291D3CC4A0005723AD /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
 		3656570317F41AFA0057FA57 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		3656570417F41AFA0057FA57 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		3656570917F41DF30057FA57 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -300,6 +304,8 @@
 		847BB17415172A8700933648 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				3648F0281D3CC4A0005723AD /* UncaughtExceptionHandler.h */,
+				3648F0291D3CC4A0005723AD /* UncaughtExceptionHandler.m */,
 				E042DCCF1B03660300EB0E2D /* UIDevice+Analysis.h */,
 				E042DCD01B03660300EB0E2D /* UIDevice+Analysis.m */,
 				36FA717A1526D9D90049AF2C /* OpenUDID.h */,
@@ -332,6 +338,7 @@
 				84B7E4EB1519940D00B9D0BC /* EventDao.h in Headers */,
 				84B7E4F01519989F00B9D0BC /* Event.h in Headers */,
 				84B7611A151C01A600A7ECF8 /* ConfigDao.h in Headers */,
+				3648F02A1D3CC4A0005723AD /* UncaughtExceptionHandler.h in Headers */,
 				84B7611F151C02C000A7ECF8 /* ConfigPreference.h in Headers */,
 				3656570517F41AFA0057FA57 /* SFHFKeychainUtils.h in Headers */,
 				36C95BB91522E74100725BBA /* UMSAgent.h in Headers */,
@@ -405,6 +412,7 @@
 				36E044741C52205200055F6F /* ErrorDao.m in Sources */,
 				369DFBEF17EEA53900A8D1E7 /* NSDictionary_JSONExtensions.m in Sources */,
 				369DFBEC17EEA53900A8D1E7 /* CJSONSerializer.m in Sources */,
+				3648F02B1D3CC4A0005723AD /* UncaughtExceptionHandler.m in Sources */,
 				369DFBEA17EEA53900A8D1E7 /* CJSONDeserializer.m in Sources */,
 				8447F4C115186D3300D14FD9 /* CheckUpdateReturn.m in Sources */,
 				8447F4C715186F4000D14FD9 /* CheckUpdateDao.m in Sources */,

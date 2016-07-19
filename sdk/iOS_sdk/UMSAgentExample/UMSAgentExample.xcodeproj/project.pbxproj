@@ -1537,6 +1537,7 @@
 		3609A5A015180C7300BEDA05 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0730;
 				LastUpgradeCheck = 0430;
 				TargetAttributes = {
 					3609A5C915180C7300BEDA05 = {

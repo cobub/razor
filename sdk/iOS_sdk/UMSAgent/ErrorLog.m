@@ -23,7 +23,8 @@
 @synthesize osVersion;
 @synthesize deviceID;
 @synthesize uuID;
-@synthesize cpuType;
+@synthesize cpt;
+@synthesize bim;
 @synthesize lib_version;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -37,7 +38,8 @@
         self.osVersion = [aDecoder decodeObjectForKey:@"osVersion"];
         self.deviceID = [aDecoder decodeObjectForKey:@"deviceID"];
         self.uuID = [aDecoder decodeObjectForKey:@"uuID"];
-        self.cpuType = [aDecoder decodeObjectForKey:@"cpuType"];
+        self.cpt = [aDecoder decodeObjectForKey:@"cpt"];
+        self.bim = [aDecoder decodeObjectForKey:@"bim"];
         self.lib_version = [aDecoder decodeObjectForKey:@"lib_version"];
     }
     return self;
@@ -53,7 +55,8 @@
     [aCoder encodeObject:osVersion forKey:@"osVersion"];
     [aCoder encodeObject:deviceID forKey:@"deviceID"];
     [aCoder encodeObject:uuID forKey:@"uuID"];
-    [aCoder encodeObject:cpuType forKey:@"cpuType"];
+    [aCoder encodeObject:cpt forKey:@"cpt"];
+    [aCoder encodeObject:bim forKey:@"bim"];
     [aCoder encodeObject:lib_version forKey:@"lib_version"];
 }
 

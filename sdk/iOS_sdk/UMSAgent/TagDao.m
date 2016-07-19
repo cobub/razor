@@ -79,6 +79,7 @@
     if(tag.lib_version){
         [requestDictionary setObject:tag.lib_version forKey:@"lib_version"];
     }
+     [requestDictionary setObject:[UMSAgent getUserId] forKey:@"useridentifier"];
     
     NSMutableArray *finalTagArray = [[NSMutableArray alloc] init];
     [finalTagArray addObject:requestDictionary];
