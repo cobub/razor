@@ -314,7 +314,13 @@ class Productbasic extends CI_Controller
             $title = iconv("UTF-8", "GBK", $titlename);
             $this -> export -> setFileName($title);
             //Set the column headings
-            $excel_title = array(iconv("UTF-8", "GBK", lang('g_date')), iconv("UTF-8", "GBK", lang('t_newUsers')), iconv("UTF-8", "GBK", lang('t_accumulatedUsers')), iconv("UTF-8", "GBK", lang('t_activeUsers')), iconv("UTF-8", "GBK", lang('t_sessions')), iconv("UTF-8", "GBK", lang('t_averageUsageDuration')));
+            $excel_title = array(
+            iconv("UTF-8", "GBK", lang('g_date')), 
+            iconv("UTF-8", "GBK", lang('t_newUsers')), 
+            iconv("UTF-8", "GBK", lang('t_accumulatedUsers')), 
+            iconv("UTF-8", "GBK", lang('t_activeUsers')), 
+            iconv("UTF-8", "GBK", lang('t_sessions')), 
+            iconv("UTF-8", "GBK", lang('t_averageUsageDuration')));
             $this -> export -> setTitle($excel_title);
             //output content
             for ($i = 0; $i < count($data); $i++) {
