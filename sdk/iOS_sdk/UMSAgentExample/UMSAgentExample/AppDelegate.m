@@ -25,7 +25,7 @@
 {
     [UMSAgent setOnLineConfig:YES];
     [UMSAgent setGPSLocation:32.09888888 longitude:118.3909000];
-    [UMSAgent startWithAppKey:@"bc43df4012a411e6902344a8420bf25c" ReportPolicy:BATCH serverURL:@"http://md.cobub.com"];
+    [UMSAgent startWithAppKey:@"6dacad660216970bef0301756c870a27" ReportPolicy:BATCH serverURL:@"http://demo.cobub.com/razor/index.php?/ums"];
     [UMSAgent setIsLogEnabled:YES];
     [UMSAgent postTag:@"屌丝"];
     [UMSAgent postTag:@"高富帅"];

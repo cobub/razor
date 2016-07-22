@@ -62,9 +62,9 @@ public class CobubSampleActivity extends Activity {
          */        
 
         
-        String appkey = "ad72835323d811e6ba1444a8420bf25c";// Demo 
+        String appkey = "22add6fdcc0c6788a5c0c8cc5ec5d929";// Demo 
        
-        com.wbtech.ums.UmsAgent.init(this,appkey);
+        com.wbtech.ums.UmsAgent.init(this,"http://demo.cobub.com/razor/index.php?/ums",appkey);
        
 //      UmsAgent.onEvent(CobubSampleActivity.this, "bxfw_YH");
         UmsAgent.setDebugEnabled(true);
@@ -85,7 +85,7 @@ public class CobubSampleActivity extends Activity {
          */
 
         UmsAgent.updateOnlineConfig(this);
-        UmsAgent.updateCustomParameters(this);
+
         
         UmsAgent.postTags(this,"test tags");
 

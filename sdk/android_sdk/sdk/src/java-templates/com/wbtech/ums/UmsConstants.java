@@ -25,9 +25,9 @@ public class UmsConstants {
     public final static String EVENT_URL = "/eventlog";
     public final static String TAG_URL = "/tag";
     public final static String USINGLOG_URL = "/usinglog";
-    public final static String UPDATE_URL = "/appupdate.json";
-    public final static String CONFIG_URL = "/pushpolicyquery.json";
-    public final static String PARAMETER_URL = "/getAllparameters.json";
+    public final static String UPDATE_URL = "/appupdate";
+    public final static String CONFIG_URL = "/pushpolicyquery";
+    public final static String PARAMETER_URL = "/getAllparameters";
     public final static String LOG_TAG = "UMSAgent";
 
     // Set the SDK Logs output. If DebugEnabled == true, the log will be
