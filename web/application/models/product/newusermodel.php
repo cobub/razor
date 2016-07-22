@@ -1031,10 +1031,10 @@ class newusermodel extends CI_Model
         for ($i=0;$i<$query->num_rows();$i++) {
             $fRow = array();
             $fRow["date"] = substr($activeUserRow->datevalue, 0, 10);
-            $fRow['active'] = $activeUserRow->startusers;
-            $fRow['start'] = $activeUserRow->sessions;
             $fRow['newuser'] = $activeUserRow->newusers;
             $fRow['total'] = $activeUserRow->allusers;
+            $fRow['active'] = $activeUserRow->startusers;
+            $fRow['start'] = $activeUserRow->sessions;
             $fRow['aver'] = $activeUserRow->usingtime; 
             $activeUserRow = $query->next_row();
             array_push($list, $fRow);
