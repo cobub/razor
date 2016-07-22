@@ -395,4 +395,4 @@ $config['redis_interval'] = 10;
 */
 $config['get_geographical']= 1;
 $config['default_country'] = 'China';
-$config['version']= "0.8";
+$config['version']= "0.8.0";
