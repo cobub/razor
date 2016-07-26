@@ -85,7 +85,7 @@ static NSString *BASEURL;
         }
         else if([key isEqualToString:@"fileSize"])
         {
-            return DEFAULT_FILE_SIZE                    ;
+            return DEFAULT_FILE_SIZE;
         }
     }
     return 0;

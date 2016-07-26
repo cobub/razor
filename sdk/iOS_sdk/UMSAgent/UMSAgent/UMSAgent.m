@@ -38,7 +38,7 @@
 #import <sys/utsname.h>
 #import "ClientData.h"
 #import "Tag.h"
-#import <AdSupport/AdSupport.h>
+//#import <AdSupport/AdSupport.h>
 #import "SFHFKeychainUtils.h"
 #import "ErrorDao.h"
 #import "UsingLogDao.h"
@@ -1395,18 +1395,19 @@ NSString *getCPUType(void)
             [SFHFKeychainUtils storeUsername:@"UMSAgentUDID" andPassword:macAddress forServiceName:@"UMSAgent" updateExisting:NO error:nil];
             return macAddress;
         } else {
-            NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-            if(idfa && ![idfa isEqualToString:@""])
-            {
-                [SFHFKeychainUtils storeUsername:@"UMSAgentUDID" andPassword:idfa forServiceName:@"UMSAgent" updateExisting:NO error:nil];
-                return idfa;
-            }
-            else
-            {
-                NSString *openUDID = [UMS_OpenUDID value];
-                [SFHFKeychainUtils storeUsername:@"UMSAgentUDID" andPassword:openUDID forServiceName:@"UMSAgent" updateExisting:NO error:nil];
-                return openUDID;
-            }
+            //注释ASIdentifierManager,去除AdSupport.framework
+//            NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+//            if(idfa && ![idfa isEqualToString:@""])
+//            {
+//                [SFHFKeychainUtils storeUsername:@"UMSAgentUDID" andPassword:idfa forServiceName:@"UMSAgent" updateExisting:NO error:nil];
+//                return idfa;
+//            }
+//            else
+//            {
+            NSString *openUDID = [UMS_OpenUDID value];
+            [SFHFKeychainUtils storeUsername:@"UMSAgentUDID" andPassword:openUDID forServiceName:@"UMSAgent" updateExisting:NO error:nil];
+            return openUDID;
+            //}
         }
     }
 }
