@@ -1,4 +1,3 @@
-
 Cobub Razor - Open Source Mobile Analytics
 =============
 [![Cobub Razor](http://www.cobub.com/docs/lib/tpl/dokuwiki/images/logo.png)](http://www.cobub.com)
@@ -30,13 +29,11 @@ Compare to other analytics systems, Cobub Razor has following advantages:
 Cobub Razor Installation
 -------
 
-Installation Requirements:  http://www.cobub.com/docs/en:razor:install-requirements
+How to install Cobub Razor: http://docs.cobub.com/pages/viewpage.action?pageId=884864
 
-How to install Cobub Razor: http://www.cobub.com/docs/en:razor:installation-guide
+DO NOT forget to configure the schedule tasks: http://docs.cobub.com/pages/viewpage.action?pageId=884913
 
-DO NOT forget to configure the schedule tasks: http://www.cobub.com/docs/en:razor:auto-archiving
-
-More details, please visit http://www.cobub.com/docs/en:start
+More details, please visit http://docs.cobub.com
 
 
 Cobub Razor Issues
@@ -54,7 +51,8 @@ QQ Group
 -------
 
 [![QQ Group](http://www.cobub.com/wp-content/uploads/2015/11/cobub-qq-%E4%BA%8C%E7%BB%B4%E7%A0%81-270.jpeg)](http://www.cobub.com)
-QQ group:194022996
+
+**QQ group:194022996**
 
 License
 -------
