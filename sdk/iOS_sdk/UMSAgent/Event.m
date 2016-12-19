@@ -20,6 +20,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     if (self =[super init]) {
+        self.sessionID = [aDecoder decodeObjectForKey:@"session_id"];
         self.event_id = [aDecoder decodeObjectForKey:@"event_id"];
         self.label = [aDecoder decodeObjectForKey:@"label"];
         self.time = [aDecoder decodeObjectForKey:@"time"];
@@ -43,6 +44,7 @@
     [aCoder encodeInt:acc forKey:@"acc"];
     [aCoder encodeObject:jsonstr forKey:@"jsonstr"];
     [aCoder encodeObject:lib_version forKey:@"lib_version"];
+    [aCoder encodeObject:sessionID forKey:@"session_id"];
 }
 
 
