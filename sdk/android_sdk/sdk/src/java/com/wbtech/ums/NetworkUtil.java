@@ -1,209 +1,95 @@
-/**
- * Cobub Razor
- *
- * An open source analytics android sdk for mobile applications
- *
- * @package		Cobub Razor
- * @author		WBTECH Dev Team
- * @copyright	Copyright (c) 2011 - 2015, NanJing Western Bridge Co.,Ltd.
- * @license		http://www.cobub.com/products/cobub-razor/license
- * @link		http://www.cobub.com/products/cobub-razor/
- * @since		Version 0.1
- * @filesource
- */
-
 package com.wbtech.ums;
-
-import java.net.URL;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.params.ClientPNames;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.cookie.CookieOrigin;
-import org.apache.http.cookie.CookieSpec;
-import org.apache.http.cookie.CookieSpecFactory;
-import org.apache.http.cookie.MalformedCookieException;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.impl.cookie.BrowserCompatSpec;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
-
-import com.wbtech.ums.UmsConstants;
 
 import android.util.Log;
 
-class NetworkUtil {   
-	public static int REQUEST_TIMEOUT = 5000; // 5s
-	public static int SO_TIMEOUT = 3000; // 3s	
-	private static int serverPort = -1;
-	private static boolean hasInitSSL = false;
-	private static URL serverUrl = null;
-	 
-	private static void initSSL() {
-		CobubLog.d(UmsConstants.LOG_TAG,NetworkUtil.class,"InitSSL start it:" + UmsConstants.SDK_POS_NAME);
-		System.setProperty("javax.net.ssl.keyStoreProvider",
-				UmsConstants.SDK_POS_NAME);
-		System.setProperty("javax.net.ssl.certAlias",
-				UmsConstants.SDK_CSR_ALIAS);
-		CobubLog.d(UmsConstants.LOG_TAG,NetworkUtil.class,"InitSSL end it:" + UmsConstants.SDK_CSR_ALIAS);
-	}
+import org.json.JSONObject;
 
-	public static MyMessage Post(String url, String data) {
-		CobubLog.d(UmsConstants.LOG_TAG, NetworkUtil.class,"URL = " + url);
-		CobubLog.d(UmsConstants.LOG_TAG, NetworkUtil.class, "LENGTH:" + data.length() + " *Data = " + data + "*");
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
-		if (!hasInitSSL && UmsConstants.SDK_SECURITY_LEVEL.equals("2")) {
-			initSSL();
-			hasInitSSL = true;
-		}
-		
-		BasicHttpParams httpParams = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(httpParams, REQUEST_TIMEOUT);
-		HttpConnectionParams.setSoTimeout(httpParams, SO_TIMEOUT);
-		DefaultHttpClient httpclient = null;
-		
-		/*SDK会运行在如下两种环境中:
+class NetworkUtil {
+
+	    /*SDK会运行在如下两种环境中:
 		 * 1,CPOS:需要进行双向ssl校验；SDK_SSL=true;此时还要验证dn(如果不想验dn，设置SDK_HTTPS_DN为none)
 		 * 2,一般移动设备，是用HTTPS正常发送即可，也能接受非标准证书的https服务端
 		 * 3,测试：使用http
-		*/
-		if (UmsConstants.SDK_SECURITY_LEVEL.equals("2")) {
-			httpclient = new DefaultHttpClient(httpParams);
-			// cpos with dn check
-			if (!UmsConstants.SDK_HTTPS_DN.equals("none")) {
-				SSLSocketFactory mysf = null;
-				try {
-					mysf = new CposSSLSocketFactory();
-					if (serverUrl == null) {
-						serverUrl = new URL(url);
-						serverPort = ((serverUrl.getPort() == -1) ? serverUrl
-								.getDefaultPort() : serverUrl.getPort());
-					}
-
-					httpclient
-							.getConnectionManager()
-							.getSchemeRegistry()
-							.register(
-									new Scheme(serverUrl.getProtocol(), mysf,
-											serverPort));
-
-				} catch (Exception e) {
-					CobubLog.d(UmsConstants.LOG_TAG,NetworkUtil.class, e.toString());
-				}
-			}
-		} else if (UmsConstants.SDK_SECURITY_LEVEL.equals("1")
-		        && url.toLowerCase().startsWith("https")){
-			// for https with company cert
-			if (serverPort < 0) {
-				serverPort = getPort();
-			}
-			CobubLog.d(UmsConstants.LOG_TAG,NetworkUtil.class,"InitSSL port is:" + serverPort);
-			SchemeRegistry schReg = new SchemeRegistry();			 
-			schReg.register(new Scheme("https", SSLCustomSocketFactory
-					.getSocketFactory(), serverPort));
-
-			ClientConnectionManager connMgr = new ThreadSafeClientConnManager(
-					httpParams, schReg);
-			httpclient = new DefaultHttpClient(connMgr, httpParams);
-		} else {
-		    httpclient = new DefaultHttpClient(httpParams); 
-		}
-		processCookieRejected(httpclient);
-		
+		 */
+	public static MyMessage Post(String url, String data) {
+		CobubLog.d(UmsConstants.LOG_TAG, NetworkUtil.class,"URL = " + url);
+		CobubLog.d(UmsConstants.LOG_TAG, NetworkUtil.class, "LENGTH:" + data.length() + " *Data = " + data + "*");
+		HttpURLConnection httpURLConnection;
+		URL realUrl;
 		MyMessage message = new MyMessage();
 		try {
-			HttpPost httppost = new HttpPost(url);
-
-			StringEntity se = new StringEntity("content="
-					+ URLEncoder.encode(data), HTTP.UTF_8);
-			se.setContentType("application/x-www-form-urlencoded");
-			httppost.setEntity(se);
-
-			HttpResponse response = httpclient.execute(httppost);
+			realUrl = new URL(url);
+			httpURLConnection = (HttpURLConnection) realUrl.openConnection();
+			httpURLConnection.setConnectTimeout(5000);
+			httpURLConnection.setReadTimeout(3000);
+			httpURLConnection.setDoOutput(true);
+			httpURLConnection.setDoInput(true);
+			httpURLConnection.setRequestMethod("POST");
+			httpURLConnection.setRequestProperty("connection", "Keep-Alive");
+			httpURLConnection.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded");
+			//发送数据包
+			DataOutputStream dos = new DataOutputStream(httpURLConnection.getOutputStream());
+			String s = "content=" + URLEncoder.encode(data, "UTF-8");
+			dos.write(s.getBytes());
+			dos.flush();
+			dos.close();
+			int status = httpURLConnection.getResponseCode();
 			CobubLog.d(UmsConstants.LOG_TAG,NetworkUtil.class, "Status code="
-					+ response.getStatusLine().getStatusCode());
-
-			String returnXML = EntityUtils.toString(response.getEntity());
-			int status = response.getStatusLine().getStatusCode();
-			String returnContent = URLDecoder.decode(returnXML, "UTF-8");
-			CobubLog.d(UmsConstants.LOG_TAG,NetworkUtil.class, "returnString = " + returnContent);
+					+ status);
+			//接收数据包
+			InputStream is = httpURLConnection.getInputStream();
+			String result = inputStreamToString(is);
+			CobubLog.d(UmsConstants.LOG_TAG,NetworkUtil.class, "returnString = " + result);
 			//TODO:只要服務端有返回200ok并且返回的是json字符串即可认为发送成功；因为如果发送的数据不完整服务端会返回flag<0；
-            //这部分数据按照flag来判断会导致错误数据始终保存在本地
+			// 这部分数据按照flag来判断会导致错误数据始终保存在本地
 			switch (status) {
-            case 200:
-                message.setSuccess(isJson(returnContent));
-                message.setMsg(returnContent);                
-                break;
-            default:
-                Log.e("error", status + returnContent);
-                message.setSuccess(false);
-                message.setMsg(returnContent);
-                break;
-            }
-		} catch (Exception e) {
-		    message.setSuccess(false);
-            message.setMsg(e.toString());   
+				case 200:
+					message.setSuccess(isJson(result));
+					message.setMsg(result);
+					break;
+				default:
+					Log.e("error", status + result);
+					message.setSuccess(false);
+					message.setMsg(result);
+					break;
+			}
+		} catch (IOException e) {
+			message.setSuccess(false);
+			message.setMsg(e.toString());
 		}
 		return message;
 	}
 
-	private static int getPort() {
-		String url = UmsConstants.BASE_URL.toLowerCase();
-		CobubLog.d(UmsConstants.LOG_TAG,NetworkUtil.class, url);
-		int pos = url.indexOf(":");
-		pos = url.indexOf(":", pos + 1);
-		if (pos > 0) {
-			int pos2 = url.indexOf("/", pos + 1);
+	private static String inputStreamToString(final InputStream stream) throws IOException {
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int len;
+		while ((len = stream.read(buffer)) != -1) {
+			os.write(buffer, 0, len);
+		}
+		stream.close();
+		String state = os.toString();
+		os.close();
+		return state;
+	}
 
-			if (pos2 > 0) {
-				return Integer.parseInt(url.substring(pos + 1, pos2));
-			} else {
-				return Integer.parseInt(url.substring(pos + 1));
-			}
-		} else {
-			return url.startsWith("https") ? 443 : 80;
+	private static boolean isJson(String strForValidating) {
+		try {
+			new JSONObject(strForValidating);
+			return true;
+
+		} catch (Exception e) {
+			return false;
 		}
 	}
-	
-	private static boolean isJson(String strForValidating) {
-	    try {
-	        JSONObject jsonObject = new JSONObject(strForValidating);
-	        return true;
-	    } catch (Exception e) {
-	        return false;
-	    }
-	}
-	
-	private static void processCookieRejected(DefaultHttpClient client) {
-	    client.getCookieSpecs().register("esay", new EasyCookieSpecFactory());
-	    client.getParams().setParameter(ClientPNames.COOKIE_POLICY, "esay");
-	}
-	
-	private static class EasyCookieSpecFactory implements CookieSpecFactory {
-        @Override
-        public CookieSpec newInstance(HttpParams arg0) {
-            return new BrowserCompatSpec() {
 
-                @Override
-                public void validate(Cookie cookie, CookieOrigin origin)
-                        throws MalformedCookieException {
-                    //do nothing here
-                }//public             
-            }; // new BrowserCompatSpec
-        }//public
-	    
-	}
 }

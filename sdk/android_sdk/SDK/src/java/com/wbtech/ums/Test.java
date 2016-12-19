@@ -1,9 +1,5 @@
-package com.tesla.tmd;
+package com.wbtech.ums;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import junit.framework.Assert;
 import android.test.AndroidTestCase;
 
 public class Test extends AndroidTestCase {

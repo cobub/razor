@@ -65,8 +65,10 @@ class TagManager {
         if (CommonUtil.getReportPolicyMode(context) == SendPolicy.POST_NOW
                 && CommonUtil.isNetworkAvailable(context)) {
 
+//            MyMessage message = NetworkUtil.Post(UmsConstants.BASE_URL
+//                    + UmsConstants.TAG_URL, postdata.toString());
             MyMessage message = NetworkUtil.Post(UmsConstants.BASE_URL
-                    + UmsConstants.TAG_URL, postdata.toString());
+                    , postdata.toString());
 
             if (!message.isSuccess()) {
                 CobubLog.e(UmsConstants.LOG_TAG,TagManager.class, "Message=" + message.getMsg());
