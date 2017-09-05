@@ -14,8 +14,6 @@
 
 package com.wbtech.ums;
 
-import com.wbtech.ums.UmsConstants;
-
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;

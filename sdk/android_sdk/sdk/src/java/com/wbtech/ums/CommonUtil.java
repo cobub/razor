@@ -14,6 +14,24 @@
 
 package com.wbtech.ums;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.os.Environment;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+
+import com.wbtech.ums.UmsAgent.SendPolicy;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -26,24 +44,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
-import android.os.Environment;
-import android.telephony.TelephonyManager;
-
-import com.wbtech.ums.UmsConstants;
-import com.wbtech.ums.UmsAgent.SendPolicy;
 
 class CommonUtil {
     private static String USER_ID = "";
@@ -330,7 +330,20 @@ class CommonUtil {
         return typeString;
     }
 
+    /**
+     * 判断是否是新的session
+     * cobub之前规则是，只要在【时间间隔】内，算一次session
+     * 1，app启动后，关闭，在【时间间隔】内启动session值相同
+     * 2，app启动后，后台运行，在【时间间隔】内启动session值相同
+     * 应修改：当app启动时，session重置
+     * @param context
+     * @return
+     */
     static boolean isNewSession(Context context) {
+        Log.i("longtest", "-----------------------------------------isNewSession");
+        /**
+         * 此处有疑问？
+         */
         if (context == null) {
             CobubLog.e(UmsConstants.LOG_TAG, CommonUtil.class, "context is null");
             return false;
@@ -341,10 +354,15 @@ class CommonUtil {
             long session_save_time = sp.getValue("session_save_time", 0);
             CobubLog.i(UmsConstants.LOG_TAG, CommonUtil.class, "currenttime=" + currenttime);
             CobubLog.i(UmsConstants.LOG_TAG, CommonUtil.class, "session_save_time=" + session_save_time);
+            /**
+             * 若当前时间-之前session最后一次保留时间 > 时间间隔
+             * 则 创建新session
+             */
             if (currenttime - session_save_time > getSessionContinueMillis(context)) {
                 CobubLog.i(UmsConstants.LOG_TAG, CommonUtil.class, "return true,create new session.");
                 return true;
             }
+            // 否则为同一个session
             CobubLog.i(UmsConstants.LOG_TAG, CommonUtil.class, "return false.At the same session.");
             return false;
         } catch (Exception e) {
@@ -564,7 +582,7 @@ class CommonUtil {
 		String file_name = context.getPackageName().replace(".", "");
 		String sdCardRoot = Environment.getExternalStorageDirectory()
 				.getAbsolutePath();
-		int apiLevel = Integer.parseInt(android.os.Build.VERSION.SDK);
+		int apiLevel = Integer.parseInt(Build.VERSION.SDK);
 		File fileFromSDCard = new File(sdCardRoot +File.separator, "."+file_name);
 		File fileFromDData = new File(context.getFilesDir(),file_name);// 获取data/data/<package>/files
 		//4.4之後 /storage/emulated/0/Android/data/<package>/files
@@ -575,7 +593,7 @@ class CommonUtil {
 		
 		String saltString = "";
 		if (Environment.getExternalStorageState().equals(
-				android.os.Environment.MEDIA_MOUNTED)) {
+				Environment.MEDIA_MOUNTED)) {
 			// sdcard存在
 			if (!fileFromSDCard.exists()) {
 				

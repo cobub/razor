@@ -13,13 +13,11 @@
  */
 package com.wbtech.ums;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.wbtech.ums.UmsConstants;
-
-import android.content.Context;
 
 
 class ClientdataManager {
@@ -77,7 +75,7 @@ class ClientdataManager {
     	CobubLog.i(UmsConstants.LOG_TAG,UsinglogManager.class, "judgeSession on clientdata");
         try {
             if (CommonUtil.isNewSession(context)) {
-              String  session_id = CommonUtil.generateSession(context);
+                String  session_id = CommonUtil.generateSession(context);
                 CobubLog.i(UmsConstants.LOG_TAG, UsinglogManager.class,"New Sessionid is " + session_id);
             }
         } catch (Exception e) {

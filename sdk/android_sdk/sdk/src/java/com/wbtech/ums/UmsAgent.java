@@ -145,7 +145,7 @@ public class UmsAgent {
     /**
      * upload startup and device information
      *
-     * @param context
+
      */
     static void postClientData() {
         Thread thread = new Thread(new Runnable() {
@@ -163,7 +163,7 @@ public class UmsAgent {
     }
 
     /**
-     * @param context
+
      */
     static void postHistoryLog() {
         CobubLog.i(UmsConstants.LOG_TAG, UmsAgent.class, "postHistoryLog");
@@ -211,7 +211,7 @@ public class UmsAgent {
     /**
      * activity onResume 在activity的生命周期函数 {@link #onResume(Context)}
      *
-     * @param context
+
      */
     public static void onResume(Context context) {
         if (!INIT) {
@@ -237,8 +237,7 @@ public class UmsAgent {
     /**
      * 针对使用Fragment的应用，在对应的生命周期函数里调用
      *
-     * @param context
-     * @param PageName
+    * @param PageName
      */
     public static void onFragmentResume(Context context,
                                         final String PageName) {
@@ -264,7 +263,6 @@ public class UmsAgent {
     /**
      * 在Activity的生命周期函数{@link #onPause(Context)}中调用
      *
-     * @param context
      */
     public static void onPause(Context context) {
         if (!INIT) {
@@ -292,7 +290,6 @@ public class UmsAgent {
      * Call this function to send the uncatched crash exception stack
      * information to server
      *
-     * @param context
      */
     static void onError() {
         if (!INIT) {
@@ -316,7 +313,6 @@ public class UmsAgent {
      * Call this function to send the catched exception stack information to
      * server 手动上传捕捉到的error信息
      *
-     * @param context
      * @param errorType
      * @param errorinfo
      */
@@ -394,7 +390,6 @@ public class UmsAgent {
             CobubLog.e(UmsConstants.LOG_TAG, UmsAgent.class, "sdk is not init!");
             return;
         }
-        updateContent(context);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

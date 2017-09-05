@@ -17,7 +17,7 @@
 		3648F02A1D3CC4A0005723AD /* UncaughtExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3648F0281D3CC4A0005723AD /* UncaughtExceptionHandler.h */; };
 		3648F02B1D3CC4A0005723AD /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3648F0291D3CC4A0005723AD /* UncaughtExceptionHandler.m */; };
 		3656570517F41AFA0057FA57 /* SFHFKeychainUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 3656570317F41AFA0057FA57 /* SFHFKeychainUtils.h */; };
-		3656570617F41AFA0057FA57 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3656570417F41AFA0057FA57 /* SFHFKeychainUtils.m */; };
+		3656570617F41AFA0057FA57 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3656570417F41AFA0057FA57 /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3656570A17F41DF30057FA57 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3656570917F41DF30057FA57 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		369DFBE917EEA53900A8D1E7 /* CJSONDeserializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 369DFBE217EEA53900A8D1E7 /* CJSONDeserializer.h */; };
 		369DFBEA17EEA53900A8D1E7 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 369DFBE317EEA53900A8D1E7 /* CJSONDeserializer.m */; };
@@ -31,7 +31,6 @@
 		36B6B3A11563AA1E00AEB577 /* ErrorLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 36B6B39F1563AA1E00AEB577 /* ErrorLog.h */; };
 		36B6B3A21563AA1E00AEB577 /* ErrorLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B6B3A01563AA1E00AEB577 /* ErrorLog.m */; };
 		36B8E535151C4F8A004C3C1F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B8E534151C4F8A004C3C1F /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		36C95BB91522E74100725BBA /* UMSAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 3630006015131A1600E84C2D /* UMSAgent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		36E0446C1C521FCE00055F6F /* UsingLogDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E0446B1C521FCE00055F6F /* UsingLogDao.m */; };
 		36E0446E1C521FE200055F6F /* TagDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E0446D1C521FE200055F6F /* TagDao.m */; };
 		36E044701C521FF700055F6F /* ClientDataDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E0446F1C521FF700055F6F /* ClientDataDao.m */; };
@@ -64,6 +63,7 @@
 		E0728C3D1AF0DB2D00F3D579 /* UsingLogDao.h in Headers */ = {isa = PBXBuildFile; fileRef = E0728C3B1AF0DB2D00F3D579 /* UsingLogDao.h */; };
 		E0A2882F1AF7586C00030212 /* AppInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = E0A2882D1AF7586C00030212 /* AppInfo.h */; };
 		E0A288301AF7586C00030212 /* AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A2882E1AF7586C00030212 /* AppInfo.m */; };
+		FEF0E2281DC0A959007431D1 /* UMSAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = FEF0E2271DC0A959007431D1 /* UMSAgent.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -90,7 +90,6 @@
 		3630005815131A1600E84C2D /* libUMSAgent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUMSAgent.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3630005B15131A1600E84C2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3630005F15131A1600E84C2D /* UMSAgent-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UMSAgent-Prefix.pch"; sourceTree = "<group>"; };
-		3630006015131A1600E84C2D /* UMSAgent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSAgent.h; sourceTree = "<group>"; };
 		3630006915131A1600E84C2D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		3648F0281D3CC4A0005723AD /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		3648F0291D3CC4A0005723AD /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
@@ -143,6 +142,7 @@
 		E0728C3B1AF0DB2D00F3D579 /* UsingLogDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsingLogDao.h; sourceTree = "<group>"; };
 		E0A2882D1AF7586C00030212 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
 		E0A2882E1AF7586C00030212 /* AppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfo.m; sourceTree = "<group>"; };
+		FEF0E2271DC0A959007431D1 /* UMSAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSAgent.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,7 +217,7 @@
 		3630005D15131A1600E84C2D /* UMSAgent */ = {
 			isa = PBXGroup;
 			children = (
-				3630006015131A1600E84C2D /* UMSAgent.h */,
+				FEF0E2271DC0A959007431D1 /* UMSAgent.h */,
 				36E044751C5220BB00055F6F /* UMSAgent.m */,
 				3630005E15131A1600E84C2D /* Supporting Files */,
 			);
@@ -339,9 +339,9 @@
 				84B7E4F01519989F00B9D0BC /* Event.h in Headers */,
 				84B7611A151C01A600A7ECF8 /* ConfigDao.h in Headers */,
 				3648F02A1D3CC4A0005723AD /* UncaughtExceptionHandler.h in Headers */,
+				FEF0E2281DC0A959007431D1 /* UMSAgent.h in Headers */,
 				84B7611F151C02C000A7ECF8 /* ConfigPreference.h in Headers */,
 				3656570517F41AFA0057FA57 /* SFHFKeychainUtils.h in Headers */,
-				36C95BB91522E74100725BBA /* UMSAgent.h in Headers */,
 				E042DCD11B03660300EB0E2D /* UIDevice+Analysis.h in Headers */,
 				E0728C3D1AF0DB2D00F3D579 /* UsingLogDao.h in Headers */,
 				36FA717C1526D9D90049AF2C /* OpenUDID.h in Headers */,

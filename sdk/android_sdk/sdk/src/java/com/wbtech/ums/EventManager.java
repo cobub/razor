@@ -107,8 +107,12 @@ class EventManager {
 
         if (CommonUtil.getReportPolicyMode(context) == SendPolicy.POST_NOW
                 && CommonUtil.isNetworkAvailable(context)) {
+//            MyMessage message = NetworkUtil.Post(UmsConstants.BASE_URL
+//                    + UmsConstants.EVENT_URL, postdata.toString());
             MyMessage message = NetworkUtil.Post(UmsConstants.BASE_URL
-                    + UmsConstants.EVENT_URL, postdata.toString());
+                    , postdata.toString());
+//            MyMessage message = NetworkUtil.Post("http://172.16.0.16/?sid=zhongqing", postdata.toString());
+            //MyMessage message = NetworkUtil.Post("http://172.16.0.16/", postdata.toString());
 
             if (!message.isSuccess()) {
                 CobubLog.e(UmsConstants.LOG_TAG, EventManager.class, "Message="

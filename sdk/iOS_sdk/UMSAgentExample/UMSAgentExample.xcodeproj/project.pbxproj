@@ -1536,6 +1536,10 @@
 				LastTestingUpgradeCheck = 0730;
 				LastUpgradeCheck = 0430;
 				TargetAttributes = {
+					3609A5A815180C7300BEDA05 = {
+						DevelopmentTeam = 4H8V2K3M84;
+						ProvisioningStyle = Automatic;
+					};
 					3609A5C915180C7300BEDA05 = {
 						DevelopmentTeam = F9C6W6M498;
 					};
@@ -1936,7 +1940,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: 熙成 李 (DPDRXHQ8H5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 熙成 李 (DPDRXHQ8H5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 4H8V2K3M84;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UMSAgentExample/UMSAgentExample-Prefix.pch";
@@ -1956,7 +1961,7 @@
 					"$(PROJECT_DIR)/UMSAgentExample",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "26a9067e-417d-4941-a415-e615651171e8";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26a9067e-417d-4941-a415-e615651171e8";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -1967,7 +1972,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: 熙成 李 (DPDRXHQ8H5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 熙成 李 (DPDRXHQ8H5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 4H8V2K3M84;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UMSAgentExample/UMSAgentExample-Prefix.pch";
@@ -1987,7 +1993,7 @@
 					"$(PROJECT_DIR)/UMSAgentExample",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "26a9067e-417d-4941-a415-e615651171e8";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26a9067e-417d-4941-a415-e615651171e8";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

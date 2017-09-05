@@ -84,7 +84,9 @@
 							?>
 						</tr>
 						<?php }?>
-					<?php }else{for($i = 0; $i < count ( $result ['tid'] ); $i ++) {?>
+					<?php }else{
+						if( isset ( $result ) && ! empty ( $result ) ) {
+						for($i = 0; $i < count ( $result ['tid'] ); $i ++) {?>
 						<tr>
 							
 								<td><?php echo $result ['targetname'] [$i]?></td>
@@ -102,6 +104,7 @@
 								<?php }?>
 							</tr>
 						<?php }
+						}
 							}
 						}?>
 					</tbody>

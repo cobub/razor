@@ -442,7 +442,7 @@ static NSString *LIB_VERSION = @"1.0";
     }
     else
     {
-        self.sessionId = [self generateSessionId];
+        self.sessionId = [UMSAgent getSessionId];
     }
     if(isLogEnabled)
     {
@@ -460,6 +460,7 @@ static NSString *LIB_VERSION = @"1.0";
             NSLog(@"Save Error Log...");
         }
         ErrorLog *errorLog = [[ErrorLog alloc] init];
+         errorLog.sessionID =[UMSAgent getSessionId];
         errorLog.stackTrace = stackTrace;
         errorLog.appkey = [UMSAgent getInstance].appKey;
         errorLog.version = [[UMSAgent getInstance] getVersion];
@@ -512,6 +513,7 @@ static NSString *LIB_VERSION = @"1.0";
     }
     ErrorLog *errorLog = [[ErrorLog alloc] init];
     errorLog.stackTrace = stackTrace;
+     errorLog.sessionID =[UMSAgent getSessionId];
     errorLog.appkey = [UMSAgent getInstance].appKey;
     errorLog.version = [[UMSAgent getInstance]getVersion];
     errorLog.time = [[UMSAgent getInstance] getCurrentTime];
@@ -600,6 +602,7 @@ static NSString *LIB_VERSION = @"1.0";
     event.version = [[UMSAgent getInstance] getVersion];
     event.acc = 1;
     event.lib_version = LIB_VERSION;
+     event.sessionID =[UMSAgent getSessionId];
     [[UMSAgent getInstance] archiveEvent:event];
 }
 
@@ -614,6 +617,7 @@ static NSString *LIB_VERSION = @"1.0";
     event.activity = [[UMSAgent getInstance] getCurrentActivityName];
     event.label = label;
     event.lib_version = LIB_VERSION;
+     event.sessionID =[UMSAgent getSessionId];
     [[UMSAgent getInstance] archiveEvent:event];
     
 }
@@ -629,6 +633,7 @@ static NSString *LIB_VERSION = @"1.0";
     event.activity = [[UMSAgent getInstance] getCurrentActivityName];
     event.label = label;
     event.lib_version = LIB_VERSION;
+     event.sessionID =[UMSAgent getSessionId];
     [[UMSAgent getInstance] archiveEvent:event];
 }
 
@@ -643,6 +648,7 @@ static NSString *LIB_VERSION = @"1.0";
     event.label = @"";
     event.jsonstr = @"";
     event.lib_version = LIB_VERSION;
+     event.sessionID =[UMSAgent getSessionId];
     [[UMSAgent getInstance] archiveEvent:event];
     
 }
@@ -658,6 +664,7 @@ static NSString *LIB_VERSION = @"1.0";
     event.label = label;
     event.jsonstr = @"";
     event.lib_version = LIB_VERSION;
+     event.sessionID =[UMSAgent getSessionId];
     [[UMSAgent getInstance] archiveEvent:event];
 }
 
@@ -672,6 +679,7 @@ static NSString *LIB_VERSION = @"1.0";
     event.label = @"";
     event.jsonstr = [jsonStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     event.lib_version = LIB_VERSION;
+     event.sessionID =[UMSAgent getSessionId];
     [[UMSAgent getInstance] archiveEvent:event];
 }
 
@@ -1388,7 +1396,9 @@ NSString *getCPUType(void)
     else
     {
         NSString *sysVersion = [[UIDevice currentDevice]systemVersion];
-        NSString *firstLetter = [sysVersion substringWithRange:NSMakeRange(0, 1)];
+         NSRange r = [sysVersion rangeOfString:@"."];
+        NSString *firstLetter = [sysVersion substringWithRange:NSMakeRange(0, r.location)];
+
         int versionNumber = [firstLetter intValue];
         if (versionNumber < 6) {
             NSString *macAddress =  [[UIDevice currentDevice]macAddress];

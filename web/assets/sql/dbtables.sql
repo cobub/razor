@@ -575,7 +575,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_target` (
   `targetname` varchar(128) NOT NULL,
   `targettype` int(11) DEFAULT NULL,
   `unitprice` decimal(12,2) NOT NULL,
-  `targetstatusc` int(11) NOT NULL,
+  `targetstatusc` int(11) NOT NULL DEFAULT '1',
   `createdate` datetime NOT NULL,
   PRIMARY KEY (`tid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

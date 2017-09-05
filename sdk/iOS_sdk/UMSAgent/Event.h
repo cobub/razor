@@ -27,6 +27,7 @@
     NSString *version;
     NSString *jsonstr;
     NSString *lib_version;
+      NSString *sessionID;
 }
 
 @property (nonatomic,strong) NSString *event_id;
@@ -37,5 +38,6 @@
 @property (nonatomic,strong) NSString *version;
 @property (nonatomic,strong) NSString *jsonstr;
 @property (nonatomic,strong) NSString *lib_version;
+@property (nonatomic,strong) NSString *sessionID;
 
 @end
