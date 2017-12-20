@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_errorlog` (
   `session_id` varchar(32) DEFAULT NULL,
   `useridentifier` varchar(32) DEFAULT NULL,
   `lib_version` varchar(16) DEFAULT NULL,
-  `deviceid` varchar(32) DEFAULT NULL,
+  `deviceid` varchar(128) DEFAULT NULL,
   `dsymid` varchar(64) DEFAULT NULL,
   `cpt` varchar(64) DEFAULT NULL,
   `bim` varchar(64) DEFAULT NULL,
@@ -814,7 +814,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_getui_product` (
 
 CREATE TABLE IF NOT EXISTS `umsinstall_device_tag` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `deviceid` varchar(256) NOT NULL,
+    `deviceid` varchar(128) NOT NULL,
     `tags` varchar(1024) default NULL,
     `appkey` varchar(64) NOT NULL,
     `useridentifier` varchar(32) DEFAULT NULL,

@@ -322,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `umsinstall_fact_event` (
   `event_sk` int(11) NOT NULL,
   `product_sk` int(11) NOT NULL,
   `date_sk` int(11) NOT NULL,
-  `deviceid` varchar(50) DEFAULT NULL,
+  `deviceid` varchar(128) DEFAULT NULL,
   `category` varchar(50) DEFAULT NULL,
   `event` varchar(50) NOT NULL,
   `label` varchar(50) DEFAULT NULL,
