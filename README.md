@@ -1,3 +1,12 @@
+Cobub News
+-------
+
+April 2019, Java Enterprise [C4J](http://c4j.cn) was released. C4J is a low-cost, privatized, full-channel, high-performance user analytics tool.
+
+Visit demo: [https://c4j.cn/demo](https://c4j.cn/demo)
+
+Application for trial: [https://c4j.cn/ucenter/#/apply4trail](https://c4j.cn/ucenter/#/apply4trail)
+
 Cobub Razor - Open Source Mobile Analytics
 =============
 [![Cobub Razor](http://www.cobub.com/docs/lib/tpl/dokuwiki/images/logo.png)](http://www.cobub.com)　　[![C4J](https://c4j.cn/img/logo-footer.png)](https://c4j.cn)
@@ -13,15 +22,6 @@ Cobub Razor has two components. Web Cobub Razor is a PHP/MySQL system that you d
 Cobub Razor is a tool that enables Apps developers and enterprises which have Apps. It can monitor users' behaviors, users' device features, users' clicks, custom event, Apps errors, auto update of Apps and so on. Cobub Razor also helps on notify the users to upgrade version, compare different Apps and compare different distribution channels.
 
 A Chinese introduction video: [Cobub Razor Introduction Video - Chinese Version](http://v.youku.com/v_show/id_XNDM4OTgwNzEy.html)
-
-Cobub News
--------
-
-April 2019, Java Enterprise [C4J](http://c4j.cn) was released. C4J is a low-cost, privatized, full-channel, high-performance user analytics tool.
-
-Visit demo: [https://c4j.cn/demo](https://c4j.cn/demo)
-
-Application for trial: [https://c4j.cn/ucenter/#/apply4trail](https://c4j.cn/ucenter/#/apply4trail)
 
 
 Cobub Razor Features
