@@ -132,7 +132,7 @@ class UpdateManager {
 
     public void showNoticeDialog(final Context context) {
 
-        AlertDialog.Builder builder = new Builder(context);
+        Builder builder = new Builder(context);
         builder.setTitle("应用更新");
         builder.setMessage(updateMsg);
         builder.setPositiveButton("确定", new OnClickListener() {
@@ -157,7 +157,7 @@ class UpdateManager {
     }
 
     private void showSdDialog(final Context context) {
-        AlertDialog.Builder builder = new Builder(context);
+        Builder builder = new Builder(context);
         builder.setTitle("提示");
         builder.setMessage("SD卡不存在");
         builder.setNegativeButton("OK", new OnClickListener() {
@@ -203,7 +203,7 @@ class UpdateManager {
                 is = conn.getInputStream();
               
                 boolean sdCardExist = Environment.getExternalStorageState()
-                        .equals(android.os.Environment.MEDIA_MOUNTED);
+                        .equals(Environment.MEDIA_MOUNTED);
                 if (!sdCardExist) {
                     showSdDialog(context);
                 }

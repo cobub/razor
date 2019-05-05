@@ -26,6 +26,7 @@
 @synthesize cpt;
 @synthesize bim;
 @synthesize lib_version;
+@synthesize sessionID;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -41,6 +42,8 @@
         self.cpt = [aDecoder decodeObjectForKey:@"cpt"];
         self.bim = [aDecoder decodeObjectForKey:@"bim"];
         self.lib_version = [aDecoder decodeObjectForKey:@"lib_version"];
+        self.sessionID = [aDecoder decodeObjectForKey:@"session_id"];
+
     }
     return self;
 }
@@ -58,6 +61,8 @@
     [aCoder encodeObject:cpt forKey:@"cpt"];
     [aCoder encodeObject:bim forKey:@"bim"];
     [aCoder encodeObject:lib_version forKey:@"lib_version"];
+    [aCoder encodeObject:sessionID forKey:@"session_id"];
+
 }
 
 @end

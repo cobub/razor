@@ -58,6 +58,10 @@
     {
         [requestDictionary setObject:mEvent.time forKey:@"time"];
     }
+    if(mEvent.sessionID)
+    {
+        [requestDictionary setObject:mEvent.sessionID forKey:@"session_id"];
+    }
     if(mEvent.activity)
     {
         [requestDictionary setObject:mEvent.activity forKey:@"activity"];
@@ -161,6 +165,10 @@
             if(mEvent.time)
             {
                 [requestDictionary setObject:mEvent.time forKey:@"time"];
+            }
+            if(mEvent.sessionID)
+            {
+                [requestDictionary setObject:mEvent.sessionID forKey:@"session_id"];
             }
             if(mEvent.activity)
             {

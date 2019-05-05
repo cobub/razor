@@ -58,7 +58,10 @@
         {
             [requestDictionary setObject:errorLog.version forKey:@"version"];
         }
-        
+        if(errorLog.sessionID)
+        {
+            [requestDictionary setObject:errorLog.sessionID forKey:@"session_id"];
+        }
         if(errorLog.osVersion)
         {
             [requestDictionary setObject:errorLog.osVersion forKey:@"os_version"];
@@ -160,6 +163,10 @@
             else
             {
                 continue;
+            }
+            if(errorLog.version)
+            {
+                [requestDictionary setObject:errorLog.version forKey:@"version"];
             }
             if(errorLog.version)
             {

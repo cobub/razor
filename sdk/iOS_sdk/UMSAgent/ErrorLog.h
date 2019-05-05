@@ -26,6 +26,7 @@
     NSString *cpt;//cpu type
     NSString *bim;//binary image
     NSString *lib_version;
+    NSString *sessionID;
 }
 
 @property (nonatomic,strong) NSString *stackTrace;
@@ -39,6 +40,7 @@
 @property (nonatomic,strong) NSString *cpt;
 @property (nonatomic,strong) NSString *bim;
 @property (nonatomic,strong) NSString *lib_version;
+@property (nonatomic,strong) NSString *sessionID;
 
 
 @end
