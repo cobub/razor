@@ -1,4 +1,5 @@
 SET NAMES 'utf8';
+set sql_mode=(select replace(@@sql_mode,'NO_ZERO_IN_DATE,NO_ZERO_DATE',''));
 --$$
 
 CREATE PROCEDURE `runweekly`(IN `begindate` DATE, IN `enddate` DATE)

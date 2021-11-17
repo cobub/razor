@@ -284,6 +284,7 @@ class CI_Router {
                 $temp['path'] .= $segments[$i] . '/';
 
                 if (is_dir(APPPATH . 'controllers/' . $temp['path'])) {
+					$temp['dir'] = [];
                     $temp['dir'][] = str_replace(array('/', '.'), '', $segments[$i]);
                 }
             }
