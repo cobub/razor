@@ -345,8 +345,10 @@ class Common extends CI_Model {
         $pids = $this -> session -> userdata("compareProducts");
         $products = array();
         for ($i = 0; $i < count($pids); $i++) {
-            $product = $this -> product -> getProductById($pids[$i]);
-            $products[$i] = $product;
+            if (isset($pids[$i])) {
+                $product = $this -> product -> getProductById($pids[$i]);
+                $products[$i] = $product;
+            } 
         }
         return $products;
     }

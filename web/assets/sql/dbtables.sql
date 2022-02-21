@@ -780,6 +780,8 @@ CREATE TABLE `umsinstall_userkeys` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
+INSERT INTO `umsinstall_userkeys` (`id`, `user_id`, `user_key`, `user_secret`) VALUES (1, 1, '7417b126dd714e2ea66c39397deefd6f', '0eff814d5fccbcf45bbc7fb7133fc1a7');
+
 -- --------------------------------------------------------
 --
 -- Default value for table `plugins`

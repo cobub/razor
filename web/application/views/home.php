@@ -24,24 +24,24 @@
 						<img src="<?php echo base_url(); ?>assets/images/applications.png" /></a></td>
 					    <td align="center"><a href="<?php echo site_url(); ?>/manage/pluginlist">
 						<img src="<?php echo base_url(); ?>assets/images/tools.png" /></a></td>
-                        <?php if(isset($key) && isset($secret)): ?>
+                        <!-- <?php if(isset($key) && isset($secret)): ?>
 					    <td align="center"><a href=<?php echo SERVER_BASE_URL.lang('cobub_login_ucenter')."/cobubtologin/$key/$secret" ?> target="_blank" >
 						<img src="<?php echo base_url(); ?>assets/images/usercenter.png" /></a></td>
                         <?php endif; ?>
 					    <?php if(!isset($key) && !isset($secret)):?>
 					    <td align="center"><a href=<?php echo SERVER_BASE_URL.lang('cobub_login_ucenter')."/login" ?> target="_blank" >
 						<img src="<?php echo base_url(); ?>assets/images/usercenter.png" /></a></td>
-                        <?php endif; ?>
+                        <?php endif; ?> -->
 					</tr>
 					<tr>
 					    <td align="center"><a href="<?php echo site_url(); ?>/report/console"  style="font-size:20px"><?php echo lang('m_myapps')?></a></td>
 					    <td align="center"><a href="<?php echo site_url(); ?>/manage/pluginlist"  style="font-size:20px"><?php echo lang('m_plugin')?></a></td>
-					    <?php if(isset($key) && isset($secret)):?>
+					    <!-- <?php if(isset($key) && isset($secret)):?>
 					    <td align="center"><a href= <?php echo SERVER_BASE_URL.lang('cobub_login_ucenter')."/cobubtologin/$key/$secret" ?> target="_blank" style="font-size:20px"><?php echo lang('v_user_center'); ?></a></td>
 					    <?php endif; ?>
 					    <?php if( !isset($key) && !isset($secret) ):?>
 					    <td align="center"><a href= <?php echo SERVER_BASE_URL.lang('cobub_login_ucenter')."/login" ?> target="_blank" style="font-size:20px"><?php echo lang('v_user_center'); ?></a></td>
-					    <?php endif; ?>
+					    <?php endif; ?> -->
 					    
 					</tr>
 					</table>
@@ -53,7 +53,7 @@
 		</article>
 		<!-- end of stats article -->			
 		
-		<article class="module module width_full">
+		<!-- <article class="module module width_full">
 		<header><h3><?php echo lang('v_CR_news'); ?></h3></header>
  
         <iframe id="code_result" class="frame_result" name="code_result" width="100%" height="270px" frameborder="0" scrolling="no" >
@@ -83,7 +83,7 @@
 		
 		<iframe src="<?php echo site_url()."/news/postnews" ?>"  
 		 frameborder="0" scrolling="no"  style="display:none;"></iframe>		
-		</article>	
+		</article>	 -->
 		
 		<div class="clear"></div>
 		<div class="spacer"></div>
