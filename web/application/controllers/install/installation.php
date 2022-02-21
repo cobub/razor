@@ -1036,7 +1036,7 @@ class Installation extends CI_Controller
                         $tableName['name'] = $tokens[$tokensKey];
                         
                         if (preg_match("/" . $regxLeftWall . "/", $tableName['name'])) {
-                            $tableName['leftWall'] = $tableName['name']{0};
+                            $tableName['leftWall'] = $tableName['name'][0];
                         }
                         
                         return $tableName;
