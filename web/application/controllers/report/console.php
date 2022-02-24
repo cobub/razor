@@ -83,13 +83,13 @@ class Console extends CI_Controller
         for ($i = 0; $i < count($this->_data['androidList']); $i ++) {
             $row = $this->_data['androidList'][$i];
             $this->_data['today_startuser'] += $row['startUserToday'];
-            $this->_data['yestoday_startuser'] += $row['startUserYestoday'];
+            $this->_data['yestoday_startuser'] += intval($row['startUserYestoday']);
             
             $this->_data['today_newuser'] += $row['newUserToday'];
-            $this->_data['yestoday_newuser'] += $row['newUserYestoday'];
+            $this->_data['yestoday_newuser'] += intval($row['newUserYestoday']);
             
             $this->_data['today_startcount'] += $row['startCountToday'];
-            $this->_data['yestoday_startcount'] += $row['startCountYestoday'];
+            $this->_data['yestoday_startcount'] += intval($row['startCountYestoday']);
             
             $this->_data['today_totaluser'] += $row['totaluser'];
         }

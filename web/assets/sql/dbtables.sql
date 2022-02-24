@@ -1,4 +1,5 @@
 SET NAMES 'utf8';
+set sql_mode=(select replace(@@sql_mode,'NO_ZERO_IN_DATE,NO_ZERO_DATE',''));
 
 --
 -- Table Structure of  `alert`
@@ -778,6 +779,8 @@ CREATE TABLE `umsinstall_userkeys` (
   `user_secret` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+INSERT INTO `umsinstall_userkeys` (`id`, `user_id`, `user_key`, `user_secret`) VALUES (1, 1, '7417b126dd714e2ea66c39397deefd6f', '0eff814d5fccbcf45bbc7fb7133fc1a7');
 
 -- --------------------------------------------------------
 --

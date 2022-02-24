@@ -46,11 +46,10 @@ class Conversionmodel extends CI_Model
      * @param int    $userid    user id
      * @param string $fromdate  from date
      * @param string $todate    to date
-     * @param string $version   version
      *
      * @return array data
      */
-    function getConversionListByProductIdAndUserId($productid, $userid, $fromdate, $todate, $version)
+    function getConversionListByProductIdAndUserId($productid, $userid, $fromdate, $todate)
     {
         $dwdb = $this->load->database('dw', true);
         $sql_1 = 'select t.tid,t.unitprice,t.targetname,te.eventalias a1,tee.eventalias a2,te.eventid sid,tee.eventid eid
@@ -329,7 +328,7 @@ and te.sequence = (select max(sequence) from " . $this->db->dbprefix('targeteven
     function getTargetEventNumPerDay($productid, $from, $to)
     {
         $dwdb = $this->load->database('dw', true);
-        $sql = "select t.event_id, date(d.datevalue) d, ifnull(s.num,0) num from (select date_sk, datevalue from " . $dwdb->dbprefix('dim_date') . " where datevalue between '$from' and '$to') d cross join " . $dwdb->dbprefix('dim_event') . " t 
+        $sql = "select t.event_id, date(d.datevalue) d, ifnull(s.num,count(s.num)) num from (select date_sk, datevalue from " . $dwdb->dbprefix('dim_date') . " where datevalue between '$from' and '$to') d cross join " . $dwdb->dbprefix('dim_event') . " t 
 left join (select event_sk, date_sk, count(*) num from " . $dwdb->dbprefix('fact_event') . " f, " . $dwdb->dbprefix('dim_product') . " p   where f.product_sk = p.product_sk and p.product_id = $productid group by event_sk,date_sk) s on d.date_sk = s.date_sk and t.event_sk = s.event_sk;";
         // echo $sql;
         $query = $dwdb->query($sql);

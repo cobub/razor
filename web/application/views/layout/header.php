@@ -349,9 +349,9 @@ if(isset($username)):
             ?></h3>
             <ul class="toggle">
             
-                <li class="icn_my_application">
+                <!-- <li class="icn_my_application">
                     <?php  echo anchor('/', lang('v_console'));?>
-                </li>
+                </li> -->
                  <li class="icn_system">
                     <?php  echo anchor('/report/console', lang('m_myapps'));?>
                 </li>
@@ -368,15 +368,15 @@ if(isset($username)):
                 <li class="icn_app_channel">
                     <?php  echo anchor('/manage/channel/', lang('m_channelManagement'));?>
                 </li>
-                  <?php if(isset($admin)&& !(isset($product))):
+                  <!-- <?php if(isset($admin)&& !(isset($product))):
                 ?>
                 <li class="icn_plugin_manage">
                     <?php  echo anchor('/manage/pluginlist', lang('head_plugin_m'));?>
                 </li>
-                <?php  endif;?>
-                <li class="icn_managerole">
+                <?php  endif;?> -->
+                <!-- <li class="icn_managerole">
                     <?php  echo anchor('/manage/accountauth/', lang('m_account_author'));?>
-                </li>
+                </li> -->
 
             </ul>
             

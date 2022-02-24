@@ -98,13 +98,13 @@ class Productanalyzemodel extends CI_Model
     function getTodayInfo($productId, $date)
     {
         $dwdb = $this -> load -> database('dw', true);
-        $sql = "select ifnull(sessions,0) sessions,
-		        ifnull(startusers,0) startusers, 
-				ifnull(newusers,0) newusers, 
-				ifnull(upgradeusers,0) upgradeusers, 
-				ifnull(usingtime,0) usingtime, 
-				ifnull(allusers,0) allusers,
-				ifnull(allsessions,0) allsessions 
+        $sql = "select ifnull(sessions,count(sessions)) sessions,
+		        ifnull(startusers,count(startusers)) startusers, 
+				ifnull(newusers,count(newusers)) newusers, 
+				ifnull(upgradeusers,count(upgradeusers)) upgradeusers, 
+				ifnull(usingtime,count(usingtime)) usingtime, 
+				ifnull(allusers,count(allusers)) allusers,
+				ifnull(allsessions,count(allsessions)) allsessions 
 				from (select date_sk 
 				from " . $dwdb -> dbprefix('dim_date') . "
 				where datevalue='$date')  d 

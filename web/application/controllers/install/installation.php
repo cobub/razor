@@ -771,7 +771,9 @@ class Installation extends CI_Controller
                 
                 if (empty($tableName['leftWall'])) {
                     // Add the prefix
-                    $newTableName = $prefix . $tableName['name'];
+                    if (isset($tableName['name'])) {
+                        $newTableName = $prefix . $tableName['name'];
+                    }
                 } else {
                     // Add the prefix
                     $newTableName = $tableName['leftWall'] . $prefix .substr($tableName['name'], 1);
@@ -1036,7 +1038,7 @@ class Installation extends CI_Controller
                         $tableName['name'] = $tokens[$tokensKey];
                         
                         if (preg_match("/" . $regxLeftWall . "/", $tableName['name'])) {
-                            $tableName['leftWall'] = $tableName['name']{0};
+                            $tableName['leftWall'] = $tableName['name'][0];
                         }
                         
                         return $tableName;
